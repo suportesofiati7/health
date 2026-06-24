@@ -1,0 +1,8 @@
+brand identity/*.mov
+__pycache__/
+*.pyc
+*.mov
+*.mp4
+*.webm
+*.avi
+*.mkv
