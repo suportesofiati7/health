@@ -21,9 +21,9 @@
       "url": "/concepts/01-inspire/index.html",
       "file": "audit/screenshots/desktop/01-inspire-desktop.png",
       "topHeight": "142",
-      "widgetHeight": "127",
-      "footerHeight": "615",
-      "imageHeight": "1034"
+      "menuHeight": "0",
+      "footerHeight": "740",
+      "imageHeight": "972"
     },
     {
       "viewport": "mobile",
@@ -31,9 +31,9 @@
       "url": "/concepts/01-inspire/index.html",
       "file": "audit/screenshots/mobile/01-inspire-mobile.png",
       "topHeight": "73",
-      "widgetHeight": "116",
-      "footerHeight": "1317",
-      "imageHeight": "1640"
+      "menuHeight": "844",
+      "footerHeight": "1354",
+      "imageHeight": "2371"
     },
     {
       "viewport": "desktop",
@@ -41,9 +41,9 @@
       "url": "/concepts/02-empower/index.html",
       "file": "audit/screenshots/desktop/02-empower-desktop.png",
       "topHeight": "147",
-      "widgetHeight": "128",
-      "footerHeight": "630",
-      "imageHeight": "1055"
+      "menuHeight": "0",
+      "footerHeight": "688",
+      "imageHeight": "925"
     },
     {
       "viewport": "mobile",
@@ -51,9 +51,9 @@
       "url": "/concepts/02-empower/index.html",
       "file": "audit/screenshots/mobile/02-empower-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1396",
+      "imageHeight": "2419"
     },
     {
       "viewport": "desktop",
@@ -61,9 +61,9 @@
       "url": "/concepts/03-enhance/index.html",
       "file": "audit/screenshots/desktop/03-enhance-desktop.png",
       "topHeight": "140",
-      "widgetHeight": "126",
-      "footerHeight": "643",
-      "imageHeight": "1059"
+      "menuHeight": "0",
+      "footerHeight": "656",
+      "imageHeight": "886"
     },
     {
       "viewport": "mobile",
@@ -71,9 +71,9 @@
       "url": "/concepts/03-enhance/index.html",
       "file": "audit/screenshots/mobile/03-enhance-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1348",
+      "imageHeight": "2375"
     },
     {
       "viewport": "desktop",
@@ -81,9 +81,9 @@
       "url": "/concepts/04-renew/index.html",
       "file": "audit/screenshots/desktop/04-renew-desktop.png",
       "topHeight": "141",
-      "widgetHeight": "123",
-      "footerHeight": "647",
-      "imageHeight": "1061"
+      "menuHeight": "0",
+      "footerHeight": "644",
+      "imageHeight": "875"
     },
     {
       "viewport": "mobile",
@@ -91,9 +91,9 @@
       "url": "/concepts/04-renew/index.html",
       "file": "audit/screenshots/mobile/04-renew-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1314",
+      "imageHeight": "2341"
     },
     {
       "viewport": "desktop",
@@ -101,9 +101,9 @@
       "url": "/concepts/05-elevate/index.html",
       "file": "audit/screenshots/desktop/05-elevate-desktop.png",
       "topHeight": "190",
-      "widgetHeight": "128",
-      "footerHeight": "650",
-      "imageHeight": "1118"
+      "menuHeight": "0",
+      "footerHeight": "732",
+      "imageHeight": "1012"
     },
     {
       "viewport": "mobile",
@@ -111,9 +111,9 @@
       "url": "/concepts/05-elevate/index.html",
       "file": "audit/screenshots/mobile/05-elevate-mobile.png",
       "topHeight": "73",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1644"
+      "menuHeight": "844",
+      "footerHeight": "1394",
+      "imageHeight": "2411"
     },
     {
       "viewport": "desktop",
@@ -121,9 +121,9 @@
       "url": "/concepts/06-refine/index.html",
       "file": "audit/screenshots/desktop/06-refine-desktop.png",
       "topHeight": "154",
-      "widgetHeight": "126",
-      "footerHeight": "662",
-      "imageHeight": "1092"
+      "menuHeight": "0",
+      "footerHeight": "679",
+      "imageHeight": "923"
     },
     {
       "viewport": "mobile",
@@ -131,9 +131,9 @@
       "url": "/concepts/06-refine/index.html",
       "file": "audit/screenshots/mobile/06-refine-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1394",
+      "imageHeight": "2417"
     },
     {
       "viewport": "desktop",
@@ -141,9 +141,9 @@
       "url": "/concepts/07-glow/index.html",
       "file": "audit/screenshots/desktop/07-glow-desktop.png",
       "topHeight": "151",
-      "widgetHeight": "58",
-      "footerHeight": "610",
-      "imageHeight": "969"
+      "menuHeight": "0",
+      "footerHeight": "687",
+      "imageHeight": "928"
     },
     {
       "viewport": "mobile",
@@ -151,9 +151,9 @@
       "url": "/concepts/07-glow/index.html",
       "file": "audit/screenshots/mobile/07-glow-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "54",
-      "footerHeight": "1307",
-      "imageHeight": "1578"
+      "menuHeight": "844",
+      "footerHeight": "1352",
+      "imageHeight": "2379"
     },
     {
       "viewport": "desktop",
@@ -161,9 +161,9 @@
       "url": "/concepts/08-balance/index.html",
       "file": "audit/screenshots/desktop/08-balance-desktop.png",
       "topHeight": "127",
-      "widgetHeight": "124",
-      "footerHeight": "617",
-      "imageHeight": "1018"
+      "menuHeight": "0",
+      "footerHeight": "683",
+      "imageHeight": "900"
     },
     {
       "viewport": "mobile",
@@ -171,9 +171,9 @@
       "url": "/concepts/08-balance/index.html",
       "file": "audit/screenshots/mobile/08-balance-mobile.png",
       "topHeight": "73",
-      "widgetHeight": "116",
-      "footerHeight": "1317",
-      "imageHeight": "1640"
+      "menuHeight": "844",
+      "footerHeight": "1354",
+      "imageHeight": "2371"
     },
     {
       "viewport": "desktop",
@@ -181,9 +181,9 @@
       "url": "/concepts/09-radiance/index.html",
       "file": "audit/screenshots/desktop/09-radiance-desktop.png",
       "topHeight": "143",
-      "widgetHeight": "126",
-      "footerHeight": "633",
-      "imageHeight": "1052"
+      "menuHeight": "0",
+      "footerHeight": "658",
+      "imageHeight": "891"
     },
     {
       "viewport": "mobile",
@@ -191,9 +191,9 @@
       "url": "/concepts/09-radiance/index.html",
       "file": "audit/screenshots/mobile/09-radiance-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1354",
+      "imageHeight": "2381"
     },
     {
       "viewport": "desktop",
@@ -201,9 +201,9 @@
       "url": "/concepts/10-essence/index.html",
       "file": "audit/screenshots/desktop/10-essence-desktop.png",
       "topHeight": "147",
-      "widgetHeight": "127",
-      "footerHeight": "630",
-      "imageHeight": "1054"
+      "menuHeight": "0",
+      "footerHeight": "731",
+      "imageHeight": "968"
     },
     {
       "viewport": "mobile",
@@ -211,9 +211,9 @@
       "url": "/concepts/10-essence/index.html",
       "file": "audit/screenshots/mobile/10-essence-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1384",
+      "imageHeight": "2407"
     },
     {
       "viewport": "desktop",
@@ -221,9 +221,9 @@
       "url": "/concepts/11-bloom/index.html",
       "file": "audit/screenshots/desktop/11-bloom-desktop.png",
       "topHeight": "151",
-      "widgetHeight": "128",
-      "footerHeight": "645",
-      "imageHeight": "1074"
+      "menuHeight": "0",
+      "footerHeight": "683",
+      "imageHeight": "924"
     },
     {
       "viewport": "mobile",
@@ -231,9 +231,9 @@
       "url": "/concepts/11-bloom/index.html",
       "file": "audit/screenshots/mobile/11-bloom-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1354",
+      "imageHeight": "2381"
     },
     {
       "viewport": "desktop",
@@ -241,9 +241,9 @@
       "url": "/concepts/12-vital/index.html",
       "file": "audit/screenshots/desktop/12-vital-desktop.png",
       "topHeight": "142",
-      "widgetHeight": "122",
-      "footerHeight": "651",
-      "imageHeight": "1065"
+      "menuHeight": "0",
+      "footerHeight": "736",
+      "imageHeight": "968"
     },
     {
       "viewport": "mobile",
@@ -251,9 +251,9 @@
       "url": "/concepts/12-vital/index.html",
       "file": "audit/screenshots/mobile/12-vital-mobile.png",
       "topHeight": "75",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1646"
+      "menuHeight": "844",
+      "footerHeight": "1352",
+      "imageHeight": "2371"
     },
     {
       "viewport": "desktop",
@@ -261,9 +261,9 @@
       "url": "/concepts/13-poise/index.html",
       "file": "audit/screenshots/desktop/13-poise-desktop.png",
       "topHeight": "132",
-      "widgetHeight": "127",
-      "footerHeight": "673",
-      "imageHeight": "1082"
+      "menuHeight": "0",
+      "footerHeight": "688",
+      "imageHeight": "910"
     },
     {
       "viewport": "mobile",
@@ -271,9 +271,9 @@
       "url": "/concepts/13-poise/index.html",
       "file": "audit/screenshots/mobile/13-poise-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1397",
+      "imageHeight": "2420"
     },
     {
       "viewport": "desktop",
@@ -281,9 +281,9 @@
       "url": "/concepts/14-aura/index.html",
       "file": "audit/screenshots/desktop/14-aura-desktop.png",
       "topHeight": "147",
-      "widgetHeight": "128",
-      "footerHeight": "613",
-      "imageHeight": "1038"
+      "menuHeight": "0",
+      "footerHeight": "650",
+      "imageHeight": "887"
     },
     {
       "viewport": "mobile",
@@ -291,9 +291,9 @@
       "url": "/concepts/14-aura/index.html",
       "file": "audit/screenshots/mobile/14-aura-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1307",
-      "imageHeight": "1640"
+      "menuHeight": "844",
+      "footerHeight": "1314",
+      "imageHeight": "2341"
     },
     {
       "viewport": "desktop",
@@ -301,9 +301,9 @@
       "url": "/concepts/15-clarity/index.html",
       "file": "audit/screenshots/desktop/15-clarity-desktop.png",
       "topHeight": "151",
-      "widgetHeight": "126",
-      "footerHeight": "610",
-      "imageHeight": "1037"
+      "menuHeight": "0",
+      "footerHeight": "675",
+      "imageHeight": "916"
     },
     {
       "viewport": "mobile",
@@ -311,9 +311,9 @@
       "url": "/concepts/15-clarity/index.html",
       "file": "audit/screenshots/mobile/15-clarity-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1317",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1348",
+      "imageHeight": "2375"
     },
     {
       "viewport": "desktop",
@@ -321,9 +321,9 @@
       "url": "/concepts/16-grace/index.html",
       "file": "audit/screenshots/desktop/16-grace-desktop.png",
       "topHeight": "164",
-      "widgetHeight": "56",
-      "footerHeight": "619",
-      "imageHeight": "989"
+      "menuHeight": "0",
+      "footerHeight": "727",
+      "imageHeight": "981"
     },
     {
       "viewport": "mobile",
@@ -331,9 +331,9 @@
       "url": "/concepts/16-grace/index.html",
       "file": "audit/screenshots/mobile/16-grace-mobile.png",
       "topHeight": "71",
-      "widgetHeight": "54",
-      "footerHeight": "1321",
-      "imageHeight": "1580"
+      "menuHeight": "844",
+      "footerHeight": "1388",
+      "imageHeight": "2403"
     },
     {
       "viewport": "desktop",
@@ -341,9 +341,9 @@
       "url": "/concepts/17-sculpt/index.html",
       "file": "audit/screenshots/desktop/17-sculpt-desktop.png",
       "topHeight": "161",
-      "widgetHeight": "128",
-      "footerHeight": "640",
-      "imageHeight": "1079"
+      "menuHeight": "0",
+      "footerHeight": "688",
+      "imageHeight": "939"
     },
     {
       "viewport": "mobile",
@@ -351,9 +351,9 @@
       "url": "/concepts/17-sculpt/index.html",
       "file": "audit/screenshots/mobile/17-sculpt-mobile.png",
       "topHeight": "93",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1664"
+      "menuHeight": "844",
+      "footerHeight": "1391",
+      "imageHeight": "2428"
     },
     {
       "viewport": "desktop",
@@ -361,9 +361,9 @@
       "url": "/concepts/18-lumin/index.html",
       "file": "audit/screenshots/desktop/18-lumin-desktop.png",
       "topHeight": "136",
-      "widgetHeight": "126",
-      "footerHeight": "650",
-      "imageHeight": "1062"
+      "menuHeight": "0",
+      "footerHeight": "685",
+      "imageHeight": "911"
     },
     {
       "viewport": "mobile",
@@ -371,9 +371,9 @@
       "url": "/concepts/18-lumin/index.html",
       "file": "audit/screenshots/mobile/18-lumin-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1391",
+      "imageHeight": "2414"
     },
     {
       "viewport": "desktop",
@@ -381,9 +381,9 @@
       "url": "/concepts/19-verda/index.html",
       "file": "audit/screenshots/desktop/19-verda-desktop.png",
       "topHeight": "151",
-      "widgetHeight": "127",
-      "footerHeight": "663",
-      "imageHeight": "1091"
+      "menuHeight": "0",
+      "footerHeight": "649",
+      "imageHeight": "890"
     },
     {
       "viewport": "mobile",
@@ -391,9 +391,9 @@
       "url": "/concepts/19-verda/index.html",
       "file": "audit/screenshots/mobile/19-verda-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1314",
+      "imageHeight": "2341"
     },
     {
       "viewport": "desktop",
@@ -401,9 +401,9 @@
       "url": "/concepts/20-halo/index.html",
       "file": "audit/screenshots/desktop/20-halo-desktop.png",
       "topHeight": "183",
-      "widgetHeight": "124",
-      "footerHeight": "654",
-      "imageHeight": "1111"
+      "menuHeight": "0",
+      "footerHeight": "688",
+      "imageHeight": "961"
     },
     {
       "viewport": "mobile",
@@ -411,9 +411,9 @@
       "url": "/concepts/20-halo/index.html",
       "file": "audit/screenshots/mobile/20-halo-mobile.png",
       "topHeight": "71",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1642"
+      "menuHeight": "844",
+      "footerHeight": "1357",
+      "imageHeight": "2372"
     },
     {
       "viewport": "desktop",
@@ -421,9 +421,9 @@
       "url": "/concepts/21-calm/index.html",
       "file": "audit/screenshots/desktop/21-calm-desktop.png",
       "topHeight": "143",
-      "widgetHeight": "126",
-      "footerHeight": "605",
-      "imageHeight": "1024"
+      "menuHeight": "0",
+      "footerHeight": "697",
+      "imageHeight": "930"
     },
     {
       "viewport": "mobile",
@@ -431,9 +431,9 @@
       "url": "/concepts/21-calm/index.html",
       "file": "audit/screenshots/mobile/21-calm-mobile.png",
       "topHeight": "75",
-      "widgetHeight": "116",
-      "footerHeight": "1307",
-      "imageHeight": "1632"
+      "menuHeight": "844",
+      "footerHeight": "1342",
+      "imageHeight": "2361"
     },
     {
       "viewport": "desktop",
@@ -441,9 +441,9 @@
       "url": "/concepts/22-precision/index.html",
       "file": "audit/screenshots/desktop/22-precision-desktop.png",
       "topHeight": "147",
-      "widgetHeight": "127",
-      "footerHeight": "620",
-      "imageHeight": "1044"
+      "menuHeight": "0",
+      "footerHeight": "687",
+      "imageHeight": "924"
     },
     {
       "viewport": "mobile",
@@ -451,9 +451,9 @@
       "url": "/concepts/22-precision/index.html",
       "file": "audit/screenshots/mobile/22-precision-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1317",
-      "imageHeight": "1646"
+      "menuHeight": "844",
+      "footerHeight": "1346",
+      "imageHeight": "2369"
     },
     {
       "viewport": "desktop",
@@ -461,9 +461,9 @@
       "url": "/concepts/23-ritual/index.html",
       "file": "audit/screenshots/desktop/23-ritual-desktop.png",
       "topHeight": "187",
-      "widgetHeight": "128",
-      "footerHeight": "633",
-      "imageHeight": "1098"
+      "menuHeight": "0",
+      "footerHeight": "688",
+      "imageHeight": "965"
     },
     {
       "viewport": "mobile",
@@ -471,9 +471,9 @@
       "url": "/concepts/23-ritual/index.html",
       "file": "audit/screenshots/mobile/23-ritual-mobile.png",
       "topHeight": "73",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1644"
+      "menuHeight": "844",
+      "footerHeight": "1394",
+      "imageHeight": "2411"
     },
     {
       "viewport": "desktop",
@@ -481,9 +481,9 @@
       "url": "/concepts/24-signal/index.html",
       "file": "audit/screenshots/desktop/24-signal-desktop.png",
       "topHeight": "141",
-      "widgetHeight": "122",
-      "footerHeight": "634",
-      "imageHeight": "1047"
+      "menuHeight": "0",
+      "footerHeight": "676",
+      "imageHeight": "907"
     },
     {
       "viewport": "mobile",
@@ -491,9 +491,9 @@
       "url": "/concepts/24-signal/index.html",
       "file": "audit/screenshots/mobile/24-signal-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1388",
+      "imageHeight": "2415"
     },
     {
       "viewport": "desktop",
@@ -501,9 +501,9 @@
       "url": "/concepts/25-align/index.html",
       "file": "audit/screenshots/desktop/25-align-desktop.png",
       "topHeight": "143",
-      "widgetHeight": "58",
-      "footerHeight": "640",
-      "imageHeight": "991"
+      "menuHeight": "0",
+      "footerHeight": "658",
+      "imageHeight": "891"
     },
     {
       "viewport": "mobile",
@@ -511,9 +511,9 @@
       "url": "/concepts/25-align/index.html",
       "file": "audit/screenshots/mobile/25-align-mobile.png",
       "topHeight": "75",
-      "widgetHeight": "54",
-      "footerHeight": "1321",
-      "imageHeight": "1584"
+      "menuHeight": "844",
+      "footerHeight": "1349",
+      "imageHeight": "2368"
     },
     {
       "viewport": "desktop",
@@ -521,9 +521,9 @@
       "url": "/concepts/26-vivant/index.html",
       "file": "audit/screenshots/desktop/26-vivant-desktop.png",
       "topHeight": "147",
-      "widgetHeight": "128",
-      "footerHeight": "655",
-      "imageHeight": "1080"
+      "menuHeight": "0",
+      "footerHeight": "676",
+      "imageHeight": "913"
     },
     {
       "viewport": "mobile",
@@ -531,9 +531,9 @@
       "url": "/concepts/26-vivant/index.html",
       "file": "audit/screenshots/mobile/26-vivant-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1347",
+      "imageHeight": "2370"
     },
     {
       "viewport": "desktop",
@@ -541,9 +541,9 @@
       "url": "/concepts/27-form/index.html",
       "file": "audit/screenshots/desktop/27-form-desktop.png",
       "topHeight": "169",
-      "widgetHeight": "126",
-      "footerHeight": "670",
-      "imageHeight": "1115"
+      "menuHeight": "0",
+      "footerHeight": "745",
+      "imageHeight": "1004"
     },
     {
       "viewport": "mobile",
@@ -551,9 +551,9 @@
       "url": "/concepts/27-form/index.html",
       "file": "audit/screenshots/mobile/27-form-mobile.png",
       "topHeight": "101",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1672"
+      "menuHeight": "844",
+      "footerHeight": "1395",
+      "imageHeight": "2440"
     },
     {
       "viewport": "desktop",
@@ -561,9 +561,9 @@
       "url": "/concepts/28-pure/index.html",
       "file": "audit/screenshots/desktop/28-pure-desktop.png",
       "topHeight": "110",
-      "widgetHeight": "123",
-      "footerHeight": "607",
-      "imageHeight": "990"
+      "menuHeight": "0",
+      "footerHeight": "682",
+      "imageHeight": "882"
     },
     {
       "viewport": "mobile",
@@ -571,9 +571,9 @@
       "url": "/concepts/28-pure/index.html",
       "file": "audit/screenshots/mobile/28-pure-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1307",
-      "imageHeight": "1636"
+      "menuHeight": "844",
+      "footerHeight": "1345",
+      "imageHeight": "2368"
     },
     {
       "viewport": "desktop",
@@ -581,9 +581,9 @@
       "url": "/concepts/29-solace/index.html",
       "file": "audit/screenshots/desktop/29-solace-desktop.png",
       "topHeight": "143",
-      "widgetHeight": "128",
-      "footerHeight": "623",
-      "imageHeight": "1044"
+      "menuHeight": "0",
+      "footerHeight": "685",
+      "imageHeight": "918"
     },
     {
       "viewport": "mobile",
@@ -591,9 +591,9 @@
       "url": "/concepts/29-solace/index.html",
       "file": "audit/screenshots/mobile/29-solace-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1317",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1347",
+      "imageHeight": "2374"
     },
     {
       "viewport": "desktop",
@@ -601,9 +601,9 @@
       "url": "/concepts/30-method/index.html",
       "file": "audit/screenshots/desktop/30-method-desktop.png",
       "topHeight": "172",
-      "widgetHeight": "126",
-      "footerHeight": "617",
-      "imageHeight": "1065"
+      "menuHeight": "0",
+      "footerHeight": "633",
+      "imageHeight": "895"
     },
     {
       "viewport": "mobile",
@@ -611,9 +611,9 @@
       "url": "/concepts/30-method/index.html",
       "file": "audit/screenshots/mobile/30-method-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1308",
+      "imageHeight": "2331"
     },
     {
       "viewport": "desktop",
@@ -621,9 +621,9 @@
       "url": "/concepts/31-evolve/index.html",
       "file": "audit/screenshots/desktop/31-evolve-desktop.png",
       "topHeight": "154",
-      "widgetHeight": "127",
-      "footerHeight": "635",
-      "imageHeight": "1066"
+      "menuHeight": "0",
+      "footerHeight": "733",
+      "imageHeight": "977"
     },
     {
       "viewport": "mobile",
@@ -631,9 +631,9 @@
       "url": "/concepts/31-evolve/index.html",
       "file": "audit/screenshots/mobile/31-evolve-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1388",
+      "imageHeight": "2415"
     },
     {
       "viewport": "desktop",
@@ -641,9 +641,9 @@
       "url": "/concepts/32-serene/index.html",
       "file": "audit/screenshots/desktop/32-serene-desktop.png",
       "topHeight": "139",
-      "widgetHeight": "124",
-      "footerHeight": "644",
-      "imageHeight": "1057"
+      "menuHeight": "0",
+      "footerHeight": "683",
+      "imageHeight": "912"
     },
     {
       "viewport": "mobile",
@@ -651,9 +651,9 @@
       "url": "/concepts/32-serene/index.html",
       "file": "audit/screenshots/mobile/32-serene-mobile.png",
       "topHeight": "75",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1646"
+      "menuHeight": "844",
+      "footerHeight": "1393",
+      "imageHeight": "2412"
     },
     {
       "viewport": "desktop",
@@ -661,9 +661,9 @@
       "url": "/concepts/33-elan/index.html",
       "file": "audit/screenshots/desktop/33-elan-desktop.png",
       "topHeight": "132",
-      "widgetHeight": "126",
-      "footerHeight": "663",
-      "imageHeight": "1071"
+      "menuHeight": "0",
+      "footerHeight": "690",
+      "imageHeight": "912"
     },
     {
       "viewport": "mobile",
@@ -671,9 +671,9 @@
       "url": "/concepts/33-elan/index.html",
       "file": "audit/screenshots/mobile/33-elan-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1351",
+      "imageHeight": "2374"
     },
     {
       "viewport": "desktop",
@@ -681,9 +681,9 @@
       "url": "/concepts/34-flora/index.html",
       "file": "audit/screenshots/desktop/34-flora-desktop.png",
       "topHeight": "147",
-      "widgetHeight": "58",
-      "footerHeight": "673",
-      "imageHeight": "1028"
+      "menuHeight": "0",
+      "footerHeight": "686",
+      "imageHeight": "923"
     },
     {
       "viewport": "mobile",
@@ -691,9 +691,9 @@
       "url": "/concepts/34-flora/index.html",
       "file": "audit/screenshots/mobile/34-flora-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "54",
-      "footerHeight": "1321",
-      "imageHeight": "1592"
+      "menuHeight": "844",
+      "footerHeight": "1394",
+      "imageHeight": "2421"
     },
     {
       "viewport": "desktop",
@@ -701,9 +701,9 @@
       "url": "/concepts/35-atelier/index.html",
       "file": "audit/screenshots/desktop/35-atelier-desktop.png",
       "topHeight": "198",
-      "widgetHeight": "128",
-      "footerHeight": "600",
-      "imageHeight": "1076"
+      "menuHeight": "0",
+      "footerHeight": "694",
+      "imageHeight": "982"
     },
     {
       "viewport": "mobile",
@@ -711,9 +711,9 @@
       "url": "/concepts/35-atelier/index.html",
       "file": "audit/screenshots/mobile/35-atelier-mobile.png",
       "topHeight": "73",
-      "widgetHeight": "116",
-      "footerHeight": "1307",
-      "imageHeight": "1630"
+      "menuHeight": "844",
+      "footerHeight": "1311",
+      "imageHeight": "2328"
     },
     {
       "viewport": "desktop",
@@ -721,9 +721,9 @@
       "url": "/concepts/36-lumina/index.html",
       "file": "audit/screenshots/desktop/36-lumina-desktop.png",
       "topHeight": "139",
-      "widgetHeight": "122",
-      "footerHeight": "606",
-      "imageHeight": "1017"
+      "menuHeight": "0",
+      "footerHeight": "635",
+      "imageHeight": "864"
     },
     {
       "viewport": "mobile",
@@ -731,9 +731,9 @@
       "url": "/concepts/36-lumina/index.html",
       "file": "audit/screenshots/mobile/36-lumina-mobile.png",
       "topHeight": "71",
-      "widgetHeight": "116",
-      "footerHeight": "1317",
-      "imageHeight": "1638"
+      "menuHeight": "844",
+      "footerHeight": "1314",
+      "imageHeight": "2329"
     },
     {
       "viewport": "desktop",
@@ -741,9 +741,9 @@
       "url": "/concepts/37-vellum/index.html",
       "file": "audit/screenshots/desktop/37-vellum-desktop.png",
       "topHeight": "143",
-      "widgetHeight": "127",
-      "footerHeight": "630",
-      "imageHeight": "1050"
+      "menuHeight": "0",
+      "footerHeight": "688",
+      "imageHeight": "921"
     },
     {
       "viewport": "mobile",
@@ -751,9 +751,9 @@
       "url": "/concepts/37-vellum/index.html",
       "file": "audit/screenshots/mobile/37-vellum-mobile.png",
       "topHeight": "75",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1646"
+      "menuHeight": "844",
+      "footerHeight": "1352",
+      "imageHeight": "2371"
     },
     {
       "viewport": "desktop",
@@ -761,9 +761,9 @@
       "url": "/concepts/38-origin/index.html",
       "file": "audit/screenshots/desktop/38-origin-desktop.png",
       "topHeight": "136",
-      "widgetHeight": "128",
-      "footerHeight": "643",
-      "imageHeight": "1057"
+      "menuHeight": "0",
+      "footerHeight": "689",
+      "imageHeight": "915"
     },
     {
       "viewport": "mobile",
@@ -771,9 +771,9 @@
       "url": "/concepts/38-origin/index.html",
       "file": "audit/screenshots/mobile/38-origin-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1391",
+      "imageHeight": "2414"
     },
     {
       "viewport": "desktop",
@@ -781,9 +781,9 @@
       "url": "/concepts/39-kindred/index.html",
       "file": "audit/screenshots/desktop/39-kindred-desktop.png",
       "topHeight": "151",
-      "widgetHeight": "126",
-      "footerHeight": "653",
-      "imageHeight": "1080"
+      "menuHeight": "0",
+      "footerHeight": "685",
+      "imageHeight": "926"
     },
     {
       "viewport": "mobile",
@@ -791,9 +791,9 @@
       "url": "/concepts/39-kindred/index.html",
       "file": "audit/screenshots/mobile/39-kindred-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1386",
+      "imageHeight": "2413"
     },
     {
       "viewport": "desktop",
@@ -801,9 +801,9 @@
       "url": "/concepts/40-noble/index.html",
       "file": "audit/screenshots/desktop/40-noble-desktop.png",
       "topHeight": "186",
-      "widgetHeight": "123",
-      "footerHeight": "644",
-      "imageHeight": "1103"
+      "menuHeight": "0",
+      "footerHeight": "726",
+      "imageHeight": "1002"
     },
     {
       "viewport": "mobile",
@@ -811,9 +811,9 @@
       "url": "/concepts/40-noble/index.html",
       "file": "audit/screenshots/mobile/40-noble-mobile.png",
       "topHeight": "73",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1644"
+      "menuHeight": "844",
+      "footerHeight": "1349",
+      "imageHeight": "2366"
     },
     {
       "viewport": "desktop",
@@ -821,9 +821,9 @@
       "url": "/concepts/41-vista/index.html",
       "file": "audit/screenshots/desktop/41-vista-desktop.png",
       "topHeight": "125",
-      "widgetHeight": "128",
-      "footerHeight": "665",
-      "imageHeight": "1068"
+      "menuHeight": "0",
+      "footerHeight": "654",
+      "imageHeight": "869"
     },
     {
       "viewport": "mobile",
@@ -831,9 +831,9 @@
       "url": "/concepts/41-vista/index.html",
       "file": "audit/screenshots/mobile/41-vista-mobile.png",
       "topHeight": "75",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1646"
+      "menuHeight": "844",
+      "footerHeight": "1358",
+      "imageHeight": "2377"
     },
     {
       "viewport": "desktop",
@@ -841,9 +841,9 @@
       "url": "/concepts/42-softline/index.html",
       "file": "audit/screenshots/desktop/42-softline-desktop.png",
       "topHeight": "147",
-      "widgetHeight": "126",
-      "footerHeight": "607",
-      "imageHeight": "1030"
+      "menuHeight": "0",
+      "footerHeight": "743",
+      "imageHeight": "980"
     },
     {
       "viewport": "mobile",
@@ -851,9 +851,9 @@
       "url": "/concepts/42-softline/index.html",
       "file": "audit/screenshots/mobile/42-softline-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1307",
-      "imageHeight": "1636"
+      "menuHeight": "844",
+      "footerHeight": "1400",
+      "imageHeight": "2423"
     },
     {
       "viewport": "desktop",
@@ -861,9 +861,9 @@
       "url": "/concepts/43-meridian/index.html",
       "file": "audit/screenshots/desktop/43-meridian-desktop.png",
       "topHeight": "140",
-      "widgetHeight": "58",
-      "footerHeight": "623",
-      "imageHeight": "971"
+      "menuHeight": "0",
+      "footerHeight": "689",
+      "imageHeight": "919"
     },
     {
       "viewport": "mobile",
@@ -871,9 +871,9 @@
       "url": "/concepts/43-meridian/index.html",
       "file": "audit/screenshots/mobile/43-meridian-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "54",
-      "footerHeight": "1317",
-      "imageHeight": "1588"
+      "menuHeight": "844",
+      "footerHeight": "1348",
+      "imageHeight": "2375"
     },
     {
       "viewport": "desktop",
@@ -881,9 +881,9 @@
       "url": "/concepts/44-safeguard/index.html",
       "file": "audit/screenshots/desktop/44-safeguard-desktop.png",
       "topHeight": "123",
-      "widgetHeight": "124",
-      "footerHeight": "627",
-      "imageHeight": "1024"
+      "menuHeight": "0",
+      "footerHeight": "680",
+      "imageHeight": "893"
     },
     {
       "viewport": "mobile",
@@ -891,9 +891,9 @@
       "url": "/concepts/44-safeguard/index.html",
       "file": "audit/screenshots/mobile/44-safeguard-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1348",
+      "imageHeight": "2375"
     },
     {
       "viewport": "desktop",
@@ -901,9 +901,9 @@
       "url": "/concepts/45-silhouette/index.html",
       "file": "audit/screenshots/desktop/45-silhouette-desktop.png",
       "topHeight": "143",
-      "widgetHeight": "126",
-      "footerHeight": "630",
-      "imageHeight": "1049"
+      "menuHeight": "0",
+      "footerHeight": "675",
+      "imageHeight": "908"
     },
     {
       "viewport": "mobile",
@@ -911,9 +911,9 @@
       "url": "/concepts/45-silhouette/index.html",
       "file": "audit/screenshots/mobile/45-silhouette-mobile.png",
       "topHeight": "75",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1646"
+      "menuHeight": "844",
+      "footerHeight": "1391",
+      "imageHeight": "2410"
     },
     {
       "viewport": "desktop",
@@ -921,9 +921,9 @@
       "url": "/concepts/46-curate/index.html",
       "file": "audit/screenshots/desktop/46-curate-desktop.png",
       "topHeight": "172",
-      "widgetHeight": "127",
-      "footerHeight": "645",
-      "imageHeight": "1094"
+      "menuHeight": "0",
+      "footerHeight": "666",
+      "imageHeight": "928"
     },
     {
       "viewport": "mobile",
@@ -931,9 +931,9 @@
       "url": "/concepts/46-curate/index.html",
       "file": "audit/screenshots/mobile/46-curate-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1352",
+      "imageHeight": "2375"
     },
     {
       "viewport": "desktop",
@@ -941,9 +941,9 @@
       "url": "/concepts/47-proof/index.html",
       "file": "audit/screenshots/desktop/47-proof-desktop.png",
       "topHeight": "133",
-      "widgetHeight": "128",
-      "footerHeight": "660",
-      "imageHeight": "1071"
+      "menuHeight": "0",
+      "footerHeight": "688",
+      "imageHeight": "911"
     },
     {
       "viewport": "mobile",
@@ -951,9 +951,9 @@
       "url": "/concepts/47-proof/index.html",
       "file": "audit/screenshots/mobile/47-proof-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1654"
+      "menuHeight": "844",
+      "footerHeight": "1352",
+      "imageHeight": "2379"
     },
     {
       "viewport": "desktop",
@@ -961,9 +961,9 @@
       "url": "/concepts/48-signature/index.html",
       "file": "audit/screenshots/desktop/48-signature-desktop.png",
       "topHeight": "175",
-      "widgetHeight": "122",
-      "footerHeight": "664",
-      "imageHeight": "1111"
+      "menuHeight": "0",
+      "footerHeight": "673",
+      "imageHeight": "938"
     },
     {
       "viewport": "mobile",
@@ -971,9 +971,9 @@
       "url": "/concepts/48-signature/index.html",
       "file": "audit/screenshots/mobile/48-signature-mobile.png",
       "topHeight": "79",
-      "widgetHeight": "116",
-      "footerHeight": "1321",
-      "imageHeight": "1650"
+      "menuHeight": "844",
+      "footerHeight": "1344",
+      "imageHeight": "2367"
     },
     {
       "viewport": "desktop",
@@ -981,9 +981,9 @@
       "url": "/concepts/49-wisdom/index.html",
       "file": "audit/screenshots/desktop/49-wisdom-desktop.png",
       "topHeight": "143",
-      "widgetHeight": "127",
-      "footerHeight": "613",
-      "imageHeight": "1033"
+      "menuHeight": "0",
+      "footerHeight": "686",
+      "imageHeight": "919"
     },
     {
       "viewport": "mobile",
@@ -991,9 +991,9 @@
       "url": "/concepts/49-wisdom/index.html",
       "file": "audit/screenshots/mobile/49-wisdom-mobile.png",
       "topHeight": "83",
-      "widgetHeight": "116",
-      "footerHeight": "1307",
-      "imageHeight": "1640"
+      "menuHeight": "844",
+      "footerHeight": "1394",
+      "imageHeight": "2421"
     },
     {
       "viewport": "desktop",
@@ -1001,9 +1001,9 @@
       "url": "/concepts/50-sovereign/index.html",
       "file": "audit/screenshots/desktop/50-sovereign-desktop.png",
       "topHeight": "194",
-      "widgetHeight": "128",
-      "footerHeight": "610",
-      "imageHeight": "1082"
+      "menuHeight": "0",
+      "footerHeight": "697",
+      "imageHeight": "981"
     },
     {
       "viewport": "mobile",
@@ -1011,9 +1011,9 @@
       "url": "/concepts/50-sovereign/index.html",
       "file": "audit/screenshots/mobile/50-sovereign-mobile.png",
       "topHeight": "73",
-      "widgetHeight": "116",
-      "footerHeight": "1317",
-      "imageHeight": "1640"
+      "menuHeight": "844",
+      "footerHeight": "1351",
+      "imageHeight": "2368"
     }
   ],
   "contactSheets": [
