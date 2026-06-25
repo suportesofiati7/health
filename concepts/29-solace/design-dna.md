@@ -27,3 +27,22 @@ Form idea: mobile-first bottom form with a botanical frame, focus glow, privacy 
 Footer idea: story-background footer using the white logo, monogram wreath, public contact routes and Londrina, PR only.
 
 How this concept differs from the other 49: It is identified by `doctor journal notecards`, portrait treatment `mobile avatar with FS watermark`, motion `journal card rise`, form `mobile-first bottom form` and footer `story-background footer`. The HTML, CSS and JS include unique markers for this concept.
+
+## Required Planning Expansion
+
+- Concept mood: solace support journey.
+- Page rhythm: page openings use a concept-specific first impression, then alternate visual evidence, evaluation guidance, trust-building, and a calm conversion route.
+- Visual storytelling style: Solace should feel like solace support journey, not a recolor of another concept.
+- Image style: premium botanical-clinical imagery with concept-specific crops, still-life rhythm, portrait cues, abstract laser light, skin texture, and consultation-note moments.
+- Section architecture: vary hero shape, image/text balance, proof sections, FAQ presentation, and CTA placement by page.
+- Card system: avoid repeated equal-card grids; use mixed panels, notes, ledgers, routes, editorial image chapters, or compact accordions.
+- CTA system: pair one primary evaluation CTA with lower-pressure supporting links placed in relevant sections.
+- Footer style: preserve approved public contact routes while keeping the visual footer signature distinct.
+- Header style: keep navigation clear and accessible while supporting the concept's rhythm.
+- Mobile layout style: quiet accordion flow; mobile content must stay readable, image-led, and action-oriented.
+- Animation style: restrained motion that supports hierarchy without hiding information.
+- Background system: quiet surfaces, paper/linen/botanical/clinical textures, and no generic decorative clutter.
+- Border/radius system: round note chips; avoid one-note rounded-card repetition.
+- Must not look like: a generic medical directory, a pink beauty-salon template, hospital-blue stock design, or the same build with swapped colors.
+- Resemblance risks: compare closely against concepts `30` and `37` during duplicate-layout audits.
+- Clone avoidance: page-flow, signature sequence, image rhythm, and CTA placement must be different enough to read as a separate premium concept.

@@ -27,3 +27,22 @@ Form idea: sage panel form with a botanical frame, focus glow, privacy acknowled
 Footer idea: large monogram ledger using the white logo, monogram wreath, public contact routes and Londrina, PR only.
 
 How this concept differs from the other 49: It is identified by `signature consultant trace`, portrait treatment `round monogram-backed portrait stamp`, motion `leaf orbit`, form `sage panel form` and footer `large monogram ledger`. The HTML, CSS and JS include unique markers for this concept.
+
+## Required Planning Expansion
+
+- Concept mood: precision technical atlas.
+- Page rhythm: page openings use a concept-specific first impression, then alternate visual evidence, evaluation guidance, trust-building, and a calm conversion route.
+- Visual storytelling style: Precision should feel like precision technical atlas, not a recolor of another concept.
+- Image style: premium botanical-clinical imagery with concept-specific crops, still-life rhythm, portrait cues, abstract laser light, skin texture, and consultation-note moments.
+- Section architecture: vary hero shape, image/text balance, proof sections, FAQ presentation, and CTA placement by page.
+- Card system: avoid repeated equal-card grids; use mixed panels, notes, ledgers, routes, editorial image chapters, or compact accordions.
+- CTA system: pair one primary evaluation CTA with lower-pressure supporting links placed in relevant sections.
+- Footer style: preserve approved public contact routes while keeping the visual footer signature distinct.
+- Header style: keep navigation clear and accessible while supporting the concept's rhythm.
+- Mobile layout style: single-column image ledger; mobile content must stay readable, image-led, and action-oriented.
+- Animation style: restrained motion that supports hierarchy without hiding information.
+- Background system: quiet surfaces, paper/linen/botanical/clinical textures, and no generic decorative clutter.
+- Border/radius system: arched portrait frames; avoid one-note rounded-card repetition.
+- Must not look like: a generic medical directory, a pink beauty-salon template, hospital-blue stock design, or the same build with swapped colors.
+- Resemblance risks: compare closely against concepts `23` and `30` during duplicate-layout audits.
+- Clone avoidance: page-flow, signature sequence, image rhythm, and CTA placement must be different enough to read as a separate premium concept.
