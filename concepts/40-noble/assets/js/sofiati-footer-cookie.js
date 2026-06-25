@@ -2,9 +2,10 @@
 (() => {
   "use strict";
 
-  const CONFIG = {"code": "40", "slug": "noble", "bg": "#EEF1EA", "fg": "#252321", "muted": "rgba(37,35,33,.64)", "accent": "#879588", "border": "1px solid rgba(127,141,130,.22)", "width": "min(1160px,calc(100% - 34px))", "padding": "9px 0", "fontSize": ".83rem", "align": "center", "layout": "wide", "separator": "motion", "marker": "check", "buttonStyle": "square", "radius": "0", "autoDelayMs": 10500};
+  const CONFIG = {"code": "40", "slug": "noble", "bg": "#201F1E", "fg": "#F8F7F2", "muted": "rgba(248,247,242,.72)", "accent": "#DAB26F", "border": "1px solid rgba(218,178,111,.24)", "width": "min(1180px,calc(100% - 38px))", "padding": "10px 0", "fontSize": ".81rem", "align": "center", "layout": "editorial", "separator": "champagne", "marker": "diamond", "buttonStyle": "text", "radius": "4px", "autoDelayMs": 13800};
+  const STORAGE_KEY = "sofiatiFooterCookie:" + CONFIG.code;
 
-  if (localStorage.getItem("sofiatiFooterCookie:" + CONFIG.code)) return;
+  if (localStorage.getItem(STORAGE_KEY)) return;
 
   function saveConsent(mode) {
     const payload = {
@@ -15,7 +16,7 @@
       updatedAt: new Date().toISOString()
     };
 
-    localStorage.setItem("sofiatiFooterCookie:" + CONFIG.code, JSON.stringify(payload));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     window.dispatchEvent(new CustomEvent("sofiati:cookie-consent", { detail: payload }));
   }
 
@@ -43,7 +44,10 @@
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
-      .sf-footer-cookie-bar[data-separator="top-line"] {
+      .sf-footer-cookie-bar[data-separator="gold-top"],
+      .sf-footer-cookie-bar[data-separator="thin-top"],
+      .sf-footer-cookie-bar[data-separator="soft-top"],
+      .sf-footer-cookie-bar[data-separator="top-only"] {
         border-top: var(--bar-border);
       }
 
@@ -51,22 +55,17 @@
         border-bottom: var(--bar-border);
       }
 
-      .sf-footer-cookie-bar[data-separator="soft-top"] {
-        border-top: var(--bar-border);
-        box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bar-accent) 10%, transparent);
-      }
-
       .sf-footer-cookie-bar[data-separator="champagne"] {
-        border-top: 1px solid color-mix(in srgb, var(--bar-accent) 34%, transparent);
+        border-top: 1px solid color-mix(in srgb, var(--bar-accent) 38%, transparent);
       }
 
       .sf-footer-cookie-bar[data-separator="dashed"] {
-        border-top: 1px dashed color-mix(in srgb, var(--bar-accent) 38%, transparent);
+        border-top: 1px dashed color-mix(in srgb, var(--bar-accent) 42%, transparent);
       }
 
       .sf-footer-cookie-bar[data-separator="motion"] {
         border-top: 1px solid color-mix(in srgb, var(--bar-accent) 18%, transparent);
-        background-image: linear-gradient(90deg, color-mix(in srgb, var(--bar-accent) 7%, transparent), transparent 42%);
+        background-image: linear-gradient(90deg, color-mix(in srgb, var(--bar-accent) 7%, transparent), transparent 44%);
       }
 
       .sf-footer-cookie-bar[data-separator="scan"] {
@@ -76,7 +75,7 @@
       .sf-footer-cookie-inner {
         width: var(--bar-width);
         margin-inline: auto;
-        min-height: 38px;
+        min-height: 36px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -87,21 +86,28 @@
         line-height: 1.35;
       }
 
-      .sf-footer-cookie-bar[data-layout="minimal"] .sf-footer-cookie-inner {
-        min-height: 30px;
+      .sf-footer-cookie-bar[data-layout="micro"] .sf-footer-cookie-inner,
+      .sf-footer-cookie-bar[data-layout="minimal"] .sf-footer-cookie-inner,
+      .sf-footer-cookie-bar[data-layout="single-line"] .sf-footer-cookie-inner {
+        min-height: 28px;
         justify-content: center;
       }
 
-      .sf-footer-cookie-bar[data-layout="centered"] .sf-footer-cookie-inner {
+      .sf-footer-cookie-bar[data-layout="center"],
+      .sf-footer-cookie-bar[data-layout="centered"],
+      .sf-footer-cookie-bar[data-layout="balanced"] {
+        text-align: center;
+      }
+
+      .sf-footer-cookie-bar[data-layout="center"] .sf-footer-cookie-inner,
+      .sf-footer-cookie-bar[data-layout="centered"] .sf-footer-cookie-inner,
+      .sf-footer-cookie-bar[data-layout="balanced"] .sf-footer-cookie-inner {
         justify-content: center;
       }
 
-      .sf-footer-cookie-bar[data-layout="wide"] .sf-footer-cookie-inner {
-        width: min(1240px, calc(100% - 42px));
-      }
-
-      .sf-footer-cookie-bar[data-layout="ledger"] .sf-footer-cookie-inner {
-        min-height: 34px;
+      .sf-footer-cookie-bar[data-layout="ledger"] .sf-footer-cookie-inner,
+      .sf-footer-cookie-bar[data-layout="fine-print"] .sf-footer-cookie-inner {
+        min-height: 32px;
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         letter-spacing: -.02em;
       }
@@ -116,13 +122,23 @@
         padding-left: 12px;
       }
 
-      .sf-footer-cookie-bar[data-separator="center-line"] .sf-footer-cookie-inner::before {
+      .sf-footer-cookie-bar[data-separator="center-line"] .sf-footer-cookie-inner::before,
+      .sf-footer-cookie-bar[data-separator="halo"] .sf-footer-cookie-inner::before,
+      .sf-footer-cookie-bar[data-separator="glow"] .sf-footer-cookie-inner::before {
         content: "";
         width: 34px;
         height: 1px;
         background: var(--bar-accent);
         opacity: .72;
         flex: 0 0 auto;
+      }
+
+      .sf-footer-cookie-bar[data-separator="diagonal"] .sf-footer-cookie-inner {
+        background-image: linear-gradient(112deg, transparent 0 48%, color-mix(in srgb, var(--bar-accent) 18%, transparent) 48% 49%, transparent 49%);
+      }
+
+      .sf-footer-cookie-bar[data-separator="step"] .sf-footer-cookie-inner {
+        border-top: 1px solid color-mix(in srgb, var(--bar-accent) 26%, transparent);
       }
 
       .sf-footer-cookie-mark {
@@ -139,13 +155,16 @@
       }
 
       .sf-footer-cookie-bar[data-marker="line"] .sf-footer-cookie-mark,
-      .sf-footer-cookie-bar[data-marker="dash"] .sf-footer-cookie-mark {
+      .sf-footer-cookie-bar[data-marker="dash"] .sf-footer-cookie-mark,
+      .sf-footer-cookie-bar[data-marker="signal"] .sf-footer-cookie-mark,
+      .sf-footer-cookie-bar[data-marker="book"] .sf-footer-cookie-mark {
         width: 16px;
         height: 1px;
         border-radius: 0;
       }
 
-      .sf-footer-cookie-bar[data-marker="diamond"] .sf-footer-cookie-mark {
+      .sf-footer-cookie-bar[data-marker="diamond"] .sf-footer-cookie-mark,
+      .sf-footer-cookie-bar[data-marker="check"] .sf-footer-cookie-mark {
         width: 7px;
         height: 7px;
         border-radius: 0;
@@ -153,14 +172,17 @@
       }
 
       .sf-footer-cookie-bar[data-marker="leaf"] .sf-footer-cookie-mark,
-      .sf-footer-cookie-bar[data-marker="sprig"] .sf-footer-cookie-mark {
+      .sf-footer-cookie-bar[data-marker="sprig"] .sf-footer-cookie-mark,
+      .sf-footer-cookie-bar[data-marker="curve"] .sf-footer-cookie-mark {
         width: 12px;
         height: 7px;
         border-radius: 100% 0 100% 0;
         transform: rotate(-24deg);
       }
 
-      .sf-footer-cookie-bar[data-marker="bracket"] .sf-footer-cookie-mark {
+      .sf-footer-cookie-bar[data-marker="bracket"] .sf-footer-cookie-mark,
+      .sf-footer-cookie-bar[data-marker="signature"] .sf-footer-cookie-mark,
+      .sf-footer-cookie-bar[data-marker="crest"] .sf-footer-cookie-mark {
         width: 8px;
         height: 12px;
         background: transparent;
@@ -191,24 +213,26 @@
 
       .sf-footer-cookie-actions button,
       .sf-footer-cookie-actions a {
-        min-height: 28px;
+        min-height: 26px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 4px 9px;
+        padding: 3px 8px;
         border: 1px solid color-mix(in srgb, var(--bar-accent) 32%, transparent);
         border-radius: var(--bar-radius);
         background: transparent;
         color: var(--bar-fg);
         font: inherit;
-        font-size: .78rem;
+        font-size: .75rem;
         font-weight: 800;
         text-decoration: none;
         cursor: pointer;
         white-space: nowrap;
       }
 
-      .sf-footer-cookie-actions button:first-child {
+      .sf-footer-cookie-bar[data-button-style="solid-first"] .sf-footer-cookie-actions button:first-child,
+      .sf-footer-cookie-bar[data-button-style="soft"] .sf-footer-cookie-actions button:first-child,
+      .sf-footer-cookie-bar[data-button-style="pill-outline"] .sf-footer-cookie-actions button:first-child {
         background: var(--bar-accent);
         border-color: var(--bar-accent);
         color: #fff;
@@ -242,13 +266,7 @@
           justify-content: start;
           text-align: left;
           gap: 8px;
-          padding-block: 10px;
-        }
-
-        .sf-footer-cookie-bar[data-layout="minimal"] .sf-footer-cookie-inner,
-        .sf-footer-cookie-bar[data-layout="centered"] .sf-footer-cookie-inner {
-          justify-items: center;
-          text-align: center;
+          padding-block: 9px;
         }
 
         .sf-footer-cookie-actions {
@@ -258,7 +276,7 @@
 
         .sf-footer-cookie-actions button,
         .sf-footer-cookie-actions a {
-          min-height: 30px;
+          min-height: 28px;
         }
       }
     `;
@@ -311,7 +329,7 @@
     }
 
     window.setTimeout(() => {
-      if (!localStorage.getItem("sofiatiFooterCookie:" + CONFIG.code) && document.body.contains(bar)) {
+      if (!localStorage.getItem(STORAGE_KEY) && document.body.contains(bar)) {
         saveConsent("essential");
         bar.remove();
       }
