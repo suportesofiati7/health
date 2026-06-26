@@ -72,8 +72,8 @@
       "file": "audit/screenshots/mobile/03-enhance-mobile.png",
       "topHeight": "83",
       "menuHeight": "844",
-      "footerHeight": "1348",
-      "imageHeight": "2375"
+      "footerHeight": "1350",
+      "imageHeight": "2377"
     },
     {
       "viewport": "desktop",
@@ -102,8 +102,8 @@
       "file": "audit/screenshots/desktop/05-elevate-desktop.png",
       "topHeight": "190",
       "menuHeight": "0",
-      "footerHeight": "732",
-      "imageHeight": "1012"
+      "footerHeight": "694",
+      "imageHeight": "974"
     },
     {
       "viewport": "mobile",
@@ -112,8 +112,8 @@
       "file": "audit/screenshots/mobile/05-elevate-mobile.png",
       "topHeight": "73",
       "menuHeight": "844",
-      "footerHeight": "1394",
-      "imageHeight": "2411"
+      "footerHeight": "1232",
+      "imageHeight": "2249"
     },
     {
       "viewport": "desktop",
@@ -222,8 +222,8 @@
       "file": "audit/screenshots/desktop/11-bloom-desktop.png",
       "topHeight": "151",
       "menuHeight": "0",
-      "footerHeight": "683",
-      "imageHeight": "924"
+      "footerHeight": "681",
+      "imageHeight": "922"
     },
     {
       "viewport": "mobile",
@@ -232,8 +232,8 @@
       "file": "audit/screenshots/mobile/11-bloom-mobile.png",
       "topHeight": "83",
       "menuHeight": "844",
-      "footerHeight": "1354",
-      "imageHeight": "2381"
+      "footerHeight": "1346",
+      "imageHeight": "2373"
     },
     {
       "viewport": "desktop",
@@ -262,8 +262,8 @@
       "file": "audit/screenshots/desktop/13-poise-desktop.png",
       "topHeight": "132",
       "menuHeight": "0",
-      "footerHeight": "688",
-      "imageHeight": "910"
+      "footerHeight": "657",
+      "imageHeight": "879"
     },
     {
       "viewport": "mobile",
@@ -272,8 +272,8 @@
       "file": "audit/screenshots/mobile/13-poise-mobile.png",
       "topHeight": "79",
       "menuHeight": "844",
-      "footerHeight": "1397",
-      "imageHeight": "2420"
+      "footerHeight": "1342",
+      "imageHeight": "2365"
     },
     {
       "viewport": "desktop",
@@ -302,8 +302,8 @@
       "file": "audit/screenshots/desktop/15-clarity-desktop.png",
       "topHeight": "151",
       "menuHeight": "0",
-      "footerHeight": "675",
-      "imageHeight": "916"
+      "footerHeight": "637",
+      "imageHeight": "878"
     },
     {
       "viewport": "mobile",
@@ -312,8 +312,8 @@
       "file": "audit/screenshots/mobile/15-clarity-mobile.png",
       "topHeight": "83",
       "menuHeight": "844",
-      "footerHeight": "1348",
-      "imageHeight": "2375"
+      "footerHeight": "1315",
+      "imageHeight": "2342"
     },
     {
       "viewport": "desktop",
@@ -362,8 +362,8 @@
       "file": "audit/screenshots/desktop/18-lumin-desktop.png",
       "topHeight": "136",
       "menuHeight": "0",
-      "footerHeight": "685",
-      "imageHeight": "911"
+      "footerHeight": "653",
+      "imageHeight": "879"
     },
     {
       "viewport": "mobile",
@@ -372,8 +372,8 @@
       "file": "audit/screenshots/mobile/18-lumin-mobile.png",
       "topHeight": "79",
       "menuHeight": "844",
-      "footerHeight": "1391",
-      "imageHeight": "2414"
+      "footerHeight": "1347",
+      "imageHeight": "2370"
     },
     {
       "viewport": "desktop",
@@ -562,8 +562,8 @@
       "file": "audit/screenshots/desktop/28-pure-desktop.png",
       "topHeight": "110",
       "menuHeight": "0",
-      "footerHeight": "682",
-      "imageHeight": "882"
+      "footerHeight": "643",
+      "imageHeight": "843"
     },
     {
       "viewport": "mobile",
@@ -572,8 +572,8 @@
       "file": "audit/screenshots/mobile/28-pure-mobile.png",
       "topHeight": "79",
       "menuHeight": "844",
-      "footerHeight": "1345",
-      "imageHeight": "2368"
+      "footerHeight": "1298",
+      "imageHeight": "2321"
     },
     {
       "viewport": "desktop",

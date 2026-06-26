@@ -714,6 +714,36 @@ body.public-menu-locked{overflow:hidden}
     animation:none!important;
   }
 }
+.public-footer-28 .footer-brand-panel{
+  padding:0 0 0 clamp(12px,1.5vw,18px)!important;
+  background:transparent!important;
+  border:0!important;
+  border-left:1px solid color-mix(in srgb,var(--footer-accent) 74%,var(--footer-line))!important;
+}
+.public-footer-28 .footer-link-group{
+  padding-left:clamp(12px,1.5vw,18px)!important;
+  border-left:1px solid color-mix(in srgb,var(--footer-line) 82%,transparent)!important;
+}
+.public-footer-28 .footer-contact{
+  padding:12px 0 12px clamp(12px,1.5vw,18px)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  border-left:1px solid color-mix(in srgb,var(--footer-accent) 82%,var(--footer-line))!important;
+  --footer-contact-color:var(--footer-fg);
+}
+.public-footer-28 .footer-bottom-row{
+  justify-content:center!important;
+  justify-items:center!important;
+  text-align:center!important;
+}
+.public-footer-28 .footer-bottom-row p{
+  width:100%;
+  max-width:76ch;
+  text-align:center;
+}
+.public-footer-28 .footer-bottom-row p:last-child{
+  max-width:none;
+}
 .floating-tools.floating-tools-28{
   --widget-size:56px;
   --widget-gap:11px;

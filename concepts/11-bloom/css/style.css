@@ -714,6 +714,32 @@ body.public-menu-locked{overflow:hidden}
     animation:none!important;
   }
 }
+.public-footer-11 .footer-contact{
+  padding:14px 0 14px clamp(14px,1.8vw,24px)!important;
+  background:transparent!important;
+  border:0!important;
+  border-left:1px solid color-mix(in srgb,var(--footer-accent) 65%,var(--footer-line))!important;
+  border-radius:0!important;
+  --footer-contact-color:var(--footer-fg);
+}
+.public-footer-11 .footer-brand-panel{
+  background:linear-gradient(90deg,color-mix(in srgb,var(--footer-soft) 15%,transparent),transparent 70%)!important;
+  border:0!important;
+  border-top:1px solid var(--footer-line)!important;
+}
+.public-footer-11 .footer-bottom-row{
+  justify-content:center!important;
+  justify-items:center!important;
+  text-align:center!important;
+}
+.public-footer-11 .footer-bottom-row p{
+  width:100%;
+  max-width:76ch;
+  text-align:center;
+}
+.public-footer-11 .footer-bottom-row p:last-child{
+  max-width:none;
+}
 .floating-tools.floating-tools-11{
   --widget-size:58px;
   --widget-gap:12px;

@@ -714,6 +714,36 @@ body.public-menu-locked{overflow:hidden}
     animation:none!important;
   }
 }
+.public-footer-18 .footer-brand-panel{
+  justify-items:start!important;
+  text-align:left!important;
+  padding:0 0 0 clamp(16px,2vw,24px)!important;
+  border:0!important;
+  border-left:3px solid color-mix(in srgb,var(--footer-accent) 70%,var(--footer-line))!important;
+  border-radius:0!important;
+}
+.public-footer-18 .footer-contact{
+  padding:14px 0 14px clamp(14px,1.8vw,22px)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  border-left:1px solid color-mix(in srgb,var(--footer-accent) 58%,var(--footer-line))!important;
+  border-top:1px solid color-mix(in srgb,var(--footer-accent) 28%,transparent)!important;
+  border-bottom:1px solid color-mix(in srgb,var(--footer-accent) 18%,transparent)!important;
+  --footer-contact-color:var(--footer-fg);
+}
+.public-footer-18 .footer-bottom-row{
+  justify-content:center!important;
+  justify-items:center!important;
+  text-align:center!important;
+}
+.public-footer-18 .footer-bottom-row p{
+  width:100%;
+  max-width:76ch;
+  text-align:center;
+}
+.public-footer-18 .footer-bottom-row p:last-child{
+  max-width:none;
+}
 .floating-tools.floating-tools-18{
   --widget-size:58px;
   --widget-gap:10px;

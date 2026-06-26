@@ -1,7 +1,7 @@
 # Agent Audit Pipeline Review
 
-Status: PASS
-Generated: 2026-06-26T11:51:40
+Status: FAIL
+Generated: 2026-06-26T14:56:23
 
 ## Scope
 - Runs static audits, public-partial checks and screenshot capture scripts.
@@ -21,7 +21,7 @@ Generated: 2026-06-26T11:51:40
 | Static site audit | PASS | `/usr/bin/python3 scripts/audit_static_site.py` |
 | Internal link audit | PASS | `/usr/bin/python3 scripts/audit_internal_links.py` |
 | Layout signature audit | PASS | `/usr/bin/python3 scripts/audit_layout_signatures.py` |
-| Ethics/contact audit | PASS | `/usr/bin/python3 scripts/audit_ethics.py` |
+| Ethics/contact audit | FAIL 1 | `/usr/bin/python3 scripts/audit_ethics.py` |
 | Public partial audit | PASS | `/usr/bin/python3 scripts/audit_public_partials.py` |
 
 ## Screenshot Manifests

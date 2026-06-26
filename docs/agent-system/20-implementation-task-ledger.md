@@ -6,6 +6,7 @@ Provide future agents with a practical order of operations after this documentat
 ## Applies To
 - `docs/agent-system/18-concept-by-concept-audit.md`
 - `docs/agent-system/19-known-errors-and-regressions.md`
+- `docs/agent-system/21-how-to-use-audit-docs-and-fix-workflow.md`
 - All future implementation batches
 
 ## Specific Rules
@@ -41,6 +42,7 @@ Provide future agents with a practical order of operations after this documentat
 | 2026-06-26 | Agent documentation and audit system | COMPLETE FOR DOCS/AUDIT ONLY | Created `docs/agent-system/`, standards docs, prompts, concept-by-concept audit, known errors and implementation ledger. No live page/CSS/JS/layout fixes were made. |
 | 2026-06-26 | One-command audit pipeline script | COMPLETE FOR TOOLING ONLY | Added `scripts/run_agent_audit_pipeline.py` to run audits, screenshots and a review report. The script can apply only deterministic Brand-to-About label fixes with `--fix-safe-labels`; visual fixes remain agent-guided. |
 | 2026-06-26 | Concept brief system, rendered diagnostics and safe label cleanup | COMPLETE FOR DOCS/AUDIT + SAFE LABEL FIX | Created `docs/agent-brief-system/` with 50 specific concept briefs, issue register, uniqueness matrix and ledgers. Ran full audit/screenshot pipeline plus rendered responsive diagnostics. Applied only deterministic public label fixes in footers and sitemap pages; no CSS/layout redesign was attempted. |
+| 2026-06-26 | Human runbook for docs, audits, screenshots and fixes | COMPLETE FOR GUIDANCE | Added `docs/agent-system/21-how-to-use-audit-docs-and-fix-workflow.md` to explain what scripts exist, which commands are safe, which scripts can modify files, and why visual problems should be fixed in concept-specific batches rather than one automatic global repair. |
 
 ## Completed Fixes
 

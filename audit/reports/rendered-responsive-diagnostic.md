@@ -1,7 +1,7 @@
 # Rendered Responsive Diagnostic
 
 Concept viewport checks: 300
-Issues found: 132
+Issues found: 113
 
 This audit measures rendered homepages at 360, 390, 768, 1024, 1366 and 1440px widths. It checks horizontal overflow, desktop nav wrapping, header CTA visibility, language switcher bounds, footer copyright centering, WhatsApp mounting and mobile-menu containment.
 
@@ -14,10 +14,6 @@ This audit measures rendered homepages at 360, 390, 768, 1024, 1366 and 1440px w
 | 02-empower | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
 | 02-empower | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
 | 02-empower | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
-| 03-enhance | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
-| 03-enhance | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
-| 03-enhance | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
-| 05-elevate | desktop-1024 | high | footer-copyright-offset | Copyright center delta 43px |
 | 06-refine | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
 | 06-refine | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
 | 06-refine | desktop-1440 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
@@ -35,25 +31,13 @@ This audit measures rendered homepages at 360, 390, 768, 1024, 1366 and 1440px w
 | 10-essence | desktop-1366 | high | footer-copyright-offset | Copyright center delta -310px |
 | 10-essence | desktop-1440 | high | header-cta-missing | Header consultation CTA is not visible |
 | 10-essence | desktop-1440 | high | footer-copyright-offset | Copyright center delta -310px |
-| 11-bloom | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
-| 11-bloom | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
-| 11-bloom | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
 | 12-vital | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
 | 12-vital | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
 | 12-vital | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
-| 13-poise | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
-| 13-poise | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
-| 13-poise | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
-| 15-clarity | desktop-1024 | high | footer-copyright-offset | Copyright center delta -225px |
-| 15-clarity | desktop-1366 | high | footer-copyright-offset | Copyright center delta -310px |
-| 15-clarity | desktop-1440 | high | footer-copyright-offset | Copyright center delta -310px |
 | 16-grace | desktop-1440 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
 | 17-sculpt | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
 | 17-sculpt | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
 | 17-sculpt | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
-| 18-lumin | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
-| 18-lumin | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
-| 18-lumin | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
 | 19-verda | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
 | 19-verda | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
 | 19-verda | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |
@@ -80,9 +64,6 @@ This audit measures rendered homepages at 360, 390, 768, 1024, 1366 and 1440px w
 | 27-form | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
 | 27-form | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
 | 28-pure | desktop-1024 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
-| 28-pure | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
-| 28-pure | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
-| 28-pure | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
 | 29-solace | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
 | 29-solace | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
 | 29-solace | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |

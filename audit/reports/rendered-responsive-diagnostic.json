@@ -475,7 +475,7 @@
       "languageCount": 1,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -99,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -505,7 +505,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -226,
+      "copyrightDelta": 23,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -517,13 +517,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -226px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -541,7 +535,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -390,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -553,13 +547,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -390px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -577,7 +565,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -390,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -589,13 +577,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -390px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -883,7 +865,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": 43,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -895,13 +877,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta 43px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2036,7 +2012,7 @@
       "languageCount": 1,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -99,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2066,7 +2042,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -224,
+      "copyrightDelta": 37,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2078,13 +2054,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -224px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2102,7 +2072,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -350,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2114,13 +2084,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -350px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2138,7 +2102,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -350,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2150,13 +2114,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -350px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2432,7 +2390,7 @@
       "languageCount": 1,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -99,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2462,7 +2420,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -226,
+      "copyrightDelta": 14,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2474,13 +2432,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -226px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2498,7 +2450,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -390,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2510,13 +2462,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -390px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2534,7 +2480,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -390,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2546,13 +2492,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -390px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2810,7 +2750,7 @@
       "languageCount": 1,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -99,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2840,7 +2780,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -225,
+      "copyrightDelta": 4,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2852,13 +2792,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -225px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2876,7 +2810,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -310,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2888,13 +2822,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -310px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -2912,7 +2840,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -310,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -2924,13 +2852,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -310px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -3392,7 +3314,7 @@
       "languageCount": 1,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -99,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -3422,7 +3344,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -226,
+      "copyrightDelta": 22,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -3434,13 +3356,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -226px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -3458,7 +3374,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -390,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -3470,13 +3386,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -390px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -3494,7 +3404,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -390,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -3506,13 +3416,7 @@
         "closeVisible": true,
         "linkCount": 10
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -390px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -5359,7 +5263,7 @@
       "languageCount": 1,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -99,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -5389,7 +5293,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -226,
+      "copyrightDelta": 21,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -5406,11 +5310,6 @@
           "kind": "desktop-nav-wrap",
           "severity": "critical",
           "detail": "Desktop nav uses 2 rows"
-        },
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -226px"
         }
       ]
     }
@@ -5430,7 +5329,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -390,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -5442,13 +5341,7 @@
         "closeVisible": true,
         "linkCount": 9
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -390px"
-        }
-      ]
+      "issues": []
     }
   },
   {
@@ -5466,7 +5359,7 @@
       "languageCount": 2,
       "languageOutOfBounds": 0,
       "footerVisible": true,
-      "copyrightDelta": -390,
+      "copyrightDelta": 0,
       "whatsAppVisible": true,
       "formVisibleOrMounted": true,
       "menu": {
@@ -5478,13 +5371,7 @@
         "closeVisible": true,
         "linkCount": 9
       },
-      "issues": [
-        {
-          "kind": "footer-copyright-offset",
-          "severity": "high",
-          "detail": "Copyright center delta -390px"
-        }
-      ]
+      "issues": []
     }
   },
   {

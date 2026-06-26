@@ -1,6 +1,6 @@
 # Screenshot Design QA
 
-Updated: 2026-06-25 19:54
+Updated: 2026-06-26 13:36
 
 ## Scope
 
@@ -10,7 +10,7 @@ Captured and reviewed desktop and mobile screenshot contact sheets for Home, Car
 
 | Area | Status | Finding | Repair |
 | --- | --- | --- | --- |
-| Home | PASS | Refreshed mobile sheet shows shared brand controls but varied hero stories, crops and page rhythms. | No blocking repair required in this batch; keep monitoring in later full-page QA. |
+| Home | NEEDS IMPROVEMENT | Hero silhouettes vary, but mobile CTA rhythm is still similar across many concepts. | Deferred to next visual-polish pass after service pages. |
 | Care | PASS | Initial contact sheets showed repeated hero headline, white-coat visual rhythm and meta "service architecture" language. | Repaired all 50 Care pages with varied H1s, visitor-facing section language, rotated image roles, secondary CTAs and story markers. |
 | Laser | PASS | Initial contact sheets showed repeated headline and same "Book consultation / View laser care" CTA rhythm. | Repaired all 50 Laser pages with varied suitability-led hero stories, image rotation and secondary CTA destinations. |
 | Skin | PASS | Initial contact sheets showed repeated skin-quality headline and similar first viewport rhythm. | Repaired all 50 Skin pages with varied assessment-led language, image/story rotation and secondary CTA destinations. |
@@ -221,11 +221,4 @@ Captured and reviewed desktop and mobile screenshot contact sheets for Home, Car
 
 ## Next Visual QA Step
 
-Regenerate screenshots after future visual repairs and compare the contact sheets before marking visual work complete. The next QA pass should inspect full-page scroll depth, not only the first viewport.
-
-## Post-Repair Verification
-
-- Regenerated 500 screenshots after repair: 50 concepts x 5 page types x 2 viewports.
-- Rechecked refreshed contact sheets for Home, Care, Laser, Skin and Results.
-- Care, Laser, Skin and Results now pass the screenshot/storytelling gate for first-viewport differentiation.
-- Static audits were rerun after copy cleanup; SEO, section attributes, internal links, layout signatures and ethics pass.
+Regenerate the design QA screenshots and compare the new contact sheets for the repaired page types. Home mobile remains the next candidate for a finer visual-polish pass if the refreshed sheets still feel too uniform.
