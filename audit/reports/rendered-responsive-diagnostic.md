@@ -1,0 +1,141 @@
+# Rendered Responsive Diagnostic
+
+Concept viewport checks: 300
+Issues found: 132
+
+This audit measures rendered homepages at 360, 390, 768, 1024, 1366 and 1440px widths. It checks horizontal overflow, desktop nav wrapping, header CTA visibility, language switcher bounds, footer copyright centering, WhatsApp mounting and mobile-menu containment.
+
+| Concept | Viewport | Severity | Issue | Detail |
+| --- | --- | --- | --- | --- |
+| 01-inspire | desktop-1024 | critical | desktop-nav-wrap | Desktop nav uses 3 rows |
+| 01-inspire | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 01-inspire | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 01-inspire | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 02-empower | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 02-empower | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
+| 02-empower | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
+| 03-enhance | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 03-enhance | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
+| 03-enhance | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
+| 05-elevate | desktop-1024 | high | footer-copyright-offset | Copyright center delta 43px |
+| 06-refine | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 06-refine | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 06-refine | desktop-1440 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 06-refine | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 07-glow | desktop-1024 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 07-glow | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 07-glow | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
+| 07-glow | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
+| 09-radiance | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
+| 09-radiance | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
+| 09-radiance | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |
+| 10-essence | desktop-1024 | high | header-cta-missing | Header consultation CTA is not visible |
+| 10-essence | desktop-1024 | high | footer-copyright-offset | Copyright center delta -225px |
+| 10-essence | desktop-1366 | high | header-cta-missing | Header consultation CTA is not visible |
+| 10-essence | desktop-1366 | high | footer-copyright-offset | Copyright center delta -310px |
+| 10-essence | desktop-1440 | high | header-cta-missing | Header consultation CTA is not visible |
+| 10-essence | desktop-1440 | high | footer-copyright-offset | Copyright center delta -310px |
+| 11-bloom | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 11-bloom | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 11-bloom | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 12-vital | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 12-vital | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
+| 12-vital | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
+| 13-poise | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 13-poise | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
+| 13-poise | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
+| 15-clarity | desktop-1024 | high | footer-copyright-offset | Copyright center delta -225px |
+| 15-clarity | desktop-1366 | high | footer-copyright-offset | Copyright center delta -310px |
+| 15-clarity | desktop-1440 | high | footer-copyright-offset | Copyright center delta -310px |
+| 16-grace | desktop-1440 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 17-sculpt | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 17-sculpt | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
+| 17-sculpt | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
+| 18-lumin | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 18-lumin | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
+| 18-lumin | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
+| 19-verda | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
+| 19-verda | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
+| 19-verda | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |
+| 21-calm | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 21-calm | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 21-calm | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 22-precision | desktop-1024 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 22-precision | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 22-precision | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
+| 22-precision | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
+| 23-ritual | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 23-ritual | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
+| 23-ritual | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
+| 24-signal | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
+| 24-signal | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
+| 24-signal | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |
+| 25-align | desktop-1024 | high | footer-copyright-offset | Copyright center delta -225px |
+| 25-align | desktop-1366 | high | footer-copyright-offset | Copyright center delta -310px |
+| 25-align | desktop-1440 | high | footer-copyright-offset | Copyright center delta -310px |
+| 26-vivant | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 26-vivant | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 26-vivant | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 27-form | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 27-form | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
+| 27-form | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
+| 28-pure | desktop-1024 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 28-pure | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 28-pure | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
+| 28-pure | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
+| 29-solace | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
+| 29-solace | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
+| 29-solace | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |
+| 30-method | desktop-1024 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 30-method | desktop-1024 | high | footer-copyright-offset | Copyright center delta -225px |
+| 30-method | desktop-1366 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 30-method | desktop-1366 | high | footer-copyright-offset | Copyright center delta -310px |
+| 30-method | desktop-1440 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 30-method | desktop-1440 | high | footer-copyright-offset | Copyright center delta -310px |
+| 31-evolve | desktop-1024 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 31-evolve | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 31-evolve | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 31-evolve | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 33-elan | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 33-elan | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
+| 33-elan | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
+| 34-flora | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
+| 34-flora | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
+| 34-flora | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |
+| 35-atelier | desktop-1024 | high | footer-copyright-offset | Copyright center delta 43px |
+| 36-lumina | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 36-lumina | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 36-lumina | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 37-vellum | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 37-vellum | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
+| 37-vellum | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
+| 38-origin | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 38-origin | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
+| 38-origin | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
+| 39-kindred | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
+| 39-kindred | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
+| 39-kindred | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |
+| 41-vista | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 41-vista | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 41-vista | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 43-meridian | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 43-meridian | desktop-1366 | high | footer-copyright-offset | Copyright center delta -390px |
+| 43-meridian | desktop-1440 | high | footer-copyright-offset | Copyright center delta -390px |
+| 44-safeguard | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
+| 44-safeguard | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
+| 44-safeguard | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |
+| 45-silhouette | desktop-1024 | high | footer-copyright-offset | Copyright center delta -225px |
+| 45-silhouette | desktop-1366 | high | footer-copyright-offset | Copyright center delta -310px |
+| 45-silhouette | desktop-1440 | high | footer-copyright-offset | Copyright center delta -310px |
+| 46-curate | desktop-1024 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 46-curate | desktop-1024 | high | footer-copyright-offset | Copyright center delta -224px |
+| 46-curate | desktop-1366 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 46-curate | desktop-1366 | high | footer-copyright-offset | Copyright center delta -350px |
+| 46-curate | desktop-1440 | critical | desktop-nav-wrap | Desktop nav uses 2 rows |
+| 46-curate | desktop-1440 | high | footer-copyright-offset | Copyright center delta -350px |
+| 47-proof | desktop-1024 | high | footer-copyright-offset | Copyright center delta -226px |
+| 47-proof | desktop-1366 | high | footer-copyright-offset | Copyright center delta -320px |
+| 47-proof | desktop-1440 | high | footer-copyright-offset | Copyright center delta -320px |
+| 49-wisdom | desktop-1024 | high | footer-copyright-offset | Copyright center delta -221px |
+| 49-wisdom | desktop-1366 | high | footer-copyright-offset | Copyright center delta -369px |
+| 49-wisdom | desktop-1440 | high | footer-copyright-offset | Copyright center delta -369px |

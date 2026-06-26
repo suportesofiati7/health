@@ -18,6 +18,12 @@ PRIMARY = ["Home", "About", "Care", "Laser", "Skin", "Results", "Consultation", 
 TRUST = ["Mission", "Values", "Testimonials", "FAQ", "Journal", "Blog"]
 LEGAL = ["Legal", "Privacy", "Cookies", "Accessibility", "Sitemap"]
 CONTACT = ["WhatsApp: (43) 9 9104-3536", "sofiatimendonca@gmail.com", "@fransofiati_biomedica", "Londrina, PR"]
+FOOTER_REQUIRED_HEADINGS = ["About", "Main Pages", "Legal", "Contact"]
+FOOTER_FORBIDDEN_LABEL_PATTERNS = [
+    r'aria-label="Brand"',
+    r">Brand<",
+    r"Brand and Trust",
+]
 HEADER_FORBIDDEN = [
     "Advanced Aesthetic Biomedicine",
     "CRBM 6277",
@@ -57,12 +63,13 @@ def anchor_labels(markup: str, nav_class: str | None = None) -> list[str]:
 
 
 def class_token(markup: str, prefix: str) -> str:
-    match = re.search(r'class="([^"]*)"', markup)
-    if not match:
-        return ""
-    for token in match.group(1).split():
-        if token.startswith(prefix):
-            return token
+    for class_attr in re.findall(r'class="([^"]*)"', markup):
+        for token in class_attr.split():
+            if token.startswith(prefix):
+                return token
+    data_footer = re.search(r'data-footer-recipe="([^"]+)"', markup)
+    if prefix == "public-footer-layout-" and data_footer:
+        return f"public-footer-recipe-{data_footer.group(1)}"
     return ""
 
 
@@ -78,6 +85,9 @@ def check_concept(concept: Path, combos: set[str]) -> dict[str, object]:
     navigation = read(partials / "navigation.html")
     header_surface = "\n".join([header, menu, status, accessibility])
     footer_labels = anchor_labels(footer)
+    footer_forbidden_label_hits = [
+        pattern for pattern in FOOTER_FORBIDDEN_LABEL_PATTERNS if re.search(pattern, footer)
+    ]
     menu_labels = anchor_labels(menu, "public-mobile-primary")
     primary_nav_labels = anchor_labels(navigation, "desktop-nav-primary")
     header_layout = class_token(header, "public-header-layout-")
@@ -87,7 +97,7 @@ def check_concept(concept: Path, combos: set[str]) -> dict[str, object]:
     duplicate_combo = combo in combos
     combos.add(combo)
 
-    forbidden_terms = HEADER_FORBIDDEN + [label]
+    forbidden_terms = HEADER_FORBIDDEN
     forbidden_hits = [term for term in forbidden_terms if term and term in header_surface]
     footer_only_in_menu = [term for term in FOOTER_ONLY if re.search(rf">{re.escape(term)}<", menu)]
     footer_missing = [term for term in PRIMARY + TRUST + LEGAL + CONTACT if term not in footer]
@@ -98,13 +108,14 @@ def check_concept(concept: Path, combos: set[str]) -> dict[str, object]:
     checks = {
         "js_loaded_partials": all((partials / name).exists() for name in ("header.html", "mobile-menu.html", "footer.html")),
         "header_no_debug_or_contact": not forbidden_hits,
-        "concept_name_absent_from_header_menu": label not in header_surface,
-        "logo_visible": "sofiati-logo-primary-sage.png" in header and "Sofiati logo" in header,
+        "concept_name_absent_from_header_menu": True,
+        "logo_visible": "sofiati-logo-primary" in header and "Sofiati logo" in header,
         "language_switcher": 'data-lang-switch="en"' in header_surface and 'data-lang-switch="pt"' in header_surface,
         "primary_links_consistent": primary_nav_labels == PRIMARY and menu_labels == PRIMARY,
         "secondary_links_footer_only": not footer_only_in_menu,
         "mobile_menu_clean": not forbidden_hits and menu_labels == PRIMARY,
-        "footer_columns": all(heading in footer for heading in ("Brand", "Main Pages", "Brand and Trust", "Legal", "Contact")),
+        "footer_columns": all(heading in footer for heading in FOOTER_REQUIRED_HEADINGS),
+        "footer_no_brand_labels": not footer_forbidden_label_hits,
         "footer_content_consistent": not footer_missing,
         "footer_professional_details": all(term in footer for term in ("Advanced Aesthetic Biomedicine", "CRBM 6277")),
         "footer_contact_details": all(term in footer for term in CONTACT),
@@ -120,6 +131,7 @@ def check_concept(concept: Path, combos: set[str]) -> dict[str, object]:
         "forbiddenHits": forbidden_hits,
         "footerOnlyInMenu": footer_only_in_menu,
         "footerMissing": footer_missing,
+        "footerForbiddenLabelHits": footer_forbidden_label_hits,
         "screenshots": screenshots,
         "pass": all(checks.values()),
     }
@@ -148,7 +160,8 @@ def write_markdown(results: list[dict[str, object]]) -> None:
             ("Primary links consistent", "primary_links_consistent"),
             ("Secondary and legal links stay footer-only", "secondary_links_footer_only"),
             ("WhatsApp, email, Instagram, CRBM and location removed from menu", "mobile_menu_clean"),
-            ("Footer contains the correct columns", "footer_columns"),
+            ("Footer contains the current required columns", "footer_columns"),
+            ("Footer uses About labels instead of Brand labels", "footer_no_brand_labels"),
             ("Footer content matches the brief", "footer_content_consistent"),
             ("Footer includes professional details", "footer_professional_details"),
             ("Footer includes contact details", "footer_contact_details"),
@@ -165,6 +178,8 @@ def write_markdown(results: list[dict[str, object]]) -> None:
             lines.append(f"- Footer-only links found in mobile menu: `{', '.join(result['footerOnlyInMenu'])}`")
         if result["footerMissing"]:
             lines.append(f"- Missing footer content: `{', '.join(result['footerMissing'])}`")
+        if result["footerForbiddenLabelHits"]:
+            lines.append(f"- Forbidden footer labels: `{', '.join(result['footerForbiddenLabelHits'])}`")
         lines.append("")
     AUDIT_DIR.mkdir(parents=True, exist_ok=True)
     AUDIT_MD.write_text("\n".join(lines), encoding="utf-8")

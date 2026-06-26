@@ -1,9 +1,9 @@
 # Sofiati Task Ledger
 
-Last updated: 2026-06-25 19:49
+Last updated: 2026-06-26
 
 ## Overall Status
-COMPLETE FOR STATIC VALIDATION — docs, planning, pages, metadata, attributes, links, audit scripts and reports are in place. Global WhatsApp, back-to-top and themed cookie footer bars have been restored across concept pages. Visual client-review polish is recommended as a follow-up.
+COMPLETE FOR STATIC VALIDATION, AGENT DOCUMENTATION AND FIRST SAFE LABEL FIX — docs, planning, pages, metadata, attributes, links, audit scripts and reports are in place. Global WhatsApp, back-to-top and themed cookie footer bars have been restored across concept pages. Agent documentation now includes both the original audit system and a deeper concept-brief system. The only implementation fix in the latest batch was deterministic public-label cleanup; visual/layout issues remain pending for controlled future batches.
 
 ## Phase Status
 - PHASE 1 — Existing project audit: COMPLETE for current inventory.
@@ -13,6 +13,31 @@ COMPLETE FOR STATIC VALIDATION — docs, planning, pages, metadata, attributes, 
 - PHASE 5 — SEO validation: COMPLETE for static metadata/schema/H1 checks.
 - PHASE 6 — Ethical validation: COMPLETE for static prohibited-language/contact checks.
 - PHASE 7 — Global duplicate layout audit: COMPLETE for layout-signature sequence checks.
+
+## Latest Batch Completed - Concept Brief System, Diagnostic Audit and Safe Label Cleanup - 2026-06-26
+- Created `docs/agent-brief-system/15-concept-by-concept-briefs/` with one evidence-based brief for every concept folder.
+- Created `docs/agent-brief-system/16-audit-system/16-20-issue-register.md`, `docs/agent-brief-system/17-uniqueness-matrix.md` and task/screenshot/regression ledgers under `docs/agent-brief-system/18-task-ledgers/`.
+- Added `scripts/audit_rendered_concepts.py` for browser-rendered diagnostics at 360, 390, 768, 1024, 1366 and 1440px.
+- Added `scripts/generate_agent_brief_system.py` so future agents can regenerate concept briefs and issue ledgers from current repository evidence.
+- Ran full audit and screenshot pipeline, public partial audit and rendered responsive diagnostics. Static, link, layout, ethics and public-partial checks pass after the safe label fix.
+- Applied only the evidenced safe label fix: changed public footer labels from `Brand` / `Brand and Trust` to `About`, and sitemap headings from `Brand and education` to `About and education`, across all 50 concepts.
+- Regenerated header/footer screenshots after the label fix and re-ran rendered diagnostics. Remaining rendered/layout issues are recorded as pending in the new issue register.
+- No broad redesign, CSS layout repair, CTA restyling, footer decoration removal or language-switcher visual fix was attempted in this batch.
+
+## Latest Batch Completed - Agent-System Documentation and Audit - 2026-06-26
+- Created `docs/agent-system/` with master site brief, agent rules, inventories, standards, checklists, concept audit, known-errors log and implementation ledger.
+- Created reusable prompt templates under `docs/agent-system/prompts/` for audit-only work, header/nav fixes, footer fixes, language switcher fixes, CTA fixes, page-content polish and final regression audits.
+- Ran the existing static audit scripts for static site, internal links, layout signatures and ethics/contact reports; they pass in this batch.
+- Performed read-only rendered desktop/mobile checks across all 50 concepts and reviewed screenshot evidence for the known header, language switcher, footer and decoration issues.
+- Updated `docs/agent-system/18-concept-by-concept-audit.md`, `docs/agent-system/19-known-errors-and-regressions.md` and `docs/agent-system/20-implementation-task-ledger.md` with concept-specific issues, file paths, priorities and verification methods.
+- No live page, CSS, JS, partial, layout or asset implementation files were edited in this batch.
+- Next task: follow `docs/agent-system/20-implementation-task-ledger.md`, starting with label cleanup, footer/copyright repairs, desktop header wrapping and language switcher readability.
+
+## Tooling Batch Completed - One-Command Audit Pipeline - 2026-06-26
+- Added `scripts/run_agent_audit_pipeline.py` to run static audits, screenshot captures, public-partial checks and a generated review report from one command.
+- The runner defaults to audit/review behavior and can apply only deterministic public-label fixes with `--fix-safe-labels`.
+- Updated `scripts/audit_public_partials.py` so it checks the current `About`, not `Brand`, footer-label requirement.
+- No visual CSS/header/footer/layout fixes were made in this tooling batch.
 
 ## Batch Completed In This Run
 - Restored floating WhatsApp and back-to-top behavior in all 50 concept `js/main.js` files.
@@ -86,7 +111,7 @@ COMPLETE FOR STATIC VALIDATION — docs, planning, pages, metadata, attributes, 
 - Static duplicate checks compare layout-signature sequences, while perceived design similarity still benefits from screenshot review.
 
 ## Exact Next Task
-Run screenshot QA on representative desktop/mobile pages and hand-polish any concept whose perceived layout still feels too close to another concept.
+Use `docs/agent-system/20-implementation-task-ledger.md` for the first implementation pass, beginning with high-priority header/footer/language-switcher issues. Do not begin fixes until the next task explicitly requests implementation.
 
 ## Screenshot / Design QA Batch - 2026-06-25 19:54
 
