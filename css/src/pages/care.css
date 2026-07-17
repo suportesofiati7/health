@@ -1,0 +1,14 @@
+@layer pages {
+  .sf-page[data-page="care"] #my-care-philosophy > .sf-editorial-split { background: linear-gradient(145deg, var(--color-bg-sage-soft), color-mix(in srgb, var(--white) 80%, transparent)); }
+  .sf-page[data-page="care"] #how-i-build-a-plan .sf-process-list { max-inline-size: none; }
+  .sf-page[data-page="care"] #before-treatment .sf-statement-inner { border-radius: var(--radius-xl) var(--radius-xl) var(--radius-md) var(--radius-xl); }
+  .sf-page[data-page="care"] #different-treatments-different-recovery .sf-content-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sf-page[data-page="care"] #aftercare-foundations > .sf-reading-column { max-inline-size: min(60rem, calc(100% - 2 * var(--page-gutter))); border: 1px solid var(--color-border-rose); border-radius: var(--radius-xl); background: color-mix(in srgb, var(--white) 70%, transparent); padding: clamp(1.4rem, 4vw, 4rem); box-shadow: var(--shadow-soft); }
+  .sf-page[data-page="care"] #dos-and-don-ts .sf-statement-inner { border-radius: var(--radius-lg) var(--radius-arch) var(--radius-lg) var(--radius-arch); }
+  .sf-page[data-page="care"] #daily-life-during-recovery .sf-content-card { align-content: start; }
+  .sf-page[data-page="care"] #contact-and-safety .sf-content-card--caution { border-inline-start: .25rem solid var(--rose-gold-600); }
+
+  @media (max-width: 63.999rem) {
+    .sf-page[data-page="care"] #different-treatments-different-recovery .sf-content-card-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  }
+}

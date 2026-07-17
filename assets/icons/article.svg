@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Article</title>
+  <path d="M15 16 H34 C39 16 42 19 42 24 V51 H21 C18 51 15 48 15 45Z"/><path d="M42 20 H49 V51 H42"/><path d="M23 27 H35"/><path d="M23 34 H36"/><path d="M23 41 H32"/><g transform="translate(44 22) rotate(-20) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

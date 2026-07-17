@@ -1,0 +1,27 @@
+# Franciele Sofiati Biomédica
+# Public pages and the assets required to render them are crawlable.
+# Excluded paths are repository sources or QA artifacts, not private access controls.
+
+User-agent: *
+Allow: /
+Disallow: /.agents/
+Disallow: /.codex/
+Disallow: /.git/
+Disallow: /__pycache__/
+Disallow: /backups/
+Disallow: /css/src/
+Disallow: /docs/
+Disallow: /node_modules/
+Disallow: /posts/
+Disallow: /qa/
+Disallow: /references/
+Disallow: /reports/
+Disallow: /screenshots/
+Disallow: /scripts/
+Disallow: /tests/
+Disallow: /.gitignore
+Disallow: /.translation-cache.json
+Disallow: /README.md
+Disallow: /requirements-translation.txt
+
+Sitemap: https://www.francielesofiati.com/sitemap.xml

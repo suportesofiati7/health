@@ -1,0 +1,61 @@
+@layer compositions {
+  .sf-editorial-media-layout { align-items: start; }
+
+  .sf-editorial-media {
+    position: relative;
+    min-inline-size: 0;
+    max-inline-size: var(--container-media);
+    overflow: clip;
+    border: 1px solid var(--color-border-warm);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-soft);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .sf-editorial-media::after {
+    content: "";
+    position: absolute;
+    inset: .55rem;
+    border: 1px solid color-mix(in srgb, var(--ivory-50) 62%, transparent);
+    border-radius: calc(var(--radius-lg) - .35rem);
+    pointer-events: none;
+  }
+
+  .sf-editorial-media img { inline-size: 100%; aspect-ratio: 16 / 11; object-fit: cover; }
+  .sf-editorial-split > :is(figure, picture, .sf-editorial-media) { min-inline-size: 0; }
+  .sf-editorial-copy > * + * { margin-block-start: var(--space-3); }
+
+  .sf-editorial-media-layout > .sf-editorial-split {
+    display: block;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+  .sf-editorial-media-layout > .sf-editorial-split > .sf-editorial-copy { margin-block-start: clamp(1.5rem, 3vw, 2.5rem); }
+
+  [data-pattern="evidence-panel"] .sf-editorial-media-layout,
+  [data-pattern="reading-column"] .sf-section-inner { align-items: start; }
+
+  [data-pattern="evidence-panel"] > .sf-editorial-media-layout {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  [data-pattern="reading-column"] > .sf-reading-column { max-inline-size: none; }
+  [data-pattern="reading-column"] > .sf-reading-column > :is(p, ul, ol, dl) { max-inline-size: var(--container-reading); }
+  [data-pattern="reading-column"] :is(h3, h4) { margin-block-start: var(--space-6); }
+  [data-pattern="reading-column"] :is(ul, ol) { margin-block-start: var(--space-3); }
+
+  [data-media-position="left"] > .sf-editorial-media-layout > .sf-editorial-media { grid-column: 1; }
+  [data-media-position="left"] > .sf-editorial-media-layout > .sf-section-inner { grid-column: 2; }
+
+  @media (max-width: 63.999rem) {
+    [data-media-position="left"] > .sf-editorial-media-layout > .sf-editorial-media { grid-column: 1; grid-row: 2; }
+    [data-media-position="left"] > .sf-editorial-media-layout > .sf-section-inner { grid-column: 1; grid-row: 1; }
+  }
+}

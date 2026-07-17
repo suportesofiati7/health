@@ -1,0 +1,129 @@
+@layer pages {
+  /* Every chapter begins on the master rail. Width variation happens inside
+     the composition, never by nesting another centred max-width container. */
+  .sf-page .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"]) > .sf-canvas {
+    inline-size: min(calc(100% - 2 * var(--edge-gutter)), var(--section-canvas-max, var(--site-canvas-max))) !important; /* important: canonical site rail replaces legacy page-ID widths while allowing an explicitly narrower authored rail. */
+    max-inline-size: none !important; /* important: canonical site rail replaces legacy nested max widths. */
+    margin-inline: auto !important; /* important: canonical site rail replaces legacy asymmetric wrapper margins. */
+  }
+
+  .sf-page .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"]) :is(.sf-section-head, .sf-editorial-kicker, .sf-form-section-intro) {
+    display: block !important; /* important: chapter number, label and heading remain one anchored component. */
+    margin-inline: 0 !important; /* important: chapter headers must stay on the shared left anchor. */
+    text-align: start !important; /* important: chapter headers must not inherit centred legacy treatments. */
+  }
+
+  .sf-page .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"]) :is(.sf-section-head, .sf-editorial-kicker, .sf-form-section-intro) .sf-eyebrow { justify-content: flex-start !important; /* important: orientation labels share the chapter anchor. */ }
+
+  .sf-page .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"]) :is(.sf-section-head, .sf-editorial-kicker, .sf-form-section-intro) h2 {
+    max-inline-size: min(21ch, 100%);
+    margin-inline: 0 !important; /* important: headings must not inherit centred component margins. */
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .sf-page .sf-main > :is([data-pattern="quote-panel"], [data-pattern="pull-quote"], [data-pattern="oversized-statement"]) > .sf-statement-inner,
+  .sf-page .sf-main > :is([data-pattern="quote-panel"], [data-pattern="pull-quote"], [data-pattern="oversized-statement"]) > .sf-editorial-media-layout > .sf-statement-inner,
+  .sf-page .sf-main > .sf-section > .sf-editorial-media-layout.sf-canvas {
+    border: 0 !important; /* important: scene wrapper removes legacy floating-panel chrome. */
+    border-radius: 0 !important; /* important: scene wrapper removes legacy floating-panel chrome. */
+    background-color: transparent !important; /* important: the section scene owns its background. */
+    background-image: none !important; /* important: the section scene owns its artwork. */
+    padding: 0 !important; /* important: the master canvas owns section alignment. */
+    box-shadow: none !important; /* important: full scenes replace legacy floating panels. */
+  }
+
+  .sf-page .sf-main > .sf-section[data-scene="olive-garden"] > .sf-editorial-split {
+    border-color: rgb(234 213 173 / .34);
+    background: transparent;
+    color: var(--ivory-50);
+    box-shadow: none;
+  }
+  .sf-page .sf-main > .sf-section[data-scene="olive-garden"] > .sf-editorial-split :is(h2, h3, p, li, .sf-eyebrow) { color: inherit; }
+
+  .sf-page .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"])[data-scale="micro"] { padding-block: var(--section-micro) !important; /* important: explicit art-map scale overrides legacy family padding. */ }
+  .sf-page .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"])[data-scale="compact"] { padding-block: var(--section-compact) !important; /* important: explicit art-map scale overrides legacy family padding. */ }
+  .sf-page .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"])[data-scale="standard"] { padding-block: var(--section-standard) !important; /* important: explicit art-map scale overrides legacy family padding. */ }
+  .sf-page .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"])[data-scale="immersive"] { padding-block: var(--section-comfortable) !important; /* important: explicit art-map scale overrides legacy family padding. */ }
+
+  /* The real chapter component now supplies the only orientation number. */
+  .sf-page[data-page="home"] #care-routes::before,
+  .sf-page[data-page="home"] #plan-factors::after,
+  .sf-page[data-page="home"] :is(#decision-flow, #science-with-softness, #responsible-pauses, #meet-franciele) .sf-section-head::before,
+  .sf-page[data-page="home"] #treatment-pathways .sf-section-head::after { content: none !important; display: none !important; /* important: remove legacy duplicate chapter numerals. */ }
+  .sf-page[data-page="home"] #decision-flow::before { content: none !important; display: none !important; /* important: remove the decorative guide that ignores the real grid. */ }
+
+  @media (min-width: 64rem) {
+    .sf-page [data-pattern="horizontal-bands"] > .sf-section-inner,
+    .sf-page [data-pattern="definition-blocks"] > .sf-section-inner,
+    .sf-page [data-pattern="page-directory"] > .sf-section-inner {
+      display: grid;
+      grid-template-columns: minmax(18rem, .62fr) minmax(0, 1.38fr);
+      column-gap: clamp(3rem, 6.5vw, 7.5rem);
+      align-items: start;
+    }
+
+    .sf-page :is([data-pattern="horizontal-bands"], [data-pattern="definition-blocks"], [data-pattern="page-directory"]) > .sf-section-inner > :not(.sf-section-head) {
+      grid-column: 2;
+    }
+
+    .sf-page :is([data-pattern="horizontal-bands"], [data-pattern="definition-blocks"], [data-pattern="page-directory"]) > .sf-section-inner > .sf-section-head {
+      grid-column: 1;
+      margin-block-end: 0;
+    }
+  }
+
+  /* About is a biography. One major image, one dominant principle, then
+     composed ledgers for the supporting facts. */
+  .sf-page[data-page="about"] #why-this-work .sf-editorial-media { max-inline-size: none; }
+  .sf-page[data-page="about"] #my-view-of-aesthetics .sf-content-card { min-block-size: 13rem; border-radius: 0; background: rgb(255 253 249 / .72); box-shadow: none; }
+  .sf-page[data-page="about"] #clinical-judgment .sf-content-card-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .sf-page[data-page="about"] #clinical-judgment .sf-content-card:first-child { grid-column: span 2; min-block-size: 12rem; background: rgb(255 253 249 / .82); }
+  .sf-page[data-page="about"] #the-clinic-experience .sf-content-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sf-page[data-page="about"] #technology-with-purpose .sf-content-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sf-page[data-page="about"] #technology-with-purpose .sf-content-card:first-child { grid-column: span 2; min-block-size: 14rem; }
+
+  /* Mission and Values are manifesto pages. Their quotation is the artwork;
+     internal facts stay in restrained, readable ledgers. */
+  .sf-page:is([data-page="mission"], [data-page="values"]) [data-pattern="quote-panel"] .sf-pull-quote { max-inline-size: 42rem; }
+  .sf-page[data-page="values"] #individuality .sf-content-card { min-block-size: 12rem; border-radius: 0; background: transparent; box-shadow: none; }
+  .sf-page[data-page="values"] #honesty .sf-content-card { border-radius: 0; background: rgb(255 253 249 / .62); box-shadow: none; }
+
+  /* Forms live in a broad room. Controls remain on an opaque working surface
+     while the chapter header stays on the shared left anchor. */
+  .sf-page[data-page="consultation"] [data-pattern="form"] .sf-form-section-layout {
+    grid-template-columns: minmax(19rem, .78fr) minmax(0, 1.22fr);
+    gap: clamp(3rem, 7vw, 8rem);
+  }
+  .sf-page[data-page="consultation"] [data-pattern="form"] .sf-form-section-intro { padding-inline-start: clamp(1rem, 2vw, 2rem); border-inline-start: 1px solid var(--rose-gold-500); }
+  .sf-page[data-page="consultation"] [data-pattern="form"] .sf-form-section-body { border-radius: 0; }
+
+  /* Policy pages are documents: compact chapters, full-width rules and a
+     reading measure. No empty illustration rectangles or floating cards. */
+  .sf-family-policy .sf-content-card-grid { gap: 0; border-block: 1px solid var(--color-border-warm); }
+  .sf-family-policy .sf-content-card { border: 0; border-radius: 0; border-block-end: 1px solid var(--color-border-subtle); background: rgb(255 253 249 / .52); box-shadow: none; }
+  .sf-family-policy .sf-section-inner > :is(p, ul, ol, dl),
+  .sf-family-policy .sf-editorial-copy > :is(p, ul, ol, dl) { max-inline-size: var(--reading-measure); }
+
+  /* One focal module may span the field; the remainder becomes secondary.
+     These selections are tied to authored page IDs, not section position. */
+  .sf-page[data-page="results"] #result-factors .sf-content-card:first-child,
+  .sf-page[data-page="skin"] #a-useful-routine .sf-content-card:first-child,
+  .sf-page[data-page="care"] #daily-life-during-recovery .sf-content-card:first-child {
+    grid-column: span 2;
+    min-block-size: 12rem;
+  }
+
+  @media (max-width: 63.999rem) {
+    .sf-page[data-page="consultation"] [data-pattern="form"] .sf-form-section-layout { grid-template-columns: 1fr; }
+    .sf-page[data-page="about"] :is(#clinical-judgment, #the-clinic-experience, #technology-with-purpose) .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="about"] :is(#clinical-judgment, #the-clinic-experience, #technology-with-purpose) .sf-content-card-grid { grid-template-columns: 1fr; }
+    .sf-page[data-page="about"] :is(#clinical-judgment, #technology-with-purpose) .sf-content-card:first-child,
+    .sf-page[data-page="results"] #result-factors .sf-content-card:first-child,
+    .sf-page[data-page="skin"] #a-useful-routine .sf-content-card:first-child,
+    .sf-page[data-page="care"] #daily-life-during-recovery .sf-content-card:first-child { grid-column: auto; }
+  }
+}

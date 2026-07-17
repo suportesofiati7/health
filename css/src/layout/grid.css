@@ -1,0 +1,37 @@
+@layer layout {
+  .sf-content-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: var(--grid-gap);
+  }
+
+  .sf-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+
+  .sf-editorial-media-layout,
+  .sf-editorial-split,
+  .sf-form-section-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(18rem, .78fr);
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 6rem);
+  }
+
+  [data-pattern="form"] .sf-form-section-layout {
+    grid-template-columns: minmax(15rem, .52fr) minmax(0, 1.48fr);
+    align-items: start;
+  }
+
+  .sf-editorial-media-layout > .sf-editorial-media { grid-column: 2; grid-row: 1; }
+  .sf-editorial-media-layout > .sf-section-inner { grid-column: 1; grid-row: 1; }
+  .sf-process-list { display: grid; gap: var(--space-4); }
+
+  @media (min-width: 48rem) and (max-width: 63.999rem) {
+    [data-pattern="numbered-sequence"] .sf-process-list,
+    [data-pattern="timeline"] .sf-process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (min-width: 64rem) {
+    [data-pattern="numbered-sequence"] .sf-process-list { grid-template-columns: repeat(auto-fit, minmax(11.5rem, 1fr)); }
+    [data-pattern="timeline"] .sf-process-list { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  }
+}

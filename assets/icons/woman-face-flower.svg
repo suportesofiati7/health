@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Woman Face Flower</title>
+  <path d="M32 31 C27 27 28 20 32 17 C36 20 37 27 32 31Z"/><path d="M32 31 C25 32 20 28 20 23 C27 21 32 24 32 31Z"/><path d="M32 31 C39 32 44 28 44 23 C37 21 32 24 32 31Z"/><path d="M32 31 V50"/><path d="M32 40 C25 36 20 38 17 43 C23 45 29 44 32 40Z"/><path d="M32 42 C39 37 45 39 48 44 C42 47 36 46 32 42Z"/><g transform="translate(46 16) scale(0.3)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g>
+</svg>

@@ -1,0 +1,54 @@
+{
+  "brand": {
+    "name": "Franciele Sofiati Biomédica",
+    "tagline": "Skincare. Science. Confidence.",
+    "descriptor": "Franciele Sofiati Biomédica · Advanced aesthetic care in Londrina, Paraná.",
+    "voiceLine": "Warm in the experience. Precise in the decision."
+  },
+  "trustStrip": [
+    "Consultation first",
+    "Human reply",
+    "Privacy respected",
+    "No pressure to proceed",
+    "Treatment-specific aftercare"
+  ],
+  "contact": {
+    "name": "Franciele Sofiati Biomédica",
+    "whatsAppDisplay": "(43) 9 9104-3536",
+    "whatsAppHref": "https://wa.me/5543991043536",
+    "email": "suportesofiati@gmail.com",
+    "instagramHandle": "@sofiati_biomedica",
+    "instagramHref": "https://www.instagram.com/sofiati_biomedica/",
+    "location": "Londrina, Paraná, Brazil"
+  },
+  "reassurance": [
+    "You do not need to know which treatment to choose before contacting the clinic.",
+    "A message can begin the conversation, but individual recommendations are confirmed in consultation.",
+    "Treatment response, recovery and the number of sessions vary.",
+    "No result is guaranteed and no photograph predicts another person’s response.",
+    "Urgent or rapidly worsening symptoms require appropriate medical assessment."
+  ],
+  "reviews": {
+    "quotations": [
+      "A highly capable and attentive professional.",
+      "Personalized, human care.",
+      "A wonderful environment.",
+      "The best place to care for my skin."
+    ],
+    "googleReviewsUrl": "https://share.google/95oyMN4LpnqCR8NWS"
+  },
+  "footer": {
+    "introduction": "Franciele Sofiati Biomédica provides consultation-led aesthetic care in Londrina for skin, laser, facial, scalp, vascular and body treatment planning. Every recommendation begins with assessment, clear explanation and realistic expectations.",
+    "supportLine": "Begin with a question. Explore the information, understand the approach and request a consultation when you are ready for an individual assessment."
+  },
+  "professional": {
+    "name": "Franciele Sofiati",
+    "role": "Biomedical Practitioner, Aesthetician and Cosmetologist",
+    "registration": "CRBM 6277",
+    "officialPrivacyEmail": "sofiatimendonca@gmail.com"
+  },
+  "forms": {
+    "endpoint": "https://formspree.io/f/xzdldkjy",
+    "provider": "Formspree"
+  }
+}

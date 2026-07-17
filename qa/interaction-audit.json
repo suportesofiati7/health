@@ -1,0 +1,643 @@
+{
+  "generatedAt": "2026-07-17T15:13:54.553Z",
+  "routeCount": 52,
+  "englishOnly": false,
+  "checks": [
+    {
+      "name": "404.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"404.html\",\"pt\":\"pt/404.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "about.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"about.html\",\"pt\":\"pt/about.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "accessibility.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"accessibility.html\",\"pt\":\"pt/accessibility.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "blog.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"blog.html\",\"pt\":\"pt/blog.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "care.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"care.html\",\"pt\":\"pt/care.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "consultation.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"consultation.html\",\"pt\":\"pt/consultation.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "contact.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"contact.html\",\"pt\":\"pt/contact.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "cookies.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"cookies.html\",\"pt\":\"pt/cookies.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "faq.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"faq.html\",\"pt\":\"pt/faq.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "index.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"index.html\",\"pt\":\"pt/index.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"journal.html\",\"pt\":\"pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/fractional-co2-laser-recovery-and-aftercare.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/fractional-co2-laser-recovery-and-aftercare.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/hair-thinning-causes-and-scalp-care.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/hair-thinning-causes-and-scalp-care.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/laser-hair-removal-process-and-maintenance.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/laser-hair-removal-process-and-maintenance.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/persistent-facial-redness-and-vessels.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/persistent-facial-redness-and-vessels.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/professional-skin-cleansing-guide.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/professional-skin-cleansing-guide.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/rebuilding-an-overwhelmed-skin-barrier.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/rebuilding-an-overwhelmed-skin-barrier.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/ultrasound-radiofrequency-collagen-treatment.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/ultrasound-radiofrequency-collagen-treatment.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/understanding-acne-scar-treatment.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/understanding-acne-scar-treatment.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/understanding-facial-pigmentation.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/understanding-facial-pigmentation.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/why-aesthetic-care-begins-with-consultation.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/why-aesthetic-care-begins-with-consultation.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "laser.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"laser.html\",\"pt\":\"pt/laser.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "legal.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"legal.html\",\"pt\":\"pt/legal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "mission.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"mission.html\",\"pt\":\"pt/mission.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "privacy.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"privacy.html\",\"pt\":\"pt/privacy.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/404.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../404.html\",\"pt\":\"404.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/about.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../about.html\",\"pt\":\"about.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/accessibility.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../accessibility.html\",\"pt\":\"accessibility.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/blog.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../blog.html\",\"pt\":\"blog.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/care.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../care.html\",\"pt\":\"care.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/consultation.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../consultation.html\",\"pt\":\"consultation.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/contact.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../contact.html\",\"pt\":\"contact.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/cookies.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../cookies.html\",\"pt\":\"cookies.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/faq.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../faq.html\",\"pt\":\"faq.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/index.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../index.html\",\"pt\":\"index.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/journal.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal.html\",\"pt\":\"journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/laser.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../laser.html\",\"pt\":\"laser.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/legal.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../legal.html\",\"pt\":\"legal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/mission.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../mission.html\",\"pt\":\"mission.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/privacy.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../privacy.html\",\"pt\":\"privacy.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/results.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../results.html\",\"pt\":\"results.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/skin.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../skin.html\",\"pt\":\"skin.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/testimonials.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../testimonials.html\",\"pt\":\"testimonials.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/thank-you.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../thank-you.html\",\"pt\":\"thank-you.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/treatments.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../treatments.html\",\"pt\":\"treatments.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/values.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../values.html\",\"pt\":\"values.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "results.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"results.html\",\"pt\":\"pt/results.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "skin.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"skin.html\",\"pt\":\"pt/skin.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "testimonials.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"testimonials.html\",\"pt\":\"pt/testimonials.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "thank-you.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"thank-you.html\",\"pt\":\"pt/thank-you.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "treatments.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"treatments.html\",\"pt\":\"pt/treatments.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "values.html @ 390px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"values.html\",\"pt\":\"pt/values.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "404.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"404.html\",\"pt\":\"pt/404.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "about.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"about.html\",\"pt\":\"pt/about.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "accessibility.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"accessibility.html\",\"pt\":\"pt/accessibility.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "blog.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"blog.html\",\"pt\":\"pt/blog.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "care.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"care.html\",\"pt\":\"pt/care.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "consultation.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"consultation.html\",\"pt\":\"pt/consultation.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "contact.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"contact.html\",\"pt\":\"pt/contact.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "cookies.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"cookies.html\",\"pt\":\"pt/cookies.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "faq.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"faq.html\",\"pt\":\"pt/faq.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "index.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"index.html\",\"pt\":\"pt/index.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"journal.html\",\"pt\":\"pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/fractional-co2-laser-recovery-and-aftercare.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/fractional-co2-laser-recovery-and-aftercare.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/hair-thinning-causes-and-scalp-care.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/hair-thinning-causes-and-scalp-care.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/laser-hair-removal-process-and-maintenance.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/laser-hair-removal-process-and-maintenance.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/persistent-facial-redness-and-vessels.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/persistent-facial-redness-and-vessels.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/professional-skin-cleansing-guide.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/professional-skin-cleansing-guide.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/rebuilding-an-overwhelmed-skin-barrier.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/rebuilding-an-overwhelmed-skin-barrier.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/ultrasound-radiofrequency-collagen-treatment.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/ultrasound-radiofrequency-collagen-treatment.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/understanding-acne-scar-treatment.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/understanding-acne-scar-treatment.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/understanding-facial-pigmentation.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/understanding-facial-pigmentation.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "journal/why-aesthetic-care-begins-with-consultation.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal/why-aesthetic-care-begins-with-consultation.html\",\"pt\":\"../pt/journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "laser.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"laser.html\",\"pt\":\"pt/laser.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "legal.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"legal.html\",\"pt\":\"pt/legal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "mission.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"mission.html\",\"pt\":\"pt/mission.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "privacy.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"privacy.html\",\"pt\":\"pt/privacy.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/404.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../404.html\",\"pt\":\"404.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/about.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../about.html\",\"pt\":\"about.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/accessibility.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../accessibility.html\",\"pt\":\"accessibility.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/blog.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../blog.html\",\"pt\":\"blog.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/care.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../care.html\",\"pt\":\"care.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/consultation.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../consultation.html\",\"pt\":\"consultation.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/contact.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../contact.html\",\"pt\":\"contact.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/cookies.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../cookies.html\",\"pt\":\"cookies.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/faq.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../faq.html\",\"pt\":\"faq.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/index.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../index.html\",\"pt\":\"index.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/journal.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../journal.html\",\"pt\":\"journal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/laser.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../laser.html\",\"pt\":\"laser.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/legal.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../legal.html\",\"pt\":\"legal.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/mission.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../mission.html\",\"pt\":\"mission.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/privacy.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../privacy.html\",\"pt\":\"privacy.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/results.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../results.html\",\"pt\":\"results.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/skin.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../skin.html\",\"pt\":\"skin.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/testimonials.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../testimonials.html\",\"pt\":\"testimonials.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/thank-you.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../thank-you.html\",\"pt\":\"thank-you.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/treatments.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../treatments.html\",\"pt\":\"treatments.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "pt/values.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"pt-BR\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"../values.html\",\"pt\":\"values.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/pt-BR/top-bar.html\",\"/partials/pt-BR/header.html\",\"/partials/pt-BR/mobile-menu.html\",\"/partials/pt-BR/footer.html\",\"/partials/pt-BR/cookie-banner.html\",\"/partials/pt-BR/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "results.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"results.html\",\"pt\":\"pt/results.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "skin.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"skin.html\",\"pt\":\"pt/skin.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "testimonials.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"testimonials.html\",\"pt\":\"pt/testimonials.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "thank-you.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"thank-you.html\",\"pt\":\"pt/thank-you.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "treatments.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"treatments.html\",\"pt\":\"pt/treatments.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "values.html @ 1440px",
+      "passed": true,
+      "detail": "{\"mains\":1,\"h1s\":1,\"duplicateIds\":[],\"brokenImages\":[],\"partialCounts\":{\"topbar\":1,\"header\":1,\"mobile-menu\":1,\"footer\":1,\"cookie-banner\":1,\"floating-widgets\":1},\"partialOrder\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"],\"partialRootsAreBodyChildren\":true,\"remainingPlaceholders\":0,\"partialEvents\":1,\"partialEventDetail\":{\"language\":\"en\",\"partials\":[\"topbar\",\"header\",\"mobile-menu\",\"footer\",\"cookie-banner\",\"floating-widgets\"]},\"languageLinks\":{\"en\":\"values.html\",\"pt\":\"pt/values.html\"},\"activeNavigationValid\":true,\"whatsappLinks\":[\"https://wa.me/5543991043536\"],\"backToTopCount\":1,\"partialRequests\":[\"/partials/top-bar.html\",\"/partials/header.html\",\"/partials/mobile-menu.html\",\"/partials/footer.html\",\"/partials/cookie-banner.html\",\"/partials/floating-widgets.html\"],\"errors\":[]}"
+    },
+    {
+      "name": "index.html mobile menu",
+      "passed": true,
+      "detail": "{\"opened\":true,\"focusInside\":true,\"wrappedBackward\":true,\"wrappedForward\":true,\"closed\":true,\"focusReturned\":true}"
+    },
+    {
+      "name": "pt/index.html mobile menu",
+      "passed": true,
+      "detail": "{\"opened\":true,\"focusInside\":true,\"wrappedBackward\":true,\"wrappedForward\":true,\"closed\":true,\"focusReturned\":true}"
+    },
+    {
+      "name": "index.html back to top",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pt/index.html back to top",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "cookie banner customise/save/reject",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "faq.html FAQ filter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pt/faq.html FAQ filter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "blog.html curated topic gateway",
+      "passed": true,
+      "detail": "{\"topics\":6,\"linkedTopics\":2}"
+    },
+    {
+      "name": "pt/blog.html curated topic gateway",
+      "passed": true,
+      "detail": "{\"topics\":6,\"linkedTopics\":2}"
+    },
+    {
+      "name": "treatments.html treatment facets",
+      "passed": true,
+      "detail": "{\"total\":20,\"visibleAfterFilter\":0,\"hiddenSections\":8,\"visibleAfterReset\":20,\"categoryNav\":8}"
+    },
+    {
+      "name": "pt/treatments.html treatment facets",
+      "passed": true,
+      "detail": "{\"total\":20,\"visibleAfterFilter\":0,\"hiddenSections\":8,\"visibleAfterReset\":20,\"categoryNav\":8}"
+    },
+    {
+      "name": "accessibility.html invalid form state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "accessibility.html intercepted success state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "contact.html invalid form state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "contact.html intercepted success state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "consultation.html invalid form state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "consultation.html intercepted success state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pt/accessibility.html invalid form state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pt/accessibility.html intercepted success state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pt/contact.html invalid form state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pt/contact.html intercepted success state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pt/consultation.html invalid form state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pt/consultation.html intercepted success state",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "failures": []
+}

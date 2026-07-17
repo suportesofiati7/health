@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Hamburger Menu</title>
+  <path d="M16 22 H48"/><path d="M16 32 H48"/><path d="M16 42 H48"/><g transform="translate(45 21) rotate(-10) scale(0.34)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

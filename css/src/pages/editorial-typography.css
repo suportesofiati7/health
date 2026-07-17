@@ -1,0 +1,87 @@
+@layer pages {
+  /* One editorial voice across every route: high-contrast serif for moments
+     of meaning, measured sans serif for reading, metadata and controls. */
+  .type-display,
+  .type-editorial,
+  .type-section-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    letter-spacing: -.048em;
+    text-wrap: balance;
+  }
+
+  .type-display { font-size: var(--type-display-xl); line-height: var(--leading-display); }
+  .type-editorial { font-size: var(--type-editorial-statement); line-height: var(--leading-editorial); }
+  .type-section-title { font-size: var(--type-section-title); line-height: 1; }
+  .type-eyebrow { color: var(--gold-700); font-family: var(--font-body); font-size: var(--type-label); font-weight: 750; letter-spacing: var(--tracking-label); line-height: 1.45; text-transform: uppercase; }
+  .type-intro { max-inline-size: var(--measure-intro); color: var(--color-text-secondary); font-family: var(--font-body); font-size: var(--type-intro); line-height: var(--leading-body); }
+  .type-pullquote { max-inline-size: 31ch; color: var(--forest-900); font-family: var(--font-italic); font-size: var(--type-quotation); font-style: italic; font-weight: 400; letter-spacing: -.025em; line-height: 1.38; }
+  .type-chapter { color: var(--rose-gold-600); font-family: var(--font-heading); font-size: clamp(3rem, 5.8vw, 6.3rem); font-weight: 400; letter-spacing: -.07em; line-height: .78; }
+  .type-vertical-label { color: var(--gold-700); font-family: var(--font-body); font-size: .68rem; font-weight: 750; letter-spacing: .19em; text-transform: uppercase; writing-mode: vertical-rl; }
+  .type-signature { color: var(--rose-gold-600); font-family: var(--font-accent); font-size: clamp(1.15rem, 1.8vw, 1.65rem); font-weight: 400; letter-spacing: .01em; }
+  .type-caption, .type-meta { color: var(--color-text-muted); font-family: var(--font-body); font-size: var(--type-caption); letter-spacing: .08em; line-height: 1.5; }
+
+  h1, h2, h3, h4 {
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1;
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures discretionary-ligatures;
+  }
+
+  .sf-hero-copy h1 { max-inline-size: 10ch; font-size: var(--type-page-title); line-height: var(--leading-display); text-wrap: balance; }
+  .sf-section-head h2 { max-inline-size: min(21ch, 100%); font-size: var(--type-section-title); letter-spacing: -.048em; overflow-wrap: normal; text-wrap: balance; word-break: normal; }
+  .sf-section-head > p:not(.sf-eyebrow) { max-inline-size: var(--measure-intro); }
+  .sf-section-head h2 + p { color: var(--color-text-secondary); font-family: var(--font-body); font-size: var(--type-intro); line-height: var(--leading-body); }
+  .sf-content-card p, .sf-step p, .sf-accordion__content { max-inline-size: var(--measure-body); line-height: var(--leading-body); }
+  .sf-content-card h3, .sf-step h3 { font-size: clamp(1.32rem, 1.7vw, 1.8rem); line-height: 1.08; }
+  .sf-lede { max-inline-size: var(--measure-intro); color: var(--color-text-secondary); font-family: var(--font-body); font-size: var(--type-intro); line-height: var(--leading-body); }
+  .sf-pull-quote p { max-inline-size: 31ch; font-family: var(--font-italic); font-size: var(--type-quotation); font-style: italic; font-weight: 400; letter-spacing: -.025em; line-height: 1.38; }
+  .sf-pull-quote p em, :is(.sf-testimonial-quote, .sf-practitioner-quote) em { color: var(--rose-gold-600); }
+  :is(.sf-testimonial-quote, .sf-practitioner-quote) figcaption { color: var(--color-text-primary); font-size: var(--type-small); font-weight: 720; letter-spacing: .11em; text-transform: uppercase; }
+  .sf-nav a, .sf-button, button { letter-spacing: .045em; }
+
+  /* Pattern-level treatments change scale or emphasis only; typefaces stay
+     consistent, preventing the former page-to-page font conflicts. */
+  [data-pattern="oversized-statement"] .sf-section-head h2,
+  [data-pattern="editorial-split"] .sf-section-head h2 {
+    font-size: var(--type-editorial-statement);
+    line-height: var(--leading-editorial);
+  }
+  [data-pattern="definition-blocks"] .sf-section-head h2,
+  [data-pattern="quote-panel"] .sf-section-head h2 { font-style: italic; }
+  [data-pattern="route-map"] .sf-section-head h2 { max-inline-size: 14ch; font-size: var(--type-display-md); }
+  [data-pattern="horizontal-bands"] .sf-section-head h2 { max-inline-size: 20ch; }
+  [data-pattern="timeline"] .sf-section-head h2 { max-inline-size: 13ch; font-size: var(--type-display-md); }
+  [data-tone="forest"] .sf-section-head h2 { color: var(--ivory-50); }
+  [data-tone="forest"] .sf-section-head .sf-eyebrow { color: var(--gold-200); }
+  [data-pattern="page-directory"] .sf-section-head h2,
+  [data-pattern="page-directory"] .sf-content-card h3 {
+    color: var(--gold-700);
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.45vw, 1.35rem);
+    font-weight: 750;
+    letter-spacing: .115em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+  [data-pattern="definition-blocks"] .sf-content-card h3 { color: var(--rose-gold-700); font-style: italic; }
+  [data-pattern="staggered-cards"] .sf-content-card h3 { color: var(--olive-700); font-size: clamp(1.4rem, 2vw, 2rem); }
+  [data-pattern="quote-panel"] .sf-pull-quote p { font-size: var(--type-quotation); }
+
+  .sf-page[data-page="about"] .sf-bottom-cta__inner::before,
+  .sf-page[data-page="consultation"] .sf-bottom-cta__inner::before,
+  .sf-page[data-page="testimonials"] .sf-bottom-cta__inner::before {
+    display: block;
+    margin-block-end: .5rem;
+    color: var(--rose-gold-600);
+    content: "with care";
+    font-family: var(--font-accent);
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 35.999rem) {
+    .type-display { font-size: clamp(2.8rem, 13vw, 4.2rem); }
+    .type-editorial, [data-pattern="oversized-statement"] .sf-section-head h2,
+    [data-pattern="editorial-split"] .sf-section-head h2 { font-size: clamp(2.3rem, 11vw, 3.6rem); }
+    .sf-section-head h2 { text-wrap: pretty; }
+  }
+}

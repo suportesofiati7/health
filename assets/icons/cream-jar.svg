@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Cream Jar</title>
+  <path d="M22 25 H42"/><path d="M24 25 V19 H40 V25"/><rect x="19" y="25" width="26" height="24" rx="5"/><path d="M25 37 C29 34 35 34 39 37"/><g transform="translate(42 28) rotate(-20) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

@@ -1,0 +1,71 @@
+{
+  "captures": [
+    {
+      "page": "accessibility.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/accessibility--hero.png"
+    },
+    {
+      "page": "care.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/care--hero.png"
+    },
+    {
+      "page": "faq.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/faq--hero.png"
+    },
+    {
+      "page": "index.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/index--hero.png"
+    },
+    {
+      "page": "skin.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/skin--hero.png"
+    },
+    {
+      "page": "testimonials.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/testimonials--hero.png"
+    }
+  ],
+  "capturedAt": "2026-07-16T11:58:55",
+  "pages": [
+    "accessibility.html",
+    "care.html",
+    "faq.html",
+    "index.html",
+    "skin.html",
+    "testimonials.html"
+  ],
+  "viewports": {
+    "mobile-390": {
+      "width": 390,
+      "height": 844,
+      "isMobile": true
+    }
+  },
+  "target": {
+    "kind": "selectors",
+    "selectors": [
+      {
+        "name": "hero",
+        "selector": "main > section[data-pattern=\"hero\"], main > section[data-section=\"1\"]"
+      }
+    ]
+  }
+}

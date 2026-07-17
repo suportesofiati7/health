@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Laurel</title>
+  <path d="M20 48 C10 35 13 19 27 13"/><path d="M44 48 C54 35 51 19 37 13"/><g transform="translate(19 43) rotate(-40) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(21 37) rotate(-40) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(23 31) rotate(-40) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(25 25) rotate(-40) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(27 19) rotate(-40) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(45 43) rotate(220) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(43 37) rotate(220) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(41 31) rotate(220) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(39 25) rotate(220) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(37 19) rotate(220) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

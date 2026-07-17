@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Legal Scales</title>
+  <path d="M32 14 V48"/><path d="M20 22 H44"/><path d="M32 18 L21 39"/><path d="M32 18 L43 39"/><path d="M14 39 H28 C27 45 15 45 14 39Z"/><path d="M36 39 H50 C49 45 37 45 36 39Z"/><path d="M23 52 H41"/><g transform="translate(43 22) rotate(-20) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

@@ -1,0 +1,67 @@
+{
+  "generatedAt": "2026-07-06T21:53:48.038186+00:00",
+  "iconCountUnique": 287,
+  "variantCount": 574,
+  "totalSvgFilesIncludingConvenienceCopies": 861,
+  "style": "thin rounded feminine botanical luxury line-art",
+  "files": {
+    "lineIcons": "assets/icons/line/",
+    "medallionIcons": "assets/icons/medallion/",
+    "convenienceCopies": "assets/icons/",
+    "sprite": "assets/icons/sprite/icons-sprite.svg",
+    "css": "assets/css/sf-icons.css",
+    "preview": "preview/icon-preview.html"
+  },
+  "completeness": {
+    "footerIconMap": {
+      "requiredCount": 28,
+      "generatedCount": 28,
+      "missing": [],
+      "complete": true
+    },
+    "sectionPatternMap": {
+      "requiredCount": 112,
+      "generatedCount": 112,
+      "missing": [],
+      "complete": true
+    },
+    "pageIconMap": {
+      "requiredCount": 103,
+      "generatedCount": 103,
+      "missing": [],
+      "complete": true
+    },
+    "globalCategories": {
+      "requiredCount": 174,
+      "generatedCount": 174,
+      "missing": [],
+      "complete": true
+    },
+    "customRequired": {
+      "requiredCount": 41,
+      "generatedCount": 41,
+      "missing": [],
+      "complete": true
+    },
+    "extras": {
+      "requiredCount": 98,
+      "generatedCount": 98,
+      "missing": [],
+      "complete": true
+    }
+  },
+  "qa": {
+    "transparentSVG": true,
+    "usesCurrentColor": true,
+    "viewBox": "0 0 64 64",
+    "roundedCapsAndJoins": true,
+    "strokeWidth": 1.12,
+    "whiteBoxes": false,
+    "checkerboardBackgrounds": false,
+    "rasterImages": false,
+    "footerIconsMapped": true,
+    "pageIconsMapped": true,
+    "sectionPatternsMapped": true,
+    "treatmentIconsMapped": true
+  }
+}

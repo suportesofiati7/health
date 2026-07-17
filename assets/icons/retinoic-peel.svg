@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Retinoic Peel</title>
+  <path d="M13 43 C23 36 41 36 51 43"/><path d="M15 51 C25 45 39 45 49 51"/><path d="M32 14 C40 24 44 30 44 36 C44 42 39 46 32 46 C25 46 20 42 20 36 C20 30 24 24 32 14Z"/><g transform="translate(34 32) rotate(-25) scale(0.38)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

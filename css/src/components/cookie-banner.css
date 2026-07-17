@@ -1,0 +1,41 @@
+@layer components {
+  .sf-cookie-settings { display: grid; gap: var(--space-4); }
+  .sf-cookie-choice-list { display: grid; gap: var(--space-3); }
+  .sf-cookie-choice {
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-surface);
+    padding: var(--space-3);
+  }
+  .sf-cookie-choice label {
+    min-block-size: 2.75rem;
+    display: grid;
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    align-items: center;
+    gap: .75rem;
+    cursor: pointer;
+  }
+  .sf-cookie-choice label:has(input:disabled) { cursor: default; }
+  .sf-cookie-choice input { inline-size: 1.25rem; block-size: 1.25rem; accent-color: var(--color-action-primary); }
+  .sf-cookie-choice label > span { display: grid; gap: .15rem; }
+  .sf-cookie-choice small { color: var(--color-text-secondary); font-size: .875rem; }
+  .sf-cookie-choice p { margin-block-start: var(--space-2); }
+
+  #sf-cookie-inline { position: fixed; inset-inline: var(--page-gutter); inset-block-end: var(--page-gutter); z-index: var(--z-cookie); }
+  .sfc-shell { inline-size: min(100%, 68rem); margin-inline: auto; border: 1px solid var(--color-border-warm); border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-xl); background: radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--blush-200) 55%, transparent), transparent 16rem), radial-gradient(circle at 4% 100%, color-mix(in srgb, var(--sage-200) 58%, transparent), transparent 18rem), color-mix(in srgb, var(--ivory-50) 96%, transparent); padding: clamp(1rem, 3vw, 1.75rem); box-shadow: var(--shadow-raised); backdrop-filter: blur(1rem); }
+  .sfc-copy-wrap { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); }
+  .sfc-dot { inline-size: .7rem; block-size: .7rem; margin-block-start: .55rem; border-radius: 50%; background: var(--rose-500); }
+  .sfc-title { font-family: var(--font-heading); font-size: 1.4rem; }
+  .sfc-copy { color: var(--color-text-secondary); font-size: .85rem; }
+  .sfc-preferences { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin-block-start: var(--space-4); }
+  .sfc-choice { display: grid; grid-template-columns: 1.2rem 1fr; align-items: start; gap: .65rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); background: color-mix(in srgb, var(--white) 64%, transparent); padding: .8rem; }
+  .sfc-choice small { display: block; color: var(--color-text-secondary); }
+  .sfc-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-block-start: var(--space-4); }
+  .sfc-button { padding-inline: 1rem; }
+
+  @media (max-width: 35.999rem) {
+    #sf-cookie-inline { inset-inline: .6rem; inset-block-end: .6rem; }
+    .sfc-preferences { grid-template-columns: 1fr; max-block-size: 45vh; overflow-y: auto; }
+    .sfc-actions { display: grid; }
+  }
+}

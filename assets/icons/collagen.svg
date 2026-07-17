@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Collagen</title>
+  <path d="M18 18 C30 16 31 30 44 28"/><path d="M18 28 C31 26 32 40 46 38"/><path d="M18 38 C31 36 32 50 46 48"/><path d="M21 18 C31 30 33 39 44 48"/><g transform="translate(47 29) rotate(-10) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

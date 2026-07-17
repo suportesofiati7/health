@@ -1,0 +1,257 @@
+@layer pages {
+  /* Contact is one form-only room. The fixed page artwork remains visible in
+     the side fields while a single opaque centre rail carries every control. */
+  .sf-page[data-page="contact"] #contact-form-section {
+    --section-canvas-max: 68rem;
+    min-block-size: 70svh;
+    padding-block: clamp(3.5rem, 7vw, 7rem) !important;
+    border-block: 1px solid color-mix(in srgb, var(--gold-500) 45%, transparent);
+    background:
+      linear-gradient(90deg, rgb(255 253 249 / .2), rgb(248 232 226 / .48) 50%, rgb(255 253 249 / .2)) !important;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section::before {
+    content: "";
+    position: absolute;
+    inset: clamp(1.5rem, 4vw, 4rem) 50% auto auto;
+    z-index: 0;
+    inline-size: min(42vw, 38rem);
+    block-size: clamp(12rem, 28vw, 25rem);
+    border: 1px solid color-mix(in srgb, var(--gold-500) 42%, transparent);
+    border-block-end: 0;
+    border-radius: 50% 50% 0 0;
+    translate: 50% 0;
+    pointer-events: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section::after {
+    content: "";
+    position: absolute;
+    inset: auto -5rem -6rem auto;
+    z-index: 0;
+    inline-size: clamp(16rem, 30vw, 32rem);
+    aspect-ratio: 1;
+    background: url("../assets/icons/botanical-branch.svg") center / contain no-repeat;
+    opacity: .1;
+    rotate: -12deg;
+    pointer-events: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--gold-500) 58%, transparent);
+    border-radius: 8rem 1rem 1rem;
+    background: var(--ivory-50);
+    box-shadow: 0 2.5rem 7rem rgb(36 49 41 / .2), inset 0 1px 0 rgb(255 255 255 / .9);
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro {
+    position: relative;
+    inset-block-start: auto;
+    overflow: hidden;
+    margin: 0 !important;
+    border: 0;
+    border-block-end: 1px solid color-mix(in srgb, var(--gold-500) 42%, transparent);
+    background:
+      radial-gradient(circle at 10% 0%, rgb(244 210 195 / .42), transparent 34%),
+      linear-gradient(118deg, var(--ivory-50), var(--blush-50) 58%, var(--sage-50));
+    padding: clamp(2.5rem, 6vw, 5.5rem);
+    text-align: center !important;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro::after {
+    content: "FS";
+    position: absolute;
+    inset: auto -1.5rem -3.4rem auto;
+    color: rgb(189 121 107 / .075);
+    font-family: var(--font-heading);
+    font-size: clamp(9rem, 20vw, 15rem);
+    font-style: italic;
+    line-height: .8;
+    pointer-events: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-eyebrow {
+    justify-content: center !important;
+    color: var(--rose-gold-700);
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro h1 {
+    position: relative;
+    z-index: 1;
+    max-inline-size: 11ch;
+    margin-inline: auto;
+    color: var(--forest-900);
+    font-family: var(--font-heading);
+    font-size: clamp(3.25rem, 7vw, 6.25rem);
+    font-weight: 400;
+    letter-spacing: -.055em;
+    line-height: .92;
+    text-wrap: balance;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide {
+    position: relative;
+    z-index: 1;
+    max-inline-size: 38rem;
+    margin: clamp(2rem, 4vw, 3.25rem) auto 0;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__promise {
+    margin-inline: auto;
+    color: var(--rose-gold-700);
+    font-size: var(--type-small);
+    font-weight: 790;
+    letter-spacing: .09em;
+    line-height: 1.65;
+    text-transform: uppercase;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide h2 {
+    margin-block: 1.5rem .65rem;
+    color: var(--forest-900);
+    font-family: var(--font-heading);
+    font-size: clamp(1.45rem, 2vw, 1.85rem);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes {
+    display: grid;
+    max-inline-size: 32rem;
+    margin-inline: auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes li {
+    display: grid;
+    grid-template-columns: minmax(5rem, .35fr) minmax(0, 1fr);
+    gap: 1rem;
+    margin: 0;
+    border-block-start: 1px solid color-mix(in srgb, var(--gold-500) 30%, transparent);
+    padding-block: .7rem;
+    text-align: start;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes a {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(5rem, .35fr) minmax(0, 1fr);
+    gap: 1rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes span {
+    color: var(--rose-gold-700);
+    font-size: .72rem;
+    font-weight: 820;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes strong {
+    min-inline-size: 0;
+    color: var(--forest-900);
+    font-size: .9rem;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__safety {
+    margin: 1.25rem auto 0;
+    border-inline-start: 2px solid var(--rose-gold-500);
+    background: rgb(248 232 226 / .76);
+    padding: .8rem 1rem;
+    color: var(--forest-800);
+    font-size: .875rem;
+    line-height: 1.55;
+    text-align: start;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-body {
+    border: 0;
+    border-radius: 0;
+    background:
+      repeating-linear-gradient(0deg, rgb(88 74 48 / .018) 0 1px, transparent 1px 6px),
+      var(--ivory-50);
+    padding: clamp(1.5rem, 5vw, 4.5rem);
+    box-shadow: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form {
+    max-inline-size: 52rem;
+    margin-inline: auto;
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    border: 0;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form .sf-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.15rem, 2vw, 1.65rem);
+  }
+
+  .sf-page[data-page="contact"] #contact-form .sf-field { grid-column: auto; }
+
+  .sf-page[data-page="contact"] #contact-form :is(input:not([type="checkbox"]), select, textarea) {
+    border-color: color-mix(in srgb, var(--olive-700) 28%, transparent);
+    border-radius: .35rem;
+    background: var(--white);
+    box-shadow: 0 .55rem 1.4rem rgb(53 62 43 / .045);
+  }
+
+  .sf-page[data-page="contact"] #contact-form textarea { min-block-size: 12rem; }
+
+  .sf-page[data-page="contact"] #contact-form .sf-field--checkbox {
+    border-block-start: 1px solid color-mix(in srgb, var(--gold-500) 28%, transparent);
+    padding-block-start: .8rem;
+  }
+
+  .sf-page[data-page="contact"] #contact-form > .sf-button {
+    inline-size: 100%;
+    min-block-size: 4.2rem;
+    border-radius: .3rem;
+    box-shadow: 0 1rem 2.5rem rgb(36 49 41 / .18);
+  }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="contact"] #contact-form-section {
+      padding-block: 2.25rem !important;
+    }
+
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout {
+      border-radius: 4.5rem .7rem .7rem;
+    }
+
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro {
+      padding: 2rem 1.25rem;
+    }
+
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro h1 {
+      font-size: clamp(2.8rem, 13vw, 4rem);
+    }
+
+    .sf-page[data-page="contact"] .sf-contact-form-guide__routes li {
+      grid-template-columns: 1fr;
+      gap: .2rem;
+    }
+
+    .sf-page[data-page="contact"] .sf-contact-form-guide__routes a {
+      grid-template-columns: 1fr;
+      gap: .2rem;
+    }
+
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-body {
+      padding: 1.25rem;
+    }
+  }
+}

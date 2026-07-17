@@ -1,0 +1,17 @@
+@layer pages {
+  .sf-page[data-page="blog"] #featured-article > .sf-editorial-split { background: linear-gradient(135deg, var(--color-bg-sage-soft), var(--blush-50)); }
+  .sf-page[data-page="blog"] #skin .sf-content-card { border-radius: var(--radius-arch); text-align: center; }
+  .sf-page[data-page="blog"] #pigmentation > .sf-editorial-media-layout { border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-xl); }
+  .sf-page[data-page="blog"] #laser .sf-content-card { background: transparent; border-inline-start: .18rem solid var(--gold-500); }
+  .sf-page[data-page="blog"] #before-treatment .sf-content-card { min-block-size: 12rem; }
+  .sf-page[data-page="blog"] #aftercare .sf-section-head { max-inline-size: 42rem; margin-inline-start: auto; text-align: end; }
+  .sf-page[data-page="blog"] #results .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-page[data-page="blog"] #browse-by-topic .sf-content-card { min-block-size: 8.5rem; }
+  .sf-page[data-page="blog"] #search-the-blog > .sf-section-inner { border-radius: var(--radius-xl) var(--radius-xl) var(--radius-md) var(--radius-xl); }
+  .sf-page[data-page="blog"] #search-the-blog .sf-search-form { background: color-mix(in srgb, var(--ivory-50) 94%, transparent); }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="blog"] #aftercare .sf-section-head { margin-inline-start: 0; text-align: start; }
+    .sf-page[data-page="blog"] #results .sf-content-card-grid { grid-template-columns: 1fr; }
+  }
+}

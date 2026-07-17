@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Footer Email</title>
+  <rect x="12" y="19" width="40" height="28" rx="5"/><path d="M14 23 L32 35 L50 23"/><path d="M14 44 L26 33"/><path d="M50 44 L38 33"/><g transform="translate(47 48) rotate(-28) scale(0.42)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(16 17) scale(0.3)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g>
+</svg>

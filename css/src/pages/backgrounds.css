@@ -1,0 +1,367 @@
+/* =========================================================
+   CLEAN CTA / FOOTER HANDOFF
+   The page panorama remains the only outer-column artwork.
+   ========================================================= */
+
+:root {
+  --sffo-olive: var(--menu-green, #485440);
+  --sffo-olive-deep: var(--forest-900, #243129);
+  --sffo-gold: var(--gold-300, #d5b57e);
+  --sffo-gold-light: var(--gold-200, #ead5ad);
+  --sffo-heading-rose: var(--rose-gold-500, #bd796b);
+  --sffo-text: #f9f6eb;
+  --sffo-text-soft: rgb(249 246 235 / .9);
+  --sffo-text-legal: rgb(249 246 235 / .62);
+  --sffo-line: rgb(229 211 156 / .22);
+}
+
+.sf-footer,
+.sf-footer *,
+.sf-footer *::before,
+.sf-footer *::after {
+  box-sizing: border-box;
+}
+
+.sf-footer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  color: var(--sffo-text);
+  background: var(--menu-green-overlay);
+  font-family: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Only pages with a final CTA use the overlap. The overlapping portion stays
+   transparent because the final CTA already supplies the same full-width
+   green overlay beneath it; applying the footer tint twice would make that
+   handoff read as a separate, darker band. */
+.sf-page:has(.sf-main > .sf-composition-final-cta.section--full-bleed) .sf-footer {
+  margin-top: calc(-1 * var(--footer-overlap));
+  background: linear-gradient(
+    to bottom,
+    transparent 0 var(--footer-overlap),
+    var(--menu-green-overlay) var(--footer-overlap) 100%
+  );
+}
+
+.sf-footer::before,
+.sf-footer::after { content: none; }
+
+.sffo-wrap,
+.sffo-wrap.sf-container {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--content-max-width));
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  border-inline: 1px solid rgb(229 211 156 / .2);
+  background: transparent;
+  padding:
+    calc(var(--footer-overlap) + clamp(2.5rem, 4vw, 4.5rem))
+    clamp(1.25rem, 3vw, 3.5rem)
+    clamp(1.5rem, 3vw, 2.75rem);
+  pointer-events: auto;
+}
+
+.sf-page:not(:has(.sf-main > .sf-composition-final-cta.section--full-bleed)) .sffo-wrap {
+  padding-top: clamp(3rem, 5vw, 5rem);
+}
+
+.sffo-wrap::before,
+.sffo-wrap::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+.sffo-top {
+  display: grid;
+  grid-template-columns: minmax(16rem, .9fr) minmax(0, 2.25fr);
+  align-items: start;
+  gap: clamp(2.5rem, 5vw, 5.5rem);
+}
+
+.sffo-brand,
+.sffo-menu-grid,
+.sffo-menu-grid > *,
+.sffo-list,
+.sffo-link {
+  min-width: 0;
+}
+
+.sffo-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 27rem;
+}
+
+.sffo-logo {
+  display: block;
+  width: clamp(15.5rem, 20vw, 20.5rem);
+  max-width: 100%;
+  height: auto;
+  margin: 0 0 clamp(1.25rem, 2vw, 1.8rem);
+  object-fit: contain;
+  object-position: left center;
+  opacity: .86;
+  filter: brightness(0) invert(1) sepia(.28) saturate(1.2) brightness(1.08);
+}
+
+.sffo-description {
+  max-width: 26rem;
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2rem);
+  color: var(--sffo-text-soft);
+  font-size: clamp(.9rem, .25vw + .83rem, 1rem);
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+
+.sffo-button {
+  display: inline-grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: .75rem;
+  min-height: 3.1rem;
+  padding: .75rem 1rem;
+  border: 1px solid rgb(229 211 156 / .78);
+  border-radius: .35rem;
+  background: #f8f1df;
+  color: var(--sffo-olive-deep);
+  text-decoration: none;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.sffo-button > span:nth-child(2) {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-size: .73rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sffo-button > span:first-child,
+.sffo-button > span:last-child {
+  display: grid;
+  place-items: center;
+  color: #927b42;
+}
+
+.sffo-button svg {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sffo-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, .88fr)) minmax(12.5rem, 1.38fr);
+  gap: clamp(1.6rem, 2.4vw, 3rem);
+}
+
+.sffo-menu-grid nav,
+.sffo-menu-grid > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sffo-heading {
+  display: block;
+  margin: 0 0 1.25rem;
+  color: var(--sffo-heading-rose);
+  font-size: .76rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.sffo-list {
+  display: flex;
+  flex-direction: column;
+  gap: .32rem;
+}
+
+.sffo-link,
+.sffo-meta {
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
+  margin: 0;
+  padding-block: .28rem;
+  color: var(--sffo-text-soft);
+  font-size: .86rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+/* Link icons are intentionally suppressed: the footer is a clean information
+   surface and contains no decorative mini artwork. */
+.sffo-icon { display: none !important; }
+
+.sffo-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.sffo-menu-grid > :last-child .sffo-text {
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.sffo-link[aria-current="page"] {
+  color: var(--sffo-text);
+  font-weight: 650;
+}
+
+.sffo-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: clamp(3rem, 5vw, 5rem);
+  padding-top: clamp(1.25rem, 2vw, 1.75rem);
+  border-top: 1px solid var(--sffo-line);
+}
+
+.sffo-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+}
+
+.sffo-legal a {
+  color: var(--sffo-text-legal);
+  font-size: .75rem;
+  line-height: 1.4;
+  letter-spacing: .045em;
+  text-decoration: none;
+}
+
+.sffo-sep {
+  color: rgb(229 211 156 / .3);
+  font-size: .7rem;
+  user-select: none;
+}
+
+.sffo-copy {
+  max-width: 31rem;
+  margin: 0;
+  color: var(--sffo-text-legal);
+  font-size: .75rem;
+  line-height: 1.55;
+  text-align: right;
+  text-wrap: pretty;
+}
+
+.sffo-button:focus-visible,
+.sffo-link:focus-visible,
+.sffo-legal a:focus-visible {
+  outline: 2px solid var(--sffo-gold-light);
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sffo-button:hover {
+    border-color: var(--sffo-gold-light);
+    background: #fffaf0;
+    color: #17200f;
+    transform: translateY(-2px);
+  }
+
+  .sffo-link:hover,
+  .sffo-legal a:hover { color: var(--sffo-text); }
+}
+
+@media (max-width: 62rem) {
+  .sffo-top {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .sffo-brand { max-width: 35rem; }
+  .sffo-description { max-width: 34rem; }
+  .sffo-menu-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 48rem) {
+  .sf-page:has(.sf-main > .sf-composition-final-cta.section--full-bleed) .sf-footer {
+    margin-top: calc(-1 * var(--footer-overlap));
+  }
+
+  .sffo-wrap,
+  .sffo-wrap.sf-container {
+    width: 100%;
+    border-inline: 0;
+    padding-top: calc(var(--footer-overlap) + 2.75rem);
+  }
+
+  .sffo-brand {
+    align-items: center;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .sffo-logo { object-position: center; }
+  .sffo-description { margin-inline: auto; text-align: center; }
+
+  .sffo-menu-grid {
+    grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr);
+    gap: 2.25rem clamp(1.15rem, 6vw, 2.25rem);
+  }
+
+  .sffo-bottom {
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sffo-legal { justify-content: center; }
+  .sffo-copy { max-width: 34rem; text-align: center; }
+}
+
+@media (max-width: 34rem) {
+  .sffo-logo { width: min(16rem, 88%); }
+  .sffo-button { width: 100%; }
+  .sffo-button > span:nth-child(2) { text-align: center; white-space: normal; }
+  .sffo-menu-grid { gap: 2rem 1.15rem; }
+  .sffo-heading { font-size: .72rem; }
+  .sffo-bottom { margin-top: 3.25rem; }
+}
+
+@media (max-width: 22rem) {
+  .sffo-menu-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sffo-button,
+  .sffo-link,
+  .sffo-legal a { transition: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .sf-footer { background: var(--sffo-olive); }
+
+  .sf-page:has(.sf-main > .sf-composition-final-cta.section--full-bleed) .sf-footer {
+    background: linear-gradient(
+      to bottom,
+      transparent 0 var(--footer-overlap),
+      var(--sffo-olive) var(--footer-overlap) 100%
+    );
+  }
+}

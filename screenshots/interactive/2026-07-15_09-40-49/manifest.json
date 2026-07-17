@@ -1,0 +1,186 @@
+{
+  "captures": [
+    {
+      "page": "404.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/404--full-page.png"
+    },
+    {
+      "page": "about.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/about--full-page.png"
+    },
+    {
+      "page": "accessibility.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/accessibility--full-page.png"
+    },
+    {
+      "page": "blog.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/blog--full-page.png"
+    },
+    {
+      "page": "care.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/care--full-page.png"
+    },
+    {
+      "page": "consultation.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/consultation--full-page.png"
+    },
+    {
+      "page": "contact.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/contact--full-page.png"
+    },
+    {
+      "page": "cookies.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/cookies--full-page.png"
+    },
+    {
+      "page": "faq.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/faq--full-page.png"
+    },
+    {
+      "page": "index.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/index--full-page.png"
+    },
+    {
+      "page": "journal.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/journal--full-page.png"
+    },
+    {
+      "page": "laser.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/laser--full-page.png"
+    },
+    {
+      "page": "legal.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/legal--full-page.png"
+    },
+    {
+      "page": "mission.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/mission--full-page.png"
+    },
+    {
+      "page": "privacy.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/privacy--full-page.png"
+    },
+    {
+      "page": "results.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/results--full-page.png"
+    },
+    {
+      "page": "skin.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/skin--full-page.png"
+    },
+    {
+      "page": "testimonials.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/testimonials--full-page.png"
+    },
+    {
+      "page": "thank-you.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/thank-you--full-page.png"
+    },
+    {
+      "page": "treatments.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/treatments--full-page.png"
+    },
+    {
+      "page": "values.html",
+      "viewport": "ultrawide-3440",
+      "target": "full-page",
+      "status": "captured",
+      "file": "ultrawide-3440/values--full-page.png"
+    }
+  ],
+  "capturedAt": "2026-07-15T09:42:33",
+  "pages": [
+    "404.html",
+    "about.html",
+    "accessibility.html",
+    "blog.html",
+    "care.html",
+    "consultation.html",
+    "contact.html",
+    "cookies.html",
+    "faq.html",
+    "index.html",
+    "journal.html",
+    "laser.html",
+    "legal.html",
+    "mission.html",
+    "privacy.html",
+    "results.html",
+    "skin.html",
+    "testimonials.html",
+    "thank-you.html",
+    "treatments.html",
+    "values.html"
+  ],
+  "viewports": {
+    "ultrawide-3440": {
+      "width": 3440,
+      "height": 1440,
+      "isMobile": false
+    }
+  },
+  "target": {
+    "kind": "page",
+    "fullPage": true
+  }
+}

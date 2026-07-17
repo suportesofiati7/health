@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Keyboard</title>
+  <rect x="10" y="21" width="44" height="25" rx="5"/><path d="M17 29 H18"/><path d="M25 29 H26"/><path d="M33 29 H34"/><path d="M41 29 H42"/><path d="M18 37 H46"/><path d="M25 37 V37.2"/><path d="M39 37 V37.2"/><g transform="translate(47 48) rotate(-28) scale(0.42)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(16 17) scale(0.3)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g>
+</svg>

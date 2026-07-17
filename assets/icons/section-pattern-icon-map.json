@@ -1,0 +1,279 @@
+{
+  "SplitHero": [
+    "sparkle-leaf.svg",
+    "consultation-chat.svg",
+    "calendar-check.svg",
+    "arrow-right.svg"
+  ],
+  "CenteredIntro": [
+    "floral-divider.svg",
+    "leaf-small.svg"
+  ],
+  "FeatureStrip": [
+    "personalized-plan.svg",
+    "evidence-flower.svg",
+    "natural-result.svg",
+    "suitability-check.svg",
+    "comfort-care.svg"
+  ],
+  "NumberedStepRow": [
+    "listen.svg",
+    "explain.svg",
+    "plan-check.svg",
+    "calendar-check.svg",
+    "aftercare.svg"
+  ],
+  "PrincipleGrid": [
+    "shield.svg",
+    "heart-leaf.svg",
+    "clarity-eye.svg",
+    "science-flower.svg",
+    "balance-scales.svg"
+  ],
+  "CardGrid": [
+    "arrow-right.svg",
+    "context-card.svg"
+  ],
+  "SageEditorialBand": [
+    "quote-leaf.svg",
+    "sparkle-leaf.svg",
+    "botanical-branch.svg"
+  ],
+  "RoseEditorialBand": [
+    "rose-sparkle.svg",
+    "heart-leaf.svg",
+    "soft-glow.svg"
+  ],
+  "SplitPanel": [
+    "split-panel.svg",
+    "check.svg"
+  ],
+  "SplitSageIvoryPanel": [
+    "shield.svg",
+    "lock.svg",
+    "document-check.svg",
+    "privacy-choice.svg"
+  ],
+  "ChecklistPanel": [
+    "check.svg",
+    "check-circle.svg",
+    "suitability-check.svg"
+  ],
+  "ContactFormPanel": [
+    "user.svg",
+    "email.svg",
+    "phone.svg",
+    "message.svg",
+    "send.svg"
+  ],
+  "FAQAccordionGrid": [
+    "faq-chat.svg",
+    "plus.svg",
+    "minus.svg",
+    "chevron-down.svg",
+    "question.svg"
+  ],
+  "TestimonialGrid": [
+    "quote.svg",
+    "star.svg",
+    "heart-leaf.svg"
+  ],
+  "ComparisonPanel": [
+    "check-circle.svg",
+    "alert-soft.svg",
+    "balance-scales.svg",
+    "expectation-balance.svg"
+  ],
+  "ArticleGrid": [
+    "journal-book.svg",
+    "article.svg",
+    "arrow-right.svg"
+  ],
+  "FeaturedArticle": [
+    "featured-article.svg",
+    "leaf-small.svg",
+    "arrow-right.svg"
+  ],
+  "PolicyCardGrid": [
+    "privacy-shield.svg",
+    "cookie-settings.svg",
+    "legal-scales.svg",
+    "document-check.svg",
+    "accessibility-care.svg"
+  ],
+  "RouteCards": [
+    "route-cards.svg",
+    "arrow-right.svg"
+  ],
+  "ImageEditorialCard": [
+    "quote-leaf.svg",
+    "profile-person.svg",
+    "sparkle-leaf.svg"
+  ],
+  "BottomCTA": [
+    "no-pressure-chat.svg",
+    "calendar-check.svg",
+    "contact-message.svg",
+    "sparkle-leaf.svg"
+  ],
+  "ContactChannels": [
+    "whatsapp.svg",
+    "email.svg",
+    "instagram.svg",
+    "location-pin.svg",
+    "calendar-check.svg"
+  ],
+  "TrustBanner": [
+    "shield.svg",
+    "heart-leaf.svg",
+    "science-flower.svg",
+    "clarity-eye.svg"
+  ],
+  "ProcessTimeline": [
+    "step-one.svg",
+    "step-two.svg",
+    "step-three.svg",
+    "chat.svg",
+    "clipboard.svg",
+    "plan-check.svg",
+    "aftercare.svg"
+  ],
+  "CategoryCards": [
+    "category.svg",
+    "treatment-menu.svg",
+    "skin-baseline.svg",
+    "laser-spark.svg",
+    "care-hand-heart.svg"
+  ],
+  "ConsentPreferencesPanel": [
+    "privacy-choice.svg",
+    "cookie-settings.svg",
+    "toggle.svg",
+    "shield-check.svg"
+  ],
+  "ServiceIntroPanel": [
+    "consultation-map.svg",
+    "treatment-menu.svg",
+    "suitability-check.svg"
+  ],
+  "TreatmentOverviewGrid": [
+    "deep-facial-cleansing.svg",
+    "eyebrow-design.svg",
+    "harmony-laser.svg",
+    "laser-hair-reduction.svg",
+    "co2-laser-renewal.svg",
+    "ultrasound-lifting.svg",
+    "radiofrequency-waves.svg",
+    "plasma-jet.svg",
+    "mmp-microinfusion.svg",
+    "hair-mesotherapy.svg",
+    "facial-botox.svg",
+    "nefertiti-neck-contour.svg",
+    "microvessels-peim.svg",
+    "diamond-peel.svg",
+    "crystal-peel.svg",
+    "ultrasonic-peel.svg",
+    "retinoic-peel.svg",
+    "jessner-peel.svg",
+    "tca-peel.svg",
+    "melan-peel.svg"
+  ],
+  "SuitabilityMatrix": [
+    "suitability-check.svg",
+    "caution-soft.svg",
+    "timing-recovery.svg"
+  ],
+  "TreatmentDetailTabs": [
+    "info.svg",
+    "suitability-check.svg",
+    "calendar-check.svg",
+    "aftercare.svg",
+    "faq-chat.svg"
+  ],
+  "BeforeAftercarePanel": [
+    "before-care.svg",
+    "treatment-room.svg",
+    "aftercare.svg",
+    "sunscreen.svg"
+  ],
+  "SafetyExpectationPanel": [
+    "shield-check.svg",
+    "expectation-balance.svg",
+    "clarity-eye.svg"
+  ],
+  "ResultsContextPanel": [
+    "results-context.svg",
+    "skin-baseline.svg",
+    "calendar-check.svg",
+    "aftercare.svg",
+    "sun-exposure.svg"
+  ],
+  "PricingOrInvestmentPanel": [
+    "investment-card.svg",
+    "consultation-chat.svg",
+    "document-check.svg"
+  ],
+  "AppointmentPreparationPanel": [
+    "clipboard-check.svg",
+    "calendar-check.svg",
+    "message.svg",
+    "skin-baseline.svg"
+  ],
+  "TreatmentFAQPreview": [
+    "faq-chat.svg",
+    "question.svg",
+    "chevron-down.svg"
+  ],
+  "MiniCaseStudyCards": [
+    "case-study.svg",
+    "skin-baseline.svg",
+    "plan-check.svg",
+    "expectation-balance.svg"
+  ],
+  "EthicalDisclaimerPanel": [
+    "shield.svg",
+    "info.svg",
+    "balance-scales.svg"
+  ],
+  "LocationClinicPanel": [
+    "location-pin.svg",
+    "clinic.svg",
+    "map.svg",
+    "whatsapp.svg"
+  ],
+  "NewsletterSignupPanel": [
+    "email.svg",
+    "journal-book.svg",
+    "leaf-small.svg"
+  ],
+  "ResourceDownloadPanel": [
+    "download.svg",
+    "document-check.svg",
+    "clipboard.svg"
+  ],
+  "StickySideNav": [
+    "anchor.svg",
+    "chevron-right.svg"
+  ],
+  "AnchorNav": [
+    "anchor.svg",
+    "chevron-right.svg"
+  ],
+  "StatsOrMetricsBand": [
+    "one-to-one.svg",
+    "calendar-check.svg",
+    "plan-check.svg",
+    "shield-check.svg"
+  ],
+  "MediaGalleryGrid": [
+    "image.svg",
+    "gallery.svg",
+    "sparkle-leaf.svg"
+  ],
+  "PressOrCredentialsStrip": [
+    "certificate.svg",
+    "science-flower.svg",
+    "shield-check.svg",
+    "profile-person.svg"
+  ]
+}

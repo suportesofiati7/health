@@ -1,0 +1,10 @@
+@layer pages {
+  .sf-page[data-page="accessibility"] #our-intention .sf-content-card { min-block-size: 11rem; }
+  .sf-page[data-page="accessibility"] #reading-and-navigation .sf-content-card { background: transparent; }
+  .sf-page[data-page="accessibility"] #forms .sf-step { background: linear-gradient(145deg, var(--color-bg-sage-soft), color-mix(in srgb, var(--white) 82%, transparent)); }
+  .sf-page[data-page="accessibility"] #images-and-media .sf-content-card { border-radius: var(--radius-lg); }
+  .sf-page[data-page="accessibility"] #content-clarity > .sf-editorial-media-layout { border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-xl); }
+  .sf-page[data-page="accessibility"] #known-limitations .sf-statement-inner { max-inline-size: min(58rem, calc(100% - 2 * var(--page-gutter))); }
+  .sf-page[data-page="accessibility"] #accessibility-feedback-section .sf-form-section-body { border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-xl); }
+  .sf-page[data-page="accessibility"] #other-ways-to-contact .sf-content-card { border-radius: var(--radius-arch); text-align: center; }
+}

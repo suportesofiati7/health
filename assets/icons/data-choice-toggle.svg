@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Data Choice Toggle</title>
+  <path d="M32 12 L48 18 V30 C48 41 41 49 32 53 C23 49 16 41 16 30 V18Z"/><path d="M24 32 L30 38 L42 25"/><g transform="translate(44 43) rotate(-20) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

@@ -1,0 +1,2264 @@
+[
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "consultation-map.svg",
+    "usage": "Consultation Map for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "personalized-plan.svg",
+    "usage": "Personalized Plan for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "evidence-flower.svg",
+    "usage": "Evidence Flower for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "natural-result.svg",
+    "usage": "Natural Result for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "care-hand-heart.svg",
+    "usage": "Care Hand Heart for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "laser-spark.svg",
+    "usage": "Laser Spark for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "results-context.svg",
+    "usage": "Results Context for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "journal-book.svg",
+    "usage": "Journal Book for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "testimonial-quote.svg",
+    "usage": "Testimonial Quote for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Home",
+    "section": "Page-specific icon set",
+    "icon": "no-pressure-chat.svg",
+    "usage": "No Pressure Chat for Home page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "profile-person.svg",
+    "usage": "Profile Person for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "certificate.svg",
+    "usage": "Certificate for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "listen.svg",
+    "usage": "Listen for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "explain.svg",
+    "usage": "Explain for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "plan-check.svg",
+    "usage": "Plan Check for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "clinical-warmth.svg",
+    "usage": "Clinical Warmth for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "heart-leaf.svg",
+    "usage": "Heart Leaf for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "science-flower.svg",
+    "usage": "Science Flower for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "mission-compass.svg",
+    "usage": "Mission Compass for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "About",
+    "section": "Page-specific icon set",
+    "icon": "values-heart-leaf.svg",
+    "usage": "Values Heart Leaf for About page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Care",
+    "section": "Page-specific icon set",
+    "icon": "care-hand-heart.svg",
+    "usage": "Care Hand Heart for Care page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Care",
+    "section": "Page-specific icon set",
+    "icon": "consultation-map.svg",
+    "usage": "Consultation Map for Care page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Care",
+    "section": "Page-specific icon set",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check for Care page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Care",
+    "section": "Page-specific icon set",
+    "icon": "timing-recovery.svg",
+    "usage": "Timing Recovery for Care page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Care",
+    "section": "Page-specific icon set",
+    "icon": "expectation-balance.svg",
+    "usage": "Expectation Balance for Care page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Care",
+    "section": "Page-specific icon set",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline for Care page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Care",
+    "section": "Page-specific icon set",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare for Care page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Care",
+    "section": "Page-specific icon set",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ Chat for Care page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "treatment-menu.svg",
+    "usage": "Treatment Menu for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "consultation-map.svg",
+    "usage": "Consultation Map for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "treatment-room.svg",
+    "usage": "Treatment Room for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "results-context.svg",
+    "usage": "Results Context for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ Chat for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "deep-facial-cleansing.svg",
+    "usage": "Deep Facial Cleansing for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "eyebrow-design.svg",
+    "usage": "Eyebrow Design for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "harmony-laser.svg",
+    "usage": "Harmony Laser for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "laser-hair-reduction.svg",
+    "usage": "Laser Hair Reduction for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "co2-laser-renewal.svg",
+    "usage": "CO₂ Laser Renewal for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "ultrasound-lifting.svg",
+    "usage": "Ultrasound Lifting for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "radiofrequency-waves.svg",
+    "usage": "Radiofrequency Waves for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "plasma-jet.svg",
+    "usage": "Plasma Jet for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "mmp-microinfusion.svg",
+    "usage": "MMP Microinfusion for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "hair-mesotherapy.svg",
+    "usage": "Hair Mesotherapy for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "facial-botox.svg",
+    "usage": "Facial Botox for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "nefertiti-neck-contour.svg",
+    "usage": "Nefertiti Neck Contour for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "microvessels-peim.svg",
+    "usage": "Microvessels PEIM for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "diamond-peel.svg",
+    "usage": "Diamond Peel for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "crystal-peel.svg",
+    "usage": "Crystal Peel for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "ultrasonic-peel.svg",
+    "usage": "Ultrasonic Peel for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "retinoic-peel.svg",
+    "usage": "Retinoic Peel for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "jessner-peel.svg",
+    "usage": "Jessner Peel for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "tca-peel.svg",
+    "usage": "TCA Peel for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Treatments",
+    "section": "Page-specific icon set",
+    "icon": "melan-peel.svg",
+    "usage": "Melan Peel for Treatments page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Laser",
+    "section": "Page-specific icon set",
+    "icon": "laser-spark.svg",
+    "usage": "Laser Spark for Laser page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Laser",
+    "section": "Page-specific icon set",
+    "icon": "laser-beam.svg",
+    "usage": "Laser Beam for Laser page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Laser",
+    "section": "Page-specific icon set",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check for Laser page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Laser",
+    "section": "Page-specific icon set",
+    "icon": "sun-exposure.svg",
+    "usage": "Sun Exposure for Laser page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Laser",
+    "section": "Page-specific icon set",
+    "icon": "timing-recovery.svg",
+    "usage": "Timing Recovery for Laser page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Laser",
+    "section": "Page-specific icon set",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare for Laser page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Laser",
+    "section": "Page-specific icon set",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check for Laser page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Laser",
+    "section": "Page-specific icon set",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ Chat for Laser page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Skin",
+    "section": "Page-specific icon set",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline for Skin page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Skin",
+    "section": "Page-specific icon set",
+    "icon": "skincare-routine.svg",
+    "usage": "Skincare Routine for Skin page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Skin",
+    "section": "Page-specific icon set",
+    "icon": "hydration-drop.svg",
+    "usage": "Hydration Drop for Skin page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Skin",
+    "section": "Page-specific icon set",
+    "icon": "barrier-care.svg",
+    "usage": "Barrier Care for Skin page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Skin",
+    "section": "Page-specific icon set",
+    "icon": "skin-texture.svg",
+    "usage": "Skin Texture for Skin page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Skin",
+    "section": "Page-specific icon set",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check for Skin page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Skin",
+    "section": "Page-specific icon set",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare for Skin page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Results",
+    "section": "Page-specific icon set",
+    "icon": "results-context.svg",
+    "usage": "Results Context for Results page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Results",
+    "section": "Page-specific icon set",
+    "icon": "expectation-balance.svg",
+    "usage": "Expectation Balance for Results page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Results",
+    "section": "Page-specific icon set",
+    "icon": "case-study.svg",
+    "usage": "Case Study for Results page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Results",
+    "section": "Page-specific icon set",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline for Results page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Results",
+    "section": "Page-specific icon set",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check for Results page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Results",
+    "section": "Page-specific icon set",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare for Results page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Results",
+    "section": "Page-specific icon set",
+    "icon": "legal-scales.svg",
+    "usage": "Legal Scales for Results page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Results",
+    "section": "Page-specific icon set",
+    "icon": "testimonial-quote.svg",
+    "usage": "Testimonial Quote for Results page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Consultation",
+    "section": "Page-specific icon set",
+    "icon": "consultation-calendar.svg",
+    "usage": "Consultation Calendar for Consultation page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Consultation",
+    "section": "Page-specific icon set",
+    "icon": "consultation-map.svg",
+    "usage": "Consultation Map for Consultation page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Consultation",
+    "section": "Page-specific icon set",
+    "icon": "message.svg",
+    "usage": "Message for Consultation page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Consultation",
+    "section": "Page-specific icon set",
+    "icon": "clipboard-check.svg",
+    "usage": "Clipboard Check for Consultation page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Consultation",
+    "section": "Page-specific icon set",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check for Consultation page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Consultation",
+    "section": "Page-specific icon set",
+    "icon": "comfort-care.svg",
+    "usage": "Comfort Care for Consultation page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Consultation",
+    "section": "Page-specific icon set",
+    "icon": "contact-message.svg",
+    "usage": "Contact Message for Consultation page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Consultation",
+    "section": "Page-specific icon set",
+    "icon": "no-pressure-chat.svg",
+    "usage": "No Pressure Chat for Consultation page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Contact",
+    "section": "Page-specific icon set",
+    "icon": "contact-message.svg",
+    "usage": "Contact Message for Contact page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Contact",
+    "section": "Page-specific icon set",
+    "icon": "whatsapp.svg",
+    "usage": "Whatsapp for Contact page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Contact",
+    "section": "Page-specific icon set",
+    "icon": "email.svg",
+    "usage": "Email for Contact page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Contact",
+    "section": "Page-specific icon set",
+    "icon": "instagram.svg",
+    "usage": "Instagram for Contact page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Contact",
+    "section": "Page-specific icon set",
+    "icon": "location-pin.svg",
+    "usage": "Location Pin for Contact page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Contact",
+    "section": "Page-specific icon set",
+    "icon": "clinic.svg",
+    "usage": "Clinic for Contact page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Contact",
+    "section": "Page-specific icon set",
+    "icon": "clock.svg",
+    "usage": "Clock for Contact page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Contact",
+    "section": "Page-specific icon set",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ Chat for Contact page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Journal",
+    "section": "Page-specific icon set",
+    "icon": "journal-book.svg",
+    "usage": "Journal Book for Journal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Journal",
+    "section": "Page-specific icon set",
+    "icon": "featured-article.svg",
+    "usage": "Featured Article for Journal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Journal",
+    "section": "Page-specific icon set",
+    "icon": "article.svg",
+    "usage": "Article for Journal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Journal",
+    "section": "Page-specific icon set",
+    "icon": "category.svg",
+    "usage": "Category for Journal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Journal",
+    "section": "Page-specific icon set",
+    "icon": "newsletter.svg",
+    "usage": "Newsletter for Journal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Journal",
+    "section": "Page-specific icon set",
+    "icon": "download.svg",
+    "usage": "Download for Journal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Journal",
+    "section": "Page-specific icon set",
+    "icon": "evidence-flower.svg",
+    "usage": "Evidence Flower for Journal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Journal",
+    "section": "Page-specific icon set",
+    "icon": "ethical-info.svg",
+    "usage": "Ethical Info for Journal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ Chat for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "question.svg",
+    "usage": "Question for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "plus.svg",
+    "usage": "Plus for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "minus.svg",
+    "usage": "Minus for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "chevron-down.svg",
+    "usage": "Chevron Down for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "consultation-map.svg",
+    "usage": "Consultation Map for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "laser-spark.svg",
+    "usage": "Laser Spark for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "FAQ",
+    "section": "Page-specific icon set",
+    "icon": "results-context.svg",
+    "usage": "Results Context for FAQ page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Testimonies",
+    "section": "Page-specific icon set",
+    "icon": "testimonial-quote.svg",
+    "usage": "Testimonial Quote for Testimonies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Testimonies",
+    "section": "Page-specific icon set",
+    "icon": "star.svg",
+    "usage": "Star for Testimonies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Testimonies",
+    "section": "Page-specific icon set",
+    "icon": "expectation-balance.svg",
+    "usage": "Expectation Balance for Testimonies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Testimonies",
+    "section": "Page-specific icon set",
+    "icon": "ethical-info.svg",
+    "usage": "Ethical Info for Testimonies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Testimonies",
+    "section": "Page-specific icon set",
+    "icon": "results-context.svg",
+    "usage": "Results Context for Testimonies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Testimonies",
+    "section": "Page-specific icon set",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check for Testimonies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Testimonies",
+    "section": "Page-specific icon set",
+    "icon": "no-pressure-chat.svg",
+    "usage": "No Pressure Chat for Testimonies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Mission",
+    "section": "Page-specific icon set",
+    "icon": "mission-compass.svg",
+    "usage": "Mission Compass for Mission page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Mission",
+    "section": "Page-specific icon set",
+    "icon": "clinical-warmth.svg",
+    "usage": "Clinical Warmth for Mission page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Mission",
+    "section": "Page-specific icon set",
+    "icon": "heart-leaf.svg",
+    "usage": "Heart Leaf for Mission page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Mission",
+    "section": "Page-specific icon set",
+    "icon": "science-flower.svg",
+    "usage": "Science Flower for Mission page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Mission",
+    "section": "Page-specific icon set",
+    "icon": "human-care.svg",
+    "usage": "Human Care for Mission page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Mission",
+    "section": "Page-specific icon set",
+    "icon": "patient-journey.svg",
+    "usage": "Patient Journey for Mission page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Mission",
+    "section": "Page-specific icon set",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check for Mission page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Values",
+    "section": "Page-specific icon set",
+    "icon": "values-heart-leaf.svg",
+    "usage": "Values Heart Leaf for Values page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Values",
+    "section": "Page-specific icon set",
+    "icon": "ethics-shield.svg",
+    "usage": "Ethics Shield for Values page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Values",
+    "section": "Page-specific icon set",
+    "icon": "individual-care.svg",
+    "usage": "Individual Care for Values page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Values",
+    "section": "Page-specific icon set",
+    "icon": "excellence-spark.svg",
+    "usage": "Excellence Spark for Values page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Values",
+    "section": "Page-specific icon set",
+    "icon": "safety-check.svg",
+    "usage": "Safety Check for Values page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Values",
+    "section": "Page-specific icon set",
+    "icon": "science-flower.svg",
+    "usage": "Science Flower for Values page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Values",
+    "section": "Page-specific icon set",
+    "icon": "comfort-care.svg",
+    "usage": "Comfort Care for Values page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Privacy",
+    "section": "Page-specific icon set",
+    "icon": "privacy-shield.svg",
+    "usage": "Privacy Shield for Privacy page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Privacy",
+    "section": "Page-specific icon set",
+    "icon": "lock.svg",
+    "usage": "Lock for Privacy page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Privacy",
+    "section": "Page-specific icon set",
+    "icon": "privacy-choice.svg",
+    "usage": "Privacy Choice for Privacy page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Privacy",
+    "section": "Page-specific icon set",
+    "icon": "document-check.svg",
+    "usage": "Document Check for Privacy page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Privacy",
+    "section": "Page-specific icon set",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check for Privacy page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Privacy",
+    "section": "Page-specific icon set",
+    "icon": "cookie-settings.svg",
+    "usage": "Cookie Settings for Privacy page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Privacy",
+    "section": "Page-specific icon set",
+    "icon": "legal-scales.svg",
+    "usage": "Legal Scales for Privacy page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Cookies",
+    "section": "Page-specific icon set",
+    "icon": "cookie-settings.svg",
+    "usage": "Cookie Settings for Cookies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Cookies",
+    "section": "Page-specific icon set",
+    "icon": "toggle.svg",
+    "usage": "Toggle for Cookies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Cookies",
+    "section": "Page-specific icon set",
+    "icon": "privacy-choice.svg",
+    "usage": "Privacy Choice for Cookies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Cookies",
+    "section": "Page-specific icon set",
+    "icon": "performance-chart.svg",
+    "usage": "Performance Chart for Cookies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Cookies",
+    "section": "Page-specific icon set",
+    "icon": "functional-settings.svg",
+    "usage": "Functional Settings for Cookies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Cookies",
+    "section": "Page-specific icon set",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check for Cookies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Cookies",
+    "section": "Page-specific icon set",
+    "icon": "legal-scales.svg",
+    "usage": "Legal Scales for Cookies page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Legal",
+    "section": "Page-specific icon set",
+    "icon": "legal-scales.svg",
+    "usage": "Legal Scales for Legal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Legal",
+    "section": "Page-specific icon set",
+    "icon": "document-check.svg",
+    "usage": "Document Check for Legal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Legal",
+    "section": "Page-specific icon set",
+    "icon": "privacy-shield.svg",
+    "usage": "Privacy Shield for Legal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Legal",
+    "section": "Page-specific icon set",
+    "icon": "patient-rights.svg",
+    "usage": "Patient Rights for Legal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Legal",
+    "section": "Page-specific icon set",
+    "icon": "calendar-cancel.svg",
+    "usage": "Calendar Cancel for Legal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Legal",
+    "section": "Page-specific icon set",
+    "icon": "ethical-info.svg",
+    "usage": "Ethical Info for Legal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Legal",
+    "section": "Page-specific icon set",
+    "icon": "accessibility-care.svg",
+    "usage": "Accessibility Care for Legal page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Accessibility",
+    "section": "Page-specific icon set",
+    "icon": "accessibility-care.svg",
+    "usage": "Accessibility Care for Accessibility page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Accessibility",
+    "section": "Page-specific icon set",
+    "icon": "eye.svg",
+    "usage": "Eye for Accessibility page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Accessibility",
+    "section": "Page-specific icon set",
+    "icon": "keyboard.svg",
+    "usage": "Keyboard for Accessibility page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Accessibility",
+    "section": "Page-specific icon set",
+    "icon": "ear.svg",
+    "usage": "Ear for Accessibility page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Accessibility",
+    "section": "Page-specific icon set",
+    "icon": "hand.svg",
+    "usage": "Hand for Accessibility page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Accessibility",
+    "section": "Page-specific icon set",
+    "icon": "assistive-tech.svg",
+    "usage": "Assistive Tech for Accessibility page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Accessibility",
+    "section": "Page-specific icon set",
+    "icon": "feedback-message.svg",
+    "usage": "Feedback Message for Accessibility page cards, headings, CTA, or support points"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitHero",
+    "icon": "sparkle-leaf.svg",
+    "usage": "Sparkle Leaf in SplitHero"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitHero",
+    "icon": "consultation-chat.svg",
+    "usage": "Consultation Chat in SplitHero"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitHero",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check in SplitHero"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitHero",
+    "icon": "arrow-right.svg",
+    "usage": "Arrow Right in SplitHero"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CenteredIntro",
+    "icon": "floral-divider.svg",
+    "usage": "Floral Divider in CenteredIntro"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CenteredIntro",
+    "icon": "leaf-small.svg",
+    "usage": "Leaf Small in CenteredIntro"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FeatureStrip",
+    "icon": "personalized-plan.svg",
+    "usage": "Personalized Plan in FeatureStrip"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FeatureStrip",
+    "icon": "evidence-flower.svg",
+    "usage": "Evidence Flower in FeatureStrip"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FeatureStrip",
+    "icon": "natural-result.svg",
+    "usage": "Natural Result in FeatureStrip"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FeatureStrip",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check in FeatureStrip"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FeatureStrip",
+    "icon": "comfort-care.svg",
+    "usage": "Comfort Care in FeatureStrip"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "NumberedStepRow",
+    "icon": "listen.svg",
+    "usage": "Listen in NumberedStepRow"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "NumberedStepRow",
+    "icon": "explain.svg",
+    "usage": "Explain in NumberedStepRow"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "NumberedStepRow",
+    "icon": "plan-check.svg",
+    "usage": "Plan Check in NumberedStepRow"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "NumberedStepRow",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check in NumberedStepRow"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "NumberedStepRow",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare in NumberedStepRow"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PrincipleGrid",
+    "icon": "shield.svg",
+    "usage": "Shield in PrincipleGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PrincipleGrid",
+    "icon": "heart-leaf.svg",
+    "usage": "Heart Leaf in PrincipleGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PrincipleGrid",
+    "icon": "clarity-eye.svg",
+    "usage": "Clarity Eye in PrincipleGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PrincipleGrid",
+    "icon": "science-flower.svg",
+    "usage": "Science Flower in PrincipleGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PrincipleGrid",
+    "icon": "balance-scales.svg",
+    "usage": "Balance Scales in PrincipleGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CardGrid",
+    "icon": "arrow-right.svg",
+    "usage": "Arrow Right in CardGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CardGrid",
+    "icon": "context-card.svg",
+    "usage": "Context Card in CardGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SageEditorialBand",
+    "icon": "quote-leaf.svg",
+    "usage": "Quote Leaf in SageEditorialBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SageEditorialBand",
+    "icon": "sparkle-leaf.svg",
+    "usage": "Sparkle Leaf in SageEditorialBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SageEditorialBand",
+    "icon": "botanical-branch.svg",
+    "usage": "Botanical Branch in SageEditorialBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "RoseEditorialBand",
+    "icon": "rose-sparkle.svg",
+    "usage": "Rose Sparkle in RoseEditorialBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "RoseEditorialBand",
+    "icon": "heart-leaf.svg",
+    "usage": "Heart Leaf in RoseEditorialBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "RoseEditorialBand",
+    "icon": "soft-glow.svg",
+    "usage": "Soft Glow in RoseEditorialBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitPanel",
+    "icon": "split-panel.svg",
+    "usage": "Split Panel in SplitPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitPanel",
+    "icon": "check.svg",
+    "usage": "Check in SplitPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitSageIvoryPanel",
+    "icon": "shield.svg",
+    "usage": "Shield in SplitSageIvoryPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitSageIvoryPanel",
+    "icon": "lock.svg",
+    "usage": "Lock in SplitSageIvoryPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitSageIvoryPanel",
+    "icon": "document-check.svg",
+    "usage": "Document Check in SplitSageIvoryPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SplitSageIvoryPanel",
+    "icon": "privacy-choice.svg",
+    "usage": "Privacy Choice in SplitSageIvoryPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ChecklistPanel",
+    "icon": "check.svg",
+    "usage": "Check in ChecklistPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ChecklistPanel",
+    "icon": "check-circle.svg",
+    "usage": "Check Circle in ChecklistPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ChecklistPanel",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check in ChecklistPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactFormPanel",
+    "icon": "user.svg",
+    "usage": "User in ContactFormPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactFormPanel",
+    "icon": "email.svg",
+    "usage": "Email in ContactFormPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactFormPanel",
+    "icon": "phone.svg",
+    "usage": "Phone in ContactFormPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactFormPanel",
+    "icon": "message.svg",
+    "usage": "Message in ContactFormPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactFormPanel",
+    "icon": "send.svg",
+    "usage": "Send in ContactFormPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FAQAccordionGrid",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ Chat in FAQAccordionGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FAQAccordionGrid",
+    "icon": "plus.svg",
+    "usage": "Plus in FAQAccordionGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FAQAccordionGrid",
+    "icon": "minus.svg",
+    "usage": "Minus in FAQAccordionGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FAQAccordionGrid",
+    "icon": "chevron-down.svg",
+    "usage": "Chevron Down in FAQAccordionGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FAQAccordionGrid",
+    "icon": "question.svg",
+    "usage": "Question in FAQAccordionGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TestimonialGrid",
+    "icon": "quote.svg",
+    "usage": "Quote in TestimonialGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TestimonialGrid",
+    "icon": "star.svg",
+    "usage": "Star in TestimonialGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TestimonialGrid",
+    "icon": "heart-leaf.svg",
+    "usage": "Heart Leaf in TestimonialGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ComparisonPanel",
+    "icon": "check-circle.svg",
+    "usage": "Check Circle in ComparisonPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ComparisonPanel",
+    "icon": "alert-soft.svg",
+    "usage": "Alert Soft in ComparisonPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ComparisonPanel",
+    "icon": "balance-scales.svg",
+    "usage": "Balance Scales in ComparisonPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ComparisonPanel",
+    "icon": "expectation-balance.svg",
+    "usage": "Expectation Balance in ComparisonPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ArticleGrid",
+    "icon": "journal-book.svg",
+    "usage": "Journal Book in ArticleGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ArticleGrid",
+    "icon": "article.svg",
+    "usage": "Article in ArticleGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ArticleGrid",
+    "icon": "arrow-right.svg",
+    "usage": "Arrow Right in ArticleGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FeaturedArticle",
+    "icon": "featured-article.svg",
+    "usage": "Featured Article in FeaturedArticle"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FeaturedArticle",
+    "icon": "leaf-small.svg",
+    "usage": "Leaf Small in FeaturedArticle"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "FeaturedArticle",
+    "icon": "arrow-right.svg",
+    "usage": "Arrow Right in FeaturedArticle"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PolicyCardGrid",
+    "icon": "privacy-shield.svg",
+    "usage": "Privacy Shield in PolicyCardGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PolicyCardGrid",
+    "icon": "cookie-settings.svg",
+    "usage": "Cookie Settings in PolicyCardGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PolicyCardGrid",
+    "icon": "legal-scales.svg",
+    "usage": "Legal Scales in PolicyCardGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PolicyCardGrid",
+    "icon": "document-check.svg",
+    "usage": "Document Check in PolicyCardGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PolicyCardGrid",
+    "icon": "accessibility-care.svg",
+    "usage": "Accessibility Care in PolicyCardGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "RouteCards",
+    "icon": "route-cards.svg",
+    "usage": "Route Cards in RouteCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "RouteCards",
+    "icon": "arrow-right.svg",
+    "usage": "Arrow Right in RouteCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ImageEditorialCard",
+    "icon": "quote-leaf.svg",
+    "usage": "Quote Leaf in ImageEditorialCard"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ImageEditorialCard",
+    "icon": "profile-person.svg",
+    "usage": "Profile Person in ImageEditorialCard"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ImageEditorialCard",
+    "icon": "sparkle-leaf.svg",
+    "usage": "Sparkle Leaf in ImageEditorialCard"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "BottomCTA",
+    "icon": "no-pressure-chat.svg",
+    "usage": "No Pressure Chat in BottomCTA"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "BottomCTA",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check in BottomCTA"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "BottomCTA",
+    "icon": "contact-message.svg",
+    "usage": "Contact Message in BottomCTA"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "BottomCTA",
+    "icon": "sparkle-leaf.svg",
+    "usage": "Sparkle Leaf in BottomCTA"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactChannels",
+    "icon": "whatsapp.svg",
+    "usage": "Whatsapp in ContactChannels"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactChannels",
+    "icon": "email.svg",
+    "usage": "Email in ContactChannels"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactChannels",
+    "icon": "instagram.svg",
+    "usage": "Instagram in ContactChannels"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactChannels",
+    "icon": "location-pin.svg",
+    "usage": "Location Pin in ContactChannels"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ContactChannels",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check in ContactChannels"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TrustBanner",
+    "icon": "shield.svg",
+    "usage": "Shield in TrustBanner"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TrustBanner",
+    "icon": "heart-leaf.svg",
+    "usage": "Heart Leaf in TrustBanner"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TrustBanner",
+    "icon": "science-flower.svg",
+    "usage": "Science Flower in TrustBanner"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TrustBanner",
+    "icon": "clarity-eye.svg",
+    "usage": "Clarity Eye in TrustBanner"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ProcessTimeline",
+    "icon": "step-one.svg",
+    "usage": "Step One in ProcessTimeline"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ProcessTimeline",
+    "icon": "step-two.svg",
+    "usage": "Step Two in ProcessTimeline"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ProcessTimeline",
+    "icon": "step-three.svg",
+    "usage": "Step Three in ProcessTimeline"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ProcessTimeline",
+    "icon": "chat.svg",
+    "usage": "Chat in ProcessTimeline"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ProcessTimeline",
+    "icon": "clipboard.svg",
+    "usage": "Clipboard in ProcessTimeline"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ProcessTimeline",
+    "icon": "plan-check.svg",
+    "usage": "Plan Check in ProcessTimeline"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ProcessTimeline",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare in ProcessTimeline"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CategoryCards",
+    "icon": "category.svg",
+    "usage": "Category in CategoryCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CategoryCards",
+    "icon": "treatment-menu.svg",
+    "usage": "Treatment Menu in CategoryCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CategoryCards",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline in CategoryCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CategoryCards",
+    "icon": "laser-spark.svg",
+    "usage": "Laser Spark in CategoryCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "CategoryCards",
+    "icon": "care-hand-heart.svg",
+    "usage": "Care Hand Heart in CategoryCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ConsentPreferencesPanel",
+    "icon": "privacy-choice.svg",
+    "usage": "Privacy Choice in ConsentPreferencesPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ConsentPreferencesPanel",
+    "icon": "cookie-settings.svg",
+    "usage": "Cookie Settings in ConsentPreferencesPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ConsentPreferencesPanel",
+    "icon": "toggle.svg",
+    "usage": "Toggle in ConsentPreferencesPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ConsentPreferencesPanel",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check in ConsentPreferencesPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ServiceIntroPanel",
+    "icon": "consultation-map.svg",
+    "usage": "Consultation Map in ServiceIntroPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ServiceIntroPanel",
+    "icon": "treatment-menu.svg",
+    "usage": "Treatment Menu in ServiceIntroPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ServiceIntroPanel",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check in ServiceIntroPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "deep-facial-cleansing.svg",
+    "usage": "Deep Facial Cleansing in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "eyebrow-design.svg",
+    "usage": "Eyebrow Design in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "harmony-laser.svg",
+    "usage": "Harmony Laser in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "laser-hair-reduction.svg",
+    "usage": "Laser Hair Reduction in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "co2-laser-renewal.svg",
+    "usage": "CO₂ Laser Renewal in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "ultrasound-lifting.svg",
+    "usage": "Ultrasound Lifting in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "radiofrequency-waves.svg",
+    "usage": "Radiofrequency Waves in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "plasma-jet.svg",
+    "usage": "Plasma Jet in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "mmp-microinfusion.svg",
+    "usage": "MMP Microinfusion in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "hair-mesotherapy.svg",
+    "usage": "Hair Mesotherapy in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "facial-botox.svg",
+    "usage": "Facial Botox in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "nefertiti-neck-contour.svg",
+    "usage": "Nefertiti Neck Contour in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "microvessels-peim.svg",
+    "usage": "Microvessels PEIM in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "diamond-peel.svg",
+    "usage": "Diamond Peel in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "crystal-peel.svg",
+    "usage": "Crystal Peel in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "ultrasonic-peel.svg",
+    "usage": "Ultrasonic Peel in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "retinoic-peel.svg",
+    "usage": "Retinoic Peel in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "jessner-peel.svg",
+    "usage": "Jessner Peel in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "tca-peel.svg",
+    "usage": "TCA Peel in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentOverviewGrid",
+    "icon": "melan-peel.svg",
+    "usage": "Melan Peel in TreatmentOverviewGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SuitabilityMatrix",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check in SuitabilityMatrix"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SuitabilityMatrix",
+    "icon": "caution-soft.svg",
+    "usage": "Caution Soft in SuitabilityMatrix"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SuitabilityMatrix",
+    "icon": "timing-recovery.svg",
+    "usage": "Timing Recovery in SuitabilityMatrix"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentDetailTabs",
+    "icon": "info.svg",
+    "usage": "Info in TreatmentDetailTabs"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentDetailTabs",
+    "icon": "suitability-check.svg",
+    "usage": "Suitability Check in TreatmentDetailTabs"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentDetailTabs",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check in TreatmentDetailTabs"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentDetailTabs",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare in TreatmentDetailTabs"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentDetailTabs",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ Chat in TreatmentDetailTabs"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "BeforeAftercarePanel",
+    "icon": "before-care.svg",
+    "usage": "Before Care in BeforeAftercarePanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "BeforeAftercarePanel",
+    "icon": "treatment-room.svg",
+    "usage": "Treatment Room in BeforeAftercarePanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "BeforeAftercarePanel",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare in BeforeAftercarePanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "BeforeAftercarePanel",
+    "icon": "sunscreen.svg",
+    "usage": "Sunscreen in BeforeAftercarePanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SafetyExpectationPanel",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check in SafetyExpectationPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SafetyExpectationPanel",
+    "icon": "expectation-balance.svg",
+    "usage": "Expectation Balance in SafetyExpectationPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "SafetyExpectationPanel",
+    "icon": "clarity-eye.svg",
+    "usage": "Clarity Eye in SafetyExpectationPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ResultsContextPanel",
+    "icon": "results-context.svg",
+    "usage": "Results Context in ResultsContextPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ResultsContextPanel",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline in ResultsContextPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ResultsContextPanel",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check in ResultsContextPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ResultsContextPanel",
+    "icon": "aftercare.svg",
+    "usage": "Aftercare in ResultsContextPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ResultsContextPanel",
+    "icon": "sun-exposure.svg",
+    "usage": "Sun Exposure in ResultsContextPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PricingOrInvestmentPanel",
+    "icon": "investment-card.svg",
+    "usage": "Investment Card in PricingOrInvestmentPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PricingOrInvestmentPanel",
+    "icon": "consultation-chat.svg",
+    "usage": "Consultation Chat in PricingOrInvestmentPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PricingOrInvestmentPanel",
+    "icon": "document-check.svg",
+    "usage": "Document Check in PricingOrInvestmentPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "AppointmentPreparationPanel",
+    "icon": "clipboard-check.svg",
+    "usage": "Clipboard Check in AppointmentPreparationPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "AppointmentPreparationPanel",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check in AppointmentPreparationPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "AppointmentPreparationPanel",
+    "icon": "message.svg",
+    "usage": "Message in AppointmentPreparationPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "AppointmentPreparationPanel",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline in AppointmentPreparationPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentFAQPreview",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ Chat in TreatmentFAQPreview"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentFAQPreview",
+    "icon": "question.svg",
+    "usage": "Question in TreatmentFAQPreview"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "TreatmentFAQPreview",
+    "icon": "chevron-down.svg",
+    "usage": "Chevron Down in TreatmentFAQPreview"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "MiniCaseStudyCards",
+    "icon": "case-study.svg",
+    "usage": "Case Study in MiniCaseStudyCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "MiniCaseStudyCards",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin Baseline in MiniCaseStudyCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "MiniCaseStudyCards",
+    "icon": "plan-check.svg",
+    "usage": "Plan Check in MiniCaseStudyCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "MiniCaseStudyCards",
+    "icon": "expectation-balance.svg",
+    "usage": "Expectation Balance in MiniCaseStudyCards"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "EthicalDisclaimerPanel",
+    "icon": "shield.svg",
+    "usage": "Shield in EthicalDisclaimerPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "EthicalDisclaimerPanel",
+    "icon": "info.svg",
+    "usage": "Info in EthicalDisclaimerPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "EthicalDisclaimerPanel",
+    "icon": "balance-scales.svg",
+    "usage": "Balance Scales in EthicalDisclaimerPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "LocationClinicPanel",
+    "icon": "location-pin.svg",
+    "usage": "Location Pin in LocationClinicPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "LocationClinicPanel",
+    "icon": "clinic.svg",
+    "usage": "Clinic in LocationClinicPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "LocationClinicPanel",
+    "icon": "map.svg",
+    "usage": "Map in LocationClinicPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "LocationClinicPanel",
+    "icon": "whatsapp.svg",
+    "usage": "Whatsapp in LocationClinicPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "NewsletterSignupPanel",
+    "icon": "email.svg",
+    "usage": "Email in NewsletterSignupPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "NewsletterSignupPanel",
+    "icon": "journal-book.svg",
+    "usage": "Journal Book in NewsletterSignupPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "NewsletterSignupPanel",
+    "icon": "leaf-small.svg",
+    "usage": "Leaf Small in NewsletterSignupPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ResourceDownloadPanel",
+    "icon": "download.svg",
+    "usage": "Download in ResourceDownloadPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ResourceDownloadPanel",
+    "icon": "document-check.svg",
+    "usage": "Document Check in ResourceDownloadPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "ResourceDownloadPanel",
+    "icon": "clipboard.svg",
+    "usage": "Clipboard in ResourceDownloadPanel"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "StickySideNav",
+    "icon": "anchor.svg",
+    "usage": "Anchor in StickySideNav"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "StickySideNav",
+    "icon": "chevron-right.svg",
+    "usage": "Chevron Right in StickySideNav"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "AnchorNav",
+    "icon": "anchor.svg",
+    "usage": "Anchor in AnchorNav"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "AnchorNav",
+    "icon": "chevron-right.svg",
+    "usage": "Chevron Right in AnchorNav"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "StatsOrMetricsBand",
+    "icon": "one-to-one.svg",
+    "usage": "One To One in StatsOrMetricsBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "StatsOrMetricsBand",
+    "icon": "calendar-check.svg",
+    "usage": "Calendar Check in StatsOrMetricsBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "StatsOrMetricsBand",
+    "icon": "plan-check.svg",
+    "usage": "Plan Check in StatsOrMetricsBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "StatsOrMetricsBand",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check in StatsOrMetricsBand"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "MediaGalleryGrid",
+    "icon": "image.svg",
+    "usage": "Image in MediaGalleryGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "MediaGalleryGrid",
+    "icon": "gallery.svg",
+    "usage": "Gallery in MediaGalleryGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "MediaGalleryGrid",
+    "icon": "sparkle-leaf.svg",
+    "usage": "Sparkle Leaf in MediaGalleryGrid"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PressOrCredentialsStrip",
+    "icon": "certificate.svg",
+    "usage": "Certificate in PressOrCredentialsStrip"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PressOrCredentialsStrip",
+    "icon": "science-flower.svg",
+    "usage": "Science Flower in PressOrCredentialsStrip"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PressOrCredentialsStrip",
+    "icon": "shield-check.svg",
+    "usage": "Shield Check in PressOrCredentialsStrip"
+  },
+  {
+    "page": "Reusable sections",
+    "section": "PressOrCredentialsStrip",
+    "icon": "profile-person.svg",
+    "usage": "Profile Person in PressOrCredentialsStrip"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "home-leaf.svg",
+    "usage": "Home icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "profile-person.svg",
+    "usage": "About icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "care-hand-heart.svg",
+    "usage": "Care icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "treatment-menu.svg",
+    "usage": "Treatments icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "laser-spark.svg",
+    "usage": "Laser icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "skin-baseline.svg",
+    "usage": "Skin icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "results-context.svg",
+    "usage": "Results icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "journal-book.svg",
+    "usage": "Journal icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "faq-chat.svg",
+    "usage": "FAQ icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "consultation-calendar.svg",
+    "usage": "Consultation icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "contact-message.svg",
+    "usage": "Contact icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "values-heart-leaf.svg",
+    "usage": "Values icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "mission-compass.svg",
+    "usage": "Mission icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "testimonial-quote.svg",
+    "usage": "Testimonies icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "privacy-shield.svg",
+    "usage": "Privacy icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "cookie-settings.svg",
+    "usage": "Cookies icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "accessible-care.svg",
+    "usage": "Accessibility icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "legal-scales.svg",
+    "usage": "Legal icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "phone.svg",
+    "usage": "Phone icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "email.svg",
+    "usage": "Email icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "instagram.svg",
+    "usage": "Instagram icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "location-pin.svg",
+    "usage": "Location icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "whatsapp.svg",
+    "usage": "WhatsApp icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "whatsapp.svg",
+    "usage": "Floating WhatsApp icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "accessible-care.svg",
+    "usage": "Floating Accessibility icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "arrow-up.svg",
+    "usage": "Back to top icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "menu.svg",
+    "usage": "Open menu icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "close.svg",
+    "usage": "Close menu icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "chevron-down.svg",
+    "usage": "Expand submenu icon"
+  },
+  {
+    "page": "Global",
+    "section": "Footer/Header/Floating",
+    "icon": "leaf-small.svg",
+    "usage": "Active page indicator icon"
+  }
+]

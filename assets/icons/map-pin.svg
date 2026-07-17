@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Map Pin</title>
+  <path d="M44 27 C44 39 32 51 32 51 C32 51 20 39 20 27 C20 20 25 15 32 15 C39 15 44 20 44 27Z"/><circle cx="32" cy="27" r="5"/><g transform="translate(42 46) rotate(-20) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

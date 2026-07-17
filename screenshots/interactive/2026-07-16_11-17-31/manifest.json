@@ -1,0 +1,55 @@
+{
+  "captures": [
+    {
+      "page": "index.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/index--hero.png"
+    },
+    {
+      "page": "index.html",
+      "viewport": "tablet-768",
+      "target": "hero",
+      "status": "captured",
+      "file": "tablet-768/index--hero.png"
+    },
+    {
+      "page": "index.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/index--hero.png"
+    }
+  ],
+  "capturedAt": "2026-07-16T11:17:36",
+  "pages": [
+    "index.html"
+  ],
+  "viewports": {
+    "mobile-390": {
+      "width": 390,
+      "height": 844,
+      "isMobile": true
+    },
+    "tablet-768": {
+      "width": 768,
+      "height": 1024,
+      "isMobile": false
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "height": 1200,
+      "isMobile": false
+    }
+  },
+  "target": {
+    "kind": "selectors",
+    "selectors": [
+      {
+        "name": "hero",
+        "selector": "main > section[data-pattern=\"hero\"], main > section[data-section=\"1\"]"
+      }
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+@layer components {
+  .sf-accordion, .sf-treatment-directory { display: grid; gap: .75rem; }
+
+  .sf-accordion-item, .sf-treatment-entry:not(.sf-treatment-menu-card), .sf-treatment-disclosure {
+    overflow: hidden;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-bg-surface) 94%, transparent);
+    box-shadow: 0 .45rem 1.6rem color-mix(in srgb, var(--olive-700) 5%, transparent);
+    transition: border-color var(--duration-fast), box-shadow var(--duration-fast), background var(--duration-fast);
+  }
+
+  :is(.sf-accordion-item, .sf-treatment-entry:not(.sf-treatment-menu-card), .sf-treatment-disclosure)[open] { border-color: var(--color-border-warm); background: var(--color-bg-surface); box-shadow: var(--shadow-soft); }
+
+  :is(.sf-accordion-item, .sf-treatment-entry:not(.sf-treatment-menu-card), .sf-treatment-disclosure) > summary {
+    min-block-size: 3.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: .95rem 1rem .95rem 1.15rem;
+    color: var(--color-text-primary);
+    font-weight: 680;
+    line-height: 1.4;
+    list-style: none;
+  }
+
+  :is(.sf-accordion-item, .sf-treatment-entry, .sf-treatment-disclosure) > summary::-webkit-details-marker, .sf-section-disclosure > summary::-webkit-details-marker { display: none; }
+
+  :is(.sf-accordion-item, .sf-treatment-entry, .sf-treatment-disclosure) > summary::after {
+    content: "+";
+    inline-size: 1.8rem;
+    block-size: 1.8rem;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--color-border-rose);
+    border-radius: 50%;
+    background: var(--blush-50);
+    color: var(--rose-gold-700);
+    font-size: 1.15rem;
+    font-weight: 420;
+  }
+
+  :is(.sf-accordion-item, .sf-treatment-entry, .sf-treatment-disclosure)[open] > summary::after { content: "−"; background: var(--sage-100); }
+  .sf-accordion-answer, .sf-treatment-entry__body { border-block-start: 1px solid var(--color-border-subtle); padding: var(--space-4); color: var(--color-text-secondary); }
+  .sf-treatment-entry[hidden] { display: none; }
+
+  .sf-section:has(.sf-section-disclosure) { padding-block: 0; }
+  .sf-section-disclosure { border-block: 1px solid color-mix(in srgb, var(--olive-700) 18%, transparent); }
+  .sf-section-disclosure > summary { min-block-size: clamp(7.5rem, 11vw, 10rem); display: grid; grid-template-columns: minmax(0, 1fr) 2.25rem; grid-template-rows: auto auto auto; align-items: center; gap: .35rem 1rem; padding-block: clamp(1.5rem, 3vw, 2.4rem); color: inherit; cursor: pointer; list-style: none; }
+  .sf-section-disclosure > summary > :is(.sf-chapter-number, .sf-eyebrow, h2) { grid-column: 1; min-inline-size: 0; }
+  .sf-section-disclosure > summary > .sf-chapter-number { grid-row: 1; margin-block-end: .35rem; }
+  .sf-section-disclosure > summary > .sf-eyebrow { grid-row: 2; margin-block-end: .25rem; }
+  .sf-section-disclosure > summary > h2 { grid-row: 3; max-inline-size: 24ch; }
+  .sf-section-disclosure > summary > .sf-section-disclosure__toggle { grid-column: 2; grid-row: 1 / span 3; inline-size: 2.15rem; block-size: 2.15rem; position: relative; display: block; border: 1px solid var(--color-border-warm); border-radius: 50%; background: color-mix(in srgb, var(--white) 56%, transparent); }
+  .sf-section-disclosure > summary > .sf-section-disclosure__toggle::before, .sf-section-disclosure > summary > .sf-section-disclosure__toggle::after { content: ""; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; inline-size: .72rem; block-size: 1px; background: var(--rose-gold-600); transform: translate(-50%, -50%); }
+  .sf-section-disclosure > summary > .sf-section-disclosure__toggle::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .sf-section-disclosure[open] > summary > .sf-section-disclosure__toggle::after { transform: translate(-50%, -50%); }
+  .sf-section[data-scene="olive-garden"] .sf-section-disclosure > summary h2 { color: var(--ivory-50); }
+  .sf-section[data-scene="olive-garden"] .sf-section-disclosure > summary :is(.sf-eyebrow, .sf-chapter-number) { color: var(--gold-200); }
+  .sf-section[data-scene="olive-garden"] .sf-section-disclosure > summary > .sf-section-disclosure__toggle { border-color: rgb(234 213 173 / .55); background: rgb(255 253 249 / .08); }
+  .sf-section[data-scene="olive-garden"] .sf-section-disclosure > summary > .sf-section-disclosure__toggle::before,
+  .sf-section[data-scene="olive-garden"] .sf-section-disclosure > summary > .sf-section-disclosure__toggle::after { background: var(--gold-200); }
+  .sf-section-disclosure__body { max-inline-size: min(62rem, 100%); border: 0; padding: 0 0 clamp(2rem, 4vw, 3.25rem); }
+  .sf-section-disclosure__body > :is(p, ul, ol, dl) { max-inline-size: var(--container-reading); }
+  .sf-section-disclosure__body > * + * { margin-block-start: var(--space-3); }
+}

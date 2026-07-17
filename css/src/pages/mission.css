@@ -1,0 +1,8 @@
+@layer pages {
+  .sf-page[data-page="mission"] #why-it-matters .sf-editorial-media-layout { border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-md); }
+  .sf-page[data-page="mission"] #the-change .sf-content-card { min-block-size: 10rem; align-content: start; }
+  .sf-page[data-page="mission"] #science-with-humanity .sf-statement-inner { max-inline-size: min(70rem, calc(100% - 2 * var(--page-gutter))); }
+  .sf-page[data-page="mission"] #natural-beauty .sf-statement-inner { margin-inline-end: max(var(--page-gutter), calc((100% - var(--container-standard)) / 2)); margin-inline-start: auto; }
+  .sf-page[data-page="mission"] #a-calmer-space .sf-statement-inner { border-radius: var(--radius-arch) var(--radius-lg) var(--radius-arch) var(--radius-lg); }
+  .sf-page[data-page="mission"] #mission-in-action .sf-content-card-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); }
+}

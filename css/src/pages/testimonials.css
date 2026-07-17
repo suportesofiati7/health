@@ -1,0 +1,45 @@
+@layer pages {
+  /* 01 — one verified review and a substantial clinic image. */
+  .sf-page[data-page="testimonials"] #google-reviews .sf-editorial-media-layout { grid-template-columns: minmax(0, .85fr) minmax(24rem, 1.15fr); align-items: stretch; }
+  .sf-page[data-page="testimonials"] #google-reviews .sf-editorial-media { max-inline-size: none; }
+  .sf-page[data-page="testimonials"] #google-reviews .sf-editorial-media img { block-size: 100%; aspect-ratio: auto; min-block-size: 28rem; }
+  .sf-page[data-page="testimonials"] #google-reviews .sf-content-card-grid { grid-template-columns: 1fr; max-inline-size: 35rem; }
+
+  /* 02–04 — patient words are the focal artwork. Each chapter uses a
+     different material recipe while the chapter header keeps one anchor. */
+  .sf-page[data-page="testimonials"] :is(#attentive-expertise, #personalised-care, #the-environment) .sf-testimonial-quote { max-inline-size: 42rem; }
+  .sf-page[data-page="testimonials"] :is(#attentive-expertise, #personalised-care, #the-environment) .sf-testimonial-quote .sf-pull-quote p { font-size: var(--type-quotation); line-height: 1.38; }
+  .sf-page[data-page="testimonials"] #attentive-expertise .sf-pull-quote { border-color: var(--gold-200); }
+  .sf-page[data-page="testimonials"] #attentive-expertise .sf-pull-quote::before { color: var(--gold-200); }
+  .sf-page[data-page="testimonials"] #attentive-expertise .sf-pull-quote p,
+  .sf-page[data-page="testimonials"] #attentive-expertise .sf-statement-inner > p { color: rgb(255 253 249 / .92); }
+  .sf-page[data-page="testimonials"] #personalised-care .sf-pull-quote { border-color: var(--rose-gold-500); }
+  .sf-page[data-page="testimonials"] #the-environment .sf-pull-quote { border-block: 1px solid var(--color-border-warm); border-inline-start: 0; padding-inline-start: clamp(2.8rem, 5vw, 4.6rem); }
+
+  /* 05 — continuity joins the quotation to a real treatment image. */
+  .sf-page[data-page="testimonials"] #skin-care-and-trust .sf-editorial-media-layout { grid-template-columns: minmax(0, 1fr) minmax(25rem, .88fr); align-items: stretch; }
+  .sf-page[data-page="testimonials"] #skin-care-and-trust .sf-statement-inner { display: block; }
+  .sf-page[data-page="testimonials"] #skin-care-and-trust .sf-statement-inner > * + * { margin-block-start: var(--space-4); }
+  .sf-page[data-page="testimonials"] #skin-care-and-trust .sf-editorial-media { max-inline-size: none; border-radius: 7rem .7rem .7rem .7rem; }
+  .sf-page[data-page="testimonials"] #skin-care-and-trust .sf-editorial-media img { block-size: 100%; min-block-size: 35rem; aspect-ratio: auto; }
+
+  /* 06 — eight words become one editorial index, followed by a pull quote. */
+  .sf-page[data-page="testimonials"] #what-patients-often-value .sf-content-card-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); background: rgb(255 253 249 / .6); }
+  .sf-page[data-page="testimonials"] #what-patients-often-value .sf-content-card { min-block-size: 9rem; background: transparent; }
+  .sf-page[data-page="testimonials"] #what-patients-often-value .sf-pull-quote { margin-block-start: clamp(2rem, 4vw, 4rem); }
+
+  /* 07 — transparency is a practitioner statement, not a testimonial. */
+  .sf-page[data-page="testimonials"] #review-transparency .sf-botanical-list { max-inline-size: 48rem; }
+  .sf-page[data-page="testimonials"] #review-transparency .sf-pull-quote { margin-block-start: clamp(2rem, 4vw, 4rem); border-block: 1px solid var(--color-border-warm); }
+  .sf-page[data-page="testimonials"] #share-your-experience .sf-content-card { border-radius: 0; text-align: start; }
+
+  @media (max-width: 63.999rem) {
+    .sf-page[data-page="testimonials"] :is(#google-reviews, #skin-care-and-trust) .sf-editorial-media-layout { grid-template-columns: 1fr; }
+    .sf-page[data-page="testimonials"] #skin-care-and-trust .sf-editorial-media img { min-block-size: 0; aspect-ratio: 16 / 10; }
+    .sf-page[data-page="testimonials"] #what-patients-often-value .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 35.999rem) {
+    .sf-page[data-page="testimonials"] #what-patients-often-value .sf-content-card-grid { grid-template-columns: 1fr; }
+  }
+}

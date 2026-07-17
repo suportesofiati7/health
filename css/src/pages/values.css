@@ -1,0 +1,14 @@
+@layer pages {
+  .sf-page[data-page="values"] #suitability .sf-editorial-media-layout { background: linear-gradient(145deg, color-mix(in srgb, var(--white) 76%, transparent), var(--champagne-100)); }
+  .sf-page[data-page="values"] #clarity .sf-statement-inner { border-radius: var(--radius-xl) var(--radius-xl) var(--radius-xl) var(--radius-md); }
+  .sf-page[data-page="values"] #restraint .sf-statement-inner { max-inline-size: min(56rem, calc(100% - 2 * var(--page-gutter))); margin-inline-start: max(var(--page-gutter), calc((100% - var(--container-standard)) / 2)); }
+  .sf-page[data-page="values"] #individuality .sf-section-head { margin-inline: auto; text-align: center; }
+  .sf-page[data-page="values"] #individuality .sf-eyebrow { justify-content: center; }
+  .sf-page[data-page="values"] #honesty .sf-content-card { border-radius: var(--radius-arch); text-align: center; }
+  .sf-page[data-page="values"] #respect > .sf-editorial-media-layout { border-radius: var(--radius-xl); }
+  .sf-page[data-page="values"] #responsibility .sf-content-card { min-block-size: 12rem; }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="values"] #restraint .sf-statement-inner { margin-inline: auto; }
+  }
+}

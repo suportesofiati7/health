@@ -1,0 +1,40 @@
+@layer components {
+  .sf-form, .sf-search-form, .sf-treatment-filter__inner { display: grid; gap: var(--space-4); }
+  .sf-field { display: grid; align-content: start; gap: .45rem; min-inline-size: 0; }
+  .sf-field label, .sf-search-form label, .sf-treatment-filter label, .sf-faq-search label { color: var(--color-text-primary); font-size: .875rem; font-weight: 760; letter-spacing: .025em; }
+
+  :is(.sf-form, .sf-search-form, .sf-treatment-filter, .sf-faq-search) :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+    inline-size: 100%;
+    min-block-size: var(--control-height);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--ivory-50) 94%, var(--white));
+    padding: .78rem 1rem;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--white) 82%, transparent);
+    transition: border-color var(--duration-fast), background var(--duration-fast), box-shadow var(--duration-fast);
+  }
+
+  :is(.sf-form, .sf-search-form, .sf-treatment-filter, .sf-faq-search) :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea):hover { border-color: color-mix(in srgb, var(--olive-700) 35%, transparent); }
+  :is(.sf-form, .sf-search-form, .sf-treatment-filter, .sf-faq-search) :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea):focus-visible { border-color: var(--gold-700); background: var(--white); box-shadow: var(--focus-ring); }
+
+  textarea { min-block-size: 9rem; resize: vertical; }
+  :is(input, select, textarea)::placeholder { color: color-mix(in srgb, var(--color-text-secondary) 67%, transparent); }
+  :is(input, select, textarea)[aria-invalid="true"] { border-color: var(--color-error); background: color-mix(in srgb, var(--blush-50) 82%, var(--white)); }
+  :is(input, select, textarea):disabled { cursor: not-allowed; opacity: .62; }
+
+  .sf-field-help { color: var(--color-text-secondary); font-size: .875rem; line-height: 1.5; }
+  .sf-form-error, .form-error { min-block-size: 1em; color: var(--color-error); font-size: .875rem; }
+  .sf-required { color: var(--color-error); }
+  .sf-field--checkbox label { min-block-size: 2.75rem; display: grid; grid-template-columns: 1.35rem 1fr; align-items: start; gap: .75rem; border-radius: var(--radius-sm); padding: .4rem; font-weight: 520; line-height: 1.5; }
+  .sf-field--checkbox input { inline-size: 1.25rem; block-size: 1.25rem; margin-block-start: .22rem; accent-color: var(--color-action-primary); }
+  .sf-form-states { min-block-size: 1.5rem; }
+  .sf-form-state, .sf-form-status { border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); background: var(--color-bg-soft); padding: .85rem 1rem; }
+  .sf-form-state--success { border-color: color-mix(in srgb, var(--color-success) 32%, transparent); background: var(--sage-100); color: var(--color-success); }
+  .sf-form-state--error { border-color: color-mix(in srgb, var(--color-error) 30%, transparent); background: var(--blush-100); color: var(--color-error); }
+  .sf-honeypot { position: absolute; inset-inline-start: -10000px; }
+
+  .sf-search-form { grid-template-columns: minmax(0, 2fr) minmax(12rem, 1fr); align-items: end; border: 1px solid var(--color-border-warm); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--white) 72%, transparent); padding: clamp(1rem, 2.5vw, 1.8rem); box-shadow: var(--shadow-soft); }
+  .sf-faq-search { max-inline-size: 48rem; margin-inline: auto; }
+
+  @media (max-width: 47.999rem) { .sf-search-form { grid-template-columns: 1fr; border-radius: var(--radius-md); } }
+}

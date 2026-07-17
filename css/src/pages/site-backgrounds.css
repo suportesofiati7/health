@@ -1,0 +1,291 @@
+@layer pages {
+  :root {
+    --page-cream: #fffdf9;
+    --site-panorama: url("../assets/backgrounds/site-panorama-v2.png");
+    --ordinary-paper: #fffdf9;
+    --ordinary-mist: #fbf6ee;
+    --ordinary-sage: #edf1e7;
+    --ordinary-blush: #fff3ee;
+    --footer-overlap: clamp(5rem, 7vw, 8rem);
+  }
+
+  /* The outer field owns exactly one bitmap. It is a single generated
+     panorama, so ultra-wide rendering uses one coordinate system and cannot
+     stretch three independent panels out of alignment. */
+  .sf-page {
+    min-inline-size: 0;
+    background-color: var(--page-cream);
+    background-image:
+      linear-gradient(rgb(255 253 249 / .42), rgb(255 253 249 / .42)),
+      var(--site-panorama);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .sf-page::before,
+  .sf-page::after,
+  .sf-main::before,
+  .sf-main::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .sf-main {
+    position: relative;
+    isolation: auto;
+    overflow: visible;
+    background: transparent !important;
+  }
+
+  /* The Journal is a self-contained publication. Keep its paper field calm
+     and uninterrupted instead of inheriting the decorative site panorama. */
+  .sf-page:is(.sf-journal-index, .sf-journal-article) {
+    background-color: var(--ivory-50);
+    background-image: none;
+    background-attachment: scroll;
+  }
+
+  .sf-page:is(.sf-journal-index, .sf-journal-article) .sf-main {
+    background: var(--ivory-50) !important;
+  }
+
+  .sf-main > * { position: relative; }
+
+  /* Non-section rows obey the same centre rail and remain fully opaque. */
+  .sf-main > :is(.sf-breadcrumbs, .sf-credentials-line, .sf-treatment-index, .sf-faq-search) {
+    inline-size: min(100%, var(--content-max-width));
+    margin-inline: auto;
+    box-sizing: border-box;
+  }
+
+  .sf-main > .sf-breadcrumbs,
+  .sf-main > .sf-faq-search {
+    background: var(--ordinary-paper);
+  }
+
+  .sf-main > .sf-credentials-line {
+    background: var(--ordinary-mist);
+  }
+
+  /* Ordinary sections are actual opaque centre-column surfaces. Their own
+     box is bounded, so direct pseudo-elements and legacy artwork can neither
+     leak nor paint faint horizontal rows across the outer panorama. */
+  .sf-main > .sf-section:not(.section--full-bleed) {
+    inline-size: min(100%, var(--content-max-width));
+    max-inline-size: var(--content-max-width);
+    margin-inline: auto;
+    overflow: clip;
+    isolation: isolate;
+    box-sizing: border-box;
+    color: var(--forest-900) !important;
+  }
+
+  .sf-main > .sf-section:not(.section--full-bleed)::before,
+  .sf-main > .sf-section:not(.section--full-bleed)::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+  }
+
+  .sf-main > .sf-section:not(.section--full-bleed) :is(
+    .sf-section-head h2,
+    .sf-section-head h3,
+    .sf-editorial-kicker h2,
+    .sf-form-section-intro h2,
+    .sf-lede,
+    .sf-pull-quote p
+  ) {
+    color: var(--forest-900);
+  }
+
+  .sf-main > .sf-section:not(.section--full-bleed) :is(.sf-eyebrow, .sf-chapter-number) {
+    color: var(--rose-gold-700);
+  }
+
+  /* Some older page-specific compositions were designed as inverse cards.
+     Once their parent becomes an ordinary light section, keep every nested
+     content card legible instead of inheriting the former white-on-green ink. */
+  .sf-main > .sf-section:not(.section--full-bleed) :is(
+    .sf-content-card,
+    .sf-step,
+    .sf-info-card,
+    .sf-treatment-card
+  ),
+  .sf-main > .sf-section:not(.section--full-bleed) :is(
+    .sf-content-card,
+    .sf-step,
+    .sf-info-card,
+    .sf-treatment-card
+  ) :is(h3, h4, p, li, span) {
+    color: var(--forest-900) !important;
+  }
+
+  .sf-main > .sf-section:not(.section--full-bleed)[data-tone="paper"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="porcelain"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="paper-line"] {
+    background: var(--ordinary-paper) !important;
+  }
+
+  .sf-main > .sf-section:not(.section--full-bleed)[data-tone="mist"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="architectural-light"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="clinic-light"] {
+    background: var(--ordinary-mist) !important;
+  }
+
+  .sf-main > .sf-section:not(.section--full-bleed)[data-tone="sage"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="sage-shadow"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="technical-light"] {
+    background: var(--ordinary-sage) !important;
+  }
+
+  .sf-main > .sf-section:not(.section--full-bleed)[data-tone="blush"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="blush-silk"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="rose-metal"],
+  .sf-main > .sf-section:not(.section--full-bleed)[data-scene="contact-form"] {
+    background: var(--ordinary-blush) !important;
+  }
+
+  .sf-page[data-page] .sf-main > .sf-section:not(.section--full-bleed)[data-pattern="hero"] {
+    background:
+      linear-gradient(90deg, rgb(255 253 249 / .92) 0%, rgb(255 253 249 / .76) 35%, rgb(255 253 249 / .12) 68%, transparent 100%),
+      var(--hero-scene-image) var(--hero-scene-position-wide) / cover no-repeat !important;
+  }
+
+  @media (max-width: 63.999rem) {
+    .sf-page[data-page] .sf-main > .sf-section:not(.section--full-bleed)[data-pattern="hero"] {
+      background-position: center, var(--hero-scene-position-medium) !important;
+    }
+  }
+
+  @media (max-width: 35.999rem) {
+    .sf-page[data-page] .sf-main > .sf-section:not(.section--full-bleed)[data-pattern="hero"] {
+      background: var(--hero-scene-image) var(--hero-scene-position-narrow) / cover no-repeat !important;
+    }
+  }
+
+  /* The sole viewport-wide section primitive. Renderer ownership makes its
+     use countable and prevents a cream or translucent scene from opting in. */
+  .sf-main > .sf-section.section--full-bleed {
+    position: relative;
+    z-index: 1;
+    inline-size: 100%;
+    max-inline-size: none;
+    margin-inline: 0;
+    overflow: clip;
+    isolation: isolate;
+    background: var(--menu-green-overlay) !important;
+    color: var(--ivory-50);
+  }
+
+  .sf-main > .sf-section.section--full-bleed::before,
+  .sf-main > .sf-section.section--full-bleed::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+  }
+
+  .sf-main > .sf-section.section--full-bleed > :is(
+    .sf-section-inner,
+    .sf-editorial-media-layout,
+    .sf-statement-inner,
+    .sf-form-section-layout,
+    .sf-reading-column,
+    .sf-treatment-scene,
+    .sf-bottom-cta__inner
+  ) {
+    inline-size: min(calc(100% - 2 * var(--page-gutter)), var(--content-max-width));
+    margin-inline: auto;
+  }
+
+  .sf-main > .sf-section.section--full-bleed :is(
+    .sf-section-head h2,
+    .sf-section-head h3,
+    .sf-editorial-kicker h2,
+    .sf-form-section-intro h2,
+    .sf-lede,
+    .sf-pull-quote p
+  ) {
+    color: var(--ivory-50);
+  }
+
+  .sf-main > .sf-section.section--full-bleed :is(
+    .sf-eyebrow,
+    .sf-chapter-number,
+    .sf-editorial-kicker .sf-eyebrow
+  ) {
+    color: var(--gold-200);
+  }
+
+  /* The final CTA's green outer band remains full bleed; its readable cream
+     panel is a separate, art-free layer above the raised footer. */
+  .sf-main > .sf-composition-final-cta.section--full-bleed {
+    z-index: auto;
+    isolation: auto;
+    overflow: visible;
+    padding-block: clamp(5rem, 7vw, 7.5rem) calc(var(--footer-overlap) + clamp(3rem, 5vw, 5rem));
+  }
+
+  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner {
+    position: relative;
+    z-index: 3;
+    max-inline-size: min(66rem, calc(100% - 2 * var(--page-gutter)));
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--gold-500) 42%, transparent);
+    border-radius: clamp(1.25rem, 3vw, 2.75rem);
+    background-color: var(--ordinary-paper) !important;
+    background-image: none !important;
+    color: var(--forest-900) !important;
+    box-shadow: 0 2rem 5rem rgb(11 24 14 / .28);
+  }
+
+  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner::before,
+  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+  }
+
+  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner :is(h2, h3, p, span) {
+    color: var(--forest-900);
+  }
+
+  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner .sf-eyebrow {
+    color: var(--rose-gold-700);
+  }
+
+  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner .sf-button--outline {
+    border-color: var(--olive-700);
+    color: var(--forest-900);
+  }
+
+  @media (max-width: 90rem) {
+    .sf-main > .sf-section:not(.section--full-bleed),
+    .sf-main > :is(.sf-breadcrumbs, .sf-credentials-line, .sf-treatment-index, .sf-faq-search) {
+      inline-size: 100%;
+    }
+  }
+
+  @media (max-width: 63.999rem), (pointer: coarse) {
+    .sf-page { background-attachment: scroll; }
+  }
+
+  @media (max-width: 47.999rem) {
+    :root { --footer-overlap: 2.5rem; }
+
+    .sf-page {
+      background-color: var(--page-cream);
+      background-image: none;
+    }
+
+    .sf-main > .sf-composition-final-cta.section--full-bleed {
+      padding-block: var(--section-standard) calc(var(--footer-overlap) + 2rem);
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .sf-page { background-image: var(--site-panorama); }
+    .sf-main > .sf-section.section--full-bleed { background: var(--menu-green) !important; }
+  }
+}

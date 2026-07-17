@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Clipboard</title>
+  <rect x="17" y="18" width="30" height="34" rx="5"/><path d="M25 18 C25 14 29 12 32 12 C35 12 39 14 39 18"/><path d="M25 18 H39"/><path d="M24 31 H40"/><path d="M24 39 L29 43 L40 31"/><g transform="translate(42 21) rotate(-20) scale(0.28)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

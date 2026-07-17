@@ -1,0 +1,84 @@
+@layer base {
+  h1, h2, h3, h4 {
+    max-inline-size: 22ch;
+    color: var(--color-text-primary);
+    font-family: var(--font-heading);
+    font-weight: 400;
+    letter-spacing: -.04em;
+    line-height: var(--line-heading);
+    text-wrap: balance;
+  }
+
+  h1 { font-size: var(--font-page-title); }
+  h2 { font-size: var(--font-section-title); }
+  h3 { font-size: var(--font-subtitle); letter-spacing: -.025em; line-height: 1.08; }
+  h4 { font-size: 1.2rem; font-weight: 500; letter-spacing: -.015em; line-height: 1.2; }
+
+  .sf-hero-copy h1 { font-size: var(--font-display); }
+
+  :is(h1, h2, h3) em {
+    color: var(--color-action-accent);
+    font-weight: inherit;
+    letter-spacing: -.055em;
+  }
+
+  .sf-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    margin-block-end: var(--space-3);
+    color: var(--color-action-accent);
+    font-size: var(--type-label);
+    font-weight: 800;
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .sf-eyebrow::before {
+    content: "";
+    inline-size: 1.65rem;
+    block-size: 1px;
+    flex: 0 0 auto;
+    background: linear-gradient(90deg, var(--rose-gold-500), var(--gold-300));
+  }
+
+  .sf-lede {
+    max-inline-size: 52ch;
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: var(--font-lead);
+    line-height: 1.68;
+  }
+
+  .sf-small-copy { color: var(--color-text-secondary); font-size: var(--font-small); }
+
+  .sf-section-head {
+    max-inline-size: 54rem;
+    margin-block-end: clamp(2rem, 4vw, 3.75rem);
+  }
+
+  .sf-chapter-number {
+    display: block;
+    margin-block-end: .65rem;
+    color: var(--rose-gold-600);
+    font-family: var(--font-heading);
+    font-size: clamp(2.75rem, 4.25vw, 4.9rem);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-weight: 400;
+    letter-spacing: -.075em;
+    line-height: .78;
+  }
+
+  .sf-chapter-number + .sf-eyebrow { margin-block-end: .7rem; }
+  [data-tone="forest"] .sf-chapter-number { color: var(--gold-200); }
+
+  .sf-section-head > :is(p, ul):not(.sf-eyebrow) { max-inline-size: 64ch; }
+  .sf-section-head h2 + :is(p, ul) { margin-block-start: var(--space-4); }
+
+  @media (max-width: 35.999rem) {
+    .sf-eyebrow { letter-spacing: .13em; }
+    .sf-eyebrow::before { inline-size: 1.1rem; }
+    h1, h2, h3, h4 { text-wrap: pretty; }
+  }
+}

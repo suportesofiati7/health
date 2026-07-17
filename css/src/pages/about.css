@@ -1,0 +1,14 @@
+@layer pages {
+  .sf-page[data-page="about"] #why-this-work .sf-editorial-media { border-radius: var(--radius-arch) var(--radius-lg) var(--radius-lg); }
+  .sf-page[data-page="about"] #my-view-of-aesthetics .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-page[data-page="about"] #clinical-judgment { background: linear-gradient(135deg, var(--blush-50), var(--color-bg-soft)); }
+  .sf-page[data-page="about"] #the-clinic-experience .sf-content-card { background: transparent; border-inline-start: 2px solid var(--color-border-rose); }
+  .sf-page[data-page="about"] #technology-with-purpose .sf-editorial-media { border-radius: var(--radius-lg) var(--radius-lg) var(--radius-arch); }
+  .sf-page[data-page="about"] #after-treatment .sf-section-head { margin-inline-start: auto; text-align: end; }
+  .sf-page[data-page="about"] #continue-the-story .sf-bottom-cta__inner { max-inline-size: min(66rem, calc(100% - 2 * var(--page-gutter))); }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="about"] #my-view-of-aesthetics .sf-content-card-grid { grid-template-columns: 1fr; }
+    .sf-page[data-page="about"] #after-treatment .sf-section-head { margin-inline-start: 0; text-align: start; }
+  }
+}

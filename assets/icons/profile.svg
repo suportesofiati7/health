@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Profile</title>
+  <path d="M34 13 C25 15 20 22 20 32 C20 40 25 48 34 50"/><path d="M35 18 C41 21 43 26 42 31 C41 37 37 39 34 43"/><path d="M31 27 C33 26 35 26 37 27"/><path d="M37 32 C35 34 33 34 31 33"/><path d="M24 49 C29 53 39 53 44 48"/><g transform="translate(45 43) rotate(-20) scale(0.35)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

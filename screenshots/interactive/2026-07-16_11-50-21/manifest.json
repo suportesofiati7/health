@@ -1,0 +1,183 @@
+{
+  "captures": [
+    {
+      "page": "404.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/404--hero.png"
+    },
+    {
+      "page": "about.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/about--hero.png"
+    },
+    {
+      "page": "accessibility.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/accessibility--hero.png"
+    },
+    {
+      "page": "blog.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/blog--hero.png"
+    },
+    {
+      "page": "care.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/care--hero.png"
+    },
+    {
+      "page": "consultation.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/consultation--hero.png"
+    },
+    {
+      "page": "cookies.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/cookies--hero.png"
+    },
+    {
+      "page": "faq.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/faq--hero.png"
+    },
+    {
+      "page": "index.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/index--hero.png"
+    },
+    {
+      "page": "journal.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/journal--hero.png"
+    },
+    {
+      "page": "laser.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/laser--hero.png"
+    },
+    {
+      "page": "legal.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/legal--hero.png"
+    },
+    {
+      "page": "mission.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/mission--hero.png"
+    },
+    {
+      "page": "privacy.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/privacy--hero.png"
+    },
+    {
+      "page": "results.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/results--hero.png"
+    },
+    {
+      "page": "skin.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/skin--hero.png"
+    },
+    {
+      "page": "testimonials.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/testimonials--hero.png"
+    },
+    {
+      "page": "thank-you.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/thank-you--hero.png"
+    },
+    {
+      "page": "treatments.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/treatments--hero.png"
+    },
+    {
+      "page": "values.html",
+      "viewport": "desktop-1440",
+      "target": "hero",
+      "status": "captured",
+      "file": "desktop-1440/values--hero.png"
+    }
+  ],
+  "capturedAt": "2026-07-16T11:50:48",
+  "pages": [
+    "404.html",
+    "about.html",
+    "accessibility.html",
+    "blog.html",
+    "care.html",
+    "consultation.html",
+    "cookies.html",
+    "faq.html",
+    "index.html",
+    "journal.html",
+    "laser.html",
+    "legal.html",
+    "mission.html",
+    "privacy.html",
+    "results.html",
+    "skin.html",
+    "testimonials.html",
+    "thank-you.html",
+    "treatments.html",
+    "values.html"
+  ],
+  "viewports": {
+    "desktop-1440": {
+      "width": 1440,
+      "height": 1200,
+      "isMobile": false
+    }
+  },
+  "target": {
+    "kind": "selectors",
+    "selectors": [
+      {
+        "name": "hero",
+        "selector": "main > section[data-pattern=\"hero\"], main > section[data-section=\"1\"]"
+      }
+    ]
+  }
+}

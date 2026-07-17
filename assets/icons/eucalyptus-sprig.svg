@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Eucalyptus Sprig</title>
+  <path d="M32 52 V13"/><path d="M32 40 C24 35 18 36 14 43 C21 46 28 45 32 40Z"/><path d="M32 31 C42 25 48 27 52 34 C44 38 37 36 32 31Z"/><path d="M32 22 C25 18 21 19 18 25 C24 28 29 27 32 22Z"/><g transform="translate(45 18) scale(0.25)">
+  <circle cx="0" cy="0" r=".8"/>
+  <path d="M0 -5 C3 -3 3 0 0 2 C-3 0 -3 -3 0 -5Z"/>
+  <path d="M0 5 C3 3 3 0 0 -2 C-3 0 -3 3 0 5Z"/>
+  <path d="M-5 0 C-3 -3 0 -3 2 0 C0 3 -3 3 -5 0Z"/>
+  <path d="M5 0 C3 -3 0 -3 -2 0 C0 3 3 3 5 0Z"/>
+</g>
+</svg>

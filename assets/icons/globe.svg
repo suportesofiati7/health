@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Globe</title>
+  <circle cx="32" cy="32" r="21"/><path d="M11 32 H53"/><path d="M32 11 C39 19 39 45 32 53 C25 45 25 19 32 11Z"/><path d="M18 20 C25 24 39 24 46 20"/><path d="M18 44 C25 40 39 40 46 44"/><g transform="translate(45 45) rotate(-20) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

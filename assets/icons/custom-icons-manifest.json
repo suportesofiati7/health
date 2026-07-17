@@ -1,0 +1,5508 @@
+[
+  {
+    "filename": "about-leaf.svg",
+    "displayName": "About Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "about",
+      "botanical",
+      "feminine",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "accessibility-care.svg",
+    "displayName": "Accessibility Care",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "care",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Accessibility page",
+      "Legal page",
+      "PolicyCardGrid"
+    ],
+    "pages": [
+      "Accessibility",
+      "Legal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "accessibility.svg",
+    "displayName": "Accessibility",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "accessible-care.svg",
+    "displayName": "Accessible Care",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "accessible",
+      "care",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "accordion-chevron.svg",
+    "displayName": "Accordion Chevron",
+    "category": "Navigation / UI",
+    "tags": [
+      "accordion",
+      "chevron"
+    ],
+    "recommendedUse": [
+      "Navigation / UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "address-map.svg",
+    "displayName": "Address Map",
+    "category": "Page / Section",
+    "tags": [
+      "address",
+      "map"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "aftercare.svg",
+    "displayName": "Aftercare",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "aftercare",
+      "beauty",
+      "clinic",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "BeforeAftercarePanel",
+      "Care page",
+      "Laser page",
+      "NumberedStepRow",
+      "ProcessTimeline",
+      "Results page",
+      "ResultsContextPanel",
+      "Skin page",
+      "TreatmentDetailTabs",
+      "Treatments page"
+    ],
+    "pages": [
+      "Care",
+      "Laser",
+      "Results",
+      "Skin",
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "alert-soft.svg",
+    "displayName": "Alert Soft",
+    "category": "Page / Section",
+    "tags": [
+      "alert",
+      "soft"
+    ],
+    "recommendedUse": [
+      "ComparisonPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "aloe-leaf.svg",
+    "displayName": "Aloe Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "aloe",
+      "botanical",
+      "feminine",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "anchor.svg",
+    "displayName": "Anchor",
+    "category": "Navigation / UI",
+    "tags": [
+      "anchor"
+    ],
+    "recommendedUse": [
+      "AnchorNav",
+      "StickySideNav"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "appointment.svg",
+    "displayName": "Appointment",
+    "category": "Scheduling",
+    "tags": [
+      "appointment"
+    ],
+    "recommendedUse": [
+      "Scheduling"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "arrow-down.svg",
+    "displayName": "Arrow Down",
+    "category": "Navigation / UI",
+    "tags": [
+      "arrow",
+      "down"
+    ],
+    "recommendedUse": [
+      "Navigation / UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "arrow-left.svg",
+    "displayName": "Arrow Left",
+    "category": "Navigation / UI",
+    "tags": [
+      "arrow",
+      "left"
+    ],
+    "recommendedUse": [
+      "Navigation / UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "arrow-right.svg",
+    "displayName": "Arrow Right",
+    "category": "Navigation / UI",
+    "tags": [
+      "arrow",
+      "right"
+    ],
+    "recommendedUse": [
+      "ArticleGrid",
+      "CardGrid",
+      "FeaturedArticle",
+      "RouteCards",
+      "SplitHero"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "arrow-up.svg",
+    "displayName": "Arrow Up",
+    "category": "Navigation / UI",
+    "tags": [
+      "arrow",
+      "up"
+    ],
+    "recommendedUse": [
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "article.svg",
+    "displayName": "Article",
+    "category": "Page / Section",
+    "tags": [
+      "article"
+    ],
+    "recommendedUse": [
+      "ArticleGrid",
+      "Journal page"
+    ],
+    "pages": [
+      "Journal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "assistive-tech.svg",
+    "displayName": "Assistive Tech",
+    "category": "Page / Section",
+    "tags": [
+      "assistive",
+      "tech"
+    ],
+    "recommendedUse": [
+      "Accessibility page"
+    ],
+    "pages": [
+      "Accessibility"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "back-to-top.svg",
+    "displayName": "Back To Top",
+    "category": "Page / Section",
+    "tags": [
+      "back",
+      "to",
+      "top"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "balance-scales.svg",
+    "displayName": "Balance Scales",
+    "category": "Page / Section",
+    "tags": [
+      "balance",
+      "scales"
+    ],
+    "recommendedUse": [
+      "ComparisonPanel",
+      "EthicalDisclaimerPanel",
+      "PrincipleGrid"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "barrier-care.svg",
+    "displayName": "Barrier Care",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "barrier",
+      "beauty",
+      "care",
+      "clinic",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Skin page"
+    ],
+    "pages": [
+      "Skin"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "before-care.svg",
+    "displayName": "Before Care",
+    "category": "Page / Section",
+    "tags": [
+      "before",
+      "care"
+    ],
+    "recommendedUse": [
+      "BeforeAftercarePanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "body-contour.svg",
+    "displayName": "Body Contour",
+    "category": "Page / Section",
+    "tags": [
+      "body",
+      "contour"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "body-silhouette.svg",
+    "displayName": "Body Silhouette",
+    "category": "Page / Section",
+    "tags": [
+      "body",
+      "silhouette"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "book.svg",
+    "displayName": "Book",
+    "category": "Page / Section",
+    "tags": [
+      "book"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "botanical-branch.svg",
+    "displayName": "Botanical Branch",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "branch",
+      "feminine",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "SageEditorialBand"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "botanical-corner.svg",
+    "displayName": "Botanical Corner",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "corner",
+      "feminine",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "botanical-medallion.svg",
+    "displayName": "Botanical Medallion",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "luxury",
+      "medallion"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "branch.svg",
+    "displayName": "Branch",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "branch",
+      "feminine",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "brows.svg",
+    "displayName": "Brows",
+    "category": "Page / Section",
+    "tags": [
+      "brows"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "calendar-cancel.svg",
+    "displayName": "Calendar Cancel",
+    "category": "Scheduling",
+    "tags": [
+      "calendar",
+      "cancel"
+    ],
+    "recommendedUse": [
+      "Legal page"
+    ],
+    "pages": [
+      "Legal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "calendar-check.svg",
+    "displayName": "Calendar Check",
+    "category": "Scheduling",
+    "tags": [
+      "calendar",
+      "check"
+    ],
+    "recommendedUse": [
+      "AppointmentPreparationPanel",
+      "BottomCTA",
+      "Consultation page",
+      "ContactChannels",
+      "NumberedStepRow",
+      "Results page",
+      "ResultsContextPanel",
+      "SplitHero",
+      "StatsOrMetricsBand",
+      "TreatmentDetailTabs"
+    ],
+    "pages": [
+      "Consultation",
+      "Results"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "calendar.svg",
+    "displayName": "Calendar",
+    "category": "Scheduling",
+    "tags": [
+      "calendar"
+    ],
+    "recommendedUse": [
+      "Scheduling"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "care-hand-heart.svg",
+    "displayName": "Care Hand Heart",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "care",
+      "hand",
+      "heart",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Care page",
+      "CategoryCards",
+      "Footer/Header/Floating UI",
+      "Home page"
+    ],
+    "pages": [
+      "Care",
+      "Home"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "care-ritual.svg",
+    "displayName": "Care Ritual",
+    "category": "Page / Section",
+    "tags": [
+      "care",
+      "ritual"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "case-study.svg",
+    "displayName": "Case Study",
+    "category": "Page / Section",
+    "tags": [
+      "case",
+      "study"
+    ],
+    "recommendedUse": [
+      "MiniCaseStudyCards",
+      "Results page"
+    ],
+    "pages": [
+      "Results"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "category.svg",
+    "displayName": "Category",
+    "category": "Page / Section",
+    "tags": [
+      "category"
+    ],
+    "recommendedUse": [
+      "CategoryCards",
+      "Journal page"
+    ],
+    "pages": [
+      "Journal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "caution-soft.svg",
+    "displayName": "Caution Soft",
+    "category": "Page / Section",
+    "tags": [
+      "caution",
+      "soft"
+    ],
+    "recommendedUse": [
+      "SuitabilityMatrix"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "certificate.svg",
+    "displayName": "Certificate",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "certificate",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "About page",
+      "PressOrCredentialsStrip"
+    ],
+    "pages": [
+      "About"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "chat.svg",
+    "displayName": "Chat",
+    "category": "Communication",
+    "tags": [
+      "chat"
+    ],
+    "recommendedUse": [
+      "ProcessTimeline"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "check-circle.svg",
+    "displayName": "Check Circle",
+    "category": "Page / Section",
+    "tags": [
+      "check",
+      "circle"
+    ],
+    "recommendedUse": [
+      "ChecklistPanel",
+      "ComparisonPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "check.svg",
+    "displayName": "Check",
+    "category": "Page / Section",
+    "tags": [
+      "check"
+    ],
+    "recommendedUse": [
+      "ChecklistPanel",
+      "SplitPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "chevron-down.svg",
+    "displayName": "Chevron Down",
+    "category": "Navigation / UI",
+    "tags": [
+      "chevron",
+      "down"
+    ],
+    "recommendedUse": [
+      "FAQ page",
+      "FAQAccordionGrid",
+      "Footer/Header/Floating UI",
+      "TreatmentFAQPreview"
+    ],
+    "pages": [
+      "FAQ"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "chevron-right.svg",
+    "displayName": "Chevron Right",
+    "category": "Navigation / UI",
+    "tags": [
+      "chevron",
+      "right"
+    ],
+    "recommendedUse": [
+      "AnchorNav",
+      "StickySideNav"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "clarity-eye.svg",
+    "displayName": "Clarity Eye",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "clarity",
+      "eye",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "PrincipleGrid",
+      "SafetyExpectationPanel",
+      "TrustBanner"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "clinic-room.svg",
+    "displayName": "Clinic Room",
+    "category": "Page / Section",
+    "tags": [
+      "clinic",
+      "room"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "clinic.svg",
+    "displayName": "Clinic",
+    "category": "Page / Section",
+    "tags": [
+      "clinic"
+    ],
+    "recommendedUse": [
+      "Contact page",
+      "LocationClinicPanel"
+    ],
+    "pages": [
+      "Contact"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "clinical-warmth.svg",
+    "displayName": "Clinical Warmth",
+    "category": "Page / Section",
+    "tags": [
+      "clinical",
+      "warmth"
+    ],
+    "recommendedUse": [
+      "About page",
+      "Mission page"
+    ],
+    "pages": [
+      "About",
+      "Mission"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "clipboard-check.svg",
+    "displayName": "Clipboard Check",
+    "category": "Page / Section",
+    "tags": [
+      "check",
+      "clipboard"
+    ],
+    "recommendedUse": [
+      "AppointmentPreparationPanel",
+      "Consultation page"
+    ],
+    "pages": [
+      "Consultation"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "clipboard.svg",
+    "displayName": "Clipboard",
+    "category": "Page / Section",
+    "tags": [
+      "clipboard"
+    ],
+    "recommendedUse": [
+      "ProcessTimeline",
+      "ResourceDownloadPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "clock.svg",
+    "displayName": "Clock",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "clock",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Contact page"
+    ],
+    "pages": [
+      "Contact"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "close.svg",
+    "displayName": "Close",
+    "category": "Navigation / UI",
+    "tags": [
+      "close"
+    ],
+    "recommendedUse": [
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "co2-laser-renewal.svg",
+    "displayName": "CO₂ Laser Renewal",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "co2",
+      "laser",
+      "renewal",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "collagen.svg",
+    "displayName": "Collagen",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "collagen",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "comfort-care.svg",
+    "displayName": "Comfort Care",
+    "category": "Page / Section",
+    "tags": [
+      "care",
+      "comfort"
+    ],
+    "recommendedUse": [
+      "Consultation page",
+      "FeatureStrip",
+      "Values page"
+    ],
+    "pages": [
+      "Consultation",
+      "Values"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "compass.svg",
+    "displayName": "Compass",
+    "category": "Page / Section",
+    "tags": [
+      "compass"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "consent-form.svg",
+    "displayName": "Consent Form",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "consent",
+      "form",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "consent-preferences.svg",
+    "displayName": "Consent Preferences",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "consent",
+      "policy",
+      "preferences",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "consultation-calendar.svg",
+    "displayName": "Consultation Calendar",
+    "category": "Scheduling",
+    "tags": [
+      "calendar",
+      "consultation"
+    ],
+    "recommendedUse": [
+      "Consultation page",
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Consultation"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "consultation-chat.svg",
+    "displayName": "Consultation Chat",
+    "category": "Communication",
+    "tags": [
+      "chat",
+      "consultation"
+    ],
+    "recommendedUse": [
+      "PricingOrInvestmentPanel",
+      "SplitHero"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "consultation-map.svg",
+    "displayName": "Consultation Map",
+    "category": "Page / Section",
+    "tags": [
+      "consultation",
+      "map"
+    ],
+    "recommendedUse": [
+      "Care page",
+      "Consultation page",
+      "FAQ page",
+      "Home page",
+      "ServiceIntroPanel",
+      "Treatments page"
+    ],
+    "pages": [
+      "Care",
+      "Consultation",
+      "FAQ",
+      "Home",
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "consultation.svg",
+    "displayName": "Consultation",
+    "category": "Page / Section",
+    "tags": [
+      "consultation"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "contact-clinic.svg",
+    "displayName": "Contact Clinic",
+    "category": "Page / Section",
+    "tags": [
+      "clinic",
+      "contact"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "contact-message.svg",
+    "displayName": "Contact Message",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "contact",
+      "feminine",
+      "luxury",
+      "message"
+    ],
+    "recommendedUse": [
+      "BottomCTA",
+      "Consultation page",
+      "Contact page",
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Consultation",
+      "Contact"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "context-card.svg",
+    "displayName": "Context Card",
+    "category": "Page / Section",
+    "tags": [
+      "card",
+      "context"
+    ],
+    "recommendedUse": [
+      "CardGrid"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "cookie-preferences.svg",
+    "displayName": "Cookie Preferences",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "cookie",
+      "policy",
+      "preferences",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "cookie-settings.svg",
+    "displayName": "Cookie Settings",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "cookie",
+      "policy",
+      "settings",
+      "trust"
+    ],
+    "recommendedUse": [
+      "ConsentPreferencesPanel",
+      "Cookies page",
+      "Footer/Header/Floating UI",
+      "PolicyCardGrid",
+      "Privacy page"
+    ],
+    "pages": [
+      "Cookies",
+      "Privacy"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "cream-jar.svg",
+    "displayName": "Cream Jar",
+    "category": "Page / Section",
+    "tags": [
+      "cream",
+      "jar"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "crystal-peel.svg",
+    "displayName": "Crystal Peel",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "crystal",
+      "peel",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "cta-calendar.svg",
+    "displayName": "CTA Calendar",
+    "category": "Scheduling",
+    "tags": [
+      "calendar",
+      "cta"
+    ],
+    "recommendedUse": [
+      "Scheduling"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "cta-message.svg",
+    "displayName": "CTA Message",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "cta",
+      "feminine",
+      "luxury",
+      "message"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "cta-sparkle.svg",
+    "displayName": "CTA Sparkle",
+    "category": "Page / Section",
+    "tags": [
+      "cta",
+      "sparkle"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "cta-whatsapp.svg",
+    "displayName": "CTA Whatsapp",
+    "category": "Communication",
+    "tags": [
+      "cta",
+      "whatsapp"
+    ],
+    "recommendedUse": [
+      "Communication"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "data-choice-toggle.svg",
+    "displayName": "Data Choice Toggle",
+    "category": "Navigation / UI",
+    "tags": [
+      "choice",
+      "data",
+      "toggle"
+    ],
+    "recommendedUse": [
+      "Navigation / UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "deep-facial-cleansing.svg",
+    "displayName": "Deep Facial Cleansing",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "cleansing",
+      "clinic",
+      "deep",
+      "facial",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "delicate-orchid.svg",
+    "displayName": "Delicate Orchid",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "delicate",
+      "feminine",
+      "luxury",
+      "orchid"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "device.svg",
+    "displayName": "Device",
+    "category": "Page / Section",
+    "tags": [
+      "device"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "diamond-peel.svg",
+    "displayName": "Diamond Peel",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "diamond",
+      "peel",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "document-check.svg",
+    "displayName": "Document Check",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "check",
+      "document",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Legal page",
+      "PolicyCardGrid",
+      "PricingOrInvestmentPanel",
+      "Privacy page",
+      "ResourceDownloadPanel",
+      "SplitSageIvoryPanel"
+    ],
+    "pages": [
+      "Legal",
+      "Privacy"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "document.svg",
+    "displayName": "Document",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "document",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "download.svg",
+    "displayName": "Download",
+    "category": "Navigation / UI",
+    "tags": [
+      "download"
+    ],
+    "recommendedUse": [
+      "Journal page",
+      "ResourceDownloadPanel"
+    ],
+    "pages": [
+      "Journal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "ear.svg",
+    "displayName": "Ear",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "ear",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Accessibility page"
+    ],
+    "pages": [
+      "Accessibility"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "email-leaf.svg",
+    "displayName": "Email Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "email",
+      "feminine",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "email.svg",
+    "displayName": "Email",
+    "category": "Communication",
+    "tags": [
+      "email"
+    ],
+    "recommendedUse": [
+      "Contact page",
+      "ContactChannels",
+      "ContactFormPanel",
+      "Footer/Header/Floating UI",
+      "NewsletterSignupPanel"
+    ],
+    "pages": [
+      "Contact"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "ethical-info.svg",
+    "displayName": "Ethical Info",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "ethical",
+      "info",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Journal page",
+      "Legal page",
+      "Testimonies page"
+    ],
+    "pages": [
+      "Journal",
+      "Legal",
+      "Testimonies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "ethics-shield.svg",
+    "displayName": "Ethics Shield",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "ethics",
+      "policy",
+      "shield",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Values page"
+    ],
+    "pages": [
+      "Values"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "eucalyptus-sprig.svg",
+    "displayName": "Eucalyptus Sprig",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "eucalyptus",
+      "feminine",
+      "luxury",
+      "sprig"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "evidence-flower.svg",
+    "displayName": "Evidence Flower",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "evidence",
+      "feminine",
+      "flower",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "FeatureStrip",
+      "Home page",
+      "Journal page"
+    ],
+    "pages": [
+      "Home",
+      "Journal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "excellence-spark.svg",
+    "displayName": "Excellence Spark",
+    "category": "Page / Section",
+    "tags": [
+      "excellence",
+      "spark"
+    ],
+    "recommendedUse": [
+      "Values page"
+    ],
+    "pages": [
+      "Values"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "expectation-balance.svg",
+    "displayName": "Expectation Balance",
+    "category": "Page / Section",
+    "tags": [
+      "balance",
+      "expectation"
+    ],
+    "recommendedUse": [
+      "Care page",
+      "ComparisonPanel",
+      "MiniCaseStudyCards",
+      "Results page",
+      "SafetyExpectationPanel",
+      "Testimonies page"
+    ],
+    "pages": [
+      "Care",
+      "Results",
+      "Testimonies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "explain.svg",
+    "displayName": "Explain",
+    "category": "Page / Section",
+    "tags": [
+      "explain"
+    ],
+    "recommendedUse": [
+      "About page",
+      "NumberedStepRow"
+    ],
+    "pages": [
+      "About"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "external-link.svg",
+    "displayName": "External Link",
+    "category": "Navigation / UI",
+    "tags": [
+      "external",
+      "link"
+    ],
+    "recommendedUse": [
+      "Navigation / UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "eye.svg",
+    "displayName": "Eye",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "eye",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Accessibility page"
+    ],
+    "pages": [
+      "Accessibility"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "eyebrow-design.svg",
+    "displayName": "Eyebrow Design",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "design",
+      "eyebrow",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "face.svg",
+    "displayName": "Face",
+    "category": "Page / Section",
+    "tags": [
+      "face"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "facial-botox.svg",
+    "displayName": "Facial Botox",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "botox",
+      "clinic",
+      "facial",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "facial-cleansing.svg",
+    "displayName": "Facial Cleansing",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "cleansing",
+      "clinic",
+      "facial",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "faq-chat.svg",
+    "displayName": "FAQ Chat",
+    "category": "Communication",
+    "tags": [
+      "chat",
+      "faq"
+    ],
+    "recommendedUse": [
+      "Care page",
+      "Contact page",
+      "FAQ page",
+      "FAQAccordionGrid",
+      "Footer/Header/Floating UI",
+      "Laser page",
+      "TreatmentDetailTabs",
+      "TreatmentFAQPreview",
+      "Treatments page"
+    ],
+    "pages": [
+      "Care",
+      "Contact",
+      "FAQ",
+      "Laser",
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "faq-minus-leaf.svg",
+    "displayName": "FAQ Minus Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "faq",
+      "feminine",
+      "leaf",
+      "luxury",
+      "minus"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "faq-plus-leaf.svg",
+    "displayName": "FAQ Plus Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "faq",
+      "feminine",
+      "leaf",
+      "luxury",
+      "plus"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "featured-article.svg",
+    "displayName": "Featured Article",
+    "category": "Page / Section",
+    "tags": [
+      "article",
+      "featured"
+    ],
+    "recommendedUse": [
+      "FeaturedArticle",
+      "Journal page"
+    ],
+    "pages": [
+      "Journal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "feedback-message.svg",
+    "displayName": "Feedback Message",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feedback",
+      "feminine",
+      "luxury",
+      "message"
+    ],
+    "recommendedUse": [
+      "Accessibility page"
+    ],
+    "pages": [
+      "Accessibility"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "female-profile-leaf.svg",
+    "displayName": "Female Profile Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "female",
+      "feminine",
+      "leaf",
+      "luxury",
+      "profile"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "flag.svg",
+    "displayName": "Flag",
+    "category": "Page / Section",
+    "tags": [
+      "flag"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "floral-divider.svg",
+    "displayName": "Floral Divider",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "divider",
+      "feminine",
+      "floral",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "CenteredIntro"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "flower.svg",
+    "displayName": "Flower",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "flower",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "footer-email.svg",
+    "displayName": "Footer Email",
+    "category": "Communication",
+    "tags": [
+      "email",
+      "footer"
+    ],
+    "recommendedUse": [
+      "Communication"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "footer-instagram.svg",
+    "displayName": "Footer Instagram",
+    "category": "Communication",
+    "tags": [
+      "footer",
+      "instagram"
+    ],
+    "recommendedUse": [
+      "Communication"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "footer-location.svg",
+    "displayName": "Footer Location",
+    "category": "Page / Section",
+    "tags": [
+      "footer",
+      "location"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "footer-phone.svg",
+    "displayName": "Footer Phone",
+    "category": "Communication",
+    "tags": [
+      "footer",
+      "phone"
+    ],
+    "recommendedUse": [
+      "Communication"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "footer-whatsapp.svg",
+    "displayName": "Footer Whatsapp",
+    "category": "Communication",
+    "tags": [
+      "footer",
+      "whatsapp"
+    ],
+    "recommendedUse": [
+      "Communication"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "form-email.svg",
+    "displayName": "Form Email",
+    "category": "Communication",
+    "tags": [
+      "email",
+      "form"
+    ],
+    "recommendedUse": [
+      "Communication"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "form-message.svg",
+    "displayName": "Form Message",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "form",
+      "luxury",
+      "message"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "form-phone.svg",
+    "displayName": "Form Phone",
+    "category": "Communication",
+    "tags": [
+      "form",
+      "phone"
+    ],
+    "recommendedUse": [
+      "Communication"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "form-send.svg",
+    "displayName": "Form Send",
+    "category": "Page / Section",
+    "tags": [
+      "form",
+      "send"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "form-user.svg",
+    "displayName": "Form User",
+    "category": "Page / Section",
+    "tags": [
+      "form",
+      "user"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "functional-settings.svg",
+    "displayName": "Functional Settings",
+    "category": "Page / Section",
+    "tags": [
+      "functional",
+      "settings"
+    ],
+    "recommendedUse": [
+      "Cookies page"
+    ],
+    "pages": [
+      "Cookies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "gallery.svg",
+    "displayName": "Gallery",
+    "category": "Navigation / UI",
+    "tags": [
+      "gallery"
+    ],
+    "recommendedUse": [
+      "MediaGalleryGrid"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "globe.svg",
+    "displayName": "Globe",
+    "category": "Page / Section",
+    "tags": [
+      "globe"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "glow.svg",
+    "displayName": "Glow",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "glow",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "gold-leaf-corner.svg",
+    "displayName": "Gold Leaf Corner",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "corner",
+      "feminine",
+      "gold",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "hair-follicle.svg",
+    "displayName": "Hair Follicle",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "follicle",
+      "hair",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "hair-mesotherapy.svg",
+    "displayName": "Hair Mesotherapy",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "hair",
+      "mesotherapy",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "hamburger-menu.svg",
+    "displayName": "Hamburger Menu",
+    "category": "Navigation / UI",
+    "tags": [
+      "hamburger",
+      "menu"
+    ],
+    "recommendedUse": [
+      "Navigation / UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "hand.svg",
+    "displayName": "Hand",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "hand",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Accessibility page"
+    ],
+    "pages": [
+      "Accessibility"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "hands-care.svg",
+    "displayName": "Hands Care",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "care",
+      "hands",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "harmony-laser.svg",
+    "displayName": "Harmony Laser",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "harmony",
+      "laser",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "heart-leaf.svg",
+    "displayName": "Heart Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "heart",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "About page",
+      "Mission page",
+      "PrincipleGrid",
+      "RoseEditorialBand",
+      "TestimonialGrid",
+      "TrustBanner"
+    ],
+    "pages": [
+      "About",
+      "Mission"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "heart.svg",
+    "displayName": "Heart",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "heart",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "home-leaf.svg",
+    "displayName": "Home Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "home",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "home.svg",
+    "displayName": "Home",
+    "category": "Page / Section",
+    "tags": [
+      "home"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "human-care.svg",
+    "displayName": "Human Care",
+    "category": "Page / Section",
+    "tags": [
+      "care",
+      "human"
+    ],
+    "recommendedUse": [
+      "Mission page"
+    ],
+    "pages": [
+      "Mission"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "hydration-drop.svg",
+    "displayName": "Hydration Drop",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "drop",
+      "hydration",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Skin page"
+    ],
+    "pages": [
+      "Skin"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "image.svg",
+    "displayName": "Image",
+    "category": "Navigation / UI",
+    "tags": [
+      "image"
+    ],
+    "recommendedUse": [
+      "MediaGalleryGrid"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "individual-care.svg",
+    "displayName": "Individual Care",
+    "category": "Page / Section",
+    "tags": [
+      "care",
+      "individual"
+    ],
+    "recommendedUse": [
+      "Values page"
+    ],
+    "pages": [
+      "Values"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "info.svg",
+    "displayName": "Info",
+    "category": "Page / Section",
+    "tags": [
+      "info"
+    ],
+    "recommendedUse": [
+      "EthicalDisclaimerPanel",
+      "TreatmentDetailTabs"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "injection.svg",
+    "displayName": "Injection",
+    "category": "Page / Section",
+    "tags": [
+      "injection"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "instagram-leaf.svg",
+    "displayName": "Instagram Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "instagram",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "instagram.svg",
+    "displayName": "Instagram",
+    "category": "Communication",
+    "tags": [
+      "instagram"
+    ],
+    "recommendedUse": [
+      "Contact page",
+      "ContactChannels",
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Contact"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "investment-card.svg",
+    "displayName": "Investment Card",
+    "category": "Page / Section",
+    "tags": [
+      "card",
+      "investment"
+    ],
+    "recommendedUse": [
+      "PricingOrInvestmentPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "ivory-card-leaf.svg",
+    "displayName": "Ivory Card Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "card",
+      "feminine",
+      "ivory",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "jawline-contour.svg",
+    "displayName": "Jawline Contour",
+    "category": "Page / Section",
+    "tags": [
+      "contour",
+      "jawline"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "jessner-peel.svg",
+    "displayName": "Jessner Peel",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "jessner",
+      "peel",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "journal-book.svg",
+    "displayName": "Journal Book",
+    "category": "Page / Section",
+    "tags": [
+      "book",
+      "journal"
+    ],
+    "recommendedUse": [
+      "ArticleGrid",
+      "Footer/Header/Floating UI",
+      "Home page",
+      "Journal page",
+      "NewsletterSignupPanel"
+    ],
+    "pages": [
+      "Home",
+      "Journal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "journal.svg",
+    "displayName": "Journal",
+    "category": "Page / Section",
+    "tags": [
+      "journal"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "keyboard-navigation.svg",
+    "displayName": "Keyboard Navigation",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "keyboard",
+      "navigation",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "keyboard.svg",
+    "displayName": "Keyboard",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "keyboard",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Accessibility page"
+    ],
+    "pages": [
+      "Accessibility"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "laser-beam.svg",
+    "displayName": "Laser Beam",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beam",
+      "beauty",
+      "clinic",
+      "laser",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Laser page"
+    ],
+    "pages": [
+      "Laser"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "laser-hair-reduction.svg",
+    "displayName": "Laser Hair Reduction",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "hair",
+      "laser",
+      "reduction",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "laser-safety.svg",
+    "displayName": "Laser Safety",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "laser",
+      "safety",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "laser-spark.svg",
+    "displayName": "Laser Spark",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "laser",
+      "spark",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "CategoryCards",
+      "FAQ page",
+      "Footer/Header/Floating UI",
+      "Home page",
+      "Laser page"
+    ],
+    "pages": [
+      "FAQ",
+      "Home",
+      "Laser"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "laser.svg",
+    "displayName": "Laser",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "laser",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "laurel.svg",
+    "displayName": "Laurel",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "laurel",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "lavender-sprig.svg",
+    "displayName": "Lavender Sprig",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "lavender",
+      "luxury",
+      "sprig"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "leaf-small.svg",
+    "displayName": "Leaf Small",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "leaf",
+      "luxury",
+      "small"
+    ],
+    "recommendedUse": [
+      "CenteredIntro",
+      "FeaturedArticle",
+      "Footer/Header/Floating UI",
+      "NewsletterSignupPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "leaf.svg",
+    "displayName": "Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "leaf",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "led-light.svg",
+    "displayName": "LED Light",
+    "category": "Page / Section",
+    "tags": [
+      "led",
+      "light"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "legal-consent.svg",
+    "displayName": "Legal Consent",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "consent",
+      "legal",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "legal-scales.svg",
+    "displayName": "Legal Scales",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "legal",
+      "policy",
+      "scales",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Cookies page",
+      "Footer/Header/Floating UI",
+      "Legal page",
+      "PolicyCardGrid",
+      "Privacy page",
+      "Results page"
+    ],
+    "pages": [
+      "Cookies",
+      "Legal",
+      "Privacy",
+      "Results"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "link.svg",
+    "displayName": "Link",
+    "category": "Navigation / UI",
+    "tags": [
+      "link"
+    ],
+    "recommendedUse": [
+      "Navigation / UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "listen.svg",
+    "displayName": "Listen",
+    "category": "Page / Section",
+    "tags": [
+      "listen"
+    ],
+    "recommendedUse": [
+      "About page",
+      "NumberedStepRow"
+    ],
+    "pages": [
+      "About"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "location-pin.svg",
+    "displayName": "Location Pin",
+    "category": "Page / Section",
+    "tags": [
+      "location",
+      "pin"
+    ],
+    "recommendedUse": [
+      "Contact page",
+      "ContactChannels",
+      "Footer/Header/Floating UI",
+      "LocationClinicPanel"
+    ],
+    "pages": [
+      "Contact"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "lock.svg",
+    "displayName": "Lock",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "lock",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Privacy page",
+      "SplitSageIvoryPanel"
+    ],
+    "pages": [
+      "Privacy"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "luxury-frame.svg",
+    "displayName": "Luxury Frame",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "frame",
+      "luxury"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "map-pin.svg",
+    "displayName": "Map Pin",
+    "category": "Page / Section",
+    "tags": [
+      "map",
+      "pin"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "map.svg",
+    "displayName": "Map",
+    "category": "Page / Section",
+    "tags": [
+      "map"
+    ],
+    "recommendedUse": [
+      "LocationClinicPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "mask.svg",
+    "displayName": "Mask",
+    "category": "Page / Section",
+    "tags": [
+      "mask"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "medical-disclaimer.svg",
+    "displayName": "Medical Disclaimer",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "disclaimer",
+      "medical",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "melan-peel.svg",
+    "displayName": "Melan Peel",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "melan",
+      "peel",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "menu.svg",
+    "displayName": "Menu",
+    "category": "Navigation / UI",
+    "tags": [
+      "menu"
+    ],
+    "recommendedUse": [
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "message.svg",
+    "displayName": "Message",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "luxury",
+      "message"
+    ],
+    "recommendedUse": [
+      "AppointmentPreparationPanel",
+      "Consultation page",
+      "ContactFormPanel"
+    ],
+    "pages": [
+      "Consultation"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "micro-needle.svg",
+    "displayName": "Micro Needle",
+    "category": "Page / Section",
+    "tags": [
+      "micro",
+      "needle"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "microvessels-peim.svg",
+    "displayName": "Microvessels PEIM",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "microvessels",
+      "peim",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "mini-leaf-divider.svg",
+    "displayName": "Mini Leaf Divider",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "divider",
+      "feminine",
+      "leaf",
+      "luxury",
+      "mini"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "minus.svg",
+    "displayName": "Minus",
+    "category": "Navigation / UI",
+    "tags": [
+      "minus"
+    ],
+    "recommendedUse": [
+      "FAQ page",
+      "FAQAccordionGrid"
+    ],
+    "pages": [
+      "FAQ"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "mission-compass.svg",
+    "displayName": "Mission Compass",
+    "category": "Page / Section",
+    "tags": [
+      "compass",
+      "mission"
+    ],
+    "recommendedUse": [
+      "About page",
+      "Footer/Header/Floating UI",
+      "Mission page"
+    ],
+    "pages": [
+      "About",
+      "Mission"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "mission.svg",
+    "displayName": "Mission",
+    "category": "Page / Section",
+    "tags": [
+      "mission"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "mmp-microinfusion.svg",
+    "displayName": "MMP Microinfusion",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "microinfusion",
+      "mmp",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "natural-result.svg",
+    "displayName": "Natural Result",
+    "category": "Page / Section",
+    "tags": [
+      "natural",
+      "result"
+    ],
+    "recommendedUse": [
+      "FeatureStrip",
+      "Home page"
+    ],
+    "pages": [
+      "Home"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "neck-lift.svg",
+    "displayName": "Neck Lift",
+    "category": "Page / Section",
+    "tags": [
+      "lift",
+      "neck"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "nefertiti-neck-contour.svg",
+    "displayName": "Nefertiti Neck Contour",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "contour",
+      "neck",
+      "nefertiti",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "newsletter.svg",
+    "displayName": "Newsletter",
+    "category": "Communication",
+    "tags": [
+      "newsletter"
+    ],
+    "recommendedUse": [
+      "Journal page"
+    ],
+    "pages": [
+      "Journal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "no-pressure-chat.svg",
+    "displayName": "No Pressure Chat",
+    "category": "Communication",
+    "tags": [
+      "chat",
+      "no",
+      "pressure"
+    ],
+    "recommendedUse": [
+      "BottomCTA",
+      "Consultation page",
+      "Home page",
+      "Testimonies page"
+    ],
+    "pages": [
+      "Consultation",
+      "Home",
+      "Testimonies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "olive-branch.svg",
+    "displayName": "Olive Branch",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "branch",
+      "feminine",
+      "luxury",
+      "olive"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "one-to-one.svg",
+    "displayName": "One To One",
+    "category": "Page / Section",
+    "tags": [
+      "one",
+      "to"
+    ],
+    "recommendedUse": [
+      "StatsOrMetricsBand"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "opening-hours.svg",
+    "displayName": "Opening Hours",
+    "category": "Page / Section",
+    "tags": [
+      "hours",
+      "opening"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "patient-journey.svg",
+    "displayName": "Patient Journey",
+    "category": "Page / Section",
+    "tags": [
+      "journey",
+      "patient"
+    ],
+    "recommendedUse": [
+      "Mission page"
+    ],
+    "pages": [
+      "Mission"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "patient-rights.svg",
+    "displayName": "Patient Rights",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "patient",
+      "policy",
+      "rights",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Legal page"
+    ],
+    "pages": [
+      "Legal"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "peel.svg",
+    "displayName": "Peel",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "peel",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "performance-chart.svg",
+    "displayName": "Performance Chart",
+    "category": "Page / Section",
+    "tags": [
+      "chart",
+      "performance"
+    ],
+    "recommendedUse": [
+      "Cookies page"
+    ],
+    "pages": [
+      "Cookies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "personalized-plan.svg",
+    "displayName": "Personalized Plan",
+    "category": "Page / Section",
+    "tags": [
+      "personalized",
+      "plan"
+    ],
+    "recommendedUse": [
+      "FeatureStrip",
+      "Home page"
+    ],
+    "pages": [
+      "Home"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "phone-leaf.svg",
+    "displayName": "Phone Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "leaf",
+      "luxury",
+      "phone"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "phone.svg",
+    "displayName": "Phone",
+    "category": "Communication",
+    "tags": [
+      "phone"
+    ],
+    "recommendedUse": [
+      "ContactFormPanel",
+      "Footer/Header/Floating UI"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "plan-check.svg",
+    "displayName": "Plan Check",
+    "category": "Page / Section",
+    "tags": [
+      "check",
+      "plan"
+    ],
+    "recommendedUse": [
+      "About page",
+      "MiniCaseStudyCards",
+      "NumberedStepRow",
+      "ProcessTimeline",
+      "StatsOrMetricsBand"
+    ],
+    "pages": [
+      "About"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "plasma-jet.svg",
+    "displayName": "Plasma Jet",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "jet",
+      "plasma",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "plasma-spark.svg",
+    "displayName": "Plasma Spark",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "plasma",
+      "spark",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "plus.svg",
+    "displayName": "Plus",
+    "category": "Navigation / UI",
+    "tags": [
+      "plus"
+    ],
+    "recommendedUse": [
+      "FAQ page",
+      "FAQAccordionGrid"
+    ],
+    "pages": [
+      "FAQ"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "policy-card.svg",
+    "displayName": "Policy Card",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "card",
+      "policy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "post-care-shield.svg",
+    "displayName": "Post Care Shield",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "care",
+      "policy",
+      "post",
+      "shield",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "pricing-investment.svg",
+    "displayName": "Pricing Investment",
+    "category": "Page / Section",
+    "tags": [
+      "investment",
+      "pricing"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "privacy-choice.svg",
+    "displayName": "Privacy Choice",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "choice",
+      "policy",
+      "privacy",
+      "trust"
+    ],
+    "recommendedUse": [
+      "ConsentPreferencesPanel",
+      "Cookies page",
+      "Privacy page",
+      "SplitSageIvoryPanel"
+    ],
+    "pages": [
+      "Cookies",
+      "Privacy"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "privacy-shield.svg",
+    "displayName": "Privacy Shield",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "policy",
+      "privacy",
+      "shield",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Footer/Header/Floating UI",
+      "Legal page",
+      "PolicyCardGrid",
+      "Privacy page"
+    ],
+    "pages": [
+      "Legal",
+      "Privacy"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "profile-face.svg",
+    "displayName": "Profile Face",
+    "category": "Page / Section",
+    "tags": [
+      "face",
+      "profile"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "profile-person.svg",
+    "displayName": "Profile Person",
+    "category": "Page / Section",
+    "tags": [
+      "person",
+      "profile"
+    ],
+    "recommendedUse": [
+      "About page",
+      "Footer/Header/Floating UI",
+      "ImageEditorialCard",
+      "PressOrCredentialsStrip"
+    ],
+    "pages": [
+      "About"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "profile.svg",
+    "displayName": "Profile",
+    "category": "Page / Section",
+    "tags": [
+      "profile"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "question.svg",
+    "displayName": "Question",
+    "category": "Communication",
+    "tags": [
+      "question"
+    ],
+    "recommendedUse": [
+      "FAQ page",
+      "FAQAccordionGrid",
+      "TreatmentFAQPreview"
+    ],
+    "pages": [
+      "FAQ"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "quote-leaf.svg",
+    "displayName": "Quote Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "leaf",
+      "luxury",
+      "quote"
+    ],
+    "recommendedUse": [
+      "ImageEditorialCard",
+      "SageEditorialBand"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "quote.svg",
+    "displayName": "Quote",
+    "category": "Communication",
+    "tags": [
+      "quote"
+    ],
+    "recommendedUse": [
+      "TestimonialGrid"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "radiofrequency-waves.svg",
+    "displayName": "Radiofrequency Waves",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "radiofrequency",
+      "treatment",
+      "waves"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "realistic-results.svg",
+    "displayName": "Realistic Results",
+    "category": "Page / Section",
+    "tags": [
+      "realistic",
+      "results"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "recovery-calendar.svg",
+    "displayName": "Recovery Calendar",
+    "category": "Scheduling",
+    "tags": [
+      "calendar",
+      "recovery"
+    ],
+    "recommendedUse": [
+      "Scheduling"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "reduced-motion.svg",
+    "displayName": "Reduced Motion",
+    "category": "Page / Section",
+    "tags": [
+      "motion",
+      "reduced"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "refund-calendar.svg",
+    "displayName": "Refund Calendar",
+    "category": "Scheduling",
+    "tags": [
+      "calendar",
+      "refund"
+    ],
+    "recommendedUse": [
+      "Scheduling"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "responsible-care.svg",
+    "displayName": "Responsible Care",
+    "category": "Page / Section",
+    "tags": [
+      "care",
+      "responsible"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "results-context.svg",
+    "displayName": "Results Context",
+    "category": "Page / Section",
+    "tags": [
+      "context",
+      "results"
+    ],
+    "recommendedUse": [
+      "FAQ page",
+      "Footer/Header/Floating UI",
+      "Home page",
+      "Results page",
+      "ResultsContextPanel",
+      "Testimonies page",
+      "Treatments page"
+    ],
+    "pages": [
+      "FAQ",
+      "Home",
+      "Results",
+      "Testimonies",
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "retinoic-peel.svg",
+    "displayName": "Retinoic Peel",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "peel",
+      "retinoic",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "rose-card-sparkle.svg",
+    "displayName": "Rose Card Sparkle",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "card",
+      "feminine",
+      "luxury",
+      "rose",
+      "sparkle"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "rose-sparkle.svg",
+    "displayName": "Rose Sparkle",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "luxury",
+      "rose",
+      "sparkle"
+    ],
+    "recommendedUse": [
+      "RoseEditorialBand"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "route-cards.svg",
+    "displayName": "Route Cards",
+    "category": "Page / Section",
+    "tags": [
+      "cards",
+      "route"
+    ],
+    "recommendedUse": [
+      "RouteCards"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "safety-check.svg",
+    "displayName": "Safety Check",
+    "category": "Page / Section",
+    "tags": [
+      "check",
+      "safety"
+    ],
+    "recommendedUse": [
+      "Values page"
+    ],
+    "pages": [
+      "Values"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "sage-card-leaf.svg",
+    "displayName": "Sage Card Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "card",
+      "feminine",
+      "leaf",
+      "luxury",
+      "sage"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "sage-sprig.svg",
+    "displayName": "Sage Sprig",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "luxury",
+      "sage",
+      "sprig"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "scales.svg",
+    "displayName": "Scales",
+    "category": "Page / Section",
+    "tags": [
+      "scales"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "scalp.svg",
+    "displayName": "Scalp",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "scalp",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "science-flower.svg",
+    "displayName": "Science Flower",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "flower",
+      "luxury",
+      "science"
+    ],
+    "recommendedUse": [
+      "About page",
+      "Mission page",
+      "PressOrCredentialsStrip",
+      "PrincipleGrid",
+      "TrustBanner",
+      "Values page"
+    ],
+    "pages": [
+      "About",
+      "Mission",
+      "Values"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "screen-reader.svg",
+    "displayName": "Screen Reader",
+    "category": "Page / Section",
+    "tags": [
+      "reader",
+      "screen"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "search.svg",
+    "displayName": "Search",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "policy",
+      "search",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "section-divider-left.svg",
+    "displayName": "Section Divider Left",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "divider",
+      "feminine",
+      "left",
+      "luxury",
+      "section"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "section-divider-right.svg",
+    "displayName": "Section Divider Right",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "divider",
+      "feminine",
+      "luxury",
+      "right",
+      "section"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "send.svg",
+    "displayName": "Send",
+    "category": "Page / Section",
+    "tags": [
+      "send"
+    ],
+    "recommendedUse": [
+      "ContactFormPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "serum-bottle.svg",
+    "displayName": "Serum Bottle",
+    "category": "Page / Section",
+    "tags": [
+      "bottle",
+      "serum"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "service-card-care.svg",
+    "displayName": "Service Card Care",
+    "category": "Page / Section",
+    "tags": [
+      "card",
+      "care",
+      "service"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "service-card-consultation.svg",
+    "displayName": "Service Card Consultation",
+    "category": "Page / Section",
+    "tags": [
+      "card",
+      "consultation",
+      "service"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "service-card-face.svg",
+    "displayName": "Service Card Face",
+    "category": "Page / Section",
+    "tags": [
+      "card",
+      "face",
+      "service"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "service-card-journal.svg",
+    "displayName": "Service Card Journal",
+    "category": "Page / Section",
+    "tags": [
+      "card",
+      "journal",
+      "service"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "service-card-laser.svg",
+    "displayName": "Service Card Laser",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "card",
+      "clinic",
+      "laser",
+      "service",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "service-card-leaf.svg",
+    "displayName": "Service Card Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "card",
+      "feminine",
+      "leaf",
+      "luxury",
+      "service"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "service-card-results.svg",
+    "displayName": "Service Card Results",
+    "category": "Page / Section",
+    "tags": [
+      "card",
+      "results",
+      "service"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "service-card-skin.svg",
+    "displayName": "Service Card Skin",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "card",
+      "clinic",
+      "service",
+      "skin",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "shield-check.svg",
+    "displayName": "Shield Check",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "check",
+      "policy",
+      "shield",
+      "trust"
+    ],
+    "recommendedUse": [
+      "About page",
+      "ConsentPreferencesPanel",
+      "Cookies page",
+      "Laser page",
+      "Mission page",
+      "PressOrCredentialsStrip",
+      "Privacy page",
+      "SafetyExpectationPanel",
+      "StatsOrMetricsBand",
+      "Testimonies page"
+    ],
+    "pages": [
+      "About",
+      "Cookies",
+      "Laser",
+      "Mission",
+      "Privacy",
+      "Testimonies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "shield.svg",
+    "displayName": "Shield",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "policy",
+      "shield",
+      "trust"
+    ],
+    "recommendedUse": [
+      "EthicalDisclaimerPanel",
+      "PrincipleGrid",
+      "SplitSageIvoryPanel",
+      "TrustBanner"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "skin-baseline.svg",
+    "displayName": "Skin Baseline",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "baseline",
+      "beauty",
+      "clinic",
+      "skin",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "AppointmentPreparationPanel",
+      "Care page",
+      "CategoryCards",
+      "FAQ page",
+      "Footer/Header/Floating UI",
+      "Home page",
+      "MiniCaseStudyCards",
+      "Results page",
+      "ResultsContextPanel",
+      "Skin page"
+    ],
+    "pages": [
+      "Care",
+      "FAQ",
+      "Home",
+      "Results",
+      "Skin"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "skin-consultation.svg",
+    "displayName": "Skin Consultation",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "consultation",
+      "skin",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "skin-dots.svg",
+    "displayName": "Skin Dots",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "dots",
+      "skin",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "skin-history.svg",
+    "displayName": "Skin History",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "history",
+      "skin",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "skin-layer.svg",
+    "displayName": "Skin Layer",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "layer",
+      "skin",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "skin-texture.svg",
+    "displayName": "Skin Texture",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "skin",
+      "texture",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Skin page"
+    ],
+    "pages": [
+      "Skin"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "skincare-bowl.svg",
+    "displayName": "Skincare Bowl",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "bowl",
+      "clinic",
+      "skincare",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "skincare-routine.svg",
+    "displayName": "Skincare Routine",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "routine",
+      "skincare",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Skin page"
+    ],
+    "pages": [
+      "Skin"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "soft-glow.svg",
+    "displayName": "Soft Glow",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "glow",
+      "soft",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "RoseEditorialBand"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "spa-towel.svg",
+    "displayName": "Spa Towel",
+    "category": "Page / Section",
+    "tags": [
+      "spa",
+      "towel"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "sparkle-leaf.svg",
+    "displayName": "Sparkle Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "leaf",
+      "luxury",
+      "sparkle"
+    ],
+    "recommendedUse": [
+      "BottomCTA",
+      "ImageEditorialCard",
+      "MediaGalleryGrid",
+      "SageEditorialBand",
+      "SplitHero"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "sparkle.svg",
+    "displayName": "Sparkle",
+    "category": "Page / Section",
+    "tags": [
+      "sparkle"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "split-panel.svg",
+    "displayName": "Split Panel",
+    "category": "Page / Section",
+    "tags": [
+      "panel",
+      "split"
+    ],
+    "recommendedUse": [
+      "SplitPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "sprig.svg",
+    "displayName": "Sprig",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "luxury",
+      "sprig"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "star.svg",
+    "displayName": "Star",
+    "category": "Page / Section",
+    "tags": [
+      "star"
+    ],
+    "recommendedUse": [
+      "TestimonialGrid",
+      "Testimonies page"
+    ],
+    "pages": [
+      "Testimonies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "step-one.svg",
+    "displayName": "Step One",
+    "category": "Page / Section",
+    "tags": [
+      "one",
+      "step"
+    ],
+    "recommendedUse": [
+      "ProcessTimeline"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "step-three.svg",
+    "displayName": "Step Three",
+    "category": "Page / Section",
+    "tags": [
+      "step",
+      "three"
+    ],
+    "recommendedUse": [
+      "ProcessTimeline"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "step-two.svg",
+    "displayName": "Step Two",
+    "category": "Page / Section",
+    "tags": [
+      "step",
+      "two"
+    ],
+    "recommendedUse": [
+      "ProcessTimeline"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "stopwatch.svg",
+    "displayName": "Stopwatch",
+    "category": "Scheduling",
+    "tags": [
+      "stopwatch"
+    ],
+    "recommendedUse": [
+      "Scheduling"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "suitability-check.svg",
+    "displayName": "Suitability Check",
+    "category": "Page / Section",
+    "tags": [
+      "check",
+      "suitability"
+    ],
+    "recommendedUse": [
+      "Care page",
+      "ChecklistPanel",
+      "FeatureStrip",
+      "Laser page",
+      "ServiceIntroPanel",
+      "Skin page",
+      "SuitabilityMatrix",
+      "TreatmentDetailTabs",
+      "Treatments page"
+    ],
+    "pages": [
+      "Care",
+      "Laser",
+      "Skin",
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "sun-exposure.svg",
+    "displayName": "Sun Exposure",
+    "category": "Page / Section",
+    "tags": [
+      "exposure",
+      "sun"
+    ],
+    "recommendedUse": [
+      "Laser page",
+      "ResultsContextPanel"
+    ],
+    "pages": [
+      "Laser"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "sunscreen.svg",
+    "displayName": "Sunscreen",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "sunscreen",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "BeforeAftercarePanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "tca-peel.svg",
+    "displayName": "TCA Peel",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "peel",
+      "tca",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "terms-document.svg",
+    "displayName": "Terms Document",
+    "category": "Trust / Legal / Accessibility",
+    "tags": [
+      "accessibility",
+      "document",
+      "policy",
+      "terms",
+      "trust"
+    ],
+    "recommendedUse": [
+      "Trust / Legal / Accessibility"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "testimonial-quote.svg",
+    "displayName": "Testimonial Quote",
+    "category": "Communication",
+    "tags": [
+      "quote",
+      "testimonial"
+    ],
+    "recommendedUse": [
+      "Footer/Header/Floating UI",
+      "Home page",
+      "Results page",
+      "Testimonies page"
+    ],
+    "pages": [
+      "Home",
+      "Results",
+      "Testimonies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "testimonial.svg",
+    "displayName": "Testimonial",
+    "category": "Communication",
+    "tags": [
+      "testimonial"
+    ],
+    "recommendedUse": [
+      "Communication"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "thin-wreath.svg",
+    "displayName": "Thin Wreath",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "luxury",
+      "thin",
+      "wreath"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "timing-recovery.svg",
+    "displayName": "Timing Recovery",
+    "category": "Scheduling",
+    "tags": [
+      "recovery",
+      "timing"
+    ],
+    "recommendedUse": [
+      "Care page",
+      "Laser page",
+      "SuitabilityMatrix"
+    ],
+    "pages": [
+      "Care",
+      "Laser"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "timing.svg",
+    "displayName": "Timing",
+    "category": "Scheduling",
+    "tags": [
+      "timing"
+    ],
+    "recommendedUse": [
+      "Scheduling"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "toggle.svg",
+    "displayName": "Toggle",
+    "category": "Navigation / UI",
+    "tags": [
+      "toggle"
+    ],
+    "recommendedUse": [
+      "ConsentPreferencesPanel",
+      "Cookies page"
+    ],
+    "pages": [
+      "Cookies"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "treatment-menu.svg",
+    "displayName": "Treatment Menu",
+    "category": "Navigation / UI",
+    "tags": [
+      "menu",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "CategoryCards",
+      "Footer/Header/Floating UI",
+      "ServiceIntroPanel",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "treatment-plan.svg",
+    "displayName": "Treatment Plan",
+    "category": "Page / Section",
+    "tags": [
+      "plan",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "treatment-room.svg",
+    "displayName": "Treatment Room",
+    "category": "Page / Section",
+    "tags": [
+      "room",
+      "treatment"
+    ],
+    "recommendedUse": [
+      "BeforeAftercarePanel",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "two-people-talking.svg",
+    "displayName": "Two People Talking",
+    "category": "Page / Section",
+    "tags": [
+      "people",
+      "talking",
+      "two"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "ultrasonic-peel.svg",
+    "displayName": "Ultrasonic Peel",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "peel",
+      "treatment",
+      "ultrasonic"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "ultrasound-lifting.svg",
+    "displayName": "Ultrasound Lifting",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "lifting",
+      "treatment",
+      "ultrasound"
+    ],
+    "recommendedUse": [
+      "TreatmentOverviewGrid",
+      "Treatments page"
+    ],
+    "pages": [
+      "Treatments"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "ultrasound.svg",
+    "displayName": "Ultrasound",
+    "category": "Treatment / Skincare",
+    "tags": [
+      "beauty",
+      "clinic",
+      "treatment",
+      "ultrasound"
+    ],
+    "recommendedUse": [
+      "Treatment / Skincare"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "user.svg",
+    "displayName": "User",
+    "category": "Page / Section",
+    "tags": [
+      "user"
+    ],
+    "recommendedUse": [
+      "ContactFormPanel"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "values-heart-leaf.svg",
+    "displayName": "Values Heart Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "heart",
+      "leaf",
+      "luxury",
+      "values"
+    ],
+    "recommendedUse": [
+      "About page",
+      "Footer/Header/Floating UI",
+      "Values page"
+    ],
+    "pages": [
+      "About",
+      "Values"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "values.svg",
+    "displayName": "Values",
+    "category": "Page / Section",
+    "tags": [
+      "values"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "vascular-lines.svg",
+    "displayName": "Vascular Lines",
+    "category": "Page / Section",
+    "tags": [
+      "lines",
+      "vascular"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "vine.svg",
+    "displayName": "Vine",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "luxury",
+      "vine"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "visible-focus.svg",
+    "displayName": "Visible Focus",
+    "category": "Page / Section",
+    "tags": [
+      "focus",
+      "visible"
+    ],
+    "recommendedUse": [
+      "Page / Section"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "whatsapp-leaf.svg",
+    "displayName": "Whatsapp Leaf",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "leaf",
+      "luxury",
+      "whatsapp"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "whatsapp.svg",
+    "displayName": "Whatsapp",
+    "category": "Communication",
+    "tags": [
+      "whatsapp"
+    ],
+    "recommendedUse": [
+      "Contact page",
+      "ContactChannels",
+      "Footer/Header/Floating UI",
+      "LocationClinicPanel"
+    ],
+    "pages": [
+      "Contact"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "woman-face-flower.svg",
+    "displayName": "Woman Face Flower",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "face",
+      "feminine",
+      "flower",
+      "luxury",
+      "woman"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  },
+  {
+    "filename": "wreath.svg",
+    "displayName": "Wreath",
+    "category": "Botanical Decoration",
+    "tags": [
+      "botanical",
+      "feminine",
+      "luxury",
+      "wreath"
+    ],
+    "recommendedUse": [
+      "Botanical Decoration"
+    ],
+    "pages": [
+      "Global"
+    ],
+    "visualDescription": "Thin rounded currentColor line-art with botanical, feminine, premium clinic styling.",
+    "source": "custom-original"
+  }
+]

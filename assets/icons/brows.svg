@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Brows</title>
+  <path d="M17 32 C26 24 39 24 48 31"/><path d="M21 35 C29 30 39 30 45 35"/><path d="M41 24 L49 19"/><path d="M47 17 L51 21"/><g transform="translate(22 22) scale(0.3)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g>
+</svg>

@@ -1,0 +1,38 @@
+@layer components {
+  #sf-topbar-inline { position: relative; z-index: calc(var(--z-header) + 1); min-block-size: 2.25rem; overflow: hidden; border-block-end: 1px solid color-mix(in srgb, var(--gold-500) 20%, transparent); background: linear-gradient(90deg, var(--ivory-50), var(--ivory-100)); color: var(--forest-800); }
+  #sf-topbar-inline::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold-500) 48%, transparent), transparent); }
+  .sft-inner { inline-size: min(calc(100% - 2 * var(--page-gutter)), var(--container-standard)); min-block-size: 2.25rem; margin-inline: auto; display: grid; grid-template-columns: minmax(10rem, 1fr) auto; align-items: center; gap: .9rem; font-size: .75rem; }
+  .sft-motto, .sft-actions, .sft-link, .sft-location, .sft-languages { display: flex; align-items: center; }
+  .sft-motto { min-inline-size: 0; gap: .5rem; color: var(--color-text-muted); font-weight: 700; white-space: nowrap; }
+  .sft-actions { justify-content: flex-end; gap: .5rem; white-space: nowrap; }
+  .sft-link, .sft-location { min-block-size: 1.6rem; gap: .4rem; border-radius: 999px; padding-inline: .55rem; color: var(--color-text-muted); font-weight: 700; text-decoration: none; }
+  .sft-link:hover { background: var(--color-bg-surface); color: var(--forest-900); }
+  .sft-location { border: 1px solid var(--color-border-warm); background: color-mix(in srgb, var(--white) 58%, transparent); }
+  .sft-leaf, .sft-icon { inline-size: .95rem; block-size: .95rem; flex: 0 0 auto; stroke: var(--gold-500); }
+  .sft-languages { gap: .45rem; border: 0; background: none; padding: 0; }
+  .sft-lang { min-block-size: 1.25rem; display: grid; place-items: center; border-block-end: 1px solid transparent; color: var(--color-text-muted); font-size: .65rem; font-weight: 850; line-height: 1; text-decoration: none; }
+  .sft-lang[aria-current], html[lang="en"] .sft-lang[lang="en"], html[lang="pt-BR"] .sft-lang[lang="pt-BR"] { border-block-end-color: var(--gold-500); background: none; color: var(--gold-500); }
+
+  @media (min-width: 48rem) {
+    #sf-topbar-inline {
+      min-block-size: 2.5rem;
+      border-block-end-color: color-mix(in srgb, var(--rose-gold-500) 55%, transparent);
+      background: var(--forest-800);
+      color: var(--ivory-50);
+    }
+    #sf-topbar-inline::after { background: linear-gradient(90deg, transparent, var(--rose-gold-500) 12%, var(--rose-gold-500) 88%, transparent); opacity: .5; }
+    .sft-inner { inline-size: min(calc(100% - 2 * var(--page-gutter)), var(--container-wide)); min-block-size: 2.5rem; gap: 1.1rem; font-family: var(--font-heading); font-size: clamp(.8rem, .3vw + .58rem, .96rem); }
+    .sft-motto { gap: .55rem; color: color-mix(in srgb, var(--ivory-50) 92%, transparent); font-weight: 500; }
+    .sft-actions { gap: 1rem; }
+    .sft-link, .sft-location { min-block-size: 2rem; gap: .65rem; border: 0; border-radius: 0; background: none; color: color-mix(in srgb, var(--ivory-50) 90%, transparent); padding-inline: 0; font-weight: 500; }
+    .sft-link:hover { background: none; color: var(--champagne-100); }
+    .sft-location, .sft-languages { border-inline-start: 1px solid color-mix(in srgb, var(--gold-300) 42%, transparent); padding-inline-start: 1rem; }
+    .sft-leaf, .sft-icon { inline-size: 1rem; block-size: 1rem; stroke: var(--gold-300); }
+    .sft-languages { gap: .5rem; border-block: 0; border-inline-end: 0; border-radius: 0; background: none; padding-block: 0; padding-inline-end: 0; }
+    .sft-lang { min-block-size: 1.35rem; color: color-mix(in srgb, var(--ivory-50) 88%, transparent); font-family: var(--font-body); font-size: .68rem; font-weight: 800; }
+    .sft-lang[aria-current], html[lang="en"] .sft-lang[lang="en"], html[lang="pt-BR"] .sft-lang[lang="pt-BR"] { border-block-end-color: var(--gold-300); background: none; color: var(--gold-300); }
+  }
+
+  @media (max-width: 47.999rem) { .sft-inner { inline-size: calc(100% - 1.25rem); } .sft-location, .sft-link-text { display: none; } .sft-link { inline-size: 1.75rem; padding: 0; justify-content: center; border: 1px solid var(--color-border-warm); background: color-mix(in srgb, var(--white) 55%, transparent); } }
+  @media (max-width: 26rem) { .sft-motto span { max-inline-size: 10rem; overflow: hidden; text-overflow: ellipsis; } }
+}

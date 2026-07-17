@@ -1,0 +1,183 @@
+{
+  "captures": [
+    {
+      "page": "404.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/404--hero.png"
+    },
+    {
+      "page": "about.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/about--hero.png"
+    },
+    {
+      "page": "accessibility.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/accessibility--hero.png"
+    },
+    {
+      "page": "blog.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/blog--hero.png"
+    },
+    {
+      "page": "care.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/care--hero.png"
+    },
+    {
+      "page": "consultation.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/consultation--hero.png"
+    },
+    {
+      "page": "cookies.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/cookies--hero.png"
+    },
+    {
+      "page": "faq.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/faq--hero.png"
+    },
+    {
+      "page": "index.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/index--hero.png"
+    },
+    {
+      "page": "journal.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/journal--hero.png"
+    },
+    {
+      "page": "laser.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/laser--hero.png"
+    },
+    {
+      "page": "legal.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/legal--hero.png"
+    },
+    {
+      "page": "mission.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/mission--hero.png"
+    },
+    {
+      "page": "privacy.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/privacy--hero.png"
+    },
+    {
+      "page": "results.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/results--hero.png"
+    },
+    {
+      "page": "skin.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/skin--hero.png"
+    },
+    {
+      "page": "testimonials.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/testimonials--hero.png"
+    },
+    {
+      "page": "thank-you.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/thank-you--hero.png"
+    },
+    {
+      "page": "treatments.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/treatments--hero.png"
+    },
+    {
+      "page": "values.html",
+      "viewport": "mobile-390",
+      "target": "hero",
+      "status": "captured",
+      "file": "mobile-390/values--hero.png"
+    }
+  ],
+  "capturedAt": "2026-07-16T12:02:00",
+  "pages": [
+    "404.html",
+    "about.html",
+    "accessibility.html",
+    "blog.html",
+    "care.html",
+    "consultation.html",
+    "cookies.html",
+    "faq.html",
+    "index.html",
+    "journal.html",
+    "laser.html",
+    "legal.html",
+    "mission.html",
+    "privacy.html",
+    "results.html",
+    "skin.html",
+    "testimonials.html",
+    "thank-you.html",
+    "treatments.html",
+    "values.html"
+  ],
+  "viewports": {
+    "mobile-390": {
+      "width": 390,
+      "height": 844,
+      "isMobile": true
+    }
+  },
+  "target": {
+    "kind": "selectors",
+    "selectors": [
+      {
+        "name": "hero",
+        "selector": "main > section[data-pattern=\"hero\"], main > section[data-section=\"1\"]"
+      }
+    ]
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "Home": [
+    "consultation-map.svg",
+    "personalized-plan.svg",
+    "evidence-flower.svg",
+    "natural-result.svg",
+    "care-hand-heart.svg",
+    "laser-spark.svg",
+    "skin-baseline.svg",
+    "results-context.svg",
+    "journal-book.svg",
+    "testimonial-quote.svg",
+    "no-pressure-chat.svg"
+  ],
+  "About": [
+    "profile-person.svg",
+    "certificate.svg",
+    "listen.svg",
+    "explain.svg",
+    "plan-check.svg",
+    "clinical-warmth.svg",
+    "shield-check.svg",
+    "heart-leaf.svg",
+    "science-flower.svg",
+    "mission-compass.svg",
+    "values-heart-leaf.svg"
+  ],
+  "Care": [
+    "care-hand-heart.svg",
+    "consultation-map.svg",
+    "suitability-check.svg",
+    "timing-recovery.svg",
+    "expectation-balance.svg",
+    "skin-baseline.svg",
+    "aftercare.svg",
+    "faq-chat.svg"
+  ],
+  "Treatments": [
+    "treatment-menu.svg",
+    "consultation-map.svg",
+    "suitability-check.svg",
+    "treatment-room.svg",
+    "aftercare.svg",
+    "results-context.svg",
+    "faq-chat.svg",
+    "deep-facial-cleansing.svg",
+    "eyebrow-design.svg",
+    "harmony-laser.svg",
+    "laser-hair-reduction.svg",
+    "co2-laser-renewal.svg",
+    "ultrasound-lifting.svg",
+    "radiofrequency-waves.svg",
+    "plasma-jet.svg",
+    "mmp-microinfusion.svg",
+    "hair-mesotherapy.svg",
+    "facial-botox.svg",
+    "nefertiti-neck-contour.svg",
+    "microvessels-peim.svg",
+    "diamond-peel.svg",
+    "crystal-peel.svg",
+    "ultrasonic-peel.svg",
+    "retinoic-peel.svg",
+    "jessner-peel.svg",
+    "tca-peel.svg",
+    "melan-peel.svg"
+  ],
+  "Laser": [
+    "laser-spark.svg",
+    "laser-beam.svg",
+    "suitability-check.svg",
+    "sun-exposure.svg",
+    "timing-recovery.svg",
+    "aftercare.svg",
+    "shield-check.svg",
+    "faq-chat.svg"
+  ],
+  "Skin": [
+    "skin-baseline.svg",
+    "skincare-routine.svg",
+    "hydration-drop.svg",
+    "barrier-care.svg",
+    "skin-texture.svg",
+    "suitability-check.svg",
+    "aftercare.svg"
+  ],
+  "Results": [
+    "results-context.svg",
+    "expectation-balance.svg",
+    "case-study.svg",
+    "skin-baseline.svg",
+    "calendar-check.svg",
+    "aftercare.svg",
+    "legal-scales.svg",
+    "testimonial-quote.svg"
+  ],
+  "Consultation": [
+    "consultation-calendar.svg",
+    "consultation-map.svg",
+    "message.svg",
+    "clipboard-check.svg",
+    "calendar-check.svg",
+    "comfort-care.svg",
+    "contact-message.svg",
+    "no-pressure-chat.svg"
+  ],
+  "Contact": [
+    "contact-message.svg",
+    "whatsapp.svg",
+    "email.svg",
+    "instagram.svg",
+    "location-pin.svg",
+    "clinic.svg",
+    "clock.svg",
+    "faq-chat.svg"
+  ],
+  "Journal": [
+    "journal-book.svg",
+    "featured-article.svg",
+    "article.svg",
+    "category.svg",
+    "newsletter.svg",
+    "download.svg",
+    "evidence-flower.svg",
+    "ethical-info.svg"
+  ],
+  "FAQ": [
+    "faq-chat.svg",
+    "question.svg",
+    "plus.svg",
+    "minus.svg",
+    "chevron-down.svg",
+    "consultation-map.svg",
+    "laser-spark.svg",
+    "skin-baseline.svg",
+    "results-context.svg"
+  ],
+  "Testimonies": [
+    "testimonial-quote.svg",
+    "star.svg",
+    "expectation-balance.svg",
+    "ethical-info.svg",
+    "results-context.svg",
+    "shield-check.svg",
+    "no-pressure-chat.svg"
+  ],
+  "Mission": [
+    "mission-compass.svg",
+    "clinical-warmth.svg",
+    "heart-leaf.svg",
+    "science-flower.svg",
+    "human-care.svg",
+    "patient-journey.svg",
+    "shield-check.svg"
+  ],
+  "Values": [
+    "values-heart-leaf.svg",
+    "ethics-shield.svg",
+    "individual-care.svg",
+    "excellence-spark.svg",
+    "safety-check.svg",
+    "science-flower.svg",
+    "comfort-care.svg"
+  ],
+  "Privacy": [
+    "privacy-shield.svg",
+    "lock.svg",
+    "privacy-choice.svg",
+    "document-check.svg",
+    "shield-check.svg",
+    "cookie-settings.svg",
+    "legal-scales.svg"
+  ],
+  "Cookies": [
+    "cookie-settings.svg",
+    "toggle.svg",
+    "privacy-choice.svg",
+    "performance-chart.svg",
+    "functional-settings.svg",
+    "shield-check.svg",
+    "legal-scales.svg"
+  ],
+  "Legal": [
+    "legal-scales.svg",
+    "document-check.svg",
+    "privacy-shield.svg",
+    "patient-rights.svg",
+    "calendar-cancel.svg",
+    "ethical-info.svg",
+    "accessibility-care.svg"
+  ],
+  "Accessibility": [
+    "accessibility-care.svg",
+    "eye.svg",
+    "keyboard.svg",
+    "ear.svg",
+    "hand.svg",
+    "assistive-tech.svg",
+    "feedback-message.svg"
+  ]
+}

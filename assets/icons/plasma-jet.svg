@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Plasma Jet</title>
+  <path d="M14 45 C24 38 40 38 50 45"/><path d="M32 14 L35 26 L47 29 L36 34 L33 47 L28 35 L16 31 L27 26Z"/><g transform="translate(47 19) scale(0.3)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g>
+</svg>

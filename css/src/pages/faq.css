@@ -1,0 +1,26 @@
+@layer pages {
+  .sf-page[data-page="faq"] .sf-faq-search {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    gap: .45rem;
+    margin-block: clamp(-2.5rem, -3vw, -1.5rem) 2rem;
+    border: 1px solid var(--color-border-warm);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--ivory-50) 94%, transparent);
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    box-shadow: var(--shadow-raised);
+    backdrop-filter: blur(.8rem);
+  }
+
+  .sf-page[data-page="faq"] .sf-section[data-pattern="accordion"] { padding-block: clamp(2.75rem, 5vw, 5rem); }
+  .sf-page[data-page="faq"] #choosing-treatment .sf-accordion-item { border-radius: var(--radius-lg) var(--radius-sm) var(--radius-sm); }
+  .sf-page[data-page="faq"] #skin-and-routines .sf-section-head { max-inline-size: 22rem; }
+  .sf-page[data-page="faq"] #laser-fundamentals .sf-accordion-item[open] { border-color: var(--color-border-rose); }
+  .sf-page[data-page="faq"] #peels-and-co-resurfacing .sf-accordion { border-inline-start: 1px solid var(--color-border-warm); padding-inline-start: clamp(1rem, 2vw, 2rem); }
+  .sf-page[data-page="faq"] #appointments-and-practical-questions > .sf-section-inner { border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-xl); }
+
+  @media (max-width: 63.999rem) {
+    .sf-page[data-page="faq"] #peels-and-co-resurfacing .sf-accordion { border-inline-start: 0; padding-inline-start: 0; }
+  }
+}

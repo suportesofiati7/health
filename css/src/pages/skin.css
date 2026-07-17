@@ -1,0 +1,15 @@
+@layer pages {
+  .sf-page[data-page="skin"] #beneath-the-surface .sf-editorial-media { border-radius: var(--radius-lg) var(--radius-arch) var(--radius-lg); }
+  .sf-page[data-page="skin"] #the-skin-barrier .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-page[data-page="skin"] #a-useful-routine .sf-content-card { border-radius: var(--radius-arch); text-align: center; }
+  .sf-page[data-page="skin"] #your-skin-concern-atlas > .sf-editorial-media-layout { border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-xl); }
+  .sf-page[data-page="skin"] #skin-myths .sf-step { background: color-mix(in srgb, var(--blush-50) 74%, var(--white)); }
+  .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-content-card--focus { border-radius: var(--radius-arch) var(--radius-md) var(--radius-lg); }
+  .sf-page[data-page="skin"] #acne-without-punishment .sf-section-head { max-inline-size: 44rem; }
+  .sf-page[data-page="skin"] #professional-skin-treatments .sf-statement-inner { max-inline-size: min(68rem, calc(100% - 2 * var(--page-gutter))); }
+  .sf-page[data-page="skin"] #building-your-skin-plan .sf-content-card-grid { max-inline-size: 62rem; }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="skin"] #the-skin-barrier .sf-content-card-grid { grid-template-columns: 1fr; }
+  }
+}

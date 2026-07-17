@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Testimonial Quote</title>
+  <path d="M22 24 C17 28 15 33 16 41 H27 V31 H21 C21 28 23 26 27 24"/><path d="M40 24 C35 28 33 33 34 41 H45 V31 H39 C39 28 41 26 45 24"/><g transform="translate(45 45) rotate(-20) scale(0.36)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

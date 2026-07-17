@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>LED Light</title>
+  <rect x="17" y="18" width="30" height="28" rx="6"/><path d="M23 26 H41"/><path d="M23 33 H41"/><path d="M23 40 H41"/><path d="M17 49 H47"/><g transform="translate(49 17) scale(0.3)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g>
+</svg>

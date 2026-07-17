@@ -1,0 +1,30 @@
+{
+  "en": {
+    "forms": {
+      "required": "Please complete this field.",
+      "email": "Enter a valid email address.",
+      "review": "Review the indicated fields and try again."
+    },
+    "treatments": {
+      "singular": "{count} treatment shown",
+      "plural": "{count} treatments shown"
+    },
+    "cookies": {
+      "saved": "Your cookie preferences have been saved."
+    }
+  },
+  "pt-BR": {
+    "forms": {
+      "required": "Preencha este campo.",
+      "email": "Informe um endereço de e-mail válido.",
+      "review": "Revise os campos indicados e tente novamente."
+    },
+    "treatments": {
+      "singular": "{count} tratamento exibido",
+      "plural": "{count} tratamentos exibidos"
+    },
+    "cookies": {
+      "saved": "Suas preferências de cookies foram salvas."
+    }
+  }
+}

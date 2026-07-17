@@ -1,0 +1,18 @@
+{
+  "source": "assets/brand/sofiati-source-logo.png",
+  "transparent_background": true,
+  "principal_asset": "assets/brand/sofiati-logo-primary.png",
+  "generated": [
+    "sofiati-logo-primary.png",
+    "sofiati-logo-monogram-transparent.png",
+    "sofiati-logo-monogram-light-transparent.png",
+    "sofiati-logo-primary-transparent.webp",
+    "sofiati-logo-dark-transparent.webp",
+    "sofiati-logo-light-transparent.webp",
+    "sofiati-logo-sage-transparent.webp",
+    "sofiati-logo-gold-transparent.webp",
+    "sofiati-logo-monogram-transparent.webp",
+    "sofiati-logo-monogram-light-transparent.webp",
+    "sofiati-logo-monogram-dark-transparent.webp"
+  ]
+}

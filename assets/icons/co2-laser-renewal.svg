@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>CO₂ Laser Renewal</title>
+  <path d="M23 22 C27 14 39 14 43 23 C48 35 42 47 32 51 C22 47 16 35 23 22Z"/><path d="M48 14 L33 31"/><path d="M54 22 L36 34"/><g transform="translate(45 18) scale(0.45)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g>
+</svg>

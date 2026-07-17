@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Instagram Leaf</title>
+  <rect x="16" y="16" width="32" height="32" rx="9"/><circle cx="32" cy="32" r="8"/><circle cx="41" cy="23" r="1.8"/><g transform="translate(44 44) rotate(-20) scale(0.32)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

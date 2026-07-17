@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Phone</title>
+  <path d="M22 15 C20 16 18 18 18 21 C18 34 30 46 43 46 C46 46 48 44 49 42 L45 35 C44 33 41 33 40 35 L38 38 C32 36 27 31 25 25 L28 23 C30 22 30 19 28 18Z"/><g transform="translate(47 48) rotate(-28) scale(0.42)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g><g transform="translate(16 17) scale(0.3)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g>
+</svg>

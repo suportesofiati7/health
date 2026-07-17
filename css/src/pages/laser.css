@@ -1,0 +1,14 @@
+@layer pages {
+  .sf-page[data-page="laser"] #what-laser-is .sf-content-card { border-radius: var(--radius-arch); text-align: center; }
+  .sf-page[data-page="laser"] #what-laser-is-not > .sf-editorial-media-layout { background: var(--olive-700); }
+  .sf-page[data-page="laser"] #when-laser-may-be-used .sf-statement-inner { margin-inline-start: max(var(--page-gutter), calc((100% - var(--container-standard)) / 2)); }
+  .sf-page[data-page="laser"] #technologies-i-use .sf-content-card { min-block-size: 13rem; }
+  .sf-page[data-page="laser"] #laser-hair-reduction .sf-editorial-media { border-radius: var(--radius-arch) var(--radius-lg) var(--radius-lg); }
+  .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner { border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-xl); }
+  .sf-page[data-page="laser"] #when-to-wait .sf-statement-inner { max-inline-size: min(54rem, calc(100% - 2 * var(--page-gutter))); }
+  .sf-page[data-page="laser"] #recovery-and-honest-answers .sf-content-card { align-content: start; }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="laser"] #when-laser-may-be-used .sf-statement-inner { margin-inline: auto; }
+  }
+}

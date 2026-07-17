@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Terms Document</title>
+  <rect x="18" y="12" width="28" height="40" rx="4"/><path d="M26 24 H40"/><path d="M26 31 H40"/><path d="M26 38 H36"/><path d="M24 45 L28 49 L39 36"/><g transform="translate(42 16) rotate(-20) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

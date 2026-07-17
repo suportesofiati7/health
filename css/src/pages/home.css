@@ -1,0 +1,168 @@
+@layer pages {
+  /* Homepage: a wider, shorter editorial story over the continuous botanical
+     background. Each content group has a different reading rhythm. */
+  .sf-page[data-page="home"] .sf-main > .sf-section > .sf-container,
+  .sf-page[data-page="home"] .sf-main > .sf-section > .sf-section-inner,
+  .sf-page[data-page="home"] .sf-main > .sf-section > .sf-editorial-media-layout,
+  .sf-page[data-page="home"] .sf-main > .sf-section > .sf-statement-inner {
+    inline-size: min(calc(100% - 2 * var(--page-gutter)), 96rem);
+  }
+
+  .sf-page[data-page="home"] .sf-main > .sf-section:not([data-pattern="hero"]) {
+    padding-block: clamp(2.75rem, 4.4vw, 5.5rem);
+  }
+
+  .sf-page[data-page="home"] .sf-main > .sf-section:not([data-pattern="hero"]) > :is(.sf-section-inner, .sf-editorial-media-layout, .sf-statement-inner) {
+    position: relative;
+    border: 1px solid color-mix(in srgb, var(--gold-500) 23%, transparent);
+    background: color-mix(in srgb, var(--ivory-50) 78%, transparent);
+    box-shadow: 0 1.1rem 3.2rem color-mix(in srgb, var(--forest-900) 7%, transparent);
+    backdrop-filter: blur(5px);
+  }
+
+  .sf-page[data-page="home"] .sf-section-head { margin-block-end: clamp(1.35rem, 2.5vw, 2.25rem); }
+  .sf-page[data-page="home"] .sf-section-head h2 { max-inline-size: 14ch; font-size: clamp(2.35rem, 4vw, 4.65rem); }
+  .sf-page[data-page="home"] .sf-section-head h2 + p { max-inline-size: 52ch; }
+  .sf-page[data-page="home"] .sf-button { min-block-size: 3.55rem; padding-inline: 1.5rem; font-size: .82rem; letter-spacing: .14em; }
+  .sf-page[data-page="home"] .sf-button-row { gap: .9rem; margin-block-start: 1.5rem; }
+
+  /* 02 — a broad route atlas: image-led, three concise directional entries. */
+  .sf-page[data-page="home"] #care-routes .sf-editorial-media-layout {
+    grid-template-columns: minmax(0, 1.18fr) minmax(23rem, .82fr);
+    align-items: stretch;
+    border-radius: var(--radius-xl);
+    padding: clamp(1.25rem, 2.3vw, 2.25rem);
+  }
+  .sf-page[data-page="home"] #care-routes .sf-content-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--color-border-warm); background: var(--color-border-warm); }
+  .sf-page[data-page="home"] #care-routes .sf-content-card { min-block-size: 8.25rem; border: 0; border-radius: 0; background: color-mix(in srgb, var(--ivory-50) 93%, transparent); box-shadow: none; padding: clamp(1rem, 1.8vw, 1.5rem); }
+  .sf-page[data-page="home"] #care-routes .sf-content-card:nth-child(1) { grid-column: span 2; }
+  .sf-page[data-page="home"] #care-routes .sf-content-card h3 { font-size: clamp(1.55rem, 2vw, 2.15rem); }
+  .sf-page[data-page="home"] #care-routes .sf-content-card p { font-size: .92rem; line-height: 1.5; }
+  .sf-page[data-page="home"] #care-routes .sf-editorial-media { max-inline-size: none; block-size: 100%; border-radius: var(--radius-lg) var(--radius-arch) var(--radius-lg) var(--radius-lg); }
+  .sf-page[data-page="home"] #care-routes .sf-editorial-media img { block-size: 100%; aspect-ratio: auto; }
+
+  /* 03 — a single four-step reading rail, not four isolated cards. */
+  .sf-page[data-page="home"] #decision-flow > .sf-section-inner { max-inline-size: 96rem; border-radius: var(--radius-xl); padding: clamp(1.5rem, 3.5vw, 3.5rem); }
+  .sf-page[data-page="home"] #decision-flow .sf-section-head { display: grid; grid-template-columns: minmax(14rem, .56fr) 1fr; gap: 2rem; align-items: end; max-inline-size: none; }
+  .sf-page[data-page="home"] #decision-flow .sf-eyebrow { margin-block-end: 0; }
+  .sf-page[data-page="home"] #decision-flow .sf-process-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--color-border-warm); }
+  .sf-page[data-page="home"] #decision-flow .sf-step { min-block-size: 11rem; border-radius: 0; background: transparent; box-shadow: none; padding: 1.35rem clamp(1rem, 2vw, 2rem); }
+  .sf-page[data-page="home"] #decision-flow .sf-step + .sf-step { border-inline-start: 1px solid var(--color-border-subtle); }
+  .sf-page[data-page="home"] #decision-flow .sf-step-number { inline-size: auto; block-size: auto; margin-block-end: .65rem; border: 0; border-radius: 0; background: transparent; box-shadow: none; font-family: var(--font-heading); font-size: 2.6rem; letter-spacing: -.07em; }
+  .sf-page[data-page="home"] #decision-flow .sf-process-list::before { display: none; }
+  .sf-page[data-page="home"] #decision-flow .sf-pull-quote { max-inline-size: 40rem; margin: 1.5rem 0 0 auto; }
+
+  /* 04 and 07 — calm factor ledgers with compact entries rather than card walls. */
+  .sf-page[data-page="home"] #plan-factors > .sf-statement-inner,
+  .sf-page[data-page="home"] #responsible-pauses > .sf-statement-inner { max-inline-size: 96rem; border-radius: var(--radius-xl); padding: clamp(1.5rem, 3.5vw, 3.5rem); text-align: start; }
+  .sf-page[data-page="home"] #plan-factors .sf-section-head,
+  .sf-page[data-page="home"] #responsible-pauses .sf-section-head { max-inline-size: 43rem; }
+  .sf-page[data-page="home"] #plan-factors .sf-section-head h2,
+  .sf-page[data-page="home"] #responsible-pauses .sf-section-head h2 { margin-inline: 0; }
+  .sf-page[data-page="home"] #plan-factors .sf-content-card-grid,
+  .sf-page[data-page="home"] #responsible-pauses .sf-content-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-block: 1px solid color-mix(in srgb, var(--gold-300) 62%, transparent); }
+  .sf-page[data-page="home"] #plan-factors .sf-content-card,
+  .sf-page[data-page="home"] #responsible-pauses .sf-content-card { min-block-size: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; padding: 1.2rem 1.35rem; }
+  .sf-page[data-page="home"] #plan-factors .sf-content-card:nth-child(3n + 2),
+  .sf-page[data-page="home"] #responsible-pauses .sf-content-card:nth-child(3n + 2) { border-inline: 1px solid color-mix(in srgb, var(--gold-300) 44%, transparent); }
+  .sf-page[data-page="home"] #plan-factors .sf-content-card:nth-child(n + 4),
+  .sf-page[data-page="home"] #responsible-pauses .sf-content-card:nth-child(n + 4) { border-block-start: 1px solid color-mix(in srgb, var(--gold-300) 44%, transparent); }
+  .sf-page[data-page="home"] #plan-factors .sf-content-card h3,
+  .sf-page[data-page="home"] #responsible-pauses .sf-content-card h3 { font-size: clamp(1.25rem, 1.55vw, 1.6rem); }
+  .sf-page[data-page="home"] #plan-factors .sf-content-card p,
+  .sf-page[data-page="home"] #responsible-pauses .sf-content-card p { font-size: .9rem; line-height: 1.52; }
+  .sf-page[data-page="home"] #plan-factors .sf-pull-quote,
+  .sf-page[data-page="home"] #responsible-pauses .sf-pull-quote { margin: 1.65rem 0 0; }
+
+  /* 05 — a treatment index with three compact vertical bands. */
+  .sf-page[data-page="home"] #treatment-pathways > .sf-section-inner { border-radius: var(--radius-xl); padding: clamp(1.5rem, 3.5vw, 3.5rem); }
+  .sf-page[data-page="home"] #treatment-pathways .sf-content-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sf-page[data-page="home"] #treatment-pathways .sf-content-card { min-block-size: 7.5rem; padding: 1.2rem 1.35rem; }
+  .sf-page[data-page="home"] #treatment-pathways .sf-content-card h3 { font-size: clamp(1.35rem, 1.65vw, 1.7rem); }
+  .sf-page[data-page="home"] #treatment-pathways .sf-content-card p { font-size: .88rem; line-height: 1.48; }
+
+  /* 06 — an intimate two-column value contrast with the image as a pause. */
+  .sf-page[data-page="home"] #science-with-softness .sf-editorial-media-layout { grid-template-columns: minmax(22rem, .78fr) minmax(0, 1.22fr); border-radius: var(--radius-xl); padding: clamp(1.25rem, 2.5vw, 2.5rem); }
+  .sf-page[data-page="home"] #science-with-softness .sf-editorial-media { grid-column: 1; grid-row: 1; align-self: stretch; max-inline-size: none; }
+  .sf-page[data-page="home"] #science-with-softness .sf-editorial-media img { block-size: 100%; aspect-ratio: auto; }
+  .sf-page[data-page="home"] #science-with-softness .sf-section-inner { grid-column: 2; grid-row: 1; }
+  .sf-page[data-page="home"] #science-with-softness .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--color-border-warm); background: var(--color-border-warm); padding: 0; }
+  .sf-page[data-page="home"] #science-with-softness .sf-content-card { border: 0; border-radius: 0; background: color-mix(in srgb, var(--ivory-50) 90%, transparent); padding: clamp(1rem, 2vw, 1.6rem); }
+
+  /* 08 — an about spread with a narrow identity column and compact principles. */
+  .sf-page[data-page="home"] #meet-franciele > .sf-section-inner { grid-template-columns: minmax(17rem, .48fr) minmax(0, 1fr); border-radius: var(--radius-xl); padding: clamp(1.5rem, 3.5vw, 3.5rem); }
+  .sf-page[data-page="home"] #meet-franciele > .sf-section-inner > :not(.sf-section-head) { grid-column: 2; }
+  .sf-page[data-page="home"] #meet-franciele .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--color-border-warm); background: var(--color-border-warm); }
+  .sf-page[data-page="home"] #meet-franciele .sf-content-card { min-block-size: 7.5rem; border: 0; border-radius: 0; background: color-mix(in srgb, var(--ivory-50) 92%, transparent); box-shadow: none; padding: 1.15rem 1.35rem; }
+  .sf-page[data-page="home"] #meet-franciele .sf-pull-quote { max-inline-size: 36rem; }
+
+  /* 09 — four short voices as an editorial strip; it scrolls sideways on phones. */
+  .sf-page[data-page="home"] #results-and-patient-words > .sf-section-inner { grid-template-columns: minmax(16rem, .46fr) minmax(0, 1fr); border-radius: var(--radius-xl); padding: clamp(1.5rem, 3.5vw, 3.5rem); }
+  .sf-page[data-page="home"] #results-and-patient-words > .sf-section-inner > :not(.sf-section-head) { grid-column: 2; }
+  .sf-page[data-page="home"] #results-and-patient-words .sf-section-head h2 {
+    color: var(--forest-900);
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 3.6vw, 4.25rem);
+    font-weight: 400;
+    letter-spacing: -.048em;
+    line-height: .98;
+    text-transform: none;
+  }
+  .sf-page[data-page="home"] #results-and-patient-words .sf-content-card-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--color-border-warm); background: var(--color-border-warm); }
+  .sf-page[data-page="home"] #results-and-patient-words .sf-content-card { min-block-size: 10rem; border: 0; border-radius: 0; background: color-mix(in srgb, var(--ivory-50) 92%, transparent); box-shadow: none; padding: 1.25rem; }
+  .sf-page[data-page="home"] #results-and-patient-words .sf-content-card h3 { color: var(--forest-800); font-family: var(--font-heading); font-size: clamp(1.2rem, 1.45vw, 1.55rem); font-style: italic; font-weight: 400; letter-spacing: -.035em; line-height: 1.12; text-transform: none; }
+
+  @media (max-width: 63.999rem) {
+    .sf-page[data-page="home"] #care-routes .sf-editorial-media-layout,
+    .sf-page[data-page="home"] #science-with-softness .sf-editorial-media-layout { grid-template-columns: 1fr; }
+    .sf-page[data-page="home"] #science-with-softness .sf-editorial-media,
+    .sf-page[data-page="home"] #science-with-softness .sf-section-inner { grid-column: 1; }
+    .sf-page[data-page="home"] #science-with-softness .sf-editorial-media { grid-row: 2; min-block-size: 18rem; }
+    .sf-page[data-page="home"] #science-with-softness .sf-section-inner { grid-row: 1; }
+  }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="home"] .sf-main > .sf-section:not([data-pattern="hero"]) { padding-block: 2.25rem; }
+    .sf-page[data-page="home"] .sf-main > .sf-section:not([data-pattern="hero"]) > :is(.sf-section-inner, .sf-editorial-media-layout, .sf-statement-inner) { border-radius: var(--radius-lg); padding: 1.25rem; }
+    .sf-page[data-page="home"] .sf-section-head h2 { font-size: clamp(2.15rem, 10vw, 3.3rem); }
+    .sf-page[data-page="home"] .sf-button { min-block-size: 3.35rem; font-size: .76rem; }
+    .sf-page[data-page="home"] #care-routes .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sf-page[data-page="home"] #care-routes .sf-content-card:nth-child(1) { grid-column: span 2; }
+    .sf-page[data-page="home"] #decision-flow .sf-section-head,
+    .sf-page[data-page="home"] #meet-franciele > .sf-section-inner,
+    .sf-page[data-page="home"] #results-and-patient-words > .sf-section-inner { display: block; }
+    .sf-page[data-page="home"] #decision-flow .sf-process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sf-page[data-page="home"] #decision-flow .sf-step:nth-child(odd) { border-inline-start: 0; }
+    .sf-page[data-page="home"] #decision-flow .sf-step:nth-child(n + 3) { border-block-start: 1px solid var(--color-border-subtle); }
+    .sf-page[data-page="home"] #plan-factors .sf-content-card-grid,
+    .sf-page[data-page="home"] #responsible-pauses .sf-content-card-grid,
+    .sf-page[data-page="home"] #treatment-pathways .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sf-page[data-page="home"] #plan-factors .sf-content-card:nth-child(3n + 2),
+    .sf-page[data-page="home"] #responsible-pauses .sf-content-card:nth-child(3n + 2) { border-inline: 0; }
+    .sf-page[data-page="home"] #plan-factors .sf-content-card:nth-child(even),
+    .sf-page[data-page="home"] #responsible-pauses .sf-content-card:nth-child(even) { border-inline-start: 1px solid color-mix(in srgb, var(--gold-300) 44%, transparent); }
+    .sf-page[data-page="home"] #plan-factors .sf-content-card:nth-child(n + 3),
+    .sf-page[data-page="home"] #responsible-pauses .sf-content-card:nth-child(n + 3) { border-block-start: 1px solid color-mix(in srgb, var(--gold-300) 44%, transparent); }
+    .sf-page[data-page="home"] #results-and-patient-words .sf-content-card-grid { display: flex; gap: .75rem; overflow-x: auto; border: 0; background: transparent; padding-block-end: .4rem; scroll-snap-type: inline mandatory; }
+    .sf-page[data-page="home"] #results-and-patient-words .sf-content-card { flex: 0 0 min(80vw, 19rem); border: 1px solid var(--color-border-warm); scroll-snap-align: start; }
+  }
+
+  @media (max-width: 35.999rem) {
+    .sf-page[data-page="home"] #care-routes .sf-content-card-grid,
+    .sf-page[data-page="home"] #science-with-softness .sf-content-card-grid,
+    .sf-page[data-page="home"] #meet-franciele .sf-content-card-grid { grid-template-columns: 1fr; }
+    .sf-page[data-page="home"] #care-routes .sf-content-card:nth-child(1) { grid-column: auto; }
+    .sf-page[data-page="home"] #care-routes .sf-content-card { min-block-size: 0; }
+    .sf-page[data-page="home"] #decision-flow .sf-process-list,
+    .sf-page[data-page="home"] #plan-factors .sf-content-card-grid,
+    .sf-page[data-page="home"] #responsible-pauses .sf-content-card-grid,
+    .sf-page[data-page="home"] #treatment-pathways .sf-content-card-grid { grid-template-columns: 1fr; }
+    .sf-page[data-page="home"] #decision-flow .sf-step + .sf-step,
+    .sf-page[data-page="home"] #plan-factors .sf-content-card:nth-child(n),
+    .sf-page[data-page="home"] #responsible-pauses .sf-content-card:nth-child(n) { border-inline-start: 0; border-block-start: 1px solid color-mix(in srgb, var(--gold-300) 44%, transparent); }
+    .sf-page[data-page="home"] #decision-flow .sf-step:first-child,
+    .sf-page[data-page="home"] #plan-factors .sf-content-card:first-child,
+    .sf-page[data-page="home"] #responsible-pauses .sf-content-card:first-child { border-block-start: 0; }
+    .sf-page[data-page="home"] #decision-flow .sf-step { min-block-size: 0; padding: 1rem 0; }
+  }
+}

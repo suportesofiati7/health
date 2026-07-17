@@ -1,0 +1,213 @@
+@layer pages {
+  /* Franciele is already part of each finished clinic scene, so no additional
+     portrait is rendered. Keep the route-to-image art direction here: both
+     language versions share the same data-page value and therefore the same
+     page-specific photograph. */
+  .sf-page[data-page] [data-pattern="hero"] {
+    --hero-scene-image: none;
+    --hero-scene-position-wide: center;
+    --hero-scene-position-medium: 70% center;
+    --hero-scene-position-narrow: 64% center;
+  }
+
+  .sf-page[data-page="home"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 1.png"); --hero-scene-position-narrow: 56% center; }
+  .sf-page[data-page="about"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 2.png"); --hero-scene-position-narrow: 60% center; }
+  .sf-page[data-page="mission"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 3.png"); --hero-scene-position-narrow: 63% center; }
+  .sf-page[data-page="treatments"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 4.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 65% center; }
+  .sf-page[data-page="care"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 6.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 50% center; }
+  .sf-page[data-page="thank-you"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 7.png"); --hero-scene-position-narrow: 73% center; }
+  .sf-page[data-page="skin"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 8.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 58% center; }
+  .sf-page[data-page="laser"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 9.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 55% center; }
+  .sf-page[data-page="values"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 11.png"); --hero-scene-position-narrow: 72% center; }
+  .sf-page[data-page="legal"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 13.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 63% center; }
+  .sf-page[data-page="journal"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 14.png"); --hero-scene-position-narrow: 68% center; }
+  .sf-page[data-page="blog"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 15.png"); --hero-scene-position-narrow: 68% center; }
+  .sf-page[data-page="testimonials"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 17.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 60% center; }
+  .sf-page[data-page="consultation"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 18.png"); --hero-scene-position-narrow: 53% center; }
+  .sf-page[data-page="results"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 19.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 65% center; }
+  .sf-page[data-page="faq"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 20.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 64% center; }
+  .sf-page[data-page="privacy"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 21.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 55% center; }
+  .sf-page[data-page="cookies"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 22.png"); --hero-scene-position-narrow: 56% center; }
+  .sf-page[data-page="not-found"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 23.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 62% center; }
+  .sf-page[data-page="accessibility"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 24.png"); --hero-scene-position-wide: 54% center; --hero-scene-position-medium: 78% center; --hero-scene-position-narrow: 60% center; }
+
+  .sf-page[data-page]:not([data-page="contact"]) #sf-header-inline {
+    position: absolute;
+    inset-block-start: 4.25rem;
+  }
+
+  /* Keep breadcrumb semantics available without reserving a pale strip above
+     the hero. The clinic scene should begin immediately beneath the top bar
+     on every route, as it does on the homepage. */
+  .sf-page[data-page]:not([data-page="contact"]) .sf-breadcrumbs {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .sf-page[data-page] [data-pattern="hero"] {
+    /* The opening aligns with the top-bar rail, one step wider than the
+       editorial content canvas that follows. */
+    inline-size: min(var(--container-wide), calc(100% - 2 * var(--page-gutter)));
+    min-block-size: clamp(48rem, 67vw, 68rem);
+    margin-inline: auto;
+    padding-block: clamp(8rem, 10vw, 11rem) clamp(3rem, 5vw, 5rem);
+    background-image:
+      linear-gradient(90deg, color-mix(in srgb, var(--ivory-50) 90%, transparent) 0%, color-mix(in srgb, var(--ivory-50) 75%, transparent) 34%, color-mix(in srgb, var(--ivory-50) 15%, transparent) 66%, transparent 100%),
+      var(--hero-scene-image);
+    background-position: var(--hero-scene-position-wide);
+    background-size: cover;
+  }
+
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-layout {
+    min-block-size: clamp(39rem, 56vw, 53rem);
+    grid-template-columns: minmax(0, 1fr) minmax(22rem, .9fr);
+    align-items: end;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0 clamp(1rem, 4vw, 4.5rem);
+  }
+
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    max-inline-size: 42rem;
+    padding-block-end: clamp(2rem, 6vw, 6rem);
+  }
+
+  /* The homepage is the canonical hero template. Route content and imagery
+     may change, but its type hierarchy, controls and decorative treatment do
+     not. These declarations intentionally supersede legacy page exceptions. */
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-layout::before,
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-brand { display: none; }
+
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy h1 {
+    max-inline-size: 10ch;
+    color: var(--forest-900);
+    font-family: var(--font-heading);
+    font-size: clamp(3.75rem, 6.2vw, 7rem);
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: -.048em;
+    line-height: var(--leading-display);
+    text-transform: none;
+    text-wrap: balance;
+  }
+
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy .sf-lede {
+    max-inline-size: 39ch;
+    font-size: clamp(1.12rem, 1.1vw, 1.35rem);
+  }
+
+  .sf-page[data-page] [data-pattern="hero"] .sf-button {
+    min-block-size: 3.55rem;
+    padding-inline: 1.5rem;
+    font-size: .82rem;
+    letter-spacing: .14em;
+  }
+
+  .sf-page[data-page] [data-pattern="hero"] .sf-button-row {
+    gap: .9rem;
+    margin-block-start: 1.5rem;
+  }
+
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-figure {
+    grid-column: 2;
+    grid-row: 1;
+    min-block-size: clamp(34rem, 49vw, 50rem);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* Legacy figure rules remain harmless for authored previews; deployable
+     hero markup no longer includes a separate portrait. */
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-figure::before,
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-botanical { display: none; }
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-figure::after { background: linear-gradient(180deg, transparent 68%, rgb(36 49 41 / .1)); }
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-figure img {
+    object-fit: contain;
+    object-position: center center;
+    filter: drop-shadow(0 1.6rem 1.7rem rgb(36 49 41 / .18));
+  }
+
+  @media (max-width: 63.999rem) {
+    .sf-page[data-page]:not([data-page="contact"]) #sf-header-inline { inset-block-start: 2.7rem; }
+    .sf-page[data-page] [data-pattern="hero"] { inline-size: 100%; min-block-size: 0; padding-block-start: 7rem; background-position: var(--hero-scene-position-medium); }
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-layout { min-block-size: 0; grid-template-columns: 1fr; align-items: stretch; padding-inline: 0; }
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy { grid-column: 1; grid-row: 1; padding-block-end: 0; }
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-figure { grid-column: 1; grid-row: 2; min-block-size: 30rem; }
+  }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page] [data-pattern="hero"] .sf-button { min-block-size: 3.35rem; font-size: .76rem; }
+  }
+
+  @media (max-width: 35.999rem) {
+    .sf-page[data-page] [data-pattern="hero"] { padding-block-start: 6.3rem; background-position: var(--hero-scene-position-narrow); }
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy h1 { font-size: clamp(2.9rem, 13vw, 4.15rem); }
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-figure { min-block-size: 25rem; }
+  }
+
+  /* Short viewports still need to reveal the complete decision path without
+     scrolling. Keep the homepage hierarchy, then compress its vertical
+     rhythm uniformly for every route rather than hiding either CTA. */
+  @media (min-width: 64rem) and (max-height: 56.25rem) {
+    .sf-page[data-page] [data-pattern="hero"] {
+      min-block-size: calc(100svh - 2.5rem);
+      padding-block: clamp(7rem, 15vh, 8rem) clamp(2rem, 4vh, 3rem);
+    }
+
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-layout {
+      min-block-size: 0;
+      align-items: start;
+    }
+
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy {
+      align-self: start;
+      padding-block-end: 0;
+    }
+
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy h1 {
+      font-size: clamp(3.25rem, 5vw, 4.75rem);
+    }
+  }
+
+  @media (max-width: 35.999rem) and (max-height: 40rem) {
+    .sf-page[data-page] [data-pattern="hero"] {
+      padding-block: 4.85rem 1.5rem;
+    }
+
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy > * + * {
+      margin-block-start: .75rem;
+    }
+
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy h1 {
+      max-inline-size: none;
+      font-size: clamp(2.4rem, 11.5vw, 2.75rem);
+    }
+
+    .sf-page[data-page] [data-pattern="hero"] .sf-hero-copy .sf-lede {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .sf-page[data-page] [data-pattern="hero"] .sf-button-row {
+      gap: .5rem;
+      margin-block-start: .75rem;
+    }
+
+    .sf-page[data-page] [data-pattern="hero"] .sf-button {
+      min-block-size: 2.85rem;
+      padding-inline: 1rem;
+      font-size: .7rem;
+    }
+  }
+}

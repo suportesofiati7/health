@@ -1,0 +1,109 @@
+@layer compositions {
+  .sf-pull-quote {
+    position: relative;
+    max-inline-size: 52rem;
+    border-inline-start: 2px solid var(--gold-500);
+    padding: clamp(.9rem, 1.6vw, 1.35rem) 0 clamp(.65rem, 1.2vw, 1rem) clamp(2.35rem, 3.6vw, 3.3rem);
+  }
+  .sf-pull-quote::before { content: "“"; position: absolute; inset-inline-start: .35rem; inset-block-start: -.08rem; color: var(--rose-gold-600); font-family: var(--font-heading); font-size: clamp(3.1rem, 4.6vw, 4.65rem); line-height: 1; }
+  .sf-pull-quote p { max-inline-size: 31ch; color: var(--forest-900); font-family: var(--font-italic); font-size: var(--type-quotation); font-style: italic; letter-spacing: -.025em; line-height: 1.38; }
+  .sf-testimonial-quote, .sf-practitioner-quote { max-inline-size: 52rem; margin: 0; }
+  :is(.sf-testimonial-quote, .sf-practitioner-quote) > .sf-pull-quote { margin-block: 0; }
+  :is(.sf-testimonial-quote, .sf-practitioner-quote) figcaption { margin-block-start: 1.25rem; color: var(--color-text-primary); font-size: .9rem; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; }
+
+  .sf-practitioner-statement { max-inline-size: 44rem; border-block: 1px solid var(--color-border-warm); }
+  .sf-practitioner-statement p { font-size: var(--type-quotation); }
+  .sf-supporting-italic-note { max-inline-size: var(--reading-measure); color: var(--color-text-secondary); font-size: 1rem; font-style: italic; line-height: 1.7; }
+
+  .sf-statement-inner { max-inline-size: none; margin-inline: auto; text-align: start; }
+  .sf-statement-inner > * + * { margin-block-start: var(--space-4); }
+  .sf-statement-inner h2 { max-inline-size: 19ch; margin-inline: 0; }
+
+  [data-pattern="quote-panel"] .sf-statement-inner { border: 0; border-radius: 0; background: transparent; padding: 0; box-shadow: none; }
+  [data-pattern="quote-panel"] .sf-pull-quote { margin-inline: 0; }
+  [data-pattern="oversized-statement"] h2 { font-size: var(--font-page-title); }
+
+  [data-tone="forest"][data-pattern="quote-panel"] :is(.sf-pull-quote p, .sf-statement-inner > p) { color: rgb(255 253 249 / .9); }
+  [data-tone="forest"][data-pattern="quote-panel"] :is(.sf-testimonial-quote, .sf-practitioner-quote) figcaption { color: var(--gold-200); }
+  [data-tone="forest"] .sf-pull-quote { border-color: var(--gold-200); }
+  [data-tone="forest"] .sf-pull-quote::before { color: var(--gold-200); }
+  [data-tone="forest"] .sf-pull-quote p { color: rgb(255 253 249 / .92); }
+
+  @media (min-width: 64rem) {
+    [data-pattern="quote-panel"] .sf-statement-inner {
+      display: grid;
+      grid-template-columns: minmax(18rem, .68fr) minmax(0, 1.32fr);
+      column-gap: clamp(3rem, 8vw, 9rem);
+      align-items: start;
+    }
+    [data-pattern="quote-panel"] .sf-statement-inner > .sf-section-head { grid-column: 1; grid-row: 1 / span 6; margin-block-end: 0; }
+    [data-pattern="quote-panel"] .sf-statement-inner > :not(.sf-section-head) { grid-column: 2; }
+    [data-pattern="quote-panel"] > .sf-editorial-media-layout .sf-statement-inner { display: block; }
+    [data-pattern="quote-panel"] > .sf-editorial-media-layout .sf-statement-inner > * + * { margin-block-start: var(--space-4); }
+  }
+
+  .sf-bottom-cta__inner { position: relative; max-inline-size: min(58rem, calc(100% - 2 * var(--page-gutter))); overflow: hidden; border: 1px solid var(--color-border-warm); border-radius: var(--radius-xl); background: radial-gradient(circle at 10% 10%, color-mix(in srgb, var(--sage-200) 60%, transparent), transparent 36%), radial-gradient(circle at 92% 85%, color-mix(in srgb, var(--blush-200) 62%, transparent), transparent 34%), var(--color-bg-surface); padding: clamp(2rem, 6vw, 5.5rem); text-align: center; box-shadow: var(--shadow-raised); }
+  [data-tone="forest"][data-pattern="final-cta"] .sf-bottom-cta__inner { border-color: color-mix(in srgb, var(--gold-200) 42%, transparent); background: radial-gradient(circle at 10% 10%, color-mix(in srgb, var(--gold-300) 18%, transparent), transparent 34%), radial-gradient(circle at 92% 85%, color-mix(in srgb, var(--rose-gold-500) 18%, transparent), transparent 32%), var(--color-bg-olive); color: var(--color-text-inverse); }
+  .sf-bottom-cta__inner::after { content: "FS"; position: absolute; inset-inline-end: -1.5rem; inset-block-end: -3.5rem; color: color-mix(in srgb, var(--rose-gold-500) 10%, transparent); font-family: var(--font-heading); font-size: clamp(9rem, 20vw, 15rem); font-style: italic; line-height: .8; pointer-events: none; }
+  .sf-bottom-cta__inner > * { position: relative; z-index: 1; }
+  .sf-bottom-cta__inner > * + * { margin-block-start: var(--space-4); }
+  .sf-bottom-cta__inner :is(h2, h3) { margin-inline: auto; }
+  .sf-bottom-cta__inner .sf-button-row { justify-content: center; }
+
+  /* Art-directed final CTA library. Every public page receives exactly one
+     stable concept key from the renderer; the assets retain natural daylight
+     and deliberately empty central space for live, accessible copy. */
+  .sf-bottom-cta__inner[data-cta-concept] {
+    --cta-ink: var(--forest-900);
+    --cta-accent: var(--rose-gold-600);
+    min-block-size: clamp(23rem, 29vw, 30rem);
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    border-color: color-mix(in srgb, var(--gold-300) 72%, transparent);
+    background-color: var(--ivory-50);
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 1.35rem 3rem color-mix(in srgb, var(--forest-900) 13%, transparent), inset 0 1px 0 rgb(255 255 255 / .88);
+    color: var(--cta-ink);
+    max-inline-size: min(var(--container-wide), calc(100% - 2 * var(--page-gutter)));
+  }
+  .sf-bottom-cta__inner[data-cta-concept]::after { display: none; }
+  .sf-bottom-cta__inner[data-cta-concept] .sf-section-head { max-inline-size: 38rem; text-align: center; }
+  .sf-bottom-cta__inner[data-cta-concept] :is(h2, h3) { color: var(--cta-ink) !important; /* important: the light CTA artwork must override the forest section heading contract. */ font-size: clamp(2.25rem, 4.4vw, 4.8rem); letter-spacing: -.045em; line-height: .96; text-wrap: balance; }
+  .sf-bottom-cta__inner[data-cta-concept] .sf-eyebrow { color: var(--cta-accent); }
+  .sf-bottom-cta__inner[data-cta-concept] :is(.sf-lede, p) { max-inline-size: 38rem; color: color-mix(in srgb, var(--cta-ink) 78%, transparent) !important; /* important: the light CTA artwork must override inherited inverse copy. */ text-align: center; text-wrap: balance; }
+  .sf-bottom-cta__inner[data-cta-concept] .sf-button-row { justify-content: center; }
+  .sf-final-cta-lockup { display: grid; gap: .25rem; justify-items: center; color: var(--cta-accent); font-size: .64rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+  .sf-final-cta-lockup img { inline-size: 3rem; block-size: 3rem; object-fit: contain; }
+  .sf-final-cta-copy { margin: 0; }
+  .sf-bottom-cta__inner[data-cta-concept] .sf-button--primary { border-color: var(--gold-300); background: linear-gradient(135deg, var(--forest-800), var(--forest-900)); color: var(--ivory-50); }
+  .sf-bottom-cta__inner[data-cta-concept] .sf-button--outline { background: var(--ivory-50); color: var(--forest-900); }
+  .sf-bottom-cta__inner[data-cta-concept="01"],
+  .sf-bottom-cta__inner[data-cta-concept="08"],
+  .sf-bottom-cta__inner[data-cta-concept="15"] { background-image: url('/assets/cta-concepts/mediterranean-orangery-olive-brass.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="02"],
+  .sf-bottom-cta__inner[data-cta-concept="09"],
+  .sf-bottom-cta__inner[data-cta-concept="16"] { background-image: url('/assets/cta-concepts/celadon-lemon-grove-petals.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="03"],
+  .sf-bottom-cta__inner[data-cta-concept="10"],
+  .sf-bottom-cta__inner[data-cta-concept="17"] { background-image: url('/assets/cta-concepts/fresh-sage-porcelain.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="04"],
+  .sf-bottom-cta__inner[data-cta-concept="11"],
+  .sf-bottom-cta__inner[data-cta-concept="18"] { background-image: url('/assets/cta-concepts/illuminated-blush-metal.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="05"],
+  .sf-bottom-cta__inner[data-cta-concept="12"],
+  .sf-bottom-cta__inner[data-cta-concept="19"] { background-image: url('/assets/cta-concepts/sage-tuscan-window.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="06"],
+  .sf-bottom-cta__inner[data-cta-concept="13"],
+  .sf-bottom-cta__inner[data-cta-concept="20"] { background-image: url('/assets/cta-concepts/ivory-arch-garden.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="07"],
+  .sf-bottom-cta__inner[data-cta-concept="14"],
+  .sf-bottom-cta__inner[data-cta-concept="21"] { background-image: url('/assets/cta-concepts/carrara-peony-frame.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="08"],.sf-bottom-cta__inner[data-cta-concept="16"],.sf-bottom-cta__inner[data-cta-concept="19"] { background-position: 72% center; }
+  .sf-bottom-cta__inner[data-cta-concept="09"],.sf-bottom-cta__inner[data-cta-concept="12"],.sf-bottom-cta__inner[data-cta-concept="20"] { background-position: 28% center; }
+  @media (max-width: 44rem) {
+    .sf-bottom-cta__inner[data-cta-concept] { min-block-size: 25rem; padding: 2.25rem 1.25rem; background-position: center; }
+    .sf-bottom-cta__inner[data-cta-concept] :is(h2, h3) { font-size: clamp(2.15rem, 10vw, 3.35rem); }
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.12" stroke-linecap="round" stroke-linejoin="round">
+  <title>Laser Hair Reduction</title>
+  <path d="M16 43 C26 36 38 36 48 43"/><path d="M31 42 C30 34 35 28 42 26"/><path d="M36 24 L51 13"/><path d="M40 28 L55 17"/><g transform="translate(45 20) scale(0.42)">
+  <path d="M0 -5 V5"/>
+  <path d="M-5 0 H5"/>
+  <path d="M-3 -3 L3 3"/>
+  <path d="M3 -3 L-3 3"/>
+</g><g transform="translate(23 41) rotate(15) scale(0.3)">
+  <path d="M0 0 C4 -5 10 -5 14 0 C10 5 4 5 0 0Z"/>
+  <path d="M1 0 C5 .2 9 .1 13 0"/>
+</g>
+</svg>

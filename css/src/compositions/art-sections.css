@@ -1,0 +1,39 @@
+@layer compositions {
+  /* Shared primitives for editorial body chapters. Page styles select their
+   * own composition; this layer intentionally does not impose one template. */
+  .sf-art-number {
+    position: absolute;
+    z-index: 0;
+    color: color-mix(in srgb, var(--rose-gold-500) 20%, transparent);
+    font-family: var(--font-heading);
+    font-size: clamp(8rem, 17vw, 18rem);
+    font-style: italic;
+    line-height: .7;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .sf-art-rule {
+    inline-size: min(15rem, 35%);
+    block-size: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose-gold-500), var(--gold-300), transparent);
+  }
+
+  .sf-art-media-frame {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .sf-art-media-frame::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 8% -8% -8% 8%;
+    border: 1px solid color-mix(in srgb, var(--gold-300) 55%, transparent);
+    background: color-mix(in srgb, var(--blush-100) 42%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sf-art-number { transition: none; }
+  }
+}

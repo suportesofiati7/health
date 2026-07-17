@@ -1,0 +1,97 @@
+@layer components {
+  .sf-content-card {
+    position: relative;
+    min-inline-size: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(145deg, color-mix(in srgb, var(--white) 96%, transparent), color-mix(in srgb, var(--ivory-100) 84%, transparent));
+    color: var(--color-text-primary);
+    padding: var(--card-padding);
+    box-shadow: 0 .7rem 2.2rem color-mix(in srgb, var(--olive-700) 6%, transparent);
+  }
+
+  .sf-content-card::before {
+    content: "";
+    position: absolute;
+    inset-inline: 1.25rem;
+    inset-block-start: 0;
+    block-size: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-300), transparent);
+    opacity: .65;
+  }
+
+  .sf-content-card > * + * { margin-block-start: var(--space-3); }
+  .sf-content-card h3 { max-inline-size: 24ch; }
+  .sf-content-card p { color: var(--color-text-secondary); }
+
+  .sf-content-card--focus { border-color: var(--color-border-rose); background: linear-gradient(145deg, var(--blush-50), color-mix(in srgb, var(--white) 92%, var(--blush-100))); }
+  .sf-content-card--consideration { background: linear-gradient(145deg, var(--color-bg-soft), var(--champagne-100)); }
+  .sf-content-card--support { background: linear-gradient(145deg, var(--color-bg-sage-soft), var(--sage-100)); }
+  .sf-content-card--caution { border-color: var(--color-border-warm); background: linear-gradient(145deg, var(--color-bg-rose), var(--champagne-100)); }
+  .sf-content-card--neutral { background: color-mix(in srgb, var(--white) 92%, var(--ivory-100)); }
+
+  .sf-content-card--link { transition: translate var(--duration-standard) var(--ease-emphasized), border-color var(--duration-fast), box-shadow var(--duration-standard) var(--ease-standard); }
+  .sf-content-card--link:hover { translate: 0 -.25rem; border-color: var(--color-border-warm); box-shadow: var(--shadow-soft); }
+
+  a.sf-content-card {
+    padding-inline-end: clamp(2.75rem, 5vw, 4rem);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a.sf-content-card::after {
+    content: "↗";
+    position: absolute;
+    inset-inline-end: 1.25rem;
+    inset-block-start: 1.25rem;
+    inline-size: 1.8rem;
+    block-size: 1.8rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--color-border-warm);
+    border-radius: 50%;
+    color: var(--rose-gold-700);
+    font-size: .82rem;
+    transition: rotate var(--duration-fast), background var(--duration-fast);
+  }
+
+  a.sf-content-card:hover::after { rotate: 8deg; background: var(--blush-100); }
+
+  .sf-botanical-list { display: grid; gap: .65rem; padding: 0; list-style: none; }
+  .sf-botanical-list li { position: relative; padding-inline-start: 1.35rem; }
+  .sf-botanical-list li::before { content: ""; position: absolute; inset-block-start: .68em; inset-inline-start: 0; inline-size: .5rem; block-size: .5rem; border: 1px solid var(--rose-gold-600); border-radius: 50% 0 50% 50%; background: var(--blush-100); rotate: -32deg; }
+
+  .sf-treatment-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .sf-treatment-menu-card {
+    display: grid;
+    align-content: start;
+    overflow: clip;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-surface);
+    box-shadow: var(--shadow-soft);
+    transition: translate var(--duration-standard) var(--ease-emphasized), box-shadow var(--duration-standard);
+  }
+
+  .sf-treatment-menu-card:hover { translate: 0 -.2rem; box-shadow: var(--shadow-raised); }
+  .sf-treatment-menu-card__media { position: relative; margin: 0; overflow: hidden; background: var(--color-bg-soft); }
+  .sf-treatment-menu-card__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, color-mix(in srgb, var(--olive-700) 20%, transparent)); pointer-events: none; }
+  .sf-treatment-menu-card__media img { inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: scale var(--duration-slow) var(--ease-emphasized); }
+  .sf-treatment-menu-card:hover .sf-treatment-menu-card__media img { scale: 1.025; }
+  .sf-treatment-menu-card__copy { display: grid; gap: var(--space-3); padding: var(--card-padding); }
+  .sf-treatment-menu-card__label { color: var(--rose-gold-700); font-size: .875rem; font-weight: 780; letter-spacing: .1em; line-height: 1; text-transform: uppercase; }
+  .sf-treatment-menu-tags { display: flex; flex-wrap: wrap; gap: .45rem; padding: 0; list-style: none; }
+  .sf-treatment-menu-tags li { border: 1px solid var(--color-border-subtle); border-radius: 999px; padding: .38rem .65rem; background: var(--color-bg-sage-soft); color: var(--color-text-muted); font-size: .875rem; line-height: 1.25; }
+  .sf-treatment-menu-note { border-block-start: 1px solid var(--color-border-subtle); padding-block-start: var(--space-3); color: var(--color-text-muted); font-size: .9rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sf-content-card--link, .sf-treatment-menu-card, .sf-treatment-menu-card__media img { transition: none; }
+  }
+}

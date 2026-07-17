@@ -1,0 +1,79 @@
+@layer components {
+  /* Shared action hierarchy: primary (commit), secondary (alternate), tertiary (low emphasis). */
+  .sf-button-row { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-block-start: var(--space-4); }
+
+  .sf-button, .sffo-button, .sfm-primary, .sfm-secondary, .sfc-button, .sfi-contact {
+    min-block-size: 3.2rem;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .7rem;
+    border: 1px solid transparent;
+    border-radius: .35rem;
+    padding: .78rem 1.2rem;
+    font-family: var(--font-heading);
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .13em;
+    line-height: 1.15;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: translate var(--duration-fast), box-shadow var(--duration-fast), filter var(--duration-fast), background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
+  }
+
+  .sf-button::after, .sfi-contact::after, .sfm-secondary::after {
+    content: "→";
+    margin-inline-start: .35rem;
+    color: var(--gold-300);
+    font-family: var(--font-body);
+    font-size: 1.3em;
+    font-weight: 500;
+    line-height: 0;
+  }
+
+  .sf-button:hover, .sffo-button:hover, .sfm-primary:hover, .sfm-secondary:hover, .sfc-button:hover, .sfi-contact:hover { translate: 0 -.12rem; }
+  .sf-button:disabled, .sffo-button:disabled, .sfc-button:disabled { cursor: not-allowed; opacity: .58; translate: none; }
+
+  /* Primary: one clear next action per decision point. */
+  .sf-button--primary, .sfm-primary, .sfc-button--primary, .sfi-contact {
+    border-color: color-mix(in srgb, var(--gold-300) 78%, transparent);
+    background: linear-gradient(135deg, var(--forest-800), var(--forest-900) 86%);
+    color: var(--ivory-50);
+    box-shadow: 0 .7rem 1.45rem rgb(20 37 27 / .2), inset 0 1px 0 color-mix(in srgb, var(--ivory-50) 13%, transparent);
+  }
+
+  .sf-button--primary:hover, .sfm-primary:hover, .sfc-button--primary:hover, .sfi-contact:hover { background: linear-gradient(135deg, var(--olive-700), var(--forest-900) 86%); filter: saturate(1.05); box-shadow: 0 .95rem 1.8rem rgb(20 37 27 / .25), inset 0 1px 0 color-mix(in srgb, var(--ivory-50) 18%, transparent); }
+
+  /* Secondary: an alternate action on an ivory surface. */
+  .sf-button--outline, .sf-button--light, .sffo-button, .sfm-secondary, .sfc-button--outline {
+    border-color: color-mix(in srgb, var(--olive-700) 72%, var(--gold-300));
+    background: linear-gradient(135deg, var(--ivory-50), var(--champagne-100));
+    color: var(--forest-900);
+    box-shadow: 0 .42rem .9rem rgb(20 37 27 / .08), inset 0 1px 0 rgb(255 255 255 / .86);
+  }
+
+  .sf-button--outline:hover, .sf-button--light:hover, .sffo-button:hover, .sfm-secondary:hover, .sfc-button--outline:hover { border-color: var(--gold-500); background: var(--ivory-50); color: var(--forest-900); }
+
+  /* Tertiary: low-emphasis actions, still visibly interactive. */
+  .sf-button--quiet, .sfc-button--quiet {
+    min-block-size: 2.8rem;
+    border-color: color-mix(in srgb, var(--olive-700) 74%, transparent);
+    background: transparent;
+    color: var(--olive-700);
+    box-shadow: none;
+  }
+
+  .sf-button--quiet:hover, .sfc-button--quiet:hover { border-color: var(--gold-500); background: color-mix(in srgb, var(--champagne-100) 58%, transparent); color: var(--forest-900); }
+
+  /* Preserve contrast where the action row is already on a dark surface. */
+  [data-tone="forest"] .sf-button--primary { border-color: var(--gold-300); background: linear-gradient(135deg, var(--ivory-50), var(--champagne-100)); color: var(--forest-900); }
+  [data-tone="forest"] .sf-button--primary::after { color: var(--gold-700); }
+  [data-tone="forest"] .sf-button--outline, [data-tone="forest"] .sf-button--quiet { border-color: color-mix(in srgb, var(--gold-300) 72%, transparent); background: transparent; color: var(--ivory-50); }
+
+  @media (max-width: 27rem) {
+    .sf-button-row { align-items: stretch; }
+    .sf-button-row .sf-button { flex: 1 1 100%; }
+  }
+}

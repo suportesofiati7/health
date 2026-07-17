@@ -1,0 +1,95 @@
+@layer pages {
+  /* Scene names continue to describe editorial cadence, but they no longer
+     inject route artwork, icons or pseudo-element ornaments. The panorama is
+     owned exclusively by the page background and section materials are owned
+     by the strict three-column system. */
+  .sf-page .sf-main > .sf-section:not([data-pattern="final-cta"]) {
+    position: relative;
+  }
+
+  .sf-page .sf-main > .sf-section:not([data-pattern="final-cta"]) > :is(
+    .sf-section-inner,
+    .sf-editorial-media-layout,
+    .sf-statement-inner,
+    .sf-form-section-layout,
+    .sf-reading-column,
+    .sf-treatment-scene
+  ) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Pattern structures retain their semantic job without choosing or leaking
+     a background scene into the outer panorama rails. */
+  .sf-page:not([data-page="treatments"]) [data-pattern="evidence-panel"] .sf-content-card-grid {
+    gap: 0;
+    border-block: 1px solid color-mix(in srgb, var(--gold-300) 56%, transparent);
+  }
+
+  .sf-page:not([data-page="treatments"]) [data-pattern="evidence-panel"] .sf-content-card {
+    border: 0;
+    border-radius: 0;
+    background: var(--white);
+    box-shadow: none;
+  }
+
+  .sf-page:not([data-page="treatments"]) [data-scene="olive-garden"][data-pattern="evidence-panel"] .sf-content-card :is(h3, h4, p, li, span) {
+    color: var(--forest-900);
+  }
+
+  .sf-page:not([data-page="treatments"]) [data-scene="olive-garden"][data-pattern="evidence-panel"] .sf-content-card-grid {
+    border-color: rgb(234 213 173 / .4);
+  }
+
+  .sf-page:not([data-page="treatments"]) :is([data-pattern="numbered-sequence"], [data-pattern="route-map"]) .sf-step,
+  .sf-page:not([data-page="treatments"]) [data-pattern="horizontal-bands"] .sf-content-card {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .sf-page:not([data-page="treatments"]) [data-pattern="form"] .sf-form {
+    border-color: color-mix(in srgb, var(--rose-gold-500) 35%, transparent);
+    background: var(--white);
+    box-shadow: 0 1.5rem 4rem rgb(57 47 27 / .09);
+  }
+
+  .sf-family-service:not([data-page="treatments"]) .sf-treatment-menu {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+  }
+
+  .sf-family-service:not([data-page="treatments"]) .sf-treatment-menu-card {
+    border-color: color-mix(in srgb, var(--gold-300) 52%, transparent);
+    border-radius: 0;
+    background: var(--white);
+    box-shadow: none;
+  }
+
+  .sf-family-service:not([data-page="treatments"]) .sf-treatment-menu-card__media { border-radius: 0; }
+  .sf-family-service:not([data-page="treatments"]) .sf-treatment-menu-card:first-child { border-start-start-radius: 5rem; }
+  .sf-family-service:not([data-page="treatments"]) .sf-treatment-menu-card:first-child .sf-treatment-menu-card__media { border-start-start-radius: 4.55rem; }
+  .sf-family-service:not([data-page="treatments"]) .sf-treatment-menu-card__body { padding: clamp(1rem, 1.6vw, 1.45rem); }
+
+  .sf-page:is([data-page="journal"], [data-page="blog"]) .sf-article-card {
+    border-block: 1px solid color-mix(in srgb, var(--gold-300) 52%, transparent);
+    border-inline: 0;
+    border-radius: 0;
+    background: var(--white);
+    box-shadow: none;
+  }
+
+  .sf-page:is([data-page="journal"], [data-page="blog"]) .sf-article-card:first-child {
+    border-inline: 1px solid color-mix(in srgb, var(--rose-gold-500) 40%, transparent);
+    border-start-start-radius: 6rem;
+    background: var(--champagne-100);
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-card,
+  .sf-page[data-page="faq"] .sf-faq-accordion details {
+    border-block: 1px solid color-mix(in srgb, var(--gold-300) 48%, transparent);
+    border-inline: 0;
+    border-radius: 0;
+    background: var(--white);
+    box-shadow: none;
+  }
+}

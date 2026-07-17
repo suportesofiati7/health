@@ -1,0 +1,207 @@
+@layer components {
+  #sf-header-inline {
+    position: sticky;
+    inset-block-start: clamp(.45rem, 1vw, .8rem);
+    z-index: var(--z-header);
+    inline-size: 100%;
+    padding-inline: var(--page-gutter);
+    pointer-events: none;
+  }
+
+  .sfi-header-shell {
+    position: relative;
+    inline-size: min(100%, var(--container-standard));
+    min-block-size: var(--header-height);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(14rem, 1fr) auto auto;
+    align-items: center;
+    gap: clamp(.75rem, 1.5vw, 1.5rem);
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--gold-500) 35%, transparent);
+    border-radius: var(--radius-md);
+    background:
+      radial-gradient(circle at 5% 0%, color-mix(in srgb, var(--gold-200) 36%, transparent), transparent 28%),
+      radial-gradient(circle at 96% 12%, color-mix(in srgb, var(--blush-200) 45%, transparent), transparent 27%),
+      var(--ivory-50);
+    box-shadow: 0 1rem 3rem color-mix(in srgb, var(--olive-700) 17%, transparent), inset 0 1px 0 color-mix(in srgb, var(--white) 82%, transparent);
+    padding: .55rem .65rem .55rem .9rem;
+    color: var(--color-text-primary);
+    pointer-events: auto;
+    backdrop-filter: none;
+    transition: min-block-size var(--duration-fast) var(--ease-standard), background var(--duration-fast), box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  #sf-header-inline.is-scrolled .sfi-header-shell {
+    min-block-size: 4.15rem;
+    background: var(--ivory-50);
+    box-shadow: 0 .8rem 2.4rem color-mix(in srgb, var(--olive-700) 21%, transparent);
+  }
+
+  .sfi-header-shell::before {
+    content: "";
+    position: absolute;
+    inset-inline: 7%;
+    inset-block-end: 0;
+    block-size: 1px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--pink-gold-300), var(--gold-300), transparent);
+  }
+
+  .sfi-brand, .sfi-nav, .sfi-actions { position: relative; z-index: 1; display: flex; align-items: center; }
+  .sfi-brand { min-inline-size: 0; gap: .75rem; color: inherit; text-decoration: none; }
+
+  .sfi-brand-mark {
+    inline-size: 3.25rem;
+    block-size: 3.25rem;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid var(--color-border-warm);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 25%, color-mix(in srgb, var(--gold-200) 22%, transparent), transparent 45%),
+      var(--olive-700);
+    box-shadow: 0 .55rem 1.35rem color-mix(in srgb, var(--olive-700) 22%, transparent);
+  }
+
+  .sfi-brand-logo {
+    inline-size: 2.05rem;
+    block-size: 2.05rem;
+    object-fit: contain;
+    filter: drop-shadow(0 .2rem .45rem color-mix(in srgb, var(--forest-900) 25%, transparent));
+  }
+
+  .sfi-brand-text { min-inline-size: 0; display: grid; gap: .2rem; line-height: 1; }
+  .sfi-brand-name { color: var(--forest-900); font-family: var(--font-heading); font-size: clamp(1.4rem, 1.7vw, 1.85rem); font-style: italic; white-space: nowrap; }
+  .sfi-brand-role { color: var(--rose-gold-700); font-size: .6rem; font-weight: 780; letter-spacing: .17em; text-transform: uppercase; white-space: nowrap; }
+
+  .sfi-nav {
+    justify-content: center;
+    gap: .15rem;
+    border: 1px solid color-mix(in srgb, var(--gold-200) 34%, transparent);
+    border-radius: 999px;
+    background: var(--menu-green);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--white) 13%, transparent), 0 .45rem 1rem color-mix(in srgb, var(--olive-700) 15%, transparent);
+    padding: .2rem;
+  }
+  .sfi-nav-link {
+    position: relative;
+    min-block-size: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding-inline: clamp(.58rem, .8vw, .9rem);
+    color: color-mix(in srgb, var(--ivory-50) 90%, transparent);
+    font-size: clamp(.78rem, .2vw + .74rem, .88rem);
+    font-weight: 680;
+    text-decoration: none;
+    transition: color var(--duration-fast), background var(--duration-fast);
+  }
+
+  .sfi-nav-link:hover, .sfi-nav-link:focus-visible, .sfi-nav-link[aria-current="page"] {
+    color: var(--forest-900);
+    background: var(--champagne-100);
+  }
+
+  .sfi-nav-link[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    inset-inline: .9rem;
+    inset-block-end: .35rem;
+    block-size: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose-gold-500), var(--gold-500), transparent);
+  }
+
+  .sfi-actions { justify-content: flex-end; gap: .6rem; }
+  .sfi-contact {
+    position: relative;
+    min-block-size: 3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--rose-gold-600) 32%, transparent);
+    border-radius: 999px;
+    background: linear-gradient(105deg, var(--blush-200), var(--champagne-100) 48%, var(--pink-gold-300));
+    color: var(--forest-900);
+    padding-inline: 1.15rem;
+    box-shadow: var(--shadow-glow);
+    font-size: .82rem;
+    font-weight: 790;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: translate var(--duration-fast), filter var(--duration-fast), box-shadow var(--duration-fast);
+  }
+
+  .sfi-contact:hover { translate: 0 -.1rem; filter: saturate(1.08); box-shadow: 0 1rem 2.2rem color-mix(in srgb, var(--rose-gold-500) 24%, transparent); }
+  .sfi-contact-icon { inline-size: 1rem; block-size: 1rem; display: grid; place-items: center; }
+  .sfi-contact-icon svg { inline-size: 55%; block-size: 55%; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+
+  .sfi-menu-button {
+    inline-size: 3rem;
+    block-size: 3rem;
+    display: none;
+    place-items: center;
+    border: 1px solid var(--color-border-warm);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--sage-100) 76%, var(--white));
+    color: var(--gold-700);
+    box-shadow: 0 .5rem 1.3rem color-mix(in srgb, var(--olive-700) 10%, transparent);
+  }
+
+  .sfi-menu-lines { position: relative; inline-size: 1.35rem; block-size: .95rem; display: block; }
+  .sfi-menu-lines::before, .sfi-menu-lines::after, .sfi-menu-lines span { content: ""; position: absolute; inset-inline-start: 0; inline-size: 100%; block-size: 2px; border-radius: 999px; background: currentColor; transition: transform var(--duration-fast), opacity var(--duration-fast); }
+  .sfi-menu-lines::before { inset-block-start: 0; }
+  .sfi-menu-lines span { inset-block-start: calc(50% - 1px); }
+  .sfi-menu-lines::after { inset-block-end: 0; }
+  .sfi-menu-button[aria-expanded="true"] .sfi-menu-lines::before { transform: translateY(.4rem) rotate(45deg); }
+  .sfi-menu-button[aria-expanded="true"] .sfi-menu-lines span { opacity: 0; }
+  .sfi-menu-button[aria-expanded="true"] .sfi-menu-lines::after { transform: translateY(-.4rem) rotate(-45deg); }
+
+  @media (min-width: 48rem) {
+    #sf-header-inline { inset-block-start: clamp(.9rem, 1.5vw, 1.5rem); }
+    .sfi-header-shell {
+      min-block-size: clamp(5.5rem, 6.5vw, 7rem);
+      grid-template-columns: minmax(15rem, 1.1fr) minmax(0, 1.35fr) auto;
+      gap: clamp(.6rem, 1.5vw, 1.75rem);
+      border-color: color-mix(in srgb, var(--rose-gold-500) 55%, transparent);
+      border-radius: clamp(1.25rem, 1.8vw, 1.85rem);
+      background: var(--menu-green);
+      box-shadow: 0 .75rem 1.6rem rgb(14 23 13 / .2), inset 0 1px 0 color-mix(in srgb, var(--ivory-50) 15%, transparent);
+      padding: clamp(.65rem, 1vw, .9rem) clamp(.85rem, 1.8vw, 1.5rem);
+      color: var(--ivory-50);
+    }
+    #sf-header-inline.is-scrolled .sfi-header-shell { min-block-size: 5rem; background: var(--menu-green); }
+    .sfi-header-shell::before { inset-inline: 1.5rem; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--rose-gold-500) 62%, transparent), transparent); }
+    .sfi-header-shell::after { content: ""; position: absolute; inset-block: .45rem; inset-inline: .6rem; z-index: 0; pointer-events: none; opacity: .1; background: url("../assets/icons/botanical-corner.svg") left center / auto 64% no-repeat, url("../assets/icons/botanical-corner.svg") right center / auto 64% no-repeat; }
+    .sfi-brand { gap: clamp(.65rem, 1vw, .95rem); }
+    .sfi-brand-mark { inline-size: clamp(3.35rem, 3.75vw, 4.25rem); block-size: clamp(3.35rem, 3.75vw, 4.25rem); border-color: color-mix(in srgb, var(--rose-gold-500) 72%, transparent); background: var(--forest-800); box-shadow: inset 0 0 0 .35rem color-mix(in srgb, var(--rose-gold-500) 7%, transparent), 0 .5rem 1rem rgb(0 0 0 / .16); }
+    .sfi-brand-logo { inline-size: 70%; block-size: 70%; }
+    .sfi-brand-text { gap: .28rem; }
+    .sfi-brand-name { color: var(--ivory-50); font-size: clamp(1.25rem, 1.5vw, 1.85rem); font-style: normal; letter-spacing: .02em; }
+    .sfi-brand-role { color: var(--rose-gold-500); font-size: clamp(.55rem, .26vw + .38rem, .72rem); font-weight: 800; letter-spacing: .22em; }
+    .sfi-nav { gap: 0; border: 0; border-radius: 0; background: none; box-shadow: none; padding: 0; }
+    .sfi-nav-link { min-block-size: clamp(2.7rem, 3vw, 3.15rem); flex: 1 1 auto; border-radius: 0; color: color-mix(in srgb, var(--ivory-50) 92%, transparent); font-family: var(--font-heading); font-size: clamp(.8rem, .38vw + .48rem, 1rem); font-weight: 500; padding-inline: clamp(.38rem, .8vw, .85rem); }
+    .sfi-nav-link + .sfi-nav-link::before { content: ""; position: absolute; inset-inline-start: 0; inset-block: 22%; inline-size: 1px; background: color-mix(in srgb, var(--rose-gold-500) 42%, transparent); }
+    .sfi-nav-link:hover, .sfi-nav-link:focus-visible, .sfi-nav-link[aria-current="page"] { background: none; color: var(--rose-gold-500); }
+    .sfi-nav-link[aria-current="page"]::after { inset-inline: 25%; inset-block-end: .35rem; background: var(--rose-gold-500); }
+    .sfi-actions { gap: .75rem; }
+    .sfi-actions .sfi-contact { min-block-size: 2.8rem; gap: .55rem; border-color: color-mix(in srgb, var(--gold-300) 74%, transparent); border-radius: .35rem; background: linear-gradient(135deg, var(--forest-800), var(--forest-900)); color: var(--ivory-50); padding-inline: .75rem; box-shadow: 0 .35rem .85rem rgb(0 0 0 / .12), inset 0 1px 0 color-mix(in srgb, var(--ivory-50) 14%, transparent); font-family: var(--font-heading); font-size: .72rem; font-weight: 700; }
+    .sfi-contact-icon { inline-size: 1.7rem; block-size: 1.7rem; flex: 0 0 auto; border-radius: 50%; background: var(--gold-500); color: var(--champagne-100); }
+  }
+
+  @media (max-width: 55.999rem) { .sfi-nav { display: none; } .sfi-menu-button { display: grid; } }
+  @media (max-width: 45rem) {
+    #sf-header-inline { inset-block-start: .35rem; padding-inline: .6rem; }
+    .sfi-header-shell { min-block-size: 4.1rem; grid-template-columns: minmax(0, 1fr) auto; padding: .48rem; }
+    .sfi-brand-mark { inline-size: 2.85rem; block-size: 2.85rem; }
+    .sfi-brand-logo { inline-size: 1.78rem; block-size: 1.78rem; }
+    .sfi-brand-name { font-size: 1.3rem; }
+    .sfi-actions .sfi-contact { display: none; }
+  }
+  @media (max-width: 24.5rem) { .sfi-brand-role { display: none; } .sfi-brand-name { font-size: 1.16rem; } }
+  @media (prefers-reduced-motion: reduce) { .sfi-header-shell, .sfi-header-shell * { transition: none; } }
+}

@@ -1,0 +1,37 @@
+@layer layout {
+  .sf-container {
+    inline-size: min(calc(100% - 2 * var(--edge-gutter)), var(--editorial-standard));
+    margin-inline: auto;
+  }
+
+  .sf-canvas,
+  .sf-container--wide {
+    inline-size: min(calc(100% - 2 * var(--edge-gutter)), var(--site-canvas-max));
+    max-inline-size: none;
+    margin-inline: auto;
+  }
+
+  .sf-editorial-wide {
+    inline-size: min(calc(100% - 2 * var(--edge-gutter)), var(--editorial-wide));
+    margin-inline: auto;
+  }
+
+  .sf-container--reading, .sf-reading-column { max-inline-size: var(--reading-measure); }
+  .sf-container--compact { max-inline-size: var(--editorial-compact); }
+  .sf-media-wide { max-inline-size: var(--media-wide); }
+
+  /* A nested component keeps the rail selected by its parent. It must not
+     silently centre and narrow the composition a second time. */
+  .sf-container .sf-container {
+    inline-size: 100%;
+    margin-inline: 0;
+  }
+
+  .sf-main > .sf-breadcrumbs { margin-block: var(--space-3); }
+
+  .sf-editorial-media-layout > :is(.sf-section-inner, .sf-statement-inner, .sf-reading-column) {
+    inline-size: auto;
+    min-inline-size: 0;
+    margin: 0;
+  }
+}
