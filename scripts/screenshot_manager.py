@@ -197,7 +197,7 @@ def start_server(port: int) -> ThreadingHTTPServer:
 
 
 RUNNER = r'''
-const { chromium } = require("playwright");
+const { chromium } = require("playwright-core");
 const fs = require("fs");
 const path = require("path");
 const [baseUrl, outputDir, pagesJson, viewportsJson, targetJson] = process.argv.slice(2);
@@ -216,7 +216,9 @@ async function settle(page) {
   });
 }
 (async () => {
-  fs.mkdirSync(outputDir, {recursive:true}); const browser = await chromium.launch({headless:true, args:["--disable-dev-shm-usage"]}); const captures=[];
+  fs.mkdirSync(outputDir, {recursive:true});
+  const executablePath = process.env.SCREENSHOT_BROWSER || "/usr/bin/google-chrome";
+  const browser = await chromium.launch({headless:true, executablePath, args:["--disable-dev-shm-usage", "--no-sandbox"]}); const captures=[];
   for (const [viewportName, viewport] of Object.entries(viewports)) {
     const context = await browser.newContext({viewport:{width:viewport.width,height:viewport.height}, isMobile:viewport.isMobile, deviceScaleFactor:1});
     await context.addInitScript(() => localStorage.setItem("sofiati_cookie_preferences_v3", JSON.stringify({essential:true,preferences:false,analytics:false,externalMedia:false})));
@@ -241,7 +243,7 @@ async function settle(page) {
 
 def main() -> int:
     try:
-        subprocess.run(["node", "-e", "require('playwright')"], cwd=ROOT, check=True, capture_output=True)
+        subprocess.run(["node", "-e", "require('playwright-core')"], cwd=ROOT, check=True, capture_output=True)
         pages, viewports = choose_pages(), choose_viewports()
         target = choose_target(pages)
     except KeyboardInterrupt:

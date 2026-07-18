@@ -1,17 +1,39 @@
+function markerTone(section) {
+  const scene = section.dataset.scene || '';
+  const tone = section.dataset.tone || '';
+  return tone === 'forest' || /olive|forest/i.test(scene)
+    ? 'section-marker--green'
+    : 'section-marker--light';
+}
+
 function makeMarker(sectionHead) {
-  const number = sectionHead.querySelector(':scope > .sf-chapter-number');
+  const number = sectionHead.querySelector(':scope > .sf-chapter-number, :scope > .sf-values-number');
   const eyebrow = sectionHead.querySelector(':scope > .sf-eyebrow');
 
-  if (!number || !eyebrow || sectionHead.querySelector(':scope > .sf-editorial-marker')) return;
+  if (!number || !eyebrow || sectionHead.querySelector(':scope > .section-marker')) return;
+
+  const section = sectionHead.closest('.sf-section');
+  if (!section) return;
 
   const value = Number.parseInt(number.textContent, 10);
   if (Number.isFinite(value)) number.textContent = String(value).padStart(2, '0');
 
   const marker = document.createElement('div');
-  marker.className = 'sf-editorial-marker';
-  marker.setAttribute('aria-hidden', 'true');
-  sectionHead.insertBefore(marker, number);
+  marker.className = `section-marker ${markerTone(section)}`;
+  number.className = 'section-marker__number';
+  eyebrow.className = 'section-marker__eyebrow';
   marker.append(number, eyebrow);
+  const anchoredHomepageSections = new Set(['care-standard', 'meet-franciele']);
+  if (anchoredHomepageSections.has(section.id)) {
+    const canvas = section.querySelector('.sf-canvas');
+    if (canvas) {
+      marker.classList.add('section-marker--anchored');
+      canvas.prepend(marker);
+      return;
+    }
+  }
+
+  sectionHead.prepend(marker);
 }
 
 function markMediaSide(layout) {
@@ -25,7 +47,7 @@ function markMediaSide(layout) {
 }
 
 export function initEditorialMarkers() {
-  document.querySelectorAll('.sf-section-head, .sf-editorial-kicker, .sf-form-section-intro').forEach(makeMarker);
+  document.querySelectorAll('.sf-section-head, .sf-editorial-kicker, .sf-form-section-intro, .sf-values-heading').forEach(makeMarker);
 
   const updateMediaSides = () => document.querySelectorAll('.sf-editorial-media-layout').forEach(markMediaSide);
   updateMediaSides();
