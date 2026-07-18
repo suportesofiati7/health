@@ -12,6 +12,6 @@ The site is a static, framework-free publication. Public English pages live at t
 
 ## Generated files
 
-Standard English page bodies are generated. Update `data/content-master.json` and `scripts/render-english-site.py`, then render. Journal HTML is generated from the tracked Word source. Portuguese HTML and PT partials are generator output: change the translation inputs/overrides rather than making changes that a generation run will overwrite.
+Current English HTML pages are the source of public page content. Edit them directly while preserving their page contracts, metadata, IDs and data attributes. Journal HTML is generated from the tracked Word source. Portuguese HTML and PT partials are generator output: change the translation inputs/overrides rather than making changes that a generation run will overwrite.
 
 The current checkout has baseline generation drift: `css/site.css` and Journal output are stale relative to their sources. Treat regeneration as a visual/content-reviewed change, not routine formatting.

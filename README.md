@@ -2,7 +2,7 @@
 
 Production repository for the bilingual Franciele Sofiati Biomédica website: a framework-free static publication focused on responsible aesthetic biomedicine, skin health, laser care and consultation-led treatment planning in Londrina, Paraná.
 
-Current maintenance references: [architecture](docs/architecture.md), [content workflow](docs/content-workflow.md), [deployment](docs/deployment.md), and the [2026 cleanup audit](docs/repository-cleanup-audit.md). Detailed `docs/rebuild/` files are historical reference, not the current operating instructions.
+Start with the concise [documentation guide](docs/README.md): architecture, content workflow, deployment, and the 2026 cleanup evidence. `docs/archive/` is historical reference only.
 
 - Canonical origin: `https://www.francielesofiati.com`
 - Languages: English at `/`; Brazilian Portuguese at `/pt/`
@@ -24,8 +24,7 @@ Open `http://127.0.0.1:4173/`.
 
 | Concern | Authoritative source | Generated or compiled output |
 | --- | --- | --- |
-| Standard English page content | `data/content-master.json` | Root English HTML pages |
-| Standard English rendering | `scripts/render-english-site.py` | Semantic page bodies, metadata and JSON-LD |
+| Standard English page content | Root English HTML pages | Published English HTML pages |
 | Final hand-authored pages | `404.html`, `consultation.html`, `contact.html`, `cookies.html` | Published directly; excluded from standard page regeneration |
 | Journal publication | `posts/Franciele_Sofiati_Journal_10_Articles_Final.docx` and `scripts/build-journal.py` | `journal.html`, ten `journal/*.html` pages and article imagery |
 | Shared interface | `partials/*.html` | Runtime header, navigation, footer, cookie banner and floating controls |
@@ -41,22 +40,22 @@ Open `http://127.0.0.1:4173/`.
 
 ## Editing rules
 
-Do not hand-edit generated English page bodies. For standard pages, change the content master or renderer and regenerate. For Journal content, update the authoritative article document or Journal renderer. The general English renderer deliberately excludes `journal.html` and the ten article pages.
+Edit standard English pages directly, preserving their metadata, section contracts, IDs and data attributes. For Journal content, update the authoritative article document or Journal renderer.
 
 Portuguese page text may be improved directly when necessary, but shared Portuguese interface wording belongs in the translation glossary, memory or explicit overrides because the generator rewrites `partials/pt-BR/`. Shared design or navigation changes belong in the English partials first.
 
 Never publish private location details, invent clinical claims or convert educational content into individualized advice. Treatment suitability, settings, timing and outcomes must remain consultation-dependent.
 
-Detailed maintenance guidance lives in [docs/rebuild/maintenance-guide.md](docs/rebuild/maintenance-guide.md), and the localization workflow is documented in [docs/PORTUGUESE_GENERATION.md](docs/PORTUGUESE_GENERATION.md).
+Use the [documentation guide](docs/README.md) for current maintenance instructions. The detailed legacy material is retained under `docs/archive/` for traceability only.
 
 ## Build workflows
 
 ### Standard English pages and shared interface
 
+Edit the root English HTML page, then validate that partial mounts remain current:
+
 ```bash
-python3 scripts/render-english-site.py --dry-run
-python3 scripts/render-english-site.py --write
-python3 scripts/build-shared-chrome.py
+python3 scripts/build-shared-chrome.py --check
 ```
 
 ### Journal
@@ -133,12 +132,10 @@ Run the fast deterministic release gate before every deployment:
 
 ```bash
 python3 scripts/build-css.py --check
-python3 scripts/render-english-site.py --dry-run
 python3 scripts/build-journal.py --check
 python3 scripts/build-shared-chrome.py --check
 python3 scripts/check-journal.py
 python3 scripts/check-portuguese-site.py --strict-warnings
-python3 scripts/check-english-site.py
 python3 scripts/check-local-assets.py
 python3 scripts/check-seo-files.py
 python3 scripts/install-analytics.py

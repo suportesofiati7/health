@@ -12,6 +12,22 @@ from bs4 import BeautifulSoup
 
 from .html_document import DOMAIN, en_url, extract_blocks, normalized, pt_url, structural_inventory
 
+EXTERNALLY_AUTHORED_ENGLISH_PAGES = frozenset(
+    {
+        # These published English pages contain verified brand/legal labels that
+        # intentionally remain unchanged in PT-BR output. They are no longer
+        # inferred from a duplicate content-master file.
+        "404.html",
+        "about.html",
+        "consultation.html",
+        "contact.html",
+        "cookies.html",
+        "index.html",
+        "journal.html",
+        "legal.html",
+    }
+)
+
 
 ENGLISH_MARKERS = re.compile(
     r"\b(?:the|and|with|before|after|through|should|could|would|what|when|where|"
@@ -211,15 +227,6 @@ def validate_partial(root: Path, filename: str, allowlist: set[str]) -> list[Val
 
 def validate_site(root: Path, pages: list[str] | None = None) -> ValidationSummary:
     allowlist = load_allowlist(root / "data" / "translation" / "pt-BR-allowlist.txt")
-    external_pages: set[str] = set()
-    content_master = root / "data" / "content-master.json"
-    if content_master.exists():
-        data = json.loads(content_master.read_text(encoding="utf-8"))
-        external_pages = {
-            str(page["filename"])
-            for page in data.get("pages", {}).values()
-            if page.get("external_renderer") and page.get("filename")
-        }
     selected = pages or sorted(path.name for path in root.glob("*.html") if "<main" in path.read_text(encoding="utf-8", errors="ignore").lower())
     summary = ValidationSummary()
     for page in selected:
@@ -229,7 +236,7 @@ def validate_site(root: Path, pages: list[str] | None = None) -> ValidationSumma
                 root,
                 page,
                 allowlist,
-                require_structural_parity=page not in external_pages,
+                require_structural_parity=page not in EXTERNALLY_AUTHORED_ENGLISH_PAGES,
             )
         )
     for partial in sorted((root / "partials").glob("*.html")):

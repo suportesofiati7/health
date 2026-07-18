@@ -4,7 +4,7 @@ Date: 2026-07-18. Branch: `chore/repository-cleanup`.
 
 ## Outcome
 
-The cleanup preserves all public HTML, PT-BR output, partials, production assets, data, CSS, JavaScript, analytics and deployment build behavior. It removes only proven non-runtime material and two unreferenced, dangerous auto-push helpers. No page content, URLs, markup, CSS cascade, JavaScript behavior, analytics configuration or public asset path was changed.
+The cleanup preserves all public HTML, PT-BR output, partials, production assets, CSS, JavaScript, analytics and deployment build behavior. It removes only proven non-runtime material and two unreferenced, dangerous auto-push helpers. No page content, URLs, markup, CSS cascade, JavaScript behavior, analytics configuration or public asset path was changed.
 
 | File or component | Previous problem | Action taken | Evidence | Testing performed | Final status |
 | --- | --- | --- | --- | --- | --- |

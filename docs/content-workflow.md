@@ -1,10 +1,8 @@
 # Content workflow
 
-English is the source language for standard pages. Edit `data/content-master.json` (and renderer logic only when structure needs to change), then preview and write deliberately:
+English HTML is the source language for standard pages. Edit the relevant root-level HTML page directly. Preserve its metadata, section IDs/counts, data attributes and partial mounts. Then verify shared partial mounts:
 
 ```bash
-python3 scripts/render-english-site.py --dry-run
-python3 scripts/render-english-site.py --write
 python3 scripts/build-shared-chrome.py --check
 ```
 
