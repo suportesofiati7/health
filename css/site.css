@@ -8157,6 +8157,22 @@
     position: static !important;
   }
 
+  /* Homepage grid normalization — one canvas, one heading rhythm, and a
+     small family of content/image ratios across every editorial chapter. */
+  .sf-page[data-page="home"] .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"]) { padding-block: var(--section-standard) !important; }
+  .sf-page[data-page="home"] .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"]) .sf-canvas { max-inline-size: var(--container-wide) !important; }
+  .sf-page[data-page="home"] .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"]) .sf-section-head { max-inline-size: 36rem !important; margin-block-end: clamp(2rem, 4vw, 3.75rem) !important; }
+  .sf-page[data-page="home"] .sf-main > .sf-section:not([data-pattern="hero"]):not([data-pattern="final-cta"]) .sf-section-head h2 { max-inline-size: 15ch !important; }
+  .sf-page[data-page="home"] :is(#treatment-families, #what-shapes-a-plan, #care-standard, #meet-franciele) :is(.sf-editorial-media-layout, .sf-statement-inner, .sf-home-profile__canvas) { max-inline-size: var(--container-wide) !important; grid-template-columns: minmax(0, 1.1fr) minmax(20rem, .9fr) !important; gap: clamp(2.5rem, 6vw, 6rem) !important; }
+  .sf-page[data-page="home"] :is(#treatment-families, #what-shapes-a-plan, #care-standard, #meet-franciele) :is(.sf-editorial-media, .sf-plan-portrait, .sf-home-profile__visual) img { display: block !important; inline-size: 100% !important; opacity: 1 !important; visibility: visible !important; object-fit: cover !important; }
+  .sf-page[data-page="home"] :is(#treatment-families, #what-shapes-a-plan, #care-standard, #meet-franciele) .sf-content-card-grid { gap: var(--space-3) !important; }
+  .sf-page[data-page="home"] :is(#treatment-families, #what-shapes-a-plan, #care-standard, #meet-franciele) .sf-content-card { min-block-size: 10rem !important; padding: clamp(1.25rem, 2vw, 1.75rem) !important; }
+  .sf-page[data-page="home"] .sf-content-card :is(h3, p) { font-size: revert; }
+  .sf-page[data-page="home"] .sf-content-card p { font-size: .95rem !important; line-height: 1.62 !important; }
+  .sf-page[data-page="home"] .sf-practitioner-quote { inline-size: min(100%, 38rem) !important; margin-block-start: var(--space-4) !important; }
+  .sf-page[data-page="home"] .sf-button-row { margin-block-start: var(--space-4) !important; }
+  @media (max-width: 63.999rem) { .sf-page[data-page="home"] :is(#treatment-families, #what-shapes-a-plan, #care-standard, #meet-franciele) :is(.sf-editorial-media-layout, .sf-statement-inner, .sf-home-profile__canvas) { grid-template-columns: 1fr !important; } }
+
   .sf-search-empty { border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); background: var(--color-bg-soft); padding: var(--space-4); text-align: center; }
 
   @media (prefers-reduced-motion: no-preference) {
