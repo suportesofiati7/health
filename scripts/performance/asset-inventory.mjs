@@ -148,7 +148,7 @@ export async function createAssetInventory() {
 async function main() {
   const inventory = await createAssetInventory();
   await writeFile(
-    resolve('performance-reports/asset-inventory.json'),
+    resolve('reports/performance/asset-inventory.json'),
     `${JSON.stringify(inventory, null, 2)}\n`
   );
   process.stdout.write(

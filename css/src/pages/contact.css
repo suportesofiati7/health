@@ -31,7 +31,7 @@
     z-index: 0;
     inline-size: clamp(16rem, 30vw, 32rem);
     aspect-ratio: 1;
-    background: url("../assets/icons/botanical-branch.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/icone-botanico-ramo.svg") center / contain no-repeat;
     opacity: .1;
     rotate: -12deg;
     pointer-events: none;
@@ -233,7 +233,7 @@
     border-block-start: 1px solid rgb(234 213 173 / .52);
     background:
       linear-gradient(102deg, rgb(36 49 41 / .97) 0 36%, rgb(48 61 51 / .88) 58%, rgb(36 49 41 / .72)),
-      url("../assets/cta-concepts/fresh-sage-porcelain.png") center / cover no-repeat;
+      url("../assets/shared/call-to-action/fresh-salvia-porcelain.png") center / cover no-repeat;
     padding: clamp(2.5rem, 6vw, 5.5rem);
     color: var(--ivory-50);
   }
@@ -510,7 +510,7 @@
     .sf-page[data-page="contact"] .sf-direct-contact {
       background:
         linear-gradient(rgb(36 49 41 / .9), rgb(36 49 41 / .94)),
-        url("../assets/cta-concepts/fresh-sage-porcelain.png") 72% center / auto 100% no-repeat;
+        url("../assets/shared/call-to-action/fresh-salvia-porcelain.png") 72% center / auto 100% no-repeat;
       padding: 2.5rem 1.25rem;
     }
 

@@ -1,6 +1,6 @@
 # Performance Final Report
 
-Generated: 2026-07-18T13:20:09.464Z
+Generated: 2026-07-18T22:05:36.908Z
 
 Source: `/run/media/code/Storage/GitHub/ashtra/health/dist`
 
@@ -14,10 +14,9 @@ Runs per route/profile: 1
 
 | Route | Profile | Performance median (min–max) | LCP ms | CLS | TBT ms | FCP ms | Transfer KB | Requests |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| index.html | mobile | 99 (99–99) | 1879 | 0.000 | 48 | 1204 | 159 | 13 |
-| index.html | desktop | 100 (100–100) | 642 | 0.000 | 0 | 282 | 359 | 15 |
-| about.html | mobile | 99 (99–99) | 1955 | 0.000 | 42 | 1203 | 168 | 13 |
-| about.html | desktop | 100 (100–100) | 643 | 0.000 | 0 | 282 | 363 | 15 |
+| index.html | mobile | 100 (100–100) | 1505 | 0.000 | 0 | 1097 | 125 | 13 |
+| treatments.html | mobile | 100 (100–100) | 1502 | 0.000 | 0 | 1051 | 112 | 14 |
+| consultation.html | mobile | 100 (100–100) | 1426 | 0.000 | 0 | 1051 | 95 | 14 |
 
 ## Environment and limitations
 

@@ -1,24 +1,34 @@
 # Content workflow
 
-English HTML is the source language for standard pages. Edit the relevant root-level HTML page directly. Preserve its metadata, section IDs/counts, data attributes and partial mounts. Then verify shared partial mounts:
+## Standard page change
 
-```bash
-python3 scripts/build-shared-chrome.py --check
-```
+1. Edit the relevant English root HTML page. Keep its title, canonical URL, structured data, section IDs and `data-*` attributes unless the change intentionally requires updating them.
+2. Make the equivalent PT-BR change through the translation workflow when content has changed.
+3. Refresh search-discovery files after a route, canonical-origin or indexability change:
 
-Journal source is `posts/Franciele_Sofiati_Journal_10_Articles_Final.docx`:
+   ```bash
+   npm run seo:refresh
+   ```
 
-```bash
-python3 scripts/build-journal.py --write --assets
-python3 scripts/build-journal.py --check
-python3 scripts/check-journal.py
-```
+4. Run `npm run release:check` before handoff or deployment.
 
-Portuguese pages and PT shared interface are generated output. Update glossary, translation memory or explicit overrides under `data/translation/`; then run:
+## Brazilian Portuguese
+
+The generator updates Portuguese pages and shared PT-BR partials from English source plus files under `data/translation/`.
 
 ```bash
 python3 scripts/generate-portuguese-site.py
-python3 scripts/check-portuguese-site.py --strict-warnings
+npm run check:pt
 ```
 
-Do not hand-edit generated Portuguese partials. Check canonical URLs, hreflang, section identifiers/counts, forms and language links after any source change.
+Use `data/translation/pt-BR-glossary.json` for recurring terminology, `pt-BR-memory.json` for established translations and `pt-BR-overrides.json` for intentional page-specific wording. Do not hand-edit generated PT-BR partials: a generator run overwrites them.
+
+## Shared interface, styles and behaviour
+
+- Edit shared navigation/footer/cookie text in `partials/`; mirror intentional copy changes in `partials/pt-BR/` or the translation inputs.
+- Edit `css/site.css` directly and verify the affected routes locally. The production build performs CSS minification and fingerprinting.
+- Add browser behaviour through the owning module under `js/`; use semantic `data-*` hooks, keep initializers idempotent and add them to `js/main.js`.
+
+## Editorial safety
+
+Do not publish individual diagnoses, prescription advice, guaranteed outcomes, prices, appointment availability or an unverified street address. Keep treatment selection, timing, recovery and outcomes consultation-dependent.

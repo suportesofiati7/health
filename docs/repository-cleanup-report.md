@@ -1,5 +1,7 @@
 # Repository cleanup report
 
+> Historical cleanup record, not an operating guide. Commands and file paths in this document may describe a previous checkout; use [the current handover guide](handover.md) for maintenance and release work.
+
 Date: 2026-07-18. Branch: `chore/repository-cleanup`.
 
 ## Outcome

@@ -22,7 +22,7 @@ backups/pt/
 backups/rebuild/
 reports/translation/portuguese-generation-*.md
 dist/
-build/
+/build/
 *.mov
 *.mp4
 *.webm

@@ -1,7 +1,7 @@
 {
-  "source": "assets/brand/sofiati-source-logo.png",
+  "source": "assets/shared/brand/sofiati-origem-marca.png",
   "transparent_background": true,
-  "principal_asset": "assets/brand/sofiati-logo-primary.png",
+  "principal_asset": "assets/shared/brand/sofiati-marca-principal.png",
   "generated": [
     "sofiati-logo-primary.png",
     "sofiati-logo-monogram-transparent.png",

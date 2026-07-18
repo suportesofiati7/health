@@ -1,7 +1,7 @@
 @layer pages {
   :root {
     --page-cream: #fffdf9;
-    --site-panorama: url("../assets/backgrounds/site-panorama-v2.png");
+    --site-panorama: url("../assets/shared/backgrounds/site-panorama-v2.png");
     --ordinary-paper: #fffdf9;
     --ordinary-mist: #fbf6ee;
     --ordinary-sage: #edf1e7;

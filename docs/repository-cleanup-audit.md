@@ -1,5 +1,7 @@
 # Repository cleanup audit
 
+> Historical baseline record, not an operating guide. Commands and file paths in this document describe the checkout at the time of the audit; use [the current handover guide](handover.md) for maintenance and release work.
+
 Audit date: 2026-07-18. Baseline branch: `main` at `3c59bb057` (`PERFECT BEFORE CLEANUP`). Cleanup work is isolated on `chore/repository-cleanup`.
 
 ## Scope and deployment

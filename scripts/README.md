@@ -1,92 +1,59 @@
 # Scripts guide
 
-Run every command from the repository root. The scripts below are grouped by
-purpose; anything not listed is an internal helper imported by one of these
-commands and should not be run directly.
+Run commands from the repository root. Prefer the npm aliases below; they group the correct underlying tools and make the release workflow portable.
 
-## Your normal publishing workflow
+## Daily commands
 
-1. Export and edit English copy when needed:
-
-   ```bash
-   python3 scripts/export-editable-english-content.py
-   python3 scripts/apply-editable-english-content.py --apply
-   ```
-
-2. Refresh the shared interface and Portuguese pages:
-
-   ```bash
-   python3 scripts/build-shared-chrome.py
-   python3 scripts/generate-portuguese-site.py
-   ```
-
-3. Run the safe weekly SEO maintenance routine after page or SEO changes:
-
-   ```bash
-   python3 scripts/weekly-seo-maintenance.py
-   ```
-
-   It refreshes `robots.txt` and `sitemap.xml` (including each changed page's
-   `lastmod` date), then audits metadata, canonical URLs, schema, and alt text.
-   It reports issues but never invents or rewrites marketing copy.
-
-   To apply the currently reviewed Portuguese metadata corrections reported by
-   that audit, preview first and then apply them:
-
-   ```bash
-   python3 scripts/apply-seo-metadata-fixes.py
-   python3 scripts/apply-seo-metadata-fixes.py --apply
-   ```
-
-4. Check a specific layout visually when needed:
-
-   ```bash
-   python3 scripts/screenshot_manager.py
-   ```
-
-5. Validate, build and save a checkpoint:
-
-   ```bash
-   npm run validate
-   npm run build
-   python3 scripts/git-save.py
-   ```
-
-   Add `--push` to `git-save.py` only when you want to push the new commit.
+| Command | Purpose |
+| --- | --- |
+| `npm run check:assets` | Verify local HTML, CSS and partial asset references. |
+| `npm run check:pt` | Verify English/PT-BR route, language, metadata and structural parity. |
+| `npm run check:seo` | Verify discovery files and audit on-page SEO implementation. |
+| `npm run check:analytics` | Verify consent-aware analytics and form hooks. |
+| `npm run validate` | Run all deterministic source checks. |
+| `npm run build` | Recreate the deployable `dist/` output. |
+| `npm run release:check` | Validate, then build. Use before each deployment. |
+| `npm run serve` | Serve the built `dist/` output locally. |
+| `npm run seo:refresh` | Regenerate `robots.txt`/`sitemap.xml` and write the SEO maintenance report. |
+| `npm run maintain:performance` | Run the weekly mobile performance sample and write recommendations. |
 
 ## Content and localization
 
-| Script | Use it when |
-| --- | --- |
-| `export-editable-english-content.py` | You need a fresh Word document for editing English content. |
-| `apply-editable-english-content.py` | You are ready to preview or apply edits from that Word document. |
-| `build-journal.py` | The authoritative Journal Word document has changed. Use `--write --assets`. |
-| `check-journal.py` | You changed Journal source or generated Journal pages. |
-| `generate-portuguese-site.py` | English source content changed and Portuguese output needs refreshing. |
-| `check-portuguese-site.py` | You need strict English/PT-BR parity verification. |
-| `build-shared-chrome.py` | Shared partial placeholders need refreshing or checking. |
+```bash
+python3 scripts/export-editable-english-content.py
+python3 scripts/apply-editable-english-content.py --apply
+python3 scripts/generate-portuguese-site.py
+npm run check:pt
+```
 
-## Site generation and validation
+The English export/apply pair supports a controlled editable-copy workflow. Review its preview before applying changes. The PT-BR generator owns translation output; maintain recurring terms in `data/translation/` rather than relying on edits to generated partials.
 
-| Script | Use it when |
-| --- | --- |
-| `build-css.py` | You changed CSS source. Run it, then rerun it with `--check`. |
-| `build-production.mjs` | `npm run build` uses it to create the disposable deployable `dist/` output. |
-| `serve-production.mjs` | `npm run serve` uses it to preview a production build. |
-| `generate-robots.py` / `generate-sitemap.py` | Public routes, canonical URLs or SEO data changed. |
-| `check-seo-files.py` | You need to confirm `robots.txt`, `sitemap.xml` and `llms.txt` are fresh. |
-| `check-local-assets.py` | You changed HTML, CSS, partials or asset paths. |
-| `check-seo-implementation.py` | You need the full SEO implementation report. |
-| `weekly-seo-maintenance.py` | Your one-command weekly SEO refresh and audit; it does not edit page content. |
-| `apply-seo-metadata-fixes.py` | Applies reviewed Portuguese metadata fixes to page, Open Graph, Twitter and translation-memory values. |
-| `check-analytics-implementation.py` | You changed consent, analytics, forms or tracking attributes. |
-| `install-analytics.py` | Generated or translated pages need the standard analytics block reinstalled. |
+## Search and analytics
 
-## Optional engineering checks
+Run `npm run seo:refresh` after changing public routes, indexability, canonical URLs or the canonical domain. It regenerates only discovery files and reports editorial issues; it does not invent marketing copy.
 
-These are not needed for routine content edits. Node (`.mjs`) tools now live in
-`scripts/build/` (production build and preview) and `scripts/performance/`
-(asset, image, Lighthouse, PageSpeed, trace, budget and visual checks). Python
-scripts in the root are the site's source generation and validation tools.
+After generated HTML or PT-BR output changes, run:
 
-Their npm aliases are listed in `package.json` under `scripts`.
+```bash
+python3 scripts/install-analytics.py
+npm run check:analytics
+```
+
+The installer is idempotent and keeps analytics consent-gated.
+
+## Performance
+
+```bash
+npm run perf:images
+npm run perf:all
+npm run perf:budget
+npm run perf:ci
+```
+
+Use `npm run maintain:performance -- --full` before major releases. It removes its disposable `dist/` output when complete. Review generated `reports/` and `performance-reports/` before committing them.
+
+`python3 scripts/weekly-performance-maintenance.py --safe-fixes` previews the only automated markup remediation. Add `--apply-safe-fixes` only after review; it is limited to missing intrinsic dimensions on local raster images.
+
+## Direct tools
+
+`generate-robots.py`, `generate-sitemap.py`, `check-seo-files.py`, `check-local-assets.py`, `check-seo-implementation.py`, `check-analytics-implementation.py`, `install-analytics.py` and `screenshot_manager.py` can be used directly when a focused check is more useful than the grouped npm command. Their names describe their scope; use `--help` for options.

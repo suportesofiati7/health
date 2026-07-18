@@ -72,3 +72,4 @@ Important interpretation rules:
 - [Additional educational overview](https://www.francielesofiati.com/blog.html): Guidance across skin, laser, care and treatment planning.
 - [XML sitemap](https://www.francielesofiati.com/sitemap.xml): Complete canonical index of search-eligible English and Brazilian Portuguese pages.
 - [Crawler policy](https://www.francielesofiati.com/robots.txt): Search-crawler access rules and sitemap location.
+- [Web app manifest](https://www.francielesofiati.com/site.webmanifest): Browser installation and presentation metadata for the English default experience.

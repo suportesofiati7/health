@@ -73,7 +73,7 @@
 
   /* 06 · CO2 planning as a clinical dossier: image, decision criteria and CTA share one complete field. */
   .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner { display: grid; grid-template-columns: minmax(0, .82fr) minmax(18rem, 1.18fr); column-gap: clamp(2.5rem, 6vw, 6.5rem); align-items: start; }
-  .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner::before { content: ""; grid-column: 1; grid-row: 1 / span 5; min-block-size: 36rem; border: 1px solid rgb(234 213 173 / .38); border-radius: .6rem 8rem .6rem .6rem; background: linear-gradient(rgb(36 49 41 / .14), rgb(36 49 41 / .04)), url("../assets/posts/journal/fractional-co2-laser-treatment.webp") center / cover no-repeat; }
+  .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner::before { content: ""; grid-column: 1; grid-row: 1 / span 5; min-block-size: 36rem; border: 1px solid rgb(234 213 173 / .38); border-radius: .6rem 8rem .6rem .6rem; background: linear-gradient(rgb(36 49 41 / .14), rgb(36 49 41 / .04)), url("../assets/journal/articles/fractional-co2-laser-tratamento.webp") center / cover no-repeat; }
   .sf-page[data-page="laser"] #co-resurfacing .sf-section-head, .sf-page[data-page="laser"] #co-resurfacing .sf-lede, .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner > p:not(.sf-lede), .sf-page[data-page="laser"] #co-resurfacing .sf-botanical-list, .sf-page[data-page="laser"] #co-resurfacing .sf-practitioner-quote { grid-column: 2; }
   .sf-page[data-page="laser"] #co-resurfacing .sf-lede { color: var(--gold-200); font-family: var(--font-heading); font-size: clamp(1.45rem, 2vw, 2rem); }
   .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner > p:not(.sf-lede),

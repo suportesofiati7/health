@@ -16,17 +16,24 @@
     "perf:psi": "node scripts/performance/psi-audit.mjs",
     "perf:images": "node scripts/performance/image-audit.mjs",
     "perf:visual": "node scripts/performance/visual-regression.mjs",
-    "validate": "python3 scripts/check-local-assets.py && python3 scripts/check-seo-implementation.py && python3 scripts/check-analytics-implementation.py"
+    "check:assets": "python3 scripts/check-local-assets.py",
+    "check:pt": "python3 scripts/check-portuguese-site.py --strict-warnings",
+    "check:seo": "python3 scripts/check-seo-files.py && python3 scripts/check-seo-implementation.py",
+    "check:analytics": "python3 scripts/check-analytics-implementation.py",
+    "seo:refresh": "python3 scripts/weekly-seo-maintenance.py",
+    "maintain:performance": "python3 scripts/weekly-performance-maintenance.py",
+    "validate": "npm run check:assets && npm run check:pt && npm run check:seo && npm run check:analytics",
+    "release:check": "npm run validate && npm run build"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.19"
   },
   "devDependencies": {
     "@lhci/cli": "0.15.1",
-    "esbuild": "0.25.6",
+    "esbuild": "0.28.1",
     "html-minifier-terser": "7.2.0",
-    "lighthouse": "12.8.2",
-    "playwright-core": "1.54.1",
-    "sharp": "0.34.3"
+    "lighthouse": "13.4.0",
+    "playwright-core": "1.61.1",
+    "sharp": "0.35.3"
   }
 }

@@ -10,7 +10,7 @@ function csvCell(value) {
 }
 
 async function main() {
-  await mkdir(resolve('performance-reports'), { recursive: true });
+  await mkdir(resolve('reports/performance'), { recursive: true });
   const inventory = await createAssetInventory();
   const headers = [
     'source_file',
@@ -48,7 +48,7 @@ async function main() {
   ].join('\n');
   await writeFile(resolve('reports/performance/image-audit.csv'), `${csv}\n`);
   await writeFile(
-    resolve('performance-reports/asset-inventory.json'),
+    resolve('reports/performance/asset-inventory.json'),
     `${JSON.stringify(inventory, null, 2)}\n`
   );
   process.stdout.write(

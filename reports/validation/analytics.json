@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "generatedAt": "2026-07-18T21:45:38.434063+00:00",
+  "generatedAt": "2026-07-18T22:27:11.552780+00:00",
   "pagesChecked": 52,
   "scriptsPresent": {
     "required": [
@@ -833,7 +833,7 @@
           "detail": {
             "engagementOne": 1,
             "engagementPaused": 1,
-            "engagementResumed": 2
+            "engagementResumed": 3
           }
         },
         {
@@ -848,12 +848,12 @@
                 "content_group": "Trust",
                 "page_language": "en",
                 "page_path": "/about.html",
-                "lcp_ms": 104,
+                "lcp_ms": 100,
                 "cls_score": 0.032,
                 "inp_ms": 40,
                 "ttfb_ms": 2,
-                "dom_content_loaded_ms": 40,
-                "page_load_ms": 71
+                "dom_content_loaded_ms": 46,
+                "page_load_ms": 70
               }
             ]
           }

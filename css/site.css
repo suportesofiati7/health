@@ -843,7 +843,7 @@
     }
     #sf-header-inline.is-scrolled .sfi-header-shell { min-block-size: 5rem; background: var(--menu-green); }
     .sfi-header-shell::before { inset-inline: 1.5rem; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--rose-gold-500) 62%, transparent), transparent); }
-    .sfi-header-shell::after { content: ""; position: absolute; inset-block: .45rem; inset-inline: .6rem; z-index: 0; pointer-events: none; opacity: .1; background: url("../assets/icons/botanical-corner.svg") left center / auto 64% no-repeat, url("../assets/icons/botanical-corner.svg") right center / auto 64% no-repeat; }
+    .sfi-header-shell::after { content: ""; position: absolute; inset-block: .45rem; inset-inline: .6rem; z-index: 0; pointer-events: none; opacity: .1; background: url("../assets/shared/interface-icons/icone-botanico-corner.svg") left center / auto 64% no-repeat, url("../assets/shared/interface-icons/icone-botanico-corner.svg") right center / auto 64% no-repeat; }
     .sfi-brand { gap: clamp(.65rem, 1vw, .95rem); }
     .sfi-brand-mark { inline-size: clamp(3.35rem, 3.75vw, 4.25rem); block-size: clamp(3.35rem, 3.75vw, 4.25rem); border-color: color-mix(in srgb, var(--rose-gold-500) 72%, transparent); background: var(--forest-800); box-shadow: inset 0 0 0 .35rem color-mix(in srgb, var(--rose-gold-500) 7%, transparent), 0 .5rem 1rem rgb(0 0 0 / .16); }
     .sfi-brand-logo { inline-size: 70%; block-size: 70%; }
@@ -1664,7 +1664,7 @@
     aspect-ratio: 1;
     border: 1px solid color-mix(in srgb, var(--gold-200) 55%, transparent);
     border-radius: 50%;
-    background: color-mix(in srgb, var(--olive-700) 52%, transparent) url("../assets/brand/sofiati-logo-monogram-light-transparent.webp") center / 62% no-repeat;
+    background: color-mix(in srgb, var(--olive-700) 52%, transparent) url("../assets/shared/brand/sofiati-marca-monograma-light-transparente.webp") center / 62% no-repeat;
     box-shadow: 0 .9rem 2.5rem color-mix(in srgb, var(--olive-700) 20%, transparent);
     backdrop-filter: blur(.4rem);
   }
@@ -1696,7 +1696,7 @@
     inline-size: clamp(7rem, 13vw, 11rem);
     aspect-ratio: 1;
     border: 0;
-    background: url("../assets/icons/s07-flower-stem.png") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/icone-s07-flor-stem.png") center / contain no-repeat;
     opacity: .42;
     pointer-events: none;
   }
@@ -2100,25 +2100,25 @@
   .sf-bottom-cta__inner[data-cta-concept] .sf-button--outline { background: var(--ivory-50); color: var(--forest-900); }
   .sf-bottom-cta__inner[data-cta-concept="01"],
   .sf-bottom-cta__inner[data-cta-concept="08"],
-  .sf-bottom-cta__inner[data-cta-concept="15"] { background-image: url('/assets/cta-concepts/mediterranean-orangery-olive-brass.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="15"] { background-image: url('/assets/shared/call-to-action/mediterranean-orangery-olive-brass.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="02"],
   .sf-bottom-cta__inner[data-cta-concept="09"],
-  .sf-bottom-cta__inner[data-cta-concept="16"] { background-image: url('/assets/cta-concepts/celadon-lemon-grove-petals.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="16"] { background-image: url('/assets/shared/call-to-action/celadon-lemon-grove-petals.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="03"],
   .sf-bottom-cta__inner[data-cta-concept="10"],
-  .sf-bottom-cta__inner[data-cta-concept="17"] { background-image: url('/assets/cta-concepts/fresh-sage-porcelain.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="17"] { background-image: url('/assets/shared/call-to-action/fresh-salvia-porcelain.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="04"],
   .sf-bottom-cta__inner[data-cta-concept="11"],
-  .sf-bottom-cta__inner[data-cta-concept="18"] { background-image: url('/assets/cta-concepts/illuminated-blush-metal.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="18"] { background-image: url('/assets/shared/call-to-action/illuminated-blush-metal.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="05"],
   .sf-bottom-cta__inner[data-cta-concept="12"],
-  .sf-bottom-cta__inner[data-cta-concept="19"] { background-image: url('/assets/cta-concepts/sage-tuscan-window.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="19"] { background-image: url('/assets/shared/call-to-action/salvia-tuscan-window.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="06"],
   .sf-bottom-cta__inner[data-cta-concept="13"],
-  .sf-bottom-cta__inner[data-cta-concept="20"] { background-image: url('/assets/cta-concepts/ivory-arch-garden.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="20"] { background-image: url('/assets/shared/call-to-action/marfim-arch-garden.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="07"],
   .sf-bottom-cta__inner[data-cta-concept="14"],
-  .sf-bottom-cta__inner[data-cta-concept="21"] { background-image: url('/assets/cta-concepts/carrara-peony-frame.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="21"] { background-image: url('/assets/shared/call-to-action/carrara-peony-frame.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="08"],.sf-bottom-cta__inner[data-cta-concept="16"],.sf-bottom-cta__inner[data-cta-concept="19"] { background-position: 72% center; }
   .sf-bottom-cta__inner[data-cta-concept="09"],.sf-bottom-cta__inner[data-cta-concept="12"],.sf-bottom-cta__inner[data-cta-concept="20"] { background-position: 28% center; }
   @media (max-width: 44rem) {
@@ -2650,7 +2650,7 @@
     inset: auto -8rem -9rem auto;
     inline-size: min(43vw, 39rem);
     block-size: min(43vw, 39rem);
-    background: url("../assets/icons/science-flower.svg") right bottom / contain no-repeat;
+    background: url("../assets/shared/interface-icons/icone-science-flor.svg") right bottom / contain no-repeat;
     opacity: .38;
     pointer-events: none;
   }
@@ -2671,12 +2671,12 @@
   .sf-page[data-page="home"] #decision-flow {
     background:
       linear-gradient(94deg, rgb(255 253 249 / .96) 0 46%, rgb(255 253 249 / .76) 66%, rgb(240 242 229 / .36)),
-      url("../assets/backgrounds/home-background-right.webp") 100% 52% / min(48vw, 64rem) auto no-repeat,
+      url("../assets/shared/backgrounds/inicio-fundo-direita.webp") 100% 52% / min(48vw, 64rem) auto no-repeat,
       linear-gradient(rgb(255 253 249 / .72), rgb(232 237 220 / .72));
   }
   .sf-page[data-page="home"] #decision-flow { padding-block: clamp(4rem, 6vw, 6.5rem); }
   .sf-page[data-page="home"] #decision-flow::before { content: ""; position: absolute; z-index: 0; inset: 0; background: linear-gradient(90deg, transparent 0 13%, color-mix(in srgb, var(--gold-300) 28%, transparent) 13.1%, transparent 13.25% 86.75%, color-mix(in srgb, var(--gold-300) 28%, transparent) 86.9%, transparent 87%); opacity: .7; pointer-events: none; }
-  .sf-page[data-page="home"] #decision-flow::after { content: ""; position: absolute; z-index: 0; inset: auto auto -9rem -5rem; inline-size: min(35vw, 30rem); block-size: min(35vw, 30rem); background: url("../assets/cta-concepts/fresh-sage-porcelain.png") left bottom / contain no-repeat; mix-blend-mode: multiply; opacity: .18; pointer-events: none; }
+  .sf-page[data-page="home"] #decision-flow::after { content: ""; position: absolute; z-index: 0; inset: auto auto -9rem -5rem; inline-size: min(35vw, 30rem); block-size: min(35vw, 30rem); background: url("../assets/shared/call-to-action/fresh-salvia-porcelain.png") left bottom / contain no-repeat; mix-blend-mode: multiply; opacity: .18; pointer-events: none; }
   .sf-page[data-page="home"] #decision-flow > .sf-section-inner { max-inline-size: 88rem; padding: clamp(1.5rem, 3vw, 3rem) 0; }
   .sf-page[data-page="home"] #decision-flow .sf-section-head { display: grid; grid-template-columns: minmax(14rem, .45fr) minmax(0, 1fr); align-items: end; gap: clamp(2rem, 7vw, 8rem); max-inline-size: none; }
   .sf-page[data-page="home"] #decision-flow .sf-section-head::before { content: "03"; align-self: start; color: color-mix(in srgb, var(--rose-gold-500) 38%, transparent); font-family: var(--font-heading); font-size: clamp(5rem, 10vw, 10rem); font-style: italic; line-height: .7; }
@@ -2693,7 +2693,7 @@
     color: var(--forest-900);
     background:
       linear-gradient(98deg, rgb(245 249 238 / .94) 0 43%, rgb(255 253 249 / .7) 65%, rgb(239 210 202 / .28)),
-      url("../assets/backgrounds/home-background-center.webp") 100% 48% / min(48vw, 64rem) auto no-repeat,
+      url("../assets/shared/backgrounds/inicio-fundo-centro.webp") 100% 48% / min(48vw, 64rem) auto no-repeat,
       linear-gradient(rgb(241 245 233 / .7), rgb(255 253 249 / .7));
   }
   .sf-page[data-page="home"] #plan-factors::before { content: ""; position: absolute; z-index: 0; inset: clamp(2rem, 6vw, 7rem) clamp(1rem, 5vw, 6rem) clamp(2rem, 6vw, 7rem) auto; inline-size: clamp(14rem, 27vw, 30rem); border: 1px solid color-mix(in srgb, var(--gold-500) 45%, transparent); border-radius: 50% 50% .5rem .5rem; box-shadow: inset 0 0 0 .45rem rgb(255 253 249 / .2); pointer-events: none; }
@@ -2713,12 +2713,12 @@
   .sf-page[data-page="home"] #treatment-pathways {
     background:
       linear-gradient(94deg, rgb(255 253 249 / .96) 0 47%, rgb(255 250 246 / .72) 66%, rgb(244 216 205 / .3)),
-      url("../assets/backgrounds/home-background-left.webp") 100% 50% / min(46vw, 62rem) auto no-repeat,
+      url("../assets/shared/backgrounds/inicio-fundo-esquerda.webp") 100% 50% / min(46vw, 62rem) auto no-repeat,
       radial-gradient(ellipse 48% 72% at 90% 16%, rgb(248 232 226 / .72), transparent 70%),
       linear-gradient(rgb(255 253 249 / .68), rgb(255 247 243 / .68));
   }
-  .sf-page[data-page="home"] #treatment-pathways::before { content: ""; position: absolute; z-index: 0; inset: 2rem -8rem auto auto; inline-size: min(32vw, 29rem); block-size: min(32vw, 29rem); background: url("../assets/cta-concepts/celadon-apothecary.png") right top / contain no-repeat; mix-blend-mode: multiply; opacity: .12; pointer-events: none; }
-  .sf-page[data-page="home"] #treatment-pathways::after { content: ""; position: absolute; z-index: 0; inset: auto auto -7rem -6rem; inline-size: 29rem; block-size: 29rem; background: url("../assets/icons/flower.svg") left bottom / contain no-repeat; opacity: .32; pointer-events: none; }
+  .sf-page[data-page="home"] #treatment-pathways::before { content: ""; position: absolute; z-index: 0; inset: 2rem -8rem auto auto; inline-size: min(32vw, 29rem); block-size: min(32vw, 29rem); background: url("../assets/shared/call-to-action/celadon-apothecary.png") right top / contain no-repeat; mix-blend-mode: multiply; opacity: .12; pointer-events: none; }
+  .sf-page[data-page="home"] #treatment-pathways::after { content: ""; position: absolute; z-index: 0; inset: auto auto -7rem -6rem; inline-size: 29rem; block-size: 29rem; background: url("../assets/shared/interface-icons/icone-flor.svg") left bottom / contain no-repeat; opacity: .32; pointer-events: none; }
   .sf-page[data-page="home"] #treatment-pathways > .sf-section-inner { max-inline-size: 90rem; padding: 0; }
   .sf-page[data-page="home"] #treatment-pathways .sf-section-head { display: grid; grid-template-columns: minmax(18rem, .6fr) 1fr; align-items: end; max-inline-size: none; }
   .sf-page[data-page="home"] #treatment-pathways .sf-section-head::after { content: "05"; justify-self: end; color: color-mix(in srgb, var(--rose-gold-500) 22%, transparent); font-family: var(--font-heading); font-size: clamp(6rem, 12vw, 12rem); font-style: italic; line-height: .65; }
@@ -2733,7 +2733,7 @@
   .sf-page[data-page="home"] #science-with-softness {
     background:
       linear-gradient(104deg, rgb(255 246 242 / .72), rgb(255 253 249 / .94) 38% 66%, rgb(255 253 249 / .54)),
-      url("../assets/backgrounds/home-background-center.webp") 100% 46% / min(43vw, 58rem) auto no-repeat,
+      url("../assets/shared/backgrounds/inicio-fundo-centro.webp") 100% 46% / min(43vw, 58rem) auto no-repeat,
       radial-gradient(ellipse 50% 66% at 8% 88%, rgb(189 121 107 / .18), transparent 76%),
       linear-gradient(rgb(255 250 247 / .7), rgb(255 253 249 / .7));
   }
@@ -2750,7 +2750,7 @@
 
   /* 07 · deep botanical pause, deliberately quieter than 04. */
   .sf-page[data-page="home"] #responsible-pauses { color: var(--ivory-50); background: linear-gradient(145deg, color-mix(in srgb, var(--forest-900) 88%, transparent), color-mix(in srgb, var(--olive-700) 94%, transparent)); }
-  .sf-page[data-page="home"] #responsible-pauses::before { content: ""; position: absolute; z-index: 0; inset: 0; background: linear-gradient(90deg, rgb(17 30 13 / .74), transparent 68%), url("../assets/cta-concepts/dark-botanical-garden.png") right center / auto 120% no-repeat, url("../assets/backgrounds/home-botanical-background.webp") center bottom / cover no-repeat; mix-blend-mode: screen; opacity: .27; pointer-events: none; }
+  .sf-page[data-page="home"] #responsible-pauses::before { content: ""; position: absolute; z-index: 0; inset: 0; background: linear-gradient(90deg, rgb(17 30 13 / .74), transparent 68%), url("../assets/shared/call-to-action/dark-botanico-garden.png") right center / auto 120% no-repeat, url("../assets/shared/backgrounds/inicio-botanico-fundo.webp") center bottom / cover no-repeat; mix-blend-mode: screen; opacity: .27; pointer-events: none; }
   .sf-page[data-page="home"] #responsible-pauses > .sf-statement-inner { max-inline-size: 76rem; padding: 0; text-align: start; }
   .sf-page[data-page="home"] #responsible-pauses :is(h2, h3, p, .sf-eyebrow) { color: inherit; }
   .sf-page[data-page="home"] #responsible-pauses .sf-section-head { display: grid; grid-template-columns: minmax(10rem, .35fr) minmax(0, 1fr); align-items: end; max-inline-size: none; }
@@ -2768,11 +2768,11 @@
   .sf-page[data-page="home"] #meet-franciele {
     background:
       linear-gradient(96deg, rgb(255 253 249 / .96) 0 46%, rgb(255 253 249 / .72) 65%, rgb(234 238 222 / .3)),
-      url("../assets/backgrounds/home-background-right.webp") 100% 50% / min(48vw, 64rem) auto no-repeat,
+      url("../assets/shared/backgrounds/inicio-fundo-direita.webp") 100% 50% / min(48vw, 64rem) auto no-repeat,
       radial-gradient(ellipse 45% 80% at 92% 30%, rgb(248 232 226 / .58), transparent 73%),
       linear-gradient(rgb(255 253 249 / .66), rgb(232 237 220 / .66));
   }
-  .sf-page[data-page="home"] #meet-franciele::before { content: ""; position: absolute; z-index: 0; inset: auto auto -2rem max(1rem, calc((100% - 88rem) / 2)); inline-size: min(38vw, 31rem); block-size: min(38vw, 31rem); background: url("../assets/brand/footer-signature-watermark.png") left bottom / contain no-repeat; opacity: .2; pointer-events: none; }
+  .sf-page[data-page="home"] #meet-franciele::before { content: ""; position: absolute; z-index: 0; inset: auto auto -2rem max(1rem, calc((100% - 88rem) / 2)); inline-size: min(38vw, 31rem); block-size: min(38vw, 31rem); background: url("../assets/shared/brand/rodape-assinatura-marca-dagua.png") left bottom / contain no-repeat; opacity: .2; pointer-events: none; }
   .sf-page[data-page="home"] #meet-franciele > .sf-section-inner { display: grid; grid-template-columns: minmax(15rem, .5fr) minmax(0, 1fr); column-gap: clamp(3rem, 8vw, 10rem); max-inline-size: 82rem; padding: 0; }
   .sf-page[data-page="home"] #meet-franciele .sf-section-head { grid-column: 1; grid-row: span 4; align-self: start; }
   .sf-page[data-page="home"] #meet-franciele .sf-section-head::before { content: "08"; display: block; margin-block-end: 1.25rem; color: color-mix(in srgb, var(--rose-gold-500) 35%, transparent); font-family: var(--font-heading); font-size: clamp(5rem, 9vw, 9rem); font-style: italic; line-height: .7; }
@@ -3158,7 +3158,7 @@
     color: var(--ivory-50);
     background:
       linear-gradient(106deg, rgb(17 30 13 / .96), rgb(36 49 41 / .93) 54%, rgb(58 75 50 / .88)),
-      url("../assets/backgrounds/home-botanical-background.webp") center / cover;
+      url("../assets/shared/backgrounds/inicio-botanico-fundo.webp") center / cover;
   }
 
   .sf-page[data-page="home"] #care-pathways::before { color: rgb(234 213 173 / .11); }
@@ -3811,7 +3811,7 @@
     z-index: 0;
     inline-size: 18rem;
     aspect-ratio: 1;
-    background: url("../assets/icons/botanical-branch.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/icone-botanico-ramo.svg") center / contain no-repeat;
     opacity: .08;
     pointer-events: none;
     rotate: -12deg;
@@ -3910,7 +3910,7 @@
     inset: 4rem auto auto -4rem;
     inline-size: min(30vw, 28rem);
     aspect-ratio: 1;
-    background: url("../assets/icons/olive-branch.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/icone-olive-ramo.svg") center / contain no-repeat;
     opacity: .09;
     pointer-events: none;
   }
@@ -3936,7 +3936,7 @@
     inset: auto -4rem -5rem auto;
     inline-size: min(27vw, 25rem);
     aspect-ratio: 1;
-    background: url("../assets/icons/eucalyptus-sprig.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/icone-eucalipto-sprig.svg") center / contain no-repeat;
     opacity: .09;
     pointer-events: none;
   }
@@ -3990,7 +3990,7 @@
     color: var(--ivory-50);
     background:
       linear-gradient(102deg, rgb(25 42 32 / .97), rgb(62 77 57 / .94) 58%, rgb(123 111 80 / .86)),
-      url("../assets/backgrounds/laser-background-center.webp") center / cover no-repeat;
+      url("../assets/shared/backgrounds/laser-fundo-centro.webp") center / cover no-repeat;
   }
 
   .sf-page[data-page="treatments"] #laser-services::before {
@@ -4031,7 +4031,7 @@
     inset: 8% 1% auto auto;
     inline-size: min(27vw, 24rem);
     aspect-ratio: 1;
-    background: url("../assets/icons/female-profile-leaf.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/icone-feminino-perfil-folha.svg") center / contain no-repeat;
     opacity: .055;
     pointer-events: none;
   }
@@ -4202,7 +4202,7 @@
   .sf-page[data-page="skin"] #the-skin-barrier .sf-lede,
   .sf-page[data-page="skin"] #the-skin-barrier .sf-practitioner-quote { grid-column: 1; }
   .sf-page[data-page="skin"] #the-skin-barrier .sf-lede { color: var(--gold-200); font-family: var(--font-heading); font-size: clamp(1.45rem, 2vw, 2rem); line-height: 1.35; }
-  .sf-page[data-page="skin"] #the-skin-barrier .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border: 1px solid rgb(234 213 173 / .3); border-radius: 5rem 5rem .35rem .35rem; background: url("../assets/posts/journal/skin-barrier-moisturiser-care.webp") center / cover no-repeat; }
+  .sf-page[data-page="skin"] #the-skin-barrier .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border: 1px solid rgb(234 213 173 / .3); border-radius: 5rem 5rem .35rem .35rem; background: url("../assets/journal/articles/pele-barreira-hidratante-cuidado.webp") center / cover no-repeat; }
   .sf-page[data-page="skin"] #the-skin-barrier .sf-content-card-grid { grid-column: 2; grid-row: 1 / span 4; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid rgb(234 213 173 / .4); }
   .sf-page[data-page="skin"] #the-skin-barrier .sf-content-card { border: 0; border-radius: 0; background: transparent; color: var(--ivory-50); padding: clamp(1.4rem, 2.5vw, 2.2rem); }
   .sf-page[data-page="skin"] #the-skin-barrier .sf-content-card + .sf-content-card { border-inline-start: 1px solid rgb(234 213 173 / .25); }
@@ -4231,7 +4231,7 @@
   /* 04 · diagnostic atlas with close-up imagery and a ruled concern index */
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-section-inner { display: grid; grid-template-columns: minmax(16rem, .58fr) minmax(0, 1.42fr); column-gap: clamp(3rem, 7vw, 8rem); align-items: start; }
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-section-head { grid-column: 1; }
-  .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-section-head::after { content: ""; display: block; min-block-size: 16rem; margin-block-start: 2rem; border-radius: .5rem 7rem .5rem .5rem; background: linear-gradient(rgb(36 49 41 / .05), rgb(36 49 41 / .05)), url("../assets/posts/journal/professional-skin-care-appointment.webp") center / cover no-repeat; box-shadow: var(--shadow-soft); }
+  .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-section-head::after { content: ""; display: block; min-block-size: 16rem; margin-block-start: 2rem; border-radius: .5rem 7rem .5rem .5rem; background: linear-gradient(rgb(36 49 41 / .05), rgb(36 49 41 / .05)), url("../assets/journal/articles/profissional-pele-cuidado-consulta.webp") center / cover no-repeat; box-shadow: var(--shadow-soft); }
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-content-card-grid { grid-column: 2; grid-row: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--color-border-warm); counter-reset: skin-atlas; }
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-content-card { position: relative; min-block-size: 9.25rem; border: 0; border-radius: 0; background: transparent; padding: 1.2rem 1.25rem 1.2rem 3.7rem; counter-increment: skin-atlas; }
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-content-card::before { content: "0" counter(skin-atlas); position: absolute; inset: 1.15rem auto auto 1rem; color: var(--rose-gold-700); font-family: var(--font-heading); font-style: italic; }
@@ -4256,7 +4256,7 @@
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-head,
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-inner > p,
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-practitioner-quote { grid-column: 1; }
-  .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border: 1px solid rgb(234 213 173 / .28); border-radius: 5rem 5rem .35rem .35rem; background: url("../assets/posts/journal/facial-pigmentation-and-freckles.webp") center / cover no-repeat; }
+  .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border: 1px solid rgb(234 213 173 / .28); border-radius: 5rem 5rem .35rem .35rem; background: url("../assets/journal/articles/facial-pigmentacao-and-sardas.webp") center / cover no-repeat; }
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-inner > p { color: rgb(255 253 249 / .72); }
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-content-card-grid { grid-column: 2; grid-row: 1 / span 4; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid rgb(234 213 173 / .38); counter-reset: skin-pigment; }
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-content-card { position: relative; min-block-size: 8.5rem; border: 0; border-radius: 0; background: transparent; color: var(--ivory-50); padding: 1.15rem 1.2rem 1.15rem 3.6rem; counter-increment: skin-pigment; }
@@ -4273,7 +4273,7 @@
   .sf-page[data-page="skin"] #acne-without-punishment .sf-section-head,
   .sf-page[data-page="skin"] #acne-without-punishment .sf-section-inner > p,
   .sf-page[data-page="skin"] #acne-without-punishment .sf-practitioner-quote { grid-column: 1; }
-  .sf-page[data-page="skin"] #acne-without-punishment .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border-radius: .5rem 5rem .5rem .5rem; background: url("../assets/posts/journal/acne-scars-and-natural-skin-texture.webp") center / cover no-repeat; }
+  .sf-page[data-page="skin"] #acne-without-punishment .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border-radius: .5rem 5rem .5rem .5rem; background: url("../assets/journal/articles/acne-cicatrizes-and-natural-pele-texture.webp") center / cover no-repeat; }
   .sf-page[data-page="skin"] #acne-without-punishment .sf-section-inner > p { color: var(--color-text-secondary); }
   .sf-page[data-page="skin"] #acne-without-punishment .sf-content-card-grid { grid-column: 2; grid-row: 1 / span 4; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--color-border-warm); }
   .sf-page[data-page="skin"] #acne-without-punishment .sf-content-card { border: 0; border-radius: 0; background: color-mix(in srgb, var(--sage-100) 36%, transparent); padding: clamp(1.5rem, 3vw, 2.5rem); }
@@ -4285,7 +4285,7 @@
   /* 08 · professional care taxonomy with an image-led introduction */
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-statement-inner { display: grid; grid-template-columns: minmax(15rem, .52fr) minmax(0, 1.48fr); column-gap: clamp(3rem, 7vw, 8rem); align-items: start; max-inline-size: none; }
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-section-head { grid-column: 1; }
-  .sf-page[data-page="skin"] #professional-skin-treatments .sf-section-head::after { content: ""; display: block; min-block-size: 15rem; margin-block-start: 2rem; border-radius: 7rem 7rem .5rem .5rem; background: url("../assets/posts/journal/calming-care-for-reactive-skin.webp") center / cover no-repeat; box-shadow: var(--shadow-soft); }
+  .sf-page[data-page="skin"] #professional-skin-treatments .sf-section-head::after { content: ""; display: block; min-block-size: 15rem; margin-block-start: 2rem; border-radius: 7rem 7rem .5rem .5rem; background: url("../assets/journal/articles/calming-cuidado-for-reativa-pele.webp") center / cover no-repeat; box-shadow: var(--shadow-soft); }
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-content-card-grid { grid-column: 2; grid-row: 1 / span 2; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--color-border-warm); }
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-content-card { min-block-size: 8rem; border: 0; border-radius: 0; background: transparent; padding: 1.2rem 1.35rem; }
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-content-card:nth-child(even) { border-inline-start: 1px solid var(--color-border-subtle); }
@@ -4413,7 +4413,7 @@
 
   /* 06 · CO2 planning as a clinical dossier: image, decision criteria and CTA share one complete field. */
   .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner { display: grid; grid-template-columns: minmax(0, .82fr) minmax(18rem, 1.18fr); column-gap: clamp(2.5rem, 6vw, 6.5rem); align-items: start; }
-  .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner::before { content: ""; grid-column: 1; grid-row: 1 / span 5; min-block-size: 36rem; border: 1px solid rgb(234 213 173 / .38); border-radius: .6rem 8rem .6rem .6rem; background: linear-gradient(rgb(36 49 41 / .14), rgb(36 49 41 / .04)), url("../assets/posts/journal/fractional-co2-laser-treatment.webp") center / cover no-repeat; }
+  .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner::before { content: ""; grid-column: 1; grid-row: 1 / span 5; min-block-size: 36rem; border: 1px solid rgb(234 213 173 / .38); border-radius: .6rem 8rem .6rem .6rem; background: linear-gradient(rgb(36 49 41 / .14), rgb(36 49 41 / .04)), url("../assets/journal/articles/fractional-co2-laser-tratamento.webp") center / cover no-repeat; }
   .sf-page[data-page="laser"] #co-resurfacing .sf-section-head, .sf-page[data-page="laser"] #co-resurfacing .sf-lede, .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner > p:not(.sf-lede), .sf-page[data-page="laser"] #co-resurfacing .sf-botanical-list, .sf-page[data-page="laser"] #co-resurfacing .sf-practitioner-quote { grid-column: 2; }
   .sf-page[data-page="laser"] #co-resurfacing .sf-lede { color: var(--gold-200); font-family: var(--font-heading); font-size: clamp(1.45rem, 2vw, 2rem); }
   .sf-page[data-page="laser"] #co-resurfacing .sf-statement-inner > p:not(.sf-lede),
@@ -5760,7 +5760,7 @@
     z-index: 0;
     inline-size: clamp(16rem, 30vw, 32rem);
     aspect-ratio: 1;
-    background: url("../assets/icons/botanical-branch.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/icone-botanico-ramo.svg") center / contain no-repeat;
     opacity: .1;
     rotate: -12deg;
     pointer-events: none;
@@ -5962,7 +5962,7 @@
     border-block-start: 1px solid rgb(234 213 173 / .52);
     background:
       linear-gradient(102deg, rgb(36 49 41 / .97) 0 36%, rgb(48 61 51 / .88) 58%, rgb(36 49 41 / .72)),
-      url("../assets/cta-concepts/fresh-sage-porcelain.png") center / cover no-repeat;
+      url("../assets/shared/call-to-action/fresh-salvia-porcelain.png") center / cover no-repeat;
     padding: clamp(2.5rem, 6vw, 5.5rem);
     color: var(--ivory-50);
   }
@@ -6239,7 +6239,7 @@
     .sf-page[data-page="contact"] .sf-direct-contact {
       background:
         linear-gradient(rgb(36 49 41 / .9), rgb(36 49 41 / .94)),
-        url("../assets/cta-concepts/fresh-sage-porcelain.png") 72% center / auto 100% no-repeat;
+        url("../assets/shared/call-to-action/fresh-salvia-porcelain.png") 72% center / auto 100% no-repeat;
       padding: 2.5rem 1.25rem;
     }
 
@@ -6886,26 +6886,26 @@
     --hero-scene-position-narrow: 64% center;
   }
 
-  .sf-page[data-page="home"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 1.png"); --hero-scene-position-narrow: 56% center; }
-  .sf-page[data-page="about"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 2.png"); --hero-scene-position-narrow: 60% center; }
-  .sf-page[data-page="mission"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 3.png"); --hero-scene-position-narrow: 63% center; }
-  .sf-page[data-page="treatments"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 4.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 65% center; }
-  .sf-page[data-page="care"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 6.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 50% center; }
-  .sf-page[data-page="thank-you"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 7.png"); --hero-scene-position-narrow: 73% center; }
-  .sf-page[data-page="skin"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 8.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 58% center; }
-  .sf-page[data-page="laser"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 9.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 55% center; }
-  .sf-page[data-page="values"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 11.png"); --hero-scene-position-narrow: 72% center; }
-  .sf-page[data-page="legal"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 13.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 63% center; }
-  .sf-page[data-page="journal"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 14.png"); --hero-scene-position-narrow: 68% center; }
-  .sf-page[data-page="blog"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 15.png"); --hero-scene-position-narrow: 68% center; }
-  .sf-page[data-page="testimonials"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 17.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 60% center; }
-  .sf-page[data-page="consultation"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 18.png"); --hero-scene-position-narrow: 53% center; }
-  .sf-page[data-page="results"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 19.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 65% center; }
-  .sf-page[data-page="faq"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 20.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 64% center; }
-  .sf-page[data-page="privacy"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 21.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 55% center; }
-  .sf-page[data-page="cookies"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 22.png"); --hero-scene-position-narrow: 56% center; }
-  .sf-page[data-page="not-found"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 23.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 62% center; }
-  .sf-page[data-page="accessibility"] [data-pattern="hero"] { --hero-scene-image: url("../assets/hero/hero-final/hero 24.png"); --hero-scene-position-wide: 54% center; --hero-scene-position-medium: 78% center; --hero-scene-position-narrow: 60% center; }
+  .sf-page[data-page="home"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/home/hero/imagem-principal-estetica-principal-1.png"); --hero-scene-position-narrow: 56% center; }
+  .sf-page[data-page="about"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/about/hero/imagem-principal-estetica-principal-2.png"); --hero-scene-position-narrow: 60% center; }
+  .sf-page[data-page="mission"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/mission/hero/imagem-principal-estetica-principal-3.png"); --hero-scene-position-narrow: 63% center; }
+  .sf-page[data-page="treatments"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/treatments/hero/imagem-principal-estetica-principal-4.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 65% center; }
+  .sf-page[data-page="care"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/care/hero/imagem-principal-estetica-principal-6.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 50% center; }
+  .sf-page[data-page="thank-you"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/thank-you/hero/imagem-principal-estetica-principal-7.png"); --hero-scene-position-narrow: 73% center; }
+  .sf-page[data-page="skin"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/skin/hero/imagem-principal-estetica-principal-8.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 58% center; }
+  .sf-page[data-page="laser"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/laser/hero/imagem-principal-estetica-principal-9.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 55% center; }
+  .sf-page[data-page="values"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/values/hero/imagem-principal-estetica-principal-11.png"); --hero-scene-position-narrow: 72% center; }
+  .sf-page[data-page="legal"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/legal/hero/imagem-principal-estetica-principal-13.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 63% center; }
+  .sf-page[data-page="journal"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/journal/hero/imagem-principal-estetica-principal-14.png"); --hero-scene-position-narrow: 68% center; }
+  .sf-page[data-page="blog"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/blog/hero/imagem-principal-estetica-principal-15.png"); --hero-scene-position-narrow: 68% center; }
+  .sf-page[data-page="testimonials"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/testimonials/hero/imagem-principal-estetica-principal-17.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 60% center; }
+  .sf-page[data-page="consultation"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/consultation/hero/imagem-principal-estetica-principal-18.png"); --hero-scene-position-narrow: 53% center; }
+  .sf-page[data-page="results"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/results/hero/imagem-principal-estetica-principal-19.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 65% center; }
+  .sf-page[data-page="faq"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/faq/hero/imagem-principal-estetica-principal-20.png"); --hero-scene-position-medium: 74% center; --hero-scene-position-narrow: 64% center; }
+  .sf-page[data-page="privacy"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/privacy/hero/imagem-principal-estetica-principal-21.png"); --hero-scene-position-medium: 66% center; --hero-scene-position-narrow: 55% center; }
+  .sf-page[data-page="cookies"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/cookies/hero/imagem-principal-estetica-principal-22.png"); --hero-scene-position-narrow: 56% center; }
+  .sf-page[data-page="not-found"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/not-found/hero/imagem-principal-estetica-principal-23.png"); --hero-scene-position-medium: 68% center; --hero-scene-position-narrow: 62% center; }
+  .sf-page[data-page="accessibility"] [data-pattern="hero"] { --hero-scene-image: url("../assets/pages/accessibility/hero/imagem-principal-estetica-principal-24.png"); --hero-scene-position-wide: 54% center; --hero-scene-position-medium: 78% center; --hero-scene-position-narrow: 60% center; }
 
   .sf-page[data-page]:not([data-page="contact"]) #sf-header-inline {
     position: absolute;
@@ -7328,7 +7328,7 @@
 @layer pages {
   :root {
     --page-cream: #fffdf9;
-    --site-panorama: url("../assets/backgrounds/site-panorama-v2.png");
+    --site-panorama: url("../assets/shared/backgrounds/site-panorama-v2.png");
     --ordinary-paper: #fffdf9;
     --ordinary-mist: #fbf6ee;
     --ordinary-sage: #edf1e7;
@@ -7906,7 +7906,7 @@
   .sf-page[data-page="home"] #care-standard .sf-practitioner-quote, .sf-page[data-page="home"] #care-standard .sf-button-row { grid-column: 1; }
 
   /* A single transparent, high-resolution source is used for every hero mark. */
-  .sf-page[data-page] [data-pattern="hero"] .sf-hero-logo { content: url("../assets/brand/heroes/hero-logo.webp") !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; object-fit: contain; }
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-logo { content: url("../assets/shared/brand/hero-marks/principal-marca.webp") !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; object-fit: contain; }
 
   /* Homepage 05 — planning in one complete, full-scale green composition. */
   .sf-page[data-page="home"] #care-standard { overflow: hidden; }
@@ -8162,7 +8162,7 @@
 
   /* Homepage corrections: chapter 02 takes the dark full-width treatment;
      chapter 06 becomes a complete, large editorial profile spread. */
-  .sf-page[data-page="home"] #consultation-journey { background: linear-gradient(120deg, rgb(17 30 13 / .98), rgb(36 49 41 / .95) 58%, rgb(58 75 50 / .92)), url("../assets/backgrounds/home-botanical-background.webp") center / cover !important; color: var(--ivory-50); }
+  .sf-page[data-page="home"] #consultation-journey { background: linear-gradient(120deg, rgb(17 30 13 / .98), rgb(36 49 41 / .95) 58%, rgb(58 75 50 / .92)), url("../assets/shared/backgrounds/inicio-botanico-fundo.webp") center / cover !important; color: var(--ivory-50); }
   .sf-page[data-page="home"] #consultation-journey .sf-section-head :is(h2, .sf-eyebrow), .sf-page[data-page="home"] #consultation-journey .sf-step h3 { color: var(--ivory-50); }
   .sf-page[data-page="home"] #consultation-journey .sf-chapter-number, .sf-page[data-page="home"] #consultation-journey .sf-step-number { color: var(--gold-200); }
   .sf-page[data-page="home"] #consultation-journey .sf-process-list { border-color: rgb(234 213 173 / .42); }

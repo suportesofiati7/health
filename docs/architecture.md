@@ -1,17 +1,28 @@
 # Architecture
 
-The site is a static, framework-free publication. Public English pages live at the repository root; Brazilian Portuguese output lives under `pt/`; English Journal articles live under `journal/`.
+This is a framework-free static website. The repository is the authoring source; `dist/` is a disposable, deployable artifact produced by `npm run build`.
 
-- `partials/` and `partials/pt-BR/` contain runtime-loaded top bar, header, mobile menu, footer, cookie banner and floating widgets.
-- `js/main.js` starts native modules for partial loading, navigation, consent, analytics, forms and page enhancements.
-- `css/src/` is the authored stylesheet source. `scripts/build-css.py` concatenates its ordered manifest into the committed public `css/site.css`. Modules are ordered by foundation, layout, component, composition, page, then utility concerns; `pages/home-layout.css` is the single documented final authority for homepage layout.
-- `data/` holds English content, navigation, language pair, SEO and translation inputs.
-- `assets/` contains only published assets. Paths are public compatibility contracts; do not rename or deduplicate assets without updating every verified consumer.
+| Area | Owner | Notes |
+| --- | --- | --- |
+| Root `*.html` | English public pages | Edit these pages directly. Preserve metadata, IDs, `data-*` hooks and partial templates. |
+| `pt/` | Brazilian Portuguese public pages | Generated/localized output. Use the translation inputs and generator; validate after any source change. |
+| `journal/` | English Journal pages | Published static pages. No current Journal generator is included in this checkout. Edit with the same care as root English pages. |
+| `partials/` and `partials/pt-BR/` | Shared interface | Header, navigation, footer, cookie banner and floating controls. They load at runtime in source previews and are inlined during production builds. |
+| `css/site.css` | Public stylesheet | The production build minifies and fingerprints it. There is no separate CSS compilation command in this checkout. |
+| `js/` | Browser behaviour | `js/main.js` is the module entry point. Consent/analytics scripts remain separate so consent defaults load first. |
+| `data/` | Shared runtime and editorial data | `seo.json` owns the canonical origin; `page-pairs.json` owns language equivalents; `translation/` owns PT-BR terminology and overrides. |
+| `assets/` | Public media | Paths are public contracts. Do not rename an asset without checking all consumers. |
+| `scripts/` | Build, validation and maintenance tools | Run tools from the repository root. See [the scripts guide](../scripts/README.md). |
+| `reports/` and `performance-reports/` | Generated evidence | Not public output. Review changes before committing them. |
 
-`scripts/build/build-production.mjs` builds a deployable allowlisted `dist/` artifact. Do not deploy the repository root.
+## Production build
 
-## Generated files
+`npm run build` recreates `dist/` from scratch. It composes partials, bundles and fingerprints JavaScript/CSS, generates responsive AVIF/WebP image variants, minifies HTML, copies only required support files and writes deployment headers.
 
-Current English HTML pages are the source of public page content. Edit them directly while preserving their page contracts, metadata, IDs and data attributes. Journal HTML is generated from the tracked Word source. Portuguese HTML and PT partials are generator output: change the translation inputs/overrides rather than making changes that a generation run will overwrite.
+Only deploy `dist/`. Never edit it: every build replaces it.
 
-CSS source and the committed runtime stylesheet are kept in sync. After changing a source module, run `python3 scripts/build-css.py` and then `python3 scripts/build-css.py --check`.
+## Site identity and routes
+
+The canonical production origin is set once in `data/seo.json`. When the final domain changes, update that value and every page's canonical metadata, then regenerate discovery files and run `npm run release:check`. The build does not automatically rewrite page metadata.
+
+`data/page-pairs.json` is the authoritative English/PT-BR route map. Add or remove paired routes there before refreshing `sitemap.xml` and validating the site.
