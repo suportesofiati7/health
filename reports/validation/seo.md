@@ -6,8 +6,8 @@
 
 - Public HTML pages parsed: 50
 - Canonical, indexable URLs in sitemap: 46
-- Images audited: 399
-- Decorative images with empty alt text: 169
+- Images audited: 378
+- Decorative images with empty alt text: 162
 - Post-hero navigation targets: 46
 
 ## Validation summary
@@ -48,26 +48,26 @@
 | `legal.html` | 69 chars | 204 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `mission.html` | 46 chars | 145 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
 | `privacy.html` | 91 chars | 214 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
-| `pt/404.html` | 77 chars | 151 chars | `noindex, follow` | WebPage |
-| `pt/about.html` | 70 chars | 164 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage, ProfilePage |
-| `pt/accessibility.html` | 70 chars | 144 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
+| `pt/404.html` | 85 chars | 151 chars | `noindex, follow` | WebPage |
+| `pt/about.html` | 63 chars | 164 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage, ProfilePage |
+| `pt/accessibility.html` | 72 chars | 144 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `pt/care.html` | 42 chars | 158 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
-| `pt/consultation.html` | 29 chars | 183 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage, Service |
-| `pt/contact.html` | 80 chars | 190 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | ContactPage |
-| `pt/cookies.html` | 91 chars | 159 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
+| `pt/consultation.html` | 29 chars | 144 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage, Service |
+| `pt/contact.html` | 84 chars | 192 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | ContactPage |
+| `pt/cookies.html` | 93 chars | 159 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `pt/faq.html` | 14 chars | 151 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
-| `pt/index.html` | 29 chars | 185 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage |
+| `pt/index.html` | 29 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage |
 | `pt/journal.html` | 26 chars | 163 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Blog, ItemList |
 | `pt/laser.html` | 29 chars | 152 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
-| `pt/legal.html` | 56 chars | 214 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
+| `pt/legal.html` | 56 chars | 152 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `pt/mission.html` | 47 chars | 151 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
-| `pt/privacy.html` | 76 chars | 204 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
+| `pt/privacy.html` | 78 chars | 131 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `pt/results.html` | 50 chars | 135 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `pt/skin.html` | 24 chars | 140 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
-| `pt/testimonials.html` | 85 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
-| `pt/thank-you.html` | 66 chars | 177 chars | `noindex, follow` | WebPage |
+| `pt/testimonials.html` | 87 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
+| `pt/thank-you.html` | 57 chars | 157 chars | `noindex, follow` | WebPage |
 | `pt/treatments.html` | 32 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Service, ItemList |
-| `pt/values.html` | 46 chars | 117 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
+| `pt/values.html` | 46 chars | 150 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
 | `results.html` | 48 chars | 127 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `skin.html` | 41 chars | 134 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
 | `testimonials.html` | 101 chars | 133 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
@@ -102,20 +102,20 @@
 - [legal.html] description is 204 characters
 - [privacy.html] title is 91 characters
 - [privacy.html] description is 214 characters
-- [pt/consultation.html] description is 183 characters
-- [pt/contact.html] title is 80 characters
-- [pt/contact.html] description is 190 characters
-- [pt/cookies.html] title is 91 characters
-- [pt/index.html] description is 185 characters
-- [pt/legal.html] description is 214 characters
-- [pt/privacy.html] title is 76 characters
-- [pt/privacy.html] description is 204 characters
-- [pt/testimonials.html] title is 85 characters
-- [pt/values.html] description is 117 characters
+- [pt/accessibility.html] title is 72 characters
+- [pt/contact.html] title is 84 characters
+- [pt/contact.html] description is 192 characters
+- [pt/cookies.html] title is 93 characters
+- [pt/privacy.html] title is 78 characters
+- [pt/testimonials.html] title is 87 characters
 - [testimonials.html] title is 101 characters
 
 ## Errors
 
+- [pt/thank-you.html] social descriptions do not match the meta description
+- [pt/thank-you.html] missing expected schema: BreadcrumbList, HealthAndBeautyBusiness, ImageObject
+- [pt/thank-you.html] must contain one post-hero link to #main-content
+- [pt/thank-you.html] must contain one unique #main-content target
 - [thank-you.html] social descriptions do not match the meta description
 - [thank-you.html] missing expected schema: BreadcrumbList, HealthAndBeautyBusiness, ImageObject
 - [thank-you.html] must contain one post-hero link to #main-content

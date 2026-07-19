@@ -3520,7 +3520,7 @@
       "engine": "manual:seo-metadata",
       "approved": true,
       "glossary_hash": "b2486c0af92214a36631f60c476c1def71849c279d963b930ce3e6b2f3bb7462",
-      "updated_at": "2026-07-18T21:52:44.615033+00:00"
+      "updated_at": "2026-07-19T13:28:56.404574+00:00"
     },
     "bfcb56f25d1c65159288e0ad63d43d2c7ddd778dc7bb4f5065b0fc4a2d99be87": {
       "source": "Aesthetic Consultation in Londrina | Franciele Sofiati",
@@ -6600,7 +6600,7 @@
       "engine": "manual:seo-metadata",
       "approved": true,
       "glossary_hash": "b2486c0af92214a36631f60c476c1def71849c279d963b930ce3e6b2f3bb7462",
-      "updated_at": "2026-07-18T21:52:44.620621+00:00"
+      "updated_at": "2026-07-19T13:28:56.409114+00:00"
     },
     "6f0f81690a190efba3aa2e36c6a623fcb39d0493216321c713f99ae66c931b1f": {
       "source": "Skin and Laser Care in Londrina | Franciele Sofiati",
@@ -17128,7 +17128,7 @@
       "engine": "manual:seo-metadata",
       "approved": true,
       "glossary_hash": "b2486c0af92214a36631f60c476c1def71849c279d963b930ce3e6b2f3bb7462",
-      "updated_at": "2026-07-18T21:52:44.631688+00:00"
+      "updated_at": "2026-07-19T13:28:56.419400+00:00"
     },
     "2547e611997823ec54650d07fa415f7acf59abb95da0dc7d9bc4c95ab7ae5c06": {
       "source": "Values Guiding Franciele Sofiati’s Care",
@@ -18508,11 +18508,11 @@
     },
     "3de6c988047ccaa4eaa738cdd9a73f0be027f4e80cec9751a8258381a8bf21c0": {
       "source": "Read the booking, payment, cancellation, treatment, informed-consent, aftercare and client-service terms for Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist in Londrina, Paraná.",
-      "translation": "Leia a reserva, pagamento, cancelamento, tratamento, informado-consentimento, cuidados posteriores e condições de serviço ao cliente para Biomédica · Esteticista · Cosmetóloga Franciele Sofiati em Londrina, Paraná.",
-      "engine": "manual-override",
+      "translation": "Leia as condições de agendamento, pagamento, cancelamento, tratamentos, consentimento informado e cuidados posteriores de Franciele Sofiati em Londrina.",
+      "engine": "manual:seo-metadata",
       "approved": true,
       "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
-      "updated_at": "2026-07-19T12:33:36.583794+00:00"
+      "updated_at": "2026-07-19T13:28:56.413886+00:00"
     },
     "c20ab7c3e47276ed112d2e8f95469ac1810f879556d71d8c2577c67ac1fa141a": {
       "source": "Franciele Sofiati, Biomedical Practitioner · Aesthetician · Cosmetologist, CRBM 6277, providing services in Londrina, Paraná, Brazil, personally or through the legal entity identified in the relevant proposal, invoice, receipt or booking confirmation.",
@@ -18524,11 +18524,11 @@
     },
     "a840e41ea8282c251ca19cd51c5b8b5e5537890eb7f14632b9515d1cb5a85e1f": {
       "source": "Understand how contact, consultation, website and patient-related information may be handled by Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist under Brazilian data-protection principles.",
-      "translation": "Entenda como contato, consulta, site e informações relacionadas ao paciente podem ser tratadas pela Biomédica · Esteticista · Cosmetóloga Franciele Sofiati sob princípios brasileiros de proteção de dados.",
-      "engine": "manual-override",
+      "translation": "Entenda como Franciele Sofiati trata dados de contato, consulta e navegação segundo os princípios brasileiros de proteção de dados.",
+      "engine": "manual:seo-metadata",
       "approved": true,
       "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
-      "updated_at": "2026-07-19T12:33:36.606116+00:00"
+      "updated_at": "2026-07-19T13:28:56.416524+00:00"
     },
     "3e294c68da199dc09e0186239ed92ae6c307a0651d91196cf8a6090b5face02b": {
       "source": "Privacy Notice | Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist",
@@ -18689,6 +18689,326 @@
       "approved": false,
       "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
       "updated_at": "2026-07-19T12:33:08.483658+00:00"
+    },
+    "739a2d40c7e852de0f1e4b81a79d5093b29f7ebff198ae7d419ec8026fcc9c9a": {
+      "source": "Sun and weather",
+      "translation": "Sol e tempo",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:12.737474+00:00"
+    },
+    "5f40a7df663bcc7f8935904c41fb123b2500e3c8c0ae3be83fc1e33a91b9bc11": {
+      "source": "Wind, strong sun and temperature changes can affect comfort during recovery, so your aftercare plan may include extra protection.",
+      "translation": "Vento, sol forte e mudanças de temperatura podem afetar o conforto durante a recuperação, então seu plano cuidados posteriores pode incluir proteção extra.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:12.818531+00:00"
+    },
+    "1adc6824af7924b8b5beb6f8af92b90e3b8632e74f42bb18c7c8c78da3196df2": {
+      "source": "What feels manageable",
+      "translation": "O que parece controlável",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:12.892689+00:00"
+    },
+    "b1950a633dd4858fa0ff8ca70b399b4282390dcfacfa150da5d8350d42a5c448": {
+      "source": "Your plan should account for your schedule, budget, recovery time and comfort with each step—not only what is technically possible.",
+      "translation": "Seu plano deve explicar sua agenda, orçamento, tempo de recuperação e conforto a cada passo, não só o que é tecnicamente possível.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:12.965324+00:00"
+    },
+    "c4d40928ad1763828be251454d6fe69a5ac088208bd974a1b621776f0f193c64": {
+      "source": "When to keep it simple",
+      "translation": "Quando mantê-lo simples",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:12.983170+00:00"
+    },
+    "da0dd875047c8e20032d5d964814b999cb1b0bb05145a448ed1399c5efdb36c4": {
+      "source": "Sometimes the best decision is to do less, space treatments more carefully or wait until the timing, skin condition and expectations are better aligned.",
+      "translation": "Às vezes, a melhor decisão é fazer menos, espaço tratamentos com mais cuidado ou esperar até o momento, condição pele e expectativas estão melhor alinhados.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.091685+00:00"
+    },
+    "7667e21a6c237c17d5127024d7ea55f49d7728e8b583234c60e7a387157d7e70": {
+      "source": "How we decide together",
+      "translation": "Como decidimos juntos?",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.108050+00:00"
+    },
+    "1806232b346fe3b0dc5c325f3745e6dab406cc19e780b8167c7e58135bf33b84": {
+      "source": "Recommendations should feel collaborative. I will guide you with clinical reasoning, but the final plan should still reflect your preferences, priorities and comfort level.",
+      "translation": "Recomendações devem parecer colaborativas. Vou guiá-lo com raciocínio clínico, mas o plano final ainda deve refletir suas preferências, prioridades e nível de conforto.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.190124+00:00"
+    },
+    "f5904cf7a1231a7a13a8cffbd2f0482984a1c69e96fc48dd96be8858a1707e60": {
+      "source": "Marketing",
+      "translation": "Marketing",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.279741+00:00"
+    },
+    "79b1533211f3249d81bb13c68c4845c5fa82d73ba108f639245cf47ce9072e72": {
+      "source": "May support relevant communications or measure campaign performance when such tools are enabled. These technologies are optional and require your choice.",
+      "translation": "Pode apoiar comunicações relevantes ou medir o desempenho da campanha quando tais ferramentas estiverem habilitadas. Essas tecnologias são opcionais e exigem sua escolha.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.335807+00:00"
+    },
+    "ad7cdab4e846d7c96b3b5fcc5cfff772d79d72e35e8e1f9469ed1989422defbf": {
+      "source": "Contact options",
+      "translation": "Opções de contato",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.443969+00:00"
+    },
+    "36c66d70cf6e1677313147abe1cfb31110fc9af24d1699a56fb823a139938d6d": {
+      "source": "Tissue response",
+      "translation": "Resposta do tecido",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.588084+00:00"
+    },
+    "ef0088ca258e53bf76230938cba35a464fee218102b9381929641a19b2132571": {
+      "source": "The same target can respond differently according to skin characteristics, healing, treatment history and the settings selected.",
+      "translation": "O mesmo alvo pode responder de forma diferente de acordo com as características pele, cura, histórico tratamento e as configurações selecionadas.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.689724+00:00"
+    },
+    "760540ba244312a7c1a6978c90262a554f06791254d94ee808688a6ffb26429a": {
+      "source": "Guided by a clinical assessment",
+      "translation": "Guiado por uma avaliação clínica",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.711480+00:00"
+    },
+    "ea7689035764450efcb08ffc69f4a759453fb24c7969fe4edd337abc3c320e6c": {
+      "source": "Adjusted to skin type and treatment goal",
+      "translation": "Ajustado ao tipo pele e meta tratamento",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.771051+00:00"
+    },
+    "6ed89cfe45550bae781ccd3067bbdd380dcff061f032a783cdcc2431dd74854a": {
+      "source": "Sometimes delivered as a planned series of sessions",
+      "translation": "Às vezes entregue como uma série planejada de sessões",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.803326+00:00"
+    },
+    "603db3791bac9e6f11670966e4b11874cf32078c59c6513875210861df930931": {
+      "source": "Supported by aftercare and follow-up",
+      "translation": "Apoiado por cuidados posteriores e acompanhamento",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.839669+00:00"
+    },
+    "d1d2ec61a82da8f7f6872981c0429d86e55f686d3133949ae4b4f010dd68a507": {
+      "source": "A substitute for sun protection or skin care",
+      "translation": "Um substituto para proteção solar ou cuidado pele",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.883102+00:00"
+    },
+    "74efa60c1bf1ac45f305dc7aa6f0e7a43c470bcbcb0199fefb42869f04dbdb29": {
+      "source": "Suitable for every skin condition or moment",
+      "translation": "Adequado para cada condição ou momento pele",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.927218+00:00"
+    },
+    "f563a6db45d8e4aceb17548fb0325293ab08ff9437f31f636c7ef51557920525": {
+      "source": "Risk-free without proper assessment and aftercare",
+      "translation": "Sem risco sem avaliação adequada e cuidados posteriores",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:13.962569+00:00"
+    },
+    "b58bbb8d4f1209c46f1a9173d43a3758c7f4e2e8f0e3d7098ff88488691b7746": {
+      "source": "A reason to skip consultation or medical-history review",
+      "translation": "Uma razão para pular consulta ou revisão de história médica",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.005995+00:00"
+    },
+    "905b300b2fc15134d1e7a4ef0eb593ed3425426ad8ed3ba10b3f237a0b0d3fa6": {
+      "source": "CO₂ laser resurfacing treatment prepared in a clinical setting",
+      "translation": "CO2 laser resurfacing tratamento preparado em um ambiente clínico",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.059278+00:00"
+    },
+    "42b61bfafbac32fb0f6c8f30fb9c8a5b4aea5e75e816e324de4803a785bee720": {
+      "source": "Careful planning supports a considered recovery.",
+      "translation": "O planejamento cuidadoso apoia uma recuperação considerada.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.085558+00:00"
+    },
+    "001b24318fa87d814a219d03bc17b0f1ba3557b409a0d450ec8032bf3fdc3cca": {
+      "source": "Concerns that may be considered for CO₂ resurfacing",
+      "translation": "Preocupações que podem ser consideradas para o reabastecimento de CO2",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.122181+00:00"
+    },
+    "11f68d9563806cc650b3d84ce5638e98083a637de79a675e09ead545e63f86ce": {
+      "source": "May be considered for",
+      "translation": "Pode ser considerado para",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.136554+00:00"
+    },
+    "66a011255e734d0ad4011a706a037bfc66ebb07dfac6f75b7db0a65824ed3f99": {
+      "source": "Selected acne scars and other carefully assessed scars",
+      "translation": "Cicatrizes de acne selecionadas e outras cuidadosamente avaliadas.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.176506+00:00"
+    },
+    "408c984789c0cb7f31e7def97cb1f4c773c147f70b8f6675fcd72bb4fad257ba": {
+      "source": "Fine lines and wrinkles",
+      "translation": "Linhas finas e rugas",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.198078+00:00"
+    },
+    "30b8d4f169bb53c6592195375a807b768f9bf8002f9f5a85936bfda769c2eb77": {
+      "source": "Uneven texture",
+      "translation": "Textura irregular.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.215207+00:00"
+    },
+    "d160878e5847c5d12feae92156e4c8587c7e41970df339cf1dfad138a125471f": {
+      "source": "Selected signs of sun-related skin change",
+      "translation": "Sinais selecionados de mudança de pele relacionada ao sol",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.257026+00:00"
+    },
+    "997700d252defb6991b9b2cdf06775dc1e143e39081708dab0a9d63b9a9ddb0a": {
+      "source": "Recovery is part of the plan",
+      "translation": "A recuperação faz parte do plano.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.278549+00:00"
+    },
+    "ec5f065cb0a9c7b4934c06153452f5d1c9289e9e5ff41751eea3fa3b4d46f06e": {
+      "source": "Ongoing learning",
+      "translation": "Continuando aprendendo",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.389028+00:00"
+    },
+    "b7de0b885aa96f43a4d427e903b91b8afdf1bf5730608e890edd58df3f95b277": {
+      "source": "Good care stays current, reviews evidence thoughtfully and adapts when new information changes what is appropriate.",
+      "translation": "O bom cuidado permanece atual, revisa as evidências cuidadosamente e se adapta quando novas informações mudam o que é apropriado.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.452334+00:00"
+    },
+    "6e0d7d15126d5354ec4d09ad82769a3d0ff90e8d21a2fce1b78b7d6caddf38a8": {
+      "source": "Barrier condition",
+      "translation": "Condição de barreira",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.578640+00:00"
+    },
+    "340b323e7522b21e9efd2071999ef1a8cc6bd4b7b7950e14eaa8fd14398c0ff6": {
+      "source": "Current sensitivity, inflammation and barrier strength help determine whether treatment should proceed, be adjusted or wait.",
+      "translation": "Sensibilidade atual, inflamação e força de barreira ajudam a determinar se tratamento deve prosseguir, ser ajustada ou esperar.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.652063+00:00"
+    },
+    "c8f48a68649d1cae147fb8afd54801e3e82622465c98ff1ee29075da2c201d78": {
+      "source": "AM",
+      "translation": "AM",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.663019+00:00"
+    },
+    "6b987654a41163849bd70f7354ec7a205cea30d282c0e84be1cfe8a0e3927c78": {
+      "source": "PM",
+      "translation": "PM",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.674446+00:00"
+    },
+    "9dcff98e275f0cb911f1523ef5c629c0aabe9e3b642a6b71ac7d2569e9717121": {
+      "source": "Timeline",
+      "translation": "Timeline",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.687773+00:00"
+    },
+    "cdcc679f5eeb5b41d3395ffb89031274e52b49231bb720cbcb8b0fd8b0a01481": {
+      "source": "Pigment often changes gradually, so a useful plan considers when the mark began, what may maintain it and when progress should be reviewed.",
+      "translation": "O pigmento muitas vezes muda gradualmente, então um plano útil considera quando a marca começou, o que pode mantê-la e quando o progresso deve ser revisto.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:14.768490+00:00"
+    },
+    "9ec9be7aa0f0ea041a19c7174fc53faf30c6eff1d81bc986178dc2a984226ed4": {
+      "source": "Franciele Sofiati — Biomedical Practitioner, Aesthetician and Cosmetologist",
+      "translation": "Franciele Sofiati - biomédica, esteticista e cosmetologista",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:15.053416+00:00"
+    },
+    "d829e729f6a79e4c464578f798a9c2e8e9f698cd4e2b2a1253ee75b09b085007": {
+      "source": "Care. Commitment. Confidence.",
+      "translation": "Cuidado. Compromisso. Confiança.",
+      "engine": "argos:en->pb:installed",
+      "approved": false,
+      "glossary_hash": "21d197eb9853cbe0ed3f39f706909129609142f5bd33c9a290acb44977a0cefe",
+      "updated_at": "2026-07-19T13:27:15.097978+00:00"
     }
   }
 }

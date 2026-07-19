@@ -1,50 +1,29 @@
 # Weekly SEO maintenance report
 
-Generated: 2026-07-18 22:33 UTC
+Generated: 2026-07-19 13:28 UTC
 
 ## Result
 
 - PASS — Refresh robots.txt: Generated robots.txt with 19 non-public path exclusions.
-- PASS — Refresh sitemap.xml and each URL's last-modified date: Generated sitemap.xml with 48 canonical, indexable URLs.
-- PASS — Verify generated discovery files: SEO discovery checks passed: 48 sitemap URLs, 19 robots exclusions, and 42 curated llms.txt links.
-- PASS — Audit titles, descriptions, canonical URLs, schema and image alt text: SEO implementation validation: PASS; 52 pages, 0 errors, 0 warnings.
+- PASS — Refresh sitemap.xml and each URL's last-modified date: Generated sitemap.xml with 46 canonical, indexable URLs.
+- PASS — Verify generated discovery files: SEO discovery checks passed: 46 sitemap URLs, 19 robots exclusions, and 41 curated llms.txt links.
+- FAIL — Audit titles, descriptions, canonical URLs, schema and image alt text: SEO implementation validation: FAIL; 50 pages, 8 errors, 15 warnings.
 Report: /run/media/code/Storage/GitHub/ashtra/health/reports/validation/seo.md
+[pt/thank-you.html] social descriptions do not match the meta description
+[pt/thank-you.html] missing expected schema: BreadcrumbList, HealthAndBeautyBusiness, ImageObject
+[pt/thank-you.html] must contain one post-hero link to #main-content
+[pt/thank-you.html] must contain one unique #main-content target
+[thank-you.html] social descriptions do not match the meta description
+[thank-you.html] missing expected schema: BreadcrumbList, HealthAndBeautyBusiness, ImageObject
+[thank-you.html] must contain one post-hero link to #main-content
+[thank-you.html] must contain one unique #main-content target
 
 ## Pages changed since the last commit
 
-- `404.html`
-- `about.html`
-- `accessibility.html`
-- `blog.html`
-- `care.html`
-- `consultation.html`
-- `contact.html`
-- `cookies.html`
-- `faq.html`
-- `index.html`
-- `journal.html`
-- `journal/fractional-co2-laser-recovery-and-aftercare.html`
-- `journal/hair-thinning-causes-and-scalp-care.html`
-- `journal/laser-hair-removal-process-and-maintenance.html`
-- `journal/persistent-facial-redness-and-vessels.html`
-- `journal/professional-skin-cleansing-guide.html`
-- `journal/rebuilding-an-overwhelmed-skin-barrier.html`
-- `journal/ultrasound-radiofrequency-collagen-treatment.html`
-- `journal/understanding-acne-scar-treatment.html`
-- `journal/understanding-facial-pigmentation.html`
-- `journal/why-aesthetic-care-begins-with-consultation.html`
-- `laser.html`
-- `legal.html`
-- `mission.html`
-- `partials/footer.html`
-- `partials/header.html`
 - `partials/pt-BR/footer.html`
-- `partials/pt-BR/header.html`
-- `privacy.html`
 - `pt/404.html`
 - `pt/about.html`
 - `pt/accessibility.html`
-- `pt/blog.html`
 - `pt/care.html`
 - `pt/consultation.html`
 - `pt/contact.html`
@@ -62,12 +41,6 @@ Report: /run/media/code/Storage/GitHub/ashtra/health/reports/validation/seo.md
 - `pt/thank-you.html`
 - `pt/treatments.html`
 - `pt/values.html`
-- `results.html`
-- `skin.html`
-- `testimonials.html`
-- `thank-you.html`
-- `treatments.html`
-- `values.html`
 
 ## Editorial review boundary
 
