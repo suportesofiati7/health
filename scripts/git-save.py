@@ -91,11 +91,11 @@ def main() -> int:
     message = " ".join(arguments.message).strip() or f"Site update - {timestamp}"
 
     try:
+        remote = None if arguments.no_push else (arguments.remote or ensure_remote())
+        branch = current_branch()
         git("add", "-A")
         git("commit", "--allow-empty", "-m", message)
-        if not arguments.no_push:
-            remote = arguments.remote or ensure_remote()
-            branch = current_branch()
+        if remote:
             print(f"Pushing {branch} to {remote}/{branch}...")
             git("push", "-u", remote, f"HEAD:{branch}")
     except subprocess.CalledProcessError as error:
