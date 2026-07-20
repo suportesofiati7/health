@@ -19,6 +19,12 @@ export function initCookies() {
     externalMedia: false
   };
   let lastTrigger = null;
+  let isBannerOpen = false;
+  let scrollSteps = 0;
+  let lastScrollY = window.scrollY || 0;
+  let stopScrollConsent = () => {};
+  const revealAfterScrolls = 3;
+  const autoAcceptAfterScrolls = 6;
 
   const normalizePreferences = (value = {}) => ({
     essential: true,
@@ -54,11 +60,13 @@ export function initCookies() {
 
   const persist = (value, source = 'cookie_controls') => {
     const normalized = normalizePreferences(value);
+    stopScrollConsent();
     try {
       localStorage.setItem(key, JSON.stringify({ ...normalized, savedAt: new Date().toISOString() }));
       legacyKeys.forEach((legacyKey) => localStorage.removeItem(legacyKey));
     } catch (_) {}
     banner.hidden = true;
+    isBannerOpen = false;
     banner.classList.remove('is-customizing');
     syncPreferenceControls(normalized);
     document.dispatchEvent(new CustomEvent('sofiati:consentchange', {
@@ -72,6 +80,7 @@ export function initCookies() {
   const openPreferences = (trigger = null) => {
     lastTrigger = trigger || document.activeElement;
     banner.hidden = false;
+    isBannerOpen = true;
     banner.classList.add('is-customizing');
     if (prefs) prefs.hidden = false;
     if (saveButton) saveButton.hidden = false;
@@ -95,7 +104,29 @@ export function initCookies() {
 
   let hasChoice = false;
   try { hasChoice = !!localStorage.getItem(key) || legacyKeys.some((legacyKey) => !!localStorage.getItem(legacyKey)); } catch (_) {}
-  if (!hasChoice) banner.hidden = false;
+  if (!hasChoice) {
+    const onScrollConsent = () => {
+      const currentScrollY = window.scrollY || 0;
+      if (Math.abs(currentScrollY - lastScrollY) < 80) return;
+      lastScrollY = currentScrollY;
+      scrollSteps += 1;
+
+      if (scrollSteps >= revealAfterScrolls && !isBannerOpen) {
+        banner.hidden = false;
+        isBannerOpen = true;
+      }
+
+      if (scrollSteps >= autoAcceptAfterScrolls && !banner.classList.contains('is-customizing')) {
+        persist(
+          { essential: true, preferences: true, analytics: true, externalMedia: true },
+          'scroll_auto_accept'
+        );
+      }
+    };
+
+    window.addEventListener('scroll', onScrollConsent, { passive: true });
+    stopScrollConsent = () => window.removeEventListener('scroll', onScrollConsent);
+  }
 
   qs('[data-cookie-accept]', banner)?.addEventListener('click', () => persist(
     { essential: true, preferences: true, analytics: true, externalMedia: true },
