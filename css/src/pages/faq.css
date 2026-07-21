@@ -1,26 +1,189 @@
 @layer pages {
   .sf-page[data-page="faq"] .sf-faq-search {
-    position: relative;
-    z-index: 3;
+    position: sticky;
+    inset-block-start: calc(var(--header-offset, 5rem) + .75rem);
+    z-index: 8;
     display: grid;
     gap: .45rem;
     margin-block: clamp(-2.5rem, -3vw, -1.5rem) 2rem;
-    border: 1px solid var(--color-border-warm);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--ivory-50) 94%, transparent);
-    padding: clamp(1rem, 2.5vw, 1.5rem);
-    box-shadow: var(--shadow-raised);
-    backdrop-filter: blur(.8rem);
+    border: 1px solid color-mix(in srgb, var(--gold-300) 62%, transparent);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--ivory-50) 92%, transparent);
+    padding: clamp(1rem, 2.5vw, 1.35rem);
+    box-shadow: 0 1rem 2.5rem rgb(36 49 41 / .12);
+    backdrop-filter: blur(.9rem) saturate(1.08);
   }
 
-  .sf-page[data-page="faq"] .sf-section[data-pattern="accordion"] { padding-block: clamp(2.75rem, 5vw, 5rem); }
-  .sf-page[data-page="faq"] #choosing-treatment .sf-accordion-item { border-radius: var(--radius-lg) var(--radius-sm) var(--radius-sm); }
-  .sf-page[data-page="faq"] #skin-and-routines .sf-section-head { max-inline-size: 22rem; }
-  .sf-page[data-page="faq"] #laser-fundamentals .sf-accordion-item[open] { border-color: var(--color-border-rose); }
-  .sf-page[data-page="faq"] #peels-and-co-resurfacing .sf-accordion { border-inline-start: 1px solid var(--color-border-warm); padding-inline-start: clamp(1rem, 2vw, 2rem); }
-  .sf-page[data-page="faq"] #appointments-and-practical-questions > .sf-section-inner { border-radius: var(--radius-xl) var(--radius-md) var(--radius-xl) var(--radius-xl); }
+  .sf-page[data-page="faq"] .sf-faq-intro {
+    padding-block: clamp(3rem, 7vw, 6rem);
+    background: linear-gradient(135deg, var(--ivory-50), color-mix(in srgb, var(--sage-100) 48%, var(--ivory-50)));
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-intro > .sf-section-inner {
+    display: grid;
+    grid-template-columns: minmax(14rem, .78fr) minmax(0, 1.22fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-intro h2 {
+    max-inline-size: 12ch;
+    margin: .45rem 0 0;
+    font-family: var(--font-heading);
+    font-size: clamp(2.35rem, 5vw, 5rem);
+    font-weight: 400;
+    line-height: .96;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-intro p:last-child {
+    max-inline-size: 62ch;
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: clamp(1.02rem, 1.4vw, 1.22rem);
+    line-height: 1.8;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-chapter {
+    padding-block: clamp(3.5rem, 8vw, 7rem);
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-chapter:nth-of-type(odd) {
+    background: color-mix(in srgb, var(--white) 72%, var(--ivory-100));
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-chapter:nth-of-type(even) {
+    background: color-mix(in srgb, var(--sage-100) 36%, var(--ivory-50));
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-chapter > .sf-section-inner {
+    display: grid;
+    grid-template-columns: minmax(15rem, .52fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-chapter .sf-section-head {
+    position: sticky;
+    inset-block-start: 8.5rem;
+    max-inline-size: 28rem;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-chapter .sf-section-head h2 {
+    margin-block: .55rem .85rem;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.5vw, 4rem);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-chapter .sf-section-head p:last-child {
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-list {
+    display: grid;
+    gap: .85rem;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-card {
+    border: 1px solid color-mix(in srgb, var(--olive-700) 14%, var(--color-border-subtle));
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--white) 82%, transparent);
+    box-shadow: 0 .7rem 1.6rem rgb(36 49 41 / .055);
+    overflow: clip;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-card[open] {
+    border-color: color-mix(in srgb, var(--gold-500) 58%, var(--color-border-warm));
+    background: var(--ivory-50);
+    box-shadow: 0 1.15rem 2.6rem rgb(36 49 41 / .11);
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-card summary {
+    min-block-size: 4.85rem;
+    display: grid;
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(.85rem, 2vw, 1.25rem);
+    cursor: pointer;
+    list-style: none;
+    padding: clamp(1rem, 2.25vw, 1.35rem);
+    color: var(--forest-900);
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-card summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-card summary::after {
+    content: "+";
+    grid-column: 2;
+    justify-self: end;
+    inline-size: 1.9rem;
+    block-size: 1.9rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--sage-100) 80%, var(--white));
+    color: var(--olive-800);
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: rotate var(--duration-fast), background var(--duration-fast);
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-card[open] summary::after {
+    rotate: 45deg;
+    background: color-mix(in srgb, var(--gold-200) 86%, var(--white));
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-number {
+    align-self: start;
+    color: var(--gold-700);
+    font-family: var(--font-heading);
+    font-size: .92rem;
+    font-weight: 400;
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-answer {
+    border-block-start: 1px solid var(--color-border-subtle);
+    padding: 0 clamp(1rem, 2.25vw, 1.35rem) clamp(1.15rem, 2.5vw, 1.6rem) calc(clamp(1rem, 2.25vw, 1.35rem) + 3.25rem);
+  }
+
+  .sf-page[data-page="faq"] .sf-faq-answer p {
+    max-inline-size: 66ch;
+    margin: 1rem 0 0;
+    color: var(--color-text-secondary);
+    line-height: 1.72;
+  }
 
   @media (max-width: 63.999rem) {
-    .sf-page[data-page="faq"] #peels-and-co-resurfacing .sf-accordion { border-inline-start: 0; padding-inline-start: 0; }
+    .sf-page[data-page="faq"] .sf-faq-search {
+      position: relative;
+      inset-block-start: auto;
+    }
+
+    .sf-page[data-page="faq"] .sf-faq-intro > .sf-section-inner,
+    .sf-page[data-page="faq"] .sf-faq-chapter > .sf-section-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .sf-page[data-page="faq"] .sf-faq-chapter .sf-section-head {
+      position: static;
+      max-inline-size: 42rem;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .sf-page[data-page="faq"] .sf-faq-card summary {
+      grid-template-columns: 1.75rem minmax(0, 1fr);
+      gap: .7rem;
+    }
+
+    .sf-page[data-page="faq"] .sf-faq-answer {
+      padding-inline: calc(1rem + 2.45rem) 1rem;
+    }
   }
 }

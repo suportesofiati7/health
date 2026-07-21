@@ -7,6 +7,16 @@
     );
 }
 
+.sf-consent-hero-meta {
+  max-inline-size: 34rem !important;
+  color: var(--forest-800);
+  font-size: clamp(.68rem, .62rem + .18vw, .82rem) !important;
+  font-weight: 780;
+  letter-spacing: .12em;
+  line-height: 1.55;
+  text-transform: uppercase;
+}
+
 .sf-consent-hero {
   display: grid;
   gap: clamp(.65rem, 2vw, 1.15rem);
@@ -517,7 +527,7 @@
 .sf-policy-document {
   inline-size: min(100%, calc(100vw - (var(--page-gutter) * 2)));
   max-inline-size: 118rem;
-  margin: clamp(4.25rem, 11vw, 7rem) auto clamp(5rem, 10vw, 8rem);
+  margin: clamp(1.5rem, 4vw, 3.5rem) auto clamp(5rem, 10vw, 8rem);
   border: 1px solid color-mix(in srgb, var(--color-border-warm) 86%, transparent);
   border-block-start: .75rem solid var(--forest-700);
   border-radius: .55rem;
@@ -554,7 +564,7 @@
   gap: .85rem;
 }
 
-.sf-policy-document__brand h1 {
+.sf-policy-document__brand :is(h1, h2) {
   max-inline-size: 20ch;
   margin: 0;
   color: var(--forest-900);
