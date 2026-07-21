@@ -1,40 +1,40 @@
 @layer tokens {
   :root {
     /* Luminous botanical primitives */
-    --ivory-50: #fffdf9;
-    --ivory-100: #fbf6ee;
+    --ivory-50: #fffdf8;
+    --ivory-100: #faf4eb;
     --white: #ffffff;
 
-    --sage-50: #f4f6ef;
-    --sage-100: #e9eee1;
-    --sage-200: #dbe4d1;
-    --olive-400: #8f997d;
-    --olive-600: #5d6954;
+    --sage-50: #f3f5ee;
+    --sage-100: #e7eddf;
+    --sage-200: #d8e1ce;
+    --olive-400: #879176;
+    --olive-600: #596750;
     /* The menu is the colour reference for every viewport-wide green surface.
        Bands and the footer use the translucent derivative so the shared page
        panorama can remain faintly visible beneath the same green. */
-    --menu-green: #485440;
+    --menu-green: #44513d;
     --menu-green-overlay: color-mix(in srgb, var(--menu-green) 92%, transparent);
     --olive-700: var(--menu-green);
-    --forest-700: #3d4a3d;
-    --forest-800: #303d33;
-    --forest-900: #243129;
+    --forest-700: #384838;
+    --forest-800: #2d3a31;
+    --forest-900: #202f27;
 
-    --blush-50: #fff6f2;
-    --blush-100: #f8e8e2;
-    --blush-200: #efd2ca;
-    --pink-gold-300: #dca69a;
-    --rose-gold-500: #bd796b;
-    --rose-gold-600: #a9675b;
-    --rose-gold-700: #8f574d;
+    --blush-50: #fff5f1;
+    --blush-100: #f7e4de;
+    --blush-200: #eccdc4;
+    --pink-gold-300: #d59b8f;
+    --rose-gold-500: #b87265;
+    --rose-gold-600: #9d5f54;
+    --rose-gold-700: #824b43;
 
-    --champagne-100: #f4e8d2;
-    --gold-200: #ead5ad;
-    --gold-300: #d5b57e;
-    --gold-500: #b48950;
-    --gold-700: #896738;
+    --champagne-100: #f2e4cc;
+    --gold-200: #e5cea2;
+    --gold-300: #ceb074;
+    --gold-500: #a97f46;
+    --gold-700: #76552c;
 
-    --ink-700: #596159;
+    --ink-700: #4f5a52;
 
     /* Compatibility aliases retained for authored components */
     --rose-100: var(--blush-100);
@@ -53,13 +53,13 @@
     --color-bg-inverse: var(--olive-700);
     --color-text-primary: var(--forest-900);
     --color-text-secondary: var(--ink-700);
-    --color-text-muted: var(--olive-700);
+    --color-text-muted: var(--olive-600);
     --color-text-inverse: var(--ivory-50);
     --color-action-primary: var(--olive-700);
     --color-action-accent: var(--rose-gold-700);
-    --color-border-subtle: color-mix(in srgb, var(--olive-700) 20%, transparent);
-    --color-border-warm: color-mix(in srgb, var(--gold-500) 42%, transparent);
-    --color-border-rose: color-mix(in srgb, var(--rose-gold-600) 36%, transparent);
+    --color-border-subtle: color-mix(in srgb, var(--olive-700) 24%, transparent);
+    --color-border-warm: color-mix(in srgb, var(--gold-500) 48%, transparent);
+    --color-border-rose: color-mix(in srgb, var(--rose-gold-600) 42%, transparent);
     --color-focus: var(--gold-700);
     --color-error: #913c38;
     --color-success: #356244;
@@ -156,5 +156,57 @@
     --z-menu: 300;
     --z-cookie: 250;
     --z-floating: 180;
+  }
+
+  @supports not (color: color-mix(in srgb, #000 50%, transparent)) {
+    :root {
+      --menu-green-overlay: rgb(68 81 61 / .92);
+      --color-border-subtle: rgb(68 81 61 / .24);
+      --color-border-warm: rgb(169 127 70 / .48);
+      --color-border-rose: rgb(157 95 84 / .42);
+      --shadow-soft: 0 1.25rem 3.75rem rgb(68 81 61 / .10);
+      --shadow-raised: 0 1.8rem 5rem rgb(32 47 39 / .15);
+      --shadow-glow: 0 1.4rem 4rem rgb(184 114 101 / .17);
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    :root {
+      --color-bg-page: #fffdfa;
+      --color-bg-surface: #ffffff;
+      --color-bg-soft: #faf1e5;
+      --color-text-primary: #17261f;
+      --color-text-secondary: #34423a;
+      --color-text-muted: #384838;
+      --color-action-primary: #263d2f;
+      --color-action-accent: #744037;
+      --color-border-subtle: rgb(38 61 47 / .38);
+      --color-border-warm: rgb(118 85 44 / .58);
+      --color-border-rose: rgb(130 75 67 / .52);
+      --color-focus: #5f421f;
+    }
+  }
+
+  @media (forced-colors: active) {
+    :root {
+      --color-bg-page: Canvas;
+      --color-bg-surface: Canvas;
+      --color-bg-soft: Canvas;
+      --color-bg-sage: Canvas;
+      --color-bg-rose: Canvas;
+      --color-bg-olive: CanvasText;
+      --color-bg-inverse: CanvasText;
+      --color-text-primary: CanvasText;
+      --color-text-secondary: CanvasText;
+      --color-text-muted: CanvasText;
+      --color-text-inverse: Canvas;
+      --color-action-primary: LinkText;
+      --color-action-accent: LinkText;
+      --color-border-subtle: GrayText;
+      --color-border-warm: GrayText;
+      --color-border-rose: GrayText;
+      --color-focus: Highlight;
+      --focus-ring: 0 0 0 .2rem Highlight;
+    }
   }
 }
