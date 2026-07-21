@@ -2,12 +2,14 @@ import { qs, qsa } from '../core/dom.js';
 import { currentPage } from '../core/page.js';
 
 const FORM_ENDPOINTS = Object.freeze({
-  consultation: 'https://formspree.io/f/xvzeqgba',
-  contact: 'https://formspree.io/f/xvzjdyql',
-  quick_contact: 'https://formspree.io/f/xvzjdyql',
-  quick_question: 'https://formspree.io/f/xvzjdyql',
-  newsletter: 'https://formspree.io/f/xnjeznbg',
-  newsletter_signup: 'https://formspree.io/f/xnjeznbg'
+  consultation: 'https://formspree.io/f/xzdldkjy',
+  contact: 'https://formspree.io/f/xzdldkjy',
+  quick_contact: 'https://formspree.io/f/xzdldkjy',
+  quick_question: 'https://formspree.io/f/xzdldkjy',
+  newsletter: 'https://formspree.io/f/xzdldkjy',
+  newsletter_signup: 'https://formspree.io/f/xzdldkjy',
+  accessibility: 'https://formspree.io/f/xzdldkjy',
+  accessibility_feedback: 'https://formspree.io/f/xzdldkjy'
 });
 
 const CAMPAIGN_KEYS = Object.freeze([
@@ -27,6 +29,25 @@ const CAMPAIGN_KEYS = Object.freeze([
   'twclid',
   'li_fat_id'
 ]);
+
+const SESSION_STARTED_AT = Date.now();
+let interactionCount = 0;
+let lastCtaClicked = '';
+
+document.addEventListener('click', (event) => {
+  interactionCount += 1;
+  const cta = event.target.closest?.('[data-track="cta"], [data-cta-purpose], a.sf-button, button.sf-button');
+  if (!cta) return;
+  lastCtaClicked = [
+    cta.dataset.ctaPurpose,
+    cta.dataset.ctaLocation || cta.dataset.linkLocation,
+    cta.textContent?.trim()
+  ].filter(Boolean).join(' | ').slice(0, 160);
+}, { capture: true, passive: true });
+
+document.addEventListener('input', () => {
+  interactionCount += 1;
+}, { capture: true, passive: true });
 
 function isPortuguese() {
   const language = (document.documentElement.lang || '').toLowerCase();
@@ -77,6 +98,131 @@ function returningVisitor() {
   } catch {
     return 'unknown';
   }
+}
+
+function firstVisitDate() {
+  try {
+    return stableStorageValue(window.localStorage, 'sofiati_first_visit', () => new Date().toISOString());
+  } catch {
+    return '';
+  }
+}
+
+function anonymousVisitorId() {
+  try {
+    return stableStorageValue(window.localStorage, 'sofiati_visitor_id', () => randomId('visitor'));
+  } catch {
+    return randomId('visitor');
+  }
+}
+
+function pageHistory() {
+  try {
+    const key = 'sofiati_session_pages';
+    const current = `${window.location.pathname}${window.location.search}`;
+    const existing = JSON.parse(window.sessionStorage.getItem(key) || '[]').filter(Boolean);
+    if (existing[existing.length - 1] !== current) existing.push(current);
+    const capped = existing.slice(-12);
+    window.sessionStorage.setItem(key, JSON.stringify(capped));
+    return capped;
+  } catch {
+    return [`${window.location.pathname}${window.location.search}`];
+  }
+}
+
+function fieldValue(form, names) {
+  const candidates = Array.isArray(names) ? names : [names];
+  for (const name of candidates) {
+    const field = form.elements?.[name] || qs(`[name="${CSS.escape(name)}"]`, form);
+    if (!field) continue;
+    if (field instanceof RadioNodeList) {
+      const checked = Array.from(field).find((item) => item.checked);
+      if (checked?.value) return checked.value;
+      continue;
+    }
+    if (field.type === 'checkbox') return field.checked ? field.value || 'yes' : '';
+    if (field.value) return field.value;
+  }
+  return '';
+}
+
+function selectedText(form, names) {
+  const candidates = Array.isArray(names) ? names : [names];
+  for (const name of candidates) {
+    const field = form.elements?.[name] || qs(`[name="${CSS.escape(name)}"]`, form);
+    if (field?.tagName === 'SELECT') return field.selectedOptions?.[0]?.textContent?.trim() || field.value || '';
+  }
+  return '';
+}
+
+function pageCategory() {
+  return document.body?.dataset.page || document.body?.className?.match(/sf-family-([a-z-]+)/)?.[1] || currentPage();
+}
+
+function consentPreference(name) {
+  try {
+    const consent = window.SofiatiConsentMode?.get?.();
+    if (consent && Object.prototype.hasOwnProperty.call(consent, name)) return consent[name] ? 'granted' : 'denied';
+  } catch {
+    return 'unknown';
+  }
+  return 'unknown';
+}
+
+function referrerDomain() {
+  try {
+    return document.referrer ? new URL(document.referrer).hostname : '';
+  } catch {
+    return '';
+  }
+}
+
+function searchEngineSource(domain) {
+  if (!domain) return '';
+  if (/google\./i.test(domain)) return 'Google Search';
+  if (/bing\./i.test(domain)) return 'Bing';
+  if (/yahoo\./i.test(domain)) return 'Yahoo';
+  if (/duckduckgo\./i.test(domain)) return 'DuckDuckGo';
+  return '';
+}
+
+function socialSource(params, domain) {
+  const source = params.get('utm_source') || domain || '';
+  if (/instagram/i.test(source)) return 'Instagram';
+  if (/facebook|fbclid/i.test(source) || params.get('fbclid')) return 'Facebook';
+  if (/linkedin/i.test(source)) return 'LinkedIn';
+  if (/tiktok|ttclid/i.test(source) || params.get('ttclid')) return 'TikTok';
+  return '';
+}
+
+function originalSource(params, domain) {
+  if (params.get('utm_source')) return params.get('utm_source');
+  const search = searchEngineSource(domain);
+  if (search) return search;
+  const social = socialSource(params, domain);
+  if (social) return social;
+  return domain ? 'Referral' : 'Direct visit';
+}
+
+function viewedItems(selector, fallbackPageNames = []) {
+  const values = qsa(selector)
+    .map((node) => node.textContent?.trim())
+    .filter(Boolean)
+    .slice(0, 12);
+  return values.length ? values.join(' | ') : fallbackPageNames.join(' | ');
+}
+
+function scrollDepthPercentage() {
+  const doc = document.documentElement;
+  const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
+  return String(Math.min(100, Math.round((window.scrollY / maxScroll) * 100)));
+}
+
+function leadTemperature(form, serviceInterest, message) {
+  const text = `${serviceInterest} ${message}`.toLowerCase();
+  if (/agendar|consulta|consultation|appointment|whatsapp|telefone|phone|laser|acne|melasma|co2|ultraformer/.test(text)) return 'Warm';
+  if (formType(form).includes('consultation') || formName(form).includes('contact')) return 'Warm';
+  return 'Cold';
 }
 
 function parseBrowser(userAgent) {
@@ -139,36 +285,82 @@ function endpointFor(form) {
   return /^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i.test(endpoint) ? endpoint : '';
 }
 
-function populateMetadata(form) {
+function populateMetadata(form, context = {}) {
   const now = new Date();
   const params = new URLSearchParams(window.location.search);
   const browser = parseBrowser(navigator.userAgent || '');
   const os = parseOperatingSystem(navigator.userAgent || '');
+  const history = pageHistory();
+  const domain = referrerDomain();
+  const serviceInterest = selectedText(form, ['service_interest', 'interest', 'reason', 'treatment_interest', 'treatment'])
+    || fieldValue(form, ['service_interest', 'interest', 'reason', 'treatment_interest', 'treatment'])
+    || pageCategory();
+  const inquiryCategory = selectedText(form, ['category', 'reason', 'subject', 'service_interest'])
+    || fieldValue(form, ['category', 'reason', 'subject', 'service_interest'])
+    || formType(form);
+  const messageContent = fieldValue(form, ['message', 'notes', 'concern', 'question']);
+  const phone = fieldValue(form, ['phone', 'telephone', 'whatsapp', 'phone_or_whatsapp']);
+  const temperature = leadTemperature(form, serviceInterest, messageContent);
+  const elapsed = Math.max(0, Math.round((Date.now() - (performance.timeOrigin || SESSION_STARTED_AT)) / 1000));
+  const sessionDuration = Math.max(0, Math.round((Date.now() - SESSION_STARTED_AT) / 1000));
+  const navigation = performance.getEntriesByType?.('navigation')?.[0];
+  const loadSpeed = navigation ? Math.round(navigation.loadEventEnd || navigation.domComplete || 0) : '';
   const offsetMinutes = -now.getTimezoneOffset();
   const offsetSign = offsetMinutes >= 0 ? '+' : '-';
   const offsetHours = String(Math.floor(Math.abs(offsetMinutes) / 60)).padStart(2, '0');
   const offsetRemainder = String(Math.abs(offsetMinutes) % 60).padStart(2, '0');
+  const submissionId = randomId('submission');
   const metadata = {
+    lead_name: fieldValue(form, ['name', 'full_name', 'full-name']),
+    lead_email: fieldValue(form, ['email', 'email_address']),
+    lead_phone: phone,
+    phone_number: phone,
+    country: '',
+    region: '',
+    city: '',
+    city_location: '',
+    location_available: 'no',
+    language_preference: document.documentElement.lang || '',
+    service_interest: serviceInterest,
+    inquiry_category: inquiryCategory,
+    message_content: messageContent,
     website_domain: window.location.hostname,
     current_page_url: window.location.href,
+    page_path: window.location.pathname,
     current_page_filename: window.location.pathname.split('/').pop() || 'index.html',
+    page_filename: window.location.pathname.split('/').pop() || 'index.html',
     current_page_title: document.title,
+    page_title: document.title,
+    page_category: pageCategory(),
     current_section: form.closest('section')?.id || form.closest('section')?.dataset.sectionName || '',
     language_selected: document.documentElement.lang || '',
+    language_version_visited: document.documentElement.lang || '',
     website_language: document.documentElement.dataset.defaultLang || document.documentElement.lang || '',
     browser_language: navigator.language || '',
     browser_locale: navigator.languages?.join(', ') || navigator.language || '',
+    language: document.documentElement.lang || navigator.language || '',
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
     utc_offset: `${offsetSign}${offsetHours}:${offsetRemainder}`,
     referrer: document.referrer,
+    referrer_url: document.referrer,
+    referrer_domain: domain,
+    search_engine_source: searchEngineSource(domain),
     original_landing_page: initialLandingPage(),
+    previous_pages_visited: history.slice(0, -1).join(' | '),
+    pages_viewed_before_submission: String(Math.max(0, history.length - 1)),
+    last_page_before_submission: history.length > 1 ? history[history.length - 2] : '',
     current_page_path: window.location.pathname,
     canonical_url: canonicalUrl(),
+    lead_source: originalSource(params, domain),
+    original_source: originalSource(params, domain),
     marketing_source: params.get('utm_source') || '',
     medium: params.get('utm_medium') || '',
     campaign: params.get('utm_campaign') || '',
+    campaign_name: params.get('utm_campaign') || '',
     content: params.get('utm_content') || '',
     term: params.get('utm_term') || '',
+    advertisement_id: params.get('gclid') || params.get('fbclid') || params.get('msclkid') || params.get('ttclid') || '',
+    social_media_source: socialSource(params, domain),
     screen_resolution: `${window.screen?.width || ''}x${window.screen?.height || ''}`,
     viewport_size: `${document.documentElement.clientWidth || ''}x${document.documentElement.clientHeight || ''}`,
     window_size: `${window.innerWidth || ''}x${window.innerHeight || ''}`,
@@ -177,8 +369,11 @@ function populateMetadata(form) {
     operating_system_version: os.version,
     browser: browser.name,
     browser_version: browser.version,
+    connection_type: navigator.connection?.effectiveType || '',
+    breakpoint_used: window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1180 ? 'tablet' : 'desktop',
     rendering_engine: browser.name === 'Firefox' ? 'Gecko' : browser.name === 'Safari' ? 'WebKit' : browser.name === 'Unknown' ? '' : 'Blink',
     device_type: deviceType(),
+    desktop_mobile_tablet: deviceType(),
     touch_support: navigator.maxTouchPoints > 0 ? 'yes' : 'no',
     color_scheme_preference: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
     reduced_motion_preference: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduce' : 'no-preference',
@@ -191,12 +386,69 @@ function populateMetadata(form) {
     user_local_time: now.toString(),
     form_name: formName(form),
     form_type: formType(form),
+    form_location: form.closest('section')?.dataset.sectionName || form.closest('section')?.id || document.body?.dataset.page || '',
+    form_version: form.dataset.formVersion || '2026-07-21',
+    form_design_variant: form.dataset.designVariant || 'editorial-default',
+    submission_id: submissionId,
+    submission_timestamp: now.toISOString(),
+    submission_status: context.submissionStatus || 'attempted',
+    validation_status: context.validationStatus || 'passed',
+    error_count: context.errorCount ?? 0,
     site_version: window.SofiatiSite?.version || '',
     page_template: document.body?.dataset.page || currentPage(),
     current_navigation_language: isPortuguese() ? 'pt-BR' : 'en',
     session_identifier: sessionIdentifier(),
-    submission_identifier: randomId('submission'),
-    returning_visitor: returningVisitor()
+    session_id: sessionIdentifier(),
+    submission_identifier: submissionId,
+    returning_visitor: returningVisitor(),
+    first_visit_datetime: firstVisitDate(),
+    anonymous_visitor_id: anonymousVisitorId(),
+    time_spent_on_page_seconds: elapsed,
+    total_session_duration_seconds: sessionDuration,
+    scroll_depth_percentage: scrollDepthPercentage(),
+    cta_clicked_before_submitting: lastCtaClicked,
+    interactions_before_submission: interactionCount,
+    downloaded_resources: '',
+    articles_viewed: viewedItems('.sf-journal-card h3, article h2, article h3', pageCategory() === 'journal' ? [document.title] : []),
+    treatments_services_viewed: viewedItems('[data-treatment-filterable] h2, .sf-content-card h3', /treat|tratamento|laser|skin|pele|care|cuidados/.test(pageCategory()) ? [document.title] : []),
+    cookie_consent_status: consentPreference('analytics'),
+    marketing_consent_status: 'not_requested',
+    consent_timestamp: fieldValue(form, 'consent_timestamp'),
+    privacy_policy_version_accepted: fieldValue(form, 'privacy_notice_version') || '2026-07',
+    terms_acceptance: fieldValue(form, ['terms_acceptance', 'consultation_acknowledgement']),
+    data_processing_consent: fieldValue(form, ['privacy_acknowledgement']),
+    communication_preferences: fieldValue(form, ['communication_preferences', 'preferred_contact']),
+    lead_score: temperature === 'Warm' ? '60' : '30',
+    lead_temperature: temperature,
+    priority_level: temperature === 'Warm' ? 'normal' : 'low',
+    customer_stage: 'New lead',
+    assigned_team_member: 'Franciele Sofiati',
+    follow_up_date: '',
+    crm_id: '',
+    notes: '',
+    tags: [formType(form), serviceInterest, document.documentElement.lang || ''].filter(Boolean).join(', '),
+    ai_summary_of_inquiry: 'not_generated',
+    detected_intent: serviceInterest || inquiryCategory || 'not_generated',
+    service_category: serviceInterest || pageCategory(),
+    urgency_level: /dor|pain|urgente|urgent|hoje|today/.test(messageContent.toLowerCase()) ? 'Medium' : 'Low',
+    sentiment_analysis: 'not_generated',
+    language_detection: document.documentElement.lang || '',
+    suggested_reply_type: formType(form).includes('newsletter') ? 'newsletter_confirmation' : 'invite_consultation',
+    recommended_next_action: formType(form).includes('newsletter') ? 'confirm_subscription' : 'review_and_reply',
+    lead_quality_score: temperature === 'Warm' ? 'Medium' : 'Low',
+    page_load_speed_ms: loadSpeed,
+    core_web_vitals: 'not_measured_on_submission',
+    failed_resources: window.SofiatiFailedResources?.join?.(' | ') || '',
+    form_loading_time_ms: '',
+    javascript_errors: window.SofiatiJavaScriptErrors?.join?.(' | ') || '',
+    browser_compatibility_issues: '',
+    spam_score: 'not_assessed',
+    bot_detection_result: 'honeypot_passed',
+    captcha_result: 'not_used',
+    ip_risk_score: 'not_assessed',
+    submission_frequency: 'not_assessed',
+    duplicate_submission_detection: 'not_assessed',
+    suspicious_activity_flags: ''
   };
   CAMPAIGN_KEYS.forEach((key) => {
     metadata[key] = params.get(key) || '';
@@ -392,7 +644,11 @@ export function initForms() {
       emitLifecycle('submit');
       setSubmitting(true);
       setState('loading', copy.loading);
-      const redirectUrl = populateMetadata(form);
+      const redirectUrl = populateMetadata(form, {
+        submissionStatus: 'attempted',
+        validationStatus: 'passed',
+        errorCount: 0
+      });
       const payload = new FormData(form);
       if (!payload.get('_subject')) {
         payload.set('_subject', isConsultation ? 'Sofiati consultation request' : 'Sofiati website contact');
