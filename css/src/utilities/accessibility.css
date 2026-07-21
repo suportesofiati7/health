@@ -32,7 +32,7 @@
 
   /* Homepage corrections: chapter 02 takes the dark full-width treatment;
      chapter 06 becomes a complete, large editorial profile spread. */
-  .sf-page[data-page="home"] #consultation-journey { background: linear-gradient(120deg, rgb(17 30 13 / .98), rgb(36 49 41 / .95) 58%, rgb(58 75 50 / .92)), url("../assets/shared/backgrounds/inicio-botanico-fundo.webp") center / cover !important; color: var(--ivory-50); }
+  .sf-page[data-page="home"] #consultation-journey { background: linear-gradient(120deg, rgb(17 30 13 / .98), rgb(36 49 41 / .95) 58%, rgb(58 75 50 / .92)), url("../assets/shared/backgrounds/estetica-avancada-composicao-minimal-rejuvenescimento-facial-naturalidade-textura-editorial-gleba-palhano.webp") center / cover !important; color: var(--ivory-50); }
   .sf-page[data-page="home"] #consultation-journey .sf-section-head :is(h2, .sf-eyebrow), .sf-page[data-page="home"] #consultation-journey .sf-step h3 { color: var(--ivory-50); }
   .sf-page[data-page="home"] #consultation-journey .sf-chapter-number, .sf-page[data-page="home"] #consultation-journey .sf-step-number { color: var(--gold-200); }
   .sf-page[data-page="home"] #consultation-journey .sf-process-list { border-color: rgb(234 213 173 / .42); }

@@ -87,7 +87,7 @@
     aspect-ratio: 1;
     border: 1px solid color-mix(in srgb, var(--gold-200) 55%, transparent);
     border-radius: 50%;
-    background: color-mix(in srgb, var(--olive-700) 52%, transparent) url("../assets/shared/brand/sofiati-marca-monograma-light-transparente.webp") center / 62% no-repeat;
+    background: color-mix(in srgb, var(--olive-700) 52%, transparent) url("../assets/shared/brand/monograma-franciele-sofiati-resultado-discreto-estetica-avancada-gleba-palhano.webp") center / 62% no-repeat;
     box-shadow: 0 .9rem 2.5rem color-mix(in srgb, var(--olive-700) 20%, transparent);
     backdrop-filter: blur(.4rem);
   }
@@ -119,7 +119,7 @@
     inline-size: clamp(7rem, 13vw, 11rem);
     aspect-ratio: 1;
     border: 0;
-    background: url("../assets/shared/interface-icons/icone-s07-flor-stem.png") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/formularios-navegacao-blog-simbolo-digital-sofiati-gleba-palhano-02.png") center / contain no-repeat;
     opacity: .42;
     pointer-events: none;
   }

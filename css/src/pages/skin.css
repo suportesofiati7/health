@@ -27,7 +27,7 @@
   .sf-page[data-page="skin"] #the-skin-barrier .sf-lede,
   .sf-page[data-page="skin"] #the-skin-barrier .sf-practitioner-quote { grid-column: 1; }
   .sf-page[data-page="skin"] #the-skin-barrier .sf-lede { color: var(--gold-200); font-family: var(--font-heading); font-size: clamp(1.45rem, 2vw, 2rem); line-height: 1.35; }
-  .sf-page[data-page="skin"] #the-skin-barrier .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border: 1px solid rgb(234 213 173 / .3); border-radius: 5rem 5rem .35rem .35rem; background: url("../assets/journal/articles/pele-barreira-hidratante-cuidado.webp") center / cover no-repeat; }
+  .sf-page[data-page="skin"] #the-skin-barrier .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border: 1px solid rgb(234 213 173 / .3); border-radius: 5rem 5rem .35rem .35rem; background: url("../assets/journal/articles/barreira-hidratante-peeling-quimico-autocuidado-artigo-estetica-avancada-gleba-palhano.webp") center / cover no-repeat; }
   .sf-page[data-page="skin"] #the-skin-barrier .sf-content-card-grid { grid-column: 2; grid-row: 1 / span 4; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid rgb(234 213 173 / .4); }
   .sf-page[data-page="skin"] #the-skin-barrier .sf-content-card { border: 0; border-radius: 0; background: transparent; color: var(--forest-900); padding: clamp(1.4rem, 2.5vw, 2.2rem); }
   .sf-page[data-page="skin"] #the-skin-barrier .sf-content-card + .sf-content-card { border-inline-start: 1px solid rgb(234 213 173 / .25); }
@@ -56,7 +56,7 @@
   /* 04 · diagnostic atlas with close-up imagery and a ruled concern index */
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-section-inner { display: grid; grid-template-columns: minmax(16rem, .58fr) minmax(0, 1.42fr); column-gap: clamp(3rem, 7vw, 8rem); align-items: start; }
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-section-head { grid-column: 1; }
-  .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-section-head::after { content: ""; display: block; min-block-size: 16rem; margin-block-start: 2rem; border-radius: .5rem 7rem .5rem .5rem; background: linear-gradient(rgb(36 49 41 / .05), rgb(36 49 41 / .05)), url("../assets/journal/articles/profissional-pele-cuidado-consulta.webp") center / cover no-repeat; box-shadow: var(--shadow-soft); }
+  .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-section-head::after { content: ""; display: block; min-block-size: 16rem; margin-block-start: 2rem; border-radius: .5rem 7rem .5rem .5rem; background: linear-gradient(rgb(36 49 41 / .05), rgb(36 49 41 / .05)), url("../assets/journal/articles/profissional-cuidado-peeling-quimico-acolhimento-clinico-artigo-estetica-avancada-londrina-centro.webp") center / cover no-repeat; box-shadow: var(--shadow-soft); }
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-content-card-grid { grid-column: 2; grid-row: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--color-border-warm); counter-reset: skin-atlas; }
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-content-card { position: relative; min-block-size: 9.25rem; border: 0; border-radius: 0; background: transparent; padding: 1.2rem 1.25rem 1.2rem 3.7rem; counter-increment: skin-atlas; }
   .sf-page[data-page="skin"] #your-skin-concern-atlas .sf-content-card::before { content: "0" counter(skin-atlas); position: absolute; inset: 1.15rem auto auto 1rem; color: var(--rose-gold-700); font-family: var(--font-heading); font-style: italic; }
@@ -81,7 +81,7 @@
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-head,
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-inner > p,
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-practitioner-quote { grid-column: 1; }
-  .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border: 1px solid rgb(234 213 173 / .28); border-radius: 5rem 5rem .35rem .35rem; background: url("../assets/journal/articles/facial-pigmentacao-and-sardas.webp") center / cover no-repeat; }
+  .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border: 1px solid rgb(234 213 173 / .28); border-radius: 5rem 5rem .35rem .35rem; background: url("../assets/journal/articles/facial-pigmentacao-bioestimulador-colageno-consulta-presencial-artigo-estetica-avancada-gleba-palhano.webp") center / cover no-repeat; }
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-section-inner > p { color: rgb(255 253 249 / .72); }
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-content-card-grid { grid-column: 2; grid-row: 1 / span 4; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid rgb(234 213 173 / .38); counter-reset: skin-pigment; }
   .sf-page[data-page="skin"] #pigment-sun-and-memory .sf-content-card { position: relative; min-block-size: 8.5rem; border: 0; border-radius: 0; background: transparent; color: var(--ivory-50); padding: 1.15rem 1.2rem 1.15rem 3.6rem; counter-increment: skin-pigment; }
@@ -98,7 +98,7 @@
   .sf-page[data-page="skin"] #acne-without-punishment .sf-section-head,
   .sf-page[data-page="skin"] #acne-without-punishment .sf-section-inner > p,
   .sf-page[data-page="skin"] #acne-without-punishment .sf-practitioner-quote { grid-column: 1; }
-  .sf-page[data-page="skin"] #acne-without-punishment .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border-radius: .5rem 5rem .5rem .5rem; background: url("../assets/journal/articles/acne-cicatrizes-and-natural-pele-texture.webp") center / cover no-repeat; }
+  .sf-page[data-page="skin"] #acne-without-punishment .sf-section-head::after { content: ""; display: block; min-block-size: 12rem; margin-block-start: 2rem; border-radius: .5rem 5rem .5rem .5rem; background: url("../assets/journal/articles/acne-cicatrizes-bioestimulador-colageno-resultado-discreto-artigo-estetica-avancada-gleba-palhano.webp") center / cover no-repeat; }
   .sf-page[data-page="skin"] #acne-without-punishment .sf-section-inner > p { color: var(--color-text-secondary); }
   .sf-page[data-page="skin"] #acne-without-punishment .sf-content-card-grid { grid-column: 2; grid-row: 1 / span 4; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--color-border-warm); }
   .sf-page[data-page="skin"] #acne-without-punishment .sf-content-card { border: 0; border-radius: 0; background: color-mix(in srgb, var(--sage-100) 36%, transparent); padding: clamp(1.5rem, 3vw, 2.5rem); }
@@ -110,7 +110,7 @@
   /* 08 · professional care taxonomy with an image-led introduction */
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-statement-inner { display: grid; grid-template-columns: minmax(15rem, .52fr) minmax(0, 1.48fr); column-gap: clamp(3rem, 7vw, 8rem); align-items: start; max-inline-size: none; }
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-section-head { grid-column: 1; }
-  .sf-page[data-page="skin"] #professional-skin-treatments .sf-section-head::after { content: ""; display: block; min-block-size: 15rem; margin-block-start: 2rem; border-radius: 7rem 7rem .5rem .5rem; background: url("../assets/journal/articles/calming-cuidado-for-reativa-pele.webp") center / cover no-repeat; box-shadow: var(--shadow-soft); }
+  .sf-page[data-page="skin"] #professional-skin-treatments .sf-section-head::after { content: ""; display: block; min-block-size: 15rem; margin-block-start: 2rem; border-radius: 7rem 7rem .5rem .5rem; background: url("../assets/journal/articles/calming-cuidado-peeling-quimico-protocolo-avancado-artigo-estetica-avancada-gleba-palhano.webp") center / cover no-repeat; box-shadow: var(--shadow-soft); }
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-content-card-grid { grid-column: 2; grid-row: 1 / span 2; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--color-border-warm); }
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-content-card { min-block-size: 8rem; border: 0; border-radius: 0; background: transparent; padding: 1.2rem 1.35rem; }
   .sf-page[data-page="skin"] #professional-skin-treatments .sf-content-card:nth-child(even) { border-inline-start: 1px solid var(--color-border-subtle); }

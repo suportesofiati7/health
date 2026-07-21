@@ -42,7 +42,7 @@ def resolve(path: Path, value: str) -> Path:
     clean = value.split("#", 1)[0].split("?", 1)[0]
     if clean.startswith("/assets/"):
         return ROOT / clean.removeprefix("/")
-    if path.parent.name == "partials" and clean.startswith("assets/"):
+    if (path.parent.name == "partials" or path.parent == ROOT / "partials" / "pt-BR") and clean.startswith("assets/"):
         return ROOT / clean
     if path.parent == ROOT / "partials" / "pt-BR" and clean.startswith("../assets/"):
         return ROOT / clean.removeprefix("../")

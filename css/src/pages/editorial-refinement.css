@@ -198,7 +198,7 @@
   .sf-page[data-page="home"] #care-standard .sf-practitioner-quote, .sf-page[data-page="home"] #care-standard .sf-button-row { grid-column: 1; }
 
   /* A single transparent, high-resolution source is used for every hero mark. */
-  .sf-page[data-page] [data-pattern="hero"] .sf-hero-logo { content: url("../assets/shared/brand/hero-marks/principal-marca.webp") !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; object-fit: contain; }
+  .sf-page[data-page] [data-pattern="hero"] .sf-hero-logo { content: url("../assets/shared/brand/hero-marks/logotipo-franciele-sofiati-autocuidado-estetica-avancada-gleba-palhano.webp") !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; object-fit: contain; }
 
   /* Homepage 05 — planning in one complete, full-scale green composition. */
   .sf-page[data-page="home"] #care-standard { overflow: hidden; }

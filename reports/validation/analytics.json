@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "generatedAt": "2026-07-21T13:49:22.381893+00:00",
+  "generatedAt": "2026-07-21T14:16:24.525636+00:00",
   "pagesChecked": 48,
   "scriptsPresent": {
     "required": [
@@ -619,7 +619,7 @@
           "name": "stored_rejection_pages_remain_stable",
           "passed": true,
           "detail": {
-            "gtmRequests": 48
+            "gtmRequests": 49
           }
         }
       ],

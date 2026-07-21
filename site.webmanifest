@@ -18,13 +18,13 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "assets/shared/favicons/sofiati-icon-192.png",
+      "src": "assets/shared/favicons/logotipo-franciele-sofiati-avaliacao-estetica-estetica-avancada-londrina-centro.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/shared/favicons/sofiati-icon-512.png",
+      "src": "assets/shared/favicons/logotipo-franciele-sofiati-saude-da-pele-estetica-avancada-gleba-palhano.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"

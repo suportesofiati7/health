@@ -195,7 +195,7 @@
     z-index: 0;
     inline-size: 18rem;
     aspect-ratio: 1;
-    background: url("../assets/shared/interface-icons/icone-botanico-ramo.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/download-agenda-blog-simbolo-digital-sofiati-londrina-centro-03.svg") center / contain no-repeat;
     opacity: .08;
     pointer-events: none;
     rotate: -12deg;
@@ -294,7 +294,7 @@
     inset: 4rem auto auto -4rem;
     inline-size: min(30vw, 28rem);
     aspect-ratio: 1;
-    background: url("../assets/shared/interface-icons/icone-olive-ramo.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/fechar-seguranca-estetica-avancada-simbolo-digital-sofiati-gleba-palhano-13.svg") center / contain no-repeat;
     opacity: .09;
     pointer-events: none;
   }
@@ -320,7 +320,7 @@
     inset: auto -4rem -5rem auto;
     inline-size: min(27vw, 25rem);
     aspect-ratio: 1;
-    background: url("../assets/shared/interface-icons/icone-eucalipto-sprig.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/localizacao-agenda-estetica-avancada-simbolo-digital-sofiati-gleba-palhano-12.svg") center / contain no-repeat;
     opacity: .09;
     pointer-events: none;
   }
@@ -374,7 +374,7 @@
     color: var(--ivory-50);
     background:
       linear-gradient(102deg, rgb(25 42 32 / .97), rgb(62 77 57 / .94) 58%, rgb(123 111 80 / .86)),
-      url("../assets/shared/backgrounds/laser-fundo-centro.webp") center / cover no-repeat;
+      url("../assets/shared/backgrounds/pele-expressao-confiante-consulta-personalizada-saude-da-pele-textura-editorial-gleba-palhano-02.webp") center / cover no-repeat;
   }
 
   .sf-page[data-page="treatments"] #laser-services::before {
@@ -415,7 +415,7 @@
     inset: 8% 1% auto auto;
     inline-size: min(27vw, 24rem);
     aspect-ratio: 1;
-    background: url("../assets/shared/interface-icons/icone-feminino-perfil-folha.svg") center / contain no-repeat;
+    background: url("../assets/shared/interface-icons/mapa-download-estetica-avancada-simbolo-digital-sofiati-londrina-centro-13.svg") center / contain no-repeat;
     opacity: .055;
     pointer-events: none;
   }

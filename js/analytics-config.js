@@ -14,7 +14,7 @@
   window.dataLayer = window.dataLayer || [];
 
   const config = {
-    siteName: "Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist",
+    siteName: "Franciele Sofiati Biomedic | Esthetician | Cosmetologist",
     productionDomain: "www.francielesofiati.com",
     streamName: "FrancieleStream",
     streamId: "15290697519",

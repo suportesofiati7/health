@@ -176,7 +176,7 @@
     }
     #sf-header-inline.is-scrolled .sfi-header-shell { min-block-size: 5rem; background: var(--menu-green); }
     .sfi-header-shell::before { inset-inline: 1.5rem; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--rose-gold-500) 62%, transparent), transparent); }
-    .sfi-header-shell::after { content: ""; position: absolute; inset-block: .45rem; inset-inline: .6rem; z-index: 0; pointer-events: none; opacity: .1; background: url("../assets/shared/interface-icons/icone-botanico-corner.svg") left center / auto 64% no-repeat, url("../assets/shared/interface-icons/icone-botanico-corner.svg") right center / auto 64% no-repeat; }
+    .sfi-header-shell::after { content: ""; position: absolute; inset-block: .45rem; inset-inline: .6rem; z-index: 0; pointer-events: none; opacity: .1; background: url("../assets/shared/interface-icons/mapa-download-estetica-avancada-simbolo-digital-sofiati-londrina-centro-11.svg") left center / auto 64% no-repeat, url("../assets/shared/interface-icons/mapa-download-estetica-avancada-simbolo-digital-sofiati-londrina-centro-11.svg") right center / auto 64% no-repeat; }
     .sfi-brand { gap: clamp(.65rem, 1vw, .95rem); }
     .sfi-brand-mark { inline-size: clamp(3.35rem, 3.75vw, 4.25rem); block-size: clamp(3.35rem, 3.75vw, 4.25rem); border-color: color-mix(in srgb, var(--rose-gold-500) 72%, transparent); background: var(--forest-800); box-shadow: inset 0 0 0 .35rem color-mix(in srgb, var(--rose-gold-500) 7%, transparent), 0 .5rem 1rem rgb(0 0 0 / .16); }
     .sfi-brand-logo { inline-size: 70%; block-size: 70%; }

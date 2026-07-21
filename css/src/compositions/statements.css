@@ -280,25 +280,25 @@
   .sf-bottom-cta__inner[data-cta-concept] .sf-button--outline { background: var(--ivory-50); color: var(--forest-900); }
   .sf-bottom-cta__inner[data-cta-concept="01"],
   .sf-bottom-cta__inner[data-cta-concept="08"],
-  .sf-bottom-cta__inner[data-cta-concept="15"] { background-image: url('/assets/shared/call-to-action/mediterranean-orangery-olive-brass.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="15"] { background-image: url('/assets/shared/call-to-action/mediterraneo-laranjal-peeling-quimico-autocuidado-asset-estetica-gleba-palhano.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="02"],
   .sf-bottom-cta__inner[data-cta-concept="09"],
-  .sf-bottom-cta__inner[data-cta-concept="16"] { background-image: url('/assets/shared/call-to-action/celadon-lemon-grove-petals.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="16"] { background-image: url('/assets/shared/call-to-action/verde-celadon-vasinhos-faciais-contorno-facial-asset-estetica-gleba-palhano.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="03"],
   .sf-bottom-cta__inner[data-cta-concept="10"],
-  .sf-bottom-cta__inner[data-cta-concept="17"] { background-image: url('/assets/shared/call-to-action/fresh-salvia-porcelain.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="17"] { background-image: url('/assets/shared/call-to-action/fresco-salvia-vasinhos-faciais-planejamento-individual-asset-estetica-londrina-centro.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="04"],
   .sf-bottom-cta__inner[data-cta-concept="11"],
-  .sf-bottom-cta__inner[data-cta-concept="18"] { background-image: url('/assets/shared/call-to-action/illuminated-blush-metal.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="18"] { background-image: url('/assets/shared/call-to-action/iluminado-rosa-consulta-personalizada-tecnologia-segura-asset-estetica-gleba-palhano.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="05"],
   .sf-bottom-cta__inner[data-cta-concept="12"],
-  .sf-bottom-cta__inner[data-cta-concept="19"] { background-image: url('/assets/shared/call-to-action/salvia-tuscan-window.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="19"] { background-image: url('/assets/shared/call-to-action/salvia-toscano-rejuvenescimento-facial-avaliacao-estetica-asset-estetica-londrina-centro.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="06"],
   .sf-bottom-cta__inner[data-cta-concept="13"],
-  .sf-bottom-cta__inner[data-cta-concept="20"] { background-image: url('/assets/shared/call-to-action/marfim-arch-garden.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="20"] { background-image: url('/assets/shared/call-to-action/marfim-arch-bioestimulador-colageno-renovacao-cutanea-asset-estetica-londrina-centro.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="07"],
   .sf-bottom-cta__inner[data-cta-concept="14"],
-  .sf-bottom-cta__inner[data-cta-concept="21"] { background-image: url('/assets/shared/call-to-action/carrara-peony-frame.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
+  .sf-bottom-cta__inner[data-cta-concept="21"] { background-image: url('/assets/shared/call-to-action/carrara-peonia-rejuvenescimento-facial-biomedica-esteta-asset-estetica-gleba-palhano.png') !important; /* important: the authored concept must win the shared CTA fallback. */ }
   .sf-bottom-cta__inner[data-cta-concept="08"],.sf-bottom-cta__inner[data-cta-concept="16"],.sf-bottom-cta__inner[data-cta-concept="19"] { background-position: 72% center; }
   .sf-bottom-cta__inner[data-cta-concept="09"],.sf-bottom-cta__inner[data-cta-concept="12"],.sf-bottom-cta__inner[data-cta-concept="20"] { background-position: 28% center; }
   @media (max-width: 44rem) {

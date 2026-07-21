@@ -1408,7 +1408,7 @@
             "entity": "127.0.0.1"
           },
           {
-            "url": "http://127.0.0.1:40433/assets/quotations/skin-quote-01.png",
+            "url": "http://127.0.0.1:40433/assets/quotations/pele-bioestimulador-colageno-pele-saudavel-frase-franciele-sofiati-londrina-centro.png",
             "sessionTargetType": "page",
             "protocol": "http/1.1",
             "rendererStartTime": 75.152000002563,
@@ -3910,7 +3910,7 @@
             "totalBytes": 2706586
           },
           {
-            "url": "http://127.0.0.1:40433/assets/quotations/skin-quote-01.png",
+            "url": "http://127.0.0.1:40433/assets/quotations/pele-bioestimulador-colageno-pele-saudavel-frase-franciele-sofiati-londrina-centro.png",
             "totalBytes": 2519097
           },
           {
@@ -4235,10 +4235,10 @@
                 "width": 46,
                 "height": 46
               },
-              "snippet": "<img class=\"sf-quotation-avatar\" src=\"assets/quotations/skin-quote-01.png\" alt=\"\" width=\"52\" height=\"52\" loading=\"lazy\" decoding=\"async\">",
+              "snippet": "<img class=\"sf-quotation-avatar\" src=\"assets/quotations/pele-bioestimulador-colageno-pele-saudavel-frase-franciele-sofiati-londrina-centro.png\" alt=\"\" width=\"52\" height=\"52\" loading=\"lazy\" decoding=\"async\">",
               "nodeLabel": "section#the-skin-barrier > div.sf-section-inner > figure.sf-practitioner-quote > img.sf-quotation-avatar"
             },
-            "url": "http://127.0.0.1:40433/assets/quotations/skin-quote-01.png",
+            "url": "http://127.0.0.1:40433/assets/quotations/pele-bioestimulador-colageno-pele-saudavel-frase-franciele-sofiati-londrina-centro.png",
             "fromProtocol": false,
             "isCrossOrigin": false,
             "totalBytes": 2518860,
@@ -4434,10 +4434,10 @@
                 "width": 46,
                 "height": 46
               },
-              "snippet": "<img class=\"sf-quotation-avatar\" src=\"assets/quotations/skin-quote-01.png\" alt=\"\" width=\"52\" height=\"52\" loading=\"lazy\" decoding=\"async\">",
+              "snippet": "<img class=\"sf-quotation-avatar\" src=\"assets/quotations/pele-bioestimulador-colageno-pele-saudavel-frase-franciele-sofiati-londrina-centro.png\" alt=\"\" width=\"52\" height=\"52\" loading=\"lazy\" decoding=\"async\">",
               "nodeLabel": "section#the-skin-barrier > div.sf-section-inner > figure.sf-practitioner-quote > img.sf-quotation-avatar"
             },
-            "url": "http://127.0.0.1:40433/assets/quotations/skin-quote-01.png",
+            "url": "http://127.0.0.1:40433/assets/quotations/pele-bioestimulador-colageno-pele-saudavel-frase-franciele-sofiati-londrina-centro.png",
             "totalBytes": 2518860,
             "wastedBytes": 2516035,
             "wastedPercent": 99.8878607337112
@@ -5445,7 +5445,7 @@
         ],
         "items": [
           {
-            "url": "http://127.0.0.1:40433/assets/quotations/skin-quote-01.png",
+            "url": "http://127.0.0.1:40433/assets/quotations/pele-bioestimulador-colageno-pele-saudavel-frase-franciele-sofiati-londrina-centro.png",
             "totalBytes": 2518860,
             "wastedBytes": 2518500,
             "subItems": {
