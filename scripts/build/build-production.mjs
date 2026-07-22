@@ -495,7 +495,7 @@ async function copySupportFiles() {
     '/assets/favicons/*',
     '  Cache-Control: public, max-age=604800, stale-while-revalidate=86400',
     '',
-    '/assets/social/*',
+    '/assets/shared/social/*',
     '  Cache-Control: public, max-age=604800, stale-while-revalidate=86400',
     '',
     '/data/*',

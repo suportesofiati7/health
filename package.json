@@ -17,7 +17,7 @@
     "perf:visual": "node scripts/performance/visual-regression.mjs",
     "check:assets": "python3 scripts/check-local-assets.py",
     "check:pt": "python3 scripts/check-portuguese-site.py --strict-warnings",
-    "check:seo": "python3 scripts/check-seo-files.py && python3 scripts/check-seo-implementation.py",
+    "check:seo": "python3 scripts/check-seo-files.py && python3 scripts/check-seo-implementation.py && python3 scripts/check-social-previews.py",
     "check:analytics": "python3 scripts/check-analytics-implementation.py",
     "seo:refresh": "python3 scripts/weekly-seo-maintenance.py",
     "maintain:performance": "python3 scripts/weekly-performance-maintenance.py",
