@@ -85,6 +85,7 @@ function enhanceEyebrows(root) {
 
 function enhanceCards(root) {
   root.querySelectorAll('.sf-content-card, .sf-treatment-menu-card, .sf-consent-card').forEach((card) => {
+    if (card.matches('.sf-consent-card')) return;
     if (hasIcon(card)) return;
     const heading = card.querySelector('h2, h3, h4, dt, strong');
     if (!heading) return;

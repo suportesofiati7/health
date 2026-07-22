@@ -18,7 +18,7 @@
 }
 
 .sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-home-hero-title span + span {
-  color: var(--forest-800);
+  color: var(--rose-gold-500);
 }
 
 .sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-consent-hero-meta {

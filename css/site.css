@@ -363,7 +363,7 @@
   .sf-hero-copy h1 { font-size: var(--font-display); }
   .sf-home-hero-title { display: grid; gap: .28em; }
   .sf-home-hero-title span { display: block; }
-  .sf-home-hero-title span + span { font-family: var(--font-body); font-size: clamp(.9rem, 1.4vw, 1.22rem); font-style: normal; font-weight: 760; letter-spacing: .08em; line-height: 1.25; text-transform: uppercase; }
+  .sf-home-hero-title span + span { color: var(--rose-gold-500); font-family: var(--font-body); font-size: clamp(.9rem, 1.4vw, 1.22rem); font-style: normal; font-weight: 760; letter-spacing: .08em; line-height: 1.25; text-transform: uppercase; }
 
   :is(h1, h2, h3) em {
     color: var(--color-action-accent);
@@ -588,7 +588,7 @@
     justify-content: center;
     gap: .55rem 1.5rem;
     padding-block: .95rem;
-    color: var(--color-text-muted);
+    color: var(--rose-gold-500);
     font-size: .76rem;
     font-weight: 650;
     letter-spacing: .075em;
@@ -7615,7 +7615,7 @@
   block-size: 1.05rem;
   margin-block-start: .12rem;
   flex: 0 0 1.05rem;
-  color: var(--sffo-heading-rose);
+  color: var(--gold-200);
   opacity: .9;
 }
 
@@ -9640,7 +9640,7 @@
 }
 
 .sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-home-hero-title span + span {
-  color: var(--forest-800);
+  color: var(--rose-gold-500);
 }
 
 .sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-consent-hero-meta {
