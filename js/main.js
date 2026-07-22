@@ -8,6 +8,7 @@ import { initTreatmentDirectory } from './components/treatments.js';
 import { initFaqSearch } from './pages/faq.js';
 import { initBlogSearch } from './pages/blog.js';
 import { initFooter } from './components/footer.js';
+import { initIcons } from './components/icons.js';
 import { loadPartials } from './partials.js';
 
 let sitePromise = null;
@@ -27,6 +28,7 @@ export function initSite() {
     initFaqSearch();
     initBlogSearch();
     initTreatmentDirectory();
+    initIcons();
   });
   return sitePromise;
 }

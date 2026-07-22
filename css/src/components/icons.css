@@ -1,0 +1,200 @@
+@layer components {
+  .sf-icon {
+    --sf-icon-size: 1.15rem;
+    --sf-icon-color: var(--rose-gold-700);
+    inline-size: var(--sf-icon-size);
+    block-size: var(--sf-icon-size);
+    flex: 0 0 auto;
+    display: inline-grid;
+    place-items: center;
+    color: var(--sf-icon-color);
+  }
+
+  .sf-icon svg,
+  .sffo-icon svg,
+  .sfi-contact-icon svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.45;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .sf-icon--standalone {
+    --sf-icon-size: 1rem;
+    --sf-icon-color: currentColor;
+  }
+
+  .sf-icon--soft {
+    --sf-icon-size: 2.55rem;
+    --sf-icon-color: var(--olive-700);
+    margin-block-end: clamp(.8rem, 1.5vw, 1rem);
+    border: 1px solid color-mix(in srgb, var(--gold-300) 48%, transparent);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgb(255 255 255 / .92), transparent 58%),
+      color-mix(in srgb, var(--blush-50) 64%, var(--sage-50));
+  }
+
+  .sf-icon--soft svg { inline-size: 1.18rem; block-size: 1.18rem; }
+
+  .sf-icon--inline {
+    --sf-icon-size: 1.03rem;
+    --sf-icon-color: currentColor;
+  }
+
+  .sf-icon--micro {
+    --sf-icon-size: .92rem;
+    --sf-icon-color: var(--rose-gold-700);
+  }
+
+  .sf-eyebrow .sf-icon {
+    margin-inline-end: -.25rem;
+  }
+
+  .sf-eyebrow:has(.sf-icon)::before {
+    inline-size: .95rem;
+  }
+
+  .sf-content-card:has(> .sf-icon--soft),
+  .sf-consent-card:has(> .sf-icon--soft) {
+    padding-block-start: clamp(1.15rem, 2vw, 1.7rem);
+  }
+
+  .sf-content-card > .sf-icon--soft + :is(h2, h3, h4),
+  .sf-consent-card > .sf-icon--soft + :is(h2, h3, h4) {
+    margin-block-start: 0;
+  }
+
+  .sf-treatment-menu-card__copy > .sf-icon--soft {
+    margin-block-end: .1rem;
+  }
+
+  .sf-button .sf-icon,
+  .sffo-button .sf-icon,
+  .sfc-button .sf-icon,
+  .sfi-contact .sf-icon {
+    transition: translate var(--duration-fast) var(--ease-standard);
+  }
+
+  .sf-button:hover .sf-icon,
+  .sffo-button:hover .sf-icon,
+  .sfc-button:hover .sf-icon,
+  .sfi-contact:hover .sf-icon,
+  .sf-text-link:hover .sf-icon,
+  .sf-treatment-back:hover .sf-icon {
+    translate: .12rem 0;
+  }
+
+  .sf-button:has(.sf-icon)::after,
+  .sffo-button:has(.sf-icon)::after,
+  .sfi-contact:has(.sf-icon)::after,
+  .sfm-secondary:has(.sf-icon)::after {
+    content: none;
+  }
+
+  .sf-botanical-list li:has(> .sf-icon),
+  .sf-treatment-menu-tags li:has(> .sf-icon),
+  .sf-treatment-meta div:has(> .sf-icon),
+  .sf-consent-meta li:has(> .sf-icon),
+  .sf-article-meta li:has(> .sf-icon),
+  .sf-post-meta li:has(> .sf-icon) {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+    padding-inline-start: 0;
+  }
+
+  .sf-botanical-list li:has(> .sf-icon)::before {
+    content: none;
+  }
+
+  .sffo-icon,
+  .sfi-contact-icon {
+    color: currentColor;
+  }
+
+  details summary:has(.sf-icon) {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+  }
+
+  .sf-faq-toggle-icon {
+    margin-inline-start: auto;
+    color: var(--rose-gold-700);
+    transition: rotate var(--duration-fast) var(--ease-standard);
+  }
+
+  details[open] summary .sf-faq-toggle-icon {
+    rotate: 90deg;
+  }
+
+  .sja-publication :is(a, span):has(.sf-icon) {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+  }
+
+  .sf-content-card,
+  .sf-treatment-menu-card,
+  .sf-article-card,
+  .sf-faq-card {
+    border-radius: .55rem;
+  }
+
+  .sf-content-card-grid {
+    align-items: stretch;
+  }
+
+  .sf-content-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sf-content-card .sf-button-row {
+    margin-block-start: auto;
+    padding-block-start: var(--space-3);
+  }
+
+  [data-tone="forest"] .sf-icon--soft {
+    --sf-icon-color: var(--ivory-50);
+    border-color: rgb(232 205 156 / .42);
+    background: rgb(255 253 247 / .1);
+  }
+
+  [data-tone="forest"] .sf-icon--micro,
+  [data-tone="forest"] .sf-eyebrow .sf-icon {
+    --sf-icon-color: var(--gold-200);
+  }
+
+  @media (max-width: 35.999rem) {
+    .sf-icon--soft {
+      --sf-icon-size: 2.25rem;
+      margin-block-end: .7rem;
+    }
+
+    .sf-button,
+    .sffo-button,
+    .sfc-button,
+    .sfi-contact {
+      inline-size: 100%;
+      min-inline-size: 0;
+    }
+
+    details summary:has(.sf-icon) {
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sf-button .sf-icon,
+    .sffo-button .sf-icon,
+    .sfc-button .sf-icon,
+    .sfi-contact .sf-icon {
+      transition: none;
+    }
+  }
+}
