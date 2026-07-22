@@ -70,6 +70,10 @@ function hasIcon(element) {
   return Boolean(element.querySelector(':scope > .sf-icon, :scope > .sffo-icon, :scope > .sfi-contact-icon'));
 }
 
+function hasMedia(element) {
+  return Boolean(element.querySelector(':scope > figure, :scope > img'));
+}
+
 function enhanceEyebrows(root) {
   root.querySelectorAll('.sf-eyebrow').forEach((eyebrow) => {
     if (hasIcon(eyebrow) || !eyebrow.textContent.trim()) return;
@@ -81,10 +85,12 @@ function enhanceEyebrows(root) {
 
 function enhanceCards(root) {
   root.querySelectorAll('.sf-content-card, .sf-treatment-menu-card, .sf-consent-card').forEach((card) => {
-    if (hasIcon(card) || card.querySelector(':scope > figure, :scope > img')) return;
+    if (hasIcon(card)) return;
     const heading = card.querySelector('h2, h3, h4, dt, strong');
     if (!heading) return;
-    card.prepend(makeIcon(iconNameFor(`${heading.textContent} ${card.textContent}`), 'soft'));
+    const target = hasMedia(card) ? card.querySelector('.sf-treatment-menu-card__copy, .sf-article-card__body') : card;
+    if (!target || hasIcon(target)) return;
+    target.prepend(makeIcon(iconNameFor(`${heading.textContent} ${card.textContent}`), 'soft'));
   });
 }
 
@@ -98,7 +104,7 @@ function enhanceButtons(root) {
 }
 
 function enhanceListsAndMeta(root) {
-  root.querySelectorAll('.sf-botanical-list li, .sf-treatment-menu-tags li, .sf-treatment-meta div, .sf-consent-meta li, .sf-article-meta li, .sf-post-meta li, .sja-publication span:not([aria-hidden]), .sja-publication a').forEach((item) => {
+  root.querySelectorAll('.sf-botanical-list li, .sf-consent-meta li, .sf-article-meta li, .sf-post-meta li, .sja-publication span:not([aria-hidden]), .sja-publication a').forEach((item) => {
     if (hasIcon(item)) return;
     item.prepend(makeIcon(iconNameFor(item.textContent, 'check'), 'micro'));
   });
@@ -121,7 +127,22 @@ function enhanceDisclosures(root) {
 function enhanceFooterAndSocial(root) {
   root.querySelectorAll('.sffo-link, .sffo-meta, .sfi-contact').forEach((link) => {
     const existing = link.querySelector(':scope > .sffo-icon, :scope > .sfi-contact-icon');
-    if (existing) existing.classList.add('sf-icon', 'sf-icon--inline');
+    if (existing) existing.classList.add('sf-existing-icon');
+  });
+
+  root.querySelectorAll('.sffo-resources a').forEach((link) => {
+    if (hasIcon(link)) return;
+    link.prepend(makeIcon(iconNameFor(link.textContent, 'fileText'), 'micro'));
+  });
+}
+
+function removeDuplicateButtonIcons(root) {
+  root.querySelectorAll('a, button').forEach((control) => {
+    const directIcons = Array.from(control.children).filter((child) => (
+      child.matches('.sf-icon, .sffo-icon, .sfi-contact-icon')
+      || (child.getAttribute('aria-hidden') === 'true' && child.querySelector('svg'))
+    ));
+    directIcons.slice(1).forEach((icon) => icon.remove());
   });
 }
 
@@ -135,4 +156,5 @@ export function initIcons() {
   enhanceListsAndMeta(root);
   enhanceDisclosures(root);
   enhanceFooterAndSocial(root);
+  removeDuplicateButtonIcons(root);
 }

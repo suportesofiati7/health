@@ -1114,6 +1114,8 @@
     --sf-icon-color: var(--rose-gold-700);
     inline-size: var(--sf-icon-size);
     block-size: var(--sf-icon-size);
+    width: var(--sf-icon-size);
+    height: var(--sf-icon-size);
     flex: 0 0 auto;
     display: inline-grid;
     place-items: center;
@@ -1122,9 +1124,12 @@
 
   .sf-icon svg,
   .sffo-icon svg,
-  .sfi-contact-icon svg {
+  .sfi-contact-icon svg,
+  .sf-existing-icon svg {
     inline-size: 100%;
     block-size: 100%;
+    width: 100%;
+    height: 100%;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.45;
@@ -1139,13 +1144,13 @@
 
   .sf-icon--soft {
     --sf-icon-size: 2.55rem;
-    --sf-icon-color: var(--olive-700);
+    --sf-icon-color: var(--rose-gold-700);
     margin-block-end: clamp(.8rem, 1.5vw, 1rem);
     border: 1px solid color-mix(in srgb, var(--gold-300) 48%, transparent);
     border-radius: 50%;
     background:
-      radial-gradient(circle at 35% 30%, rgb(255 255 255 / .92), transparent 58%),
-      color-mix(in srgb, var(--blush-50) 64%, var(--sage-50));
+      radial-gradient(circle at 35% 30%, rgb(255 255 255 / .94), transparent 58%),
+      color-mix(in srgb, var(--ivory-50) 68%, var(--blush-100));
   }
 
   .sf-icon--soft svg { inline-size: 1.18rem; block-size: 1.18rem; }
@@ -1200,14 +1205,14 @@
 
   .sf-button:has(.sf-icon)::after,
   .sffo-button:has(.sf-icon)::after,
+  .sffo-button:has([aria-hidden] svg)::after,
   .sfi-contact:has(.sf-icon)::after,
+  .sfi-contact:has(.sfi-contact-icon)::after,
   .sfm-secondary:has(.sf-icon)::after {
     content: none;
   }
 
   .sf-botanical-list li:has(> .sf-icon),
-  .sf-treatment-menu-tags li:has(> .sf-icon),
-  .sf-treatment-meta div:has(> .sf-icon),
   .sf-consent-meta li:has(> .sf-icon),
   .sf-article-meta li:has(> .sf-icon),
   .sf-post-meta li:has(> .sf-icon) {
@@ -1222,8 +1227,51 @@
   }
 
   .sffo-icon,
-  .sfi-contact-icon {
+  .sfi-contact-icon,
+  .sf-existing-icon {
+    inline-size: 1.05rem;
+    block-size: 1.05rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    flex: 0 0 auto;
     color: currentColor;
+  }
+
+  .sffo-heading:has(.sf-icon),
+  .sffo-resources a:has(.sf-icon) {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+  }
+
+  .sffo-heading .sf-icon,
+  .sffo-resources .sf-icon {
+    --sf-icon-color: var(--gold-200);
+    color: var(--gold-200);
+    opacity: .9;
+  }
+
+  .sffo-button > [aria-hidden]:not(:first-child) {
+    display: none;
+  }
+
+  .sf-button--primary .sf-icon,
+  .sfc-button--primary .sf-icon,
+  .sfi-contact .sf-icon,
+  .sfi-contact-icon,
+  [data-tone="forest"] .sf-button--primary .sf-icon {
+    --sf-icon-color: var(--gold-200);
+    color: var(--gold-200);
+  }
+
+  .sf-button--outline .sf-icon,
+  .sf-button--quiet .sf-icon,
+  .sfc-button--outline .sf-icon,
+  .sfc-button--quiet .sf-icon,
+  .sf-text-link .sf-icon,
+  .sf-treatment-back .sf-icon {
+    --sf-icon-color: var(--rose-gold-700);
+    color: var(--rose-gold-700);
   }
 
   details summary:has(.sf-icon) {
@@ -1248,6 +1296,17 @@
     gap: .35rem;
   }
 
+  .sja-publication .sf-icon {
+    inline-size: var(--sf-icon-size) !important;
+    block-size: var(--sf-icon-size) !important;
+    width: var(--sf-icon-size) !important;
+    height: var(--sf-icon-size) !important;
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
   .sf-content-card,
   .sf-treatment-menu-card,
   .sf-article-card,
@@ -1269,10 +1328,15 @@
     padding-block-start: var(--space-3);
   }
 
+  a.sf-content-card:has(> .sf-icon--soft)::after,
+  a.sf-content-card:has(.sf-treatment-menu-card__copy > .sf-icon--soft)::after {
+    content: none;
+  }
+
   [data-tone="forest"] .sf-icon--soft {
-    --sf-icon-color: var(--ivory-50);
+    --sf-icon-color: var(--gold-200);
     border-color: rgb(232 205 156 / .42);
-    background: rgb(255 253 247 / .1);
+    background: rgb(255 253 247 / .08);
   }
 
   [data-tone="forest"] .sf-icon--micro,
@@ -7526,30 +7590,49 @@
 .sffo-list {
   display: flex;
   flex-direction: column;
-  gap: .32rem;
+  gap: .42rem;
 }
 
 .sffo-link,
 .sffo-meta {
   display: flex;
-  align-items: center;
-  min-height: 2rem;
+  align-items: flex-start;
+  gap: .56rem;
+  min-height: 2.15rem;
   margin: 0;
-  padding-block: .28rem;
+  padding-block: .32rem;
   color: var(--sffo-text-soft);
   font-size: .86rem;
   line-height: 1.45;
   text-decoration: none;
 }
 
-/* Link icons are intentionally suppressed: the footer is a clean information
-   surface and contains no decorative mini artwork. */
-.sffo-icon { display: none !important; }
+.sffo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.05rem;
+  block-size: 1.05rem;
+  margin-block-start: .12rem;
+  flex: 0 0 1.05rem;
+  color: var(--sffo-heading-rose);
+  opacity: .9;
+}
+
+.sffo-icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
 
 .sffo-text {
   min-width: 0;
   overflow-wrap: anywhere;
   word-break: normal;
+}
+
+.sffo-link .sffo-text,
+.sffo-meta .sffo-text {
+  flex: 1 1 auto;
 }
 
 .sffo-menu-grid > :last-child .sffo-text {

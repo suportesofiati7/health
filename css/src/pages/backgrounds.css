@@ -191,30 +191,49 @@
 .sffo-list {
   display: flex;
   flex-direction: column;
-  gap: .32rem;
+  gap: .42rem;
 }
 
 .sffo-link,
 .sffo-meta {
   display: flex;
-  align-items: center;
-  min-height: 2rem;
+  align-items: flex-start;
+  gap: .56rem;
+  min-height: 2.15rem;
   margin: 0;
-  padding-block: .28rem;
+  padding-block: .32rem;
   color: var(--sffo-text-soft);
   font-size: .86rem;
   line-height: 1.45;
   text-decoration: none;
 }
 
-/* Link icons are intentionally suppressed: the footer is a clean information
-   surface and contains no decorative mini artwork. */
-.sffo-icon { display: none !important; }
+.sffo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.05rem;
+  block-size: 1.05rem;
+  margin-block-start: .12rem;
+  flex: 0 0 1.05rem;
+  color: var(--sffo-heading-rose);
+  opacity: .9;
+}
+
+.sffo-icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
 
 .sffo-text {
   min-width: 0;
   overflow-wrap: anywhere;
   word-break: normal;
+}
+
+.sffo-link .sffo-text,
+.sffo-meta .sffo-text {
+  flex: 1 1 auto;
 }
 
 .sffo-menu-grid > :last-child .sffo-text {
