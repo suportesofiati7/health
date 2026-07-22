@@ -104,14 +104,6 @@
     }
   ],
   "policy_pages": {
-    "legal": [
-      "legal.html",
-      "en/legal.html"
-    ],
-    "privacy": [
-      "privacidade.html",
-      "en/privacy.html"
-    ],
     "cookies": [
       "cookies.html",
       "en/cookies.html"

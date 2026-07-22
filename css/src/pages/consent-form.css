@@ -1,10 +1,36 @@
 .sf-consent-page {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--sage-50) 42%, var(--color-bg-page)) 0,
-      var(--color-bg-page) 28rem
-    );
+  background-color: var(--page-cream);
+  background-image:
+    linear-gradient(rgb(255 253 249 / .42), rgb(255 253 249 / .42)),
+    var(--site-panorama);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-hero-copy {
+  max-inline-size: 44rem;
+}
+
+.sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-hero-copy h1 {
+  max-inline-size: 11ch;
+}
+
+.sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-home-hero-title span + span {
+  color: var(--forest-800);
+}
+
+.sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-consent-hero-meta {
+  margin-block-start: 1rem;
+  color: color-mix(in srgb, var(--forest-900) 82%, var(--gold-500));
+}
+
+@media (max-width: 35.999rem) {
+  .sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-eyebrow,
+  .sf-consent-page[data-page="consent-form"] [data-pattern="hero"] .sf-consent-hero-meta {
+    display: none;
+  }
 }
 
 .sf-consent-hero-meta {
@@ -133,9 +159,15 @@
 .sf-consent-form {
   display: grid;
   gap: clamp(.85rem, 2.5vw, 1.2rem);
-  max-inline-size: min(118rem, calc(100vw - (var(--page-gutter) * 2)));
+  max-inline-size: min(90rem, calc(100vw - (var(--page-gutter) * 2)));
   margin-inline: auto;
-  padding: 0 0 clamp(5rem, 10vw, 8rem);
+  border: 1px solid color-mix(in srgb, var(--gold-500) 23%, transparent);
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--ivory-50) 86%, transparent);
+  box-shadow: 0 1.1rem 3.2rem color-mix(in srgb, var(--forest-900) 7%, transparent);
+  backdrop-filter: blur(5px);
+  padding: clamp(1.25rem, 3.5vw, 3.5rem);
+  margin-block: clamp(2.75rem, 4.4vw, 5.5rem) clamp(5rem, 10vw, 8rem);
 }
 
 .sf-consent-card {
@@ -772,7 +804,7 @@
 
 @media (min-width: 82rem) {
   .sf-consent-form {
-    max-inline-size: min(118rem, calc(100vw - (var(--page-gutter) * 2)));
+    max-inline-size: min(var(--content-max-width), calc(100vw - (var(--page-gutter) * 2)));
   }
 
   .sf-consent-form {

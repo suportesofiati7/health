@@ -24,7 +24,6 @@ EXTERNALLY_AUTHORED_ENGLISH_PAGES = frozenset(
         "cookies.html",
         "index.html",
         "journal.html",
-        "legal.html",
     }
 )
 

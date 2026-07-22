@@ -153,8 +153,6 @@ def validate_llms() -> int:
         f"{origin}/contato.html",
         f"{origin}/tratamentos.html",
         f"{origin}/blog.html",
-        f"{origin}/legal.html",
-        f"{origin}/privacidade.html",
         f"{origin}/sitemap.xml",
         f"{origin}/robots.txt",
     }

@@ -163,6 +163,7 @@
     .sf-page[data-page] .sf-main > .sf-section:not(.section--full-bleed)[data-pattern="hero"] {
       background: var(--hero-scene-image) var(--hero-scene-position-narrow) / cover no-repeat !important;
     }
+
   }
 
   /* The sole viewport-wide section primitive. Renderer ownership makes its

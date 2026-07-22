@@ -34,8 +34,6 @@ CONTENT_ATTRIBUTE = re.compile(r'(\bcontent=")[^"]*(")', re.IGNORECASE)
 FIXES = {
     "pt/consultation.html": "Agende uma consulta estética com Franciele Sofiati em Londrina e receba um plano personalizado para pele, laser, rosto, couro cabeludo ou corpo.",
     "pt/index.html": "Cuidados personalizados para pele, laser, couro cabeludo e estética em Londrina com Franciele Sofiati, com planejamento e acompanhamento.",
-    "pt/legal.html": "Leia as condições de agendamento, pagamento, cancelamento, tratamentos, consentimento informado e cuidados posteriores de Franciele Sofiati em Londrina.",
-    "pt/privacy.html": "Entenda como Franciele Sofiati trata dados de contato, consulta e navegação segundo os princípios brasileiros de proteção de dados.",
     "pt/values.html": "Conheça os valores de escuta, clareza, segurança e continuidade que orientam a prática estética centrada na paciente de Franciele Sofiati em Londrina.",
 }
 

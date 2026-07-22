@@ -251,6 +251,8 @@
 
 .sffo-resources {
   justify-content: flex-end;
+  grid-column: 3;
+  justify-self: end;
 }
 
 .sffo-legal a,
@@ -362,7 +364,9 @@
 
   .sffo-legal,
   .sffo-resources {
+    grid-column: 1;
     justify-content: center;
+    justify-self: center;
   }
 
   .sffo-copy {
