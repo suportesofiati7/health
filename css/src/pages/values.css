@@ -43,7 +43,7 @@
   .sf-page[data-page="values"] .sf-values-chapter--dark .sf-values-number { color: rgb(234 213 173 / .1); }
   .sf-page[data-page="values"] .sf-values-chapter--dark :is(h2, h3, .sf-values-impact) { color: var(--ivory-50); }
   .sf-page[data-page="values"] .sf-values-chapter--dark .sf-values-impact { color: rgb(255 253 249 / .76); }
-  .sf-page[data-page="values"] .sf-values-chapter--dark .sf-value-icon { filter: brightness(0) saturate(100%) invert(89%) sepia(25%) saturate(447%) hue-rotate(355deg) brightness(98%); }
+  .sf-page[data-page="values"] .sf-values-chapter--dark .sf-value-icon { filter: brightness(0) saturate(100%) invert(58%) sepia(18%) saturate(1016%) hue-rotate(314deg) brightness(91%) contrast(86%); }
 
   .sf-page[data-page="values"] .sf-values-decision { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); column-gap: clamp(3rem, 8vw, 9rem); }
   .sf-page[data-page="values"] .sf-values-decision > .sf-values-impact { align-self: end; }

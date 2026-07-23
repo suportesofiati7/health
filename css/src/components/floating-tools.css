@@ -32,6 +32,253 @@
   }
   @media (max-width: 32.5rem) { #sf-floating-inline { grid-auto-flow: row; grid-auto-rows: 3rem; } .sff-tool { inline-size: 3rem; block-size: 3rem; } .sff-tool svg { inline-size: 1.65rem; block-size: 1.65rem; } .sff-whatsapp svg { inline-size: 1.8rem; block-size: 1.8rem; } .sff-label { display: none; } }
 
+  .sf-va {
+    position: relative;
+    display: grid;
+    justify-items: end;
+  }
+
+  .sf-va-trigger {
+    overflow: visible;
+    padding: 0;
+  }
+
+  .sf-va-trigger img {
+    inline-size: 100%;
+    block-size: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    animation: sf-va-float 5.5s ease-in-out infinite;
+  }
+
+  .sf-va-dots {
+    position: absolute;
+    inset-inline-start: -.2rem;
+    inset-block-start: -.15rem;
+    display: flex;
+    gap: .12rem;
+    border: 1px solid color-mix(in srgb, var(--gold-300) 50%, transparent);
+    border-radius: 999px;
+    background: var(--ivory-50);
+    padding: .2rem .24rem;
+  }
+
+  .sf-va-dots i {
+    inline-size: .24rem;
+    block-size: .24rem;
+    border-radius: 50%;
+    background: var(--olive-600);
+    animation: sf-va-dot 1.4s ease-in-out infinite;
+  }
+
+  .sf-va-dots i:nth-child(2) { animation-delay: .16s; }
+  .sf-va-dots i:nth-child(3) { animation-delay: .32s; }
+
+  .sf-va-invite {
+    position: absolute;
+    inset-inline-end: calc(100% + .75rem);
+    inset-block-start: 50%;
+    inline-size: max-content;
+    max-inline-size: min(15rem, calc(100vw - 6rem));
+    translate: 0 -50%;
+    border: 1px solid color-mix(in srgb, var(--gold-300) 45%, transparent);
+    border-radius: .55rem;
+    background: color-mix(in srgb, var(--ivory-50) 96%, transparent);
+    color: var(--forest-900);
+    padding: .55rem .7rem;
+    box-shadow: 0 .8rem 1.8rem rgb(24 37 29 / .14);
+    font-size: .78rem;
+    font-weight: 760;
+  }
+
+  .sf-va-invite[hidden],
+  .sf-va-panel[hidden] {
+    display: none;
+  }
+
+  .sf-va-panel {
+    position: fixed;
+    inset-inline-end: max(4.95rem, env(safe-area-inset-right));
+    inset-block-end: max(4.4rem, env(safe-area-inset-bottom));
+    z-index: calc(var(--z-floating) + 2);
+    inline-size: min(21rem, calc(100vw - 1.5rem));
+    max-block-size: min(34rem, calc(100dvh - 7rem));
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--gold-300) 45%, transparent);
+    border-radius: .8rem;
+    background:
+      radial-gradient(circle at 100% 0, color-mix(in srgb, var(--sage-200) 36%, transparent), transparent 11rem),
+      linear-gradient(180deg, color-mix(in srgb, var(--sage-100) 58%, var(--ivory-50)), color-mix(in srgb, var(--champagne-100) 70%, var(--ivory-100)));
+    box-shadow: 0 1.4rem 3.6rem rgb(24 37 29 / .2);
+  }
+
+  .sf-va-header {
+    display: grid;
+    grid-template-columns: 2.6rem minmax(0, 1fr) 2rem 2rem;
+    gap: .65rem;
+    align-items: center;
+    border-block-end: 1px solid color-mix(in srgb, var(--olive-700) 16%, transparent);
+    padding: .8rem;
+  }
+
+  .sf-va-header img {
+    inline-size: 2.6rem;
+    block-size: 2.6rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .sf-va-header h2 {
+    margin: 0;
+    color: var(--forest-900);
+    font-family: var(--font-heading);
+    font-size: 1.18rem;
+    font-weight: 400;
+    line-height: 1.05;
+  }
+
+  .sf-va-header p {
+    display: flex;
+    gap: .35rem;
+    align-items: center;
+    margin: .12rem 0 0;
+    color: var(--color-text-secondary);
+    font-size: .76rem;
+    line-height: 1.2;
+  }
+
+  .sf-va-status {
+    inline-size: .45rem;
+    block-size: .45rem;
+    border-radius: 50%;
+    background: var(--olive-600);
+    box-shadow: 0 0 0 .18rem color-mix(in srgb, var(--sage-100) 80%, transparent);
+  }
+
+  .sf-va-icon,
+  .sf-va-restart,
+  .sf-va-form button,
+  .sf-va-option {
+    border: 1px solid color-mix(in srgb, var(--olive-700) 24%, transparent);
+    background: color-mix(in srgb, var(--sage-100) 50%, var(--ivory-50));
+    color: var(--forest-900);
+  }
+
+  .sf-va-icon {
+    inline-size: 2rem;
+    block-size: 2rem;
+    border-radius: .45rem;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .sf-va-body {
+    display: grid;
+    align-content: start;
+    gap: .8rem;
+    overflow: auto;
+    padding: .9rem;
+  }
+
+  .sf-va-message {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: .9rem;
+    line-height: 1.5;
+  }
+
+  .sf-va-options {
+    display: grid;
+    gap: .45rem;
+  }
+
+  .sf-va-option {
+    min-block-size: 2.65rem;
+    border-radius: .5rem;
+    padding: .58rem .7rem;
+    text-align: start;
+    font-size: .84rem;
+    font-weight: 760;
+    line-height: 1.25;
+  }
+
+  .sf-va-option.is-primary {
+    border-color: var(--olive-700);
+    background: linear-gradient(135deg, var(--olive-600), var(--olive-700));
+    color: var(--ivory-50);
+  }
+
+  .sf-va-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .45rem;
+    border-block-start: 1px solid color-mix(in srgb, var(--olive-700) 16%, transparent);
+    padding: .7rem;
+  }
+
+  .sf-va-form input {
+    min-inline-size: 0;
+    min-block-size: 2.65rem;
+    border: 1px solid color-mix(in srgb, var(--olive-700) 22%, transparent);
+    border-radius: .5rem;
+    background: color-mix(in srgb, var(--ivory-50) 82%, var(--sage-100));
+    color: var(--forest-900);
+    padding: .55rem .65rem;
+    font-size: .84rem;
+  }
+
+  .sf-va-form button,
+  .sf-va-restart {
+    min-block-size: 2.65rem;
+    border-radius: .5rem;
+    padding: .55rem .7rem;
+    font-size: .78rem;
+    font-weight: 800;
+  }
+
+  .sf-va-restart {
+    margin: 0 .7rem .7rem;
+  }
+
+  .sf-va :is(button, input):focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+
+  @keyframes sf-va-float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -.12rem; }
+  }
+
+  @keyframes sf-va-dot {
+    0%, 70%, 100% { scale: .72; opacity: .45; }
+    35% { scale: 1; opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sf-va-trigger img,
+    .sf-va-dots i {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 32.5rem) {
+    .sf-va-panel {
+      inset-inline: .75rem;
+      inset-block-end: 4.25rem;
+      inline-size: auto;
+      max-block-size: min(31rem, calc(100dvh - 6rem));
+    }
+
+    .sf-va-invite {
+      inset-inline-end: calc(100% + .45rem);
+      max-inline-size: 11rem;
+      font-size: .74rem;
+    }
+  }
+
   @media (max-width: 32.5rem) {
     .sf-page[data-page="contact"] #sf-floating-inline,
     .sf-page[data-page="consultation"] #sf-floating-inline {

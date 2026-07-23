@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "xml": {
+    "excludeIds": ["not-found", "thank-you"]
+  },
+  "groups": [
+    {
+      "id": "start",
+      "pt-BR": {
+        "title": "Comece por aqui",
+        "description": "Páginas principais para entender a clínica, o cuidado e como Franciele trabalha."
+      },
+      "en": {
+        "title": "Start Here",
+        "description": "Core pages for understanding the clinic, the care process, and Franciele's approach."
+      },
+      "pages": [
+        {
+          "id": "home",
+          "pt-BR": {"label": "Início", "summary": "Visão geral da clínica e dos caminhos de cuidado."},
+          "en": {"label": "Home", "summary": "Overview of the clinic and the main care paths."}
+        },
+        {
+          "id": "about",
+          "pt-BR": {"label": "Sobre Franciele", "summary": "Formação, experiência e filosofia de atendimento."},
+          "en": {"label": "About Franciele", "summary": "Background, experience, and care philosophy."}
+        },
+        {
+          "id": "values",
+          "pt-BR": {"label": "Valores", "summary": "Princípios que orientam decisões, segurança e comunicação."},
+          "en": {"label": "Values", "summary": "Principles that guide decisions, safety, and communication."}
+        },
+        {
+          "id": "mission",
+          "pt-BR": {"label": "Missão", "summary": "O propósito por trás do cuidado estético personalizado."},
+          "en": {"label": "Mission", "summary": "The purpose behind personalised aesthetic care."}
+        }
+      ]
+    },
+    {
+      "id": "care",
+      "pt-BR": {
+        "title": "Tratamentos e cuidados",
+        "description": "Rotas úteis para quem está comparando opções antes da avaliação."
+      },
+      "en": {
+        "title": "Treatments and Care",
+        "description": "Useful paths for comparing care options before an assessment."
+      },
+      "pages": [
+        {
+          "id": "treatments",
+          "pt-BR": {"label": "Tratamentos", "summary": "Mapa geral de procedimentos e áreas de atuação."},
+          "en": {"label": "Treatments", "summary": "General map of procedures and care areas."}
+        },
+        {
+          "id": "care",
+          "pt-BR": {"label": "Cuidados", "summary": "Como o plano é organizado para pele, rosto, corpo e couro cabeludo."},
+          "en": {"label": "Care", "summary": "How plans are organised for skin, face, body, and scalp."}
+        },
+        {
+          "id": "skin",
+          "pt-BR": {"label": "Pele", "summary": "Tratamentos para textura, manchas, acne, barreira cutânea e renovação."},
+          "en": {"label": "Skin", "summary": "Care for texture, pigmentation, acne, barrier support, and renewal."}
+        },
+        {
+          "id": "laser",
+          "pt-BR": {"label": "Laser", "summary": "Tecnologias, indicações e preparo para procedimentos com laser."},
+          "en": {"label": "Laser", "summary": "Technologies, indications, and preparation for laser procedures."}
+        },
+        {
+          "id": "results",
+          "pt-BR": {"label": "Resultados", "summary": "Expectativas realistas, acompanhamento e evolução gradual."},
+          "en": {"label": "Results", "summary": "Realistic expectations, follow-up, and gradual progress."}
+        }
+      ]
+    },
+    {
+      "id": "plan",
+      "pt-BR": {
+        "title": "Planejamento da consulta",
+        "description": "Informações práticas para decidir, agendar e se preparar."
+      },
+      "en": {
+        "title": "Planning a Visit",
+        "description": "Practical information for deciding, booking, and preparing."
+      },
+      "pages": [
+        {
+          "id": "consultation",
+          "pt-BR": {"label": "Consulta", "summary": "Como funciona a avaliação presencial e o plano individual."},
+          "en": {"label": "Consultation", "summary": "How the in-person assessment and individual plan work."}
+        },
+        {
+          "id": "faq",
+          "pt-BR": {"label": "Perguntas frequentes", "summary": "Respostas diretas sobre segurança, etapas, manutenção e dúvidas comuns."},
+          "en": {"label": "FAQ", "summary": "Direct answers about safety, steps, maintenance, and common questions."}
+        },
+        {
+          "id": "testimonials",
+          "pt-BR": {"label": "Depoimentos", "summary": "Experiências de pacientes e relatos sobre o atendimento."},
+          "en": {"label": "Testimonials", "summary": "Patient experiences and notes about the appointment process."}
+        },
+        {
+          "id": "form",
+          "pt-BR": {"label": "Formulário", "summary": "Cadastro e consentimento para organizar o atendimento."},
+          "en": {"label": "Form", "summary": "Registration and consent for organising care."}
+        },
+        {
+          "id": "contact",
+          "pt-BR": {"label": "Contato", "summary": "Telefone, e-mail e canais oficiais da clínica em Londrina."},
+          "en": {"label": "Contact", "summary": "Phone, email, and official clinic channels in Londrina."}
+        }
+      ]
+    },
+    {
+      "id": "journal",
+      "pt-BR": {
+        "title": "Guias e educação",
+        "description": "Conteúdos para entender temas de pele, laser, cabelo e recuperação."
+      },
+      "en": {
+        "title": "Guides and Education",
+        "description": "Content for understanding skin, laser, scalp care, and recovery."
+      },
+      "pages": [
+        {
+          "id": "journal",
+          "pt-BR": {"label": "Blog", "summary": "Biblioteca editorial em português."},
+          "en": {"label": "Journal", "summary": "Editorial library in English."}
+        },
+        {
+          "id": "journal-why-aesthetic-care-begins-with-consultation",
+          "pt-BR": {"label": "Por que começar pela consulta", "summary": "O papel da avaliação antes de definir procedimentos."},
+          "en": {"label": "Why Care Begins with Consultation", "summary": "The role of assessment before choosing procedures."}
+        },
+        {
+          "id": "journal-understanding-acne-scar-treatment",
+          "pt-BR": {"label": "Cicatrizes de acne", "summary": "Como pensar combinações de tratamento e tempo de resposta."},
+          "en": {"label": "Acne Scar Treatment", "summary": "How treatment combinations and response time are considered."}
+        },
+        {
+          "id": "journal-fractional-co2-laser-recovery-and-aftercare",
+          "pt-BR": {"label": "Laser CO2 e recuperação", "summary": "Cuidados esperados após procedimentos fracionados."},
+          "en": {"label": "CO2 Laser Recovery", "summary": "Expected aftercare after fractional procedures."}
+        },
+        {
+          "id": "journal-hair-thinning-causes-and-scalp-care",
+          "pt-BR": {"label": "Queda capilar e couro cabeludo", "summary": "Fatores de afinamento e cuidados de suporte."},
+          "en": {"label": "Hair Thinning and Scalp Care", "summary": "Thinning factors and supportive scalp care."}
+        }
+      ]
+    },
+    {
+      "id": "legal",
+      "pt-BR": {
+        "title": "Legal e privacidade",
+        "description": "Preferências de consentimento e arquivos técnicos para navegação."
+      },
+      "en": {
+        "title": "Legal and Privacy",
+        "description": "Consent preferences and technical files for navigation."
+      },
+      "pages": [
+        {
+          "id": "cookies",
+          "pt-BR": {"label": "Cookies", "summary": "Como preferências, segurança e análise são tratadas."},
+          "en": {"label": "Cookies", "summary": "How preferences, safety, and analytics are handled."}
+        }
+      ],
+      "resources": [
+        {
+          "href": "sitemap.xml",
+          "pt-BR": {"label": "Sitemap XML", "summary": "Arquivo enviado ao Google Search Console."},
+          "en": {"label": "XML Sitemap", "summary": "File submitted to Google Search Console."}
+        },
+        {
+          "href": "robots.txt",
+          "pt-BR": {"label": "Robots.txt", "summary": "Regras públicas de rastreamento."},
+          "en": {"label": "Robots.txt", "summary": "Public crawl rules."}
+        }
+      ]
+    }
+  ]
+}

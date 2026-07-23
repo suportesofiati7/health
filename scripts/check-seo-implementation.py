@@ -141,7 +141,7 @@ def expected_schema(relative_path: str) -> set[str]:
         "sobre.html": "about.html",
         "consulta.html": "consultation.html",
         "contato.html": "contact.html",
-        "perguntas-frequentes.html": "faq.html",
+        "perguntas.html": "faq.html",
         "blog.html": "journal.html",
         "missao.html": "mission.html",
         "resultados.html": "results.html",

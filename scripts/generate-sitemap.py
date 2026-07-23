@@ -16,6 +16,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 SEO_DATA = ROOT / "data" / "seo.json"
 PAGE_PAIRS = ROOT / "data" / "page-pairs.json"
+SITEMAP_GROUPS = ROOT / "data" / "sitemap-groups.json"
 SITEMAP = ROOT / "sitemap.xml"
 SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
 XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml"
@@ -131,6 +132,8 @@ def source_last_modified(path: Path) -> str:
 
 def sitemap_pages(origin: str) -> list[SitemapPage]:
     page_data = load_json(PAGE_PAIRS)
+    sitemap_data = load_json(SITEMAP_GROUPS)
+    excluded_ids = set(sitemap_data.get("xml", {}).get("excludeIds") or [])
     default_language = str(page_data.get("defaultLanguage") or "en")
     raw_pages = page_data.get("pages")
     if not isinstance(raw_pages, list):
@@ -142,6 +145,9 @@ def sitemap_pages(origin: str) -> list[SitemapPage]:
             raise RuntimeError("Every data/page-pairs.json page entry must be an object")
         english_path = str(item.get("en") or "")
         portuguese_path = str(item.get("pt-BR") or "")
+        page_id = str(item.get("id") or "")
+        if page_id in excluded_ids:
+            continue
         if not english_path or not portuguese_path:
             raise RuntimeError(f"Page pair is missing an English or Portuguese route: {item!r}")
 
@@ -202,6 +208,7 @@ def render_sitemap() -> str:
     body = "\n\n".join(url_block(page) for page in pages)
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>\n'
         "<urlset\n"
         f'  xmlns="{SITEMAP_NAMESPACE}"\n'
         f'  xmlns:xhtml="{XHTML_NAMESPACE}">\n'

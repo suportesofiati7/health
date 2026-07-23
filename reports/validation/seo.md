@@ -4,11 +4,11 @@
 
 ## Coverage
 
-- Public HTML pages parsed: 46
+- Public HTML pages parsed: 47
 - Canonical, indexable URLs in sitemap: 42
-- Images audited: 334
-- Decorative images with empty alt text: 128
-- Post-hero navigation targets: 42
+- Images audited: 333
+- Decorative images with empty alt text: 127
+- Post-hero navigation targets: 43
 
 ## Validation summary
 
@@ -26,7 +26,7 @@
 | --- | ---: | ---: | --- | --- |
 | `404.html` | 58 chars | 150 chars | `noindex, follow` | noindex utility |
 | `blog.html` | 53 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Blog, ItemList |
-| `consulta.html` | 62 chars | 132 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage, Service |
+| `consulta.html` | 49 chars | 132 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage, Service |
 | `contato.html` | 27 chars | 121 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | ContactPage |
 | `cookies.html` | 43 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `cuidados.html` | 53 chars | 111 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
@@ -34,7 +34,7 @@
 | `en/404.html` | 79 chars | 162 chars | `noindex, follow` | noindex utility |
 | `en/about.html` | 73 chars | 160 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage, ProfilePage |
 | `en/care.html` | 55 chars | 134 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
-| `en/consultation.html` | 67 chars | 122 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage, Service |
+| `en/consultation.html` | 54 chars | 122 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage, Service |
 | `en/contact.html` | 83 chars | 185 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | ContactPage |
 | `en/cookies.html` | 39 chars | 92 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `en/faq.html` | 42 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
@@ -65,7 +65,7 @@
 | `missao.html` | 26 chars | 116 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
 | `obrigada.html` | 41 chars | 54 chars | `noindex, follow` | noindex utility |
 | `pele.html` | 51 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
-| `perguntas-frequentes.html` | 64 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
+| `perguntas.html` | 53 chars | 148 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
 | `resultados.html` | 45 chars | 123 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `sobre.html` | 56 chars | 152 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage, ProfilePage |
 | `tratamentos.html` | 53 chars | 116 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Service, ItemList |

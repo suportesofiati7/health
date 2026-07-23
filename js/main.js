@@ -2,10 +2,11 @@ import { closeMenu, initDelegatedEvents, markCurrentLinks, openMenu, prepareMenu
 import { initScrollState } from './core/scroll-state.js';
 import { initHeaderScroll } from './components/header.js';
 import { initFloatingTools } from './components/floating-tools.js';
+import { initVirtualAssistant } from './components/virtual-assistant.js';
 import { initCookies } from './components/cookie-controls.js';
 import { initForms } from './components/forms.js';
 import { initTreatmentDirectory } from './components/treatments.js';
-import { initFaqSearch } from './pages/faq.js';
+import { initFaqCategories, initFaqSearch } from './pages/faq.js';
 import { initBlogSearch } from './pages/blog.js';
 import { initFooter } from './components/footer.js';
 import { initIcons } from './components/icons.js';
@@ -22,10 +23,12 @@ export function initSite() {
     initScrollState();
     initHeaderScroll();
     initFloatingTools();
+    initVirtualAssistant();
     initCookies();
     initFooter();
     initForms();
     initFaqSearch();
+    initFaqCategories();
     initBlogSearch();
     initTreatmentDirectory();
     initIcons();

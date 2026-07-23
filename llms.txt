@@ -21,7 +21,7 @@ Important interpretation rules:
 - [Consultation](https://www.francielesofiati.com/consulta.html): What consultation can and cannot establish, how planning works and how to request one.
 - [Treatments](https://www.francielesofiati.com/tratamentos.html): Structured overview of skin, laser, facial, injectable, scalp, vascular, firmness and contour options, with suitability caveats.
 - [Contact](https://www.francielesofiati.com/contato.html): Official contact routes and practical communication guidance.
-- [Frequently asked questions](https://www.francielesofiati.com/perguntas-frequentes.html): Answers about consultation, suitability, preparation, recovery, results and communication.
+- [Frequently asked questions](https://www.francielesofiati.com/perguntas.html): Answers about consultation, suitability, preparation, recovery, results and communication.
 
 ## Treatment and care topics
 

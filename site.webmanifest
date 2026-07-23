@@ -8,8 +8,8 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#f7f1e8",
-  "theme_color": "#213128",
+  "background_color": "#3f5039",
+  "theme_color": "#3f5039",
   "categories": [
     "health",
     "beauty",
