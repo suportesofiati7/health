@@ -1,6 +1,58 @@
 @layer pages {
   .sf-family-policy .sf-section:not([data-pattern="hero"]) .sf-section-head h2 { max-inline-size: 20ch; }
   .sf-family-policy [data-pattern="reading-column"] :is(p, li) { max-inline-size: 72ch; }
+  .sf-family-policy .sf-policy-table-wrap { max-inline-size: none; overflow-x: auto; }
+  .sf-family-policy .sf-policy-table {
+    inline-size: 100%;
+    min-inline-size: 48rem;
+    border-collapse: collapse;
+    border-block: 1px solid var(--color-border-warm);
+    background: rgb(255 253 249 / .72);
+    text-align: start;
+  }
+  .sf-family-policy .sf-policy-table caption {
+    padding-block-end: var(--space-3);
+    color: var(--color-text-muted);
+    text-align: start;
+  }
+  .sf-family-policy .sf-policy-table :is(th, td) {
+    padding: clamp(.75rem, 1.5vw, 1.25rem);
+    border-block-end: 1px solid var(--color-border-subtle);
+    vertical-align: top;
+    text-align: start;
+  }
+  .sf-family-policy .sf-policy-table th { color: var(--forest-900); font-family: var(--font-sans); }
+  .sf-family-policy .sf-policy-table code { overflow-wrap: anywhere; white-space: normal; }
+  .sf-family-policy .sf-cookie-page-settings {
+    max-inline-size: 58rem;
+    margin-block-start: clamp(2rem, 4vw, 3rem);
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    border: 1px solid var(--color-border-warm);
+    background: rgb(255 253 249 / .84);
+  }
+  .sf-family-policy .sf-cookie-page-settings fieldset {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: 0;
+  }
+  .sf-family-policy .sf-cookie-page-settings legend {
+    margin-block-end: 1rem;
+    color: var(--forest-900);
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+  }
+  .sf-family-policy .sf-cookie-page-settings label {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding-block-end: 1rem;
+    border-block-end: 1px solid var(--color-border-subtle);
+    cursor: pointer;
+  }
+  .sf-family-policy .sf-cookie-page-settings input { inline-size: 1.15rem; block-size: 1.15rem; margin-block-start: .2rem; accent-color: var(--forest-700); }
+  .sf-family-policy .sf-cookie-page-settings [data-cookie-page-status]:empty { display: none; }
   .sf-family-content .sf-content-card p { line-height: 1.62; }
   .sf-family-service .sf-treatment-directory { max-inline-size: none; }
 }

@@ -1,7 +1,7 @@
 {
-  "status": "PASS",
-  "generatedAt": "2026-07-21T15:43:00.125164+00:00",
-  "pagesChecked": 48,
+  "status": "FAIL",
+  "generatedAt": "2026-07-23T19:36:14.108459+00:00",
+  "pagesChecked": 46,
   "scriptsPresent": {
     "required": [
       "analytics-config.js",
@@ -151,6 +151,16 @@
         "correctOrder": true
       },
       {
+        "page": "en/form.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "en/index.html",
         "scripts": [
           "../js/analytics-config.js",
@@ -281,27 +291,7 @@
         "correctOrder": true
       },
       {
-        "page": "en/legal.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
         "page": "en/mission.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/privacy.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -371,6 +361,16 @@
         "correctOrder": true
       },
       {
+        "page": "formulario.html",
+        "scripts": [
+          "js/analytics-config.js",
+          "js/consent-manager.js",
+          "js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "index.html",
         "scripts": [
           "js/analytics-config.js",
@@ -382,16 +382,6 @@
       },
       {
         "page": "laser.html",
-        "scripts": [
-          "js/analytics-config.js",
-          "js/consent-manager.js",
-          "js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "legal.html",
         "scripts": [
           "js/analytics-config.js",
           "js/consent-manager.js",
@@ -431,17 +421,7 @@
         "correctOrder": true
       },
       {
-        "page": "perguntas-frequentes.html",
-        "scripts": [
-          "js/analytics-config.js",
-          "js/consent-manager.js",
-          "js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "privacidade.html",
+        "page": "perguntas.html",
         "scripts": [
           "js/analytics-config.js",
           "js/consent-manager.js",
@@ -505,9 +485,9 @@
     "gtmLoaderGuardImplemented": true
   },
   "formsChecked": {
-    "count": 6,
+    "count": 8,
     "trackedCount": 4,
-    "ignoredCount": 2,
+    "ignoredCount": 4,
     "records": [
       {
         "page": "consulta.html",
@@ -556,23 +536,35 @@
     ],
     "intentionallyIgnored": [
       {
-        "page": "en/legal.html",
-        "id": "service-agreement-acknowledgement",
+        "page": "cookies.html",
+        "id": "preferencias",
         "fields": 4,
         "intentionallyIgnored": true
       },
       {
-        "page": "legal.html",
-        "id": "service-agreement-acknowledgement",
+        "page": "en/cookies.html",
+        "id": "preferences",
         "fields": 4,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "en/form.html",
+        "id": "consent-authorisation-form",
+        "fields": 55,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "formulario.html",
+        "id": "consent-authorisation-form",
+        "fields": 55,
         "intentionallyIgnored": true
       }
     ],
     "sensitiveFieldProtectionPassed": true
   },
   "trackingAttributes": {
-    "meaningfulSections": 308,
-    "faqItems": 164,
+    "meaningfulSections": 228,
+    "faqItems": 173,
     "installerIdempotent": true
   },
   "eventsImplemented": [
@@ -611,7 +603,7 @@
           "name": "all_pages_load_without_javascript_errors",
           "passed": true,
           "detail": {
-            "pages": 48,
+            "pages": 46,
             "errors": []
           }
         },
@@ -619,7 +611,7 @@
           "name": "stored_rejection_pages_remain_stable",
           "passed": true,
           "detail": {
-            "gtmRequests": 48
+            "gtmRequests": 46
           }
         }
       ],
@@ -680,5 +672,7 @@
     "Publish a named GTM container version after Tag Assistant and DebugView testing."
   ],
   "warnings": [],
-  "errors": []
+  "errors": [
+    "perguntas.html: contact link lacks explicit classification"
+  ]
 }
