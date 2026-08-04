@@ -15,6 +15,15 @@ export function initTreatmentDirectory() {
   if (finder?.dataset.sfDirectoryReady === 'true') return;
   if (finder) finder.dataset.sfDirectoryReady = 'true';
 
+  if (categoryNav && !window.location.hash) {
+    window.requestAnimationFrame(() => {
+      const mobileTarget = window.matchMedia('(max-width: 48rem)').matches
+        ? document.getElementById('featured-treatment')
+        : categoryNav;
+      mobileTarget?.scrollIntoView({ block: 'start' });
+    });
+  }
+
   const controls = finder ? qsa('[data-treatment-facet]', finder) : [];
   const reset = finder ? qs('[data-treatment-reset]', finder) : null;
   const status = finder ? qs('[data-treatment-filter-status]', finder) : null;

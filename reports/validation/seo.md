@@ -1,23 +1,23 @@
 # SEO Validation Report
 
-**Status:** PASS
+**Status:** FAIL
 
 ## Coverage
 
 - Public HTML pages parsed: 47
 - Canonical, indexable URLs in sitemap: 42
-- Images audited: 333
+- Images audited: 302
 - Decorative images with empty alt text: 127
 - Post-hero navigation targets: 43
 
 ## Validation summary
 
-- Metadata: passed
-- Canonicals and hreflang: passed
-- Structured data: passed
+- Metadata: failed
+- Canonicals and hreflang: failed
+- Structured data: failed
 - Sitemap and robots: passed
-- Image alt text and dimensions: passed
-- Broken internal links and targets: passed
+- Image alt text and dimensions: failed
+- Broken internal links and targets: failed
 - FAQ parity: 
 
 ## Page metadata and schema
@@ -65,10 +65,10 @@
 | `missao.html` | 26 chars | 116 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
 | `obrigada.html` | 41 chars | 54 chars | `noindex, follow` | noindex utility |
 | `pele.html` | 51 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
-| `perguntas.html` | 53 chars | 148 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
+| `perguntas.html` | 38 chars | 150 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
 | `resultados.html` | 45 chars | 123 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `sobre.html` | 56 chars | 152 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage, ProfilePage |
-| `tratamentos.html` | 53 chars | 116 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Service, ItemList |
+| `tratamentos.html` | 53 chars | 139 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage |
 | `valores.html` | 27 chars | 122 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
 
 ## Remaining placeholders
@@ -102,8 +102,20 @@
 - [formulario.html] description is 174 characters
 - [missao.html] description is 116 characters
 - [pele.html] description is 114 characters
-- [tratamentos.html] description is 116 characters
 
 ## Errors
 
-- None.
+- [perguntas.html] must contain one post-hero link to #main-content
+- [perguntas.html] must contain one unique #main-content target
+- [tratamentos.html] missing social metadata: og:image:alt, og:image:height, og:image:secure_url, og:image:type, og:image:width, twitter:image:alt
+- [tratamentos.html] social descriptions do not match the meta description
+- [tratamentos.html] social image URLs are inconsistent
+- [tratamentos.html] social image dimensions are inaccurate
+- [tratamentos.html] social image alt text is missing
+- [tratamentos.html] missing expected schema: BreadcrumbList, HealthAndBeautyBusiness, ImageObject, ItemList, Service
+- [tratamentos.html] missing consistent entity ID https://www.francielesofiati.com/#practice
+- [tratamentos.html] must contain one post-hero link to #main-content
+- [tratamentos.html] must contain one unique #main-content target
+- [typography-plan.html] html lang must be pt-BR
+- [typography-plan.html] must use noindex, follow
+- [typography-plan.html] must contain one redirect canonical

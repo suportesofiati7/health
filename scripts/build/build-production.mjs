@@ -30,6 +30,8 @@ const PARTIAL_FILENAMES = Object.freeze({
   topbar: 'top-bar.html',
   header: 'header.html',
   'mobile-menu': 'mobile-menu.html',
+  'quick-contact': 'quick-contact.html',
+  'newsletter-strip': 'newsletter-strip.html',
   footer: 'footer.html',
   'cookie-banner': 'cookie-banner.html',
   'floating-widgets': 'floating-widgets.html'
@@ -37,26 +39,25 @@ const PARTIAL_FILENAMES = Object.freeze({
 const HERO_FILES = Object.freeze({
   // The homepage's visible LCP scene is the clinic image in the source HTML.
   // Keep this aligned with the actual hero so preload never fetches an unused portrait.
-  home: 'assets/pages/home/clinic/ambiente-clinica-estetica-principal-11.png',
-  about: 'assets/pages/about/hero/imagem-principal-estetica-principal-2.png',
-  mission: 'assets/pages/mission/hero/imagem-principal-estetica-principal-3.png',
-  treatments: 'assets/pages/treatments/hero/imagem-principal-estetica-principal-4.png',
-  care: 'assets/pages/care/hero/imagem-principal-estetica-principal-6.png',
-  'thank-you': 'assets/pages/thank-you/hero/imagem-principal-estetica-principal-7.png',
-  skin: 'assets/pages/skin/hero/imagem-principal-estetica-principal-8.png',
-  laser: 'assets/pages/laser/hero/imagem-principal-estetica-principal-9.png',
-  values: 'assets/pages/values/hero/imagem-principal-estetica-principal-11.png',
-  legal: 'assets/pages/legal/hero/imagem-principal-estetica-principal-13.png',
-  journal: 'assets/pages/journal/hero/imagem-principal-estetica-principal-14.png',
-  blog: 'assets/pages/blog/hero/imagem-principal-estetica-principal-15.png',
-  testimonials: 'assets/pages/testimonials/hero/imagem-principal-estetica-principal-17.png',
-  consultation: 'assets/pages/consultation/hero/imagem-principal-estetica-principal-18.png',
-  results: 'assets/pages/results/hero/imagem-principal-estetica-principal-19.png',
-  faq: 'assets/pages/faq/hero/imagem-principal-estetica-principal-20.png',
-  privacy: 'assets/pages/privacy/hero/imagem-principal-estetica-principal-21.png',
-  cookies: 'assets/pages/cookies/hero/imagem-principal-estetica-principal-22.png',
-  'not-found': 'assets/pages/not-found/hero/imagem-principal-estetica-principal-23.png',
-  accessibility: 'assets/pages/accessibility/hero/imagem-principal-estetica-principal-24.png'
+  home: 'assets/pages/home/clinic/inicio-consulta-personalizada-beleza-equilibrada-ambiente-laser-pagina-franciele-sofiati-londrina-centro.png',
+  about: 'assets/pages/about/hero/peeling-quimico-clinica-premium-sobre-franciele-imagem-destaque-franciele-sofiati-londrina-centro.png',
+  mission: 'assets/pages/mission/hero/bioestimulador-colageno-pele-saudavel-missao-imagem-destaque-franciele-sofiati-londrina-centro.png',
+  treatments: 'assets/pages/treatments/hero/personalizada-biomedica-peeling-quimico-autocuidado-tratamento-estetico-gleba-palhano.png',
+  care: 'assets/pages/care/hero/rejuvenescimento-facial-avaliacao-estetica-estetica-avancada-imagem-destaque-franciele-sofiati-londrina-centro-03.png',
+  'thank-you': 'assets/pages/thank-you/hero/consulta-personalizada-tecnologia-segura-estetica-avancada-imagem-destaque-franciele-sofiati-gleba-palhano-03.png',
+  skin: 'assets/pages/skin/hero/peeling-quimico-acolhimento-clinico-pele-imagem-destaque-franciele-sofiati-londrina-centro.png',
+  laser: 'assets/pages/laser/hero/rejuvenescimento-facial-avaliacao-estetica-estetica-avancada-imagem-destaque-franciele-sofiati-londrina-centro-04.png',
+  values: 'assets/pages/values/hero/vasinhos-faciais-contorno-facial-valores-imagem-destaque-franciele-sofiati-gleba-palhano.png',
+  legal: 'assets/pages/legal/hero/vasinhos-faciais-cuidado-personalizado-legal-imagem-destaque-franciele-sofiati-londrina-centro.png',
+  journal: 'assets/pages/journal/hero/cuidados-pos-bioestimulador-colageno-renovacao-cutanea-artigo-estetica-avancada-londrina-centro.png',
+  blog: 'assets/pages/blog/hero/bioestimulador-colageno-renovacao-cutanea-blog-imagem-destaque-franciele-sofiati-londrina-centro.png',
+  testimonials: 'assets/pages/testimonials/hero/bioestimulador-colageno-consulta-presencial-estetica-avancada-imagem-destaque-franciele-sofiati-gleba-palhano-02.png',
+  consultation: 'assets/pages/consultation/hero/vasinhos-faciais-cuidado-personalizado-consulta-imagem-destaque-franciele-sofiati-londrina-centro.png',
+  results: 'assets/pages/results/hero/peeling-quimico-autocuidado-resultados-imagem-destaque-franciele-sofiati-gleba-palhano.png',
+  faq: 'assets/pages/faq/hero/vasinhos-faciais-rosto-natural-consulta-imagem-destaque-franciele-sofiati-gleba-palhano.png',
+  privacy: 'assets/pages/privacy/hero/consulta-personalizada-tecnologia-segura-privacidade-imagem-destaque-franciele-sofiati-gleba-palhano.png',
+  cookies: 'assets/pages/cookies/hero/peeling-quimico-protocolo-avancado-cookies-imagem-destaque-franciele-sofiati-gleba-palhano.png',
+  'not-found': 'assets/pages/not-found/hero/vasinhos-faciais-planejamento-individual-estetica-avancada-imagem-destaque-franciele-sofiati-londrina-centro.png'
 });
 
 const imageMetadata = new Map();

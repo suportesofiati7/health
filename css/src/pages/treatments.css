@@ -85,6 +85,30 @@
     background: linear-gradient(180deg, transparent 68%, rgb(36 49 41 / .16));
   }
 
+  /* Honest fallback while a procedure-specific clinic photograph is pending.
+     It deliberately reserves the same media space as a photograph, avoiding
+     collapsed cards, blank columns, and misleading substitute imagery. */
+  .sf-page[data-page="treatments"] .sf-treatment-menu-card__media--pending {
+    display: grid;
+    min-block-size: clamp(10rem, 22vw, 17rem);
+    place-items: center;
+    padding: 1.5rem;
+    background:
+      linear-gradient(135deg, rgb(255 253 249 / .72), rgb(234 239 225 / .88)),
+      repeating-linear-gradient(45deg, transparent 0 1rem, rgb(125 101 72 / .055) 1rem 1.08rem);
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-menu-card__media--pending::after { content: none; }
+
+  .sf-page[data-page="treatments"] .sf-treatment-media-pending {
+    max-inline-size: 18ch;
+    color: var(--forest-700);
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    line-height: 1.15;
+    text-align: center;
+  }
+
   .sf-page[data-page="treatments"] .sf-treatment-menu-card__media img {
     inline-size: 100%;
     block-size: 100%;
@@ -530,6 +554,7 @@
     .sf-page[data-page="treatments"] [data-treatment-layout="technical"] .sf-treatment-menu-card:not(:first-of-type) .sf-treatment-menu-card__media img,
     .sf-page[data-page="treatments"] [data-treatment-layout="clinical"] .sf-treatment-menu-card__media img,
     .sf-page[data-page="treatments"] #scalp-and-microinfusion [data-treatment-layout="process"] .sf-treatment-menu-card__media img { aspect-ratio: 4 / 3; }
+    .sf-page[data-page="treatments"] .sf-treatment-menu-card__media--pending { min-block-size: 14rem; }
     .sf-page[data-page="treatments"] .sf-treatment-meta { grid-template-columns: 1fr; }
     .sf-page[data-page="treatments"] .sf-treatment-group-head { grid-template-columns: 1fr; gap: .5rem; }
     .sf-page[data-page="treatments"] .sf-treatment-back { justify-self: start; }
@@ -537,5 +562,122 @@
 
   @media (prefers-reduced-transparency: reduce) {
     .sf-page[data-page="treatments"] :is(.sf-treatment-index, .sf-treatment-menu-card, .sf-treatment-finder__field select) { background-color: var(--ivory-50); backdrop-filter: none; }
+  }
+}
+
+/* Compact treatment directory refresh: remove the exterior photo field,
+   preserve the service photography, and give every card a consistent tag row. */
+@layer pages {
+  .sf-page[data-page="treatments"] .sf-section[data-treatment-filterable] {
+    padding-block: clamp(1.5rem, 2.6vw, 2.5rem) !important;
+  }
+
+  .sf-page[data-page="treatments"] .sf-section[data-treatment-filterable]::before,
+  .sf-page[data-page="treatments"] .sf-section[data-treatment-filterable]::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+  }
+
+  .sf-page[data-page="treatments"] #featured-treatment { background: linear-gradient(135deg, var(--blush-50), var(--ivory-50)) !important; }
+  .sf-page[data-page="treatments"] #facial-cleansing { background: var(--ivory-50) !important; }
+  .sf-page[data-page="treatments"] #mechanical-exfoliation { background: var(--sage-100) !important; }
+  .sf-page[data-page="treatments"] #chemical-renewal { background: linear-gradient(135deg, var(--champagne-100), var(--blush-50)) !important; }
+  .sf-page[data-page="treatments"] #laser-services { background: var(--sffo-olive, var(--menu-green, #485440)) !important; color: var(--ivory-50) !important; }
+  .sf-page[data-page="treatments"] #expression-and-lower-face { background: var(--ordinary-mist, #fbf6ee) !important; }
+  .sf-page[data-page="treatments"] #scalp-and-microinfusion { background: linear-gradient(135deg, var(--sage-50), var(--ivory-50)) !important; }
+  .sf-page[data-page="treatments"] #microneedling { background: var(--champagne-100) !important; }
+  .sf-page[data-page="treatments"] #laser-services .sf-section-head :is(h2, .sf-eyebrow, .sf-chapter-number) { color: var(--ivory-50) !important; }
+  .sf-page[data-page="treatments"] #laser-services .sf-section-head :is(.sf-eyebrow, .sf-chapter-number) { color: var(--gold-200) !important; }
+
+  .sf-page[data-page="treatments"] .sf-treatment-scene > .sf-treatment-menu {
+    margin-block-start: clamp(1.5rem, 2.8vw, 2.5rem);
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-menu-card__copy {
+    gap: .75rem;
+    padding: clamp(1.1rem, 1.8vw, 1.65rem);
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-menu-card__copy > p:not(.sf-treatment-menu-card__label) {
+    line-height: 1.5;
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-menu-tags {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: .45rem;
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-menu-tags li {
+    min-inline-size: 0;
+    min-block-size: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .35rem;
+    border: 1px solid color-mix(in srgb, var(--rose-gold-600) 42%, var(--gold-300));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sage-50) 72%, var(--ivory-50));
+    padding: .35rem .55rem;
+    font-size: clamp(.62rem, .12vw + .6rem, .74rem);
+    font-weight: 740;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-menu-tags svg {
+    flex: 0 0 auto;
+    inline-size: .9rem;
+    block-size: .9rem;
+    fill: none;
+    stroke: var(--rose-gold-700);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-menu-tags span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-index {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 80;
+    border-color: rgb(234 213 173 / .32);
+    background: var(--sffo-olive, var(--menu-green, #485440));
+    box-shadow: 0 .65rem 1.4rem rgb(36 49 41 / .2);
+  }
+
+  .sf-page[data-page="treatments"] .sf-treatment-index__label,
+  .sf-page[data-page="treatments"] .sf-treatment-index__links a { color: var(--ivory-50); }
+  .sf-page[data-page="treatments"] .sf-treatment-index__links a span { color: var(--gold-200); }
+  .sf-page[data-page="treatments"] .sf-treatment-index__links a:hover,
+  .sf-page[data-page="treatments"] .sf-treatment-index__links a[aria-current="location"] { border-color: rgb(234 213 173 / .6); background: rgb(255 253 249 / .12); color: var(--ivory-50); }
+
+  .sf-page[data-page="treatments"] [data-treatment-filterable] .sf-section-head {
+    position: relative;
+    padding-inline-end: 2.75rem;
+  }
+
+  .sf-page[data-page="treatments"] [data-treatment-filterable] .sf-section-head::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    inline-size: clamp(1.55rem, 2.2vw, 2rem);
+    block-size: clamp(1.55rem, 2.2vw, 2rem);
+    background: url("../assets/shared/brand/monograma-franciele-sofiati-resultado-discreto-estetica-avancada-gleba-palhano.webp") center / contain no-repeat;
+    filter: sepia(1) saturate(1.7) hue-rotate(345deg) brightness(1.08);
+    opacity: .9;
+  }
+
+  @media (max-width: 35rem) {
+    .sf-page[data-page="treatments"] .sf-treatment-menu-tags { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .3rem; }
+    .sf-page[data-page="treatments"] .sf-treatment-menu-tags li { padding-inline: .35rem; }
   }
 }
