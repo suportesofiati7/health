@@ -11,12 +11,14 @@ import { initBlogSearch } from './pages/blog.js';
 import { initFooter } from './components/footer.js';
 import { initIcons } from './components/icons.js';
 import { loadPartials } from './partials.js';
+import { applyWhatsAppLinks } from './core/whatsapp.js';
 
 let sitePromise = null;
 
 export function initSite() {
   if (sitePromise) return sitePromise;
   sitePromise = loadPartials().then(() => {
+    applyWhatsAppLinks();
     markCurrentLinks();
     prepareMenuInitialState();
     initDelegatedEvents();

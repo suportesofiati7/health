@@ -637,7 +637,7 @@
                   <h2 id="contact-title">Ainda não encontrou o que procurava?</h2>
                   <p>Entre em contato com a clínica para receber orientação sobre consultas, tratamentos ou informações disponíveis no site.</p>
                   <div class="actions">
-                    <a class="btn btn--primary" href="https://wa.me/5543991043536" rel="noopener noreferrer">Falar pelo WhatsApp</a>
+                    <a class="btn btn--primary" href="https://wa.me/5543991043536?text=Ol%C3%A1%2C%20Franciele!%20Vim%20pelo%20site%20francielesofiati.com%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." rel="noopener noreferrer" target="_blank">Falar pelo WhatsApp</a>
                     <a class="btn" href="/contato.html">Entrar em contato</a>
                   </div>
                 </div>

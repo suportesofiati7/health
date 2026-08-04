@@ -1,6 +1,6 @@
 import { assetPrefix } from '../core/page.js';
+import { whatsappUrl } from '../core/whatsapp.js';
 
-const WHATSAPP = 'https://wa.me/5543991043536';
 const AVATAR = 'assets/chatbot/ChatGPT Image 23 de jul. de 2026, 08_22_35.png';
 const INVITE_KEY = 'sofiati_virtual_assistant_invite_seen';
 const LEAD_KEY = 'sofiati_virtual_assistant_lead_seen';
@@ -78,7 +78,7 @@ function links() {
     journal: pathFor('blog.html', 'journal.html'),
     about: pathFor('sobre.html', 'about.html'),
     sitemap: '/sitemap.xml',
-    whatsapp: WHATSAPP
+    whatsapp: whatsappUrl
   };
 }
 
@@ -240,6 +240,10 @@ export function initVirtualAssistant() {
   }
 
   function handleAction(action) {
+    if (action === whatsappUrl) {
+      window.open(action, '_blank', 'noopener,noreferrer');
+      return;
+    }
     if (isUrlAction(action)) {
       window.location.href = action;
       return;

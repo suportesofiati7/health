@@ -1,6 +1,6 @@
 {
-  "status": "FAIL",
-  "generatedAt": "2026-07-23T19:36:14.108459+00:00",
+  "status": "PASS",
+  "generatedAt": "2026-08-04T13:03:44.145393+00:00",
   "pagesChecked": 46,
   "scriptsPresent": {
     "required": [
@@ -611,7 +611,7 @@
           "name": "stored_rejection_pages_remain_stable",
           "passed": true,
           "detail": {
-            "gtmRequests": 46
+            "gtmRequests": 47
           }
         }
       ],
@@ -672,7 +672,5 @@
     "Publish a named GTM container version after Tag Assistant and DebugView testing."
   ],
   "warnings": [],
-  "errors": [
-    "perguntas.html: contact link lacks explicit classification"
-  ]
+  "errors": []
 }
