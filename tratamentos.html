@@ -878,7 +878,7 @@
         chapter: "01",
         sectionNumber: "1",
         eyebrow: "TRATAMENTO EM DESTAQUE",
-        title: "Ultraformer MPT",
+        title: "",
         scene: "blush-silk",
         tone: "blush",
         pattern: "treatment-feature",
@@ -1427,14 +1427,14 @@
         <section
           id="${escapeHTML(section.id)}"
           class="sf-section ${escapeHTML(section.composition)} sf-treatment-compact-section"
-          aria-labelledby="${escapeHTML(section.headingId)}"
+          ${section.title ? `aria-labelledby="${escapeHTML(section.headingId)}"` : `aria-label="${escapeHTML(section.eyebrow)}"`}
           data-chapter="${escapeHTML(section.chapter)}"
           data-pattern="${escapeHTML(section.pattern)}"
           data-scale="compact"
           data-scene="${escapeHTML(section.scene)}"
           data-section="${escapeHTML(section.sectionNumber)}"
           data-section-number="${escapeHTML(section.sectionNumber)}"
-          data-section-name="${escapeHTML(section.title)}"
+          data-section-name="${escapeHTML(section.title || section.eyebrow)}"
           data-tone="${escapeHTML(section.tone)}"
           data-track-section
           data-treatment-filterable
@@ -1449,9 +1449,7 @@
                 ${escapeHTML(section.eyebrow)}
               </p>
 
-              <h2 id="${escapeHTML(section.headingId)}">
-                ${escapeHTML(section.title)}
-              </h2>
+              ${section.title ? `<h2 id="${escapeHTML(section.headingId)}">${escapeHTML(section.title)}</h2>` : ""}
             </header>
 
             <div

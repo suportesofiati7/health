@@ -33,6 +33,7 @@ STANDARD_VIEWPORTS = {
     "desktop-1024": {"width": 1024, "height": 900, "isMobile": False},
     "desktop-1280": {"width": 1280, "height": 960, "isMobile": False},
     "desktop-1440": {"width": 1440, "height": 1200, "isMobile": False},
+    "desktop-1600": {"width": 1600, "height": 1000, "isMobile": False},
     "desktop-1920": {"width": 1920, "height": 1080, "isMobile": False},
     "ultrawide-3440": {"width": 3440, "height": 1440, "isMobile": False},
 }
@@ -74,8 +75,15 @@ def prompt_indices(items: list[str], label: str, multiple: bool) -> list[str]:
 
 
 def public_pages() -> tuple[list[str], list[str]]:
-    english = sorted(path.name for path in ROOT.glob("*.html"))
-    portuguese = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / "pt").glob("*.html"))
+    # The published Portuguese site lives at the repository root and the
+    # English site under en/.  The former pt/ layout no longer exists; looking
+    # there produced an empty capture list and a manifest with no PNG files.
+    english_root = ROOT / "en"
+    english = sorted(
+        path.relative_to(ROOT).as_posix()
+        for path in english_root.rglob("*.html")
+    ) if english_root.is_dir() else []
+    portuguese = sorted(path.name for path in ROOT.glob("*.html"))
     return english, portuguese
 
 
@@ -205,6 +213,41 @@ const pages = JSON.parse(pagesJson), viewports = JSON.parse(viewportsJson), targ
 const safe = value => String(value).replace(/[^a-z0-9_-]+/gi, "-").replace(/^-|-$/g, "") || "capture";
 const pageName = value => safe(value.replace(/^https?:\/\//, "").replace(/\.html([?#].*)?$/, "").replace(/[/?#]/g, "-"));
 const urlFor = value => /^https?:\/\//i.test(value) ? value : `${baseUrl}/${value.replace(/^\//, "")}`;
+async function captureFullPageWithFixedBackground(page, file) {
+  // A full-page browser capture expands the viewport, which is not how a
+  // visitor sees fixed artwork and tools. Capture every real viewport instead
+  // and join the frames into a scroll-strip: repeated fixed UI is intentional
+  // because it represents the page at each actual scroll position.
+  const sharp = require("sharp");
+  const { width, height } = page.viewportSize();
+  const fullHeight = await page.evaluate(() => Math.ceil(document.documentElement.scrollHeight));
+  const frames = [];
+  try {
+    for (let top = 0; top < fullHeight; top += height) {
+      const visibleHeight = Math.min(height, fullHeight - top);
+      const scrollTop = Math.min(top, Math.max(0, fullHeight - height));
+      await page.evaluate(y => scrollTo(0, y), scrollTop);
+      await page.waitForTimeout(100);
+      const image = await page.screenshot();
+      frames.push({ image, top, visibleHeight, cropTop: top === scrollTop ? 0 : height - visibleHeight });
+    }
+    const composites = await Promise.all(frames.map(async frame => ({
+      input: await sharp(frame.image)
+        .extract({ left: 0, top: frame.cropTop, width, height: frame.visibleHeight })
+        .png()
+        .toBuffer(),
+      top: frame.top,
+      left: 0,
+    })));
+    await sharp({ create: { width, height: fullHeight, channels: 4, background: "#fffdf9" } })
+      .composite(composites)
+      .png()
+      .toFile(file);
+  } finally {
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.waitForTimeout(80);
+  }
+}
 async function settle(page) {
   await page.waitForTimeout(250);
   await page.evaluate(async () => {
@@ -224,12 +267,35 @@ async function settle(page) {
       })),
       delay(15000),
     ]);
+    // The accessibility skip link is intentionally visible only while it has
+    // keyboard focus. Clear incidental browser focus before the visual capture.
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     scrollTo(0, 0); await delay(80);
   });
 }
 (async () => {
   fs.mkdirSync(outputDir, {recursive:true});
-  const executablePath = process.env.SCREENSHOT_BROWSER || "/usr/bin/google-chrome";
+  // Prefer an explicitly configured browser, then common system locations, and
+  // finally the Chromium bundled with Playwright. This keeps the manager
+  // working after a system Chrome update changes its launcher path.
+  const configuredBrowser = process.env.SCREENSHOT_BROWSER;
+  const candidates = configuredBrowser
+    ? [configuredBrowser]
+    : [
+        "/usr/bin/google-chrome",
+        "/usr/bin/google-chrome-stable",
+        "/usr/bin/chromium",
+        "/usr/bin/chromium-browser",
+        chromium.executablePath(),
+      ];
+  const executablePath = candidates.find(candidate => candidate && fs.existsSync(candidate));
+  if (!executablePath) {
+    throw new Error(
+      configuredBrowser
+        ? `SCREENSHOT_BROWSER does not exist: ${configuredBrowser}`
+        : "No Chromium browser was found. Install Chrome/Chromium, run `npx playwright install chromium`, or set SCREENSHOT_BROWSER to its executable path.",
+    );
+  }
   const browser = await chromium.launch({headless:true, executablePath, args:["--disable-dev-shm-usage", "--no-sandbox"]}); const captures=[];
   for (const [viewportName, viewport] of Object.entries(viewports)) {
     const context = await browser.newContext({viewport:{width:viewport.width,height:viewport.height}, isMobile:viewport.isMobile, deviceScaleFactor:1});
@@ -241,7 +307,10 @@ async function settle(page) {
         let jobs = target.kind === "page" ? [{name: target.fullPage ? "full-page" : "viewport", page: true}] : target.kind === "numbered_sections" ? await page.locator("main > section[data-section]").evaluateAll(nodes => nodes.map((node, i) => ({name:`section-${node.dataset.section || i+1}-${node.id || "section"}`, selector: `main > section[data-section="${node.dataset.section}"]`}))) : target.selectors;
         for (const job of jobs) {
           const file = path.join(pageDir, `${pageName(pagePath)}--${safe(job.name)}.png`);
-          if (job.page) await page.screenshot({path:file, fullPage:target.fullPage});
+          if (job.page) {
+            if (target.fullPage) await captureFullPageWithFixedBackground(page, file);
+            else await page.screenshot({path:file});
+          }
           else { const locator = page.locator(job.selector).first(); if (await locator.count() === 0) { captures.push({page:pagePath,viewport:viewportName,target:job.name,status:"skipped",reason:`No match for ${job.selector}`}); continue; } await locator.scrollIntoViewIfNeeded(); await locator.screenshot({path:file}); }
           captures.push({page:pagePath,viewport:viewportName,target:job.name,status:"captured",file:path.relative(outputDir,file)});
         }
@@ -258,6 +327,9 @@ def main() -> int:
         subprocess.run(["node", "-e", "require('playwright-core')"], cwd=ROOT, check=True, capture_output=True)
         pages, viewports = choose_pages(), choose_viewports()
         target = choose_target(pages)
+        if not pages:
+            print("No pages were selected. Choose a page or check the site language directories.")
+            return 1
     except KeyboardInterrupt:
         print("\nCancelled.")
         return 130

@@ -26,6 +26,25 @@
 
 /* Compact treatment directory refresh. */
 @layer pages {
+  /* One fixed panorama is the page field: it carries the arch and balcony
+     continuously down the page instead of changing artwork per section. */
+  .sf-page[data-page="treatments"] {
+    background-color: var(--page-cream);
+    background-image: linear-gradient(rgb(255 253 249 / .32), rgb(255 253 249 / .32)), var(--site-panorama) !important;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .sf-page[data-page="treatments"] .sf-main > .sf-section[data-treatment-filterable] {
+    background: rgb(255 253 249 / .76) !important;
+  }
+
+  .sf-page[data-page="treatments"] #laser-services {
+    background: rgb(72 84 64 / .88) !important;
+  }
+
   .sf-page[data-page="treatments"] .sf-section[data-treatment-filterable] { padding-block: clamp(1.5rem, 2.6vw, 2.5rem) !important; }
   .sf-page[data-page="treatments"] .sf-section[data-treatment-filterable]::before, .sf-page[data-page="treatments"] .sf-section[data-treatment-filterable]::after { content: none !important; display: none !important; background: none !important; }
   .sf-page[data-page="treatments"] #featured-treatment { background: linear-gradient(135deg, var(--blush-50), var(--ivory-50)) !important; }
