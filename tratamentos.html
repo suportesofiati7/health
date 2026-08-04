@@ -1295,7 +1295,7 @@
     let imageIndex = 0;
 
     function renderTreatment(item) {
-      const loading = imageIndex === 0 ? "eager" : "lazy";
+      const loading = "eager";
       const priority = imageIndex === 0 ? 'fetchpriority="high"' : "";
       imageIndex += 1;
 
@@ -1475,30 +1475,6 @@
         .join("");
     }
 
-    /* =========================================================
-       KEEP ONLY ONE DETAILS PANEL OPEN PER CATEGORY
-    ========================================================== */
-    document
-      .querySelectorAll("[data-treatment-filterable]")
-      .forEach(section => {
-        const detailPanels = section.querySelectorAll(
-          ".sf-treatment-compact-details"
-        );
-
-        detailPanels.forEach(panel => {
-          panel.addEventListener("toggle", () => {
-            if (!panel.open) {
-              return;
-            }
-
-            detailPanels.forEach(otherPanel => {
-              if (otherPanel !== panel) {
-                otherPanel.open = false;
-              }
-            });
-          });
-        });
-      });
   </script>
 
   <!-- =========================================================
