@@ -1,0 +1,17 @@
+{
+  "name": "Metropolitan Med Center",
+  "mapUrl": "https://share.google/IVrtPxwbL6uukvSdo",
+  "telephone": "+5543991043536",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "R. Mato Grosso, 1114",
+    "addressLocality": "Londrina",
+    "addressRegion": "PR",
+    "postalCode": "86010-180",
+    "addressCountry": "BR"
+  },
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "12:00"}
+  ]
+}

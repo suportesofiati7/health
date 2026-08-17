@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Render reviewed Portuguese journal articles from explicit editorial source."""
+"""Render Portuguese journal articles from editorial source.
+
+After running this renderer, run ``enrich-business-schema.py`` and then
+``generate-social-previews.py`` to restore the verified business schema and
+the 1200×630 social metadata that those scripts own.
+"""
 from __future__ import annotations
 import json
 from html import escape
@@ -8,8 +13,31 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = json.loads((ROOT / "data" / "journal-editorial.json").read_text(encoding="utf-8"))["articles"]
+VOLUME_TWO = json.loads((ROOT / "data" / "journal-editorial-volume-2.json").read_text(encoding="utf-8"))["articles"]
 IMAGES = json.loads((ROOT / "data" / "service-image-sources.json").read_text(encoding="utf-8"))
 OUT = ROOT / "blog"; OUT.mkdir(exist_ok=True)
+
+def article_from_brief(brief):
+    slug, title, description, section, service, focus, context, caution = brief
+    return {
+        "slug": slug,
+        "title": title,
+        "description": description,
+        "section": section,
+        "service": service,
+        "intro": f"{title.split(':', 1)[0]} parece uma questão simples quando aparece em uma busca. Na prática, {focus} pede contexto: histórico, rotina, condição atual da pele e objetivos ajudam a organizar uma decisão mais segura.",
+        "sections": [
+            ("Comece pelo contexto", f"Antes de procurar uma solução pronta, vale olhar para {context}. Essa observação não substitui uma avaliação, mas torna as perguntas mais úteis e evita que uma tendência defina sozinha o próximo passo."),
+            ("A técnica vem depois da pergunta", f"Em estética, a mesma queixa pode ter prioridades diferentes conforme a pessoa. Uma consulta responsável explica possibilidades, preparação, limites e recuperação antes de indicar um recurso ou uma sequência de sessões."),
+            ("Segurança também é saber esperar", f"{caution} Se houver dúvida, a orientação da profissional que avaliou o caso deve prevalecer sobre comparações, receitas caseiras ou expectativas construídas por imagens online.")
+        ],
+        "references": [
+            "https://www.gov.br/anvisa/pt-br/comunicacao/campanhas/estetica/procedimento-seguro",
+            "https://www.aad.org/public/everyday-care/skin-care-basics"
+        ]
+    }
+
+ARTICLES += [article_from_brief(brief) for brief in VOLUME_TWO]
 
 def image(article, index):
     record = IMAGES[article["service"]][index]
@@ -90,3 +118,23 @@ for article in ARTICLES:
 registry = json.loads((ROOT / "data" / "content-pages.json").read_text(encoding="utf-8"))
 service_routes = [route for route in registry.get("routes", []) if route.startswith("servicos/")]
 (ROOT / "data" / "content-pages.json").write_text(json.dumps({"routes": service_routes + routes}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+index = ROOT / "blog.html"
+items = "\n".join(
+    f'''<li><a href="blog/{escape(article['slug'])}.html"><span class="sj-register__number">{position:02d}</span><span class="sj-register__entry"><strong>{escape(article['title'])}</strong><small>{escape(article['section'])} · leitura clínica orientativa</small></span><span aria-hidden="true" class="sj-register__arrow">↗</span></a></li>'''
+    for position, article in enumerate(ARTICLES, start=1)
+)
+library = f'''<!-- GENERATED JOURNAL LIBRARY: START -->
+<section aria-labelledby="journal-library-title" class="sj-register sf-container" data-section-name="Biblioteca editorial" data-section-number="8" data-track-section="" id="journal-library">
+<header class="sj-register__heading"><p class="sj-publication-label">Biblioteca editorial</p><h2 id="journal-library-title">Guias para aprofundar sua pesquisa.</h2><p class="sj-register__intro">{len(ARTICLES)} artigos sobre pele, tecnologia, segurança, recuperação, planejamento facial e couro cabeludo. Todo conteúdo é educativo; indicação depende de consulta.</p></header>
+<ol class="sj-register__list">{items}</ol>
+</section>
+<!-- GENERATED JOURNAL LIBRARY: END -->'''
+source = index.read_text(encoding="utf-8")
+start = "<!-- GENERATED JOURNAL LIBRARY: START -->"
+end = "<!-- GENERATED JOURNAL LIBRARY: END -->"
+if start in source and end in source:
+    source = source[:source.index(start)] + library + source[source.index(end) + len(end):]
+else:
+    source = source.replace('<template data-sf-partial="footer"></template>', library + '\n<template data-sf-partial="footer"></template>')
+index.write_text(source, encoding="utf-8")

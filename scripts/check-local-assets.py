@@ -58,6 +58,10 @@ def main() -> int:
     for path in source_files():
         text = path.read_text(encoding="utf-8", errors="ignore")
         for value in local_refs(text):
+            # Runtime templates are resolved by the browser after JavaScript
+            # interpolation; they are not literal local-file references.
+            if "${" in value:
+                continue
             target = resolve(path, value)
             if not target.exists():
                 rel = path.relative_to(ROOT).as_posix()

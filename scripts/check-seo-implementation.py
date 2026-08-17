@@ -24,9 +24,6 @@ INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-vide
 NOINDEX = {"404.html", "obrigada.html", "en/404.html", "en/thank-you.html"}
 JUMP_EXEMPT = {"404.html", "index.html", "en/404.html", "en/index.html"}
 FORBIDDEN_SCHEMA_KEYS = {
-    "address",
-    "openinghours",
-    "openinghoursspecification",
     "pricerange",
     "aggregaterating",
     "ratingvalue",

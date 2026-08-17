@@ -49,6 +49,9 @@ def main():
     pages = list(public_html_files())
     for path in pages:
         soup = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
+        robots = soup.find("meta", attrs={"name": "robots"})
+        if robots and "noindex" in robots.get("content", "").lower():
+            continue
         properties = {name: meta_content(soup, "property", name) for name in REQUIRED_PROPERTIES}
         names = {name: meta_content(soup, "name", name) for name in REQUIRED_NAMES}
         values = {**properties, **names}

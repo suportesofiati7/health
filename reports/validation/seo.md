@@ -4,11 +4,11 @@
 
 ## Coverage
 
-- Public HTML pages parsed: 75
-- Canonical, indexable URLs in sitemap: 70
-- Images audited: 386
+- Public HTML pages parsed: 125
+- Canonical, indexable URLs in sitemap: 120
+- Images audited: 536
 - Decorative images with empty alt text: 127
-- Post-hero navigation targets: 71
+- Post-hero navigation targets: 121
 
 ## Validation summary
 
@@ -26,14 +26,64 @@
 | --- | ---: | ---: | --- | --- |
 | `404.html` | 58 chars | 150 chars | `noindex, follow` | noindex utility |
 | `blog.html` | 53 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Blog, ItemList |
+| `blog/acidos-na-rotina-ordem-e-cautela.html` | 92 chars | 81 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/acne-ativa-prioridade-antes-da-textura.html` | 88 chars | 93 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/afinamento-capilar-e-fotografias.html` | 106 chars | 100 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/barreira-cutanea-sinais-de-sobrecarga.html` | 99 chars | 83 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/cicatrizes-de-acne-textura-e-plano.html` | 88 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/consulta-estetica-como-se-preparar.html` | 101 chars | 95 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/couros-cabeludo-e-queda-sinais-de-alerta.html` | 82 chars | 95 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/cravos-e-extracao-segura.html` | 81 chars | 92 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/depilacao-a-laser-preparo-e-expectativas.html` | 85 chars | 126 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/depilacao-laser-intervalos-e-ciclo.html` | 82 chars | 94 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/depilacao-laser-rosto-e-hormonios.html` | 91 chars | 108 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/esfoliacao-fisica-quando-menos-ajuda.html` | 95 chars | 88 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/expectativa-e-tempo-biologico.html` | 110 chars | 99 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/fotoprotecao-que-cabe-na-rotina.html` | 88 chars | 104 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/fotos-antes-depois-leitura-critica.html` | 106 chars | 87 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/laser-co2-e-eventos-importantes.html` | 100 chars | 97 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/laser-co2-e-fotoprotecao-pos.html` | 97 chars | 96 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-co2-recuperacao-e-cuidados.html` | 105 chars | 115 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/laser-e-cicatrizes-de-acne.html` | 100 chars | 96 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/laser-e-pele-bronzeada.html` | 93 chars | 88 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/limpeza-de-pele-e-barreira.html` | 82 chars | 74 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/luz-intensa-pulsada-e-avaliacao.html` | 87 chars | 100 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/mancha-pos-inflamatoria-o-que-muda.html` | 93 chars | 94 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/maquiagem-e-pele-sensivel.html` | 96 chars | 88 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/marcas-pos-acne-e-cicatrizes.html` | 100 chars | 93 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/melasma-calor-luz-e-rotina.html` | 91 chars | 101 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/melasma-manchas-e-fotoprotecao.html` | 87 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/mesoterapia-capilar-e-plano.html` | 97 chars | 105 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/microagulhamento-e-acne-inflamada.html` | 98 chars | 90 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/microagulhamento-e-manchas.html` | 93 chars | 90 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/microagulhamento-o-que-avaliar.html` | 81 chars | 107 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/microdermoabrasao-objetivos-realistas.html` | 89 chars | 98 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/microvasos-queixas-e-avaliacao.html` | 93 chars | 105 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/mmp-couro-cabeludo-perguntas.html` | 77 chars | 104 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/naturalidade-e-planejamento-facial.html` | 99 chars | 83 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/peeling-caseiro-risco-e-contexto.html` | 94 chars | 92 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/peeling-de-diamante-o-que-avaliar.html` | 86 chars | 90 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/peeling-de-jessner-cautela-e-indicacao.html` | 86 chars | 93 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/peeling-quimico-recuperacao-seguranca.html` | 86 chars | 118 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/peeling-retinoico-recuperacao-planejada.html` | 86 chars | 99 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/peeling-ultrassonico-em-uma-rotina.html` | 87 chars | 98 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/peim-o-que-informar-antes.html` | 84 chars | 89 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/pele-e-gravidez-perguntas-seguras.html` | 81 chars | 109 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/perguntas-antes-de-um-procedimento.html` | 84 chars | 108 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/poros-textura-e-expectativas.html` | 99 chars | 90 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/pos-procedimento-sinais-para-contato.html` | 92 chars | 101 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/privacidade-em-tratamentos-esteticos.html` | 102 chars | 100 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/queda-capilar-quando-investigar.html` | 91 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/radiofrequencia-e-colageno-tempo.html` | 86 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/rotina-minima-pele-sobrecarga.html` | 98 chars | 87 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/sol-e-recuperacao-cutanea.html` | 101 chars | 93 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/tecnologia-de-plasma-antes-de-decidir.html` | 95 chars | 101 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/terco-inferior-da-face-conversa-cuidadosa.html` | 93 chars | 89 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/toxina-botulinica-e-assimetrias.html` | 94 chars | 104 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/toxina-botulinica-naturalidade-e-planejamento.html` | 82 chars | 124 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/toxina-botulinica-primeira-consulta.html` | 94 chars | 90 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/ultraformer-mpt-e-objetivos.html` | 86 chars | 107 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/vermelhidao-persistente-quando-investigar.html` | 80 chars | 96 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `consulta.html` | 49 chars | 132 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage, Service |
 | `contato.html` | 27 chars | 121 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | ContactPage |
 | `cookies.html` | 43 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
@@ -119,18 +169,118 @@
 ## Warnings
 
 - [blog.html] description is 110 characters
+- [blog/acidos-na-rotina-ordem-e-cautela.html] title is 92 characters
+- [blog/acidos-na-rotina-ordem-e-cautela.html] description is 81 characters
+- [blog/acne-ativa-prioridade-antes-da-textura.html] title is 88 characters
+- [blog/acne-ativa-prioridade-antes-da-textura.html] description is 93 characters
+- [blog/afinamento-capilar-e-fotografias.html] title is 106 characters
+- [blog/afinamento-capilar-e-fotografias.html] description is 100 characters
+- [blog/barreira-cutanea-sinais-de-sobrecarga.html] title is 99 characters
+- [blog/barreira-cutanea-sinais-de-sobrecarga.html] description is 83 characters
 - [blog/cicatrizes-de-acne-textura-e-plano.html] title is 88 characters
 - [blog/cicatrizes-de-acne-textura-e-plano.html] description is 114 characters
+- [blog/consulta-estetica-como-se-preparar.html] title is 101 characters
+- [blog/consulta-estetica-como-se-preparar.html] description is 95 characters
+- [blog/couros-cabeludo-e-queda-sinais-de-alerta.html] title is 82 characters
+- [blog/couros-cabeludo-e-queda-sinais-de-alerta.html] description is 95 characters
+- [blog/cravos-e-extracao-segura.html] title is 81 characters
+- [blog/cravos-e-extracao-segura.html] description is 92 characters
 - [blog/depilacao-a-laser-preparo-e-expectativas.html] title is 85 characters
+- [blog/depilacao-laser-intervalos-e-ciclo.html] title is 82 characters
+- [blog/depilacao-laser-intervalos-e-ciclo.html] description is 94 characters
+- [blog/depilacao-laser-rosto-e-hormonios.html] title is 91 characters
+- [blog/depilacao-laser-rosto-e-hormonios.html] description is 108 characters
+- [blog/esfoliacao-fisica-quando-menos-ajuda.html] title is 95 characters
+- [blog/esfoliacao-fisica-quando-menos-ajuda.html] description is 88 characters
+- [blog/expectativa-e-tempo-biologico.html] title is 110 characters
+- [blog/expectativa-e-tempo-biologico.html] description is 99 characters
+- [blog/fotoprotecao-que-cabe-na-rotina.html] title is 88 characters
+- [blog/fotoprotecao-que-cabe-na-rotina.html] description is 104 characters
+- [blog/fotos-antes-depois-leitura-critica.html] title is 106 characters
+- [blog/fotos-antes-depois-leitura-critica.html] description is 87 characters
+- [blog/laser-co2-e-eventos-importantes.html] title is 100 characters
+- [blog/laser-co2-e-eventos-importantes.html] description is 97 characters
+- [blog/laser-co2-e-fotoprotecao-pos.html] title is 97 characters
+- [blog/laser-co2-e-fotoprotecao-pos.html] description is 96 characters
 - [blog/laser-co2-recuperacao-e-cuidados.html] title is 105 characters
 - [blog/laser-co2-recuperacao-e-cuidados.html] description is 115 characters
+- [blog/laser-e-cicatrizes-de-acne.html] title is 100 characters
+- [blog/laser-e-cicatrizes-de-acne.html] description is 96 characters
+- [blog/laser-e-pele-bronzeada.html] title is 93 characters
+- [blog/laser-e-pele-bronzeada.html] description is 88 characters
+- [blog/limpeza-de-pele-e-barreira.html] title is 82 characters
+- [blog/limpeza-de-pele-e-barreira.html] description is 74 characters
+- [blog/luz-intensa-pulsada-e-avaliacao.html] title is 87 characters
+- [blog/luz-intensa-pulsada-e-avaliacao.html] description is 100 characters
+- [blog/mancha-pos-inflamatoria-o-que-muda.html] title is 93 characters
+- [blog/mancha-pos-inflamatoria-o-que-muda.html] description is 94 characters
+- [blog/maquiagem-e-pele-sensivel.html] title is 96 characters
+- [blog/maquiagem-e-pele-sensivel.html] description is 88 characters
+- [blog/marcas-pos-acne-e-cicatrizes.html] title is 100 characters
+- [blog/marcas-pos-acne-e-cicatrizes.html] description is 93 characters
+- [blog/melasma-calor-luz-e-rotina.html] title is 91 characters
+- [blog/melasma-calor-luz-e-rotina.html] description is 101 characters
 - [blog/melasma-manchas-e-fotoprotecao.html] title is 87 characters
+- [blog/mesoterapia-capilar-e-plano.html] title is 97 characters
+- [blog/mesoterapia-capilar-e-plano.html] description is 105 characters
+- [blog/microagulhamento-e-acne-inflamada.html] title is 98 characters
+- [blog/microagulhamento-e-acne-inflamada.html] description is 90 characters
+- [blog/microagulhamento-e-manchas.html] title is 93 characters
+- [blog/microagulhamento-e-manchas.html] description is 90 characters
 - [blog/microagulhamento-o-que-avaliar.html] title is 81 characters
 - [blog/microagulhamento-o-que-avaliar.html] description is 107 characters
+- [blog/microdermoabrasao-objetivos-realistas.html] title is 89 characters
+- [blog/microdermoabrasao-objetivos-realistas.html] description is 98 characters
+- [blog/microvasos-queixas-e-avaliacao.html] title is 93 characters
+- [blog/microvasos-queixas-e-avaliacao.html] description is 105 characters
+- [blog/mmp-couro-cabeludo-perguntas.html] title is 77 characters
+- [blog/mmp-couro-cabeludo-perguntas.html] description is 104 characters
+- [blog/naturalidade-e-planejamento-facial.html] title is 99 characters
+- [blog/naturalidade-e-planejamento-facial.html] description is 83 characters
+- [blog/peeling-caseiro-risco-e-contexto.html] title is 94 characters
+- [blog/peeling-caseiro-risco-e-contexto.html] description is 92 characters
+- [blog/peeling-de-diamante-o-que-avaliar.html] title is 86 characters
+- [blog/peeling-de-diamante-o-que-avaliar.html] description is 90 characters
+- [blog/peeling-de-jessner-cautela-e-indicacao.html] title is 86 characters
+- [blog/peeling-de-jessner-cautela-e-indicacao.html] description is 93 characters
 - [blog/peeling-quimico-recuperacao-seguranca.html] title is 86 characters
 - [blog/peeling-quimico-recuperacao-seguranca.html] description is 118 characters
+- [blog/peeling-retinoico-recuperacao-planejada.html] title is 86 characters
+- [blog/peeling-retinoico-recuperacao-planejada.html] description is 99 characters
+- [blog/peeling-ultrassonico-em-uma-rotina.html] title is 87 characters
+- [blog/peeling-ultrassonico-em-uma-rotina.html] description is 98 characters
+- [blog/peim-o-que-informar-antes.html] title is 84 characters
+- [blog/peim-o-que-informar-antes.html] description is 89 characters
+- [blog/pele-e-gravidez-perguntas-seguras.html] title is 81 characters
+- [blog/pele-e-gravidez-perguntas-seguras.html] description is 109 characters
+- [blog/perguntas-antes-de-um-procedimento.html] title is 84 characters
+- [blog/perguntas-antes-de-um-procedimento.html] description is 108 characters
+- [blog/poros-textura-e-expectativas.html] title is 99 characters
+- [blog/poros-textura-e-expectativas.html] description is 90 characters
+- [blog/pos-procedimento-sinais-para-contato.html] title is 92 characters
+- [blog/pos-procedimento-sinais-para-contato.html] description is 101 characters
+- [blog/privacidade-em-tratamentos-esteticos.html] title is 102 characters
+- [blog/privacidade-em-tratamentos-esteticos.html] description is 100 characters
 - [blog/queda-capilar-quando-investigar.html] title is 91 characters
+- [blog/radiofrequencia-e-colageno-tempo.html] title is 86 characters
+- [blog/radiofrequencia-e-colageno-tempo.html] description is 114 characters
+- [blog/rotina-minima-pele-sobrecarga.html] title is 98 characters
+- [blog/rotina-minima-pele-sobrecarga.html] description is 87 characters
+- [blog/sol-e-recuperacao-cutanea.html] title is 101 characters
+- [blog/sol-e-recuperacao-cutanea.html] description is 93 characters
+- [blog/tecnologia-de-plasma-antes-de-decidir.html] title is 95 characters
+- [blog/tecnologia-de-plasma-antes-de-decidir.html] description is 101 characters
+- [blog/terco-inferior-da-face-conversa-cuidadosa.html] title is 93 characters
+- [blog/terco-inferior-da-face-conversa-cuidadosa.html] description is 89 characters
+- [blog/toxina-botulinica-e-assimetrias.html] title is 94 characters
+- [blog/toxina-botulinica-e-assimetrias.html] description is 104 characters
 - [blog/toxina-botulinica-naturalidade-e-planejamento.html] title is 82 characters
+- [blog/toxina-botulinica-primeira-consulta.html] title is 94 characters
+- [blog/toxina-botulinica-primeira-consulta.html] description is 90 characters
+- [blog/ultraformer-mpt-e-objetivos.html] title is 86 characters
+- [blog/ultraformer-mpt-e-objetivos.html] description is 107 characters
+- [blog/vermelhidao-persistente-quando-investigar.html] title is 80 characters
+- [blog/vermelhidao-persistente-quando-investigar.html] description is 96 characters
 - [cookies.html] description is 110 characters
 - [cuidados.html] description is 111 characters
 - [depoimentos.html] description is 96 characters
