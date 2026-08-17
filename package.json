@@ -5,7 +5,6 @@
   "description": "Build, validation and performance tooling for the Franciele Sofiati website.",
   "type": "module",
   "scripts": {
-    "build": "node scripts/build/build-production.mjs",
     "serve": "node scripts/build/serve-production.mjs .",
     "perf:baseline": "node scripts/performance/performance-audit.mjs --source . --label baseline",
     "perf:mobile": "node scripts/performance/performance-audit.mjs --source . --label final --profile mobile",
@@ -23,7 +22,7 @@
     "seo:refresh": "python3 scripts/weekly-seo-maintenance.py",
     "maintain:performance": "python3 scripts/weekly-performance-maintenance.py",
     "validate": "npm run check:assets && npm run check:pt && npm run check:seo && npm run check:analytics",
-    "release:check": "npm run validate && npm run build"
+    "release:check": "npm run validate"
   },
   "engines": {
     "node": ">=22.19"

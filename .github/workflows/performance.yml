@@ -17,7 +17,6 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-      - run: npm run build
       - name: Mobile Lighthouse CI
         run: npx lhci autorun --config=lighthouserc.mobile.cjs
       - name: Desktop Lighthouse CI

@@ -78,7 +78,7 @@
       .toLowerCase()
       .replace(/[^a-z0-9-]/g, "");
     const path = cleanPath(window.location.pathname);
-    const article = /\/journal\/[^/]+\.html$/i.test(path);
+    const article = /\/(?:en\/)?blog\/[^/]+\.html$/i.test(path);
     const pageName = article
       ? path.split("/").pop().replace(/\.html$/i, "")
       : (baseName || "unknown");

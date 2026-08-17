@@ -29,8 +29,13 @@ REQUIRED_SCRIPTS = (
     "consent-manager.js",
     "analytics.js",
 )
-GA4_MEASUREMENT_ID = "G-S41CQ1303W"
-GOOGLE_TAG_ID = "GT-P8Z9PB5L"
+LEGACY_GOOGLE_MARKERS = (
+    "googletagmanager.com/gtag/js",
+    "googletagmanager.com/gtm.js",
+    "googletagmanager.com/ns.html",
+    "G-S41CQ1303W",
+    "GT-P8Z9PB5L",
+)
 REQUIRED_EVENTS = (
     "cta_click",
     "contact_click",
@@ -575,23 +580,14 @@ def main() -> int:
         correct_order = names == list(REQUIRED_SCRIPTS)
         if not correct_order:
             errors.append(f"{rel(path)}: analytics scripts missing, duplicated or out of order: {names}")
-        direct_gtag_scripts = soup.find_all(
-            "script",
-            src=re.compile(
-                rf"^https://www\.googletagmanager\.com/gtag/js\?id={re.escape(GA4_MEASUREMENT_ID)}$"
-            ),
-        )
-        if len(direct_gtag_scripts) != 1:
-            errors.append(f"{rel(path)}: expected exactly one Google tag script for {GA4_MEASUREMENT_ID}")
-        head = soup.find("head")
-        if not head or len(direct_gtag_scripts) != 1 or direct_gtag_scripts[0] not in head.find_all("script")[:3]:
-            errors.append(f"{rel(path)}: Google tag is not installed immediately after the opening head")
-        if source.count(GA4_MEASUREMENT_ID) != 2:
-            errors.append(f"{rel(path)}: expected exactly two {GA4_MEASUREMENT_ID} references")
-        if source.count(GOOGLE_TAG_ID) != 1:
-            errors.append(f"{rel(path)}: expected exactly one {GOOGLE_TAG_ID} reference")
-        if "send_page_view': false" not in source and '"send_page_view": false' not in source:
-            errors.append(f"{rel(path)}: Google tag page view is not consent-deferred")
+        legacy_markers = [marker for marker in LEGACY_GOOGLE_MARKERS if marker in source]
+        if legacy_markers:
+            errors.append(
+                f"{rel(path)}: contains a direct legacy Google bootstrap: {', '.join(legacy_markers)}"
+            )
+        visible_text = soup.get_text(" ", strip=True)
+        if re.search(r"\bGoogle\s+Tag\s+Manager\b|\b(?:End\s+)?\(?noscript\)?\b", visible_text, re.I):
+            errors.append(f"{rel(path)}: technical GTM/noscript text is visible to visitors")
         script_records.append({
             "page": rel(path),
             "scripts": scripts,
@@ -700,22 +696,12 @@ def main() -> int:
             errors.append(f"{rel(partial)}: consent actions are incomplete")
 
     id_status = {
-        "gtmPlaceholder": config_source.count('"GTM-REPLACE_ME"') == 1,
-        "ga4": config_source.count(f'"{GA4_MEASUREMENT_ID}"') == 1,
-        "googleTag": config_source.count(f'"{GOOGLE_TAG_ID}"') == 1,
+        "gtmContainer": config_source.count('"GTM-P9PF3SV4"') == 1,
         "streamName": '"FrancieleStream"' in config_source,
         "streamId": '"15290697519"' in config_source,
     }
     if not all(id_status.values()):
         errors.append(f"Analytics ID status is incorrect: {id_status}")
-    if re.search(r"\bGTM-(?!REPLACE_ME\b)[A-Z0-9]{5,}\b", config_source):
-        errors.append("A non-placeholder GTM ID is hard-coded")
-    unexpected_ga4 = [
-        value for value in re.findall(r"\bG-[A-Z0-9]{5,}\b", config_source)
-        if value != GA4_MEASUREMENT_ID
-    ]
-    if unexpected_ga4:
-        errors.append(f"Unexpected GA4 IDs are hard-coded: {unexpected_ga4}")
     if '"basic"' not in config_source:
         errors.append("Basic consent mode is not configured")
     if "engagementThresholds: [30, 60, 120]" not in config_source:
@@ -730,6 +716,8 @@ def main() -> int:
         errors.append("Internal page_context setup event is missing")
     if "googletagmanager.com/gtag/js" in consent_source:
         errors.append("Consent loader contains a direct GA4 gtag.js installation")
+    if "recordGooglePageView" in consent_source:
+        errors.append("Consent loader contains a duplicate direct page-view path")
 
     syntax_files = [
         (ROOT / "js" / "analytics-config.js", False),

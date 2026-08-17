@@ -141,6 +141,7 @@ def sitemap_pages(origin: str) -> list[SitemapPage]:
         raise RuntimeError("data/page-pairs.json must contain a pages array")
 
     pages: list[SitemapPage] = []
+    paired_paths: set[str] = set()
     for item in raw_pages:
         if not isinstance(item, dict):
             raise RuntimeError("Every data/page-pairs.json page entry must be an object")
@@ -151,17 +152,10 @@ def sitemap_pages(origin: str) -> list[SitemapPage]:
             continue
         if not english_path or not portuguese_path:
             raise RuntimeError(f"Page pair is missing an English or Portuguese route: {item!r}")
+        paired_paths.update((english_path, portuguese_path))
 
         english_url = public_url(origin, english_path)
         english_metadata = metadata(english_path, english_url)
-
-        # Individual Journal articles currently have no one-to-one Portuguese
-        # translation. The shared Portuguese Blog hub is not an alternate.
-        if english_path.startswith("journal/") or english_path.startswith("en/journal/"):
-            if is_indexable(english_metadata):
-                alternates = (("en", english_url), ("x-default", english_url))
-                pages.append(SitemapPage(ROOT / english_path, english_url, alternates))
-            continue
 
         portuguese_url = public_url(origin, portuguese_path)
         portuguese_metadata = metadata(portuguese_path, portuguese_url)
@@ -189,6 +183,8 @@ def sitemap_pages(origin: str) -> list[SitemapPage]:
         content_data = load_json(CONTENT_PAGES)
         for relative_path in content_data.get("routes", []):
             if not isinstance(relative_path, str):
+                continue
+            if relative_path in paired_paths:
                 continue
             url = public_url(origin, relative_path)
             page_metadata = metadata(relative_path, url)

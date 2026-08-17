@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Create branded 1200×630 share previews for service and Journal pages.
-
-Each preview starts with that page's first editorial photograph, rather than a
-generic stock image.  It is then cropped, toned and labelled for legible social
-sharing.  The script also updates the matching Open Graph and Twitter metadata.
-"""
+"""Create branded 1200×630 share previews from each page's editorial image."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -32,6 +27,28 @@ def cover(source: Image.Image) -> Image.Image:
     source = source.resize(size, Image.Resampling.LANCZOS)
     left, top = (source.width - 1200) // 2, (source.height - 630) // 2
     return source.crop((left, top, left + 1200, top + 630))
+
+
+def journal_cover(title: str, section: str) -> Image.Image:
+    """Draw a refined, subject-coded editorial cover without photography."""
+    palettes = [
+        ((24, 52, 42), (111, 145, 117), (236, 213, 173)),
+        ((65, 45, 36), (155, 109, 81), (236, 213, 173)),
+        ((35, 53, 71), (99, 139, 154), (223, 210, 180)),
+        ((68, 55, 82), (139, 120, 159), (238, 222, 190)),
+        ((66, 65, 43), (151, 149, 95), (239, 219, 176)),
+    ]
+    background, accent, gold = palettes[sum(map(ord, section)) % len(palettes)]
+    image = Image.new("RGB", (1600, 900), background)
+    art = ImageDraw.Draw(image, "RGBA")
+    # Layered arcs provide visual depth while staying quiet enough for the title.
+    for size, alpha, offset in ((1130, 46, 0), (872, 64, 104), (615, 82, 214)):
+        bounds = (1050 + offset, -160 + offset // 2, 1050 + offset + size, -160 + offset // 2 + size)
+        art.arc(bounds, 105, 288, fill=(*accent, alpha), width=24)
+    art.ellipse((1240, 515, 1480, 755), outline=(*gold, 150), width=4)
+    art.line((1240, 635, 1482, 635), fill=(*gold, 150), width=4)
+    art.line((1360, 555, 1360, 795), fill=(*gold, 100), width=3)
+    return image
 
 
 def wrapped(draw: ImageDraw.ImageDraw, text: str, limit: int, label_font):
@@ -64,13 +81,13 @@ for page in pages:
     if title_tag is None or hero is None or not hero.get("src"):
         continue
     title = title_tag.get_text(" ", strip=True).removesuffix(" | Franciele Sofiati")
-    source = (page.parent / hero["src"]).resolve()
-    if not source.is_file():
-        raise FileNotFoundError(source)
     slug = page.stem
     destination = OUTPUT / page.parent.name / f"{slug}.png"
     destination.parent.mkdir(parents=True, exist_ok=True)
 
+    source = (page.parent / hero["src"]).resolve()
+    if not source.is_file():
+        raise FileNotFoundError(source)
     image = cover(Image.open(source)).filter(ImageFilter.GaussianBlur(radius=.25))
     image = ImageEnhance.Color(image).enhance(.76)
     overlay = Image.new("RGBA", image.size, (20, 38, 29, 0))
@@ -80,13 +97,14 @@ for page in pages:
         gradient.line((x, 0, x, 630), fill=(20, 38, 29, alpha))
     image = Image.alpha_composite(image.convert("RGBA"), overlay)
     draw = ImageDraw.Draw(image)
-    draw.text((72, 78), "FRANCIELE SOFIATI  ·  LONDRINA", font=font(FONT_BOLD, 22), fill=(236, 213, 173))
-    y = 150
-    for line in wrapped(draw, title, 720, font(FONT_BOLD, 56)):
-        draw.text((72, y), line, font=font(FONT_BOLD, 56), fill=(255, 253, 247), spacing=8)
-        y += 68
-    draw.rectangle((72, 540, 340, 544), fill=(236, 213, 173))
-    draw.text((72, 564), "Conteúdo educativo · avaliação individual", font=font(FONT, 19), fill=(255, 253, 247))
+    x, label_y, title_y, limit, title_size, step, rule_y, note_y = 72, 78, 150, 720, 56, 68, 540, 564
+    draw.text((x, label_y), "FRANCIELE SOFIATI  ·  LONDRINA", font=font(FONT_BOLD, round(title_size * .39)), fill=(236, 213, 173))
+    y = title_y
+    for line in wrapped(draw, title, limit, font(FONT_BOLD, title_size)):
+        draw.text((x, y), line, font=font(FONT_BOLD, title_size), fill=(255, 253, 247), spacing=8)
+        y += step
+    draw.rectangle((x, rule_y, x + round(title_size * 4.8), rule_y + 5), fill=(236, 213, 173))
+    draw.text((x, note_y), "Conteúdo educativo · avaliação individual", font=font(FONT, round(title_size * .34)), fill=(255, 253, 247))
     image.convert("RGB").save(destination, "PNG", optimize=True)
 
     public = ORIGIN + destination.relative_to(ROOT).as_posix()

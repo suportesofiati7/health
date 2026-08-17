@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SKIP_DIRS = {".git", "node_modules", "screenshots", "references", "reports", "__pycache__"}
-SOURCE_GLOBS = ("*.html", "en/*.html", "en/journal/*.html", "css/*.css", "partials/*.html", "partials/pt-BR/*.html")
+SOURCE_GLOBS = ("*.html", "en/*.html", "en/blog/*.html", "blog/*.html", "css/*.css", "partials/*.html", "partials/pt-BR/*.html")
 LOCAL_PREFIXES = ("/assets/", "assets/", "../assets/", "../../assets/", "css/", "../css/", "../../css/", "js/", "../js/", "../../js/")
 URL_PATTERN = re.compile(
     r"(?:src|href|content)=[\"']([^\"']+)[\"']|url\((?:[\"'])?([^\"')]+)(?:[\"'])?\)",

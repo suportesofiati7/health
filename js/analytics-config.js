@@ -1,8 +1,9 @@
 /*
  * Franciele Sofiati analytics configuration
  *
- * GA4 is delivered through the Google tag installed in every page head. The
- * optional GTM container remains consent-gated for future compatibility.
+ * GTM is the only Google-tag delivery path. It is requested only after the
+ * visitor grants analytics consent; individual pages must not add gtag.js or
+ * a second GTM bootstrap.
  *
  * Set debug to true only for local/preview validation. Consent remains required
  * in debug mode. Basic consent mode means GTM is not requested until the visitor
@@ -18,9 +19,7 @@
     productionDomain: "www.francielesofiati.com",
     streamName: "FrancieleStream",
     streamId: "15290697519",
-    gtmContainerId: "GTM-REPLACE_ME",
-    ga4MeasurementId: "G-S41CQ1303W",
-    googleTagId: "GT-P8Z9PB5L",
+    gtmContainerId: "GTM-P9PF3SV4",
     consentMode: "basic",
     consentStorageKey: "sofiati_cookie_preferences_v3",
     leadStorageKey: "sofiati_analytics_pending_lead_v1",

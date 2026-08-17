@@ -49,7 +49,7 @@
     },
     {
       "id": "journal",
-      "en": "en/journal.html",
+      "en": "en/blog.html",
       "pt-BR": "blog.html"
     },
     {
@@ -93,54 +93,344 @@
       "pt-BR": "valores.html"
     },
     {
-      "id": "journal-fractional-co2-laser-recovery-and-aftercare",
-      "en": "en/journal/fractional-co2-laser-recovery-and-aftercare.html",
-      "pt-BR": "blog.html"
+      "id": "journal-depilacao-a-laser-preparo-e-expectativas",
+      "pt-BR": "blog/depilacao-a-laser-preparo-e-expectativas.html",
+      "en": "en/blog/a-considered-guide-to-laser-and-technology.html"
     },
     {
-      "id": "journal-hair-thinning-causes-and-scalp-care",
-      "en": "en/journal/hair-thinning-causes-and-scalp-care.html",
-      "pt-BR": "blog.html"
+      "id": "journal-melasma-manchas-e-fotoprotecao",
+      "pt-BR": "blog/melasma-manchas-e-fotoprotecao.html",
+      "en": "en/blog/a-considered-guide-to-pigmentation.html"
     },
     {
-      "id": "journal-laser-hair-removal-process-and-maintenance",
-      "en": "en/journal/laser-hair-removal-process-and-maintenance.html",
-      "pt-BR": "blog.html"
+      "id": "journal-peeling-quimico-recuperacao-seguranca",
+      "pt-BR": "blog/peeling-quimico-recuperacao-seguranca.html",
+      "en": "en/blog/a-considered-guide-to-skin-renewal.html"
     },
     {
-      "id": "journal-persistent-facial-redness-and-vessels",
-      "en": "en/journal/persistent-facial-redness-and-vessels.html",
-      "pt-BR": "blog.html"
+      "id": "journal-cicatrizes-de-acne-textura-e-plano",
+      "pt-BR": "blog/cicatrizes-de-acne-textura-e-plano.html",
+      "en": "en/blog/a-considered-guide-to-texture-and-scars.html"
     },
     {
-      "id": "journal-professional-skin-cleansing-guide",
-      "en": "en/journal/professional-skin-cleansing-guide.html",
-      "pt-BR": "blog.html"
+      "id": "journal-laser-co2-recuperacao-e-cuidados",
+      "pt-BR": "blog/laser-co2-recuperacao-e-cuidados.html",
+      "en": "en/blog/a-considered-guide-to-laser-and-recovery.html"
     },
     {
-      "id": "journal-rebuilding-an-overwhelmed-skin-barrier",
-      "en": "en/journal/rebuilding-an-overwhelmed-skin-barrier.html",
-      "pt-BR": "blog.html"
+      "id": "journal-microagulhamento-o-que-avaliar",
+      "pt-BR": "blog/microagulhamento-o-que-avaliar.html",
+      "en": "en/blog/a-considered-guide-to-technology-and-care.html"
     },
     {
-      "id": "journal-ultrasound-radiofrequency-collagen-treatment",
-      "en": "en/journal/ultrasound-radiofrequency-collagen-treatment.html",
-      "pt-BR": "blog.html"
+      "id": "journal-queda-capilar-quando-investigar",
+      "pt-BR": "blog/queda-capilar-quando-investigar.html",
+      "en": "en/blog/a-considered-guide-to-aesthetic-care.html"
     },
     {
-      "id": "journal-understanding-acne-scar-treatment",
-      "en": "en/journal/understanding-acne-scar-treatment.html",
-      "pt-BR": "blog.html"
+      "id": "journal-toxina-botulinica-naturalidade-e-planejamento",
+      "pt-BR": "blog/toxina-botulinica-naturalidade-e-planejamento.html",
+      "en": "en/blog/a-considered-guide-to-facial-planning.html"
     },
     {
-      "id": "journal-understanding-facial-pigmentation",
-      "en": "en/journal/understanding-facial-pigmentation.html",
-      "pt-BR": "blog.html"
+      "id": "journal-fotoprotecao-que-cabe-na-rotina",
+      "pt-BR": "blog/fotoprotecao-que-cabe-na-rotina.html",
+      "en": "en/blog/sun-protection-that-fits-real-life.html"
     },
     {
-      "id": "journal-why-aesthetic-care-begins-with-consultation",
-      "en": "en/journal/why-aesthetic-care-begins-with-consultation.html",
-      "pt-BR": "blog.html"
+      "id": "journal-barreira-cutanea-sinais-de-sobrecarga",
+      "pt-BR": "blog/barreira-cutanea-sinais-de-sobrecarga.html",
+      "en": "en/blog/when-an-overworked-skin-barrier-needs-a-pause.html"
+    },
+    {
+      "id": "journal-acidos-na-rotina-ordem-e-cautela",
+      "pt-BR": "blog/acidos-na-rotina-ordem-e-cautela.html",
+      "en": "en/blog/acids-in-a-skincare-routine-order-tolerance-and-care.html"
+    },
+    {
+      "id": "journal-limpeza-de-pele-e-barreira",
+      "pt-BR": "blog/limpeza-de-pele-e-barreira.html",
+      "en": "en/blog/daily-cleansing-removing-what-is-needed-preserving-what-matters.html"
+    },
+    {
+      "id": "journal-maquiagem-e-pele-sensivel",
+      "pt-BR": "blog/maquiagem-e-pele-sensivel.html",
+      "en": "en/blog/make-up-and-sensitive-skin-what-to-notice-without-blaming-products.html"
+    },
+    {
+      "id": "journal-poros-textura-e-expectativas",
+      "pt-BR": "blog/poros-textura-e-expectativas.html",
+      "en": "en/blog/pores-and-texture-why-there-is-no-permanent-closing-solution.html"
+    },
+    {
+      "id": "journal-cravos-e-extracao-segura",
+      "pt-BR": "blog/cravos-e-extracao-segura.html",
+      "en": "en/blog/blackheads-and-extraction-when-persistence-at-home-can-harm-the-skin.html"
+    },
+    {
+      "id": "journal-acne-ativa-prioridade-antes-da-textura",
+      "pt-BR": "blog/acne-ativa-prioridade-antes-da-textura.html",
+      "en": "en/blog/active-acne-before-texture-why-the-order-of-care-matters.html"
+    },
+    {
+      "id": "journal-marcas-pos-acne-e-cicatrizes",
+      "pt-BR": "blog/marcas-pos-acne-e-cicatrizes.html",
+      "en": "en/blog/post-acne-marks-and-scars-two-different-skin-stories.html"
+    },
+    {
+      "id": "journal-vermelhidao-persistente-quando-investigar",
+      "pt-BR": "blog/vermelhidao-persistente-quando-investigar.html",
+      "en": "en/blog/persistent-redness-when-to-observe-and-when-to-investigate.html"
+    },
+    {
+      "id": "journal-melasma-calor-luz-e-rotina",
+      "pt-BR": "blog/melasma-calor-luz-e-rotina.html",
+      "en": "en/blog/melasma-heat-and-light-looking-beyond-direct-sun-exposure.html"
+    },
+    {
+      "id": "journal-mancha-pos-inflamatoria-o-que-muda",
+      "pt-BR": "blog/mancha-pos-inflamatoria-o-que-muda.html",
+      "en": "en/blog/post-inflammatory-pigmentation-why-the-cause-belongs-in-the-plan.html"
+    },
+    {
+      "id": "journal-pele-e-gravidez-perguntas-seguras",
+      "pt-BR": "blog/pele-e-gravidez-perguntas-seguras.html",
+      "en": "en/blog/skin-during-pregnancy-safer-questions-before-changing-a-routine.html"
+    },
+    {
+      "id": "journal-peeling-caseiro-risco-e-contexto",
+      "pt-BR": "blog/peeling-caseiro-risco-e-contexto.html",
+      "en": "en/blog/at-home-peels-why-concentration-without-context-can-be-costly.html"
+    },
+    {
+      "id": "journal-esfoliacao-fisica-quando-menos-ajuda",
+      "pt-BR": "blog/esfoliacao-fisica-quando-menos-ajuda.html",
+      "en": "en/blog/physical-exfoliation-when-feeling-the-grains-stops-being-renewal.html"
+    },
+    {
+      "id": "journal-microdermoabrasao-objetivos-realistas",
+      "pt-BR": "blog/microdermoabrasao-objetivos-realistas.html",
+      "en": "en/blog/microdermabrasion-realistic-goals-for-surface-renewal.html"
+    },
+    {
+      "id": "journal-peeling-de-diamante-o-que-avaliar",
+      "pt-BR": "blog/peeling-de-diamante-o-que-avaliar.html",
+      "en": "en/blog/diamond-tip-exfoliation-what-to-assess-before-seeking-instant-effects.html"
+    },
+    {
+      "id": "journal-peeling-ultrassonico-em-uma-rotina",
+      "pt-BR": "blog/peeling-ultrassonico-em-uma-rotina.html",
+      "en": "en/blog/ultrasonic-exfoliation-where-it-can-fit-within-thoughtful-care.html"
+    },
+    {
+      "id": "journal-peeling-retinoico-recuperacao-planejada",
+      "pt-BR": "blog/peeling-retinoico-recuperacao-planejada.html",
+      "en": "en/blog/retinoic-peels-recovery-planning-starts-before-application.html"
+    },
+    {
+      "id": "journal-peeling-de-jessner-cautela-e-indicacao",
+      "pt-BR": "blog/peeling-de-jessner-cautela-e-indicacao.html",
+      "en": "en/blog/jessner-peels-indication-and-caution-before-chasing-peeling.html"
+    },
+    {
+      "id": "journal-laser-e-pele-bronzeada",
+      "pt-BR": "blog/laser-e-pele-bronzeada.html",
+      "en": "en/blog/laser-and-tanned-skin-why-waiting-can-be-the-safer-choice.html"
+    },
+    {
+      "id": "journal-depilacao-laser-rosto-e-hormonios",
+      "pt-BR": "blog/depilacao-laser-rosto-e-hormonios.html",
+      "en": "en/blog/facial-laser-hair-removal-why-hormonal-context-belongs-in-the-conversation.html"
+    },
+    {
+      "id": "journal-depilacao-laser-intervalos-e-ciclo",
+      "pt-BR": "blog/depilacao-laser-intervalos-e-ciclo.html",
+      "en": "en/blog/laser-hair-removal-intervals-what-the-hair-cycle-explains.html"
+    },
+    {
+      "id": "journal-laser-co2-e-eventos-importantes",
+      "pt-BR": "blog/laser-co2-e-eventos-importantes.html",
+      "en": "en/blog/co2-laser-and-important-events-planning-without-someone-elses-calendar.html"
+    },
+    {
+      "id": "journal-laser-co2-e-fotoprotecao-pos",
+      "pt-BR": "blog/laser-co2-e-fotoprotecao-pos.html",
+      "en": "en/blog/after-co2-laser-sun-protection-is-recovery-not-an-afterthought.html"
+    },
+    {
+      "id": "journal-laser-e-cicatrizes-de-acne",
+      "pt-BR": "blog/laser-e-cicatrizes-de-acne.html",
+      "en": "en/blog/laser-and-acne-scars-why-a-technology-name-does-not-decide-suitability.html"
+    },
+    {
+      "id": "journal-luz-intensa-pulsada-e-avaliacao",
+      "pt-BR": "blog/luz-intensa-pulsada-e-avaliacao.html",
+      "en": "en/blog/intense-pulsed-light-why-skin-goals-and-season-all-matter.html"
+    },
+    {
+      "id": "journal-radiofrequencia-e-colageno-tempo",
+      "pt-BR": "blog/radiofrequencia-e-colageno-tempo.html",
+      "en": "en/blog/radiofrequency-and-collagen-why-time-belongs-in-the-expectation.html"
+    },
+    {
+      "id": "journal-ultraformer-mpt-e-objetivos",
+      "pt-BR": "blog/ultraformer-mpt-e-objetivos.html",
+      "en": "en/blog/ultraformer-mpt-clear-goals-before-talking-about-lifting.html"
+    },
+    {
+      "id": "journal-tecnologia-de-plasma-antes-de-decidir",
+      "pt-BR": "blog/tecnologia-de-plasma-antes-de-decidir.html",
+      "en": "en/blog/plasma-technology-why-assessment-and-aftercare-cannot-be-shortcuts.html"
+    },
+    {
+      "id": "journal-microvasos-queixas-e-avaliacao",
+      "pt-BR": "blog/microvasos-queixas-e-avaliacao.html",
+      "en": "en/blog/visible-small-vessels-appearance-symptoms-and-assessment-are-not-the-same.html"
+    },
+    {
+      "id": "journal-peim-o-que-informar-antes",
+      "pt-BR": "blog/peim-o-que-informar-antes.html",
+      "en": "en/blog/peim-information-that-matters-before-treating-small-vessels.html"
+    },
+    {
+      "id": "journal-toxina-botulinica-primeira-consulta",
+      "pt-BR": "blog/toxina-botulinica-primeira-consulta.html",
+      "en": "en/blog/a-first-botulinum-toxin-consultation-movement-priorities-and-limits.html"
+    },
+    {
+      "id": "journal-toxina-botulinica-e-assimetrias",
+      "pt-BR": "blog/toxina-botulinica-e-assimetrias.html",
+      "en": "en/blog/botulinum-toxin-and-asymmetry-observation-is-not-a-promise-of-perfection.html"
+    },
+    {
+      "id": "journal-terco-inferior-da-face-conversa-cuidadosa",
+      "pt-BR": "blog/terco-inferior-da-face-conversa-cuidadosa.html",
+      "en": "en/blog/the-lower-face-a-careful-conversation-about-movement-and-contour.html"
+    },
+    {
+      "id": "journal-naturalidade-e-planejamento-facial",
+      "pt-BR": "blog/naturalidade-e-planejamento-facial.html",
+      "en": "en/blog/natural-looking-facial-planning-proportion-not-trend.html"
+    },
+    {
+      "id": "journal-microagulhamento-e-manchas",
+      "pt-BR": "blog/microagulhamento-e-manchas.html",
+      "en": "en/blog/microneedling-and-pigmentation-why-risk-changes-the-indication.html"
+    },
+    {
+      "id": "journal-microagulhamento-e-acne-inflamada",
+      "pt-BR": "blog/microagulhamento-e-acne-inflamada.html",
+      "en": "en/blog/microneedling-with-inflamed-acne-why-a-pause-may-be-part-of-care.html"
+    },
+    {
+      "id": "journal-couros-cabeludo-e-queda-sinais-de-alerta",
+      "pt-BR": "blog/couros-cabeludo-e-queda-sinais-de-alerta.html",
+      "en": "en/blog/hair-shedding-warning-signs-before-choosing-a-protocol.html"
+    },
+    {
+      "id": "journal-afinamento-capilar-e-fotografias",
+      "pt-BR": "blog/afinamento-capilar-e-fotografias.html",
+      "en": "en/blog/hair-thinning-and-photographs-documenting-change-without-rushing-to-conclusions.html"
+    },
+    {
+      "id": "journal-mmp-couro-cabeludo-perguntas",
+      "pt-BR": "blog/mmp-couro-cabeludo-perguntas.html",
+      "en": "en/blog/mmp-for-the-scalp-questions-that-come-before-the-technique.html"
+    },
+    {
+      "id": "journal-mesoterapia-capilar-e-plano",
+      "pt-BR": "blog/mesoterapia-capilar-e-plano.html",
+      "en": "en/blog/scalp-mesotherapy-why-a-protocol-is-not-a-universal-treatment.html"
+    },
+    {
+      "id": "journal-consulta-estetica-como-se-preparar",
+      "pt-BR": "blog/consulta-estetica-como-se-preparar.html",
+      "en": "en/blog/how-to-prepare-for-an-aesthetic-consultation-without-deciding-everything-first.html"
+    },
+    {
+      "id": "journal-perguntas-antes-de-um-procedimento",
+      "pt-BR": "blog/perguntas-antes-de-um-procedimento.html",
+      "en": "en/blog/useful-questions-to-ask-before-an-aesthetic-procedure.html"
+    },
+    {
+      "id": "journal-pos-procedimento-sinais-para-contato",
+      "pt-BR": "blog/pos-procedimento-sinais-para-contato.html",
+      "en": "en/blog/after-a-procedure-signs-that-call-for-contact-not-online-remedies.html"
+    },
+    {
+      "id": "journal-sol-e-recuperacao-cutanea",
+      "pt-BR": "blog/sol-e-recuperacao-cutanea.html",
+      "en": "en/blog/sun-exposure-and-skin-recovery-why-recent-exposure-changes-more-than-a-tan.html"
+    },
+    {
+      "id": "journal-fotos-antes-depois-leitura-critica",
+      "pt-BR": "blog/fotos-antes-depois-leitura-critica.html",
+      "en": "en/blog/before-and-after-photographs-curiosity-without-turning-an-image-into-a-promise.html"
+    },
+    {
+      "id": "journal-privacidade-em-tratamentos-esteticos",
+      "pt-BR": "blog/privacidade-em-tratamentos-esteticos.html",
+      "en": "en/blog/privacy-in-aesthetic-care-why-consent-remains-central.html"
+    },
+    {
+      "id": "journal-rotina-minima-pele-sobrecarga",
+      "pt-BR": "blog/rotina-minima-pele-sobrecarga.html",
+      "en": "en/blog/a-minimal-routine-for-overwhelmed-skin-why-simplifying-can-be-progress.html"
+    },
+    {
+      "id": "journal-expectativa-e-tempo-biologico",
+      "pt-BR": "blog/expectativa-e-tempo-biologico.html",
+      "en": "en/blog/biological-time-and-expectations-aesthetic-care-is-not-express-delivery.html"
+    },
+    {
+      "id": "original-journal-why-aesthetic-care-begins-with-consultation",
+      "pt-BR": "blog/why-aesthetic-care-begins-with-consultation.html",
+      "en": "en/blog/consultation-first.html"
+    },
+    {
+      "id": "original-journal-rebuilding-an-overwhelmed-skin-barrier",
+      "pt-BR": "blog/rebuilding-an-overwhelmed-skin-barrier.html",
+      "en": "en/blog/skin-barrier.html"
+    },
+    {
+      "id": "original-journal-professional-skin-cleansing-guide",
+      "pt-BR": "blog/professional-skin-cleansing-guide.html",
+      "en": "en/blog/skin-cleansing.html"
+    },
+    {
+      "id": "original-journal-understanding-facial-pigmentation",
+      "pt-BR": "blog/understanding-facial-pigmentation.html",
+      "en": "en/blog/uneven-tone.html"
+    },
+    {
+      "id": "original-journal-understanding-acne-scar-treatment",
+      "pt-BR": "blog/understanding-acne-scar-treatment.html",
+      "en": "en/blog/acne-scars.html"
+    },
+    {
+      "id": "original-journal-persistent-facial-redness-and-vessels",
+      "pt-BR": "blog/persistent-facial-redness-and-vessels.html",
+      "en": "en/blog/facial-redness.html"
+    },
+    {
+      "id": "original-journal-fractional-co2-laser-recovery-and-aftercare",
+      "pt-BR": "blog/fractional-co2-laser-recovery-and-aftercare.html",
+      "en": "en/blog/fractional-co2-laser.html"
+    },
+    {
+      "id": "original-journal-ultrasound-radiofrequency-collagen-treatment",
+      "pt-BR": "blog/ultrasound-radiofrequency-collagen-treatment.html",
+      "en": "en/blog/collagen-remodeling.html"
+    },
+    {
+      "id": "original-journal-laser-hair-removal-process-and-maintenance",
+      "pt-BR": "blog/laser-hair-removal-process-and-maintenance.html",
+      "en": "en/blog/laser-hair-removal.html"
+    },
+    {
+      "id": "original-journal-hair-thinning-causes-and-scalp-care",
+      "pt-BR": "blog/hair-thinning-causes-and-scalp-care.html",
+      "en": "en/blog/hair-thinning.html"
     }
   ]
 }

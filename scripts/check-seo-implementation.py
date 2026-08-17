@@ -155,7 +155,7 @@ def expected_schema(relative_path: str) -> set[str]:
     }
     key = slug_keys.get(key, key)
     common = {"WebSite", "Person", "HealthAndBeautyBusiness", "ImageObject", "BreadcrumbList"}
-    if relative_path.startswith(("journal/", "en/journal/", "blog/")):
+    if relative_path.startswith(("journal/", "en/journal/", "en/blog/", "blog/")):
         return common | {"BlogPosting", "WebPage"}
     additions = {
         "about.html": {"AboutPage", "ProfilePage"},

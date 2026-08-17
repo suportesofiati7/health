@@ -21,14 +21,7 @@ python3 -m http.server 4173
 
 Open `http://127.0.0.1:4173/`.
 
-For the exact deployment artifact:
-
-```bash
-npm run build
-npm run serve
-```
-
-The server prints the local URL. Stop it with `Ctrl+C`.
+The committed HTML, CSS, JavaScript, images, `_headers`, and `_redirects` files are the deployment artifact. No site build is required.
 
 ## Release gate
 
@@ -39,15 +32,15 @@ npm run release:check
 git diff --check
 ```
 
-`release:check` runs asset, PT-BR, SEO/discovery and analytics validation, then recreates `dist/`. It does not publish anything.
+`release:check` runs asset, PT-BR, SEO/discovery and analytics validation. It does not build or publish anything.
 
-Deploy the contents of `dist/` only. The root repository contains private authoring material, scripts, reports, tests and local tooling that must not be exposed publicly.
+Deploy the repository root as the static site. Do not configure a build command.
 
 ## Hosting requirements
 
-- Configure the host’s build command as `npm ci && npm run release:check`.
-- Configure the published directory as `dist`.
-- Preserve `dist/_headers` and `dist/_redirects`. The redirect file permanently redirects the legacy English and `/pt/` URL families to their current canonical pages on Cloudflare Pages.
+- Leave Cloudflare Pages’ build command blank.
+- Configure the published directory as the repository root (`.`).
+- Preserve `_headers` and `_redirects`. The redirect file permanently redirects the legacy English and `/pt/` URL families to their current canonical pages on Cloudflare Pages.
 - Configure the apex host (`francielesofiati.com`) as a Cloudflare Bulk Redirect to `https://www.francielesofiati.com` with status `301`, **Subpath matching** and **Preserve path suffix** enabled. Cloudflare Pages `_redirects` rules cannot redirect by hostname.
 
 After deployment, verify the home page, one PT-BR page, contact form destination, consent banner, canonical domain redirect, `robots.txt`, `sitemap.xml` and `llms.txt` on the live domain.

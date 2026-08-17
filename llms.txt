@@ -4,7 +4,7 @@
 
 Canonical source: site root (`/`)
 
-Brazilian Portuguese is the default language at the site root. English pages are available under `/en/`. The ten long-form Journal articles are currently available in English only under `/en/journal/`; the Portuguese Blog page is a localized hub, not a one-to-one translation of every article.
+Brazilian Portuguese is the default language at the site root. English pages are available under `/en/`, including the long-form Journal articles under `/en/blog/`.
 
 Important interpretation rules:
 
@@ -34,16 +34,16 @@ Important interpretation rules:
 ## Journal
 
 - [Journal index](https://www.francielesofiati.com/blog): Editorial hub for ten long-form articles on consultation, skin health, laser technology and scalp care.
-- [Why aesthetic care begins with consultation](https://www.francielesofiati.com/en/journal/why-aesthetic-care-begins-with-consultation): History, priorities, suitability, realistic expectations and safe timing before treatment selection.
-- [Professional skin cleansing guide](https://www.francielesofiati.com/en/journal/professional-skin-cleansing-guide): Selective extraction, congestion, acne limits, sensitivity and aftercare.
-- [Rebuilding an overwhelmed skin barrier](https://www.francielesofiati.com/en/journal/rebuilding-an-overwhelmed-skin-barrier): Recognizing irritation, simplifying skincare and restoring tolerance before procedures.
-- [Understanding facial pigmentation](https://www.francielesofiati.com/en/journal/understanding-facial-pigmentation): Pigmentation patterns, melasma, triggers, assessment and long-term planning.
-- [Persistent facial redness and visible vessels](https://www.francielesofiati.com/en/journal/persistent-facial-redness-and-vessels): Reactive skin, vascular concerns, laser or light limits and medical referral signs.
-- [Understanding acne-scar treatment](https://www.francielesofiati.com/en/journal/understanding-acne-scar-treatment): Scar types, texture assessment, layered treatment and why active acne may come first.
-- [Fractional CO2 laser recovery and aftercare](https://www.francielesofiati.com/en/journal/fractional-co2-laser-recovery-and-aftercare): Preparation, visible recovery, risks, aftercare and gradual remodeling.
-- [Laser hair-removal process and maintenance](https://www.francielesofiati.com/en/journal/laser-hair-removal-process-and-maintenance): Hair cycles, session variability, preparation, maintenance and hormonal context.
-- [Ultrasound and radiofrequency for collagen support](https://www.francielesofiati.com/en/journal/ultrasound-radiofrequency-collagen-treatment): Technology differences, patient selection and realistic firmness goals.
-- [Hair thinning and scalp care](https://www.francielesofiati.com/en/journal/hair-thinning-causes-and-scalp-care): Shedding, thinning, scalp assessment, medical referral and procedural-support limits.
+- [Why aesthetic care begins with consultation](https://www.francielesofiati.com/en/blog/consultation-first): History, priorities, suitability, realistic expectations and safe timing before treatment selection.
+- [Professional skin cleansing guide](https://www.francielesofiati.com/en/blog/skin-cleansing): Selective extraction, congestion, acne limits, sensitivity and aftercare.
+- [Rebuilding an overwhelmed skin barrier](https://www.francielesofiati.com/en/blog/skin-barrier): Recognizing irritation, simplifying skincare and restoring tolerance before procedures.
+- [Understanding facial pigmentation](https://www.francielesofiati.com/en/blog/uneven-tone): Pigmentation patterns, melasma, triggers, assessment and long-term planning.
+- [Persistent facial redness and visible vessels](https://www.francielesofiati.com/en/blog/facial-redness): Reactive skin, vascular concerns, laser or light limits and medical referral signs.
+- [Understanding acne-scar treatment](https://www.francielesofiati.com/en/blog/acne-scars): Scar types, texture assessment, layered treatment and why active acne may come first.
+- [Fractional CO2 laser recovery and aftercare](https://www.francielesofiati.com/en/blog/fractional-co2-laser): Preparation, visible recovery, risks, aftercare and gradual remodeling.
+- [Laser hair-removal process and maintenance](https://www.francielesofiati.com/en/blog/laser-hair-removal): Hair cycles, session variability, preparation, maintenance and hormonal context.
+- [Ultrasound and radiofrequency for collagen support](https://www.francielesofiati.com/en/blog/collagen-remodeling): Technology differences, patient selection and realistic firmness goals.
+- [Hair thinning and scalp care](https://www.francielesofiati.com/en/blog/hair-thinning): Shedding, thinning, scalp assessment, medical referral and procedural-support limits.
 
 ## Policies and trust
 

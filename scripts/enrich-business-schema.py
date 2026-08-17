@@ -47,7 +47,7 @@ def replace(match: re.Match[str]) -> str:
 
 
 def public_pages() -> list[Path]:
-    globs = ("*.html", "en/*.html", "en/journal/*.html", "blog/*.html", "servicos/*.html")
+    globs = ("*.html", "en/*.html", "en/blog/*.html", "blog/*.html", "servicos/*.html")
     return sorted({path for pattern in globs for path in ROOT.glob(pattern) if path.is_file()})
 
 

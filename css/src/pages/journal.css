@@ -6,7 +6,7 @@
   .sf-journal-article {
     --journal-ink: var(--forest-900);
     --journal-paper: var(--ivory-50);
-    --journal-olive: var(--menu-green);
+    --journal-olive: var(--forest-800);
     --journal-rose: var(--rose-gold-700);
     --journal-gold: var(--gold-700);
     background: var(--journal-paper);
@@ -741,3 +741,59 @@
     .sj-register__arrow { transition: none; }
   }
 }
+
+/* Generated Journal library: a responsive newspaper grid for the expanded catalogue. */
+.sf-journal-article .sja-hero__feature { min-block-size: 0; aspect-ratio: 16 / 9; }
+.sf-journal-article .sja-hero__feature img { aspect-ratio: 16 / 9; block-size: 100%; }
+.sf-journal-article .sja-hero__feature figcaption, .sf-journal-article .sja-inline-figure { display: none; }
+.sj-library { padding-block: clamp(5rem, 9vw, 8.5rem); border-block-start: 1px solid var(--color-border-subtle); }
+.sj-library__heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .6fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: end; margin-block-end: clamp(2.25rem, 5vw, 4rem); }
+.sj-library__heading h2 { max-inline-size: 18ch; margin: .8rem 0 0; color: var(--journal-ink); font-family: var(--font-heading); font-size: clamp(2.7rem, 5vw, 5.4rem); font-weight: 400; letter-spacing: -.05em; line-height: .95; }
+.sj-library__heading > p:last-child { max-inline-size: 38ch; color: var(--color-text-secondary); font-size: 1.05rem; line-height: 1.7; }
+.sj-library__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.15rem, 2.5vw, 2.4rem); }
+.sj-library-card { min-inline-size: 0; border-block-start: 1px solid var(--color-border-warm); }
+.sj-library-card a { display: grid; color: inherit; text-decoration: none; }
+.sj-library-card figure { margin: 0; aspect-ratio: 16 / 9; overflow: hidden; background: var(--sage-100); }
+.sj-library-card figure img { inline-size: 100%; block-size: 100%; object-fit: cover; transition: scale var(--duration-base); }
+.sj-library-card a:hover figure img { scale: 1.035; }
+.sj-library-card > a > div { display: grid; gap: .75rem; padding: 1.1rem 0 1.4rem; }
+.sj-library-card p { color: var(--journal-rose); font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.sj-library-card h3 { color: var(--journal-ink); font-family: var(--font-heading); font-size: clamp(1.45rem, 2vw, 2.15rem); font-weight: 400; letter-spacing: -.035em; line-height: 1.08; }
+.sj-library-card span { color: var(--olive-600); font-size: .82rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 63.999rem) { .sj-library__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 47.999rem) { .sj-library__heading { grid-template-columns: 1fr; gap: 1rem; } .sj-library__grid { grid-template-columns: 1fr; } }
+
+/* Generated articles and their continuation rows preserve the entire supplied
+   service image. The coloured frame handles differing source proportions. */
+.sf-journal-article .sja-hero__feature { background: var(--ivory-100); }
+.sf-journal-article .sja-hero__feature img,
+.sj-rows--continuation .sj-story__image img { object-fit: contain; background: var(--ivory-100); }
+
+/* The continuation intentionally uses the original Journal row story, with a
+   five-story editorial cadence rather than one visually repeated list. */
+.sj-rows--continuation .sj-row-story:nth-child(5n + 2) { background: var(--sage-100); }
+.sj-rows--continuation .sj-row-story:nth-child(5n + 2) .sj-story__link { grid-template-columns: minmax(0, 1.2fr) minmax(18rem, .8fr); }
+.sj-rows--continuation .sj-row-story:nth-child(5n + 2) .sj-story__image { order: 2; }
+.sj-rows--continuation .sj-row-story:nth-child(5n + 3) { background: var(--blush-50); }
+.sj-rows--continuation .sj-row-story:nth-child(5n + 4) .sj-story__link { grid-template-columns: minmax(18rem, .72fr) minmax(0, 1.28fr); }
+.sj-rows--continuation .sj-row-story:nth-child(5n) { border-block: 1px solid var(--journal-ink); }
+@media (max-width: 47.999rem) {
+  .sj-rows--continuation .sj-row-story:nth-child(n) .sj-story__link { grid-template-columns: 1fr; }
+  .sj-rows--continuation .sj-row-story:nth-child(n) .sj-story__image { order: 0; }
+}
+
+.sja-conversion { margin-block: clamp(2.5rem, 6vw, 5rem) 0; background: linear-gradient(120deg, var(--sage-100), var(--champagne-100)); padding: clamp(1.5rem, 4vw, 3.2rem); }
+.sja-conversion > p { color: var(--journal-rose); font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.sja-conversion h2 { max-inline-size: 19ch; margin: .65rem 0 1.35rem; color: var(--journal-ink); font-family: var(--font-heading); font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 400; line-height: 1.04; }
+.sja-conversion > div { display: flex; flex-wrap: wrap; gap: .7rem; }
+.sja-article--variant-1 .sja-hero { background: var(--sage-100); padding-inline: clamp(1.25rem, 4vw, 4rem); }
+.sja-article--variant-2 .sja-reading-grid { background: var(--blush-50); padding-block: clamp(2rem, 5vw, 5rem); }
+.sja-article--variant-3 .sja-hero__intro { order: 2; }
+.sja-article--variant-4 .sja-prose { border-inline-start: 1px solid var(--color-border-warm); padding-inline-start: clamp(1rem, 4vw, 3rem); }
+@media (max-width: 47.999rem) { .sja-article--variant-3 .sja-hero__intro { order: 0; } .sja-article--variant-4 .sja-prose { border: 0; padding: 0; } .sja-conversion > div .sf-button { inline-size: 100%; } }
+
+/* Every article opens with its primary image, followed by its title and
+   standfirst. This keeps the visual entry point consistent across variants. */
+.sf-journal-article .sja-hero__feature { grid-column: 1 / -1; grid-row: 1; inline-size: 100%; }
+.sf-journal-article .sja-hero__intro { grid-column: 1 / -1; grid-row: 2; max-inline-size: 53rem; padding-inline-start: 0; }
+.sf-journal-article .sja-hero__portrait { grid-column: 1 / -1; grid-row: 3; justify-self: end; }
