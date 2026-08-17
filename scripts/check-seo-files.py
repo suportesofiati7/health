@@ -106,7 +106,8 @@ def local_file_for_url(url: str, origin: str) -> Path:
         return ROOT / "index.html"
     if path.endswith("/"):
         return ROOT / path.lstrip("/") / "index.html"
-    return ROOT / path.lstrip("/")
+    target = ROOT / path.lstrip("/")
+    return target if target.is_file() or target.suffix else target.with_suffix(".html")
 
 
 def validate_llms() -> int:
@@ -148,11 +149,11 @@ def validate_llms() -> int:
 
     required = {
         f"{origin}/",
-        f"{origin}/sobre.html",
-        f"{origin}/consulta.html",
-        f"{origin}/contato.html",
-        f"{origin}/tratamentos.html",
-        f"{origin}/blog.html",
+        f"{origin}/sobre",
+        f"{origin}/consulta",
+        f"{origin}/contato",
+        f"{origin}/tratamentos",
+        f"{origin}/blog",
         f"{origin}/sitemap.xml",
         f"{origin}/robots.txt",
     }

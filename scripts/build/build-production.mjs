@@ -137,6 +137,28 @@ function setLinkHrefByLanguage(fragment, language, href) {
   return fragment.replace(pattern, (whole) => setAttribute(whole, 'href', href));
 }
 
+function cleanPublicUrl(value) {
+  const [path, suffix = ''] = value.split(/([?#].*)/, 2);
+  if (!path.endsWith('.html')) return value;
+  if (path.startsWith('https://www.francielesofiati.com/')) {
+    return `${path.slice(0, -5)}${suffix}`;
+  }
+  if (path && !path.startsWith('#') && !path.startsWith('?') && !path.startsWith('//') && !/^[a-z][a-z\d+.-]*:/i.test(path)) {
+    return `${path.slice(0, -5)}${suffix}`;
+  }
+  return value;
+}
+
+function cleanPublicPageLinks(html) {
+  return html.replace(
+    /\b(href|value)=(['"])([^'"]+)\2/gi,
+    (whole, attribute, quote, value) => {
+      const cleaned = cleanPublicUrl(value);
+      return cleaned === value ? whole : `${attribute}=${quote}${cleaned}${quote}`;
+    }
+  );
+}
+
 function addTranslateNo(fragment) {
   return fragment.replace(/^(\s*<[\w:-]+\b)(?![^>]*\btranslate=)/, '$1 translate="no"');
 }
@@ -470,7 +492,7 @@ async function copyReferencedAssets() {
 }
 
 async function copySupportFiles() {
-  for (const file of ['robots.txt', 'sitemap.xml', 'llms.txt', 'site.webmanifest', 'favicon.ico']) {
+  for (const file of ['_redirects', 'robots.txt', 'sitemap.xml', 'llms.txt', 'site.webmanifest', 'favicon.ico']) {
     await copyFile(resolve(ROOT, file), resolve(DIST, file));
   }
   await mkdir(resolve(DIST, 'data'), { recursive: true });
@@ -532,6 +554,7 @@ async function main() {
     const relativePage = toPosix(relative(ROOT, page));
     let html = await readFile(page, 'utf8');
     html = await composePartials(html, relativePage, pagePairs);
+    html = cleanPublicPageLinks(html);
     html = await optimizeHtmlImages(html, relativePage);
     html = replaceBuiltResources(html, relativePage, resources);
     html = html.replace('</head>', `${await heroPreloads(relativePage, html)}\n</head>`);

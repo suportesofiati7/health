@@ -1,0 +1,89 @@
+# Permanent redirects for URLs published before the bilingual route migration.
+# Keep each legacy route pointed directly at its current, clean canonical URL.
+
+# Previous English pages at the site root.
+/about /en/about 301
+/about.html /en/about 301
+/care /en/care 301
+/care.html /en/care 301
+/consultation /en/consultation 301
+/consultation.html /en/consultation 301
+/contact /en/contact 301
+/contact.html /en/contact 301
+/faq /en/faq 301
+/faq.html /en/faq 301
+/mission /en/mission 301
+/mission.html /en/mission 301
+/skin /en/skin 301
+/skin.html /en/skin 301
+/treatments /en/treatments 301
+/treatments.html /en/treatments 301
+/testimonials /en/testimonials 301
+/testimonials.html /en/testimonials 301
+/values /en/values 301
+/values.html /en/values 301
+/form /en/form 301
+/form.html /en/form 301
+/journal /en/journal 301
+/journal.html /en/journal 301
+/journal/fractional-co2-laser-recovery-and-aftercare.html /en/journal/fractional-co2-laser-recovery-and-aftercare 301
+/journal/hair-thinning-causes-and-scalp-care.html /en/journal/hair-thinning-causes-and-scalp-care 301
+/journal/laser-hair-removal-process-and-maintenance.html /en/journal/laser-hair-removal-process-and-maintenance 301
+/journal/persistent-facial-redness-and-vessels.html /en/journal/persistent-facial-redness-and-vessels 301
+/journal/professional-skin-cleansing-guide.html /en/journal/professional-skin-cleansing-guide 301
+/journal/rebuilding-an-overwhelmed-skin-barrier.html /en/journal/rebuilding-an-overwhelmed-skin-barrier 301
+/journal/ultrasound-radiofrequency-collagen-treatment.html /en/journal/ultrasound-radiofrequency-collagen-treatment 301
+/journal/understanding-acne-scar-treatment.html /en/journal/understanding-acne-scar-treatment 301
+/journal/understanding-facial-pigmentation.html /en/journal/understanding-facial-pigmentation 301
+/journal/why-aesthetic-care-begins-with-consultation.html /en/journal/why-aesthetic-care-begins-with-consultation 301
+/journal/:splat /en/journal/:splat 301
+/en/privacy /cookies 301
+/en/privacy.html /cookies 301
+/en/legal /cookies 301
+/en/legal.html /cookies 301
+/privacy /cookies 301
+/privacy.html /cookies 301
+/legal /cookies 301
+/legal.html /cookies 301
+
+# Previous Portuguese pages beneath /pt/.
+/pt / 301
+/pt/ / 301
+/pt/index / 301
+/pt/index.html / 301
+/pt/about /sobre 301
+/pt/about.html /sobre 301
+/pt/care /cuidados 301
+/pt/care.html /cuidados 301
+/pt/consultation /consulta 301
+/pt/consultation.html /consulta 301
+/pt/contact /contato 301
+/pt/contact.html /contato 301
+/pt/cookies /cookies 301
+/pt/cookies.html /cookies 301
+/pt/faq /perguntas 301
+/pt/faq.html /perguntas 301
+/pt/journal /blog 301
+/pt/journal.html /blog 301
+/pt/laser /laser 301
+/pt/laser.html /laser 301
+/pt/mission /missao 301
+/pt/mission.html /missao 301
+/pt/skin /pele 301
+/pt/skin.html /pele 301
+/pt/testimonials /depoimentos 301
+/pt/testimonials.html /depoimentos 301
+/pt/treatments /tratamentos 301
+/pt/treatments.html /tratamentos 301
+/pt/values /valores 301
+/pt/values.html /valores 301
+/pt/privacy /cookies 301
+/pt/privacy.html /cookies 301
+/pt/legal /cookies 301
+/pt/legal.html /cookies 301
+
+# Older Portuguese aliases recorded by Search Console.
+/privacidade /cookies 301
+/privacidade.html /cookies 301
+/perguntas-frequentes /perguntas 301
+/perguntas-frequentes.html /perguntas 301

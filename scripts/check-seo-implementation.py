@@ -82,7 +82,7 @@ def canonical(relative_path: str) -> str:
         return f"{ORIGIN}/"
     if relative_path == "en/index.html":
         return f"{ORIGIN}/en/"
-    return f"{ORIGIN}/{relative_path}"
+    return f"{ORIGIN}/{relative_path.removesuffix('.html')}"
 
 
 def normalize(text: str) -> str:
@@ -128,7 +128,8 @@ def local_path_from_url(page: Path, value: str) -> Path | None:
             return ROOT / "index.html"
         if route in {"en", "en/"}:
             return ROOT / "en" / "index.html"
-        return ROOT / route
+        target = ROOT / route
+        return target if target.is_file() or target.suffix else target.with_suffix(".html")
     clean = unquote(value.split("#", 1)[0].split("?", 1)[0])
     if not clean:
         return None

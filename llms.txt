@@ -17,42 +17,42 @@ Important interpretation rules:
 ## Primary pages
 
 - [Home](https://www.francielesofiati.com/): Practice overview, care philosophy and routes to consultation, treatments and educational content.
-- [About Franciele](https://www.francielesofiati.com/sobre.html): Professional identity, CRBM registration, experience and consultation-led approach.
-- [Consultation](https://www.francielesofiati.com/consulta.html): What consultation can and cannot establish, how planning works and how to request one.
-- [Treatments](https://www.francielesofiati.com/tratamentos.html): Structured overview of skin, laser, facial, injectable, scalp, vascular, firmness and contour options, with suitability caveats.
-- [Contact](https://www.francielesofiati.com/contato.html): Official contact routes and practical communication guidance.
-- [Frequently asked questions](https://www.francielesofiati.com/perguntas.html): Answers about consultation, suitability, preparation, recovery, results and communication.
+- [About Franciele](https://www.francielesofiati.com/sobre): Professional identity, CRBM registration, experience and consultation-led approach.
+- [Consultation](https://www.francielesofiati.com/consulta): What consultation can and cannot establish, how planning works and how to request one.
+- [Treatments](https://www.francielesofiati.com/tratamentos): Structured overview of skin, laser, facial, injectable, scalp, vascular, firmness and contour options, with suitability caveats.
+- [Contact](https://www.francielesofiati.com/contato): Official contact routes and practical communication guidance.
+- [Frequently asked questions](https://www.francielesofiati.com/perguntas): Answers about consultation, suitability, preparation, recovery, results and communication.
 
 ## Treatment and care topics
 
-- [Skin](https://www.francielesofiati.com/pele.html): Skin barrier, acne, pigmentation, sensitivity, pores, routines and professional treatment context.
-- [Laser](https://www.francielesofiati.com/laser.html): Laser and light technologies, preparation, contraindications, recovery and realistic limits.
-- [Before and after care](https://www.francielesofiati.com/cuidados.html): Preparation, aftercare, sun protection, warning signs and when to seek clinical guidance.
-- [Results](https://www.francielesofiati.com/resultados.html): How to interpret progress photography, timing, variation and outcome limitations.
-- [Patient testimonials](https://www.francielesofiati.com/depoimentos.html): Approved patient feedback presented with individual-outcome cautions.
+- [Skin](https://www.francielesofiati.com/pele): Skin barrier, acne, pigmentation, sensitivity, pores, routines and professional treatment context.
+- [Laser](https://www.francielesofiati.com/laser): Laser and light technologies, preparation, contraindications, recovery and realistic limits.
+- [Before and after care](https://www.francielesofiati.com/cuidados): Preparation, aftercare, sun protection, warning signs and when to seek clinical guidance.
+- [Results](https://www.francielesofiati.com/resultados): How to interpret progress photography, timing, variation and outcome limitations.
+- [Patient testimonials](https://www.francielesofiati.com/depoimentos): Approved patient feedback presented with individual-outcome cautions.
 
 ## Journal
 
-- [Journal index](https://www.francielesofiati.com/blog.html): Editorial hub for ten long-form articles on consultation, skin health, laser technology and scalp care.
-- [Why aesthetic care begins with consultation](https://www.francielesofiati.com/en/journal/why-aesthetic-care-begins-with-consultation.html): History, priorities, suitability, realistic expectations and safe timing before treatment selection.
-- [Professional skin cleansing guide](https://www.francielesofiati.com/en/journal/professional-skin-cleansing-guide.html): Selective extraction, congestion, acne limits, sensitivity and aftercare.
-- [Rebuilding an overwhelmed skin barrier](https://www.francielesofiati.com/en/journal/rebuilding-an-overwhelmed-skin-barrier.html): Recognizing irritation, simplifying skincare and restoring tolerance before procedures.
-- [Understanding facial pigmentation](https://www.francielesofiati.com/en/journal/understanding-facial-pigmentation.html): Pigmentation patterns, melasma, triggers, assessment and long-term planning.
-- [Persistent facial redness and visible vessels](https://www.francielesofiati.com/en/journal/persistent-facial-redness-and-vessels.html): Reactive skin, vascular concerns, laser or light limits and medical referral signs.
-- [Understanding acne-scar treatment](https://www.francielesofiati.com/en/journal/understanding-acne-scar-treatment.html): Scar types, texture assessment, layered treatment and why active acne may come first.
-- [Fractional CO2 laser recovery and aftercare](https://www.francielesofiati.com/en/journal/fractional-co2-laser-recovery-and-aftercare.html): Preparation, visible recovery, risks, aftercare and gradual remodeling.
-- [Laser hair-removal process and maintenance](https://www.francielesofiati.com/en/journal/laser-hair-removal-process-and-maintenance.html): Hair cycles, session variability, preparation, maintenance and hormonal context.
-- [Ultrasound and radiofrequency for collagen support](https://www.francielesofiati.com/en/journal/ultrasound-radiofrequency-collagen-treatment.html): Technology differences, patient selection and realistic firmness goals.
-- [Hair thinning and scalp care](https://www.francielesofiati.com/en/journal/hair-thinning-causes-and-scalp-care.html): Shedding, thinning, scalp assessment, medical referral and procedural-support limits.
+- [Journal index](https://www.francielesofiati.com/blog): Editorial hub for ten long-form articles on consultation, skin health, laser technology and scalp care.
+- [Why aesthetic care begins with consultation](https://www.francielesofiati.com/en/journal/why-aesthetic-care-begins-with-consultation): History, priorities, suitability, realistic expectations and safe timing before treatment selection.
+- [Professional skin cleansing guide](https://www.francielesofiati.com/en/journal/professional-skin-cleansing-guide): Selective extraction, congestion, acne limits, sensitivity and aftercare.
+- [Rebuilding an overwhelmed skin barrier](https://www.francielesofiati.com/en/journal/rebuilding-an-overwhelmed-skin-barrier): Recognizing irritation, simplifying skincare and restoring tolerance before procedures.
+- [Understanding facial pigmentation](https://www.francielesofiati.com/en/journal/understanding-facial-pigmentation): Pigmentation patterns, melasma, triggers, assessment and long-term planning.
+- [Persistent facial redness and visible vessels](https://www.francielesofiati.com/en/journal/persistent-facial-redness-and-vessels): Reactive skin, vascular concerns, laser or light limits and medical referral signs.
+- [Understanding acne-scar treatment](https://www.francielesofiati.com/en/journal/understanding-acne-scar-treatment): Scar types, texture assessment, layered treatment and why active acne may come first.
+- [Fractional CO2 laser recovery and aftercare](https://www.francielesofiati.com/en/journal/fractional-co2-laser-recovery-and-aftercare): Preparation, visible recovery, risks, aftercare and gradual remodeling.
+- [Laser hair-removal process and maintenance](https://www.francielesofiati.com/en/journal/laser-hair-removal-process-and-maintenance): Hair cycles, session variability, preparation, maintenance and hormonal context.
+- [Ultrasound and radiofrequency for collagen support](https://www.francielesofiati.com/en/journal/ultrasound-radiofrequency-collagen-treatment): Technology differences, patient selection and realistic firmness goals.
+- [Hair thinning and scalp care](https://www.francielesofiati.com/en/journal/hair-thinning-causes-and-scalp-care): Shedding, thinning, scalp assessment, medical referral and procedural-support limits.
 
 ## Policies and trust
 
-- [Cookie notice](https://www.francielesofiati.com/cookies.html): Cookie categories, choices and related privacy information.
+- [Cookie notice](https://www.francielesofiati.com/cookies): Cookie categories, choices and related privacy information.
 
 ## Optional
 
-- [Mission](https://www.francielesofiati.com/missao.html): The practice's purpose and responsible-care principles.
-- [Values](https://www.francielesofiati.com/valores.html): Ethical, human and evidence-aware decision principles.
+- [Mission](https://www.francielesofiati.com/missao): The practice's purpose and responsible-care principles.
+- [Values](https://www.francielesofiati.com/valores): Ethical, human and evidence-aware decision principles.
 - [XML sitemap](https://www.francielesofiati.com/sitemap.xml): Complete canonical index of search-eligible English and Brazilian Portuguese pages.
 - [Crawler policy](https://www.francielesofiati.com/robots.txt): Search-crawler access rules and sitemap location.
 - [Web app manifest](https://www.francielesofiati.com/site.webmanifest): Browser installation and presentation metadata for the Portuguese default experience.

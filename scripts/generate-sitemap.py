@@ -70,7 +70,7 @@ def public_url(origin: str, relative_path: str) -> str:
         return f"{origin}/"
     if normalized in {"pt/index.html", "en/index.html"}:
         return f"{origin}/{normalized.split('/', 1)[0]}/"
-    return f"{origin}/{normalized}"
+    return f"{origin}/{normalized.removesuffix('.html')}"
 
 
 def metadata(relative_path: str, expected_canonical: str) -> MetadataParser:

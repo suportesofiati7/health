@@ -159,6 +159,7 @@ def choose_target(pages: list[str]) -> dict[str, Any]:
         "Complete full-page screenshot", "Only the visible viewport", "One specific numbered section",
         "Several selected numbered sections", "Every numbered section on a page", "A custom CSS selector",
         "A particular element by ID", "Hero only", "Main content only", "Final CTA only", "Footer only",
+        "Every scroll position (overlapping viewport screenshots)",
     ])
     if mode in (2, 3):
         print_sections(pages)
@@ -179,6 +180,8 @@ def choose_target(pages: list[str]) -> dict[str, Any]:
     if mode == 6:
         element_id = input("Enter the element ID (without #): ").strip().lstrip("#")
         return {"kind": "selectors", "selectors": [{"name": element_id or "element", "selector": f"#{element_id}"}]}
+    if mode == 11:
+        return {"kind": "scroll_slices", "overlap": 160}
     simple = {
         0: {"kind": "page", "fullPage": True}, 1: {"kind": "page", "fullPage": False},
         7: {"kind": "selectors", "selectors": [{"name": "hero", "selector": 'main > section[data-pattern="hero"], main > section[data-section="1"]'}]},
@@ -304,7 +307,23 @@ async function settle(page) {
       const page = await context.newPage(); const url = urlFor(pagePath); const pageDir = path.join(outputDir, viewportName); fs.mkdirSync(pageDir, {recursive:true});
       try {
         await page.goto(url, {waitUntil:"load", timeout:45000}); await settle(page);
-        let jobs = target.kind === "page" ? [{name: target.fullPage ? "full-page" : "viewport", page: true}] : target.kind === "numbered_sections" ? await page.locator("main > section[data-section]").evaluateAll(nodes => nodes.map((node, i) => ({name:`section-${node.dataset.section || i+1}-${node.id || "section"}`, selector: `main > section[data-section="${node.dataset.section}"]`}))) : target.selectors;
+        if (target.kind === "scroll_slices") {
+          const { height } = page.viewportSize();
+          const fullHeight = await page.evaluate(() => Math.ceil(document.documentElement.scrollHeight));
+          const overlap = Math.min(Math.max(Number(target.overlap) || 0, 0), height - 1);
+          const step = height - overlap;
+          const positions = [];
+          for (let top = 0; top < fullHeight; top += step) positions.push(Math.min(top, Math.max(0, fullHeight - height)));
+          for (const [index, top] of [...new Set(positions)].entries()) {
+            await page.evaluate(y => scrollTo(0, y), top); await page.waitForTimeout(100);
+            const file = path.join(pageDir, `${pageName(pagePath)}--scroll-${String(index + 1).padStart(2, "0")}.png`);
+            await page.screenshot({path:file});
+            captures.push({page:pagePath,viewport:viewportName,target:`scroll-${index + 1}`,status:"captured",file:path.relative(outputDir,file)});
+          }
+          await page.evaluate(() => scrollTo(0, 0));
+          continue;
+        }
+        let jobs = target.kind === "page" ? [{name: target.fullPage ? "full-page" : "viewport", page: true}] : target.kind === "numbered_sections" ? await page.locator("main section[data-section]").evaluateAll(nodes => nodes.map((node, i) => ({name:`section-${node.dataset.section || i+1}-${node.id || "section"}`, selector: `main section[data-section="${node.dataset.section}"]`}))) : target.selectors;
         for (const job of jobs) {
           const file = path.join(pageDir, `${pageName(pagePath)}--${safe(job.name)}.png`);
           if (job.page) {
