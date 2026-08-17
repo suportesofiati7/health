@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SEO_DATA = ROOT / "data" / "seo.json"
 PAGE_PAIRS = ROOT / "data" / "page-pairs.json"
 SITEMAP_GROUPS = ROOT / "data" / "sitemap-groups.json"
+CONTENT_PAGES = ROOT / "data" / "content-pages.json"
 SITEMAP = ROOT / "sitemap.xml"
 SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
 XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml"
@@ -181,6 +182,18 @@ def sitemap_pages(origin: str) -> list[SitemapPage]:
         )
         pages.append(SitemapPage(ROOT / english_path, english_url, alternates))
         pages.append(SitemapPage(ROOT / portuguese_path, portuguese_url, alternates))
+
+    # Portuguese-first editorial and service pages have no false hreflang
+    # alternate until an editorially equivalent English page is published.
+    if CONTENT_PAGES.exists():
+        content_data = load_json(CONTENT_PAGES)
+        for relative_path in content_data.get("routes", []):
+            if not isinstance(relative_path, str):
+                continue
+            url = public_url(origin, relative_path)
+            page_metadata = metadata(relative_path, url)
+            if is_indexable(page_metadata):
+                pages.append(SitemapPage(ROOT / relative_path, url, (("pt-BR", url), ("x-default", url))))
 
     locations = [page.location for page in pages]
     duplicates = sorted({location for location in locations if locations.count(location) > 1})

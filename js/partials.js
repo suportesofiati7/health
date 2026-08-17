@@ -98,8 +98,8 @@ function isRelativeSitePath(value) {
     && !value.startsWith('../');
 }
 
-function prefixNestedEnglishPaths(fragment, portuguese, rootPrefix) {
-  if (portuguese || !rootPrefix) return;
+function prefixNestedPagePaths(fragment, rootPrefix) {
+  if (!rootPrefix) return;
   fragment.querySelectorAll('[href], [src], [action]').forEach((element) => {
     ['href', 'src', 'action'].forEach((attribute) => {
       if (!element.hasAttribute(attribute)) return;
@@ -111,16 +111,13 @@ function prefixNestedEnglishPaths(fragment, portuguese, rootPrefix) {
 
 function setLanguageLinks(fragment, pairs, portuguese, rootPrefix) {
   const pair = currentPagePair(pairs, portuguese);
-  if (!pair || typeof pair.en !== 'string' || typeof pair['pt-BR'] !== 'string') {
-    throw new Error(`No valid English/Portuguese page-pair mapping exists for ${window.location.pathname}.`);
-  }
 
   fragment.querySelectorAll('a[data-lang]').forEach((link) => {
     const targetLanguage = link.dataset.lang;
     if (targetLanguage === 'en') {
-      link.setAttribute('href', `${rootPrefix}${pair.en}`);
+      link.setAttribute('href', `${rootPrefix}${pair?.en || 'en/index.html'}`);
     } else if (targetLanguage === 'pt' || targetLanguage === 'pt-BR') {
-      link.setAttribute('href', `${rootPrefix}${pair['pt-BR']}`);
+      link.setAttribute('href', `${rootPrefix}${pair?.['pt-BR'] || 'index.html'}`);
     }
   });
 }
@@ -142,7 +139,7 @@ function parsePartial(name, source, pairs, portuguese, rootPrefix) {
     throw new Error(`Partial "${name}" must contain exactly one root element; found ${roots.length}.`);
   }
   roots.forEach((root) => root.setAttribute('translate', 'no'));
-  prefixNestedEnglishPaths(fragment, portuguese, rootPrefix);
+  prefixNestedPagePaths(fragment, rootPrefix);
   if (name === 'topbar') setLanguageLinks(fragment, pairs, portuguese, rootPrefix);
   return fragment;
 }

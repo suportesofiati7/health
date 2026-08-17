@@ -70,6 +70,7 @@ def public_pages() -> list[Path]:
     pages = [ROOT / route for route in route_names]
     pages.extend(path for path in ROOT.glob("*.html") if "noindex" in path.read_text(encoding="utf-8", errors="ignore").lower())
     pages.extend(path for path in (ROOT / "journal").glob("*.html") if "noindex" in path.read_text(encoding="utf-8", errors="ignore").lower())
+    pages.extend(path for directory in ("blog", "servicos") for path in (ROOT / directory).glob("*.html"))
     return sorted({path for path in pages if path.exists()}, key=lambda path: path.relative_to(ROOT).as_posix())
 
 
@@ -137,6 +138,10 @@ def local_path_from_url(page: Path, value: str) -> Path | None:
 
 
 def expected_schema(relative_path: str) -> set[str]:
+    if relative_path.startswith("blog/"):
+        return {"WebSite", "HealthAndBeautyBusiness", "BreadcrumbList", "BlogPosting", "WebPage"}
+    if relative_path.startswith("servicos/"):
+        return {"WebSite", "HealthAndBeautyBusiness", "BreadcrumbList", "Service", "WebPage"}
     key = relative_path.removeprefix("en/")
     slug_keys = {
         "sobre.html": "about.html",
@@ -153,7 +158,7 @@ def expected_schema(relative_path: str) -> set[str]:
     }
     key = slug_keys.get(key, key)
     common = {"WebSite", "Person", "HealthAndBeautyBusiness", "ImageObject", "BreadcrumbList"}
-    if relative_path.startswith("journal/") or relative_path.startswith("en/journal/"):
+    if relative_path.startswith(("journal/", "en/journal/", "blog/")):
         return common | {"BlogPosting", "WebPage"}
     additions = {
         "about.html": {"AboutPage", "ProfilePage"},
@@ -296,6 +301,8 @@ def main() -> int:
                 "pt-BR": canonical(portuguese_route),
                 "x-default": canonical(portuguese_route),
             }
+        elif rel.startswith(("blog/", "servicos/")):
+            expected_alternates = {"pt-BR": expected_canonical, "x-default": expected_canonical}
         else:
             expected_alternates = {"en": expected_canonical, "x-default": expected_canonical}
         if alternates != expected_alternates:
@@ -354,7 +361,8 @@ def main() -> int:
         if missing_types:
             errors.append(f"{scope} missing expected schema: {', '.join(sorted(missing_types))}")
         schema_ids = {value for value in keyed_values(payload, "@id") if isinstance(value, str)}
-        for required_id in (f"{ORIGIN}/#website", f"{ORIGIN}/#franciele", f"{ORIGIN}/#practice"):
+        required_entity_ids = (f"{ORIGIN}/#website", f"{ORIGIN}/#practice") if rel.startswith(("blog/", "servicos/")) else (f"{ORIGIN}/#website", f"{ORIGIN}/#franciele", f"{ORIGIN}/#practice")
+        for required_id in required_entity_ids:
             if required_id not in schema_ids:
                 errors.append(f"{scope} missing consistent entity ID {required_id}")
         schema_urls = {value for value in keyed_values(payload, "url") if isinstance(value, str)}

@@ -114,7 +114,7 @@
   >
   <meta
     property="og:description"
-    content="Tratamentos estéticos para pele, laser, firmeza, expressão facial, couro cabeludo e microvasos."
+    content="Conheça os tratamentos estéticos de Franciele Sofiati para pele, laser, firmeza, expressão facial, couro cabeludo e microvasos em Londrina."
   >
   <meta
     property="og:url"
@@ -130,6 +130,11 @@
     property="og:image"
     content="https://www.francielesofiati.com/assets/shared/social/estetica-avancada-londrina-franciele-sofiati-preview-social.png"
   >
+  <meta property="og:image:secure_url" content="https://www.francielesofiati.com/assets/shared/social/estetica-avancada-londrina-franciele-sofiati-preview-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Franciele Sofiati: tratamentos estéticos em Londrina">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta
@@ -138,12 +143,13 @@
   >
   <meta
     name="twitter:description"
-    content="Tratamentos estéticos para pele, laser, firmeza, expressão facial, couro cabeludo e microvasos."
+    content="Conheça os tratamentos estéticos de Franciele Sofiati para pele, laser, firmeza, expressão facial, couro cabeludo e microvasos em Londrina."
   >
   <meta
     name="twitter:image"
     content="https://www.francielesofiati.com/assets/shared/social/estetica-avancada-londrina-franciele-sofiati-preview-social.png"
   >
+  <meta name="twitter:image:alt" content="Franciele Sofiati: tratamentos estéticos em Londrina">
 
   <!-- =========================================================
        STRUCTURED DATA
@@ -169,6 +175,40 @@
         "telephone": "+5543991043536"
       },
       {
+        "@type": "HealthAndBeautyBusiness",
+        "@id": "https://www.francielesofiati.com/#practice",
+        "name": "Franciele Sofiati Biomédica",
+        "url": "https://www.francielesofiati.com/",
+        "telephone": "+5543991043536",
+        "founder": {"@id":"https://www.francielesofiati.com/#franciele"}
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://www.francielesofiati.com/assets/shared/social/estetica-avancada-londrina-franciele-sofiati-preview-social.png#primaryimage",
+        "url": "https://www.francielesofiati.com/assets/shared/social/estetica-avancada-londrina-franciele-sofiati-preview-social.png",
+        "contentUrl": "https://www.francielesofiati.com/assets/shared/social/estetica-avancada-londrina-franciele-sofiati-preview-social.png",
+        "encodingFormat": "image/png", "width": 1200, "height": 630,
+        "caption": "Tratamentos estéticos com Franciele Sofiati em Londrina"
+      },
+      {
+        "@type": "BreadcrumbList", "@id": "https://www.francielesofiati.com/tratamentos#breadcrumb",
+        "itemListElement": [{"@type":"ListItem","position":1,"name":"Início","item":"https://www.francielesofiati.com/"},{"@type":"ListItem","position":2,"name":"Tratamentos","item":"https://www.francielesofiati.com/tratamentos"}]
+      },
+      {
+        "@type": "ItemList", "@id": "https://www.francielesofiati.com/tratamentos#services",
+        "name": "Tratamentos estéticos disponíveis", "itemListElement": [
+          {"@type":"ListItem","position":1,"url":"https://www.francielesofiati.com/servicos/ultraformer-mpt"},
+          {"@type":"ListItem","position":2,"url":"https://www.francielesofiati.com/servicos/limpeza-de-pele-profunda"},
+          {"@type":"ListItem","position":3,"url":"https://www.francielesofiati.com/servicos/reducao-de-pelos-a-laser-com-lightsheer-duet"},
+          {"@type":"ListItem","position":4,"url":"https://www.francielesofiati.com/servicos/laser-acupulse-co2"}
+        ]
+      },
+      {
+        "@type": "Service", "@id": "https://www.francielesofiati.com/tratamentos#service",
+        "name": "Tratamentos estéticos personalizados", "provider": {"@id":"https://www.francielesofiati.com/#practice"},
+        "areaServed": {"@type":"City","name":"Londrina"}
+      },
+      {
         "@type": "CollectionPage",
         "@id": "https://www.francielesofiati.com/tratamentos#webpage",
         "url": "https://www.francielesofiati.com/tratamentos",
@@ -180,7 +220,10 @@
         },
         "about": {
           "@id": "https://www.francielesofiati.com/#franciele"
-        }
+        },
+        "breadcrumb": {"@id":"https://www.francielesofiati.com/tratamentos#breadcrumb"},
+        "primaryImageOfPage": {"@id":"https://www.francielesofiati.com/assets/shared/social/estetica-avancada-londrina-franciele-sofiati-preview-social.png#primaryimage"},
+        "mainEntity": {"@id":"https://www.francielesofiati.com/tratamentos#services"}
       }
     ]
   }
@@ -690,6 +733,9 @@
         </div>
       </div>
     </section>
+
+    <a class="skip-past-hero" href="#main-content">Continuar <span aria-hidden="true">↓</span></a>
+    <span class="sf-main-content-target" id="main-content" tabindex="-1"></span>
 
     <!-- =======================================================
          ORIGINAL CATEGORY INDEX
@@ -1289,6 +1335,13 @@
         })[character]
       );
 
+    const treatmentSlug = value => String(value ?? "")
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
     /* =========================================================
        RENDER ONE TREATMENT CARD
     ========================================================== */
@@ -1411,6 +1464,7 @@
                 </p>
               </div>
             </details>
+            <a class="sf-treatment-compact-card__link" href="servicos/${treatmentSlug(item.title)}.html">Conhecer ${escapeHTML(item.title)} <span aria-hidden="true">→</span></a>
           </div>
         </article>
       `;

@@ -89,7 +89,7 @@ function publicHtmlFiles() {
   return walk(ROOT, (file) => {
     const rel = toPosix(relative(ROOT, file));
     return extname(file).toLowerCase() === '.html'
-      && (/^[^/]+\.html$/.test(rel) || /^(?:en|journal)\/[^/]+\.html$/.test(rel) || /^en\/journal\/[^/]+\.html$/.test(rel));
+      && (/^[^/]+\.html$/.test(rel) || /^(?:en|journal)\/[^/]+\.html$/.test(rel) || /^en\/journal\/[^/]+\.html$/.test(rel) || /^(?:blog|servicos)\/[^/]+\.html$/.test(rel));
   });
 }
 
@@ -190,9 +190,10 @@ async function composePartials(html, relativePage, pagePairs) {
     fragment = fragment.replace(/<script\b[^>]*data-id=["']five-server["'][^>]*>\s*<\/script>/gi, '');
     fragment = prefixPartialPaths(fragment, rootPrefix);
     if (name === 'topbar') {
-      if (!pair) throw new Error(`No language page pair found for ${relativePage}.`);
-      const englishHref = `${rootPrefix}${pair.en}`;
-      const portugueseHref = `${rootPrefix}${pair['pt-BR']}`;
+      // Portuguese editorial and service pages can be intentionally
+      // Portuguese-first until an equivalent English translation exists.
+      const englishHref = `${rootPrefix}${pair?.en || 'en/index.html'}`;
+      const portugueseHref = `${rootPrefix}${pair?.['pt-BR'] || 'index.html'}`;
       fragment = setLinkHrefByLanguage(fragment, 'en', englishHref);
       fragment = setLinkHrefByLanguage(fragment, 'pt', portugueseHref);
     }
@@ -272,6 +273,10 @@ async function optimizeHtmlImages(html, relativePage) {
     const sourceValue = imageAttrs.src;
     if (!sourceValue || /^(?:data:|https?:|\/\/)/i.test(sourceValue)) continue;
     const cleanSource = decodeURIComponent(sourceValue.split(/[?#]/, 1)[0]);
+    // Pixabay web-format assets are already delivery-sized and each service
+    // page uses a distinct set. Preserve them as authored rather than creating
+    // hundreds of redundant derivatives during every production build.
+    if (cleanSource.includes('assets/services/editorial/')) continue;
     const source = resolve(ROOT, dirname(relativePage), cleanSource);
     if (!source.startsWith(resolve(ROOT, 'assets')) || !RASTER_EXTENSIONS.has(extname(source).toLowerCase())) continue;
     let sourceStat;

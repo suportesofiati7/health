@@ -24,6 +24,52 @@
   [hidden] { display: none; }
 }
 
+/* Portuguese Journal articles: a calm reading layout with an editorial image lead.
+   The same components are intentionally used by every generated article so that
+   the long-form pages remain responsive and legible as the library grows. */
+.sf-journal-article {
+  background: linear-gradient(180deg, var(--ivory-50), #fffdf9 34rem, var(--ivory-50));
+}
+.sja-main { padding-block: clamp(1rem, 3vw, 2.25rem) clamp(4rem, 9vw, 8rem); }
+.sja-article { overflow: clip; }
+.sja-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(18rem, .95fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  padding-block: clamp(2rem, 6vw, 5rem) clamp(3rem, 7vw, 6rem);
+}
+.sja-hero__intro { max-inline-size: 43rem; }
+.sja-publication { color: var(--rose-gold-700); font-size: .72rem; font-weight: 700; letter-spacing: .16em; }
+.sja-hero h1 { max-inline-size: 12ch; margin: .7rem 0 1.3rem; font-size: clamp(2.55rem, 5.5vw, 5.6rem); line-height: .94; }
+.sja-standfirst { max-inline-size: 38rem; color: var(--color-text-muted); font-family: var(--font-heading); font-size: clamp(1.15rem, 1.8vw, 1.52rem); line-height: 1.45; }
+.sja-byline { display: flex; flex-wrap: wrap; gap: .45rem 1.25rem; margin-block-start: 1.7rem; color: var(--color-text-muted); font-size: .82rem; }
+.sja-hero__feature, .sja-inline-figure { margin: 0; }
+.sja-hero__feature { background: var(--sage-100); padding: clamp(.55rem, 1.3vw, 1rem); }
+.sja-hero__feature img { display: block; inline-size: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.sja-hero__feature figcaption, .sja-inline-figure figcaption { margin-block-start: .7rem; color: var(--color-text-muted); font-size: .72rem; line-height: 1.45; }
+.sja-reading-grid { display: grid; grid-template-columns: minmax(12rem, .34fr) minmax(0, .66fr); gap: clamp(2.5rem, 8vw, 9rem); align-items: start; }
+.sja-at-glance { position: sticky; top: 1.5rem; border-top: 1px solid var(--gold-300); padding-block-start: 1rem; }
+.sja-at-glance p { margin: 0; color: var(--rose-gold-700); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.sja-at-glance h2 { margin: .7rem 0 1rem; font-size: 1.45rem; }
+.sja-at-glance ol { margin: 0 0 1.4rem; padding-inline-start: 1.2rem; color: var(--color-text-muted); font-size: .88rem; line-height: 1.6; }
+.sja-at-glance a, .sja-prose a { color: var(--rose-gold-700); font-weight: 700; text-underline-offset: .2em; }
+.sja-prose { max-inline-size: 46rem; }
+.sja-reading-section { padding-block: 0 clamp(2.1rem, 5vw, 4rem); }
+.sja-reading-section + .sja-reading-section { border-top: 1px solid color-mix(in srgb, var(--gold-300) 52%, transparent); padding-block-start: clamp(1.6rem, 3vw, 2.8rem); }
+.sja-reading-section h2 { max-inline-size: 20ch; margin: 0 0 .9rem; font-size: clamp(1.65rem, 3vw, 2.5rem); line-height: 1.08; }
+.sja-reading-section p { color: var(--color-text-muted); font-size: clamp(1rem, 1.3vw, 1.13rem); line-height: 1.82; }
+.sja-inline-figure { margin-block: .4rem clamp(2.2rem, 6vw, 5rem); }
+.sja-inline-figure img { display: block; inline-size: 100%; max-block-size: 37rem; object-fit: cover; }
+.sja-editorial-list { padding-inline-start: 1.15rem; color: var(--color-text-muted); line-height: 1.85; }
+@media (max-width: 47.999rem) {
+  .sja-hero, .sja-reading-grid { grid-template-columns: 1fr; }
+  .sja-hero { gap: 1.8rem; }
+  .sja-hero h1 { max-inline-size: 13ch; }
+  .sja-hero__feature { max-inline-size: 32rem; }
+  .sja-at-glance { position: static; max-inline-size: 32rem; }
+}
+
 /* Compact treatment directory refresh. */
 @layer pages {
   /* One fixed panorama is the page field: it carries the arch and balcony

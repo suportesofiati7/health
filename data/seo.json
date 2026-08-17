@@ -4,11 +4,19 @@
   "defaultOgImage": "assets/shared/social/estetica-avancada-londrina-franciele-sofiati-preview-social.png",
   "schemaType": "HealthAndBeautyBusiness",
   "areaServed": "Londrina, Paraná, Brasil",
+  "address": {
+    "name": "Metropolitan Med Center",
+    "streetAddress": "Rua Mato Grosso, 1114 - Centro",
+    "addressLocality": "Londrina",
+    "addressRegion": "PR",
+    "postalCode": "86010-180",
+    "addressCountry": "BR"
+  },
   "email": "suportesofiati@gmail.com",
   "privacyEmail": "sofiatimendonca@gmail.com",
   "telephone": "+5543991043536",
   "professionalRegistration": "CRBM 6277",
-  "googleReviewsUrl": "https://share.google/95oyMN4LpnqCR8NWS",
+  "googleReviewsUrl": "https://share.google/euOCsxLCMJF6Tu18c",
   "sameAs": [
     "https://www.instagram.com/sofiati_biomedica/"
   ]

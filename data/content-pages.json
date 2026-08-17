@@ -1,0 +1,32 @@
+{
+  "routes": [
+    "servicos/ultraformer-mpt.html",
+    "servicos/limpeza-de-pele-profunda.html",
+    "servicos/peeling-ultrassonico.html",
+    "servicos/peeling-de-diamante.html",
+    "servicos/peeling-de-cristal-microdermoabrasao.html",
+    "servicos/peeling-retinoico.html",
+    "servicos/peeling-de-jessner.html",
+    "servicos/peeling-de-ata.html",
+    "servicos/protocolo-profissional-de-despigmentacao.html",
+    "servicos/plataforma-harmony-de-laser-e-luz.html",
+    "servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html",
+    "servicos/laser-acupulse-co2.html",
+    "servicos/toxina-botulinica-terco-superior-da-face.html",
+    "servicos/toxina-botulinica-platisma-e-terco-inferior.html",
+    "servicos/mmp-microinfusao-de-medicamentos-na-pele.html",
+    "servicos/mesoterapia-capilar.html",
+    "servicos/microagulhamento.html",
+    "servicos/radiofrequencia.html",
+    "servicos/tecnologia-de-plasma.html",
+    "servicos/peim-tratamento-estetico-para-microvasos.html",
+    "blog/depilacao-a-laser-preparo-e-expectativas.html",
+    "blog/melasma-manchas-e-fotoprotecao.html",
+    "blog/peeling-quimico-recuperacao-seguranca.html",
+    "blog/cicatrizes-de-acne-textura-e-plano.html",
+    "blog/laser-co2-recuperacao-e-cuidados.html",
+    "blog/microagulhamento-o-que-avaliar.html",
+    "blog/queda-capilar-quando-investigar.html",
+    "blog/toxina-botulinica-naturalidade-e-planejamento.html"
+  ]
+}

@@ -1,23 +1,23 @@
 # SEO Validation Report
 
-**Status:** FAIL
+**Status:** PASS
 
 ## Coverage
 
-- Public HTML pages parsed: 47
-- Canonical, indexable URLs in sitemap: 42
-- Images audited: 302
+- Public HTML pages parsed: 75
+- Canonical, indexable URLs in sitemap: 70
+- Images audited: 386
 - Decorative images with empty alt text: 127
-- Post-hero navigation targets: 43
+- Post-hero navigation targets: 71
 
 ## Validation summary
 
-- Metadata: failed
-- Canonicals and hreflang: failed
-- Structured data: failed
+- Metadata: passed
+- Canonicals and hreflang: passed
+- Structured data: passed
 - Sitemap and robots: passed
-- Image alt text and dimensions: failed
-- Broken internal links and targets: failed
+- Image alt text and dimensions: passed
+- Broken internal links and targets: passed
 - FAQ parity: 
 
 ## Page metadata and schema
@@ -26,6 +26,14 @@
 | --- | ---: | ---: | --- | --- |
 | `404.html` | 58 chars | 150 chars | `noindex, follow` | noindex utility |
 | `blog.html` | 53 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Blog, ItemList |
+| `blog/cicatrizes-de-acne-textura-e-plano.html` | 88 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/depilacao-a-laser-preparo-e-expectativas.html` | 85 chars | 126 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/laser-co2-recuperacao-e-cuidados.html` | 105 chars | 115 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/melasma-manchas-e-fotoprotecao.html` | 87 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/microagulhamento-o-que-avaliar.html` | 81 chars | 107 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/peeling-quimico-recuperacao-seguranca.html` | 86 chars | 118 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/queda-capilar-quando-investigar.html` | 91 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/toxina-botulinica-naturalidade-e-planejamento.html` | 82 chars | 124 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `consulta.html` | 49 chars | 132 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage, Service |
 | `contato.html` | 27 chars | 121 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | ContactPage |
 | `cookies.html` | 43 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
@@ -67,8 +75,28 @@
 | `pele.html` | 51 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
 | `perguntas.html` | 38 chars | 150 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
 | `resultados.html` | 45 chars | 123 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
+| `servicos/laser-acupulse-co2.html` | 50 chars | 135 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/limpeza-de-pele-profunda.html` | 56 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/mesoterapia-capilar.html` | 51 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/microagulhamento.html` | 48 chars | 133 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/mmp-microinfusao-de-medicamentos-na-pele.html` | 74 chars | 159 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-de-ata.html` | 46 chars | 131 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-de-cristal-microdermoabrasao.html` | 70 chars | 155 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-de-diamante.html` | 51 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-de-jessner.html` | 50 chars | 135 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-retinoico.html` | 49 chars | 134 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-ultrassonico.html` | 52 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peim-tratamento-estetico-para-microvasos.html` | 74 chars | 159 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/plataforma-harmony-de-laser-e-luz.html` | 65 chars | 150 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/protocolo-profissional-de-despigmentacao.html` | 72 chars | 157 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/radiofrequencia.html` | 47 chars | 132 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html` | 76 chars | 161 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/tecnologia-de-plasma.html` | 52 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/toxina-botulinica-platisma-e-terco-inferior.html` | 77 chars | 162 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/toxina-botulinica-terco-superior-da-face.html` | 74 chars | 159 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/ultraformer-mpt.html` | 47 chars | 132 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
 | `sobre.html` | 56 chars | 152 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage, ProfilePage |
-| `tratamentos.html` | 53 chars | 139 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage |
+| `tratamentos.html` | 53 chars | 139 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Service, ItemList |
 | `valores.html` | 27 chars | 122 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
 
 ## Remaining placeholders
@@ -91,6 +119,18 @@
 ## Warnings
 
 - [blog.html] description is 110 characters
+- [blog/cicatrizes-de-acne-textura-e-plano.html] title is 88 characters
+- [blog/cicatrizes-de-acne-textura-e-plano.html] description is 114 characters
+- [blog/depilacao-a-laser-preparo-e-expectativas.html] title is 85 characters
+- [blog/laser-co2-recuperacao-e-cuidados.html] title is 105 characters
+- [blog/laser-co2-recuperacao-e-cuidados.html] description is 115 characters
+- [blog/melasma-manchas-e-fotoprotecao.html] title is 87 characters
+- [blog/microagulhamento-o-que-avaliar.html] title is 81 characters
+- [blog/microagulhamento-o-que-avaliar.html] description is 107 characters
+- [blog/peeling-quimico-recuperacao-seguranca.html] title is 86 characters
+- [blog/peeling-quimico-recuperacao-seguranca.html] description is 118 characters
+- [blog/queda-capilar-quando-investigar.html] title is 91 characters
+- [blog/toxina-botulinica-naturalidade-e-planejamento.html] title is 82 characters
 - [cookies.html] description is 110 characters
 - [cuidados.html] description is 111 characters
 - [depoimentos.html] description is 96 characters
@@ -102,20 +142,13 @@
 - [formulario.html] description is 174 characters
 - [missao.html] description is 116 characters
 - [pele.html] description is 114 characters
+- [servicos/mmp-microinfusao-de-medicamentos-na-pele.html] title is 74 characters
+- [servicos/peim-tratamento-estetico-para-microvasos.html] title is 74 characters
+- [servicos/protocolo-profissional-de-despigmentacao.html] title is 72 characters
+- [servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html] title is 76 characters
+- [servicos/toxina-botulinica-platisma-e-terco-inferior.html] title is 77 characters
+- [servicos/toxina-botulinica-terco-superior-da-face.html] title is 74 characters
 
 ## Errors
 
-- [perguntas.html] must contain one post-hero link to #main-content
-- [perguntas.html] must contain one unique #main-content target
-- [tratamentos.html] missing social metadata: og:image:alt, og:image:height, og:image:secure_url, og:image:type, og:image:width, twitter:image:alt
-- [tratamentos.html] social descriptions do not match the meta description
-- [tratamentos.html] social image URLs are inconsistent
-- [tratamentos.html] social image dimensions are inaccurate
-- [tratamentos.html] social image alt text is missing
-- [tratamentos.html] missing expected schema: BreadcrumbList, HealthAndBeautyBusiness, ImageObject, ItemList, Service
-- [tratamentos.html] missing consistent entity ID https://www.francielesofiati.com/#practice
-- [tratamentos.html] must contain one post-hero link to #main-content
-- [tratamentos.html] must contain one unique #main-content target
-- [typography-plan.html] html lang must be pt-BR
-- [typography-plan.html] must use noindex, follow
-- [typography-plan.html] must contain one redirect canonical
+- None.
