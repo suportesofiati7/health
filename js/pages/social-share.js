@@ -34,7 +34,10 @@ export function initSocialShare() {
     <a aria-label="${labels.whatsapp}" href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}" rel="noopener noreferrer" target="_blank"><i aria-hidden="true" class="fa-brands fa-whatsapp"></i></a>
     <button aria-label="${labels.copy}" type="button"><i aria-hidden="true" class="fa-solid fa-link"></i><span class="sf-visually-hidden">${labels.copy}</span></button>
   </div>`;
-  article.querySelector('.sja-prose')?.append(share);
+  const prose = article.querySelector('.sja-prose');
+  const conversion = prose?.querySelector('.sja-conversion');
+  if (conversion) conversion.before(share);
+  else prose?.append(share);
   share.querySelector('button')?.addEventListener('click', async (event) => {
     try {
       await navigator.clipboard.writeText(url);
