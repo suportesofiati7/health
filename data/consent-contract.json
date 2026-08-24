@@ -1,6 +1,6 @@
 {
   "version": "2026-07-21",
-  "form_endpoint": "https://formspree.io/f/xzdldkjy",
+  "form_endpoint": "https://formsubmit.co/suportesofiati@gmail.com",
   "routes": {
     "pt-BR": "formulario.html",
     "en": "en/form.html"
@@ -111,7 +111,7 @@
   },
   "form_architecture": {
     "style": "mobile-first editorial Google-Forms-style workflow using existing Sofiati design tokens",
-    "submission": "All consent fields submit to Formspree endpoint https://formspree.io/f/xzdldkjy",
+    "submission": "All consent fields submit to the FormSubmit endpoint https://formsubmit.co/suportesofiati@gmail.com",
     "redirects": {
       "pt-BR": "obrigada.html",
       "en": "en/thank-you.html"

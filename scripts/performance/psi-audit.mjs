@@ -4,7 +4,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import process from 'node:process';
 
-const PRODUCTION_ORIGIN = 'https://www.francielesofiati.com';
+const PRODUCTION_ORIGIN = 'https://francielesofiati.com';
 const OUTPUT = resolve('performance-reports/psi');
 
 function argumentsFrom(argv) {

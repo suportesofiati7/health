@@ -23,6 +23,11 @@
   .sff-whatsapp-mark { fill: var(--white); }
   .sff-top { opacity: 0; visibility: hidden; pointer-events: none; translate: 0 .6rem; }
   .sff-top.is-visible, #sf-floating-inline[data-scroll-visible="true"] .sff-top { opacity: 1; visibility: visible; pointer-events: auto; translate: 0; }
+  .sff-top .sff-progress { stroke: var(--rose-gold-600); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: calc(100 - (100 * var(--scroll-progress, 0))); fill: none; rotate: -90deg; transform-origin: center; transition: stroke-dashoffset .16s linear; filter: drop-shadow(0 0 .2rem color-mix(in srgb, var(--rose-gold-600) 48%, transparent)); }
+  .sff-top::before { display: none; }
+  .sff-top .sff-progress-ring { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; overflow: visible; pointer-events: none; }
+  .sff-top .sff-progress-ring .sff-progress { display: block; stroke: var(--rose-gold-600); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: calc(100 - (100 * var(--scroll-progress, 0))); fill: none; rotate: -90deg; transform-origin: center; transition: stroke-dashoffset .16s linear; filter: drop-shadow(0 0 .22rem color-mix(in srgb, var(--rose-gold-600) 48%, transparent)); }
+  .sff-top .sff-top-icon { position: relative; z-index: 1; }
   .sff-label { position: absolute; inset-inline-end: calc(100% + .75rem); inset-block-start: 50%; inline-size: max-content; max-inline-size: 13rem; translate: .25rem -50%; border: 1px solid var(--color-border-warm); border-radius: 999px; background: color-mix(in srgb, var(--ivory-50) 96%, transparent); color: var(--forest-900); padding: .42rem .7rem; box-shadow: 0 .65rem 1.5rem rgb(24 37 29 / .13); font-size: .72rem; font-weight: 800; opacity: 0; pointer-events: none; transition: opacity var(--duration-fast), translate var(--duration-fast); }
   .sff-tool:hover .sff-label, .sff-tool:focus-visible .sff-label { opacity: 1; translate: 0 -50%; }
   @media (min-width: 64rem) {

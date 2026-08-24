@@ -23,11 +23,12 @@ export function initSocialShare() {
     : { heading: 'Compartilhe este artigo', copy: 'Copiar link', copied: 'Link copiado', facebook: 'Compartilhar no Facebook', linkedin: 'Compartilhar no LinkedIn', whatsapp: 'Compartilhar no WhatsApp', x: 'Compartilhar no X' };
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
+  const logoUrl = new URL('/assets/brand/logotipo-franciele-sofiati-avaliacao-estetica-estetica-avancada-londrina-centro.webp', window.location.origin).href;
   const share = document.createElement('section');
   share.className = 'sja-share';
   share.dataset.socialShare = 'true';
   share.setAttribute('aria-labelledby', 'share-heading');
-  share.innerHTML = `<p id="share-heading">${labels.heading}</p><div class="sja-share__buttons">
+  share.innerHTML = `<div class="sja-share__brand"><img alt="Franciele Sofiati" height="1183" src="${logoUrl}" width="1134"><p id="share-heading">${labels.heading}</p></div><div class="sja-share__buttons">
     <a aria-label="${labels.facebook}" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" rel="noopener noreferrer" target="_blank"><i aria-hidden="true" class="fa-brands fa-facebook-f"></i></a>
     <a aria-label="${labels.linkedin}" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}" rel="noopener noreferrer" target="_blank"><i aria-hidden="true" class="fa-brands fa-linkedin-in"></i></a>
     <a aria-label="${labels.x}" href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}" rel="noopener noreferrer" target="_blank"><i aria-hidden="true" class="fa-brands fa-x-twitter"></i></a>

@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 import subprocess
 from typing import Any
+from urllib.parse import urljoin, urlparse
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,8 +20,11 @@ PAGE_PAIRS = ROOT / "data" / "page-pairs.json"
 SITEMAP_GROUPS = ROOT / "data" / "sitemap-groups.json"
 CONTENT_PAGES = ROOT / "data" / "content-pages.json"
 SITEMAP = ROOT / "sitemap.xml"
+IMAGE_SITEMAP = ROOT / "sitemap-images.xml"
+SITEMAP_INDEX = ROOT / "sitemap-index.xml"
 SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
 XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml"
+IMAGE_NAMESPACE = "http://www.google.com/schemas/sitemap-image/1.1"
 
 
 @dataclass(frozen=True)
@@ -39,6 +43,7 @@ class MetadataParser(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.canonicals: list[str] = []
         self.robots: list[str] = []
+        self.images: list[tuple[str, str]] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attributes = {name.casefold(): value or "" for name, value in attrs}
@@ -46,6 +51,8 @@ class MetadataParser(HTMLParser):
             self.canonicals.append(attributes.get("href", ""))
         if tag.casefold() == "meta" and attributes.get("name", "").casefold() == "robots":
             self.robots.append(attributes.get("content", ""))
+        if tag.casefold() == "img" and attributes.get("src"):
+            self.images.append((attributes["src"], attributes.get("alt", "")))
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -226,11 +233,49 @@ def render_sitemap() -> str:
     )
 
 
+def render_image_sitemap() -> str:
+    origin = site_origin()
+    origin_host = urlparse(origin).netloc
+    blocks: list[str] = []
+    for page in sitemap_pages(origin):
+        parser = metadata(page.source.relative_to(ROOT).as_posix(), page.location)
+        images = []
+        for source, alt in parser.images:
+            image_url = urljoin(page.location, source)
+            if urlparse(image_url).netloc != origin_host:
+                continue
+            images.append((image_url, alt))
+        if not images:
+            continue
+        lines = ["  <url>", f"    <loc>{escape(page.location)}</loc>"]
+        for image_url, alt in images:
+            lines.extend(["    <image:image>", f"      <image:loc>{escape(image_url)}</image:loc>"])
+            if alt:
+                lines.append(f"      <image:caption>{escape(alt)}</image:caption>")
+            lines.append("    </image:image>")
+        lines.append("  </url>")
+        blocks.append("\n".join(lines))
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+            f'xmlns:image="{IMAGE_NAMESPACE}">\n' + "\n".join(blocks) + "\n</urlset>\n")
+
+
+def render_sitemap_index() -> str:
+    origin = site_origin()
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            f'  <sitemap><loc>{origin}/sitemap.xml</loc></sitemap>\n'
+            f'  <sitemap><loc>{origin}/sitemap-images.xml</loc></sitemap>\n'
+            '</sitemapindex>\n')
+
+
 def main() -> int:
     rendered = render_sitemap()
     SITEMAP.write_text(rendered, encoding="utf-8")
+    IMAGE_SITEMAP.write_text(render_image_sitemap(), encoding="utf-8")
+    SITEMAP_INDEX.write_text(render_sitemap_index(), encoding="utf-8")
     count = rendered.count("  <url>")
-    print(f"Generated sitemap.xml with {count} canonical, indexable URLs.")
+    print(f"Generated sitemap.xml, sitemap-images.xml and sitemap-index.xml with {count} canonical, indexable URLs.")
     return 0
 
 

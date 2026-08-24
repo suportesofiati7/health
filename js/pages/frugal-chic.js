@@ -16,6 +16,12 @@ export function initFrugalChic() {
   article.dataset.frugalChicReady = 'true';
   const english = document.documentElement.lang.startsWith('en');
   const base = english ? '../../assets/' : '../assets/';
+  const standfirst = article.querySelector('.sja-standfirst');
+  if (standfirst) {
+    standfirst.textContent = english
+      ? 'True sophistication is not transforming who you are, but choosing with intention what enhances your beauty, honours your story and restores the ease of recognising yourself in the mirror.'
+      : 'Porque a verdadeira sofisticação não está em transformar quem você é, mas em escolher, com intenção, aquilo que valoriza a sua beleza, respeita a sua história e devolve a leveza de se reconhecer no espelho.';
+  }
   const sections = [...article.querySelectorAll('.sja-reading-section')];
   sections.forEach((section, index) => {
     const item = visuals[index % visuals.length];
@@ -51,13 +57,15 @@ export function initFrugalChic() {
       entry.target.querySelector('.sja-chapter-mark')?.classList.add('is-active');
       observer.unobserve(entry.target);
     });
-  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0.06, rootMargin: '0px 0px -4% 0px' });
   chapters.forEach((chapter) => observer.observe(chapter));
 
   const hero = article.querySelector('.sja-hero--frugal-chic');
   const heroImage = hero?.querySelector('img');
   const chapterOffsets = new Map(chapters.map((chapter) => [chapter, 0]));
   const chapterTargets = new Map(chapters.map((chapter) => [chapter, 0]));
+  let heroOffset = 0;
+  let heroTarget = 0;
   let ticking = false;
   let easing = false;
   const easeChapters = () => {
@@ -65,11 +73,16 @@ export function initFrugalChic() {
     chapters.forEach((chapter) => {
       const current = chapterOffsets.get(chapter) || 0;
       const target = chapterTargets.get(chapter) || 0;
-      const next = current + (target - current) * 0.13;
+      const next = current + (target - current) * 0.075;
       chapterOffsets.set(chapter, next);
       chapter.style.setProperty('--fc-float', `${next.toFixed(2)}px`);
-      if (Math.abs(target - next) > 0.04) keepAnimating = true;
+      if (Math.abs(target - next) > 0.02) keepAnimating = true;
     });
+    if (heroImage) {
+      heroOffset += (heroTarget - heroOffset) * 0.075;
+      heroImage.style.transform = `scale(1.1) translate3d(0, ${heroOffset.toFixed(2)}px, 0)`;
+      if (Math.abs(heroTarget - heroOffset) > 0.02) keepAnimating = true;
+    }
     if (keepAnimating) window.requestAnimationFrame(easeChapters);
     else easing = false;
   };
@@ -79,14 +92,14 @@ export function initFrugalChic() {
     const value = Math.min(1, Math.max(0, (window.scrollY - start) / Math.max(1, end - start)));
     progress.style.setProperty('--fc-progress', `${value * 100}%`);
     if (hero && heroImage && window.matchMedia('(pointer: fine)').matches) {
-      const distance = Math.max(-180, Math.min(180, window.scrollY - (hero.getBoundingClientRect().top + window.scrollY)));
-      heroImage.style.transform = `scale(1.18) translateY(${distance * .035}px)`;
+      const distance = Math.max(-120, Math.min(120, window.scrollY - (hero.getBoundingClientRect().top + window.scrollY)));
+      heroTarget = distance * .018;
     }
     chapters.forEach((chapter, index) => {
       const rect = chapter.getBoundingClientRect();
       const centerOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
       const direction = index % 2 ? -1 : 1;
-      const shift = Math.max(-12, Math.min(12, centerOffset * 14 * direction));
+      const shift = Math.max(-7, Math.min(7, centerOffset * 8 * direction));
       chapterTargets.set(chapter, shift);
     });
     if (!easing) { easing = true; window.requestAnimationFrame(easeChapters); }

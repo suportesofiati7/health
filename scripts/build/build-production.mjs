@@ -140,7 +140,7 @@ function setLinkHrefByLanguage(fragment, language, href) {
 function cleanPublicUrl(value) {
   const [path, suffix = ''] = value.split(/([?#].*)/, 2);
   if (!path.endsWith('.html')) return value;
-  if (path.startsWith('https://www.francielesofiati.com/')) {
+  if (path.startsWith('https://francielesofiati.com/')) {
     return `${path.slice(0, -5)}${suffix}`;
   }
   if (path && !path.startsWith('#') && !path.startsWith('?') && !path.startsWith('//') && !/^[a-z][a-z\d+.-]*:/i.test(path)) {
@@ -475,9 +475,9 @@ async function copyReferencedAssets() {
   const references = new Set();
   for (const file of files) {
     const content = await readFile(file, 'utf8');
-    for (const match of content.matchAll(/(?:https:\/\/www\.francielesofiati\.com\/)?(?:\.\.\/)*assets\/[^"'()<>\s,}]+/g)) {
+    for (const match of content.matchAll(/(?:https:\/\/francielesofiati\.com\/)?(?:\.\.\/)*assets\/[^"'()<>\s,}]+/g)) {
       const normalized = decodeURIComponent(match[0])
-        .replace('https://www.francielesofiati.com/', '')
+        .replace('https://francielesofiati.com/', '')
         .replace(/^(?:\.\.\/)+/, '');
       references.add(normalized);
     }
@@ -497,7 +497,7 @@ async function copyReferencedAssets() {
 }
 
 async function copySupportFiles() {
-  for (const file of ['_redirects', 'robots.txt', 'sitemap.xml', 'llms.txt', 'site.webmanifest', 'favicon.ico']) {
+  for (const file of ['_redirects', 'robots.txt', 'sitemap.xml', 'sitemap-images.xml', 'sitemap-index.xml', 'llms.txt', 'site.webmanifest', 'favicon.ico']) {
     await copyFile(resolve(ROOT, file), resolve(DIST, file));
   }
   await mkdir(resolve(DIST, 'data'), { recursive: true });

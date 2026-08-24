@@ -553,7 +553,7 @@ def main() -> int:
             "",
             "- Deploy the repository from a clean public artifact so source, QA and backup folders are not published.",
             "- Verify the production domain in Google Search Console, preferably through DNS.",
-            "- Submit `https://www.francielesofiati.com/sitemap.xml` after deployment.",
+            "- Submit `https://francielesofiati.com/sitemap.xml` after deployment.",
             "- Request indexing for the homepage and principal service pages after the production crawl succeeds.",
             "",
             "## Warnings",

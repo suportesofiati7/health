@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
-DOMAIN = "www.francielesofiati.com"
+DOMAIN = "francielesofiati.com"
 EXCLUDED_PARTS = {
     ".venv-argos",
     "backups",

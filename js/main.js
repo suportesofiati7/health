@@ -16,6 +16,13 @@ import { loadPartials } from './partials.js';
 import { applyWhatsAppLinks } from './core/whatsapp.js';
 
 let sitePromise = null;
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/suportesofiati@gmail.com';
+
+function configureFormSubmitEndpoints() {
+  document.querySelectorAll('form[action*="formsubmit.co/"]').forEach((form) => {
+    form.setAttribute('action', FORMSUBMIT_ENDPOINT);
+  });
+}
 
 export function initSite() {
   if (sitePromise) return sitePromise;
@@ -30,6 +37,7 @@ export function initSite() {
     initVirtualAssistant();
     initCookies();
     initFooter();
+    configureFormSubmitEndpoints();
     initForms();
     initFaqSearch();
     initFaqCategories();

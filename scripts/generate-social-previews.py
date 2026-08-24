@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-ORIGIN = "https://www.francielesofiati.com/"
+ORIGIN = "https://francielesofiati.com/"
 OUTPUT = ROOT / "assets" / "social" / "content-pages"
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"

@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 
 
-DOMAIN = "https://www.francielesofiati.com"
+DOMAIN = "https://francielesofiati.com"
 SKIP_TAGS = {"script", "style", "svg", "code", "pre", "noscript", "template"}
 TEXT_ATTRIBUTES = {
     "alt", "aria-description", "aria-label", "aria-placeholder", "placeholder", "title",

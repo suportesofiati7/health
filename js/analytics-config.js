@@ -16,7 +16,7 @@
 
   const config = {
     siteName: "Franciele Sofiati Biomedic | Esthetician | Cosmetologist",
-    productionDomain: "www.francielesofiati.com",
+    productionDomain: "francielesofiati.com",
     streamName: "FrancieleStream",
     streamId: "15290697519",
     gtmContainerId: "GTM-P9PF3SV4",

@@ -13,7 +13,9 @@
   }
 
   .sja-share { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block: 1rem 0; border-block: 1px solid var(--color-border-warm); padding-block: 1.15rem; }
-  .sja-share > p { margin: 0; color: var(--journal-rose); font-size: .75rem; font-weight: 780; letter-spacing: .12em; text-transform: uppercase; }
+  .sja-share__brand { display: flex; align-items: center; gap: .7rem; min-inline-size: 0; }
+  .sja-share__brand img { align-self: flex-start; inline-size: 2.85rem; block-size: 2.85rem; flex: 0 0 auto; object-fit: contain; object-position: left top; }
+  .sja-share__brand p { margin: 0; color: var(--journal-rose); font-size: .75rem; font-weight: 780; letter-spacing: .12em; text-transform: uppercase; }
   .sja-share__buttons { display: flex; flex-wrap: wrap; gap: .55rem; }
   .sja-share__buttons :is(a, button) { inline-size: 2.5rem; block-size: 2.5rem; display: grid; place-items: center; border: 1px solid var(--color-border-warm); border-radius: 50%; background: var(--ivory-50); color: var(--journal-ink); text-decoration: none; transition: background var(--duration-base), color var(--duration-base), transform var(--duration-base); }
   .sja-share__buttons :is(a, button):hover, .sja-share__buttons :is(a, button):focus-visible { background: var(--journal-olive); color: var(--ivory-50); transform: translateY(-.12rem); }

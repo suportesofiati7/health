@@ -2,7 +2,7 @@
 
 Production source for Franciele Sofiati Biomédica’s bilingual static website. English is served at `/`; Brazilian Portuguese is served at `/pt/`. The site is framework-free: semantic HTML, CSS and native JavaScript modules are compiled into a clean production artifact.
 
-- Canonical origin: `https://www.francielesofiati.com`
+- Canonical origin: `https://francielesofiati.com`
 - Node.js: 22.19+ (exact development dependencies are locked in `package-lock.json`)
 - Production output: `dist/` — generated only; do not edit or deploy the repository root
 

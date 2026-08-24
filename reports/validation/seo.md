@@ -4,11 +4,11 @@
 
 ## Coverage
 
-- Public HTML pages parsed: 193
-- Canonical, indexable URLs in sitemap: 188
-- Images audited: 638
+- Public HTML pages parsed: 195
+- Canonical, indexable URLs in sitemap: 190
+- Images audited: 642
 - Decorative images with empty alt text: 127
-- Post-hero navigation targets: 189
+- Post-hero navigation targets: 191
 
 ## Validation summary
 
@@ -42,6 +42,7 @@
 | `blog/fotoprotecao-que-cabe-na-rotina.html` | 88 chars | 104 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/fotos-antes-depois-leitura-critica.html` | 106 chars | 87 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/fractional-co2-laser-recovery-and-aftercare.html` | 76 chars | 131 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/frugal-chic-escolhas-conscientes.html` | 75 chars | 150 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/hair-thinning-causes-and-scalp-care.html` | 78 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-co2-e-eventos-importantes.html` | 100 chars | 97 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-co2-e-fotoprotecao-pos.html` | 97 chars | 96 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -130,6 +131,7 @@
 | `en/blog/facial-laser-hair-removal-why-hormonal-context-belongs-in-the-conversation.html` | 95 chars | 181 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/facial-redness.html` | 65 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/fractional-co2-laser.html` | 63 chars | 131 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/frugal-chic-intentional-aesthetic-care.html` | 71 chars | 152 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/hair-shedding-warning-signs-before-choosing-a-protocol.html` | 75 chars | 161 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/hair-thinning-and-photographs-documenting-change-without-rushing-to-conclusions.html` | 100 chars | 186 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/hair-thinning.html` | 48 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -231,7 +233,7 @@
 
 - Deploy the repository from a clean public artifact so source, QA and backup folders are not published.
 - Verify the production domain in Google Search Console, preferably through DNS.
-- Submit `https://www.francielesofiati.com/sitemap.xml` after deployment.
+- Submit `https://francielesofiati.com/sitemap.xml` after deployment.
 - Request indexing for the homepage and principal service pages after the production crawl succeeds.
 
 ## Warnings
@@ -267,6 +269,7 @@
 - [blog/fotos-antes-depois-leitura-critica.html] title is 106 characters
 - [blog/fotos-antes-depois-leitura-critica.html] description is 87 characters
 - [blog/fractional-co2-laser-recovery-and-aftercare.html] title is 76 characters
+- [blog/frugal-chic-escolhas-conscientes.html] title is 75 characters
 - [blog/hair-thinning-causes-and-scalp-care.html] title is 78 characters
 - [blog/laser-co2-e-eventos-importantes.html] title is 100 characters
 - [blog/laser-co2-e-eventos-importantes.html] description is 97 characters
@@ -381,6 +384,7 @@
 - [en/blog/diamond-tip-exfoliation-what-to-assess-before-seeking-instant-effects.html] description is 176 characters
 - [en/blog/facial-laser-hair-removal-why-hormonal-context-belongs-in-the-conversation.html] title is 95 characters
 - [en/blog/facial-laser-hair-removal-why-hormonal-context-belongs-in-the-conversation.html] description is 181 characters
+- [en/blog/frugal-chic-intentional-aesthetic-care.html] title is 71 characters
 - [en/blog/hair-shedding-warning-signs-before-choosing-a-protocol.html] title is 75 characters
 - [en/blog/hair-thinning-and-photographs-documenting-change-without-rushing-to-conclusions.html] title is 100 characters
 - [en/blog/hair-thinning-and-photographs-documenting-change-without-rushing-to-conclusions.html] description is 186 characters
@@ -463,6 +467,10 @@
 - [blog/fractional-co2-laser-recovery-and-aftercare.html] broken internal reference: ../../js/consent-manager.js
 - [blog/fractional-co2-laser-recovery-and-aftercare.html] broken internal reference: ../../js/analytics.js
 - [blog/fractional-co2-laser-recovery-and-aftercare.html] broken internal reference: ../../js/main.js
+- [blog/frugal-chic-escolhas-conscientes.html] missing expected schema: HealthAndBeautyBusiness, WebSite
+- [blog/frugal-chic-escolhas-conscientes.html] missing consistent entity ID https://francielesofiati.com/#website
+- [blog/frugal-chic-escolhas-conscientes.html] missing consistent entity ID https://francielesofiati.com/#practice
+- [blog/frugal-chic-escolhas-conscientes.html] schema does not identify its canonical page URL
 - [blog/hair-thinning-causes-and-scalp-care.html] schema does not identify its canonical page URL
 - [blog/hair-thinning-causes-and-scalp-care.html] image is missing: ../../assets/journal/articles/couro-cabeludo-vasinhos-faciais-rosto-natural-artigo-estetica-avancada-gleba-palhano.webp
 - [blog/hair-thinning-causes-and-scalp-care.html] image is missing: ../../assets/journal/articles/atencioso-vermelho-peeling-quimico-acolhimento-clinico-artigo-estetica-avancada-londrina-centro.webp
@@ -684,6 +692,12 @@
 - [en/blog/daily-cleansing-removing-what-is-needed-preserving-what-matters.html] missing expected schema: ImageObject
 - [en/blog/diamond-tip-exfoliation-what-to-assess-before-seeking-instant-effects.html] missing expected schema: ImageObject
 - [en/blog/facial-laser-hair-removal-why-hormonal-context-belongs-in-the-conversation.html] missing expected schema: ImageObject
+- [en/blog/frugal-chic-intentional-aesthetic-care.html] missing expected schema: HealthAndBeautyBusiness, WebSite
+- [en/blog/frugal-chic-intentional-aesthetic-care.html] missing consistent entity ID https://francielesofiati.com/#website
+- [en/blog/frugal-chic-intentional-aesthetic-care.html] missing consistent entity ID https://francielesofiati.com/#franciele
+- [en/blog/frugal-chic-intentional-aesthetic-care.html] missing consistent entity ID https://francielesofiati.com/#practice
+- [en/blog/frugal-chic-intentional-aesthetic-care.html] schema does not identify its canonical page URL
+- [en/blog/frugal-chic-intentional-aesthetic-care.html] broken internal reference: https://francielesofiati.com/about
 - [en/blog/hair-shedding-warning-signs-before-choosing-a-protocol.html] missing expected schema: ImageObject
 - [en/blog/hair-thinning-and-photographs-documenting-change-without-rushing-to-conclusions.html] missing expected schema: ImageObject
 - [en/blog/how-to-prepare-for-an-aesthetic-consultation-without-deciding-everything-first.html] missing expected schema: ImageObject

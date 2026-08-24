@@ -1,17 +1,20 @@
 import { qs, qsa } from '../core/dom.js';
 import { currentPage } from '../core/page.js';
 
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/suportesofiati@gmail.com';
+const FORMSUBMIT_AJAX_ENDPOINT = 'https://formsubmit.co/ajax/suportesofiati@gmail.com';
+
 const FORM_ENDPOINTS = Object.freeze({
-  consultation: 'https://formspree.io/f/xzdldkjy',
-  contact: 'https://formspree.io/f/xzdldkjy',
-  quick_contact: 'https://formspree.io/f/xzdldkjy',
-  quick_question: 'https://formspree.io/f/xzdldkjy',
-  newsletter: 'https://formspree.io/f/xzdldkjy',
-  newsletter_signup: 'https://formspree.io/f/xzdldkjy',
-  consent_authorisation: 'https://formspree.io/f/xzdldkjy',
-  consent_authorization: 'https://formspree.io/f/xzdldkjy',
-  accessibility: 'https://formspree.io/f/xzdldkjy',
-  accessibility_feedback: 'https://formspree.io/f/xzdldkjy'
+  consultation: FORMSUBMIT_AJAX_ENDPOINT,
+  contact: FORMSUBMIT_AJAX_ENDPOINT,
+  quick_contact: FORMSUBMIT_AJAX_ENDPOINT,
+  quick_question: FORMSUBMIT_AJAX_ENDPOINT,
+  newsletter: FORMSUBMIT_AJAX_ENDPOINT,
+  newsletter_signup: FORMSUBMIT_AJAX_ENDPOINT,
+  consent_authorisation: FORMSUBMIT_AJAX_ENDPOINT,
+  consent_authorization: FORMSUBMIT_AJAX_ENDPOINT,
+  accessibility: FORMSUBMIT_AJAX_ENDPOINT,
+  accessibility_feedback: FORMSUBMIT_AJAX_ENDPOINT
 });
 
 const CAMPAIGN_KEYS = Object.freeze([
@@ -370,6 +373,24 @@ function upsertHidden(form, name, value) {
   return input;
 }
 
+function upsertDeliveryMetadata(form, name, value) {
+  let input = form.querySelector(`input[name="${CSS.escape(name)}"]`);
+  if (!input) {
+    input = document.createElement('input');
+    input.name = name;
+    form.prepend(input);
+  }
+  input.type = 'text';
+  input.readOnly = true;
+  input.tabIndex = -1;
+  input.setAttribute('aria-hidden', 'true');
+  input.classList.add('sf-visually-hidden', 'sf-form-delivery-metadata');
+  input.dataset.analyticsIgnore = '';
+  input.dataset.analyticsSensitive = '';
+  input.value = value == null ? '' : String(value);
+  return input;
+}
+
 function formName(form) {
   return form.dataset.formName || form.dataset.analyticsForm || form.id || 'website_form';
 }
@@ -382,178 +403,61 @@ function endpointFor(form) {
   const key = formType(form);
   const name = formName(form);
   const endpoint = FORM_ENDPOINTS[key] || FORM_ENDPOINTS[name] || form.getAttribute('action') || '';
-  return /^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i.test(endpoint) ? endpoint : '';
+  return endpoint === FORMSUBMIT_AJAX_ENDPOINT ? endpoint : '';
 }
 
-function populateMetadata(form, context = {}) {
+function privacyConsentGiven(form) {
+  return ['privacy_acknowledgement', 'lgpd_personal_data_consent', 'final_acceptance']
+    .some((name) => Boolean(fieldValue(form, name)));
+}
+
+function populateMetadata(form) {
   const now = new Date();
   const params = new URLSearchParams(window.location.search);
+  const analyticsAllowed = consentPreference('analytics') === 'granted';
   const browser = parseBrowser(navigator.userAgent || '');
   const os = parseOperatingSystem(navigator.userAgent || '');
-  const history = pageHistory();
-  const domain = referrerDomain();
-  const serviceInterest = selectedText(form, ['service_interest', 'interest', 'reason', 'treatment_interest', 'treatment'])
-    || fieldValue(form, ['service_interest', 'interest', 'reason', 'treatment_interest', 'treatment'])
-    || pageCategory();
-  const inquiryCategory = selectedText(form, ['category', 'reason', 'subject', 'service_interest'])
-    || fieldValue(form, ['category', 'reason', 'subject', 'service_interest'])
-    || formType(form);
-  const messageContent = fieldValue(form, ['message', 'notes', 'concern', 'question']);
-  const phone = fieldValue(form, ['phone', 'telephone', 'whatsapp', 'phone_or_whatsapp']);
-  const temperature = leadTemperature(form, serviceInterest, messageContent);
-  const elapsed = Math.max(0, Math.round((Date.now() - (performance.timeOrigin || SESSION_STARTED_AT)) / 1000));
-  const sessionDuration = Math.max(0, Math.round((Date.now() - SESSION_STARTED_AT) / 1000));
-  const navigation = performance.getEntriesByType?.('navigation')?.[0];
-  const loadSpeed = navigation ? Math.round(navigation.loadEventEnd || navigation.domComplete || 0) : '';
-  const offsetMinutes = -now.getTimezoneOffset();
-  const offsetSign = offsetMinutes >= 0 ? '+' : '-';
-  const offsetHours = String(Math.floor(Math.abs(offsetMinutes) / 60)).padStart(2, '0');
-  const offsetRemainder = String(Math.abs(offsetMinutes) % 60).padStart(2, '0');
-  const submissionId = randomId('submission');
+  const privacyNoticeVersion = fieldValue(form, ['versao_aviso_privacidade', 'privacy_notice_version']) || form.dataset.privacyNoticeVersion || '2026-08-24';
+  const consentGiven = privacyConsentGiven(form);
   const metadata = {
-    lead_name: fieldValue(form, ['name', 'full_name', 'full-name']),
-    lead_email: fieldValue(form, ['email', 'email_address']),
-    lead_phone: phone,
-    phone_number: phone,
-    country: '',
-    region: '',
-    city: '',
-    city_location: '',
-    location_available: 'no',
-    language_preference: document.documentElement.lang || '',
-    service_interest: serviceInterest,
-    inquiry_category: inquiryCategory,
-    message_content: messageContent,
-    website_domain: window.location.hostname,
-    current_page_url: window.location.href,
-    page_path: window.location.pathname,
-    current_page_filename: window.location.pathname.split('/').pop() || 'index.html',
-    page_filename: window.location.pathname.split('/').pop() || 'index.html',
-    current_page_title: document.title,
-    page_title: document.title,
-    page_category: pageCategory(),
-    current_section: form.closest('section')?.id || form.closest('section')?.dataset.sectionName || '',
-    language_selected: document.documentElement.lang || '',
-    language_version_visited: document.documentElement.lang || '',
-    website_language: document.documentElement.dataset.defaultLang || document.documentElement.lang || '',
-    browser_language: navigator.language || '',
-    browser_locale: navigator.languages?.join(', ') || navigator.language || '',
-    language: document.documentElement.lang || navigator.language || '',
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-    utc_offset: `${offsetSign}${offsetHours}:${offsetRemainder}`,
-    referrer: document.referrer,
-    referrer_url: document.referrer,
-    referrer_domain: domain,
-    search_engine_source: searchEngineSource(domain),
-    original_landing_page: initialLandingPage(),
-    previous_pages_visited: history.slice(0, -1).join(' | '),
-    pages_viewed_before_submission: String(Math.max(0, history.length - 1)),
-    last_page_before_submission: history.length > 1 ? history[history.length - 2] : '',
-    current_page_path: window.location.pathname,
-    canonical_url: canonicalUrl(),
-    lead_source: originalSource(params, domain),
-    original_source: originalSource(params, domain),
-    marketing_source: params.get('utm_source') || '',
-    medium: params.get('utm_medium') || '',
-    campaign: params.get('utm_campaign') || '',
-    campaign_name: params.get('utm_campaign') || '',
-    content: params.get('utm_content') || '',
-    term: params.get('utm_term') || '',
-    advertisement_id: params.get('gclid') || params.get('fbclid') || params.get('msclkid') || params.get('ttclid') || '',
-    social_media_source: socialSource(params, domain),
-    screen_resolution: `${window.screen?.width || ''}x${window.screen?.height || ''}`,
-    viewport_size: `${document.documentElement.clientWidth || ''}x${document.documentElement.clientHeight || ''}`,
-    window_size: `${window.innerWidth || ''}x${window.innerHeight || ''}`,
-    device_pixel_ratio: window.devicePixelRatio || '',
-    operating_system: os.name,
-    operating_system_version: os.version,
-    browser: browser.name,
-    browser_version: browser.version,
-    connection_type: navigator.connection?.effectiveType || '',
-    breakpoint_used: window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1180 ? 'tablet' : 'desktop',
-    rendering_engine: browser.name === 'Firefox' ? 'Gecko' : browser.name === 'Safari' ? 'WebKit' : browser.name === 'Unknown' ? '' : 'Blink',
-    device_type: deviceType(),
-    desktop_mobile_tablet: deviceType(),
-    touch_support: navigator.maxTouchPoints > 0 ? 'yes' : 'no',
-    color_scheme_preference: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
-    reduced_motion_preference: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduce' : 'no-preference',
-    cookies_enabled: navigator.cookieEnabled ? 'yes' : 'no',
-    javascript_enabled: 'yes',
-    date: now.toLocaleDateString(),
-    time: now.toLocaleTimeString(),
-    timestamp: String(now.getTime()),
-    iso_timestamp: now.toISOString(),
-    user_local_time: now.toString(),
-    form_name: formName(form),
-    form_type: formType(form),
-    form_location: form.closest('section')?.dataset.sectionName || form.closest('section')?.id || document.body?.dataset.page || '',
-    form_version: form.dataset.formVersion || '2026-07-21',
-    form_design_variant: form.dataset.designVariant || 'editorial-default',
-    submission_id: submissionId,
-    submission_timestamp: now.toISOString(),
-    submission_status: context.submissionStatus || 'attempted',
-    validation_status: context.validationStatus || 'passed',
-    error_count: context.errorCount ?? 0,
-    site_version: window.SofiatiSite?.version || '',
-    page_template: document.body?.dataset.page || currentPage(),
-    current_navigation_language: isPortuguese() ? 'pt-BR' : 'en',
-    session_identifier: sessionIdentifier(),
-    session_id: sessionIdentifier(),
-    submission_identifier: submissionId,
-    returning_visitor: returningVisitor(),
-    first_visit_datetime: firstVisitDate(),
-    anonymous_visitor_id: anonymousVisitorId(),
-    time_spent_on_page_seconds: elapsed,
-    total_session_duration_seconds: sessionDuration,
-    scroll_depth_percentage: scrollDepthPercentage(),
-    cta_clicked_before_submitting: lastCtaClicked,
-    interactions_before_submission: interactionCount,
-    downloaded_resources: '',
-    articles_viewed: viewedItems('.sf-journal-card h3, article h2, article h3', pageCategory() === 'journal' ? [document.title] : []),
-    treatments_services_viewed: viewedItems('[data-treatment-filterable] h2, .sf-content-card h3', /treat|tratamento|laser|skin|pele|care|cuidados/.test(pageCategory()) ? [document.title] : []),
-    cookie_consent_status: consentPreference('analytics'),
-    marketing_consent_status: 'not_requested',
-    consent_timestamp: fieldValue(form, 'consent_timestamp'),
-    privacy_policy_version_accepted: fieldValue(form, 'privacy_notice_version') || '2026-07',
-    terms_acceptance: fieldValue(form, ['terms_acceptance', 'consultation_acknowledgement']),
-    data_processing_consent: fieldValue(form, ['privacy_acknowledgement']),
-    communication_preferences: fieldValue(form, ['communication_preferences', 'preferred_contact']),
-    lead_score: temperature === 'Warm' ? '60' : '30',
-    lead_temperature: temperature,
-    priority_level: temperature === 'Warm' ? 'normal' : 'low',
-    customer_stage: 'New lead',
-    assigned_team_member: 'Franciele Sofiati',
-    follow_up_date: '',
-    crm_id: '',
-    notes: '',
-    tags: [formType(form), serviceInterest, document.documentElement.lang || ''].filter(Boolean).join(', '),
-    ai_summary_of_inquiry: 'not_generated',
-    detected_intent: serviceInterest || inquiryCategory || 'not_generated',
-    service_category: serviceInterest || pageCategory(),
-    urgency_level: /dor|pain|urgente|urgent|hoje|today/.test(messageContent.toLowerCase()) ? 'Medium' : 'Low',
-    sentiment_analysis: 'not_generated',
-    language_detection: document.documentElement.lang || '',
-    suggested_reply_type: formType(form).includes('newsletter') ? 'newsletter_confirmation' : 'invite_consultation',
-    recommended_next_action: formType(form).includes('newsletter') ? 'confirm_subscription' : 'review_and_reply',
-    lead_quality_score: temperature === 'Warm' ? 'Medium' : 'Low',
-    page_load_speed_ms: loadSpeed,
-    core_web_vitals: 'not_measured_on_submission',
-    failed_resources: window.SofiatiFailedResources?.join?.(' | ') || '',
-    form_loading_time_ms: '',
-    javascript_errors: window.SofiatiJavaScriptErrors?.join?.(' | ') || '',
-    browser_compatibility_issues: '',
-    spam_score: 'not_assessed',
-    bot_detection_result: 'honeypot_passed',
-    captcha_result: 'not_used',
-    ip_risk_score: 'not_assessed',
-    submission_frequency: 'not_assessed',
-    duplicate_submission_detection: 'not_assessed',
-    suspicious_activity_flags: ''
+    nome_formulario: formName(form),
+    tipo_formulario: formType(form),
+    id_formulario: form.id || '',
+    _url: window.location.href,
+    pagina_envio: window.location.pathname,
+    url_pagina_atual: window.location.href,
+    data_hora_envio: now.toISOString(),
+    data_hora_local_envio: now.toLocaleString('pt-BR'),
+    dominio_referencia: referrerDomain(),
+    idioma_navegador: navigator.language || '',
+    fuso_horario_visitante: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+    categoria_dispositivo: deviceType(),
+    nome_navegador: browser.name,
+    sistema_operacional: os.name,
+    idioma_site: document.documentElement.lang || '',
+    versao_aviso_privacidade: privacyNoticeVersion,
+    data_hora_consentimento: consentGiven ? now.toISOString() : ''
   };
-  CAMPAIGN_KEYS.forEach((key) => {
-    metadata[key] = params.get(key) || '';
+
+  if (analyticsAllowed) {
+    Object.assign(metadata, {
+      primeira_pagina_de_entrada: initialLandingPage(),
+      cta_que_abriu_o_formulario: lastCtaClicked,
+      origem_utm: params.get('utm_source') || '',
+      meio_utm: params.get('utm_medium') || '',
+      campanha_utm: params.get('utm_campaign') || '',
+      conteudo_utm: params.get('utm_content') || '',
+      termo_utm: params.get('utm_term') || '',
+      identificador_google_ads: params.get('gclid') || '',
+      identificador_facebook_instagram: params.get('fbclid') || ''
+    });
+  }
+
+  Object.entries(metadata).forEach(([key, value]) => {
+    if (key.startsWith('_')) upsertHidden(form, key, value);
+    else upsertDeliveryMetadata(form, key, value);
   });
-  Object.entries(metadata).forEach(([key, value]) => upsertHidden(form, key, value));
+  upsertHidden(form, '_template', 'table');
   const redirect = new URL(thankYouPath(), window.location.origin);
   upsertHidden(form, '_next', redirect.href);
   return redirect.href;
@@ -658,7 +562,7 @@ export function initForms() {
     };
 
     // Analytics receives lifecycle states, never FormData or field values.
-    // A successful event is emitted only after Formspree confirms the request.
+    // A successful event is emitted only after FormSubmit confirms the request.
     const emitLifecycle = (name, detail = {}) => {
       document.dispatchEvent(new CustomEvent(`sofiati:form-${name}`, {
         detail: { form, ...detail }
@@ -703,19 +607,15 @@ export function initForms() {
 
     const configureEndpoint = () => {
       const endpoint = endpointFor(form);
-      if (/^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i.test(endpoint)) {
-        form.action = endpoint;
-        return endpoint;
-      }
-      return '';
+      return endpoint === FORMSUBMIT_AJAX_ENDPOINT ? endpoint : '';
     };
     configureEndpoint();
 
     form.addEventListener('submit', async (event) => {
-      event.preventDefault();
       if (form.dataset.formState === 'loading') return;
       const { firstInvalid, errorCount } = validate();
       if (firstInvalid) {
+        event.preventDefault();
         setState('error', copy.review, 'alert');
         emitLifecycle('error', {
           errorType: 'client_validation',
@@ -727,6 +627,7 @@ export function initForms() {
 
       const honeypot = qs('input.sf-honeypot, input[name="website"]', form);
       if (honeypot && String(honeypot.value || '').trim()) {
+        event.preventDefault();
         form.reset();
         setState('success', copy.success)?.focus({ preventScroll: true });
         return;
@@ -734,6 +635,7 @@ export function initForms() {
 
       const endpoint = configureEndpoint();
       if (!endpoint) {
+        event.preventDefault();
         setState('error', copy.error, 'alert')?.focus({ preventScroll: true });
         emitLifecycle('error', {
           errorType: 'endpoint_unavailable',
@@ -742,25 +644,35 @@ export function initForms() {
         return;
       }
 
-      emitLifecycle('submit');
-      setSubmitting(true);
-      setState('loading', copy.loading);
       const redirectUrl = populateMetadata(form, {
         submissionStatus: 'attempted',
         validationStatus: 'passed',
         errorCount: 0
       });
-      const payload = new FormData(form);
-      if (!payload.get('_subject')) {
-        payload.set('_subject', isConsultation ? 'Sofiati consultation request' : 'Sofiati website contact');
+      if (qs('input[type="file"]', form)) {
+        form.action = FORMSUBMIT_ENDPOINT;
+        emitLifecycle('submit');
+        return;
+      }
+      event.preventDefault();
+      emitLifecycle('submit');
+      setSubmitting(true);
+      setState('loading', copy.loading);
+      const payload = Object.fromEntries(new FormData(form).entries());
+      if (!payload._subject) {
+        payload._subject = isConsultation ? 'Nova solicitação de consulta — Franciele Sofiati' : 'Novo contato pelo site — Franciele Sofiati';
       }
       try {
         const response = await fetch(endpoint, {
           method: 'POST',
-          body: payload,
-          headers: { Accept: 'application/json' }
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
         });
-        if (!response.ok) throw new Error(`Form submission failed (${response.status})`);
+        const result = await response.json().catch(() => null);
+        if (!response.ok || result?.success === false) throw new Error(`Form submission failed (${response.status})`);
         form.reset();
         fields.forEach(clearFieldError);
         setState('success', copy.success)?.focus({ preventScroll: true });

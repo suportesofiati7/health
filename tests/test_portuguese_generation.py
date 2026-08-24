@@ -27,8 +27,8 @@ SOURCE = """<!doctype html>
 <html lang="en"><head>
 <title>Hello world</title>
 <meta name="description" content="A skin consultation">
-<link rel="alternate" hreflang="en" href="https://www.francielesofiati.com/index.html">
-<link rel="alternate" hreflang="pt-BR" href="https://www.francielesofiati.com/pt/">
+<link rel="alternate" hreflang="en" href="https://francielesofiati.com/index.html">
+<link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/pt/">
 </head><body>
 <main id="content" class="page" aria-label="Page content">
 <p id="intro" class="copy" data-hook="intro">Hello world</p>

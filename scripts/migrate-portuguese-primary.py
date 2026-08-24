@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DOMAIN = "https://www.francielesofiati.com"
+DOMAIN = "https://francielesofiati.com"
 
 ROUTES = {
     "home": ("index.html", "index.html", "/"),

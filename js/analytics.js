@@ -398,7 +398,7 @@
       form_name: form.dataset.analyticsForm || form.id || "website_form",
       form_type: form.dataset.formType || "contact",
       lead_type: form.dataset.leadType || "",
-      method: form.dataset.analyticsMethod || "formspree"
+      method: form.dataset.analyticsMethod || "formsubmit"
     };
   }
 

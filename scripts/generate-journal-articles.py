@@ -167,7 +167,7 @@ article_pairs = []
 for article_position, article in enumerate(ARTICLES):
     slug = article["slug"]; routes.append(f"blog/{slug}.html")
     article_pairs.append({"id": f"journal-{slug}", "pt-BR": f"blog/{slug}.html", "en": f"en/blog/{slug}.html"})
-    canonical = f"https://www.francielesofiati.com/blog/{slug}"
+    canonical = f"https://francielesofiati.com/blog/{slug}"
     hero, hero_record, hero_alt = image(article, article_position)
     sections = "\n".join(f'''<section class="sja-reading-section">
   <h2>{escape(heading)}</h2>
@@ -185,14 +185,14 @@ for article_position, article in enumerate(ARTICLES):
   <meta name="description" content="{escape(article['description'])}">
   <link rel="canonical" href="{canonical}">
   <link rel="alternate" hreflang="pt-BR" href="{canonical}">
-  <link rel="alternate" hreflang="en" href="https://www.francielesofiati.com/en/blog/{slug}">
+  <link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/blog/{slug}">
   <link rel="alternate" hreflang="x-default" href="{canonical}">
   <meta property="og:type" content="article">
   <meta property="og:title" content="{escape(article['title'])} | Franciele Sofiati">
   <meta property="og:description" content="{escape(article['description'])}">
   <meta property="og:url" content="{canonical}">
-  <meta property="og:image" content="https://www.francielesofiati.com/{hero_record['file']}">
-  <meta property="og:image:secure_url" content="https://www.francielesofiati.com/{hero_record['file']}">
+  <meta property="og:image" content="https://francielesofiati.com/{hero_record['file']}">
+  <meta property="og:image:secure_url" content="https://francielesofiati.com/{hero_record['file']}">
   <meta property="og:image:type" content="image/webp">
   <meta property="og:image:width" content="{Image.open(ROOT / hero_record['file']).size[0]}">
   <meta property="og:image:height" content="{Image.open(ROOT / hero_record['file']).size[1]}">
@@ -202,11 +202,11 @@ for article_position, article in enumerate(ARTICLES):
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{escape(article['title'])} | Franciele Sofiati">
   <meta name="twitter:description" content="{escape(article['description'])}">
-  <meta name="twitter:image" content="https://www.francielesofiati.com/{hero_record['file']}">
+  <meta name="twitter:image" content="https://francielesofiati.com/{hero_record['file']}">
   <meta name="twitter:image:alt" content="{escape(hero_alt)}">
   <link rel="stylesheet" href="../css/site.css">
   <!-- Article schema identifies the author, publisher and the exact public URL. -->
-  <script type="application/ld+json">{{"@context":"https://schema.org","@graph":[{{"@type":"WebSite","@id":"https://www.francielesofiati.com/#website","url":"https://www.francielesofiati.com/","name":"Franciele Sofiati"}},{{"@type":"Person","@id":"https://www.francielesofiati.com/#franciele","name":"Franciele Sofiati","identifier":{{"@type":"PropertyValue","propertyID":"CRBM","value":"6277"}}}},{{"@type":"HealthAndBeautyBusiness","@id":"https://www.francielesofiati.com/#practice","name":"Franciele Sofiati Biomédica","url":"https://www.francielesofiati.com/"}},{{"@type":"BlogPosting","@id":"{canonical}#article","url":"{canonical}","headline":"{escape(article['title'])}","description":"{escape(article['description'])}","inLanguage":"pt-BR","articleSection":"{escape(article['section'])}","author":{{"@id":"https://www.francielesofiati.com/#franciele"}},"publisher":{{"@id":"https://www.francielesofiati.com/#practice"}},"image":"https://www.francielesofiati.com/{hero_record['file']}"}},{{"@type":"WebPage","@id":"{canonical}#webpage","url":"{canonical}","name":"{escape(article['title'])} | Franciele Sofiati"}},{{"@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Início","item":"https://www.francielesofiati.com/"}},{{"@type":"ListItem","position":2,"name":"Journal","item":"https://www.francielesofiati.com/blog"}},{{"@type":"ListItem","position":3,"name":"{escape(article['title'])}","item":"{canonical}"}}]}}]}}</script>
+  <script type="application/ld+json">{{"@context":"https://schema.org","@graph":[{{"@type":"WebSite","@id":"https://francielesofiati.com/#website","url":"https://francielesofiati.com/","name":"Franciele Sofiati"}},{{"@type":"Person","@id":"https://francielesofiati.com/#franciele","name":"Franciele Sofiati","identifier":{{"@type":"PropertyValue","propertyID":"CRBM","value":"6277"}}}},{{"@type":"HealthAndBeautyBusiness","@id":"https://francielesofiati.com/#practice","name":"Franciele Sofiati Biomédica","url":"https://francielesofiati.com/"}},{{"@type":"BlogPosting","@id":"{canonical}#article","url":"{canonical}","headline":"{escape(article['title'])}","description":"{escape(article['description'])}","inLanguage":"pt-BR","articleSection":"{escape(article['section'])}","author":{{"@id":"https://francielesofiati.com/#franciele"}},"publisher":{{"@id":"https://francielesofiati.com/#practice"}},"image":"https://francielesofiati.com/{hero_record['file']}"}},{{"@type":"WebPage","@id":"{canonical}#webpage","url":"{canonical}","name":"{escape(article['title'])} | Franciele Sofiati"}},{{"@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Início","item":"https://francielesofiati.com/"}},{{"@type":"ListItem","position":2,"name":"Journal","item":"https://francielesofiati.com/blog"}},{{"@type":"ListItem","position":3,"name":"{escape(article['title'])}","item":"{canonical}"}}]}}]}}</script>
 </head>
 <body class="sf-site sf-page sf-family-content sf-journal-article" data-page="journal" data-site-root="../">
   <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
@@ -236,14 +236,14 @@ for article_position, article in enumerate(ARTICLES):
     # English route is a real editorial counterpart, not a language-switch fallback.
     english_title, english_section, english_description, english_intro, english_sections = english_editorial(article)
     english_html = html.replace('lang="pt-BR"', 'lang="en" data-default-lang="pt-BR"')
-    english_html = english_html.replace(f'https://www.francielesofiati.com/blog/{slug}', f'https://www.francielesofiati.com/en/blog/{slug}')
+    english_html = english_html.replace(f'https://francielesofiati.com/blog/{slug}', f'https://francielesofiati.com/en/blog/{slug}')
     english_html = english_html.replace('hreflang="pt-BR"', 'hreflang="en"').replace('pt_BR', 'en_US')
     english_html = english_html.replace(f'<title>{escape(article["title"])} | Franciele Sofiati</title>', f'<title>{escape(english_title)} | Franciele Sofiati</title>')
     english_html = english_html.replace('Pular para o conteúdo', 'Skip to content').replace('Início', 'Home').replace('Leitura responsável', 'Responsible reading').replace('Antes de decidir', 'Before deciding').replace('Referências', 'References').replace('Próximo passo', 'Next step').replace('Continuar', 'Continue')
     english_html = english_html.replace('../index.html', '../../index.html').replace('../blog.html', '../blog.html').replace('../servicos/', '../../servicos/').replace('../consulta.html', '../../consulta.html').replace('../assets/', '../../assets/').replace('../css/', '../../css/').replace('../js/', '../../js/')
     english_html = english_html.replace('data-site-root="../"', 'data-site-root="../../"')
-    english_canonical = f"https://www.francielesofiati.com/en/blog/{slug}"
-    portuguese_canonical = f"https://www.francielesofiati.com/blog/{slug}"
+    english_canonical = f"https://francielesofiati.com/en/blog/{slug}"
+    portuguese_canonical = f"https://francielesofiati.com/blog/{slug}"
     # Build reciprocal language annotations explicitly.  String substitutions
     # above are for editorial UI; they must not leave duplicate hreflang tags.
     english_html = re.sub(

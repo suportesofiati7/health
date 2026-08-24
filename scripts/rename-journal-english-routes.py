@@ -148,15 +148,15 @@ def main() -> int:
     for pair in pairs:
         pt_path = ROOT / pair["pt-BR"]
         en_path = ROOT / pair["en"]
-        pt_url = f"https://www.francielesofiati.com/blog/{pt_path.stem}"
-        en_url = f"https://www.francielesofiati.com/en/blog/{en_path.stem}"
+        pt_url = f"https://francielesofiati.com/blog/{pt_path.stem}"
+        en_url = f"https://francielesofiati.com/en/blog/{en_path.stem}"
         normalize_language_metadata(pt_path, "pt-BR", pt_url, en_url)
         localize_portuguese_links(pt_path)
         normalize_language_metadata(en_path, "en", en_url, pt_url)
-        replace_text(pt_path, {"https://www.francielesofiati.com/journal": "https://www.francielesofiati.com/blog"})
-        replace_text(en_path, {"https://www.francielesofiati.com/journal": "https://www.francielesofiati.com/en/blog"})
-    replace_text(ROOT / "blog.html", {"https://www.francielesofiati.com/journal": "https://www.francielesofiati.com/blog"})
-    replace_text(ROOT / "en" / "blog.html", {"https://www.francielesofiati.com/journal": "https://www.francielesofiati.com/en/blog"})
+        replace_text(pt_path, {"https://francielesofiati.com/journal": "https://francielesofiati.com/blog"})
+        replace_text(en_path, {"https://francielesofiati.com/journal": "https://francielesofiati.com/en/blog"})
+    replace_text(ROOT / "blog.html", {"https://francielesofiati.com/journal": "https://francielesofiati.com/blog"})
+    replace_text(ROOT / "en" / "blog.html", {"https://francielesofiati.com/journal": "https://francielesofiati.com/en/blog"})
     print(f"Normalized {len(routes)} English Journal routes; {sum(old != new for old, new in routes.items())} renamed.")
     return 0
 

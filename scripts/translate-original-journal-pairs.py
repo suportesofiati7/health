@@ -91,8 +91,8 @@ def localize_document(source: Path, target: Path, translator: BrazilianTranslato
         script.string = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
     slug = target.stem
-    pt_url = f"https://www.francielesofiati.com/blog/{slug}"
-    en_url = f"https://www.francielesofiati.com/en/blog/{slug}"
+    pt_url = f"https://francielesofiati.com/blog/{slug}"
+    en_url = f"https://francielesofiati.com/en/blog/{slug}"
     for link in soup.find_all("link"):
         rel = link.get("rel", [])
         if "canonical" in rel:
@@ -123,7 +123,7 @@ def ensure_english_alternates(path: Path, portuguese_path: Path) -> None:
     """Give the English page the reciprocal PT-BR and default annotations."""
     soup = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
     slug = portuguese_path.stem
-    pt_url = f"https://www.francielesofiati.com/blog/{slug}"
+    pt_url = f"https://francielesofiati.com/blog/{slug}"
     pt_link = soup.find("link", rel="alternate", hreflang="pt-BR")
     if pt_link is None:
         soup.head.append(soup.new_tag("link", rel="alternate", hreflang="pt-BR", href=pt_url))
@@ -168,7 +168,7 @@ def main() -> int:
             english = ROOT / pair["en"]
             soup = BeautifulSoup(portuguese.read_text(encoding="utf-8"), "html.parser")
             slug = portuguese.stem
-            pt_url = f"https://www.francielesofiati.com/blog/{slug}"
+            pt_url = f"https://francielesofiati.com/blog/{slug}"
             if not soup.find("link", rel="alternate", hreflang="pt-BR"):
                 soup.head.append(soup.new_tag("link", rel="alternate", hreflang="pt-BR", href=pt_url))
                 portuguese.write_text(str(soup), encoding="utf-8")

@@ -24,9 +24,10 @@ export function initFloatingTools() {
     });
   });
 
-  subscribeToScroll(({ y }) => {
+  subscribeToScroll(({ y, progress }) => {
     qsa('[data-scroll-top]').forEach((button) => {
       button.classList.toggle('is-visible', y > 520);
+      button.style.setProperty('--scroll-progress', progress.toFixed(4));
     });
   });
 

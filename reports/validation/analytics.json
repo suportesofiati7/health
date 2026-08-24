@@ -1,7 +1,7 @@
 {
   "status": "PASS",
-  "generatedAt": "2026-08-17T19:59:18.902300+00:00",
-  "pagesChecked": 172,
+  "generatedAt": "2026-08-24T19:31:04.512314+00:00",
+  "pagesChecked": 174,
   "scriptsPresent": {
     "required": [
       "analytics-config.js",
@@ -186,6 +186,16 @@
           "../../js/analytics-config.js",
           "../../js/consent-manager.js",
           "../../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/frugal-chic-escolhas-conscientes.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
         ],
         "count": 3,
         "correctOrder": true
@@ -1071,6 +1081,16 @@
         "correctOrder": true
       },
       {
+        "page": "en/blog/frugal-chic-intentional-aesthetic-care.html",
+        "scripts": [
+          "../../js/analytics-config.js",
+          "../../js/consent-manager.js",
+          "../../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "en/blog/hair-shedding-warning-signs-before-choosing-a-protocol.html",
         "scripts": [
           "../../js/analytics-config.js",
@@ -1753,8 +1773,8 @@
         "formName": "consultation_request",
         "formType": "consultation",
         "leadType": "consultation_request",
-        "fields": 28,
-        "sensitiveFieldsProtected": 28,
+        "fields": 11,
+        "sensitiveFieldsProtected": 11,
         "gtmAutoFormDisabled": true,
         "passed": true
       },
@@ -1764,8 +1784,8 @@
         "formName": "contact_form",
         "formType": "contact",
         "leadType": "contact_enquiry",
-        "fields": 29,
-        "sensitiveFieldsProtected": 29,
+        "fields": 14,
+        "sensitiveFieldsProtected": 14,
         "gtmAutoFormDisabled": true,
         "passed": true
       },
@@ -1775,8 +1795,8 @@
         "formName": "consultation_request",
         "formType": "consultation",
         "leadType": "consultation_request",
-        "fields": 28,
-        "sensitiveFieldsProtected": 28,
+        "fields": 11,
+        "sensitiveFieldsProtected": 11,
         "gtmAutoFormDisabled": true,
         "passed": true
       },
@@ -1786,8 +1806,8 @@
         "formName": "contact_form",
         "formType": "contact",
         "leadType": "contact_enquiry",
-        "fields": 29,
-        "sensitiveFieldsProtected": 29,
+        "fields": 14,
+        "sensitiveFieldsProtected": 14,
         "gtmAutoFormDisabled": true,
         "passed": true
       }
@@ -1861,7 +1881,7 @@
           "name": "all_pages_load_without_javascript_errors",
           "passed": true,
           "detail": {
-            "pages": 172,
+            "pages": 174,
             "errors": []
           }
         },

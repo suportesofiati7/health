@@ -1,6 +1,13 @@
 # Permanent redirects for URLs published before the bilingual route migration.
 # Keep each legacy route pointed directly at its current, clean canonical URL.
 
+# Canonical host and HTTPS enforcement. Configure the same rule at the hosting
+# provider/CDN so it is applied before static-file delivery and preserves paths
+# and query strings for every request.
+http://francielesofiati.com/* https://francielesofiati.com/:splat 308!
+http://www.francielesofiati.com/* https://francielesofiati.com/:splat 308!
+https://www.francielesofiati.com/* https://francielesofiati.com/:splat 308!
+
 # Previous English pages at the site root.
 /about /en/about 301
 /about.html /en/about 301

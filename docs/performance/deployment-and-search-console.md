@@ -24,7 +24,7 @@ The build:
 
 1. Set the hosting build command to `npm ci && npm run build`.
 2. Set the publish directory to `dist`.
-3. Keep the production hostname as `www.francielesofiati.com`; canonicals, sitemap and robots use that hostname.
+3. Use `francielesofiati.com` as the production hostname; canonicals, sitemap and robots use that hostname.
 4. Deploy to a preview URL first.
 5. Confirm the preview serves `dist/.performance-build.json`, then check representative pages and the form flow.
 6. Promote the same build output to production. Do not rebuild between preview approval and production when the platform can promote an immutable deployment.
@@ -86,9 +86,9 @@ Search Console reports grouped, rolling real-user field data. It may not list lo
 Use a production response, not localhost:
 
 ```bash
-curl -I https://www.francielesofiati.com/
-curl -I https://www.francielesofiati.com/assets/build/REPLACE_WITH_LIVE_HASH.css
-curl -I https://www.francielesofiati.com/thank-you.html
+curl -I https://francielesofiati.com/
+curl -I https://francielesofiati.com/assets/build/REPLACE_WITH_LIVE_HASH.css
+curl -I https://francielesofiati.com/en/thank-you.html
 ```
 
 Look for:

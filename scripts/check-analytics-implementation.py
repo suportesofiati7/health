@@ -192,7 +192,7 @@ const preventNavigation = async locator => locator.evaluate(element =>
   const context = await browser.newContext({viewport: {width: 1280, height: 900}});
   const page = await context.newPage();
   let fakeGtmRequests = 0;
-  let formspreeShouldFail = true;
+  let formsubmitShouldFail = true;
   await page.route("**/js/analytics-config.js", async route => {
     const response = await route.fetch();
     let body = await response.text();
@@ -209,9 +209,9 @@ const preventNavigation = async locator => locator.evaluate(element =>
       body: "window.__FRANCIELE_FAKE_GTM_LOADED__ = true;"
     });
   });
-  await page.route("https://formspree.io/f/**", async route => {
-    if (formspreeShouldFail) {
-      formspreeShouldFail = false;
+  await page.route("https://formsubmit.co/ajax/**", async route => {
+    if (formsubmitShouldFail) {
+      formsubmitShouldFail = false;
       await route.fulfill({status: 500, contentType: "application/json", body: '{"ok":false}'});
       return;
     }
@@ -474,7 +474,7 @@ const preventNavigation = async locator => locator.evaluate(element =>
       formName: "contact_form",
       formType: "contact",
       leadType: "contact_enquiry",
-      method: "formspree"
+      method: "formsubmit"
     })
   ));
   await page.reload({waitUntil: "load"});
@@ -740,7 +740,7 @@ def main() -> int:
         and "obrigada.html" not in sitemap_source
     )
     robots_ok = (
-        "Sitemap: https://www.francielesofiati.com/sitemap.xml"
+        "Sitemap: https://francielesofiati.com/sitemap.xml"
         in (ROOT / "robots.txt").read_text(encoding="utf-8")
     )
     thank_noindex = all(

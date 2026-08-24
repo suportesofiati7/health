@@ -24,4 +24,5 @@ Disallow: /.translation-cache.json
 Disallow: /README.md
 Disallow: /requirements-translation.txt
 
-Sitemap: https://www.francielesofiati.com/sitemap.xml
+Sitemap: https://francielesofiati.com/sitemap.xml
+Sitemap: https://francielesofiati.com/sitemap-index.xml

@@ -49,7 +49,7 @@ Google's current setup flow is documented in [Set up Analytics for a website](ht
 4. Use a clear property name such as `Franciele Sofiati Website`.
 5. Choose the São Paulo reporting time zone.
 6. Choose Brazilian real (`BRL`) as the reporting currency.
-7. Create one Web data stream for `https://www.francielesofiati.com`.
+7. Create one Web data stream for `https://francielesofiati.com`.
 8. Copy the Measurement ID beginning with `G-`.
 9. Place that ID in `ga4MeasurementId` in `js/analytics-config.js`.
 10. Use the same ID when creating the GTM Google Tag below.
@@ -96,7 +96,7 @@ Avoid registering URLs, unique tokens, errors, every question or other high-card
 
 1. Sign in at `tagmanager.google.com`.
 2. Create a business-owned GTM account, or use the existing business account.
-3. Create a **Web** container for `www.francielesofiati.com`.
+3. Create a **Web** container for `francielesofiati.com`.
 4. Copy the container ID beginning with `GTM-`.
 5. Replace `GTM-REPLACE_ME` in `js/analytics-config.js`.
 6. Do not install GTM again through a CMS, hosting integration, inline snippet or plugin. The repository loads it dynamically after consent.
@@ -191,7 +191,7 @@ A Domain property covers protocols and subdomains and requires DNS verification.
 
 After deployment:
 
-1. Submit `https://www.francielesofiati.com/sitemap.xml`.
+1. Submit `https://francielesofiati.com/sitemap.xml`.
 2. Inspect `/`, `/consultation.html`, `/treatments.html`, `/skin.html` and `/laser.html`.
 3. Confirm `thank-you.html` is excluded and remains `noindex`.
 4. In Search Console Settings → Associations, associate the Search Console property with the GA4 property when the interface and permissions allow it.

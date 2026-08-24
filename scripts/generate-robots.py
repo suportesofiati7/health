@@ -58,6 +58,7 @@ def render_robots() -> str:
         "Allow: /\n"
         f"{disallow}\n\n"
         f"Sitemap: {site_origin()}/sitemap.xml\n"
+        f"Sitemap: {site_origin()}/sitemap-index.xml\n"
     )
 
 
