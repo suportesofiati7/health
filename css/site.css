@@ -357,6 +357,18 @@
 @media (max-width: 63.999rem) { .sf-journal-article .sja-article--frugal-chic .sja-reading-grid--full { grid-template-columns: minmax(0, 100%) !important; }.sf-journal-article .sja-article--frugal-chic .sja-hero--frugal-chic .sja-hero__intro { grid-column: 1 / span 9 !important; } }
 @media (max-width: 47.999rem) { .sf-journal-article .sja-article--frugal-chic .sja-reading-grid--full { padding-block: 3rem 4rem !important; }.sf-journal-article .sja-article--frugal-chic .sja-reading-section + .sja-reading-section { margin-block-start: 3rem; }.sf-journal-article .sja-article--frugal-chic .sja-reading-section h2 { max-inline-size: 17ch; }.sf-journal-article .sja-article--frugal-chic .sja-hero--frugal-chic .sja-hero__intro { grid-column: 1 !important; }.sf-journal-article .sja-article--frugal-chic .sja-hero--frugal-chic h1 { max-inline-size: 12ch; }.sf-journal-article .sja-article--frugal-chic .sja-conversion { grid-template-columns: 1fr; }.sf-journal-article .sja-article--frugal-chic .sja-conversion > div { justify-content: stretch; }.sf-journal-article .sja-article--frugal-chic .sja-conversion .sf-button { inline-size: 100%; } }
 
+/* Image-led editorial cadence for Frugal Chic. */
+.sf-journal-article .sja-article--frugal-chic .sja-editorial-image { display: grid; gap: .8rem; margin: clamp(3rem, 7vw, 7rem) 0; }
+.sf-journal-article .sja-article--frugal-chic .sja-editorial-image img { inline-size: 100%; block-size: auto; object-fit: cover; }
+.sf-journal-article .sja-article--frugal-chic .sja-editorial-image figcaption { color: var(--rose-gold-700); font-family: var(--font-heading); font-size: clamp(1.1rem, 1.8vw, 1.45rem); font-style: italic; line-height: 1.3; }
+.sf-journal-article .sja-article--frugal-chic .sja-editorial-image--wide { inline-size: min(74rem, calc(100% + 16rem)); margin-inline: min(-8rem, calc((56rem - 100vw) / 2)); }
+.sf-journal-article .sja-article--frugal-chic .sja-editorial-image--wide img { aspect-ratio: 3 / 2; }
+.sf-journal-article .sja-article--frugal-chic .sja-editorial-image--wide figcaption { max-inline-size: 21ch; margin-inline-start: clamp(1.25rem, 4vw, 4rem); }
+.sf-journal-article .sja-article--frugal-chic .sja-editorial-image--portrait { inline-size: min(29rem, 72%); margin-inline-start: auto; }
+.sf-journal-article .sja-article--frugal-chic .sja-editorial-image--portrait img { aspect-ratio: 4 / 5; }
+.sf-journal-article .sja-article--frugal-chic blockquote { max-inline-size: 27ch; margin: clamp(2.25rem, 5vw, 4.5rem) 0 0 auto; border-inline-start: 1px solid var(--gold-300); padding: .25rem 0 .25rem clamp(1.25rem, 3vw, 2.25rem); color: var(--olive-700); font-family: var(--font-heading); font-size: clamp(1.35rem, 2.25vw, 2rem); font-style: italic; line-height: 1.25; }
+@media (max-width: 47.999rem) { .sf-journal-article .sja-article--frugal-chic .sja-editorial-image { margin-block: 3.5rem; }.sf-journal-article .sja-article--frugal-chic .sja-editorial-image--wide { inline-size: 100%; margin-inline: 0; }.sf-journal-article .sja-article--frugal-chic .sja-editorial-image--wide figcaption { margin-inline-start: 0; }.sf-journal-article .sja-article--frugal-chic .sja-editorial-image--portrait { inline-size: min(21rem, 88%); margin-inline: auto; }.sf-journal-article .sja-article--frugal-chic blockquote { margin-inline: 0; } }
+
 /* Final Journal media overrides: this source is loaded after the editorial
    layout layer, so tablet and desktop retain the same 16:9 cover geometry. */
 .sf-journal-article .sja-hero__feature,

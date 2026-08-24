@@ -9,6 +9,7 @@ import { initTreatmentDirectory } from './components/treatments.js';
 import { initFaqCategories, initFaqSearch } from './pages/faq.js';
 import { initBlogSearch } from './pages/blog.js';
 import { initSocialShare } from './pages/social-share.js';
+import { initFrugalChic } from './pages/frugal-chic.js';
 import { initFooter } from './components/footer.js';
 import { initIcons } from './components/icons.js';
 import { loadPartials } from './partials.js';
@@ -34,6 +35,7 @@ export function initSite() {
     initFaqCategories();
     initBlogSearch();
     initSocialShare();
+    initFrugalChic();
     initTreatmentDirectory();
     initIcons();
   });
