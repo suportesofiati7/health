@@ -1,13 +1,13 @@
 const visuals = [
   ['journal/articles/frugal-chic-window-ritual.webp', 'fa-leaf', 'O cuidado começa quando a vida desacelera.', 'Care begins when life slows down.', 'landscape'],
-  ['journal/articles/frugal-chic-peony-amber.webp', 'fa-sparkles', 'Clareza antes de qualquer escolha.', 'Clarity before every choice.', 'landscape'],
+  ['journal/articles/frugal-chic-peony-amber.webp', 'fa-star', 'Clareza antes de qualquer escolha.', 'Clarity before every choice.', 'landscape'],
   ['journal/articles/frugal-chic-morning-pause.webp', 'fa-heart', 'Uma conversa que respeita o seu tempo.', 'A conversation that respects your time.', 'landscape'],
   ['journal/articles/frugal-chic-conscious-ritual.webp', 'fa-sun', 'Menos excessos. Mais intenção.', 'Less excess. More intention.', 'portrait'],
   ['journal/articles/frugal-chic-evening-vanity.webp', 'fa-wand-magic-sparkles', 'Tecnologia precisa continuar humana.', 'Technology should remain human.', 'portrait'],
   ['portraits/Franciele-Sofiati.jpeg', 'fa-clock', 'Pausa também é parte do plano.', 'A pause belongs in the plan, too.', 'portrait'],
   ['journal/articles/frugal-chic-peony-amber.webp', 'fa-shield-heart', 'Segurança é uma escolha bonita.', 'Safety is a beautiful choice.', 'landscape'],
   ['journal/articles/frugal-chic-morning-pause.webp', 'fa-gem', 'A beleza continua tendo a sua voz.', 'Beauty keeps your voice.', 'landscape'],
-  ['journal/articles/frugal-chic-evening-vanity.webp', 'fa-seedling', 'Uma escolha que continua com você.', 'A choice that stays with you.', 'portrait'],
+  ['journal/articles/frugal-chic-sage-safety-ritual.webp', 'fa-seedling', 'Segurança também pode ser serena.', 'Safety can be serene, too.', 'portrait'],
 ];
 
 export function initFrugalChic() {
