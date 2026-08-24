@@ -33,4 +33,67 @@ export function initFrugalChic() {
     section.before(chapter);
     chapter.append(section, figure);
   });
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) return;
+
+  article.classList.add('fc-motion-enabled');
+  const chapters = [...article.querySelectorAll('.sja-editorial-chapter')];
+  const progress = document.createElement('div');
+  progress.className = 'fc-reading-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.append(progress);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      entry.target.querySelector('.sja-chapter-mark')?.classList.add('is-active');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+  chapters.forEach((chapter) => observer.observe(chapter));
+
+  const hero = article.querySelector('.sja-hero--frugal-chic');
+  const heroImage = hero?.querySelector('img');
+  const chapterOffsets = new Map(chapters.map((chapter) => [chapter, 0]));
+  const chapterTargets = new Map(chapters.map((chapter) => [chapter, 0]));
+  let ticking = false;
+  let easing = false;
+  const easeChapters = () => {
+    let keepAnimating = false;
+    chapters.forEach((chapter) => {
+      const current = chapterOffsets.get(chapter) || 0;
+      const target = chapterTargets.get(chapter) || 0;
+      const next = current + (target - current) * 0.13;
+      chapterOffsets.set(chapter, next);
+      chapter.style.setProperty('--fc-float', `${next.toFixed(2)}px`);
+      if (Math.abs(target - next) > 0.04) keepAnimating = true;
+    });
+    if (keepAnimating) window.requestAnimationFrame(easeChapters);
+    else easing = false;
+  };
+  const updateMotion = () => {
+    const start = article.getBoundingClientRect().top + window.scrollY;
+    const end = article.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
+    const value = Math.min(1, Math.max(0, (window.scrollY - start) / Math.max(1, end - start)));
+    progress.style.setProperty('--fc-progress', `${value * 100}%`);
+    if (hero && heroImage && window.matchMedia('(pointer: fine)').matches) {
+      const distance = Math.max(-180, Math.min(180, window.scrollY - (hero.getBoundingClientRect().top + window.scrollY)));
+      heroImage.style.transform = `scale(1.18) translateY(${distance * .035}px)`;
+    }
+    chapters.forEach((chapter, index) => {
+      const rect = chapter.getBoundingClientRect();
+      const centerOffset = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      const direction = index % 2 ? -1 : 1;
+      const shift = Math.max(-12, Math.min(12, centerOffset * 14 * direction));
+      chapterTargets.set(chapter, shift);
+    });
+    if (!easing) { easing = true; window.requestAnimationFrame(easeChapters); }
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateMotion); ticking = true; }
+  }, { passive: true });
+  updateMotion();
 }
