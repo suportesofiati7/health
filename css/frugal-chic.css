@@ -14,6 +14,8 @@
 .sf-journal-article .sja-article--frugal-chic .sja-hero .sja-publication, .sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline { justify-content: center; }.sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline { flex-direction: column; align-items: center; gap: .55rem; text-align: center; }.sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline > span:last-child { display: block; }
 .sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline > span:nth-child(-n + 2), .sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline > span:nth-child(-n + 2) a { color: var(--fc-rose); }
 .sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline > span:nth-child(2) { color: var(--ivory-50); }
+.sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline > span:first-child,
+.sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline > span:first-child a { color: var(--ivory-50); font-size: clamp(.98rem, 1.25vw, 1.15rem); font-weight: 800; letter-spacing: .015em; text-shadow: 0 .1rem .65rem rgb(12 27 18 / .55); }
 .sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline { margin-block-start: clamp(4.5rem, 12vh, 9rem); }
 @media (min-width: 48rem) { .sf-journal-article .sja-article--frugal-chic .sja-hero .sja-byline { margin-block-start: clamp(2.25rem, 6vh, 4.5rem); } }
 .sf-journal-article .sja-article--frugal-chic .sja-reading-grid--full { display: block !important; inline-size: min(100% - 2.5rem, 70rem); margin-inline: auto; padding-block: clamp(4rem, 8vw, 8rem) !important; }
