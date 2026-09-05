@@ -1,0 +1,589 @@
+/* Editorial treatment for the Botox Londrina guide. */
+.sf-journal-article .sja-article--botox-londrina {
+  --blx-ink: #24352b;
+  --blx-rose: #aa6470;
+  --blx-gold: #f2c66d;
+  --blx-paper: #fffdf8;
+  --blx-sage: #e6eadc;
+}
+
+body.sf-journal-article--botox-londrina .sja-main {
+  margin-block-start: 0;
+  padding-block-start: 0 !important;
+}
+
+body.sf-journal-article--botox-londrina .sja-main > .sf-breadcrumbs {
+  display: none !important;
+}
+
+.sf-journal-article .sja-article--botox-londrina {
+  margin-block-start: 0;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero--botox-londrina {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 100vw;
+  min-block-size: min(74vw, 52rem);
+  margin-inline: calc(50% - 50vw);
+  overflow: hidden;
+  background: transparent !important;
+  isolation: isolate;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero__feature {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1;
+  display: block;
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  max-inline-size: none !important;
+  min-block-size: 0 !important;
+  grid-column: auto !important;
+  grid-row: auto !important;
+  margin: 0;
+  padding: 0 !important;
+  aspect-ratio: auto !important;
+  background: transparent !important;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero__feature img {
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  max-inline-size: none !important;
+  aspect-ratio: auto !important;
+  object-fit: cover !important;
+  object-position: 34% 58%;
+  background: transparent !important;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero__feature::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(34 52 42 / .58), rgb(34 52 42 / .34) 52%, rgb(34 52 42 / .5));
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero__intro {
+  position: relative;
+  z-index: 1;
+  inline-size: min(100% - 3rem, 54rem);
+  margin: auto;
+  padding: clamp(8rem, 15vw, 14rem) clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 4rem);
+  color: var(--ivory-50);
+  text-align: center;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero :is(h1, .sja-standfirst, .sja-byline, .sja-byline a) {
+  color: var(--ivory-50);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero h1 {
+  max-inline-size: 15ch;
+  margin-inline: auto;
+  font-size: clamp(2.85rem, 5.35vw, 5.85rem);
+  line-height: .94;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero h1 em,
+.sf-journal-article .sja-article--botox-londrina .sja-hero .sja-publication {
+  color: var(--blx-gold);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero .sja-publication {
+  margin-block-end: 1.25rem;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .19em;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-hero .sja-byline {
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: .55rem;
+  margin-block-start: clamp(2rem, 6vh, 4.5rem);
+  text-align: center;
+}
+
+@media (min-width: 48rem) {
+  .sf-journal-article .sja-article--botox-londrina .sja-hero__feature img {
+    transform: translateY(2rem) scale(1.045);
+    transform-origin: center center;
+  }
+
+  body.sf-journal-article--botox-londrina #sf-topbar-inline,
+  body.sf-journal-article--botox-londrina #sf-header-inline {
+    position: absolute;
+    z-index: 100;
+    inset-inline: 0;
+  }
+
+  body.sf-journal-article--botox-londrina #sf-topbar-inline {
+    inset-block-start: 0;
+  }
+
+  body.sf-journal-article--botox-londrina #sf-header-inline {
+    inset-block-start: 4.25rem;
+  }
+
+  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-header-shell {
+    background:
+      linear-gradient(90deg, rgb(39 60 45 / .78), rgb(39 60 45 / .62)),
+      rgb(39 60 45 / .42);
+    border-color: rgb(242 198 109 / .48);
+    box-shadow: 0 1rem 2.8rem rgb(15 24 18 / .24), inset 0 1px 0 rgb(255 253 248 / .14);
+    color: var(--ivory-50);
+    backdrop-filter: blur(10px);
+  }
+
+  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-brand,
+  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-nav-link,
+  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-contact {
+    color: var(--ivory-50);
+  }
+
+  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-brand-role,
+  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-nav-link[aria-current],
+  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-nav-link.is-current {
+    color: var(--blx-gold);
+  }
+
+  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-contact {
+    border-color: rgb(242 198 109 / .72);
+    background: rgb(255 253 248 / .08);
+  }
+
+  body.sf-journal-article--botox-londrina #sf-header-inline.is-scrolled .sfi-header-shell {
+    background: var(--ivory-50);
+    color: var(--color-text-primary);
+    backdrop-filter: none;
+  }
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-reading-grid--full {
+  display: block !important;
+  inline-size: min(100% - 2.5rem, 70rem);
+  margin-inline: auto;
+  padding-block: clamp(1.75rem, 4vw, 3.25rem) clamp(2.5rem, 4vw, 4rem) !important;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-prose,
+.sf-journal-article .sja-article--botox-londrina .sja-reading-section {
+  inline-size: 100%;
+  max-inline-size: 46rem;
+  margin-inline: auto;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-reading-section + .sja-reading-section {
+  margin-block-start: clamp(3.75rem, 7vw, 7rem);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-reading-section h2 {
+  max-inline-size: 18ch;
+  font-size: clamp(2.15rem, 3.25vw, 3.55rem);
+  letter-spacing: -.045em;
+  line-height: .98;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-reading-section > p,
+.sf-journal-article .sja-article--botox-londrina .sja-reading-section li {
+  font-size: clamp(1.02rem, .35vw + .96rem, 1.15rem);
+  line-height: 1.8;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-reading-section:first-child > p:first-of-type {
+  color: var(--blx-ink);
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  line-height: 1.42;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-chapter-mark {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-block-end: 1.25rem;
+  color: var(--blx-rose);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-chapter-mark img {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 .15rem .35rem rgb(121 89 56 / .16));
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-reading-section {
+  position: relative;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-reading-section:nth-of-type(3n)::after {
+  content: "";
+  position: absolute;
+  inline-size: clamp(3.75rem, 6vw, 5.5rem);
+  aspect-ratio: 1;
+  inset: auto -7rem -2.5rem auto;
+  background: url("../assets/brand/logotipo-franciele-sofiati-saude-da-pele-estetica-avancada-gleba-palhano.webp") center / contain no-repeat;
+  opacity: .08;
+  pointer-events: none;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-editorial-image {
+  display: grid;
+  gap: .85rem;
+  margin: clamp(3rem, 7vw, 7rem) auto;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-editorial-image img {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform .8s ease, filter .8s ease;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-editorial-image:hover img {
+  transform: translateY(-.18rem) scale(1.012);
+  filter: saturate(1.04);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-editorial-image figcaption {
+  color: var(--blx-rose);
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-style: italic;
+  line-height: 1.3;
+  text-align: end;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-editorial-image--wide {
+  inline-size: min(100%, 64rem);
+}
+
+.sf-journal-article .sja-article--botox-londrina blockquote {
+  max-inline-size: 31ch;
+  margin: clamp(2rem, 4vw, 3rem) 0 0 auto;
+  padding: .2rem clamp(1rem, 2vw, 1.5rem);
+  border-inline-end: 1px solid var(--gold-300);
+  color: var(--olive-700);
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 1.55vw, 1.5rem);
+  font-style: italic;
+  line-height: 1.32;
+  text-align: end;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-reference-list a {
+  display: block;
+  padding-block: .45rem;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-price-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  inline-size: min(100%, 58rem);
+  margin: clamp(2.5rem, 6vw, 5rem) auto;
+  border-block: 1px solid color-mix(in srgb, var(--blx-rose) 42%, transparent);
+  padding-block: .85rem;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-price-bar img {
+  display: none;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-price-bar p {
+  margin: 0;
+  color: var(--blx-ink);
+  font-size: .95rem;
+  line-height: 1.45;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-price-bar a {
+  color: var(--blx-rose);
+  font-size: .75rem;
+  font-weight: 850;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-faq-list {
+  display: grid;
+  gap: 1rem;
+  margin-block-start: 1.5rem;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-faq-list details {
+  border-block-start: 1px solid var(--color-border-warm);
+  padding-block: 1rem;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-faq-list summary {
+  cursor: pointer;
+  color: var(--blx-ink);
+  font-weight: 800;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-conversion {
+  display: grid;
+  grid-template-columns: 1fr !important;
+  justify-items: start;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  max-inline-size: min(100%, 64rem);
+  margin: clamp(2rem, 5vw, 4rem) auto 0;
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px solid rgb(244 196 207 / .5);
+  background: radial-gradient(circle at 18% 0%, rgb(255 253 247 / .36), transparent 43%), radial-gradient(circle at 90% 100%, rgb(244 196 207 / .22), transparent 38%), #7f9273;
+  color: var(--ivory-50);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-conversion h2 {
+  max-inline-size: min(100%, 18ch);
+  margin: 0;
+  color: var(--ivory-50);
+  font-size: clamp(2rem, 4.2vw, 4.25rem);
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-conversion h2 em {
+  color: var(--blx-gold);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-conversion > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .85rem;
+  inline-size: min(100%, 34rem);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-conversion .sf-button {
+  min-block-size: 3.4rem;
+  justify-content: center;
+  font-size: .73rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-align: center;
+  inline-size: 100%;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-conversion .sf-button--outline {
+  border: 1px solid rgb(255 253 247 / .86);
+  background: rgb(255 253 247 / .17);
+  color: var(--ivory-50);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-conversion .sf-button--primary {
+  border: 1px solid var(--ivory-50);
+  background: var(--ivory-50);
+  color: var(--blx-ink);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-share {
+  max-inline-size: min(100%, 64rem);
+  margin: clamp(2rem, 5vw, 4rem) auto 0;
+  padding-inline: clamp(0rem, 2vw, 1rem);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr !important;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  max-inline-size: min(100%, 54rem);
+  margin: clamp(4rem, 8vw, 7rem) auto 0;
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px solid color-mix(in srgb, var(--blx-rose) 34%, transparent);
+  background: linear-gradient(135deg, #3f5945, #718264);
+  color: var(--ivory-50);
+  overflow: hidden;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form h2 {
+  max-inline-size: min(100%, 18em);
+  margin: 0;
+  color: var(--ivory-50);
+  font-size: clamp(2rem, 3.2vw, 3.25rem);
+  line-height: 1.06;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: balance;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form p:not(.sja-chapter-mark) {
+  max-inline-size: 32rem;
+  color: color-mix(in srgb, var(--ivory-50) 88%, transparent);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form__mark {
+  position: absolute;
+  z-index: 0;
+  inline-size: clamp(3.75rem, 7vw, 5.5rem);
+  inset: 1.25rem 1.25rem auto auto;
+  opacity: .06;
+  pointer-events: none;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form > *:not(.sja-botox-form__mark) {
+  position: relative;
+  z-index: 1;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form__mark img {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form form {
+  display: grid;
+  gap: .85rem;
+  inline-size: min(100%, 40rem);
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form label {
+  display: grid;
+  gap: .35rem;
+  color: var(--blx-gold);
+  font-size: .72rem;
+  font-weight: 850;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form :is(input, textarea) {
+  inline-size: 100%;
+  border: 1px solid rgb(255 253 247 / .36);
+  background: rgb(255 253 247 / .94);
+  padding: .9rem 1rem;
+  color: var(--blx-ink);
+  font: inherit;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form input[name="_honey"] {
+  position: absolute;
+  inset: auto;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sf-journal-article .sja-article--botox-londrina .sja-botox-form .sf-button {
+  justify-self: start;
+  border-color: var(--blx-gold);
+  background: var(--blx-gold);
+  color: var(--blx-ink);
+}
+
+@media (max-width: 74.999rem) {
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-form {
+    grid-template-columns: 1fr;
+    max-inline-size: min(100%, 42rem);
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-form h2 {
+    max-inline-size: 16em;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-form__mark {
+    inline-size: clamp(3.5rem, 12vw, 6rem);
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-share,
+  .sf-journal-article .sja-article--botox-londrina .sja-conversion {
+    max-inline-size: min(100%, 42rem);
+  }
+}
+
+@media (min-width: 75rem) {
+  .sf-journal-article .sja-article--botox-londrina .sja-conversion {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-conversion h2 {
+    margin-inline: auto;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-conversion > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-self: center;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .sf-journal-article .sja-article--botox-londrina .sja-hero--botox-londrina {
+    min-block-size: clamp(42rem, 100svh, 54rem);
+  }
+
+  .sf-journal-article .sja-article--botox-londrina {
+    margin-block-start: 0;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-hero__intro {
+    inline-size: 100%;
+    padding: clamp(8rem, 18svh, 10rem) 1.25rem clamp(3rem, 9svh, 5rem);
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-hero h1 {
+    max-inline-size: 12ch;
+    font-size: clamp(3rem, 13vw, 4.25rem);
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-hero__feature img {
+    object-position: 24% 56%;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-reading-grid--full {
+    inline-size: min(100% - 2rem, 70rem);
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-conversion,
+  .sf-journal-article .sja-article--botox-londrina .sja-conversion > div,
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-form,
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-price-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-conversion h2,
+  .sf-journal-article .sja-article--botox-londrina .sja-share {
+    text-align: center;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-conversion {
+    justify-items: center;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-form {
+    padding: clamp(1.5rem, 7vw, 2.25rem);
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-form h2 {
+    max-inline-size: 13em;
+    font-size: clamp(2.25rem, 10vw, 3.35rem);
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-form__mark {
+    display: none;
+  }
+
+  .sf-journal-article .sja-article--botox-londrina .sja-botox-price-bar {
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 74.999rem) {
+  .sf-journal-article .sja-article--botox-londrina .sja-hero__feature img {
+    object-position: 24% 58%;
+  }
+}

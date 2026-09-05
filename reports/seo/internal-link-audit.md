@@ -2,8 +2,8 @@
 
 Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-internal-links.py` after changes.
 
-- Canonical indexable pages: 190
-- Crawlable internal links: 1225
+- Canonical indexable pages: 192
+- Crawlable internal links: 1251
 - Broken internal links: 1
 - Orphan pages: 15
 - Underlinked pages (<2 internal links): 130
@@ -23,6 +23,7 @@ Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-i
 - `https://francielesofiati.com/blog/acne-ativa-prioridade-antes-da-textura` (1 incoming links; depth None)
 - `https://francielesofiati.com/blog/afinamento-capilar-e-fotografias` (1 incoming links; depth None)
 - `https://francielesofiati.com/blog/barreira-cutanea-sinais-de-sobrecarga` (1 incoming links; depth None)
+- `https://francielesofiati.com/blog/botox-londrina-guia-completo` (1 incoming links; depth None)
 - `https://francielesofiati.com/blog/cicatrizes-de-acne-textura-e-plano` (1 incoming links; depth None)
 - `https://francielesofiati.com/blog/consulta-estetica-como-se-preparar` (1 incoming links; depth None)
 - `https://francielesofiati.com/blog/couros-cabeludo-e-queda-sinais-de-alerta` (1 incoming links; depth None)
@@ -78,7 +79,6 @@ Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-i
 - `https://francielesofiati.com/blog/toxina-botulinica-primeira-consulta` (1 incoming links; depth None)
 - `https://francielesofiati.com/blog/ultraformer-mpt-e-objetivos` (1 incoming links; depth None)
 - `https://francielesofiati.com/blog/vermelhidao-persistente-quando-investigar` (1 incoming links; depth None)
-- `https://francielesofiati.com/cookies` (1 incoming links; depth None)
 - `https://francielesofiati.com/depoimentos` (1 incoming links; depth 1)
 - `https://francielesofiati.com/en/blog/a-considered-guide-to-aesthetic-care` (0 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/a-considered-guide-to-facial-planning` (0 incoming links; depth None)
@@ -98,6 +98,7 @@ Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-i
 - `https://francielesofiati.com/en/blog/before-and-after-photographs-curiosity-without-turning-an-image-into-a-promise` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/biological-time-and-expectations-aesthetic-care-is-not-express-delivery` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/blackheads-and-extraction-when-persistence-at-home-can-harm-the-skin` (1 incoming links; depth None)
+- `https://francielesofiati.com/en/blog/botox-in-londrina-complete-guide` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/botulinum-toxin-and-asymmetry-observation-is-not-a-promise-of-perfection` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/co2-laser-and-important-events-planning-without-someone-elses-calendar` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/daily-cleansing-removing-what-is-needed-preserving-what-matters` (1 incoming links; depth None)
@@ -139,7 +140,6 @@ Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-i
 - `https://francielesofiati.com/en/blog/useful-questions-to-ask-before-an-aesthetic-procedure` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/visible-small-vessels-appearance-symptoms-and-assessment-are-not-the-same` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/when-an-overworked-skin-barrier-needs-a-pause` (1 incoming links; depth None)
-- `https://francielesofiati.com/en/cookies` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/form` (0 incoming links; depth None)
 - `https://francielesofiati.com/en/mission` (0 incoming links; depth None)
 - `https://francielesofiati.com/en/testimonials` (1 incoming links; depth None)
