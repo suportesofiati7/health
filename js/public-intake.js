@@ -189,7 +189,7 @@
     if (text) form.querySelector(`[data-form-state="${name}"]`)?.querySelector("span")?.replaceChildren(document.createTextNode(text));
   };
   function renderTurnstile() {
-    const sitekey = window.SOFIATI_PUBLIC?.turnstileSiteKey;
+    const sitekey = window.SOFIATI_PUBLIC?.turnstileSiteKey || "0x4AAAAAAE0b8mFSgQqazkH8";
     if (!sitekey) return;
     const holder = document.createElement("div");
     holder.id = "intake-turnstile";
