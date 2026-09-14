@@ -8,7 +8,7 @@ so real patient data must wait.
 ## Required Origins
 
 - Public site: `https://francielesofiati.com`
-- Private app: `https://profissional.francielesofiati.com`
+- Private app: `https://app.francielesofiati.com`
 - Supabase project ref: `naypgbhwnlbyqqqfftgn`
 - Organization id: `a783bd4c-f253-4a94-9365-75c6f1000001`
 
@@ -43,7 +43,7 @@ manager, or the Supabase dashboard.
 Required local variables for the configuration scripts:
 
 ```bash
-export MANAGEMENT_ORIGIN=https://profissional.francielesofiati.com
+export MANAGEMENT_ORIGIN=https://app.francielesofiati.com
 export PUBLIC_ORIGIN=https://francielesofiati.com
 export SUPABASE_ACCESS_TOKEN=...
 export SUPABASE_SERVICE_ROLE_KEY=...
@@ -74,7 +74,7 @@ Set function secrets in Supabase before deployment:
 
 ```bash
 npx supabase secrets set \
-  MANAGEMENT_ORIGIN=https://profissional.francielesofiati.com \
+  MANAGEMENT_ORIGIN=https://app.francielesofiati.com \
   PUBLIC_ORIGIN=https://francielesofiati.com \
   TURNSTILE_SECRET_KEY=... \
   RATE_LIMIT_SALT=... \

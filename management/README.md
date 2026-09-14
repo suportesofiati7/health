@@ -39,7 +39,7 @@ the dev server.
 - Public homepage links point to `management/pre-cadastro.html` and
   `management/access.html`.
 - The private app should deploy from `management/dist` to a separate Cloudflare
-  Pages project, normally `https://profissional.francielesofiati.com`.
+  Pages project, normally `https://app.francielesofiati.com`.
 - Supabase stores Auth users, memberships, clinical data, audit events, private
   files, and rate limits.
 - Supabase Edge Functions handle public intake, staff links, file validation,

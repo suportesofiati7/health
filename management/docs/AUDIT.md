@@ -128,7 +128,7 @@ private schema to `authenticated` and `service_role` and grants execute only on
 
 Remote status from this terminal:
 
-- `MANAGEMENT_ORIGIN=https://profissional.francielesofiati.com npm --prefix management run configure`
+- `MANAGEMENT_ORIGIN=https://app.francielesofiati.com npm --prefix management run configure`
   failed because no Supabase administrative authentication is available locally.
 - The publishable Auth settings endpoint responded HTTP 200 and still reports
   `disable_signup: false`.

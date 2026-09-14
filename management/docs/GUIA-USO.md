@@ -7,7 +7,7 @@ computador sem supervisão.
 
 ## 1. Primeiro acesso
 
-1. Abra `https://profissional.francielesofiati.com`.
+1. Abra `https://app.francielesofiati.com`.
 2. Digite seu email e senha. No primeiro convite, abra o link recebido e crie
    uma senha forte.
 3. Se esquecer a senha, peça ao proprietário para gerar um link de recuperação.
