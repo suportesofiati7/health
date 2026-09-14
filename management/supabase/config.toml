@@ -31,6 +31,9 @@ file_size_limit = "8MiB"
 [functions.intake]
 verify_jwt = false
 
+[functions.formulario]
+verify_jwt = false
+
 [functions.staff]
 verify_jwt = false
 

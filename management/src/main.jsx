@@ -233,6 +233,22 @@ function App() {
     </Language.Provider>
   );
 }
+function PublicIntakeRoute({ languageControl }) {
+  return (
+    <div className="public-intake-route">
+      <header className="public-intake-route-head">
+        <img src={LOGO} alt="Franciele Sofiati" />
+        <span>Formulário público</span>
+        {languageControl}
+      </header>
+      <main>
+        <h1>Formulário de cadastro e consentimentos</h1>
+        <p>O formulário oficial está no site Franciele Sofiati. Esta rota é pública e não abre nenhuma área da clínica.</p>
+        <a className="button primary" href="https://francielesofiati.com/formulario">Abrir formulário</a>
+      </main>
+    </div>
+  );
+}
 function Clinic({ language, setLanguage }) {
   const t = useT();
   const [member, setMember] = useState(null),
@@ -396,7 +412,7 @@ function Clinic({ language, setLanguage }) {
     ["home", Home, t("Início", "Today")],
     ["agenda", CalendarDays, t("Agenda", "Schedule")],
     ["patients", Users, t("Pacientes", "Patients")],
-    ["enquiries", Inbox, t("Pré-cadastros", "Enquiries")],
+    ["enquiries", Inbox, t("Formulários", "Intake forms")],
     ["tasks", ClipboardList, t("Tarefas", "Tasks")],
     ["reports", BarChart3, t("Relatórios", "Reports")],
     ["settings", Settings, t("Configurações", "Settings")],
@@ -410,20 +426,8 @@ function Clinic({ language, setLanguage }) {
     clinical,
     writable,
   };
-  if (
-    location.pathname === "/pre-cadastro" ||
-    location.pathname === "/pre-cadastro.html"
-  )
-    return (
-      <>
-        <PreRegistration languageControl={languageControl} />
-        {toast && (
-          <div className="toast" role="status">
-            {toast}
-          </div>
-        )}
-      </>
-    );
+  if (["/formulario", "/formulario.html", "/management/formulario", "/pre-cadastro", "/pre-cadastro.html"].includes(location.pathname))
+    return <PublicIntakeRoute languageControl={languageControl} />;
   return (
     <>
       {checking ? (
@@ -790,7 +794,7 @@ function HomeView({
           .order("created_at", { ascending: false })
           .limit(5),
       ),
-      checked(db.from("enquiries").select("id,full_name,status,created_at").in("status", ["novo", "em_analise"]).order("created_at", { ascending: false }).limit(10)),
+      checked(db.from("public_intakes").select("id,full_name,status,created_at").in("status", ["novo", "em_analise"]).order("created_at", { ascending: false }).limit(10)),
       checked(db.from("follow_ups").select("id,patient_id,expected_on,status,patients(full_name)").in("status", ["aguardando_agendamento", "vencido"]).limit(10)).catch(() => []),
       clinical ? checked(db.from("adverse_events").select("id,patient_id,description,status,patients(full_name)").eq("status", "em_acompanhamento").limit(10)).catch(() => []) : [],
     ]);
@@ -3075,12 +3079,13 @@ function Enquiries({ openPatient, version, writable, notify }) {
     [selected, setSelected] = useState(null),
     [notes, setNotes] = useState(""),
     [duplicates, setDuplicates] = useState([]),
+    [files, setFiles] = useState([]),
     [busy, setBusy] = useState(false);
   const state = useLoad(
     () =>
       checked(
         db
-          .from("enquiries")
+          .from("public_intakes")
           .select("*")
           .order("created_at", { ascending: false })
           .range(page * 20, page * 20 + 19),
@@ -3091,7 +3096,11 @@ function Enquiries({ openPatient, version, writable, notify }) {
     setSelected(row);
     setNotes(row.internal_notes);
     setDuplicates([]);
+    setFiles([]);
+    checked(db.from("public_intake_files").select("id,kind,path").eq("intake_id", row.id))
+      .then(setFiles).catch(() => setFiles([]));
     const terms = [
+      row.cpf && `cpf.eq.${digits(row.cpf)}`,
       row.phone && `phone.eq.${digits(row.phone)}`,
       row.email && `email.eq.${safeSearch(row.email)}`,
       row.full_name && `full_name.ilike.${safeSearch(row.full_name)}`,
@@ -3124,12 +3133,12 @@ function Enquiries({ openPatient, version, writable, notify }) {
     try {
       await checked(
         db
-          .from("enquiries")
+          .from("public_intakes")
           .update({ internal_notes: notes })
           .eq("id", selected.id),
       );
       const id = await checked(
-        db.rpc("convert_enquiry", {
+        db.rpc("convert_public_intake", {
           enquiry: selected.id,
           existing_patient: existing || null,
         }),
@@ -3148,12 +3157,12 @@ function Enquiries({ openPatient, version, writable, notify }) {
   return (
     <>
       <PageHead
-        title={t("Pré-cadastros", "New enquiries")}
+        title={t("Formulários", "Intake forms")}
         eyebrow={t("Primeiro contato", "First contact")}
       >
         <a
           className="button"
-          href="/pre-cadastro"
+          href="/formulario"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -3184,7 +3193,7 @@ function Enquiries({ openPatient, version, writable, notify }) {
             ))}
             {!rows.length && (
               <Empty icon={Inbox}>
-                {t("Nenhum pré-cadastro recebido", "No enquiries received")}
+                {t("Nenhum formulário recebido", "No intake forms received")}
               </Empty>
             )}
             <Pager page={page} count={rows.length} setPage={setPage} />
@@ -3193,7 +3202,7 @@ function Enquiries({ openPatient, version, writable, notify }) {
       </LoadState>
       {selected && (
         <Dialog
-          title={t("Revisar pré-cadastro", "Review enquiry")}
+          title={t("Revisar formulário", "Review intake form")}
           close={() => setSelected(null)}
         >
           <h3>{selected.full_name || t("Novo contato", "New contact")}</h3>
@@ -3215,6 +3224,24 @@ function Enquiries({ openPatient, version, writable, notify }) {
             {t("Autorização de contato", "Contact permission")}:{" "}
             {date(selected.consent_at, true)}
           </p>
+          {files.length > 0 && (
+            <div className="notice">
+              <strong>{t("Arquivos privados", "Private files")}</strong>
+              {files.map((file) => (
+                <p key={file.id}>
+                  <Button
+                    icon={Eye}
+                    onClick={async () => {
+                      const { data } = await db.storage.from("intake-private").createSignedUrl(file.path, 300);
+                      if (data?.signedUrl) window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+                    }}
+                  >
+                    {file.kind === "identity" ? t("Documento de identidade", "Identity document") : t("Comprovante de pagamento", "Payment proof")}
+                  </Button>
+                </p>
+              ))}
+            </div>
+          )}
           <Field
             title={t("Anotações internas", "Internal notes")}
             type="textarea"
@@ -3256,7 +3283,7 @@ function Enquiries({ openPatient, version, writable, notify }) {
                   try {
                     await checked(
                       db
-                        .from("enquiries")
+                        .from("public_intakes")
                         .update({
                           internal_notes: notes,
                           ...(selected.status === "novo"

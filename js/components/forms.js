@@ -465,6 +465,7 @@ function populateMetadata(form) {
 
 export function initForms() {
   qsa('form.sf-form, form[data-enhanced-form], form[data-consultation-form]').forEach((form, formIndex) => {
+    if (form.dataset.publicIntake === 'true') return;
     if (form.dataset.sfFormReady === 'true') return;
     form.dataset.sfFormReady = 'true';
     form.setAttribute('data-enhanced-form', '');
