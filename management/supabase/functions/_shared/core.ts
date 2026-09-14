@@ -20,7 +20,7 @@ export function headers(req: Request) {
     Vary: "Origin",
     "Access-Control-Allow-Origin": allowed.includes(origin) ? origin : "null",
     "Access-Control-Allow-Headers":
-      "authorization, apikey, content-type, x-client-info",
+      "authorization, apikey, content-type, x-client-info, x-portal-token",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "X-Content-Type-Options": "nosniff",
   };

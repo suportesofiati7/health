@@ -70,4 +70,4 @@
 </form></main><template data-sf-partial="footer"></template><template data-sf-partial="cookie-banner"></template><template data-sf-partial="floating-widgets"></template><script defer="" src="js/analytics-config.js"></script>
 <script defer="" src="js/consent-manager.js"></script>
 <script defer="" src="js/analytics.js"></script>
-<script>window.SOFIATI_PUBLIC=Object.freeze({turnstileSiteKey:"0x4AAAAAAE0b8mFSgQqazkH8"});</script><script src="js/main.js" type="module"></script><script defer src="js/public-intake.js"></script></body></html>
+<script>window.SOFIATI_PUBLIC=Object.freeze({turnstileSiteKey:""});</script><script src="js/main.js" type="module"></script><script defer src="js/public-intake.js"></script></body></html>

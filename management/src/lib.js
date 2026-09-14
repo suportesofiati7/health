@@ -119,6 +119,21 @@ export async function invoke(name, body) {
   if (error || data?.error) throw { code: data?.error || "request_failed" };
   return data;
 }
+export async function portalRequest(body, token = "") {
+  const response = await fetch(`${config.url}/functions/v1/portal`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: config.key,
+      ...(token ? { "x-portal-token": token } : {}),
+    },
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || data?.error) throw { code: data?.error || "request_failed" };
+  return data;
+}
 export async function allRows(table, patient) {
   const rows = [];
   let offset = 0;

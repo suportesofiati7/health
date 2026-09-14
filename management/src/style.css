@@ -974,6 +974,7 @@ main#main {
 }
 .segmented {
   display: inline-flex;
+  flex-wrap: wrap;
   padding: 3px;
   background: var(--sage);
   border: 1px solid var(--border);
@@ -1526,6 +1527,7 @@ details .form-grid {
   .toolbar .segmented {
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
   }
   .search {
     width: 100%;

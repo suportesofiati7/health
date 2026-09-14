@@ -40,7 +40,9 @@ Deno.serve(
       if (uploadError) throw Error("photo_upload");
       const { data: photo, error: photoError } = await db.from("clinical_photos").insert({
         organization_id: ORG, patient_id: patient, path, category, area: String(form.get("area") || "").slice(0, 200),
-        description: String(form.get("description") || "").slice(0, 1000), mime_type: type, size_bytes: file.size, created_by: user.id,
+        description: String(form.get("description") || "").slice(0, 1000), note: String(form.get("note") || "").slice(0, 1000),
+        clinical_procedure_id: String(form.get("clinical_procedure_id") || "") || null,
+        mime_type: type, size_bytes: file.size, created_by: user.id,
       }).select("*").single();
       if (photoError) {
         await db.storage.from("clinical-photos").remove([path]);

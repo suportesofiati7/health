@@ -33,6 +33,27 @@ Deno.serve(
     const { db, user } = await identity(req, ["proprietario"]);
     await limit(db, "staff:" + user.id, 20, 3600);
     const origin = Deno.env.get("MANAGEMENT_ORIGIN")!;
+    if (b.action === "portal_credentials") {
+      const patientId = clean(b.patient_id, 80);
+      const { data: patient } = await db.from("patients").select("id,cpf").eq("organization_id", ORG).eq("id", patientId).single();
+      const cpf = String(patient?.cpf || "").replace(/\D/g, "");
+      if (!patient || cpf.length !== 11) throw Error("patient_cpf");
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const temporaryPassword = `Fsofiati-${random(9)}`;
+      const hash = await passwordHash(temporaryPassword, salt);
+      const cpfHash = await sha256(new TextEncoder().encode(`${Deno.env.get("RATE_LIMIT_SALT") || "portal"}:${cpf}`));
+      const { error } = await db.from("patient_portal_accounts").upsert({ organization_id: ORG, patient_id: patient.id, cpf_hash: cpfHash, password_salt: b64(salt), password_hash: b64(hash), status: "ativo", must_change_password: true, failed_attempts: 0, locked_until: null, created_by: user.id, updated_at: new Date().toISOString() }, { onConflict: "organization_id,patient_id" });
+      if (error) throw Error("portal_account");
+      await db.from("audit_events").insert({ organization_id: ORG, actor_id: user.id, action: "portal_credenciais_geradas", entity_type: "patients", entity_id: patient.id });
+      return reply(req, { patient_id: patient.id, temporary_password: temporaryPassword });
+    }
+    if (b.action === "portal_revoke") {
+      const patientId = clean(b.patient_id, 80);
+      const { error } = await db.from("patient_portal_accounts").update({ status: "revogado", updated_at: new Date().toISOString() }).eq("organization_id", ORG).eq("patient_id", patientId);
+      if (error) throw Error("portal_revoke");
+      await db.from("patient_portal_sessions").update({ revoked_at: new Date().toISOString() }).eq("organization_id", ORG).in("account_id", (await db.from("patient_portal_accounts").select("id").eq("organization_id", ORG).eq("patient_id", patientId)).data?.map((row) => row.id) || []);
+      return reply(req, { revoked: true });
+    }
     if (b.action === "convite") {
       const email = clean(b.email, 254).toLowerCase();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw Error("email");
@@ -133,4 +154,11 @@ Deno.serve(
 
 function activationLink(origin: string, hash: string, type: string) {
   return `${origin}/#token_hash=${encodeURIComponent(hash)}&type=${type}`;
+}
+
+function random(size = 9) { const bytes = crypto.getRandomValues(new Uint8Array(size)); return btoa(String.fromCharCode(...bytes)).replace(/[^A-Za-z0-9]/g, "").slice(0, size); }
+const b64 = (bytes: Uint8Array) => btoa(String.fromCharCode(...bytes));
+async function passwordHash(password: string, salt: Uint8Array) {
+  const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
+  return new Uint8Array(await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: 240000, hash: "SHA-256" }, material, 256));
 }

@@ -55,7 +55,7 @@ try{
     assert(posts.some(p=>p.table==='entries'&&p.body.content==='NOTA FICTÍCIA de teste'));
     await navigation(page,'Agenda');await page.getByRole('heading',{name:'Agenda',exact:true}).waitFor();await noOverflow(page);
     await navigation(page,'Tarefas');await page.getByRole('heading',{name:'Tarefas e retornos'}).waitFor();await noOverflow(page);
-    await navigation(page,'Pré-cadastros');await page.getByRole('heading',{name:'Pré-cadastros',exact:true}).waitFor();await noOverflow(page);
+    await navigation(page,'Formulários');await page.getByRole('heading',{name:'Formulários',exact:true}).waitFor();await noOverflow(page);
     await navigation(page,'Relatórios');await page.getByRole('heading',{name:'Relatórios',exact:true}).waitFor();await noOverflow(page);
     await navigation(page,'Configurações');await page.getByRole('button',{name:'Usuários',exact:true}).click();await page.getByRole('heading',{name:'Equipe autorizada'}).waitFor();await noOverflow(page);
     await page.getByRole('button',{name:'Sair',exact:true}).click();await page.getByRole('heading',{name:'Bem-vinda de volta'}).waitFor();
