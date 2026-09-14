@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env*
+!.env.example
+supabase/.temp/
+supabase/.branches/
+test-results/
+backups/
+*.dump
+*.encrypted.json
