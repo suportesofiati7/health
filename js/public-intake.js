@@ -56,6 +56,18 @@
   const allProcedureInputs = [...form.querySelectorAll('input[name="selected_procedures"]')];
   procedureDetails = [...form.querySelectorAll("details[data-consent-term-for]")];
 
+  // The public intake accepts supporting documents in any file format. They
+  // are sent only to the private intake bucket; the server still enforces the
+  // per-file, total-size and file-count limits.
+  form.querySelectorAll('input[type="file"]').forEach((input) => input.removeAttribute("accept"));
+  const marketingCard = cards.find((card) => card.querySelector("h2")?.textContent.includes("Registro fotográfico"));
+  if (marketingCard && !form.elements.marketing_authorization_files) {
+    const uploads = document.createElement("div");
+    uploads.className = "sf-consent-grid sf-public-upload-grid";
+    uploads.innerHTML = '<div class="sf-consent-field"><label for="marketing_authorization_files">Arquivo da autorização de uso de imagem</label><input class="sf-consent-file-input" data-analytics-ignore="" data-analytics-sensitive="" id="marketing_authorization_files" name="marketing_authorization_files" multiple type="file"><div class="sf-file-control"><label class="sf-file-button" for="marketing_authorization_files">Selecionar arquivos</label><span class="sf-file-status">Nenhum arquivo selecionado</span></div><p>Opcional. Aceitamos qualquer tipo de arquivo, até 10 MB por arquivo.</p></div><div class="sf-consent-field"><label for="supporting_attachments">Documentos ou informações adicionais</label><input class="sf-consent-file-input" data-analytics-ignore="" data-analytics-sensitive="" id="supporting_attachments" name="supporting_attachments" multiple type="file"><div class="sf-file-control"><label class="sf-file-button" for="supporting_attachments">Selecionar arquivos</label><span class="sf-file-status">Nenhum arquivo selecionado</span></div><p>Opcional. Aceitamos documentos, imagens e outros formatos, até 10 MB por arquivo.</p></div>';
+    marketingCard.append(uploads);
+  }
+
   const addressField = form.querySelector("#address")?.closest(".sf-consent-field");
   if (addressField && !form.elements.postal_code) {
     const wrapper = document.createElement("div");
@@ -127,13 +139,16 @@
   };
   restoreDraft();
 
+  function selectedProcedures() {
+    return allProcedureInputs.filter((input) => input.checked).map((input) => input.value);
+  }
   function selectedProcedure() {
-    return allProcedureInputs.find((input) => input.checked)?.value || "";
+    return selectedProcedures().join(", ");
   }
   function syncProcedure() {
-    const selected = selectedProcedure();
+    const selected = new Set(selectedProcedures());
     procedureDetails.forEach((detail) => {
-      const active = detail.dataset.consentTermFor === selected;
+      const active = selected.has(detail.dataset.consentTermFor);
       detail.hidden = !active;
       detail.open = active;
       const acceptance = detail.querySelector('input[name^="accepted_term_"]');
@@ -143,10 +158,7 @@
         if (!active) acceptance.checked = false;
       }
     });
-    allProcedureInputs.forEach((input) => {
-      input.type = "radio";
-      input.required = false;
-    });
+    allProcedureInputs.forEach((input) => { input.type = "checkbox"; input.required = false; });
   }
   allProcedureInputs.forEach((input) => input.addEventListener("change", () => { syncProcedure(); saveDraft(); }));
   syncProcedure();
@@ -196,6 +208,13 @@
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (submitting || !form.checkValidity()) { form.reportValidity(); return; }
+    if (!selectedProcedures().length) {
+      const firstProcedure = allProcedureInputs[0];
+      firstProcedure?.setCustomValidity("Selecione pelo menos um procedimento.");
+      firstProcedure?.reportValidity();
+      firstProcedure?.setCustomValidity("");
+      return;
+    }
     if (!form.dataset.turnstile) { state("error"); return; }
     submitting = true;
     submitButton.disabled = true;
@@ -203,16 +222,29 @@
     const values = {};
     for (const [key, value] of new FormData(form).entries()) {
       if (value instanceof File) continue;
-      if (key === "selected_procedures" || key.startsWith("accepted_term_")) values[key] = value;
-      else values[key] = value;
+      if (key === "selected_procedures" || key.startsWith("accepted_term_")) {
+        if (key === "selected_procedures") values[key] = values[key] ? [].concat(values[key], value) : [value];
+        else values[key] = value;
+      } else values[key] = value;
     }
     values.selected_procedure = selectedProcedure();
+    values.selected_procedures = selectedProcedures();
     values.form_version = form.dataset.formVersion;
     values.language = document.documentElement.lang || "pt-BR";
     const body = new FormData();
     body.set("token", form.dataset.turnstile);
     body.set("payload", JSON.stringify(values));
-    ["identity_upload", "booking_payment_receipt"].forEach((name) => { const file = form.elements[name]?.files?.[0]; if (file) body.set(name, file); });
+    const files = [...form.querySelectorAll('input[type="file"]')].flatMap((input) => [...input.files].map((file) => ({ input, file })));
+    if (files.length > 10 || files.some(({ file }) => file.size < 1 || file.size > 10 * 1024 * 1024) || files.reduce((sum, { file }) => sum + file.size, 0) > 50 * 1024 * 1024) {
+      state("error", "Cada arquivo pode ter até 10 MB e o envio pode conter até 10 arquivos (50 MB no total).");
+      submitting = false;
+      submitButton.disabled = false;
+      return;
+    }
+    files.forEach(({ input, file }) => {
+      body.append("attachments", file, file.name);
+      body.append("attachment_field", input.name);
+    });
     try {
       const response = await fetch(endpoint, { method: "POST", body, credentials: "omit", cache: "no-store" });
       if (!response.ok) throw Error("submit");

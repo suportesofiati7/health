@@ -1,10 +1,14 @@
 import { admin, ORG, endpoint, reply, clean, sha256, limit } from "../_shared/core.ts";
 
 const MAX_FILE = 10 * 1024 * 1024;
-const allowedTypes = new Set(["application/pdf", "image/jpeg", "image/png", "image/webp"]);
+const MAX_FILES = 10;
+const MAX_TOTAL_FILE_SIZE = 50 * 1024 * 1024;
 
-function ext(type: string) {
-  return type === "application/pdf" ? "pdf" : type === "image/png" ? "png" : type === "image/webp" ? "webp" : "jpg";
+function ext(name: string, type: string) {
+  const original = name.toLowerCase().match(/\.([a-z0-9]{1,12})$/)?.[1];
+  if (original) return original;
+  const mime = type.split("/").pop()?.replace(/[^a-z0-9]/g, "");
+  return mime?.slice(0, 12) || "bin";
 }
 
 Deno.serve(endpoint(async (req) => {
@@ -23,12 +27,19 @@ Deno.serve(endpoint(async (req) => {
 
   const ip = (req.headers.get("x-forwarded-for") || "nao_confirmado").split(",")[0].trim();
   await limit(admin(), "formulario:ip:" + await sha256(new TextEncoder().encode(salt + ip)), 3, 3600);
-  const identity = form.get("identity_upload");
-  const payment = form.get("booking_payment_receipt");
-  const files = [identity, payment].filter((file): file is File => file instanceof File && file.size > 0);
-  for (const file of files) {
-    if (!allowedTypes.has(file.type) || file.size < 1 || file.size > MAX_FILE) throw Error("file");
+  const attachmentFields = form.getAll("attachment_field").map((field) => clean(field, 80));
+  const attachments = form.getAll("attachments").filter((file): file is File => file instanceof File && file.size > 0);
+  // Accept one older browser bundle during rollout without weakening limits.
+  for (const name of ["identity_upload", "booking_payment_receipt"] as const) {
+    const legacy = form.get(name);
+    if (legacy instanceof File && legacy.size > 0 && !attachments.includes(legacy)) {
+      attachments.push(legacy);
+      attachmentFields.push(name);
+    }
   }
+  if (attachments.length > MAX_FILES || attachments.reduce((sum, file) => sum + file.size, 0) > MAX_TOTAL_FILE_SIZE) throw Error("file");
+  for (const file of attachments) if (file.size > MAX_FILE) throw Error("file");
+  if (attachmentFields.length !== attachments.length) throw Error("file");
   const rawPayload = clean(form.get("payload"), 500000);
   const payload = JSON.parse(rawPayload);
   const required = ["cpf", "form_version"];
@@ -46,19 +57,45 @@ Deno.serve(endpoint(async (req) => {
   if (error || !intake) throw Error("save");
   const uploaded: string[] = [];
   try {
-    for (const [kind, file] of [["identity", identity], ["payment", payment]] as const) {
-      if (!(file instanceof File) || file.size === 0) continue;
-      const path = `${ORG}/${intake.id}/${crypto.randomUUID()}.${ext(file.type)}`;
-      const result = await db.storage.from("intake-private").upload(path, file, { contentType: file.type, upsert: false });
+    for (const [index, file] of attachments.entries()) {
+      const field = attachmentFields[index] || "attachment";
+      const kind = field === "identity_upload" ? "identity" : field === "booking_payment_receipt" ? "payment" : field === "marketing_authorization_files" ? "marketing_authorization" : "attachment";
+      const path = `${ORG}/${intake.id}/${crypto.randomUUID()}.${ext(file.name, file.type)}`;
+      const result = await db.storage.from("intake-private").upload(path, file, { contentType: file.type || "application/octet-stream", upsert: false });
       if (result.error) throw Error("upload");
       uploaded.push(path);
-      const saved = await db.from("public_intake_files").insert({ organization_id: ORG, intake_id: intake.id, kind, path, mime_type: file.type, size_bytes: file.size });
+      const saved = await db.from("public_intake_files").insert({ organization_id: ORG, intake_id: intake.id, kind, path, mime_type: file.type || "application/octet-stream", size_bytes: file.size, original_name: clean(file.name, 255), field_name: field });
       if (saved.error) throw Error("file_record");
     }
   } catch (error) {
     await Promise.all(uploaded.map((path) => db.storage.from("intake-private").remove([path])));
     await db.from("public_intakes").delete().eq("id", intake.id);
     throw error;
+  }
+  // Email is only a notification. Supabase remains authoritative and the
+  // intake is never discarded when the free mail relay is unavailable.
+  try {
+    const notification = Deno.env.get("INTAKE_NOTIFICATION_EMAIL") || "suportesofiati@gmail.com";
+    const message = new FormData();
+    message.set("_subject", "Novo formulário recebido - Franciele Sofiati");
+    message.set("message", [
+      "Novo pré-cadastro recebido no sistema.",
+      `Nome: ${clean(payload.full_name, 200) || "Não informado"}`,
+      `Email: ${clean(payload.email, 254) || "Não informado"}`,
+      `Telefone: ${clean(payload.phone, 30) || "Não informado"}`,
+      `Procedimentos: ${clean(payload.selected_procedure, 120) || "Não informado"}`,
+      `Arquivos anexados: ${attachments.length}`,
+      `ID interno: ${intake.id}`,
+      "Abra o aplicativo de gestão para revisar os dados completos com autenticação.",
+    ].join("\n"));
+    await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(notification)}`, {
+      method: "POST",
+      body: message,
+      signal: AbortSignal.timeout(10000),
+    });
+  } catch {
+    // Notification failure must not turn a successfully stored intake into a
+    // duplicate when the visitor retries the form.
   }
   return reply(req, { received: true }, 202);
 }));
