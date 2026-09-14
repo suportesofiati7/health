@@ -37,12 +37,12 @@ Deno.serve(
       mime: type,
       bytes: file.size,
       digest,
-      category_name: String(form.get("category") || "document").slice(0, 50),
+      category_name: String(form.get("category") || "documento").slice(0, 50),
       actor: user.id,
     });
     if (error || !doc) throw Error("reserve");
-    if (doc.status === "ready") return reply(req, { document: doc });
-    if (doc.status === "failed") throw Error("previous_upload_failed");
+    if (doc.status === "pronto") return reply(req, { document: doc });
+    if (doc.status === "falha") throw Error("previous_upload_failed");
     const { error: uploadError } = await db.storage
       .from("patient-files")
       .upload(doc.path, content, {
@@ -51,12 +51,12 @@ Deno.serve(
         cacheControl: "0",
       });
     if (uploadError) {
-      await db.from("documents").update({ status: "failed" }).eq("id", doc.id);
-      throw Error("upload");
+      await db.from("documents").update({ status: "falha" }).eq("id", doc.id);
+      throw Error("arquivo_enviado");
     }
     const { error: readyError } = await db
       .from("documents")
-      .update({ status: "ready" })
+      .update({ status: "pronto" })
       .eq("id", doc.id);
     if (readyError) throw Error("metadata");
     await db
@@ -64,11 +64,11 @@ Deno.serve(
       .insert({
         organization_id: ORG,
         actor_id: user.id,
-        action: "upload",
+        action: "arquivo_enviado",
         entity_type: "documents",
         entity_id: doc.id,
       });
-    return reply(req, { document: { ...doc, status: "ready" } });
+    return reply(req, { document: { ...doc, status: "pronto" } });
   }),
 );
 

@@ -50,7 +50,7 @@ Deno.serve(
     const db = admin();
     // Supabase's gateway supplies x-forwarded-for. Turnstile is the primary anti-bot
     // boundary; global/contact caps still apply if proxy IP attribution is unavailable.
-    const ip = (req.headers.get("x-forwarded-for") || "unknown")
+    const ip = (req.headers.get("x-forwarded-for") || "nao_confirmado")
       .split(",")[0]
       .trim();
     const hash = await sha256(new TextEncoder().encode(salt + ip));

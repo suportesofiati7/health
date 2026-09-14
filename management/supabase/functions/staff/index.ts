@@ -23,27 +23,27 @@ Deno.serve(
       if (error || !user?.email_confirmed_at) throw Error("auth");
       const { error: updateError } = await db
         .from("memberships")
-        .update({ status: "active", updated_at: new Date().toISOString() })
+        .update({ status: "ativo", updated_at: new Date().toISOString() })
         .eq("user_id", user.id)
         .eq("organization_id", ORG)
-        .eq("status", "invited");
+        .eq("status", "convidado");
       if (updateError) throw Error("activate");
       return reply(req, { activated: true });
     }
-    const { db, user } = await identity(req, ["owner"]);
+    const { db, user } = await identity(req, ["proprietario"]);
     await limit(db, "staff:" + user.id, 20, 3600);
     const origin = Deno.env.get("MANAGEMENT_ORIGIN")!;
-    if (b.action === "invite") {
+    if (b.action === "convite") {
       const email = clean(b.email, 254).toLowerCase();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw Error("email");
-      if (!["professional", "reception", "readonly"].includes(b.role))
+      if (!["profissional", "recepcao", "leitura"].includes(b.role))
         throw Error("role");
       const { data, error } = await db.auth.admin.generateLink({
         type: "invite",
         email,
         options: { redirectTo: origin },
       });
-      if (error || !data.user) throw Error("invite");
+      if (error || !data.user) throw Error("convite");
       const { error: insertError } = await db
         .from("memberships")
         .insert({
@@ -64,7 +64,7 @@ Deno.serve(
         .insert({
           organization_id: ORG,
           actor_id: user.id,
-          action: "invite",
+          action: "convite",
           entity_type: "memberships",
           entity_id: data.user.id,
         });
@@ -78,11 +78,11 @@ Deno.serve(
       .eq("organization_id", ORG)
       .eq("user_id", b.user_id)
       .single();
-    if (!member || member.role === "owner" || member.user_id === user.id)
+    if (!member || member.role === "proprietario" || member.user_id === user.id)
       throw Error("protected_owner");
     if (b.action === "recovery") {
-      if (!["active", "invited"].includes(member.status))
-        throw Error("inactive");
+      if (!["ativo", "convidado"].includes(member.status))
+        throw Error("inativo");
       const { data, error } = await db.auth.admin.generateLink({
         type: "recovery",
         email: member.email,
@@ -94,7 +94,7 @@ Deno.serve(
         .insert({
           organization_id: ORG,
           actor_id: user.id,
-          action: "recovery_link",
+          action: "link_recuperacao",
           entity_type: "memberships",
           entity_id: member.id,
         });
@@ -104,8 +104,8 @@ Deno.serve(
     }
     if (
       b.action !== "update" ||
-      !["active", "inactive", "suspended"].includes(b.status) ||
-      !["professional", "reception", "readonly"].includes(b.role)
+      !["ativo", "inativo", "suspenso"].includes(b.status) ||
+      !["profissional", "recepcao", "leitura"].includes(b.role)
     )
       throw Error("action");
     const { error } = await db
@@ -122,7 +122,7 @@ Deno.serve(
       .insert({
         organization_id: ORG,
         actor_id: user.id,
-        action: "access_changed",
+        action: "acesso_alterado",
         entity_type: "memberships",
         entity_id: member.id,
       });

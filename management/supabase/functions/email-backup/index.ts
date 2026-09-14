@@ -64,7 +64,7 @@ Deno.serve(
       new Blob([packet], { type: "application/json" }),
       "backup.encrypted.json",
     );
-    let status = "unknown";
+    let status = "nao_confirmado";
     try {
       const response = await fetch(
         "https://formsubmit.co/ajax/suportesofiati@gmail.com",
@@ -73,21 +73,21 @@ Deno.serve(
       const result = await response.json();
       status =
         response.ok && (result.success === true || result.success === "true")
-          ? "accepted"
-          : "failed";
+          ? "aceito"
+          : "falha";
     } catch {
-      status = "unknown";
+      status = "nao_confirmado";
     }
     const { error: historyError } = await db
       .from("communications")
       .update({ status })
       .eq("id", send.id);
     if (historyError)
-      return reply(req, { status: "unknown", id: send.id }, 502);
+      return reply(req, { status: "nao_confirmado", id: send.id }, 502);
     return reply(
       req,
       { status, id: send.id },
-      status === "accepted" ? 200 : 502,
+      status === "aceito" ? 200 : 502,
     );
   }),
 );

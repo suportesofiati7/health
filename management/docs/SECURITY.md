@@ -6,12 +6,12 @@ backups, and owner access are verified on the remote project.
 
 ## Access Model
 
-- `owner`: full clinical access, staff administration, audit log, storage usage,
+- `proprietario`: full clinical access, staff administration, audit log, storage usage,
   exports, and recovery tools.
-- `professional`: clinical patient records, documents, appointments, tasks, and
+- `profissional`: clinical patient records, documents, appointments, tasks, and
   exports.
-- `reception`: administrative patients, appointments, tasks, and enquiries only.
-- `readonly`: administrative read-only access only.
+- `recepcao`: administrative patients, appointments, tasks, and enquiries only.
+- `leitura`: administrative read-only access only.
 
 The browser never decides access by itself. Row-level security checks the current
 Supabase user, active membership, session id, expiry, and revoked sessions.

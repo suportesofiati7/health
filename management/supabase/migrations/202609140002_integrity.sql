@@ -11,11 +11,11 @@ alter table public.tasks add constraint task_title_size check(length(title)<=500
 create extension if not exists btree_gist with schema extensions;
 alter table public.appointments add constraint appointments_no_professional_overlap exclude using gist
 (organization_id with =,professional_id with =,tstzrange(starts_at,ends_at,'[)') with &&)
-where (professional_id is not null and status not in ('cancelled','rescheduled','no_show'));
+where (professional_id is not null and status not in ('cancelado','reagendado','faltou'));
 create function private.enquiry_guard() returns trigger language plpgsql set search_path='' as $$
 begin
-  if old.patient_id is not null and new.status<>'converted' then raise exception 'converted_enquiry_is_linked'; end if;
-  if new.status='converted' and new.patient_id is null then raise exception 'conversion_requires_patient'; end if;
+  if old.patient_id is not null and new.status<>'convertido' then raise exception 'converted_enquiry_is_linked'; end if;
+  if new.status='convertido' and new.patient_id is null then raise exception 'conversion_requires_patient'; end if;
   new.updated_at:=now();new.version:=old.version+1;
   return new;
 end $$;

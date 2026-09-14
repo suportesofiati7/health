@@ -72,7 +72,7 @@ export async function bounded(req: Request, max: number) {
 }
 export async function identity(
   req: Request,
-  roles = ["owner", "professional"],
+  roles = ["proprietario", "profissional"],
 ) {
   const token = req.headers.get("authorization")?.replace(/^Bearer /i, "");
   if (!token) throw Error("auth");

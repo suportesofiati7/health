@@ -184,7 +184,7 @@ function LoadState({ state, children }) {
     );
   if (state.error)
     return (
-      <div className="notice error" role="alert">
+      <div className="notice error" role="alerta">
         {t("Não foi possível carregar.", "Could not load.")}{" "}
         <Button icon={RefreshCw} onClick={state.refresh}>
           {t("Tentar novamente", "Retry")}
@@ -344,7 +344,7 @@ function Clinic({ language, setLanguage }) {
       if (
         error ||
         !data ||
-        data.status !== "active" ||
+        data.status !== "ativo" ||
         data.role !== member.role
       )
         await logout();
@@ -390,8 +390,8 @@ function Clinic({ language, setLanguage }) {
     setPatient(null);
     setMenu(false);
   };
-  const clinical = ["owner", "professional"].includes(member?.role),
-    writable = member?.role !== "readonly";
+  const clinical = ["proprietario", "profissional"].includes(member?.role),
+    writable = member?.role !== "leitura";
   const nav = [
     ["home", Home, t("Início", "Today")],
     ["agenda", CalendarDays, t("Agenda", "Schedule")],
@@ -572,7 +572,7 @@ function Clinic({ language, setLanguage }) {
           notify={notify}
         />
       )}
-      {member && modal?.type === "document" && (
+      {member && modal?.type === "documento" && (
         <DocumentForm
           {...modal}
           close={() => setModal(null)}
@@ -766,7 +766,7 @@ function HomeView({
         db
           .from("tasks")
           .select("*,patients(*)")
-          .eq("status", "pending")
+          .eq("status", "pendente")
           .lte("due_at", today + "T23:59:59-03:00")
           .order("due_at")
           .limit(15),
@@ -820,7 +820,7 @@ function HomeView({
                   <strong>
                     {
                       appointments.filter(
-                        (a) => !["cancelled", "rescheduled"].includes(a.status),
+                        (a) => !["cancelado", "reagendado"].includes(a.status),
                       ).length
                     }
                   </strong>
@@ -1153,7 +1153,7 @@ function PatientForm({ patient, close, done, notify }) {
         address: form.address || {},
         emergency_contact: form.emergency_contact || {},
         guardian: form.guardian || {},
-        status: form.status || "active",
+        status: form.status || "ativo",
       });
       await save("patients", values, patient);
       dirty.clean();
@@ -1266,7 +1266,7 @@ function PatientForm({ patient, close, done, notify }) {
         {patient && (
           <Field
             title={t("Situação", "Status")}
-            options={["active", "inactive"].map((s) => ({
+            options={["ativo", "inativo"].map((s) => ({
               value: s,
               label: label(s, t),
             }))}
@@ -1344,7 +1344,7 @@ function Patient({
               .from("documents")
               .select("*")
               .eq("patient_id", patient.id)
-              .eq("status", "ready")
+              .eq("status", "pronto")
               .order("created_at", { ascending: false })
               .range(page * 20, page * 20 + 19),
           )
@@ -1395,7 +1395,7 @@ function Patient({
         db.rpc("record_access", {
           org: ORG,
           entity: patient.id,
-          event: "patient_open",
+          event: "abertura_prontuario",
         }),
       );
     return {
@@ -1509,7 +1509,7 @@ function Patient({
                   <Button
                     icon={Plus}
                     className="primary"
-                    onClick={() => actions("consultation")}
+                    onClick={() => actions("atendimento")}
                   >
                     {t("Novo atendimento", "New consultation")}
                   </Button>
@@ -1538,11 +1538,11 @@ function Patient({
               <>
                 <div className="journey">
                   {[
-                    "assessment",
-                    "anamnesis",
-                    "plan",
-                    "consultation",
-                    "evolution",
+                    "avaliacao",
+                    "anamnese",
+                    "plano",
+                    "atendimento",
+                    "evolucao",
                   ].map((kind, i) => (
                     <button
                       key={kind}
@@ -1552,7 +1552,7 @@ function Patient({
                       <span>{String(i + 1).padStart(2, "0")}</span>
                       <strong>{label(kind, t)}</strong>
                       {entries.some(
-                        (e) => e.kind === kind && e.status === "final",
+                        (e) => e.kind === kind && e.status === "finalizado",
                       ) ? (
                         <Check size={16} />
                       ) : (
@@ -1569,7 +1569,7 @@ function Patient({
                         <Button
                           icon={Plus}
                           className="text-button"
-                          onClick={() => actions("note")}
+                          onClick={() => actions("anotacao")}
                         >
                           {t("Anotação", "Note")}
                         </Button>
@@ -1618,7 +1618,7 @@ function Patient({
                       <ShieldCheck size={18} />
                     </div>
                     {entries
-                      .filter((e) => e.kind === "alert")
+                      .filter((e) => e.kind === "alerta")
                       .map((e) => (
                         <div className="notice" key={e.id}>
                           <AlertCircle size={18} />
@@ -1626,7 +1626,7 @@ function Patient({
                         </div>
                       ))}
                     {clinical && (
-                      <Button icon={Plus} onClick={() => actions("alert")}>
+                      <Button icon={Plus} onClick={() => actions("alerta")}>
                         {t("Alerta clínico", "Clinical alert")}
                       </Button>
                     )}
@@ -1635,7 +1635,7 @@ function Patient({
                       .filter(
                         (a) =>
                           new Date(a.starts_at) > new Date() &&
-                          !["cancelled", "rescheduled"].includes(a.status),
+                          !["cancelado", "reagendado"].includes(a.status),
                       )
                       .slice(-1)
                       .map((a) => (
@@ -1645,7 +1645,7 @@ function Patient({
                       ))}
                     <h3>{t("Tarefas pendentes", "Pending tasks")}</h3>
                     {tasks
-                      .filter((task) => task.status === "pending")
+                      .filter((task) => task.status === "pendente")
                       .map((task) => (
                         <p key={task.id}>
                           {task.title}
@@ -1719,12 +1719,12 @@ function Patient({
                 <div className="toolbar wrap">
                   <div className="actions">
                     {[
-                      "assessment",
-                      "anamnesis",
-                      "plan",
-                      "evolution",
-                      "note",
-                      "consent",
+                      "avaliacao",
+                      "anamnese",
+                      "plano",
+                      "evolucao",
+                      "anotacao",
+                      "consentimento",
                     ].map((kind) => (
                       <Button
                         key={kind}
@@ -1782,7 +1782,7 @@ function Patient({
                     icon={Paperclip}
                     className="primary"
                     onClick={() =>
-                      setModal({ type: "document", patient, entries })
+                      setModal({ type: "documento", patient, entries })
                     }
                   >
                     {t("Anexar arquivo", "Attach file")}
@@ -1811,7 +1811,7 @@ function Patient({
                               db.rpc("record_access", {
                                 org: ORG,
                                 entity: doc.id,
-                                event: "document_download",
+                                event: "download_documento",
                               }),
                             );
                             const blob = await checked(
@@ -2053,12 +2053,12 @@ function Entry({ entry: e, author, member, onEdit, onAmend }) {
             {e.version}
           </small>
         </span>
-        {e.status === "draft" && e.created_by === member.user_id && (
+        {e.status === "rascunho" && e.created_by === member.user_id && (
           <Button icon={FileText} onClick={onEdit}>
             {t("Continuar", "Continue")}
           </Button>
         )}
-        {e.status === "final" && (
+        {e.status === "finalizado" && (
           <Button icon={Plus} className="text-button" onClick={onAmend}>
             {t("Adendo", "Amendment")}
           </Button>
@@ -2096,8 +2096,8 @@ const clinicalFields = {
 const fieldTitle = (key, t) =>
   clinicalFields[key] ? t(...clinicalFields[key]) : key;
 const templateFields = {
-  assessment: ["concern", "area", "skin", "expectations"],
-  anamnesis: [
+  avaliacao: ["concern", "area", "skin", "expectations"],
+  anamnese: [
     "allergies",
     "medications",
     "conditions",
@@ -2106,10 +2106,10 @@ const templateFields = {
     "habits",
     "measurements",
   ],
-  plan: ["plan", "sessions", "price", "recommendations", "followup"],
-  consultation: [
+  plano: ["plan", "sessions", "price", "recommendations", "followup"],
+  atendimento: [
     "concern",
-    "assessment",
+    "avaliacao",
     "procedure",
     "products",
     "technique",
@@ -2117,10 +2117,10 @@ const templateFields = {
     "recommendations",
     "followup",
   ],
-  evolution: ["response", "plan", "followup"],
-  consent: ["consent_scope", "consent_decision", "consent_version"],
-  note: [],
-  alert: [],
+  evolucao: ["response", "plan", "followup"],
+  consentimento: ["consent_scope", "consent_decision", "consent_version"],
+  anotacao: [],
+  alerta: [],
 };
 function EntryForm({
   patient,
@@ -2169,9 +2169,9 @@ function EntryForm({
         content: form.content || "",
         data: form.data || {},
         clinical_at: toISO(clinicalAt),
-        status: final ? "final" : "draft",
+        status: final ? "finalizado" : "rascunho",
         amends_id: amends?.id || saved?.amends_id || null,
-        pinned: kind === "alert",
+        pinned: kind === "alerta",
       };
       const result = await save("entries", values, saved);
       setSaved(result);
@@ -2206,7 +2206,7 @@ function EntryForm({
         <strong>
           {patient.full_name || t("Paciente sem nome", "Unnamed patient")}
         </strong>
-        <Status value={saved?.status || "draft"} />
+        <Status value={saved?.status || "rascunho"} />
       </div>
       <form
         onSubmit={(e) => {
@@ -2409,7 +2409,7 @@ function AppointmentRow({
             setModal({
               type: "entry",
               patient: a.patients,
-              kind: "consultation",
+              kind: "atendimento",
             })
           }
         />
@@ -2438,7 +2438,7 @@ function AppointmentForm({ appointment, patient, close, done, notify }) {
     [form, setForm] = useState(
       appointment || {
         patient_id: patient?.id || "",
-        status: "scheduled",
+        status: "agendado",
         label: "",
         professional_id: "",
       },
@@ -2461,8 +2461,8 @@ function AppointmentForm({ appointment, patient, close, done, notify }) {
         db
           .from("memberships")
           .select("user_id,name")
-          .in("role", ["owner", "professional"])
-          .eq("status", "active"),
+          .in("role", ["proprietario", "profissional"])
+          .eq("status", "ativo"),
       ),
     [],
   );
@@ -2560,14 +2560,14 @@ function AppointmentForm({ appointment, patient, close, done, notify }) {
             value={form.status}
             onChange={(v) => change("status", v)}
             options={[
-              "scheduled",
-              "confirmed",
-              "waiting",
-              "in_consultation",
-              "completed",
-              "cancelled",
-              "no_show",
-              "rescheduled",
+              "agendado",
+              "confirmado",
+              "aguardando",
+              "em_atendimento",
+              "concluido",
+              "cancelado",
+              "faltou",
+              "reagendado",
             ].map((s) => ({ value: s, label: label(s, t) }))}
           />
         </div>
@@ -2730,7 +2730,7 @@ function TaskForm({ task, patient, close, done, notify }) {
         patient_id: patient?.id || "",
         title: "",
         priority: "normal",
-        status: "pending",
+        status: "pendente",
         assigned_to: "",
       },
     ),
@@ -2741,7 +2741,7 @@ function TaskForm({ task, patient, close, done, notify }) {
   const staff = useLoad(
     () =>
       checked(
-        db.from("memberships").select("user_id,name").eq("status", "active"),
+        db.from("memberships").select("user_id,name").eq("status", "ativo"),
       ),
     [],
   );
@@ -2814,11 +2814,11 @@ function TaskForm({ task, patient, close, done, notify }) {
             ]}
           />
           {[
-            ["priority", t("Prioridade", "Priority"), ["normal", "high"]],
+            ["priority", t("Prioridade", "Priority"), ["normal", "alta"]],
             [
               "status",
               t("Situação", "Status"),
-              ["pending", "done", "cancelled"],
+              ["pendente", "concluida", "cancelado"],
             ],
           ].map(([k, title, options]) => (
             <Field
@@ -2841,7 +2841,7 @@ function TaskForm({ task, patient, close, done, notify }) {
 }
 function Tasks({ setModal, openPatient, version, writable, notify }) {
   const t = useT(),
-    [status, setStatus] = useState("pending"),
+    [status, setStatus] = useState("pendente"),
     [page, setPage] = useState(0);
   const state = useLoad(
     () =>
@@ -2870,7 +2870,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
       </PageHead>
       <div className="toolbar">
         <div className="segmented">
-          {["pending", "done", "cancelled"].map((s) => (
+          {["pendente", "concluida", "cancelado"].map((s) => (
             <button
               key={s}
               aria-pressed={status === s}
@@ -2896,7 +2896,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
                     aria-label={t("Concluir tarefa", "Complete task")}
                     onClick={async () => {
                       try {
-                        await save("tasks", { status: "done" }, task);
+                        await save("tasks", { status: "concluida" }, task);
                         state.refresh();
                         notify(t("Salvo", "Saved"));
                       } catch {
@@ -2918,7 +2918,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
                 </button>
                 <span
                   className={
-                    task.status === "pending" &&
+                    task.status === "pendente" &&
                     new Date(task.due_at) < new Date()
                       ? "overdue"
                       : ""
@@ -3117,7 +3117,7 @@ function Enquiries({ openPatient, version, writable, notify }) {
                     </span>
                     {writable && (
                       <Button
-                        disabled={busy || selected.status === "converted"}
+                        disabled={busy || selected.status === "convertido"}
                         onClick={() => convert(p.id)}
                       >
                         {t("Vincular", "Link")}
@@ -3141,8 +3141,8 @@ function Enquiries({ openPatient, version, writable, notify }) {
                         .from("enquiries")
                         .update({
                           internal_notes: notes,
-                          ...(selected.status === "new"
-                            ? { status: "reviewing" }
+                          ...(selected.status === "novo"
+                            ? { status: "em_analise" }
                             : {}),
                         })
                         .eq("id", selected.id),
@@ -3179,7 +3179,7 @@ function Enquiries({ openPatient, version, writable, notify }) {
 function DocumentForm({ patient, entries = [], close, done, notify }) {
   const t = useT(),
     [file, setFile] = useState(null),
-    [category, setCategory] = useState("document"),
+    [category, setCategory] = useState("documento"),
     [entry, setEntry] = useState(""),
     [busy, setBusy] = useState(false),
     [uploaded, setUploaded] = useState(null);
@@ -3274,7 +3274,7 @@ function DocumentForm({ patient, entries = [], close, done, notify }) {
           title={t("Categoria", "Category")}
           value={category}
           onChange={setCategory}
-          options={["document", "photo", "exam", "consent"].map((s) => ({
+          options={["documento", "fotografia", "exame", "consentimento"].map((s) => ({
             value: s,
             label: label(s, t),
           }))}
@@ -3338,7 +3338,7 @@ async function collectPatient(patient) {
       .select("user_id,name,profession,council,registration,state,specialty")
       .eq("organization_id", ORG),
   );
-  for (const doc of data.tables.documents.filter((d) => d.status === "ready")) {
+  for (const doc of data.tables.documents.filter((d) => d.status === "pronto")) {
     const blob = await checked(
       db.storage.from("patient-files").download(doc.path),
     );
@@ -3361,7 +3361,7 @@ async function collectPatient(patient) {
     db.rpc("record_access", {
       org: ORG,
       entity: patient.id,
-      event: "patient_export",
+      event: "exportacao_prontuario",
     }),
   );
   return data;
@@ -3505,17 +3505,17 @@ function ExportDialog({ patient, close, notify }) {
             <Button
               icon={Send}
               className="primary"
-              disabled={busy || status === "accepted"}
+              disabled={busy || status === "aceito"}
               onClick={async () => {
                 setBusy(true);
                 try {
                   for (const part of packet) {
                     const result = await invoke("email-backup", {patient_id:patient.id,packet:part});
-                    if(result.status!=='accepted') throw Error('send');
+                    if(result.status!=='aceito') throw Error('send');
                   }
-                  setStatus('accepted');
+                  setStatus('aceito');
                 } catch {
-                  setStatus("unknown");
+                  setStatus("nao_confirmado");
                   notify(
                     t(
                       "Envio não confirmado. O registro salvo permanece disponível.",
@@ -3587,11 +3587,11 @@ function Reports() {
   const state = useLoad(async () => {
     const stats = {};
     for (const status of [
-      "scheduled",
-      "confirmed",
-      "completed",
-      "cancelled",
-      "no_show",
+      "agendado",
+      "confirmado",
+      "concluido",
+      "cancelado",
+      "faltou",
     ]) {
       const { count, error } = await db
         .from("appointments")
@@ -3667,14 +3667,14 @@ function SettingsView({ member, notify }) {
   );
   const usage = useLoad(
     () =>
-      member.role === "owner"
+      member.role === "proprietario"
         ? checked(db.rpc("storage_usage"))
         : Promise.resolve(null),
     [member.role],
   );
   const audit = useLoad(
     () =>
-      member.role === "owner" && tab === "audit"
+      member.role === "proprietario" && tab === "audit"
         ? checked(
             db
               .from("audit_events")
@@ -3711,7 +3711,7 @@ function SettingsView({ member, notify }) {
       <nav className="tabs">
         {[
           ["profile", t("Meu perfil", "My profile")],
-          ...(member.role === "owner"
+          ...(member.role === "proprietario"
             ? [
                 ["users", t("Usuários", "Users")],
                 [
@@ -3768,8 +3768,8 @@ function SettingsView({ member, notify }) {
                         {user.profession} · {user.council} {user.registration}
                       </small>
                     </span>
-                    {user.role === "owner" ? (
-                      <Status value="owner" />
+                    {user.role === "proprietario" ? (
+                      <Status value="proprietario" />
                     ) : (
                       <>
                         <Field
@@ -3778,9 +3778,9 @@ function SettingsView({ member, notify }) {
                           disabled={busy}
                           onChange={(role) => change(user, { role })}
                           options={[
-                            "professional",
-                            "reception",
-                            "readonly",
+                            "profissional",
+                            "recepcao",
+                            "leitura",
                           ].map((s) => ({ value: s, label: label(s, t) }))}
                         />
                         <Field
@@ -3789,16 +3789,16 @@ function SettingsView({ member, notify }) {
                           disabled={busy}
                           onChange={(status) => change(user, { status })}
                           options={[
-                            "invited",
-                            "active",
-                            "inactive",
-                            "suspended",
+                            "convidado",
+                            "ativo",
+                            "inativo",
+                            "suspenso",
                           ].map((s) => ({ value: s, label: label(s, t) }))}
                         />
                         <Button
                           icon={LinkIcon}
                           disabled={
-                            busy || !["active", "invited"].includes(user.status)
+                            busy || !["ativo", "convidado"].includes(user.status)
                           }
                           onClick={async () => {
                             setBusy(true);
@@ -4012,7 +4012,7 @@ const auditLabel = (action, t) =>
   })[action] || action;
 function InviteForm({ close, done, notify }) {
   const t = useT(),
-    [form, setForm] = useState({ role: "professional" }),
+    [form, setForm] = useState({ role: "profissional" }),
     [busy, setBusy] = useState(false);
   return (
     <Dialog
@@ -4024,7 +4024,7 @@ function InviteForm({ close, done, notify }) {
           e.preventDefault();
           setBusy(true);
           try {
-            const result = await invoke("staff", { action: "invite", ...form });
+            const result = await invoke("staff", { action: "convite", ...form });
             done(result);
           } catch {
             notify(
@@ -4062,7 +4062,7 @@ function InviteForm({ close, done, notify }) {
           title={t("Nível de acesso", "Access level")}
           value={form.role}
           onChange={(v) => setForm((f) => ({ ...f, role: v }))}
-          options={["professional", "reception", "readonly"].map((s) => ({
+          options={["profissional", "recepcao", "leitura"].map((s) => ({
             value: s,
             label: label(s, t),
           }))}
@@ -4241,7 +4241,7 @@ function PreRegistration({ languageControl }) {
               </p>
             )}
             {error && (
-              <p className="notice error" role="alert">
+              <p className="notice error" role="alerta">
                 {error}
               </p>
             )}
