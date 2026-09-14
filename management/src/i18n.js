@@ -85,6 +85,16 @@ export const labels = {
   documento: ["Documento", "Document"],
   fotografia: ["Fotografia clínica", "Clinical photograph"],
   exame: ["Exame", "Examination"],
+  aguardando_agendamento: ["Aguardando agendamento", "Awaiting scheduling"],
+  agendado: ["Agendado", "Scheduled"],
+  vencido: ["Vencido", "Overdue"],
+  resolvida: ["Resolvida", "Resolved"],
+  encaminhada: ["Encaminhada", "Referred"],
+  em_acompanhamento: ["Em acompanhamento", "Under follow-up"],
+  procedimento: ["Consentimento de procedimento", "Procedure consent"],
+  privacidade: ["Privacidade", "Privacy acknowledgement"],
+  fotografia_clinica: ["Fotografia clínica", "Clinical photography"],
+  publicacao_marketing: ["Publicação/marketing", "Publication/marketing"],
 };
 export const label = (value, t) =>
   labels[value] ? t(...labels[value]) : value;

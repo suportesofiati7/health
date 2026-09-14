@@ -30,6 +30,11 @@ select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4
 select pg_temp.assert((select count(*)=1 from public.patients),'owner sees only own organization');
 select pg_temp.assert((select count(*)=1 from storage.objects),'owner reads own private file only');
 select pg_temp.assert((select count(*)=0 from storage.objects where name='clinic2/other.pdf'),'guessing another clinic file path fails');
+insert into public.procedures(organization_id,name,category,created_by) values('a783bd4c-f253-4a94-9365-75c6f1000001','Procedimento fictício E2E','teste','10000000-0000-4000-8000-000000000001');
+insert into public.follow_ups(organization_id,patient_id,expected_on,created_by) values('a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001',current_date,'10000000-0000-4000-8000-000000000001');
+select pg_temp.assert((select count(*)=1 from public.procedures where name='Procedimento fictício E2E'),'owner can configure a fictional procedure');
+select pg_temp.assert((select count(*)=1 from public.follow_ups),'owner can create a fictional follow-up');
+select pg_temp.denied($q$insert into public.procedures(organization_id,name) values('a783bd4c-f253-4a94-9365-75c6f1000002','Other clinic procedure')$q$,'cross-organization procedure');
 insert into public.entries(id,organization_id,patient_id,kind,content) values('40000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001','atendimento','Fictional clinical content');
 update public.entries set content='Updated fictional draft' where id='40000000-0000-4000-8000-000000000001';
 select pg_temp.assert((select count(*)=2 from public.entry_versions),'draft history preserved');
@@ -48,6 +53,8 @@ select pg_temp.assert((select count(*)=1 from public.patients),'reception sees a
 select pg_temp.assert((select count(*)=0 from public.entries),'reception denied clinical content despite spoofed frontend role');
 select pg_temp.assert((select count(*)=0 from public.entry_versions),'reception denied draft history');
 select pg_temp.assert((select count(*)=0 from public.documents),'reception denied document metadata');
+select pg_temp.assert((select count(*)>=1 from public.procedures),'reception can read procedure catalogue');
+select pg_temp.assert((select count(*)=0 from public.adverse_events),'reception denied adverse-event clinical content');
 select pg_temp.assert((select count(*)=0 from storage.objects),'reception denied real seeded private files');
 select pg_temp.denied($q$select public.convert_enquiry('70000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000002')$q$,'conversion cannot target another clinic');
 select pg_temp.assert(public.convert_enquiry('70000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000001')='30000000-0000-4000-8000-000000000001','reception converts enquiry to existing patient');

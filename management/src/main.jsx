@@ -580,6 +580,18 @@ function Clinic({ language, setLanguage }) {
           notify={notify}
         />
       )}
+      {member && modal?.type === "workflow" && (
+        <WorkflowForm
+          {...modal}
+          member={member}
+          close={() => setModal(null)}
+          done={refreshed}
+          notify={notify}
+        />
+      )}
+      {member && modal?.type === "enquiry" && (
+        <EnquiryQuickView enquiry={modal.enquiry} close={() => setModal(null)} />
+      )}
       {member && modal?.type === "export" && (
         <ExportDialog {...modal} close={() => setModal(null)} notify={notify} />
       )}
@@ -752,7 +764,7 @@ function HomeView({
   const t = useT(),
     today = localDay();
   const state = useLoad(async () => {
-    const [appointments, tasks, patients] = await Promise.all([
+    const [appointments, tasks, patients, enquiries, followups, adverseEvents] = await Promise.all([
       checked(
         db
           .from("appointments")
@@ -778,8 +790,11 @@ function HomeView({
           .order("created_at", { ascending: false })
           .limit(5),
       ),
+      checked(db.from("enquiries").select("id,full_name,status,created_at").in("status", ["novo", "em_analise"]).order("created_at", { ascending: false }).limit(10)),
+      checked(db.from("follow_ups").select("id,patient_id,expected_on,status,patients(full_name)").in("status", ["aguardando_agendamento", "vencido"]).limit(10)).catch(() => []),
+      clinical ? checked(db.from("adverse_events").select("id,patient_id,description,status,patients(full_name)").eq("status", "em_acompanhamento").limit(10)).catch(() => []) : [],
     ]);
-    return { appointments, tasks, patients };
+    return { appointments, tasks, patients, enquiries, followups, adverseEvents };
   }, [version]);
   return (
     <>
@@ -811,7 +826,7 @@ function HomeView({
         )}
       </PageHead>
       <LoadState state={state}>
-        {({ appointments, tasks, patients }) => (
+        {({ appointments, tasks, patients, enquiries, followups, adverseEvents }) => (
           <>
             <div className="today-strip">
               <div>
@@ -826,6 +841,10 @@ function HomeView({
                   </strong>
                   {t("agendamentos hoje", "appointments today")}
                 </span>
+              </div>
+              <div>
+                <Inbox size={22} />
+                <span><strong>{enquiries.length + followups.length + adverseEvents.length}</strong>{t("itens de atenção", "attention items")}</span>
               </div>
               <div>
                 <Clock size={22} />
@@ -942,6 +961,11 @@ function HomeView({
                   )}
                 </Empty>
               )}
+            </section>
+            <section className="recent attention-queue">
+              <div className="section-heading"><h2>{t("Fila de atenção", "Attention queue")}</h2><AlertCircle size={18} /></div>
+              {[...enquiries.map((item) => ({ id: `e-${item.id}`, title: t("Novo pré-cadastro", "New enquiry"), content: item.full_name, action: () => setModal({ type: "enquiry", enquiry: item }) })), ...followups.map((item) => ({ id: `f-${item.id}`, title: t("Retorno pendente", "Pending follow-up"), content: item.patients?.full_name || t("Paciente", "Patient"), action: () => openPatient(item.patients) })), ...adverseEvents.map((item) => ({ id: `a-${item.id}`, title: t("Intercorrência aberta", "Open adverse event"), content: item.patients?.full_name || item.description, action: () => openPatient(item.patients) }))].slice(0, 8).map((item) => <button className="task-row" key={item.id} onClick={item.action}><span className="task-mark" /><span><strong>{item.title}</strong><small>{item.content}</small></span><ChevronRight size={16} /></button>)}
+              {!enquiries.length && !followups.length && !adverseEvents.length && <Empty icon={Check}>{t("Nenhuma pendência crítica", "No critical pending items")}</Empty>}
             </section>
           </>
         )}
@@ -1327,6 +1351,8 @@ function Patient({
       notes,
       staff,
       communications,
+      followups,
+      adverseEvents,
     ] = await Promise.all([
       clinical
         ? checked(
@@ -1389,6 +1415,12 @@ function Patient({
               .limit(20),
           )
         : [],
+      clinical
+        ? checked(db.from("follow_ups").select("*").eq("patient_id", patient.id).order("expected_on")).catch(() => [])
+        : [],
+      clinical
+        ? checked(db.from("adverse_events").select("*").eq("patient_id", patient.id).order("event_at", { ascending: false })).catch(() => [])
+        : [],
     ]);
     if (clinical)
       await checked(
@@ -1407,6 +1439,8 @@ function Patient({
       notes,
       staff,
       communications,
+      followups,
+      adverseEvents,
     };
   }, [initial.id, page]);
   const [adminText, setAdminText] = useState(""),
@@ -1443,6 +1477,8 @@ function Patient({
         notes,
         staff,
         communications,
+        followups,
+        adverseEvents,
       }) => {
         const author = (id) =>
           staff.find((s) => s.user_id === id)?.name ||
@@ -1625,6 +1661,15 @@ function Patient({
                           <span>{e.content}</span>
                         </div>
                       ))}
+                    {adverseEvents.filter((event) => event.status === "em_acompanhamento").map((event) => (
+                      <div className="notice error" key={event.id}>
+                        <AlertCircle size={18} />
+                        <span><strong>{t("Intercorrência em acompanhamento", "Adverse event under follow-up")}</strong><br />{event.description}</span>
+                      </div>
+                    ))}
+                    {followups.filter((item) => item.status !== "concluido").slice(0, 3).map((item) => (
+                      <p key={item.id}><Clock size={15} /> {t("Retorno", "Follow-up")} · {date(item.expected_on)}</p>
+                    ))}
                     {clinical && (
                       <Button icon={Plus} onClick={() => actions("alerta")}>
                         {t("Alerta clínico", "Clinical alert")}
@@ -1734,6 +1779,12 @@ function Patient({
                         {label(kind, t)}
                       </Button>
                     ))}
+                    <Button icon={Clock} onClick={() => setModal({ type: "workflow", resource: "followup", patient })}>
+                      {t("Retorno", "Follow-up")}
+                    </Button>
+                    <Button icon={AlertCircle} onClick={() => setModal({ type: "workflow", resource: "adverse_event", patient })}>
+                      {t("Intercorrência", "Adverse event")}
+                    </Button>
                   </div>
                   <Button
                     icon={Download}
@@ -1994,6 +2045,20 @@ function Patient({
                       title: t("Backup por email", "Email backup"),
                       content: label(c.status, t),
                     })),
+                    ...followups.map((f) => ({
+                      id: f.id,
+                      at: f.created_at,
+                      type: "followups",
+                      title: t("Retorno", "Follow-up"),
+                      content: `${date(f.expected_on)} · ${label(f.status, t)}`,
+                    })),
+                    ...adverseEvents.map((event) => ({
+                      id: event.id,
+                      at: event.event_at,
+                      type: "adverse_events",
+                      title: t("Intercorrência", "Adverse event"),
+                      content: event.description,
+                    })),
                   ]
                     .filter((e) => filter === "all" || e.type === filter)
                     .sort((a, b) => b.at.localeCompare(a.at))
@@ -2019,6 +2084,59 @@ function Patient({
       }}
     </LoadState>
   );
+}
+function WorkflowForm({ resource, patient, member, close, done, notify }) {
+  const t = useT();
+  const [busy, setBusy] = useState(false);
+  const [form, setForm] = useState({ status: resource === "adverse_event" ? "em_acompanhamento" : "aguardando_agendamento", expected_on: localDay(), template_version: "2026-09-14", kind: "procedimento", description: "", symptoms: "", actions: "", guidance: "", notes: "" });
+  const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
+  const title = resource === "followup" ? t("Novo retorno", "New follow-up") : t("Nova intercorrência", "New adverse event");
+  const submit = async (event) => {
+    event.preventDefault();
+    setBusy(true);
+    try {
+      const payload = resource === "followup"
+        ? { organization_id: ORG, patient_id: patient.id, expected_on: form.expected_on, notes: form.notes, status: form.status, created_by: member.user_id }
+        : { organization_id: ORG, patient_id: patient.id, description: form.description, symptoms: form.symptoms, actions: form.actions, guidance: form.guidance, status: form.status, created_by: member.user_id };
+      await checked(db.from(resource === "followup" ? "follow_ups" : "adverse_events").insert(payload));
+      done();
+    } catch (error) {
+      notify(t("Não foi possível salvar. Verifique se a migração clínica está aplicada.", "Could not save. Check that the clinical migration is applied."));
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <Dialog title={title} close={() => !busy && close()} wide>
+      <form onSubmit={submit}>
+        {resource === "followup" ? (
+          <>
+            <Field title={t("Data esperada", "Expected date")} type="date" value={form.expected_on} onChange={(v) => set("expected_on", v)} required />
+            <Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["aguardando_agendamento", "agendado", "concluido"].map((value) => ({ value, label: label(value, t) }))} />
+            <Field title={t("Observações do retorno", "Follow-up notes")} type="textarea" value={form.notes} onChange={(v) => set("notes", v)} />
+          </>
+        ) : (
+          <>
+            <p className="notice"><AlertCircle size={18} /> {t("Registre o fato observado. O sistema não faz diagnóstico automático.", "Record what was observed. The system does not diagnose automatically.")}</p>
+            <Field title={t("Descrição do evento", "Event description")} type="textarea" value={form.description} onChange={(v) => set("description", v)} required />
+            <Field title={t("Sinais e sintomas", "Signs and symptoms")} type="textarea" value={form.symptoms} onChange={(v) => set("symptoms", v)} />
+            <Field title={t("Ações tomadas", "Actions taken")} type="textarea" value={form.actions} onChange={(v) => set("actions", v)} />
+            <Field title={t("Orientações e encaminhamento", "Guidance and referral")} type="textarea" value={form.guidance} onChange={(v) => set("guidance", v)} />
+            <Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["em_acompanhamento", "resolvida", "encaminhada"].map((value) => ({ value, label: label(value, t) }))} />
+          </>
+        )}
+        <footer className="form-footer"><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Save} disabled={busy}>{busy ? t("Salvando...", "Saving...") : t("Salvar", "Save")}</Button></footer>
+      </form>
+    </Dialog>
+  );
+}
+function EnquiryQuickView({ enquiry, close }) {
+  const t = useT();
+  return <Dialog title={t("Pré-cadastro para revisão", "Enquiry for review")} close={close}>
+    <dl className="details-grid"><div><dt>{t("Nome", "Name")}</dt><dd>{enquiry.full_name}</dd></div><div><dt>{t("Recebido em", "Received")}</dt><dd>{date(enquiry.created_at, true)}</dd></div><div><dt>{t("Status", "Status")}</dt><dd><Status value={enquiry.status} /></dd></div></dl>
+    <p>{t("Abra Pré-cadastros para pesquisar duplicidade, contatar e converter com autorização.", "Open Enquiries to check duplicates, contact and convert with authorization.")}</p>
+    <Button className="primary" onClick={close}>{t("Fechar", "Close")}</Button>
+  </Dialog>;
 }
 function Entry({ entry: e, author, member, onEdit, onAmend }) {
   const t = useT();
@@ -3652,6 +3770,30 @@ function Reports() {
     </>
   );
 }
+function ProcedureCatalog({ notify }) {
+  const t = useT();
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ name: "", category: "outro", default_duration: 60, followup_days: 30, product_relevant: false, lot_required: false, device_relevant: false, photos_expected: false });
+  const state = useLoad(() => checked(db.from("procedures").select("*").order("active", { ascending: false }).order("name")), [showForm]);
+  const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
+  const saveProcedure = async (event) => {
+    event.preventDefault();
+    try {
+      await checked(db.from("procedures").insert({ organization_id: ORG, ...form, default_duration: Number(form.default_duration), followup_days: form.followup_days === "" ? null : Number(form.followup_days) }));
+      setForm({ name: "", category: "outro", default_duration: 60, followup_days: 30, product_relevant: false, lot_required: false, device_relevant: false, photos_expected: false });
+      setShowForm(false);
+      state.refresh();
+      notify(t("Procedimento salvo", "Procedure saved"));
+    } catch {
+      notify(t("Não foi possível salvar o procedimento.", "Could not save procedure."));
+    }
+  };
+  return <section className="detail-section">
+    <div className="toolbar"><div><h2>{t("Catálogo de procedimentos", "Procedure catalogue")}</h2><p className="subtle">{t("Serviços verificados no site público; o proprietário controla o que está ativo.", "Services verified against the public site; the owner controls what is active.")}</p></div><Button icon={Plus} className="primary" onClick={() => setShowForm(!showForm)}>{t("Novo procedimento", "New procedure")}</Button></div>
+    {showForm && <form className="form-grid" onSubmit={saveProcedure}><Field title={t("Nome", "Name")} value={form.name} onChange={(v) => set("name", v)} required wide /><Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} /><Field title={t("Duração (min)", "Duration (min)")} type="number" min="5" max="720" value={form.default_duration} onChange={(v) => set("default_duration", v)} /><Field title={t("Retorno após (dias)", "Follow-up after (days)")} type="number" min="0" max="3650" value={form.followup_days} onChange={(v) => set("followup_days", v)} /><footer className="form-footer"><Button type="button" onClick={() => setShowForm(false)}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Save}>{t("Salvar", "Save")}</Button></footer></form>}
+    <LoadState state={state}>{(rows) => <div className="rows">{rows.map((procedure) => <div className="list-row" key={procedure.id}><span><strong>{procedure.name}</strong><small>{procedure.category} · {procedure.default_duration} min · {procedure.followup_days ? `${procedure.followup_days} dias` : t("sem retorno padrão", "no default follow-up")}</small></span><Status value={procedure.active ? "ativo" : "inativo"} /></div>)}{!rows.length && <Empty icon={ClipboardList}>{t("Nenhum procedimento configurado.", "No procedures configured.")}</Empty>}</div>}</LoadState>
+  </section>;
+}
 function SettingsView({ member, notify }) {
   const t = useT(),
     [tab, setTab] = useState("profile"),
@@ -3718,6 +3860,7 @@ function SettingsView({ member, notify }) {
                   "storage",
                   t("Armazenamento e recuperação", "Storage & recovery"),
                 ],
+                ["procedures", t("Procedimentos", "Procedures")],
                 ["audit", t("Auditoria", "Audit")],
               ]
             : []),
@@ -3914,6 +4057,7 @@ function SettingsView({ member, notify }) {
           </section>
         </>
       )}
+      {tab === "procedures" && <ProcedureCatalog notify={notify} />}
       {tab === "audit" && (
         <LoadState state={audit}>
           {(rows) => (

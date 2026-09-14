@@ -1,6 +1,6 @@
 # Operations Runbook
 
-Status on 2026-09-14: local build and tests pass. Remote Supabase administrative
+Status on 2026-09-14: local build, browser checks and database security tests pass. Remote Supabase administrative
 configuration is blocked in this terminal because no Supabase access token is
 available. A publishable settings check still reports `disable_signup: false`,
 so real patient data must wait.
@@ -152,8 +152,22 @@ Before real patient data:
 
 - No Supabase admin credentials are available in this terminal.
 - Public signup is still reported as enabled by the publishable settings endpoint.
-- Remote migrations, owner bootstrap, function secrets, function deploys,
+- Remote migrations through `202609140004_clinical_workflows.sql`, owner bootstrap, function secrets, function deploys,
   Turnstile hostname verification, and remote fictional-data tests remain
   unevidenced here.
 - Legal/professional scope, LGPD notices, processor review, and secure clinic
   device procedures still require clinic approval.
+
+## Clinical workflow additions
+
+Migration `202609140004_clinical_workflows.sql` adds the owner-managed procedure
+catalogue (seeded only from procedures found in the existing public site/form),
+products/lots/devices, treatment plans, traceable attendances, private clinical
+photo metadata, versioned consent references, follow-ups, adverse events and
+privacy requests. The local test harness proves the new catalogue and follow-up
+RLS paths, while clinical event tables remain restricted to OWNER/PROFESSIONAL.
+
+The migration is additive. Apply it with the versioned configuration script;
+do not paste it into a production SQL editor piecemeal. Photo binaries must be
+uploaded through a server-side validating function before a `clinical_photos`
+row is created; the private bucket and read policy are already declared.

@@ -17,7 +17,8 @@ Deno.serve(
       headers: { "Content-Type": req.headers.get("content-type") || "" },
     }).formData();
     const file = form.get("file"),
-      patient = String(form.get("patient_id") || "");
+      patient = String(form.get("patient_id") || ""),
+      kind = String(form.get("kind") || "document");
     if (!(file instanceof File) || file.size < 1 || file.size > 8388608)
       throw Error("file");
     const { data: p } = await scoped
@@ -30,6 +31,24 @@ Deno.serve(
     const type = detect(content);
     if (!type || file.type !== type) throw Error("type");
     const digest = await sha256(content);
+    if (kind === "photo") {
+      if (!type.startsWith("image/")) throw Error("photo_type");
+      const category = String(form.get("category") || "");
+      if (!["antes", "durante", "depois", "evolucao"].includes(category)) throw Error("photo_category");
+      const path = `${ORG}/${patient}/${crypto.randomUUID()}.${type === "image/jpeg" ? "jpg" : type.slice(6)}`;
+      const { error: uploadError } = await db.storage.from("clinical-photos").upload(path, content, { contentType: type, upsert: false, cacheControl: "0" });
+      if (uploadError) throw Error("photo_upload");
+      const { data: photo, error: photoError } = await db.from("clinical_photos").insert({
+        organization_id: ORG, patient_id: patient, path, category, area: String(form.get("area") || "").slice(0, 200),
+        description: String(form.get("description") || "").slice(0, 1000), mime_type: type, size_bytes: file.size, created_by: user.id,
+      }).select("*").single();
+      if (photoError) {
+        await db.storage.from("clinical-photos").remove([path]);
+        throw Error("photo_metadata");
+      }
+      await db.from("audit_events").insert({ organization_id: ORG, actor_id: user.id, action: "foto_clinica_enviada", entity_type: "clinical_photos", entity_id: photo.id });
+      return reply(req, { photo });
+    }
     const { data: doc, error } = await db.rpc("reserve_document", {
       org: ORG,
       patient,
