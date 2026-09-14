@@ -1,5 +1,5 @@
 @layer components {
-  #sf-mobile-menu-inline { position: fixed; inset: 0; z-index: var(--z-menu); display: grid; align-items: center; justify-items: end; padding: max(.65rem, env(safe-area-inset-top)) max(.65rem, env(safe-area-inset-right)) max(.65rem, env(safe-area-inset-bottom)) max(.65rem, env(safe-area-inset-left)); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity var(--duration-standard), visibility var(--duration-standard); }
+  #sf-mobile-menu-inline { position: fixed; inset: 0; z-index: 1000; display: grid; align-items: center; justify-items: end; padding: max(.65rem, env(safe-area-inset-top)) max(.65rem, env(safe-area-inset-right)) max(.65rem, env(safe-area-inset-bottom)) max(.65rem, env(safe-area-inset-left)); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity var(--duration-standard), visibility var(--duration-standard); }
   #sf-mobile-menu-inline[hidden] { display: none; }
   #sf-mobile-menu-inline[data-state="open"] { opacity: 1; visibility: visible; pointer-events: auto; }
   .sfm-backdrop { position: absolute; inset: 0; border: 0; background: rgb(24 37 29 / .6); backdrop-filter: blur(.65rem) saturate(1.05); opacity: 0; transition: opacity var(--duration-standard); }

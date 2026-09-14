@@ -412,7 +412,7 @@ function Clinic({ language, setLanguage }) {
     ["home", Home, t("Início", "Today")],
     ["agenda", CalendarDays, t("Agenda", "Schedule")],
     ["patients", Users, t("Pacientes", "Patients")],
-    ["enquiries", Inbox, t("Formulários", "Intake forms")],
+    ["enquiries", Inbox, t("Pré-cadastros", "Enquiries")],
     ["tasks", ClipboardList, t("Tarefas", "Tasks")],
     ["reports", BarChart3, t("Relatórios", "Reports")],
     ["settings", Settings, t("Configurações", "Settings")],
@@ -3157,7 +3157,7 @@ function Enquiries({ openPatient, version, writable, notify }) {
   return (
     <>
       <PageHead
-        title={t("Formulários", "Intake forms")}
+        title={t("Pré-cadastros", "Enquiries")}
         eyebrow={t("Primeiro contato", "First contact")}
       >
         <a

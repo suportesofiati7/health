@@ -223,6 +223,7 @@ summary:focus-visible {
   display: flex;
   flex-direction: column;
   background: #f7f9f4;
+  overflow-y: auto;
 }
 .brand {
   display: flex;
@@ -254,6 +255,7 @@ summary:focus-visible {
   gap: 6px;
 }
 .sidebar nav button {
+  width: 100%;
   justify-content: flex-start;
   min-height: 47px;
   gap: 12px;
@@ -261,6 +263,7 @@ summary:focus-visible {
   background: transparent;
   font-weight: 500;
   padding: 12px 15px;
+  white-space: nowrap;
 }
 .sidebar nav button.selected {
   background: var(--green);
@@ -1388,6 +1391,8 @@ details .form-grid {
     z-index: 100;
     width: 100%;
     padding: 24px;
+    overflow-y: auto;
+    box-shadow: 0 1.5rem 3rem rgb(29 48 38 / 18%);
   }
   .sidebar.open {
     display: flex;

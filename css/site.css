@@ -482,6 +482,114 @@
   .sf-page[data-page="faq"] .sf-faq-panel__header { display: none; }
 }
 
+/* Final public-intake type scale overrides. */
+.sf-consent-form .sf-section-brand__meta {
+  font-size: .48rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .03em !important;
+  line-height: 1.3 !important;
+  text-transform: none !important;
+}
+
+.sf-consent-form .sf-section-brand__name {
+  font-size: .88rem !important;
+  letter-spacing: 0 !important;
+}
+
+.sf-consent-form .sf-section-brand .sf-eyebrow {
+  font-size: .48rem !important;
+  letter-spacing: .04em !important;
+  text-transform: none !important;
+}
+
+.sf-consent-form .sf-section-brand h1 {
+  font-size: clamp(1.8rem, 3.3vw, 2.55rem) !important;
+  letter-spacing: -.03em !important;
+}
+
+/* Keep the public intake typography quiet and consistent. */
+.sf-consent-form,
+.sf-consent-form :is(p, li, label, input, select, textarea, button, small, span) {
+  font-family: var(--font-body);
+}
+
+.sf-consent-form :is(h1, h2, h3, h4) {
+  font-family: var(--font-heading);
+}
+
+.sf-consent-form .sf-section-brand__name {
+  color: var(--rose-gold-700);
+  font-family: var(--font-heading);
+  font-size: .9rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.sf-consent-form .sf-section-brand .sf-eyebrow {
+  color: var(--gold-600);
+  font-family: var(--font-body);
+  font-size: .5rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: none;
+}
+
+.sf-consent-form .sf-section-brand h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 3.5vw, 2.7rem);
+  letter-spacing: -.035em;
+}
+
+.sf-consent-form .sf-section-brand__lede {
+  font-family: var(--font-body);
+  font-size: .96rem;
+  letter-spacing: 0;
+}
+
+.sf-consent-form .sf-section-brand__meta {
+  margin-block-start: .4rem;
+  color: var(--rose-gold-700);
+  font-family: var(--font-body);
+  font-size: .48rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1.35;
+  text-transform: none;
+}
+
+.sf-consent-form .sf-consent-card > span:first-child {
+  color: var(--gold-600);
+  font-family: var(--font-body);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: none;
+}
+
+.sf-consent-form .sf-consent-card h2 {
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  letter-spacing: -.025em;
+}
+
+.sf-consent-form .sf-consent-card p,
+.sf-consent-form .sf-consent-card li {
+  font-size: clamp(.9rem, .86rem + .12vw, .98rem);
+  letter-spacing: 0;
+}
+
+.sf-consent-form .sf-consent-field label,
+.sf-consent-form .sf-consent-check {
+  font-size: .88rem;
+  letter-spacing: 0;
+}
+
+.sf-consent-form .sf-file-button {
+  font-family: var(--font-body);
+  font-size: .76rem;
+  letter-spacing: .02em;
+  text-transform: none;
+}
+
 /* Final Frugal Chic overrides: this file also contains legacy Journal variants. */
 .sf-journal-article .sja-article--frugal-chic .sja-reading-grid--full { display: grid !important; grid-template-columns: minmax(0, 56rem) !important; justify-content: center !important; gap: 0 !important; padding-block: clamp(3.75rem, 7vw, 7rem) !important; }
 .sf-journal-article .sja-article--frugal-chic .sja-prose { inline-size: 100% !important; max-inline-size: none !important; }
@@ -2095,7 +2203,7 @@
 
 /* Source: css/src/components/mobile-menu.css */
 @layer components {
-  #sf-mobile-menu-inline { position: fixed; inset: 0; z-index: var(--z-menu); display: grid; align-items: center; justify-items: end; padding: max(.65rem, env(safe-area-inset-top)) max(.65rem, env(safe-area-inset-right)) max(.65rem, env(safe-area-inset-bottom)) max(.65rem, env(safe-area-inset-left)); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity var(--duration-standard), visibility var(--duration-standard); }
+  #sf-mobile-menu-inline { position: fixed; inset: 0; z-index: 1000; display: grid; align-items: center; justify-items: end; padding: max(.65rem, env(safe-area-inset-top)) max(.65rem, env(safe-area-inset-right)) max(.65rem, env(safe-area-inset-bottom)) max(.65rem, env(safe-area-inset-left)); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity var(--duration-standard), visibility var(--duration-standard); }
   #sf-mobile-menu-inline[hidden] { display: none; }
   #sf-mobile-menu-inline[data-state="open"] { opacity: 1; visibility: visible; pointer-events: auto; }
   .sfm-backdrop { position: absolute; inset: 0; border: 0; background: rgb(24 37 29 / .6); backdrop-filter: blur(.65rem) saturate(1.05); opacity: 0; transition: opacity var(--duration-standard); }
