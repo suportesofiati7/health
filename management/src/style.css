@@ -4206,6 +4206,7 @@ button.primary, .button.primary { color: var(--ui-primary-text, #fff); backgroun
 @media (max-width: 700px) { .communication-hero { padding:22px; align-items:flex-start; }.communication-orbit { width:76px; height:76px; }.communication-orbit strong { font-size:24px; }.communication-card { align-items:flex-start; flex-wrap:wrap; }.communication-card-actions { width:100%; margin-left:50px; }.communication-composer { min-width:0; }.communication-recipient { display:block; }.communication-recipient span { display:block; margin-top:5px; } }
 @media (max-width: 900px) { .communication-hub { grid-template-columns:1fr; }.communication-column { padding:16px; } }
 @media (max-width: 560px) { .communication-create { grid-template-columns:1fr; }.communication-create .field:nth-of-type(2) { grid-column:auto; }.team-chat-layout { grid-template-columns:1fr; }.team-chat-compose { display:grid; }.modal-backdrop { padding:10px; }.modal { padding:18px; } }
+.communication-field-picker { display:flex; flex-wrap:wrap; gap:7px; padding:10px 0 0; }.communication-field-picker .button { font-size:12px; padding:7px 9px; }.communication-field-picker small { display:block; color:var(--ui-text-muted); margin-top:2px; }.modal .notice { display:block; margin-top:8px; padding:8px 10px; }
 
 /* Password visibility control: shared by auth, portal, recovery and finance fields. */
 .field-input-wrap { position: relative; display: block; min-width: 0; }

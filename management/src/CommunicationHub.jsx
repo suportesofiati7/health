@@ -2,17 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Check, History, MessageCircle, Plus, Send, Trash2, UserCheck, UserRound, X } from "lucide-react";
 import { db, ORG, checked, digits, date } from "./lib";
 import { useT, label } from "./i18n";
+import { STANDARD_PLACEHOLDERS, missingPlaceholders, placeholderLabel, renderTemplate, valuesForPatient } from "./communicationTemplates";
 
 const button = (className = "") => `button ${className}`.trim();
 const displayName = (row) => row?.preferred_name || row?.full_name || row?.name || row?.email || "—";
 const cleanPhone = (value) => digits(value || "");
 const webWhatsApp = (phone, message) => `https://web.whatsapp.com/send?phone=${encodeURIComponent(cleanPhone(phone))}&text=${encodeURIComponent(message)}`;
-const senderSignature = (member) => member?.role === "proprietario" && String(member?.name || "").toLowerCase().includes("franciele") ? "Franciele Sofiati" : "Recepção da Franciele Sofiati";
-const renderTemplate = (body, patient, member) => {
-  const firstName = (patient?.preferred_name || patient?.full_name || "").split(" ")[0];
-  const values = { primeiro_nome: firstName, nome_completo: patient?.full_name || "", assinatura_remetente: senderSignature(member) };
-  return String(body || "").replace(/\{([\w]+)\}/g, (_, key) => values[key] ?? "").replace(/\n{3,}/g, "\n\n").trim();
-};
 
 function HubButton({ children, icon: Icon, className = "", ...props }) {
   return <button className={button(className)} {...props}>{Icon && <Icon size={17} aria-hidden="true" />}{children}</button>;
@@ -34,10 +29,14 @@ function ExternalMessage({ patients, initialPatient, member, close, notify, refr
   const [subject, setSubject] = useState("");
   const [templates, setTemplates] = useState([]);
   const [templateId, setTemplateId] = useState("");
+  const [showFields, setShowFields] = useState(false);
+  const [missing, setMissing] = useState([]);
+  const [saving, setSaving] = useState(false);
   const [busy, setBusy] = useState(false);
   const patient = patients.find((row) => row.id === patientId);
   const recipient = channel === "email" ? patient?.email : patient?.phone;
   const selectedTemplate = templates.find((row) => row.id === templateId);
+  const templateValues = valuesForPatient(patient, member);
   useEffect(() => {
     checked(db.from("communication_templates").select("*").eq("active", true).order("category,name,variant"))
       .then(setTemplates)
@@ -48,12 +47,26 @@ function ExternalMessage({ patients, initialPatient, member, close, notify, refr
     const item = (selectedTemplate?.channel === channel ? selectedTemplate : null) || templates.find((row) => row.channel === channel);
     if (!item) return;
     setTemplateId(item.id);
-    setSubject(renderTemplate(item.subject, patient, member));
-    setBody(renderTemplate(item.body, patient, member));
-  }, [templates, channel, patientId, templateId]);
+    setSubject(renderTemplate(item.subject, templateValues));
+    setBody(renderTemplate(item.body, templateValues));
+  }, [templates, channel, patientId, templateId]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => setMissing(missingPlaceholders(body, templateValues)), [body, patientId]); // eslint-disable-line react-hooks/exhaustive-deps
+  const insertField = (key) => setBody((current) => `${current}${current && !current.endsWith("\n") ? "\n" : ""}{{${key}}}`);
+  const saveAsTemplate = async () => {
+    const name = window.prompt("Nome do modelo:");
+    if (!name?.trim() || !body.trim()) return;
+    const category = window.prompt("Categoria:", "Personalizados") || "Personalizados";
+    setSaving(true);
+    try {
+      await checked(db.from("communication_templates").insert({ organization_id: ORG, name: name.trim(), category: category.trim(), channel: "whatsapp", variant: "standard", subject, body: body.trim(), sender_mode: "sender", usage: ["whatsapp"], availability: "team", active: true, created_by: member.user_id }));
+      notify(t("Modelo salvo na biblioteca.", "Template saved to the library."));
+      close(); refresh();
+    } catch { notify(t("Não foi possível salvar o modelo.", "Could not save the template.")); } finally { setSaving(false); }
+  };
   const submit = async (event) => {
     event.preventDefault();
     if (!patient || !recipient || !body.trim()) return notify(t("Escolha um paciente e escreva uma mensagem.", "Choose a patient and write a message."));
+    if (missing.length) return notify(`${t("Preencha os campos antes de enviar", "Fill in fields before sending")}: ${missing.map(placeholderLabel).join(", ")}`);
     if (channel === "whatsapp" && cleanPhone(recipient).length < 10) return notify(t("O telefone do paciente não é válido.", "The patient's phone number is not valid."));
     const target = channel === "whatsapp" ? webWhatsApp(recipient, body.trim()) : channel === "telefone" ? `tel:${cleanPhone(recipient)}` : `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body.trim())}`;
     const popup = window.open(target, "_blank", "noopener,noreferrer");
@@ -66,7 +79,7 @@ function ExternalMessage({ patients, initialPatient, member, close, notify, refr
       refresh(); close();
     } catch { popup?.close(); notify(t("Não foi possível registrar a comunicação.", "Could not record the communication.")); } finally { setBusy(false); }
   };
-  return <HubDialog title={t("Mensagem para paciente", "Patient message")} close={close}><form className="form-grid" onSubmit={submit}><HubField title={t("Paciente", "Patient")} value={patientId} onChange={setPatientId} required options={[{ value: "", label: t("Selecionar paciente", "Select patient") }, ...patients.map((row) => ({ value: row.id, label: `${displayName(row)} · ${row.phone || row.email || "sem contato"}` }))]} /><HubField title={t("Canal", "Channel")} value={channel} onChange={(value) => { setChannel(value); setTemplateId(""); }} options={[{ value: "whatsapp", label: "WhatsApp Web" }, { value: "email", label: "Email" }, { value: "telefone", label: t("Telefone", "Phone") }]} /><HubField title={t("Modelo", "Template")} value={templateId} onChange={(value) => { setTemplateId(value); if (value === "__free__") { setSubject(""); setBody(""); } }} options={[{ value: "__free__", label: t("Mensagem livre", "Free message") }, ...templates.filter((row) => row.channel === channel).map((row) => ({ value: row.id, label: `${row.name} · ${row.variant}` }))]} />{channel === "email" && <HubField title={t("Assunto", "Subject")} value={subject} onChange={setSubject} required />}<label className="field wide"><span>{t("Mensagem", "Message")}</span><textarea value={body} onChange={(e) => setBody(e.target.value)} required rows="8" /></label><p className="subtle">{channel === "whatsapp" ? t("Abrirá WhatsApp Web em uma nova aba do navegador.", "WhatsApp Web will open in a new browser tab.") : t("A aplicação registra a preparação, mas não confirma a entrega.", "The app records preparation but cannot confirm delivery.")}</p><footer className="form-footer"><HubButton type="button" onClick={close}>{t("Cancelar", "Cancel")}</HubButton><HubButton className="primary" icon={Send} disabled={busy}>{t("Abrir canal e registrar", "Open channel and record")}</HubButton></footer></form></HubDialog>;
+  return <HubDialog title={t("Mensagem para paciente", "Patient message")} close={close}><form className="form-grid" onSubmit={submit}><HubField title={t("Paciente", "Patient")} value={patientId} onChange={setPatientId} required options={[{ value: "", label: t("Selecionar paciente", "Select patient") }, ...patients.map((row) => ({ value: row.id, label: `${displayName(row)} · ${row.phone || row.email || "sem contato"}` }))]} /><HubField title={t("Canal", "Channel")} value={channel} onChange={(value) => { setChannel(value); setTemplateId(""); }} options={[{ value: "whatsapp", label: "WhatsApp Web" }, { value: "email", label: "Email" }, { value: "telefone", label: t("Telefone", "Phone") }]} /><HubField title={t("Modelo de mensagem", "Message template")} value={templateId} onChange={(value) => { setTemplateId(value); if (value === "__free__") { setSubject(""); setBody(""); } }} options={[{ value: "__free__", label: t("Mensagem em branco", "Blank message") }, ...templates.filter((row) => (row.usage || [row.channel]).includes(channel) && !row.deleted_at).sort((a, b) => Number(b.favorite) - Number(a.favorite)).map((row) => ({ value: row.id, label: `${row.favorite ? "⭐ " : ""}${row.name} · ${row.category}` }))]} />{channel === "email" && <HubField title={t("Assunto", "Subject")} value={subject} onChange={setSubject} required />}<label className="field wide"><span>{t("Mensagem", "Message")}</span><textarea value={body} onChange={(e) => setBody(e.target.value)} required rows="8" />{missing.length > 0 && <small className="notice error">{t("Existem campos que ainda precisam ser preenchidos", "Some fields still need to be filled")}: {missing.map(placeholderLabel).join(", ")}</small>}</label><div className="field wide"><button type="button" className="button" onClick={() => setShowFields((value) => !value)}>+ Inserir campo</button>{showFields && <div className="communication-field-picker">{STANDARD_PLACEHOLDERS.map(([key, title, group]) => <button type="button" className="button" key={key} onClick={() => insertField(key)}>{title} <small>{`{{${key}}}`}</small></button>)}</div>}</div><p className="subtle">{channel === "whatsapp" ? t("Abrirá WhatsApp Web em uma nova aba. Placeholders sem dados bloqueiam o envio.", "WhatsApp Web will open in a new tab. Missing placeholders block sending.") : t("A aplicação registra a preparação, mas não confirma a entrega.", "The app records preparation but cannot confirm delivery.")}</p><footer className="form-footer"><HubButton type="button" onClick={close}>{t("Cancelar", "Cancel")}</HubButton><HubButton type="button" onClick={saveAsTemplate} disabled={saving || !body.trim()}>{t("Salvar como novo modelo", "Save as new template")}</HubButton><HubButton className="primary" icon={Send} disabled={busy || Boolean(missing.length)}>{t("Enviar mensagem", "Send message")}</HubButton></footer></form></HubDialog>;
 }
 
 export default function CommunicationHub({ member, openPatient, version, writable, notify }) {
