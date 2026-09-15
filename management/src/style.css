@@ -1150,9 +1150,10 @@ main#main {
   margin-bottom: 24px;
 }
 .patient-heading > div:nth-child(2) {
-  flex: 1;
-  min-width: 0;
+  flex: 1 1 220px;
+  min-width: 220px;
 }
+.patient-heading > .actions { flex: 1 1 600px; min-width: 0; }
 .patient-heading h1 {
   font-size: 30px;
   overflow-wrap: anywhere;

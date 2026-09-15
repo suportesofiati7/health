@@ -86,6 +86,7 @@ import {
   validCNS,
   digits,
   whatsapp,
+  whatsappWeb,
   safeSearch,
   allRows,
   portalRequest,
@@ -179,22 +180,51 @@ function Field({
     </label>
   );
 }
-function Avatar({ person, className = "avatar", size = 40, onReplace }) {
-  const t = useT(), [url, setUrl] = useState("");
+function usePrivateImage(bucket, path) {
+  const [url, setUrl] = useState("");
   useEffect(() => {
     let live = true;
-    if (!person?.avatar_path) { setUrl(""); return () => { live = false; }; }
-    db.storage.from("profile-photos").createSignedUrl(person.avatar_path, 900)
-      .then(({ data }) => { if (live) setUrl(data?.signedUrl || ""); })
+    let objectUrl = "";
+    setUrl("");
+    if (!path) return () => { live = false; };
+    checked(db.storage.from(bucket).download(path))
+      .then((blob) => {
+        if (!live) return;
+        objectUrl = URL.createObjectURL(blob);
+        setUrl(objectUrl);
+      })
       .catch(() => { if (live) setUrl(""); });
-    return () => { live = false; };
-  }, [person?.avatar_path]);
+    return () => {
+      live = false;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [bucket, path]);
+  return url;
+}
+async function openPrivateImage(bucket, path) {
+  const popup = window.open("about:blank", "_blank", "noopener,noreferrer");
+  if (!popup) throw Error("popup_blocked");
+  try {
+    const blob = await checked(db.storage.from(bucket).download(path));
+    const url = URL.createObjectURL(blob);
+    popup.document.open("text/html", "replace");
+    popup.document.write(`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Franciele Sofiati · Foto</title><style>html,body{margin:0;min-height:100%;background:#1d3026}body{display:grid;place-items:center;padding:24px;box-sizing:border-box}img{max-width:100%;max-height:calc(100vh - 48px);object-fit:contain;background:#fff;border-radius:8px;box-shadow:0 12px 40px #0008}</style></head><body><img src="${url}" alt="Fotografia clínica"></body></html>`);
+    popup.document.close();
+    popup.focus();
+    popup.addEventListener("beforeunload", () => URL.revokeObjectURL(url), { once: true });
+  } catch (error) {
+    popup.close();
+    throw error;
+  }
+}
+function Avatar({ person, className = "avatar", size = 40, onReplace }) {
+  const t = useT(), url = usePrivateImage("profile-photos", person?.avatar_path);
   const name = person?.preferred_name || person?.name || person?.full_name || person?.email || "";
   return <span className={className} style={{ width: size, height: size }} aria-label={name || t("Pessoa", "Person")} onContextMenu={(event) => { if (onReplace) { event.preventDefault(); onReplace(); } }} title={onReplace ? t("Clique com o botão direito para substituir a imagem", "Right-click to replace this image") : undefined}>
     {url ? <img src={url} alt="" /> : initials(name)}
   </span>;
 }
-function PhotoPicker({ value, onChange, hasPhoto = false, onRemove }) {
+function PhotoPicker({ value, onChange, hasPhoto = false, onRemove, title }) {
   const t = useT(), video = useRef(null), stream = useRef(null), [camera, setCamera] = useState(false), [videoReady, setVideoReady] = useState(false), [cameraError, setCameraError] = useState(""), [preview, setPreview] = useState("");
   useEffect(() => { if (!value) { setPreview(""); return undefined; } const url = URL.createObjectURL(value); setPreview(url); return () => URL.revokeObjectURL(url); }, [value]);
   const stop = () => { stream.current?.getTracks().forEach((track) => track.stop()); stream.current = null; setCamera(false); };
@@ -207,7 +237,7 @@ function PhotoPicker({ value, onChange, hasPhoto = false, onRemove }) {
   };
   const capture = () => { if (!videoReady || !video.current?.videoWidth) return; const canvas = document.createElement("canvas"); canvas.width = video.current.videoWidth; canvas.height = video.current.videoHeight; canvas.getContext("2d").drawImage(video.current, 0, 0); canvas.toBlob((blob) => { if (blob) onChange(new File([blob], "profile-photo.jpg", { type: "image/jpeg" })); stop(); }, "image/jpeg", .9); };
   return <div className="photo-picker">
-    <label className="field"><span>{t("Foto do perfil", "Profile photo")}</span><input type="file" accept="image/*" capture="user" onChange={(e) => { setCameraError(""); onChange(e.target.files[0] || null); }} /></label>
+    <label className="field"><span>{title || t("Foto do perfil", "Profile photo")}</span><input type="file" accept="image/*" capture="user" onChange={(e) => { setCameraError(""); onChange(e.target.files[0] || null); }} /></label>
     {(preview || value) && <div className="photo-picker-preview"><img src={preview} alt={t("Pré-visualização da foto selecionada", "Preview of selected photo")} /><div><strong>{t("Pré-visualização", "Preview")}</strong><small>{value?.name || "photo"}</small></div></div>}
     <div className="photo-picker-actions"><Button type="button" icon={Camera} onClick={openCamera}>{t("Usar câmera", "Use camera")}</Button>{(value || hasPhoto) && <Button type="button" icon={Trash2} onClick={() => onRemove ? onRemove() : onChange(null)}>{t("Remover foto", "Remove photo")}</Button>}</div>
     {cameraError && <p className="notice error">{cameraError}</p>}
@@ -1084,10 +1114,10 @@ const initials = (name) =>
     .join("")
     .toUpperCase() || "P";
 const whatsappMessage = (phone, name = "") => {
-  const base = whatsapp(phone);
+  const base = whatsappWeb(phone);
   if (!base) return null;
   const text = `Olá${name ? `, ${name}` : ""}! Aqui é da clínica Franciele Sofiati. Podemos conversar sobre seu atendimento?`;
-  return `${base}?text=${encodeURIComponent(text)}`;
+  return `${base}&text=${encodeURIComponent(text)}`;
 };
 function Pager({ page, count, setPage }) {
   const t = useT();
@@ -2347,8 +2377,7 @@ function ConsentPanel({ patient, member, writable, notify }) { const t = useT();
 function PrivacyPortalPanel({ patient, member, writable, notify }) { const t = useT(); const [request, setRequest] = useState({ request_type: "acesso", status: "recebida", notes: "" }); const [share, setShare] = useState({ resource_type: "post_care", resource_id: "" }); const requests = useLoad(() => checked(db.from("privacy_requests").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const shares = useLoad(() => checked(db.from("patient_portal_shares").select("*").eq("patient_id", patient.id).order("shared_at", { ascending: false })), [patient.id]); const saveRequest = async (e) => { e.preventDefault(); try { await checked(db.from("privacy_requests").insert({ organization_id: ORG, patient_id: patient.id, ...request, responsible_user: member.user_id, created_by: member.user_id })); requests.refresh(); notify(t("Solicitação registrada", "Request recorded")); } catch { notify(t("Não foi possível registrar a solicitação.", "Could not record the request.")); } }; const createShare = async (e) => { e.preventDefault(); try { await checked(db.from("patient_portal_shares").insert({ organization_id: ORG, patient_id: patient.id, ...share, shared_by: member.user_id })); shares.refresh(); notify(t("Disponibilizado ao paciente", "Shared with patient")); } catch { notify(t("Não foi possível compartilhar.", "Could not share.")); } }; return <section className="detail-section"><h2>{t("Privacidade e Área do Paciente", "Privacy & Patient Area")}</h2>{writable && <><form className="form-grid" onSubmit={saveRequest}><Field title={t("Tipo de solicitação", "Request type")} value={request.request_type} onChange={(v) => setRequest({ ...request, request_type: v })} options={["acesso", "correcao", "exportacao", "restricao", "exclusao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Observações", "Notes")} type="textarea" value={request.notes} onChange={(v) => setRequest({ ...request, notes: v })} /><Button className="primary" icon={Save}>{t("Registrar solicitação", "Record request")}</Button></form><form className="form-grid" onSubmit={createShare}><Field title={t("Recurso a compartilhar", "Resource to share")} value={share.resource_type} onChange={(v) => setShare({ ...share, resource_type: v })} options={["document", "report", "photo", "consent", "post_care", "appointment"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("ID do recurso", "Resource ID")} value={share.resource_id} onChange={(v) => setShare({ ...share, resource_id: v })} /><Button className="primary" icon={LinkIcon}>{t("Disponibilizar ao paciente", "Share with patient")}</Button></form></>}<h3>{t("Solicitações", "Requests")}</h3><LoadState state={requests}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.request_type, t)}</strong><small>{date(row.received_on)} · {row.notes}</small></span><Status value={row.status} /></div>)}</LoadState><h3>{t("Recursos compartilhados", "Shared resources")}</h3><LoadState state={shares}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.resource_type, t)}</strong><small>{date(row.shared_at, true)}</small></span><Status value={row.status} />{writable && row.status === "shared" && <Button onClick={async () => { await checked(db.from("patient_portal_shares").update({ status: "revoked", revoked_at: new Date().toISOString() }).eq("id", row.id)); shares.refresh(); notify(t("Removido da Área do Paciente", "Removed from Patient Area")); }}>{t("Remover", "Revoke")}</Button>}</div>)}</LoadState></section>; }
 
 function ClinicalPhotoThumb({ row, onOpen }) {
-  const [url, setUrl] = useState("");
-  useEffect(() => { let live = true; db.storage.from("clinical-photos").createSignedUrl(row.path, 300).then(({ data }) => live && setUrl(data?.signedUrl || "")).catch(() => {}); return () => { live = false; }; }, [row.path]);
+  const url = usePrivateImage("clinical-photos", row.path);
   return <button className="clinical-photo-thumb" type="button" onClick={onOpen}>{url ? <img src={url} alt="" /> : <Eye size={20} />}</button>;
 }
 function ClinicalPhotosPanel({ patient, writable, notify }) {
@@ -2357,8 +2386,9 @@ function ClinicalPhotosPanel({ patient, writable, notify }) {
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
   const chooseEdit = (row) => { setEditing(row); setFile(null); setForm({ category: row.category, area: row.area || "", description: row.description || "" }); };
   const upload = async (e) => { e.preventDefault(); if (!file) return; setBusy(true); try { const body = new FormData(); body.set("file", file); body.set("patient_id", patient.id); body.set("kind", editing ? "photo_replace" : "photo"); if (editing) body.set("photo_id", editing.id); body.set("category", form.category); body.set("area", form.area); body.set("description", form.description); const result = await invoke("files", body); if (!result?.photo) throw Error("upload"); setFile(null); setEditing(null); state.refresh(); notify(editing ? t("Foto clínica substituída.", "Clinical photo replaced.") : t("Foto clínica salva.", "Clinical photo saved.")); } catch { notify(t("Não foi possível salvar a foto.", "Could not save the photo.")); } finally { setBusy(false); } };
-  const photo = async (row) => { try { const { data } = await checked(db.storage.from("clinical-photos").createSignedUrl(row.path, 300)); if (!data?.signedUrl) throw Error("signed_url"); window.open(data.signedUrl, "_blank", "noopener,noreferrer"); } catch { notify(t("Não foi possível abrir a foto.", "Could not open the photo.")); } };
-  return <section className="detail-section"><div className="section-heading"><h2>{t("Fotografia clínica", "Clinical photography")}</h2></div>{writable && <form className="form-grid" onSubmit={upload}><Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} options={["antes", "durante", "depois", "evolucao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Observação", "Note")} value={form.description} onChange={(v) => set("description", v)} /><PhotoPicker value={file} onChange={setFile} /><Button className="primary" icon={editing ? RefreshCw : Paperclip} disabled={busy || !file}>{editing ? t("Substituir foto", "Replace photo") : t("Enviar foto privada", "Upload private photo")}</Button>{editing && <Button type="button" disabled={busy} onClick={() => { setEditing(null); setFile(null); setForm({ category: "antes", area: "", description: "" }); }}>{t("Cancelar substituição", "Cancel replacement")}</Button>}</form>}<LoadState state={state}>{(rows) => <div className="document-list">{rows.map((row) => <div className="document-row" key={row.id}><ClinicalPhotoThumb row={row} onOpen={() => photo(row)} /><span><strong>{label(row.category, t)}</strong><small>{row.area} · {date(row.created_at, true)} · {row.description}</small></span><Button icon={Eye} onClick={() => photo(row)}>{t("Visualizar", "View")}</Button>{writable && <Button icon={RefreshCw} onClick={() => chooseEdit(row)}>{t("Substituir", "Replace")}</Button>}</div>)}{!rows.length && <Empty icon={Eye}>{t("Nenhuma foto clínica", "No clinical photos")}</Empty>}</div>}</LoadState></section>;
+  const photo = async (row) => { try { await openPrivateImage("clinical-photos", row.path); } catch { notify(t("Não foi possível abrir a foto. Permita pop-ups e verifique seu acesso.", "Could not open the photo. Allow pop-ups and verify your access.")); } };
+  const removePhoto = async (row) => { if (!window.confirm(t("Remover esta fotografia clínica?", "Remove this clinical photograph?"))) return; setBusy(true); try { const body = new FormData(); body.set("patient_id", patient.id); body.set("photo_id", row.id); body.set("kind", "photo_delete"); await invoke("files", body); state.refresh(); notify(t("Foto clínica removida.", "Clinical photo removed.")); } catch { notify(t("Não foi possível remover a foto.", "Could not remove the photo.")); } finally { setBusy(false); } };
+  return <section className="detail-section"><div className="section-heading"><h2>{t("Fotografia clínica", "Clinical photography")}</h2></div>{writable && <form className="form-grid" onSubmit={upload}><Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} options={["antes", "durante", "depois", "evolucao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Observação", "Note")} value={form.description} onChange={(v) => set("description", v)} /><PhotoPicker title={t("Foto clínica", "Clinical photo")} value={file} onChange={setFile} /><Button className="primary" icon={editing ? RefreshCw : Paperclip} disabled={busy || !file}>{editing ? t("Substituir foto", "Replace photo") : t("Enviar foto privada", "Upload private photo")}</Button>{editing && <Button type="button" disabled={busy} onClick={() => { setEditing(null); setFile(null); setForm({ category: "antes", area: "", description: "" }); }}>{t("Cancelar substituição", "Cancel replacement")}</Button>}</form>}<LoadState state={state}>{(rows) => <div className="document-list">{rows.map((row) => <div className="document-row" key={row.id}><ClinicalPhotoThumb row={row} onOpen={() => photo(row)} /><span><strong>{label(row.category, t)}</strong><small>{row.area} · {date(row.created_at, true)} · {row.description}</small></span><Button icon={Eye} onClick={() => photo(row)}>{t("Visualizar", "View")}</Button>{writable && <><Button icon={RefreshCw} onClick={() => chooseEdit(row)}>{t("Substituir", "Replace")}</Button><Button icon={Trash2} disabled={busy} onClick={() => removePhoto(row)}>{t("Remover", "Remove")}</Button></>}</div>)}{!rows.length && <Empty icon={Eye}>{t("Nenhuma foto clínica", "No clinical photos")}</Empty>}</div>}</LoadState></section>;
 }
 
 function WorkflowForm({ resource, patient, member, close, done, notify }) {
@@ -3060,7 +3090,7 @@ function WhatsappComposer({ appointment, patient, close, notify }) {
   const marketingAllowed = consents.some((c) => c.kind === "publicacao_marketing" && c.status === "aceito");
   const [message, setMessage] = useState(templates[template][1]);
   useEffect(() => setMessage(templates[template][1]), [template]);
-  const open = () => { if (!allowedPhone) return notify(t("Telefone não disponível em formato válido.", "Phone is not available in a valid format.")); window.open(`${allowedPhone}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer"); notify(t("Mensagem preparada. Abrir no WhatsApp", "Message prepared. Open in WhatsApp")); close(); };
+  const open = () => { if (!allowedPhone) return notify(t("Telefone não disponível em formato válido.", "Phone is not available in a valid format.")); window.open(`${whatsappWeb(patient?.phone)}&text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer"); notify(t("Mensagem preparada. Abrir no WhatsApp", "Message prepared. Open in WhatsApp")); close(); };
   return <Dialog title={t("Preparar mensagem", "Prepare message")} close={close}>
     <div className="whatsapp-composer">
       <p className="subtle">{patientName(appointment, t)} · {date(appointment.starts_at, true)}</p>
@@ -3086,7 +3116,7 @@ function CommunicationComposer({ patient: initialPatient, appointment, template:
   useEffect(() => { if (templateId === "__free__") return; const item = selected || (templates.data || []).find((x) => x.channel === channel); if (item) { setTemplateId(item.id); setSubject(renderCommunication(item.subject, { ...patient, appointment }, member)); setSignature(senderSignature(member)); setBody(renderCommunication(item.body, { ...patient, appointment }, member)); } }, [templates.data, templateId, channel, patient?.id, appointment?.id, member?.user_id]);
   const recipient = channel === "email" ? patient?.email : patient?.phone;
   const saveAsTemplate = async () => { const name = window.prompt(t("Nome do novo modelo", "Name for the new template")); if (!name?.trim()) return; try { await checked(db.from("communication_templates").insert({ organization_id: ORG, name: name.trim(), category: selected?.category || "administrativo", channel, variant: "standard", subject, body, sender_mode: "sender", sensitive: false, created_by: member.user_id })); templates.refresh(); notify(t("Modelo salvo para uso futuro.", "Template saved for future use.")); } catch { notify(t("Não foi possível salvar o modelo.", "Could not save the template.")); } };
-  const submit = async (e) => { e.preventDefault(); if (preference?.do_not_contact) return notify(t("Este paciente pediu para não ser contatado. Revise as preferências antes de continuar.", "This patient requested no contact. Review preferences before continuing.")); if (!patient || !recipient) return notify(t("Selecione um contato com telefone ou email válido.", "Select a contact with a valid phone or email.")); const target = channel === "whatsapp" ? `${whatsapp(recipient)}?text=${encodeURIComponent(body)}` : channel === "telefone" ? `tel:${digits(recipient)}` : `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; const popup = window.open("about:blank", "_blank"); setBusy(true); try { const row = await checked(db.from("communications").insert({ organization_id: ORG, patient_id: patient.id, appointment_id: appointment?.id || null, channel, direction: "outbound", visibility: "external", category: selected?.category || "administrativo", subject, body, rendered_signature: signature, recipient_name: patient.full_name || patient.preferred_name || "", recipient_address: recipient, template_id: templateId === "__free__" ? null : (templateId || null), status: "rascunho", packet_sha256: "", created_by: member.user_id }).select().single()); if (popup) popup.location.href = target; else window.open(target, "_blank", "noopener,noreferrer"); await checked(db.from("communications").update({ status: channel === "telefone" ? "enviado" : "nao_confirmado", sent_at: new Date().toISOString() }).eq("id", row.id)); notify(t("Contato preparado e registrado no histórico.", "Contact prepared and recorded in history.")); close(); } catch { popup?.close(); notify(t("Não foi possível registrar a comunicação.", "Could not record the communication.")); } finally { setBusy(false); } };
+  const submit = async (e) => { e.preventDefault(); if (preference?.do_not_contact) return notify(t("Este paciente pediu para não ser contatado. Revise as preferências antes de continuar.", "This patient requested no contact. Review preferences before continuing.")); if (!patient || !recipient) return notify(t("Selecione um contato com telefone ou email válido.", "Select a contact with a valid phone or email.")); const target = channel === "whatsapp" ? `${whatsappWeb(recipient)}&text=${encodeURIComponent(body)}` : channel === "telefone" ? `tel:${digits(recipient)}` : `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; const popup = window.open(target, "_blank", "noopener,noreferrer"); setBusy(true); try { const row = await checked(db.from("communications").insert({ organization_id: ORG, patient_id: patient.id, appointment_id: appointment?.id || null, channel, direction: "outbound", visibility: "external", category: selected?.category || "administrativo", subject, body, rendered_signature: signature, recipient_name: patient.full_name || patient.preferred_name || "", recipient_address: recipient, template_id: templateId === "__free__" ? null : (templateId || null), status: "rascunho", packet_sha256: "", created_by: member.user_id }).select().single()); if (!popup) window.open(target, "_blank", "noopener,noreferrer"); await checked(db.from("communications").update({ status: channel === "telefone" ? "enviado" : "nao_confirmado", sent_at: new Date().toISOString() }).eq("id", row.id)); notify(t("Contato preparado e registrado no histórico.", "Contact prepared and recorded in history.")); close(); } catch { popup?.close(); notify(t("Não foi possível registrar a comunicação.", "Could not record the communication.")); } finally { setBusy(false); } };
   return <Dialog title={t("Preparar comunicação", "Prepare communication")} close={close} wide><form className="communication-composer" onSubmit={submit}><div className="communication-recipient"><strong>{patient?.preferred_name || patient?.full_name || t("Nenhum destinatário", "No recipient")}</strong><span>{recipient || t("Sem contato neste canal", "No contact for this channel")}</span></div>{preference?.do_not_contact && <p className="notice error">{t("Não contatar: preferência registrada no cadastro.", "Do not contact: preference recorded in the patient record.")}</p>}<div className="form-grid"><Field title={t("Canal", "Channel")} value={channel} onChange={setChannel} options={[{ value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "Email" }, { value: "telefone", label: t("Telefone", "Phone") }]} /><Field title={t("Modelo", "Template")} value={templateId} onChange={setTemplateId} options={[{ value: "__free__", label: t("Mensagem livre", "Free message") }, ...(templates.data || []).filter((x) => x.channel === channel).map((x) => ({ value: x.id, label: `${x.name} · ${x.variant}` }))]} /></div>{channel === "email" && <Field title={t("Assunto", "Subject")} value={subject} onChange={setSubject} />}<Field title={t("Assinatura", "Signature")} value={signature} onChange={(v) => { setSignature(v); setBody((current) => current.replace(/(Com carinho,\n)?(Recepção da Franciele Sofiati|Franciele Sofiati)$/, `$1${v}`)); }} /><Field title={t("Mensagem editável", "Editable message")} type="textarea" value={body} onChange={setBody} required /><p className="consent-note"><ShieldCheck size={15} /> {t("Revise antes de abrir o WhatsApp ou o rascunho de email. A aplicação não afirma que a mensagem foi entregue.", "Review before opening WhatsApp or the email draft. The app does not claim delivery.")}</p><footer className="form-footer"><Button type="button" onClick={saveAsTemplate} icon={Save}>{t("Salvar como modelo", "Save as template")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Send} disabled={busy || !body || preference?.do_not_contact}>{t("Abrir canal e registrar", "Open channel and record")}</Button></footer></form></Dialog>;
 }
 function Communication({ member, setModal, openPatient, version, writable, notify }) {

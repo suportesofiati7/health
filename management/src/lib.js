@@ -49,6 +49,12 @@ export const whatsapp = (phone) => {
     ? `https://wa.me/${n.length <= 11 ? "55" : ""}${n}`
     : null;
 };
+export const whatsappWeb = (phone) => {
+  const n = digits(phone);
+  if (!/^\d{10,13}$/.test(n)) return null;
+  const international = n.length <= 11 ? `55${n}` : n;
+  return `https://web.whatsapp.com/send?phone=${international}`;
+};
 export const date = (value, time = false) =>
   value
     ? new Intl.DateTimeFormat("pt-BR", {

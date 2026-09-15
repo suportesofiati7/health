@@ -19,14 +19,30 @@ Deno.serve(
     const file = form.get("file"),
       patient = String(form.get("patient_id") || ""),
       kind = String(form.get("kind") || "document");
-    if (!(file instanceof File) || file.size < 1 || file.size > 8388608)
-      throw Error("file");
     const { data: p } = await scoped
       .from("patients")
       .select("id")
       .eq("id", patient)
       .single();
     if (!p) throw Error("patient");
+    if (kind === "photo_delete") {
+      const photoId = String(form.get("photo_id") || "");
+      if (!photoId) throw Error("photo_not_found");
+      const { data: photo, error: photoLookupError } = await db
+        .from("clinical_photos")
+        .select("id,path")
+        .eq("id", photoId)
+        .eq("patient_id", patient)
+        .single();
+      if (photoLookupError || !photo) throw Error("photo_not_found");
+      const { error: removeError } = await db.from("clinical_photos").delete().eq("id", photoId).eq("patient_id", patient);
+      if (removeError) throw Error("photo_metadata");
+      if (photo.path) await db.storage.from("clinical-photos").remove([photo.path]);
+      await db.from("audit_events").insert({ organization_id: ORG, actor_id: user.id, action: "foto_clinica_removida", entity_type: "clinical_photos", entity_id: photoId });
+      return reply(req, { removed: photoId });
+    }
+    if (!(file instanceof File) || file.size < 1 || file.size > 8388608)
+      throw Error("file");
     const content = new Uint8Array(await file.arrayBuffer());
     const type = detect(content);
     if (!type || file.type !== type) throw Error("type");
