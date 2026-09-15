@@ -14,6 +14,15 @@ To start the local app by clicking a file, double-click the executable
 `127.0.0.1:5550` first, then automatically checks the next ports until the app
 is running and opens the working URL in the browser.
 
+The same fresh-build workflow is available as a single command:
+
+```bash
+npm run go-live
+```
+
+It rebuilds `dist`, runs the automated tests, starts the preview server from
+that new build, and opens the local URL. Run it again after any code change.
+
 ```bash
 cd management
 npm install
