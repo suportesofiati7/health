@@ -292,6 +292,33 @@
 
         throw new Error(String(errorCode));
       }
+      if (responseData?.email_status !== "sent") {
+        const notification = new FormData();
+        notification.set("_subject", "Novo formulário recebido - Franciele Sofiati");
+        notification.set("message", [
+          "Novo pré-cadastro recebido no sistema.",
+          `Nome: ${values.full_name || "Não informado"}`,
+          `Email: ${values.email || "Não informado"}`,
+          `Telefone: ${values.phone || "Não informado"}`,
+          `Procedimentos: ${values.selected_procedure || "Não informado"}`,
+          `ID interno: ${responseData?.intake_id || "Não informado"}`,
+          "Abra o aplicativo de gestão para revisar os dados completos com autenticação.",
+        ].join("\n"));
+        try {
+          const emailResponse = await fetch("https://formsubmit.co/ajax/suportesofiati@gmail.com", {
+            method: "POST",
+            headers: { Accept: "application/json" },
+            body: notification,
+            credentials: "omit",
+          });
+          const emailBody = await emailResponse.json().catch(() => null);
+          if (!emailResponse.ok || emailBody?.success !== true) {
+            console.error("FORMULARIO_BROWSER_EMAIL_FAILED", emailResponse.status, emailBody);
+          }
+        } catch (emailError) {
+          console.error("FORMULARIO_BROWSER_EMAIL_EXCEPTION", emailError);
+        }
+      }
       sessionStorage.removeItem(draftKey);
       form.reset();
       state("success");

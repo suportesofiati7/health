@@ -17,7 +17,7 @@ Deno.serve(endpoint(async (req) => {
   if (!salt) throw Error("unconfigured");
 
   const ip = (req.headers.get("x-forwarded-for") || "nao_confirmado").split(",")[0].trim();
-  await limit(admin(), "formulario:ip:" + await sha256(new TextEncoder().encode(salt + ip)), 3, 3600);
+  await limit(admin(), "formulario:ip:" + await sha256(new TextEncoder().encode(salt + ip)), 20, 3600);
   const attachmentFields = form.getAll("attachment_field").map((field) => clean(field, 80));
   const attachments = form.getAll("attachments").filter((file): file is File => file instanceof File && file.size > 0);
   // Accept one older browser bundle during rollout without weakening limits.
