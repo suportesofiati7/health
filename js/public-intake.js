@@ -282,12 +282,12 @@
 
         throw new Error(String(errorCode));
       }
-      if (!response.ok) throw Error("submit");
       sessionStorage.removeItem(draftKey);
       form.reset();
       state("success");
       form.querySelector(".sf-consent-card--submit")?.scrollIntoView({ block: "start" });
-    } catch {
+    } catch (error) {
+      console.error("FORMULARIO_CAUGHT_ERROR", error);
       state("error");
       submitting = false;
       submitButton.disabled = false;
