@@ -3237,7 +3237,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
       >
         <a
           className="button"
-          href="/formulario"
+          href="https://francielesofiati.com/formulario"
           target="_blank"
           rel="noopener noreferrer"
         >
