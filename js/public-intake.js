@@ -226,7 +226,35 @@
     const script = document.createElement("script");
     script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
     script.async = true;
-    script.onload = () => window.turnstile.render(holder, { sitekey, action: "formulario", callback: (token) => { form.dataset.turnstile = token; submitButton.disabled = false; }, "expired-callback": () => { form.dataset.turnstile = ""; submitButton.disabled = true; } });
+    script.onload = () => {
+      try {
+        window.turnstile.render(holder, {
+          sitekey,
+          action: "formulario",
+          callback: (token) => {
+            form.dataset.turnstile = token;
+            submitButton.disabled = false;
+          },
+          "expired-callback": () => {
+            form.dataset.turnstile = "";
+            submitButton.disabled = false;
+            state("error", "A verificação expirou. Confirme novamente para enviar.");
+          },
+          "error-callback": () => {
+            form.dataset.turnstile = "";
+            submitButton.disabled = false;
+            state("error", "Não foi possível carregar a verificação. Atualize a página e tente novamente.");
+          },
+        });
+      } catch {
+        submitButton.disabled = false;
+        state("error", "Não foi possível carregar a verificação. Atualize a página e tente novamente.");
+      }
+    };
+    script.onerror = () => {
+      submitButton.disabled = false;
+      state("error", "Não foi possível carregar a verificação. Atualize a página e tente novamente.");
+    };
     document.head.append(script);
   }
   renderTurnstile();
@@ -244,7 +272,11 @@
       firstProcedure?.setCustomValidity("");
       return;
     }
-    if (!form.dataset.turnstile) { state("error"); return; }
+    const turnstileToken = form.dataset.turnstile || form.querySelector('input[name="cf-turnstile-response"]')?.value || "";
+    if (!turnstileToken) {
+      state("error", "Confirme a verificação de segurança antes de enviar.");
+      return;
+    }
     submitting = true;
     submitButton.disabled = true;
     state("loading");
@@ -261,7 +293,7 @@
     values.form_version = form.dataset.formVersion;
     values.language = document.documentElement.lang || "pt-BR";
     const body = new FormData();
-    body.set("token", form.dataset.turnstile);
+    body.set("token", turnstileToken);
     body.set("payload", JSON.stringify(values));
     const files = [...form.querySelectorAll('input[type="file"]')].flatMap((input) => [...input.files].map((file) => ({ input, file })));
     if (files.length > 10 || files.some(({ file }) => file.size < 1 || file.size > 10 * 1024 * 1024) || files.reduce((sum, { file }) => sum + file.size, 0) > 50 * 1024 * 1024) {
