@@ -1037,7 +1037,7 @@ function HomeView({
           month: "long",
           timeZone: "America/Sao_Paulo",
         }).format(new Date())}
-        title={t("Seu dia, com clareza.", "Your day, at a glance.")}
+        title="Franciele Sofiati"
       >
         {writable && (
           <>
