@@ -32,6 +32,10 @@ import {
   RefreshCw,
   Printer,
   UserRound,
+  UserRoundPlus,
+  Syringe,
+  RotateCcw,
+  TriangleAlert,
   Send,
   History,
   Link as LinkIcon,
@@ -43,6 +47,28 @@ import {
   WalletCards,
   Receipt,
   Upload,
+  Camera,
+  Trash2,
+  CheckCircle2,
+  Phone,
+  CalendarPlus,
+  Sparkles,
+  Stethoscope,
+  ListChecks,
+  List,
+  MoreHorizontal,
+  SlidersHorizontal,
+  Repeat2,
+  DoorOpen,
+  Bell,
+  UserCheck,
+  CheckCheck,
+  ClipboardCheck,
+  Keyboard,
+  ShieldAlert,
+  FileDown,
+  EyeOff,
+  Archive,
 } from "lucide-react";
 import {
   db,
@@ -68,6 +94,8 @@ import { encryptPackets, decryptPackets, fileBase64, download } from "./crypto";
 import { Language, useT, label } from "./i18n";
 import "./style.css";
 import FinanceiroRebuilt from "./FinanceiroRebuilt";
+import { documentEscape, openDocument, receiptDocumentHTML, reportDocumentHTML } from "./documentSystem";
+// App chrome and generated documents share the same clinic brand source.
 const LOGO = "/brand.png";
 function Button({ icon: Icon, children, className = "", ...props }) {
   return (
@@ -110,6 +138,8 @@ function Field({
   wide,
   ...props
 }) {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const password = type === "password";
   return (
     <label className={wide ? "field wide" : "field"}>
       <span>{title}</span>
@@ -135,16 +165,75 @@ function Field({
           {...props}
         />
       ) : (
-        <input
-          name={name}
-          type={type}
-          value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
-          {...props}
-        />
+        <span className={password ? "field-input-wrap has-password-toggle" : "field-input-wrap"}>
+          <input
+            name={name}
+            type={password && passwordVisible ? "text" : type}
+            value={value ?? ""}
+            onChange={(e) => onChange(e.target.value)}
+            {...props}
+          />
+          {password && <button type="button" className="password-toggle" aria-label={passwordVisible ? "Ocultar senha" : "Mostrar senha"} aria-pressed={passwordVisible} onClick={() => setPasswordVisible((visible) => !visible)}>{passwordVisible ? <EyeOff size={17} aria-hidden="true" /> : <Eye size={17} aria-hidden="true" />}</button>}
+        </span>
       )}
     </label>
   );
+}
+function Avatar({ person, className = "avatar", size = 40, onReplace }) {
+  const t = useT(), [url, setUrl] = useState("");
+  useEffect(() => {
+    let live = true;
+    if (!person?.avatar_path) { setUrl(""); return () => { live = false; }; }
+    db.storage.from("profile-photos").createSignedUrl(person.avatar_path, 900)
+      .then(({ data }) => { if (live) setUrl(data?.signedUrl || ""); })
+      .catch(() => { if (live) setUrl(""); });
+    return () => { live = false; };
+  }, [person?.avatar_path]);
+  const name = person?.preferred_name || person?.name || person?.full_name || person?.email || "";
+  return <span className={className} style={{ width: size, height: size }} aria-label={name || t("Pessoa", "Person")} onContextMenu={(event) => { if (onReplace) { event.preventDefault(); onReplace(); } }} title={onReplace ? t("Clique com o botão direito para substituir a imagem", "Right-click to replace this image") : undefined}>
+    {url ? <img src={url} alt="" /> : initials(name)}
+  </span>;
+}
+function PhotoPicker({ value, onChange, hasPhoto = false, onRemove }) {
+  const t = useT(), video = useRef(null), stream = useRef(null), [camera, setCamera] = useState(false), [videoReady, setVideoReady] = useState(false), [cameraError, setCameraError] = useState(""), [preview, setPreview] = useState("");
+  useEffect(() => { if (!value) { setPreview(""); return undefined; } const url = URL.createObjectURL(value); setPreview(url); return () => URL.revokeObjectURL(url); }, [value]);
+  const stop = () => { stream.current?.getTracks().forEach((track) => track.stop()); stream.current = null; setCamera(false); };
+  useEffect(() => () => stop(), []);
+  useEffect(() => { if (camera && video.current && stream.current) { video.current.srcObject = stream.current; video.current.play().catch(() => {}); } }, [camera]);
+  const openCamera = async () => {
+    setCameraError(""); setVideoReady(false);
+    try { if (!navigator.mediaDevices?.getUserMedia) throw Error("secure_context"); stream.current = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false }); setCamera(true); }
+    catch { setCameraError(t("A câmera precisa de permissão e de uma conexão HTTPS (ou localhost). Você também pode usar o botão de imagem abaixo.", "Camera access requires permission and HTTPS (or localhost). You can also use the image button below.")); }
+  };
+  const capture = () => { if (!videoReady || !video.current?.videoWidth) return; const canvas = document.createElement("canvas"); canvas.width = video.current.videoWidth; canvas.height = video.current.videoHeight; canvas.getContext("2d").drawImage(video.current, 0, 0); canvas.toBlob((blob) => { if (blob) onChange(new File([blob], "profile-photo.jpg", { type: "image/jpeg" })); stop(); }, "image/jpeg", .9); };
+  return <div className="photo-picker">
+    <label className="field"><span>{t("Foto do perfil", "Profile photo")}</span><input type="file" accept="image/*" capture="user" onChange={(e) => { setCameraError(""); onChange(e.target.files[0] || null); }} /></label>
+    {(preview || value) && <div className="photo-picker-preview"><img src={preview} alt={t("Pré-visualização da foto selecionada", "Preview of selected photo")} /><div><strong>{t("Pré-visualização", "Preview")}</strong><small>{value?.name || "photo"}</small></div></div>}
+    <div className="photo-picker-actions"><Button type="button" icon={Camera} onClick={openCamera}>{t("Usar câmera", "Use camera")}</Button>{(value || hasPhoto) && <Button type="button" icon={Trash2} onClick={() => onRemove ? onRemove() : onChange(null)}>{t("Remover foto", "Remove photo")}</Button>}</div>
+    {cameraError && <p className="notice error">{cameraError}</p>}
+    {camera && <div className="camera-capture"><video ref={video} playsInline muted onLoadedMetadata={() => setVideoReady(true)} /><Button type="button" className="primary" disabled={!videoReady} icon={Camera} onClick={capture}>{videoReady ? t("Capturar", "Capture") : t("Preparando câmera...", "Preparing camera...")}</Button><Button type="button" onClick={stop}>{t("Cancelar", "Cancel")}</Button></div>}
+  </div>;
+}
+async function saveProfilePhoto(table, id, file, userId, oldPath) {
+  if (!file) return null;
+  if (!file.type?.startsWith("image/")) throw Error("photo_type");
+  let upload = file;
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 5242880) {
+    const bitmap = await createImageBitmap(file), canvas = document.createElement("canvas"), scale = Math.min(1, 2400 / Math.max(bitmap.width, bitmap.height));
+    canvas.width = Math.max(1, Math.round(bitmap.width * scale)); canvas.height = Math.max(1, Math.round(bitmap.height * scale)); canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height); bitmap.close();
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", .9));
+    if (!blob || blob.size > 5242880) throw Error("photo_size");
+    upload = new File([blob], "profile-photo.jpg", { type: "image/jpeg" });
+  }
+  const path = `${ORG}/${table === "patients" ? "patient" : (userId || id)}/${crypto.randomUUID()}.${upload.type.split("/")[1]}`;
+  await checked(db.storage.from("profile-photos").upload(path, upload, { upsert: false, contentType: upload.type }));
+  await checked(db.from(table).update({ avatar_path: path }).eq("id", id));
+  if (oldPath && oldPath !== path) await db.storage.from("profile-photos").remove([oldPath]);
+  return path;
+}
+async function removeProfilePhoto(table, id, path) {
+  if (path) await checked(db.storage.from("profile-photos").remove([path]));
+  await checked(db.from(table).update({ avatar_path: null }).eq("id", id));
 }
 function Dialog({ title, close, children, wide = false }) {
   const ref = useRef(),
@@ -478,6 +567,7 @@ function Clinic({ language, setLanguage }) {
     writable = member?.role !== "leitura";
   const nav = [
     ["home", Home, t("Início", "Today")],
+    ["communication", MessageCircle, t("Comunicação", "Communication")],
     ["patients", Users, t("Pacientes", "Patients")],
     ["enquiries", Inbox, t("Formulários", "Forms")],
     ["agenda", CalendarDays, t("Agenda", "Schedule")],
@@ -489,6 +579,7 @@ function Clinic({ language, setLanguage }) {
   const common = {
     member,
     openPatient,
+    navigate,
     setModal,
     notify,
     version,
@@ -590,9 +681,7 @@ function Clinic({ language, setLanguage }) {
                   }
                   onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
                 />
-                <span className="user-avatar">
-                  {member.name?.slice(0, 1) || "F"}
-                </span>
+                <Avatar person={member} className="user-avatar" size={38} onReplace={() => navigate("settings")} />
                 <span className="user-name">
                   {member.name || member.email}
                   <small>{label(member.role, t)}</small>
@@ -608,6 +697,7 @@ function Clinic({ language, setLanguage }) {
             </header>
             <main id="main" tabIndex={-1}>
               {view === "home" && <HomeView {...common} />}
+              {view === "communication" && <Communication {...common} />}
               {view === "patients" && <Patients {...common} />}
               {view === "patient" && patient && (
                 <Patient
@@ -616,7 +706,7 @@ function Clinic({ language, setLanguage }) {
                   {...common}
                 />
               )}
-              {view === "agenda" && <Agenda {...common} />}
+              {view === "agenda" && <AgendaHub {...common} />}
               {view === "tasks" && <Tasks {...common} />}
               {view === "enquiries" && <Enquiries {...common} />}
               {view === "reports" && <Reports {...common} />}
@@ -635,6 +725,15 @@ function Clinic({ language, setLanguage }) {
           patient={modal.patient}
           close={() => setModal(null)}
           done={refreshed}
+          notify={notify}
+        />
+      )}
+      {member && modal?.type === "patient-lifecycle" && (
+        <PatientLifecycleDialog
+          patient={modal.patient}
+          member={member}
+          close={() => setModal(null)}
+          done={() => { setModal(null); navigate("patients"); setVersion((n) => n + 1); }}
           notify={notify}
         />
       )}
@@ -659,6 +758,14 @@ function Clinic({ language, setLanguage }) {
         <WhatsappComposer
           appointment={modal.appointment}
           patient={modal.patient}
+          close={() => setModal(null)}
+          notify={notify}
+        />
+      )}
+      {member && modal?.type === "communication" && (
+        <CommunicationComposer
+          {...modal}
+          member={member}
           close={() => setModal(null)}
           notify={notify}
         />
@@ -688,9 +795,19 @@ function Clinic({ language, setLanguage }) {
           notify={notify}
         />
       )}
-      {member && modal?.type === "enquiry" && (
-        <EnquiryQuickView enquiry={modal.enquiry} close={() => setModal(null)} />
-      )}
+              {member && modal?.type === "enquiry" && (
+                <EnquiryQuickView enquiry={modal.enquiry} close={() => setModal(null)} />
+              )}
+              {member && modal?.type === "master-intake" && (
+                <MasterIntake
+                  patient={modal.patient}
+                  sourceIntake={modal.sourceIntake}
+                  member={member}
+                  close={() => setModal(null)}
+                  done={() => setVersion((n) => n + 1)}
+                  notify={notify}
+                />
+              )}
       {member && modal?.type === "export" && (
         <ExportDialog {...modal} close={() => setModal(null)} notify={notify} />
       )}
@@ -855,46 +972,32 @@ function PageHead({ eyebrow, title, children }) {
 function HomeView({
   member,
   openPatient,
+  navigate,
   setModal,
   version,
   writable,
   clinical,
 }) {
-  const t = useT(),
-    today = localDay();
+  const t = useT(), today = localDay(), now = new Date();
   const state = useLoad(async () => {
-    const [appointments, tasks, patients, enquiries, followups, adverseEvents] = await Promise.all([
-      checked(
-        db
-          .from("appointments")
-          .select("*,patients(*)")
-          .gte("starts_at", today + "T00:00:00-03:00")
-          .lte("starts_at", today + "T23:59:59-03:00")
-          .order("starts_at")
-          .limit(30),
-      ),
-      checked(
-        db
-          .from("tasks")
-          .select("*,patients(*)")
-          .eq("status", "pendente")
-          .lte("due_at", today + "T23:59:59-03:00")
-          .order("due_at")
-          .limit(15),
-      ),
-      checked(
-        db
-          .from("patients")
-          .select("*")
-          .order("created_at", { ascending: false })
-          .limit(5),
-      ),
-      checked(db.from("public_intakes").select("id,full_name,status,created_at").in("status", ["novo", "em_analise", "contatado", "aguardando"]).order("created_at", { ascending: false }).limit(10)),
-      checked(db.from("follow_ups").select("id,patient_id,expected_on,status,patients(full_name)").in("status", ["aguardando_agendamento", "vencido"]).limit(10)).catch(() => []),
-      clinical ? checked(db.from("adverse_events").select("id,patient_id,description,status,patients(full_name)").eq("status", "em_acompanhamento").limit(10)).catch(() => []) : [],
+    const optional = (query) => checked(query).catch(() => []);
+    const nextWeek = shiftDay(today, 7);
+    const [appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance] = await Promise.all([
+      optional(db.from("appointments").select("*,patients(*)").gte("starts_at", today + "T00:00:00-03:00").lt("starts_at", nextWeek + "T00:00:00-03:00").order("starts_at").limit(160)),
+      optional(db.from("tasks").select("*,patients(*)").eq("status", "pendente").order("due_at").limit(80)),
+      optional(db.from("patients").select("*").order("created_at", { ascending: false }).limit(6)),
+      optional(db.from("public_intakes").select("id,full_name,status,created_at,submitted_at,patient_id").in("status", ["novo", "em_analise", "contatado", "aguardando"]).order("created_at", { ascending: false }).limit(30)),
+      optional(db.from("follow_ups").select("id,patient_id,expected_on,status,notes,patients(*)").in("status", ["aguardando_agendamento", "vencido"]).order("expected_on").limit(30)),
+      clinical ? optional(db.from("adverse_events").select("id,patient_id,description,status,followup_deadline,patients(*)").eq("status", "em_acompanhamento").order("followup_deadline").limit(20)) : [],
+      optional(db.from("master_intakes").select("id,patient_id,status,missing_fields,updated_at,patients(*)").neq("status", "finalizado").limit(30)),
+      clinical ? optional(db.from("entries").select("id,patient_id,kind,status,created_at").eq("status", "finalizado").limit(200)) : [],
+      clinical ? optional(db.from("treatment_plans").select("id,patient_id,status,expected_followup,patients(*)").in("status", ["planejado", "em_andamento"]).limit(100)) : [],
+      clinical ? optional(db.from("clinical_procedures").select("id,patient_id,status,followup_due,patients(*)").eq("status", "finalizado").limit(100)) : [],
+      member?.role === "proprietario" ? optional(db.from("audit_events").select("id,action,entity_type,created_at").order("created_at", { ascending: false }).limit(6)) : [],
+      member?.role === "proprietario" ? optional(db.from("financial_records").select("id,total_cents,status,due_on,patient_id,financial_payments(amount_cents,status)").neq("status", "cancelado").limit(100)) : [],
     ]);
-    return { appointments, tasks, patients, enquiries, followups, adverseEvents };
-  }, [version]);
+    return { appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance };
+  }, [version, member?.role, clinical]);
   return (
     <>
       <PageHead
@@ -925,145 +1028,49 @@ function HomeView({
         )}
       </PageHead>
       <LoadState state={state}>
-        {({ appointments, tasks, patients, enquiries, followups, adverseEvents }) => (
+        {({ appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance }) => {
+          const todayAppointments = appointments.filter((a) => validDateValue(a.starts_at) && localDay(a.starts_at) === today);
+          const homePatients = patients.length ? patients : appointments.map((a) => a.patients).filter(Boolean).filter((p, index, rows) => rows.findIndex((item) => item.id === p.id) === index);
+          const activeAppointments = todayAppointments.filter((a) => !["cancelado", "reagendado"].includes(a.status));
+          const checkedIn = todayAppointments.filter((a) => ["aguardando", "em_atendimento"].includes(a.status));
+          const pendingTasks = tasks.filter((task) => new Date(task.due_at) <= new Date(`${today}T23:59:59-03:00`));
+          const attention = [
+            ...pendingTasks.map((item) => ({ id: `task-${item.id}`, tone: item.priority === "alta" ? "urgent" : "task", title: item.title || t("Tarefa pendente", "Pending task"), detail: item.patients?.preferred_name || item.patients?.full_name || t("Clínica", "Clinic"), due: item.due_at, action: () => setModal({ type: "task", task: item }) })),
+            ...enquiries.map((item) => ({ id: `intake-${item.id}`, tone: "intake", title: t("Pré-cadastro aguardando triagem", "Pre-registration awaiting review"), detail: item.full_name, due: item.created_at, action: () => setModal({ type: "enquiry", enquiry: item }) })),
+            ...masterIntakes.map((item) => ({ id: `master-${item.id}`, tone: "intake", title: t("Intake incompleto", "Incomplete intake"), detail: item.patients?.preferred_name || item.patients?.full_name, due: item.updated_at, action: () => item.patients && openPatient(item.patients) })),
+            ...followups.map((item) => ({ id: `follow-${item.id}`, tone: "clinical", title: t("Retorno clínico pendente", "Pending clinical follow-up"), detail: item.patients?.preferred_name || item.patients?.full_name, due: item.expected_on, action: () => item.patients && openPatient(item.patients) })),
+            ...adverseEvents.map((item) => ({ id: `adverse-${item.id}`, tone: "urgent", title: t("Intercorrência em acompanhamento", "Adverse event under follow-up"), detail: item.patients?.preferred_name || item.patients?.full_name, due: item.followup_deadline, action: () => item.patients && openPatient(item.patients) })),
+          ].sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0)).slice(0, 8);
+          const journey = [
+            [t("Pré-cadastro", "Pre-registration"), enquiries.length],
+            [t("Formulário", "Form"), masterIntakes.length],
+            [t("Intake", "Intake"), masterIntakes.filter((i) => i.status === "em_revisao").length],
+            [t("Consulta", "Visit"), appointments.filter((a) => a.status === "concluido").length],
+            [t("Plano", "Plan"), plans.length],
+            [t("Procedimento", "Procedure"), procedures.length],
+            [t("Retorno", "Follow-up"), followups.length],
+          ];
+          const capacity = Array.from({ length: 7 }, (_, index) => { const day = shiftDay(today, index); const booked = appointments.filter((a) => validDateValue(a.starts_at) && localDay(a.starts_at) === day && !["cancelado", "reagendado"].includes(a.status)).length; return { day, booked, total: atNoon(day).getDay() === 6 ? 4 : 10 }; });
+          const openBalance = (finance || []).reduce((sum, record) => sum + Math.max(0, Number(record.total_cents || 0) - (record.financial_payments || []).filter((payment) => payment.status === "recebido").reduce((paid, payment) => paid + Number(payment.amount_cents || 0), 0)), 0);
+          return (
           <>
-            <div className="today-strip">
-              <div>
-                <CalendarDays size={22} />
-                <span>
-                  <strong>
-                    {
-                      appointments.filter(
-                        (a) => !["cancelado", "reagendado"].includes(a.status),
-                      ).length
-                    }
-                  </strong>
-                  {t("agendamentos hoje", "appointments today")}
-                </span>
-              </div>
-              <div>
-                <Inbox size={22} />
-                <span><strong>{enquiries.length + followups.length + adverseEvents.length}</strong>{t("itens de atenção", "attention items")}</span>
-              </div>
-              <div>
-                <Clock size={22} />
-                <span>
-                  <strong>
-                    {tasks.length}
-                    {tasks.length === 15 ? "+" : ""}
-                  </strong>
-                  {t("tarefas para acompanhar", "tasks to follow up")}
-                </span>
-              </div>
+            <section className="home-hero"><div><p className="eyebrow">{t("Command center · hoje", "Command center · today")}</p><h2>{t("Seu dia, com clareza.", "Your day, at a glance.")}</h2><p>{date(today, true)} · {activeAppointments.length} {t("atendimentos ativos", "active visits")}</p></div><div className="home-hero-orbit"><strong>{checkedIn.length}</strong><span>{t("em fluxo", "in flow")}</span></div></section>
+            <div className="home-metrics">
+              <button onClick={() => navigate("agenda")}><span className="metric-icon metric-icon-sage"><CalendarDays size={17}/></span><strong>{activeAppointments.length}</strong><small>{t("agenda hoje", "today's schedule")}</small><i>{todayAppointments.filter((a) => a.status === "confirmado").length} {t("confirmados", "confirmed")}</i></button>
+              <button onClick={() => navigate("agenda")}><span className="metric-icon metric-icon-rose"><UserCheck size={17}/></span><strong>{checkedIn.length}</strong><small>{t("aguardando / em atendimento", "waiting / in visit")}</small><i>{todayAppointments.filter((a) => a.status === "concluido").length} {t("concluídos", "completed")}</i></button>
+              <button onClick={() => navigate("enquiries")}><span className="metric-icon metric-icon-gold"><ClipboardCheck size={17}/></span><strong>{enquiries.length + masterIntakes.length}</strong><small>{t("formulários e intakes", "forms and intakes")}</small><i>{enquiries.length} {t("pré-cadastros", "pre-registrations")}</i></button>
+              <button onClick={() => navigate("tasks")}><span className="metric-icon metric-icon-pink"><ListChecks size={17}/></span><strong>{pendingTasks.length}</strong><small>{t("atenções abertas", "open attention")}</small><i>{pendingTasks.filter((x) => new Date(x.due_at) < now).length} {t("vencidas", "overdue")}</i></button>
+              {member?.role === "proprietario" && <button onClick={() => navigate("finance")}><span className="metric-icon metric-icon-gold"><WalletCards size={17}/></span><strong>{money(openBalance / 100)}</strong><small>{t("lançamentos ativos", "active charges")}</small><i>{finance.length} {t("registros", "records")}</i></button>}
             </div>
-            <div className="dashboard-grid">
-              <section>
-                <div className="section-heading">
-                  <h2>{t("Agenda de hoje", "Today’s appointments")}</h2>
-                  <span className="subtle">{date(today)}</span>
-                </div>
-                {appointments.length ? (
-                  <div className="rows">
-                    {appointments.map((a) => (
-                      <AppointmentRow
-                        key={a.id}
-                        appointment={a}
-                        openPatient={openPatient}
-                        setModal={setModal}
-                        clinical={clinical}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <Empty icon={CalendarDays}>
-                    {t("Nenhum agendamento para hoje", "No appointments today")}
-                  </Empty>
-                )}
-              </section>
-              <section className="followup">
-                <div className="section-heading">
-                  <h2>{t("Precisa de atenção", "Needs attention")}</h2>
-                  <Clock size={18} />
-                </div>
-                {tasks.length ? (
-                  tasks.map((task) => (
-                    <button
-                      className="task-row"
-                      key={task.id}
-                      onClick={() =>
-                        task.patients
-                          ? openPatient(task.patients)
-                          : setModal({ type: "task", task })
-                      }
-                    >
-                      <span className="task-mark" />
-                      <span>
-                        <strong>
-                          {task.title || t("Retorno", "Follow-up")}
-                        </strong>
-                        <small>
-                          {task.patients?.full_name || t("Clínica", "Clinic")}
-                        </small>
-                        <small
-                          className={
-                            new Date(task.due_at) < new Date() ? "overdue" : ""
-                          }
-                        >
-                          {date(task.due_at, true)}
-                        </small>
-                      </span>
-                      <ChevronRight size={16} />
-                    </button>
-                  ))
-                ) : (
-                  <Empty icon={Check}>
-                    {t("Tudo em dia", "All caught up")}
-                  </Empty>
-                )}
-              </section>
+            <div className="home-grid">
+              <section className="home-panel home-agenda"><div className="section-heading"><div><p className="eyebrow">{t("Próximos passos", "Next steps")}</p><h2>{t("Agenda de hoje", "Today's schedule")}</h2></div><button className="text-action" onClick={() => navigate("agenda")}>{t("Abrir agenda", "Open schedule")} <ArrowRight size={15}/></button></div>{todayAppointments.slice(0, 6).map((a) => <AppointmentRow key={a.id} appointment={a} openPatient={openPatient} setModal={setModal} clinical={clinical}/>)}{!todayAppointments.length && <Empty icon={CalendarDays}>{t("Nenhum agendamento para hoje", "No appointments today")}</Empty>}</section>
+              <section className="home-panel home-attention"><div className="section-heading"><div><p className="eyebrow">{t("Fila única", "Single queue")}</p><h2>{t("Precisa de atenção", "Needs attention")}</h2></div><span className="attention-count">{attention.length}</span></div>{attention.length ? attention.map((item) => <button className={`home-attention-row tone-${item.tone}`} key={item.id} onClick={item.action}><span className="attention-dot"/><span><strong>{item.title}</strong><small>{item.detail || t("Sem paciente vinculado", "No linked patient")} · {date(item.due, true)}</small></span><ChevronRight size={15}/></button>) : <Empty icon={CheckCircle2}>{t("Tudo em dia", "All caught up")}</Empty>}</section>
             </div>
-            <section className="recent">
-              <div className="section-heading">
-                <h2>{t("Pacientes recentes", "Recent patients")}</h2>
-                <Users size={18} />
-              </div>
-              <div className="recent-grid">
-                {patients.map((p) => (
-                  <button
-                    className="patient-card"
-                    key={p.id}
-                    onClick={() => openPatient(p)}
-                  >
-                    <span className="avatar">{initials(p.full_name)}</span>
-                    <span>
-                      <strong>
-                        {p.full_name ||
-                          t("Paciente sem nome", "Unnamed patient")}
-                      </strong>
-                      <small>
-                        {p.phone || p.email || t("Sem contato", "No contact")}
-                      </small>
-                    </span>
-                    <ChevronRight size={16} />
-                  </button>
-                ))}
-              </div>
-              {!patients.length && (
-                <Empty icon={Users}>
-                  {t(
-                    "Seu próximo cuidado começa com um paciente",
-                    "Your next care journey starts with a patient",
-                  )}
-                </Empty>
-              )}
-            </section>
-            <section className="recent attention-queue">
-              <div className="section-heading"><h2>{t("Fila de atenção", "Attention queue")}</h2><AlertCircle size={18} /></div>
-              {[...enquiries.map((item) => ({ id: `e-${item.id}`, title: t("Novo pré-cadastro", "New enquiry"), content: item.full_name, action: () => setModal({ type: "enquiry", enquiry: item }) })), ...followups.map((item) => ({ id: `f-${item.id}`, title: t("Retorno pendente", "Pending follow-up"), content: item.patients?.full_name || t("Paciente", "Patient"), action: () => openPatient(item.patients) })), ...adverseEvents.map((item) => ({ id: `a-${item.id}`, title: t("Intercorrência aberta", "Open adverse event"), content: item.patients?.full_name || item.description, action: () => openPatient(item.patients) }))].slice(0, 8).map((item) => <button className="task-row" key={item.id} onClick={item.action}><span className="task-mark" /><span><strong>{item.title}</strong><small>{item.content}</small></span><ChevronRight size={16} /></button>)}
-              {!enquiries.length && !followups.length && !adverseEvents.length && <Empty icon={Check}>{t("Nenhuma pendência crítica", "No critical pending items")}</Empty>}
-            </section>
+            <section className="home-panel home-journey"><div className="section-heading"><div><p className="eyebrow">{t("Continuidade do cuidado", "Continuity of care")}</p><h2>{t("Jornada dos pacientes", "Patient journey")}</h2></div><button className="text-action" onClick={() => navigate("reports")}>{t("Ver detalhes", "View details")} <ArrowRight size={15}/></button></div><div className="journey-flow">{journey.map(([name, count], index) => <button key={name} onClick={() => navigate(index < 2 ? "enquiries" : index === 3 ? "agenda" : "tasks")}><span className={`journey-number journey-number-${index}`}>{count}</span><small>{name}</small>{index < journey.length - 1 && <ArrowRight size={14}/>}</button>)}</div></section>
+            <div className="home-grid home-grid-bottom"><section className="home-panel home-capacity"><div className="section-heading"><div><p className="eyebrow">{t("Próximos 7 dias", "Next 7 days")}</p><h2>{t("Capacidade da agenda", "Schedule capacity")}</h2></div><span className="subtle">{capacity.reduce((sum, d) => sum + d.total - d.booked, 0)} {t("vagas estimadas", "estimated openings")}</span></div><div className="capacity-heatmap">{capacity.map((item) => <button key={item.day} title={`${date(item.day)} · ${item.booked}/${item.total}`} onClick={() => { navigate("agenda"); }}><small>{new Intl.DateTimeFormat("pt-BR", { weekday: "short", timeZone: "America/Sao_Paulo" }).format(atNoon(item.day)).replace(".", "")}</small><span style={{ "--fill": `${Math.min(100, (item.booked / item.total) * 100)}%` }}><i/></span><strong>{Math.max(0, item.total - item.booked)}</strong></button>)}</div></section><section className="home-panel home-recent"><div className="section-heading"><h2>{t("Atividade recente", "Recent activity")}</h2><History size={17}/></div>{member?.role === "proprietario" && audit.length ? audit.map((item) => <div className="home-activity" key={item.id}><span>{auditLabel(item.action, t)}</span><small>{entityLabel(item.entity_type, t)} · {date(item.created_at, true)}</small></div>) : homePatients.slice(0, 4).map((p) => <button className="home-activity home-activity-link" key={p.id} onClick={() => openPatient(p)}><Avatar person={p} size={28}/><span>{p.preferred_name || p.full_name}</span><small>{date(p.created_at, true)}</small></button>)}</section></div>
           </>
-        )}
+          );
+        }}
       </LoadState>
     </>
   );
@@ -1110,6 +1117,7 @@ function Patients({ openPatient, setModal, version, writable }) {
   const t = useT(),
     [search, setSearch] = useState(""),
     [term, setTerm] = useState(""),
+    [showArchived, setShowArchived] = useState(false),
     [page, setPage] = useState(0);
   useEffect(() => {
     const id = setTimeout(() => {
@@ -1122,6 +1130,7 @@ function Patients({ openPatient, setModal, version, writable }) {
     let q = db
       .from("patients")
       .select("*")
+      .eq("status", showArchived ? "inativo" : "ativo")
       .order("full_name")
       .range(page * 20, page * 20 + 19);
     if (term)
@@ -1129,7 +1138,7 @@ function Patients({ openPatient, setModal, version, writable }) {
         `full_name.ilike.%${term}%,cpf.ilike.%${term}%,phone.ilike.%${term}%,email.ilike.%${term}%`,
       );
     return checked(q);
-  }, [term, page, version]);
+  }, [term, page, version, showArchived]);
   return (
     <>
       <PageHead
@@ -1159,6 +1168,15 @@ function Patients({ openPatient, setModal, version, writable }) {
             onChange={(e) => setSearch(e.target.value)}
           />
         </label>
+        <Button
+          type="button"
+          icon={showArchived ? UserCheck : Archive}
+          onClick={() => { setShowArchived((value) => !value); setPage(0); }}
+        >
+          {showArchived
+            ? t("Ver pacientes ativos", "Show active patients")
+            : t("Ver arquivados", "Show archived")}
+        </Button>
       </div>
       <LoadState state={state}>
         {(patients) => (
@@ -1170,7 +1188,7 @@ function Patients({ openPatient, setModal, version, writable }) {
                   className="patient-row"
                   onClick={() => openPatient(p)}
                 >
-                  <span className="avatar">{initials(p.full_name)}</span>
+                  <Avatar person={p} onReplace={() => writable && setModal({ type: "patient", patient: p })} />
                   <span className="patient-identity">
                     <strong>
                       {p.full_name || t("Paciente sem nome", "Unnamed patient")}
@@ -1193,7 +1211,9 @@ function Patients({ openPatient, setModal, version, writable }) {
             </div>
             {!patients.length && (
               <Empty icon={Search}>
-                {t("Nenhum paciente encontrado", "No patients found")}
+                {showArchived
+                  ? t("Nenhum paciente arquivado", "No archived patients")
+                  : t("Nenhum paciente ativo encontrado", "No active patients found")}
               </Empty>
             )}
             <Pager page={page} count={patients.length} setPage={setPage} />
@@ -1215,9 +1235,50 @@ const patientFields = [
   ["occupation", "Ocupação", "Occupation"],
   ["insurance", "Convênio", "Insurance"],
 ];
+function PatientLifecycleDialog({ patient, close, done, notify }) {
+  const t = useT();
+  const [busy, setBusy] = useState(false);
+  const archive = async () => {
+    setBusy(true);
+    try {
+      await checked(db.rpc("archive_patient", { target_patient: patient.id, archived: patient.status !== "inativo" }));
+      notify(patient.status === "inativo" ? t("Paciente reativado.", "Patient restored.") : t("Paciente arquivado.", "Patient archived."));
+      done();
+    } catch (error) { notify(error?.code === "not_authorized" ? t("Você não tem permissão para arquivar este paciente.", "You do not have permission to archive this patient.") : t("Não foi possível alterar o arquivo do paciente.", "Could not update the patient archive.")); }
+    finally { setBusy(false); }
+  };
+  const permanentlyDelete = async () => {
+    if (!confirm(t("Excluir este paciente permanentemente? Todos os registros e arquivos serão removidos.", "Permanently delete this patient? All records and files will be removed."))) return;
+    setBusy(true);
+    try {
+      await checked(db.rpc("delete_patient", { target_patient: patient.id }));
+      notify(t("Paciente excluído permanentemente.", "Patient permanently deleted."));
+      done();
+    } catch (error) {
+      const reason = `${error?.code || ""} ${error?.message || ""}`.toLowerCase();
+      console.error("delete_patient failed", error);
+      notify(reason.includes("patient_has_payment")
+        ? t("Este paciente tem pagamento registrado e só Franciele pode excluí-lo.", "This patient has a payment and only Franciele can delete them.")
+        : reason.includes("function") || reason.includes("pgrst202")
+          ? t("A exclusão ainda não está ativa no servidor. Aplique as migrações e publique novamente.", "Deletion is not active on the server yet. Apply the migrations and publish again.")
+          : t(`Não foi possível excluir o paciente. ${error?.message || "Verifique sua permissão e tente novamente."}`, `Could not delete the patient. ${error?.message || "Check your permission and try again."}`));
+    } finally { setBusy(false); }
+  };
+  return <Dialog title={t("Arquivo do paciente", "Patient record actions")} close={() => !busy && close()}>
+    <p>{patient.preferred_name || patient.full_name}</p>
+    <p className="notice">{t("Arquivar mantém o prontuário e permite restaurar depois. Excluir remove permanentemente os dados e arquivos.", "Archiving keeps the record and can be reversed. Deleting permanently removes data and files.")}</p>
+    <footer className="form-footer">
+      <Button type="button" disabled={busy} onClick={close}>{t("Cancelar", "Cancel")}</Button>
+      <Button type="button" disabled={busy} icon={Archive} onClick={archive}>{patient.status === "inativo" ? t("Reativar", "Restore") : t("Arquivar", "Archive")}</Button>
+      <Button type="button" disabled={busy} icon={Trash2} className="danger" onClick={permanentlyDelete}>{t("Excluir permanentemente", "Delete permanently")}</Button>
+    </footer>
+  </Dialog>;
+}
 function PatientForm({ patient, close, done, notify }) {
   const t = useT(),
     [form, setForm] = useState(patient || {}),
+    [photoFile, setPhotoFile] = useState(null),
+    [removePhoto, setRemovePhoto] = useState(false),
     [busy, setBusy] = useState(false),
     [duplicates, setDuplicates] = useState([]),
     dirty = useDirty();
@@ -1280,7 +1341,9 @@ function PatientForm({ patient, close, done, notify }) {
         guardian: form.guardian || {},
         status: form.status || "ativo",
       });
-      await save("patients", values, patient);
+      const saved = await save("patients", values, patient);
+      if (photoFile) await saveProfilePhoto("patients", saved.id, photoFile, undefined, patient?.avatar_path);
+      else if (removePhoto && patient?.avatar_path) await removeProfilePhoto("patients", saved.id, patient.avatar_path);
       dirty.clean();
       done();
     } catch (e) {
@@ -1327,6 +1390,10 @@ function PatientForm({ patient, close, done, notify }) {
               maxLength={type === "date" ? undefined : 200}
             />
           ))}
+        </div>
+        <div className="profile-photo-field">
+          <Avatar person={form} className="avatar large" size={72} />
+          <PhotoPicker value={photoFile} hasPhoto={!!form.avatar_path} onChange={(file) => { setRemovePhoto(false); setPhotoFile(file); }} onRemove={() => { setPhotoFile(null); setRemovePhoto(true); setForm((current) => ({ ...current, avatar_path: null })); }} />
         </div>
         {!!duplicates.length && (
           <div className="notice">
@@ -1607,9 +1674,7 @@ function Patient({
         return (
           <>
             <div className="patient-heading">
-              <span className="avatar large">
-                {initials(patient.full_name)}
-              </span>
+              <Avatar person={patient} className="avatar large" size={72} onReplace={() => writable && setModal({ type: "patient", patient })} />
               <div>
                 <p className="eyebrow">{t("Paciente", "Patient")}</p>
                 <h1>
@@ -1642,10 +1707,35 @@ function Patient({
               <div className="actions">
                 {writable && (
                   <Button
+                    icon={MessageCircle}
+                    onClick={() => setModal({ type: "communication", patient })}
+                  >
+                    {t("Comunicar", "Communicate")}
+                  </Button>
+                )}
+                {writable && (
+                  <Button
+                    icon={ClipboardCheck}
+                    className="primary"
+                    onClick={() => setModal({ type: "master-intake", patient })}
+                  >
+                    {t("Consulta inicial completa", "Master Intake")}
+                  </Button>
+                )}
+                {writable && (
+                  <Button
                     icon={CalendarDays}
                     onClick={() => setModal({ type: "appointment", patient })}
                   >
                     {t("Agendar", "Schedule")}
+                  </Button>
+                )}
+                {writable && (
+                  <Button
+                    icon={Archive}
+                    onClick={() => setModal({ type: "patient-lifecycle", patient })}
+                  >
+                    {t("Arquivo / excluir", "Archive / delete")}
                   </Button>
                 )}
                 {clinical && (
@@ -2256,7 +2346,20 @@ function ConsentPanel({ patient, member, writable, notify }) { const t = useT();
 
 function PrivacyPortalPanel({ patient, member, writable, notify }) { const t = useT(); const [request, setRequest] = useState({ request_type: "acesso", status: "recebida", notes: "" }); const [share, setShare] = useState({ resource_type: "post_care", resource_id: "" }); const requests = useLoad(() => checked(db.from("privacy_requests").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const shares = useLoad(() => checked(db.from("patient_portal_shares").select("*").eq("patient_id", patient.id).order("shared_at", { ascending: false })), [patient.id]); const saveRequest = async (e) => { e.preventDefault(); try { await checked(db.from("privacy_requests").insert({ organization_id: ORG, patient_id: patient.id, ...request, responsible_user: member.user_id, created_by: member.user_id })); requests.refresh(); notify(t("Solicitação registrada", "Request recorded")); } catch { notify(t("Não foi possível registrar a solicitação.", "Could not record the request.")); } }; const createShare = async (e) => { e.preventDefault(); try { await checked(db.from("patient_portal_shares").insert({ organization_id: ORG, patient_id: patient.id, ...share, shared_by: member.user_id })); shares.refresh(); notify(t("Disponibilizado ao paciente", "Shared with patient")); } catch { notify(t("Não foi possível compartilhar.", "Could not share.")); } }; return <section className="detail-section"><h2>{t("Privacidade e Área do Paciente", "Privacy & Patient Area")}</h2>{writable && <><form className="form-grid" onSubmit={saveRequest}><Field title={t("Tipo de solicitação", "Request type")} value={request.request_type} onChange={(v) => setRequest({ ...request, request_type: v })} options={["acesso", "correcao", "exportacao", "restricao", "exclusao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Observações", "Notes")} type="textarea" value={request.notes} onChange={(v) => setRequest({ ...request, notes: v })} /><Button className="primary" icon={Save}>{t("Registrar solicitação", "Record request")}</Button></form><form className="form-grid" onSubmit={createShare}><Field title={t("Recurso a compartilhar", "Resource to share")} value={share.resource_type} onChange={(v) => setShare({ ...share, resource_type: v })} options={["document", "report", "photo", "consent", "post_care", "appointment"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("ID do recurso", "Resource ID")} value={share.resource_id} onChange={(v) => setShare({ ...share, resource_id: v })} /><Button className="primary" icon={LinkIcon}>{t("Disponibilizar ao paciente", "Share with patient")}</Button></form></>}<h3>{t("Solicitações", "Requests")}</h3><LoadState state={requests}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.request_type, t)}</strong><small>{date(row.received_on)} · {row.notes}</small></span><Status value={row.status} /></div>)}</LoadState><h3>{t("Recursos compartilhados", "Shared resources")}</h3><LoadState state={shares}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.resource_type, t)}</strong><small>{date(row.shared_at, true)}</small></span><Status value={row.status} />{writable && row.status === "shared" && <Button onClick={async () => { await checked(db.from("patient_portal_shares").update({ status: "revoked", revoked_at: new Date().toISOString() }).eq("id", row.id)); shares.refresh(); notify(t("Removido da Área do Paciente", "Removed from Patient Area")); }}>{t("Remover", "Revoke")}</Button>}</div>)}</LoadState></section>; }
 
-function ClinicalPhotosPanel({ patient, writable, notify }) { const t = useT(); const [file, setFile] = useState(null), [form, setForm] = useState({ category: "antes", area: "", description: "" }), [busy, setBusy] = useState(false); const state = useLoad(() => checked(db.from("clinical_photos").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const set = (key, value) => setForm((c) => ({ ...c, [key]: value })); const upload = async (e) => { e.preventDefault(); if (!file) return; setBusy(true); try { const body = new FormData(); body.set("file", file); body.set("patient_id", patient.id); body.set("kind", "photo"); body.set("category", form.category); body.set("area", form.area); body.set("description", form.description); const result = await invoke("files", body); if (!result?.photo) throw Error("upload"); setFile(null); state.refresh(); notify(t("Foto clínica salva", "Clinical photo saved")); } catch { notify(t("Não foi possível enviar a foto.", "Could not upload photo.")); } finally { setBusy(false); } }; const photo = async (row) => { try { const { data, error } = await db.storage.from("clinical-photos").createSignedUrl(row.path, 300); if (error || !data?.signedUrl) throw error || Error("signed_url"); window.open(data.signedUrl, "_blank", "noopener,noreferrer"); } catch { notify(t("Não foi possível abrir a foto.", "Could not open the photo.")); } }; return <section className="detail-section"><div className="section-heading"><h2>{t("Fotografia clínica", "Clinical photography")}</h2></div>{writable && <form className="form-grid" onSubmit={upload}><Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} options={["antes", "durante", "depois", "evolucao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Observação", "Note")} value={form.description} onChange={(v) => set("description", v)} /><label className="field"><span>{t("Arquivo", "File")}</span><input type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => setFile(e.target.files[0] || null)} /></label><Button className="primary" icon={Paperclip} disabled={busy || !file}>{t("Enviar foto privada", "Upload private photo")}</Button></form>}<LoadState state={state}>{(rows) => <div className="document-list">{rows.map((row) => <div className="document-row" key={row.id}><span><strong>{label(row.category, t)}</strong><small>{row.area} · {date(row.created_at, true)} · {row.description}</small></span><Button icon={Eye} onClick={() => photo(row)}>{t("Visualizar", "View")}</Button></div>)}{!rows.length && <Empty icon={Eye}>{t("Nenhuma foto clínica", "No clinical photos")}</Empty>}</div>}</LoadState></section>; }
+function ClinicalPhotoThumb({ row, onOpen }) {
+  const [url, setUrl] = useState("");
+  useEffect(() => { let live = true; db.storage.from("clinical-photos").createSignedUrl(row.path, 300).then(({ data }) => live && setUrl(data?.signedUrl || "")).catch(() => {}); return () => { live = false; }; }, [row.path]);
+  return <button className="clinical-photo-thumb" type="button" onClick={onOpen}>{url ? <img src={url} alt="" /> : <Eye size={20} />}</button>;
+}
+function ClinicalPhotosPanel({ patient, writable, notify }) {
+  const t = useT(), [file, setFile] = useState(null), [editing, setEditing] = useState(null), [form, setForm] = useState({ category: "antes", area: "", description: "" }), [busy, setBusy] = useState(false);
+  const state = useLoad(() => checked(db.from("clinical_photos").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]);
+  const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
+  const chooseEdit = (row) => { setEditing(row); setFile(null); setForm({ category: row.category, area: row.area || "", description: row.description || "" }); };
+  const upload = async (e) => { e.preventDefault(); if (!file) return; setBusy(true); try { const body = new FormData(); body.set("file", file); body.set("patient_id", patient.id); body.set("kind", editing ? "photo_replace" : "photo"); if (editing) body.set("photo_id", editing.id); body.set("category", form.category); body.set("area", form.area); body.set("description", form.description); const result = await invoke("files", body); if (!result?.photo) throw Error("upload"); setFile(null); setEditing(null); state.refresh(); notify(editing ? t("Foto clínica substituída.", "Clinical photo replaced.") : t("Foto clínica salva.", "Clinical photo saved.")); } catch { notify(t("Não foi possível salvar a foto.", "Could not save the photo.")); } finally { setBusy(false); } };
+  const photo = async (row) => { try { const { data } = await checked(db.storage.from("clinical-photos").createSignedUrl(row.path, 300)); if (!data?.signedUrl) throw Error("signed_url"); window.open(data.signedUrl, "_blank", "noopener,noreferrer"); } catch { notify(t("Não foi possível abrir a foto.", "Could not open the photo.")); } };
+  return <section className="detail-section"><div className="section-heading"><h2>{t("Fotografia clínica", "Clinical photography")}</h2></div>{writable && <form className="form-grid" onSubmit={upload}><Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} options={["antes", "durante", "depois", "evolucao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Observação", "Note")} value={form.description} onChange={(v) => set("description", v)} /><PhotoPicker value={file} onChange={setFile} /><Button className="primary" icon={editing ? RefreshCw : Paperclip} disabled={busy || !file}>{editing ? t("Substituir foto", "Replace photo") : t("Enviar foto privada", "Upload private photo")}</Button>{editing && <Button type="button" disabled={busy} onClick={() => { setEditing(null); setFile(null); setForm({ category: "antes", area: "", description: "" }); }}>{t("Cancelar substituição", "Cancel replacement")}</Button>}</form>}<LoadState state={state}>{(rows) => <div className="document-list">{rows.map((row) => <div className="document-row" key={row.id}><ClinicalPhotoThumb row={row} onOpen={() => photo(row)} /><span><strong>{label(row.category, t)}</strong><small>{row.area} · {date(row.created_at, true)} · {row.description}</small></span><Button icon={Eye} onClick={() => photo(row)}>{t("Visualizar", "View")}</Button>{writable && <Button icon={RefreshCw} onClick={() => chooseEdit(row)}>{t("Substituir", "Replace")}</Button>}</div>)}{!rows.length && <Empty icon={Eye}>{t("Nenhuma foto clínica", "No clinical photos")}</Empty>}</div>}</LoadState></section>;
+}
 
 function WorkflowForm({ resource, patient, member, close, done, notify }) {
   const t = useT();
@@ -2309,6 +2412,49 @@ function EnquiryQuickView({ enquiry, close }) {
     <dl className="details-grid"><div><dt>{t("Nome", "Name")}</dt><dd>{enquiry.full_name}</dd></div><div><dt>{t("Recebido em", "Received")}</dt><dd>{date(enquiry.created_at, true)}</dd></div><div><dt>{t("Status", "Status")}</dt><dd><Status value={enquiry.status} /></dd></div></dl>
     <p>{t("Abra Formulários para pesquisar duplicidade, contatar e converter com autorização.", "Open Forms to check duplicates, contact and convert with authorization.")}</p>
     <Button className="primary" onClick={close}>{t("Fechar", "Close")}</Button>
+  </Dialog>;
+}
+
+const masterSections = [
+  ["identity", "Dados de identificação", [["full_name", "Nome completo"], ["preferred_name", "Nome preferido"], ["birth_date", "Data de nascimento"], ["cpf", "CPF"], ["rg", "RG"]]],
+  ["contact", "Contato e endereço", [["phone", "Telefone / WhatsApp"], ["email", "Email"], ["address", "Endereço"], ["emergency_contact", "Contato de emergência"]]],
+  ["visit", "Consulta e administrativo", [["selected_procedure", "Interesse / procedimento"], ["occupation", "Ocupação"], ["insurance", "Convênio"], ["internal_notes", "Observações administrativas"]]],
+  ["health", "Saúde", [["allergies", "Alergias"], ["medications", "Medicamentos"], ["conditions", "Condições e antecedentes"], ["pregnancy_breastfeeding", "Gestação / amamentação"], ["other_notes", "Outras informações"]]],
+  ["clinical", "Avaliação profissional", [["concern", "Queixa e objetivos"], ["assessment", "Avaliação"], ["plan", "Conduta / plano"], ["recommendations", "Orientações"]]],
+  ["consents", "Consentimentos", [["privacy", "Privacidade"], ["clinical_photo", "Fotografia clínica"], ["communication", "Comunicação"]]],
+];
+const masterFieldMap = Object.fromEntries(masterSections.flatMap(([section, , fields]) => fields.map(([key, title]) => [`${section}.${key}`, title])));
+
+function Provenance({ value }) {
+  const t = useT();
+  return <span className={`provenance provenance-${value || "patient"}`}>
+    {value === "professional" ? <Stethoscope size={13} /> : value === "reception" ? <UserCheck size={13} /> : <ClipboardCheck size={13} />}
+    {value === "professional" ? t("Validado pelo profissional", "Validated by professional") : value === "reception" ? t("Verificado pela recepção", "Verified by reception") : t("Informado pelo paciente", "Provided by patient")}
+  </span>;
+}
+
+function MasterIntake({ patient: initialPatient, sourceIntake, member, close, notify, done }) {
+  const t = useT();
+  const clinical = ["proprietario", "profissional"].includes(member.role);
+  const [patient, setPatient] = useState(initialPatient), [form, setForm] = useState(null), [provenance, setProvenance] = useState({}), [status, setStatus] = useState("rascunho"), [missing, setMissing] = useState([]), [busy, setBusy] = useState(false), [loaded, setLoaded] = useState(false), [savedAt, setSavedAt] = useState("");
+  const source = sourceIntake?.payload || {};
+  const base = (p) => ({
+    identity: { full_name: p.full_name || source.full_name || "", preferred_name: p.preferred_name || source.preferred_name || "", birth_date: p.birth_date || source.birth_date || "", cpf: p.cpf || source.cpf || "", rg: p.rg || source.identity_document || "" },
+    contact: { phone: p.phone || source.phone || "", email: p.email || source.email || "", address: Object.values(p.address || {}).join(" · ") || source.address || "", emergency_contact: Object.values(p.emergency_contact || {}).join(" · ") || source.emergency_contact || source.guardian_details || "" },
+    visit: { selected_procedure: source.selected_procedure || source.selected_procedures || "", occupation: p.occupation || "", insurance: p.insurance || "", internal_notes: "" },
+    ...(clinical ? { health: { allergies: source.health_notes || "", medications: source.medications || "", conditions: source.conditions || source.health_notes || "", pregnancy_breastfeeding: source.pregnancy_breastfeeding || "", other_notes: source.other_health_notes || "" }, clinical: { concern: source.treatment_área || source.treatment_area || "" }, consents: { privacy: source.lgpd_personal_data_consent || "", clinical_photo: source.technical_image_authorisation || "", communication: source.promotional_communication || "" } } : {}),
+  });
+  useEffect(() => { let live = true; (async () => { try { const current = await checked(db.from("master_intakes").select("*").eq("patient_id", initialPatient.id).maybeSingle()); if (!live) return; if (current) { setForm({ ...base(initialPatient), ...(current.data || {}) }); setProvenance(current.provenance || {}); setStatus(current.status); setMissing(current.missing_fields || []); } else { const initial = base(initialPatient); setForm(initial); const p = {}; Object.entries(initial).forEach(([section, fields]) => Object.entries(fields || {}).forEach(([key, value]) => { if (value) p[`${section}.${key}`] = "patient"; })); setProvenance(p); } } catch { if (live) setForm(base(initialPatient)); } finally { if (live) { setPatient(initialPatient); setLoaded(true); } } })(); return () => { live = false; }; }, [initialPatient.id]);
+  const update = (section, key, value) => { setForm((f) => ({ ...f, [section]: { ...(f?.[section] || {}), [key]: value } })); setProvenance((p) => ({ ...p, [`${section}.${key}`]: member.role === "recepcao" ? "reception" : "professional" })); };
+  const saveIntake = useCallback(async (nextStatus = status, silent = false) => { if (!form || busy) return; setBusy(true); try { const required = ["identity.full_name", "identity.birth_date", "identity.cpf", "contact.phone", "contact.email"].filter((key) => !String(key.split(".").reduce((o, k) => o?.[k], form) || "").trim()); const payload = { ...(clinical ? form : { identity: form.identity, contact: form.contact, visit: form.visit }), status: nextStatus }; const id = await checked(db.rpc("save_master_intake", { p_patient_id: patient.id, p_source_intake_id: sourceIntake?.id || null, p_status: nextStatus, p_data: payload, p_provenance: provenance, p_missing_fields: required })); setMissing(required); setStatus(nextStatus); setSavedAt(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })); if (!silent) { notify(t("Intake salvo e seções sincronizadas.", "Intake saved and sections synchronized.")); done?.(); } return id; } catch (e) { notify(e?.message?.includes("clinical_permission") ? t("A recepção não pode alterar informações clínicas.", "Reception cannot alter clinical information.") : t("Não foi possível salvar o intake.", "Could not save intake.")); } finally { setBusy(false); } }, [form, busy, status, clinical, patient?.id, sourceIntake?.id, provenance]);
+  useEffect(() => { if (!loaded || !form) return; const id = setTimeout(() => saveIntake(status, true), 1400); return () => clearTimeout(id); }, [form, provenance]);
+  if (!form) return <Dialog title={t("Consulta inicial completa", "Master Intake")} close={close}><p role="status">{t("Carregando dados do paciente...", "Loading patient data...")}</p></Dialog>;
+  return <Dialog title={t("Consulta inicial completa", "Master Intake")} close={() => !busy && close()} wide>
+    <div className="master-intake-hero"><div><p className="eyebrow">{t("Registro único do paciente", "Unified patient record")}</p><h2>{patient.full_name}</h2><p>{t("O formulário público foi pré-carregado. Revise, marque a origem e complete apenas o que falta.", "The public form was preloaded. Review, mark the source and complete only what is missing.")}</p></div><div className="master-intake-progress"><strong>{missing.length ? missing.length : "✓"}</strong><span>{missing.length ? t("campos pendentes", "missing fields") : t("pronto para revisão", "ready for review")}</span></div></div>
+    <div className="provenance-legend"><Provenance value="patient" /><Provenance value="reception" /><Provenance value="professional" /></div>
+    <div className="master-intake-grid">{masterSections.filter(([section]) => clinical || !["health", "clinical", "consents"].includes(section)).map(([section, title, fields]) => <section className={`master-section ${missing.some((m) => m.startsWith(`${section}.`)) ? "has-missing" : ""}`} key={section}><div className="section-heading"><h3>{title}</h3>{missing.some((m) => m.startsWith(`${section}.`)) && <span className="missing-badge"><AlertCircle size={14} /> {t("Completar", "Complete")}</span>}</div><div className="form-grid">{fields.map(([key, labelText]) => <div className="master-field" key={key}><Field title={t(labelText, labelText)} type={key.includes("notes") || ["address", "emergency_contact", "allergies", "medications", "conditions", "pregnancy_breastfeeding", "other_notes", "concern", "assessment", "plan", "recommendations"].includes(key) ? "textarea" : key === "birth_date" ? "date" : "text"} value={form[section]?.[key] || ""} onChange={(v) => update(section, key, v)} disabled={!clinical && ["health", "clinical", "consents"].includes(section)} wide={key.includes("notes") || ["address", "emergency_contact", "allergies", "medications", "conditions", "pregnancy_breastfeeding", "other_notes", "concern", "assessment", "plan", "recommendations"].includes(key)} />{form[section]?.[key] && <Provenance value={provenance[`${section}.${key}`]} />}</div>)}</div></section>)}</div>
+    <div className="master-sync"><CheckCheck size={18} /><strong>{t("Ao salvar, estas áreas são sincronizadas", "Saving synchronizes these areas")}</strong><span>{t("Resumo · Dados · Prontuário · Documentos e fotos · Fotografia clínica · Planos · Procedimentos · Saúde · Consentimentos · Privacidade/portal · Agenda e retornos · Administrativo", "Summary · Details · Clinical record · Documents & photos · Clinical photography · Plans · Procedures · Health · Consents · Privacy/portal · Schedule & follow-ups · Administrative")}</span></div>
+    <footer className="form-footer"><span className="save-state">{savedAt ? `${t("Salvo automaticamente às", "Autosaved at")} ${savedAt}` : t("Rascunho não salvo", "Unsaved draft")}</span><Button type="button" onClick={close}>{t("Fechar", "Close")}</Button><Button type="button" onClick={() => saveIntake("rascunho")} disabled={busy}>{t("Salvar rascunho", "Save draft")}</Button><Button type="button" onClick={() => saveIntake("em_revisao")} disabled={busy}>{t("Enviar para revisão", "Send for review")}</Button>{clinical && <Button type="button" icon={CheckCircle2} className="primary" onClick={() => saveIntake("finalizado")} disabled={busy}>{t("Finalizar intake", "Finalize intake")}</Button>}</footer>
   </Dialog>;
 }
 function Entry({ entry: e, author, member, onEdit, onAmend }) {
@@ -2493,7 +2639,7 @@ function EntryForm({
       close={() => dirty.canClose() && close()}
     >
       <div className="context-line">
-        <span className="avatar small">{initials(patient.full_name)}</span>
+        <Avatar person={patient} className="avatar small" size={34} />
         <strong>
           {patient.full_name || t("Paciente sem nome", "Unnamed patient")}
         </strong>
@@ -2927,6 +3073,37 @@ function WhatsappComposer({ appointment, patient, close, notify }) {
   </Dialog>;
 }
 
+const communicationCategories = [["todos", "Todos"], ["agendamento", "Agendamentos"], ["lead", "Leads"], ["feedback", "Feedback"], ["interno", "Equipe"], ["profissional", "Profissionais"]];
+const senderSignature = (member) => member?.role === "proprietario" && String(member?.name || "").toLowerCase().includes("franciele") ? "Franciele Sofiati" : "Recepção da Franciele Sofiati";
+const renderCommunication = (body, context, member) => {
+  const values = { primeiro_nome: (context?.preferred_name || context?.full_name || "").split(" ")[0], nome_completo: context?.full_name || "", data_consulta: context?.appointment ? date(context.appointment.starts_at) : "", hora_consulta: context?.appointment ? timeLabel(context.appointment.starts_at) : "", endereco: "Londrina, PR", link_feedback: "", documento: "", assinatura_remetente: senderSignature(member) };
+  return String(body || "").replace(/\{([\w]+)\}/g, (_, key) => values[key] ?? "").replace(/\n{3,}/g, "\n\n").trim();
+};
+function CommunicationComposer({ patient: initialPatient, appointment, template: initialTemplate, member, close, notify }) {
+  const t = useT(), templates = useLoad(() => checked(db.from("communication_templates").select("*").eq("active", true).order("category,name,variant")), []), [patient] = useState(initialPatient || appointment?.patients || null), [templateId, setTemplateId] = useState(initialTemplate?.id || ""), [channel, setChannel] = useState(initialTemplate?.channel || "whatsapp"), [subject, setSubject] = useState(""), [body, setBody] = useState(""), [signature, setSignature] = useState(senderSignature(member)), [preference, setPreference] = useState(null), [busy, setBusy] = useState(false);
+  useEffect(() => { if (patient?.id) checked(db.from("communication_preferences").select("*").eq("patient_id", patient.id).maybeSingle()).then(setPreference).catch(() => setPreference(null)); }, [patient?.id]);
+  const selected = (templates.data || []).find((x) => x.id === templateId);
+  useEffect(() => { if (templateId === "__free__") return; const item = selected || (templates.data || []).find((x) => x.channel === channel); if (item) { setTemplateId(item.id); setSubject(renderCommunication(item.subject, { ...patient, appointment }, member)); setSignature(senderSignature(member)); setBody(renderCommunication(item.body, { ...patient, appointment }, member)); } }, [templates.data, templateId, channel, patient?.id, appointment?.id, member?.user_id]);
+  const recipient = channel === "email" ? patient?.email : patient?.phone;
+  const saveAsTemplate = async () => { const name = window.prompt(t("Nome do novo modelo", "Name for the new template")); if (!name?.trim()) return; try { await checked(db.from("communication_templates").insert({ organization_id: ORG, name: name.trim(), category: selected?.category || "administrativo", channel, variant: "standard", subject, body, sender_mode: "sender", sensitive: false, created_by: member.user_id })); templates.refresh(); notify(t("Modelo salvo para uso futuro.", "Template saved for future use.")); } catch { notify(t("Não foi possível salvar o modelo.", "Could not save the template.")); } };
+  const submit = async (e) => { e.preventDefault(); if (preference?.do_not_contact) return notify(t("Este paciente pediu para não ser contatado. Revise as preferências antes de continuar.", "This patient requested no contact. Review preferences before continuing.")); if (!patient || !recipient) return notify(t("Selecione um contato com telefone ou email válido.", "Select a contact with a valid phone or email.")); const target = channel === "whatsapp" ? `${whatsapp(recipient)}?text=${encodeURIComponent(body)}` : channel === "telefone" ? `tel:${digits(recipient)}` : `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; const popup = window.open("about:blank", "_blank"); setBusy(true); try { const row = await checked(db.from("communications").insert({ organization_id: ORG, patient_id: patient.id, appointment_id: appointment?.id || null, channel, direction: "outbound", visibility: "external", category: selected?.category || "administrativo", subject, body, rendered_signature: signature, recipient_name: patient.full_name || patient.preferred_name || "", recipient_address: recipient, template_id: templateId === "__free__" ? null : (templateId || null), status: "rascunho", packet_sha256: "", created_by: member.user_id }).select().single()); if (popup) popup.location.href = target; else window.open(target, "_blank", "noopener,noreferrer"); await checked(db.from("communications").update({ status: channel === "telefone" ? "enviado" : "nao_confirmado", sent_at: new Date().toISOString() }).eq("id", row.id)); notify(t("Contato preparado e registrado no histórico.", "Contact prepared and recorded in history.")); close(); } catch { popup?.close(); notify(t("Não foi possível registrar a comunicação.", "Could not record the communication.")); } finally { setBusy(false); } };
+  return <Dialog title={t("Preparar comunicação", "Prepare communication")} close={close} wide><form className="communication-composer" onSubmit={submit}><div className="communication-recipient"><strong>{patient?.preferred_name || patient?.full_name || t("Nenhum destinatário", "No recipient")}</strong><span>{recipient || t("Sem contato neste canal", "No contact for this channel")}</span></div>{preference?.do_not_contact && <p className="notice error">{t("Não contatar: preferência registrada no cadastro.", "Do not contact: preference recorded in the patient record.")}</p>}<div className="form-grid"><Field title={t("Canal", "Channel")} value={channel} onChange={setChannel} options={[{ value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "Email" }, { value: "telefone", label: t("Telefone", "Phone") }]} /><Field title={t("Modelo", "Template")} value={templateId} onChange={setTemplateId} options={[{ value: "__free__", label: t("Mensagem livre", "Free message") }, ...(templates.data || []).filter((x) => x.channel === channel).map((x) => ({ value: x.id, label: `${x.name} · ${x.variant}` }))]} /></div>{channel === "email" && <Field title={t("Assunto", "Subject")} value={subject} onChange={setSubject} />}<Field title={t("Assinatura", "Signature")} value={signature} onChange={(v) => { setSignature(v); setBody((current) => current.replace(/(Com carinho,\n)?(Recepção da Franciele Sofiati|Franciele Sofiati)$/, `$1${v}`)); }} /><Field title={t("Mensagem editável", "Editable message")} type="textarea" value={body} onChange={setBody} required /><p className="consent-note"><ShieldCheck size={15} /> {t("Revise antes de abrir o WhatsApp ou o rascunho de email. A aplicação não afirma que a mensagem foi entregue.", "Review before opening WhatsApp or the email draft. The app does not claim delivery.")}</p><footer className="form-footer"><Button type="button" onClick={saveAsTemplate} icon={Save}>{t("Salvar como modelo", "Save as template")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Send} disabled={busy || !body || preference?.do_not_contact}>{t("Abrir canal e registrar", "Open channel and record")}</Button></footer></form></Dialog>;
+}
+function Communication({ member, setModal, openPatient, version, writable, notify }) {
+  const t = useT(), [tab, setTab] = useState("prioridades"), [category, setCategory] = useState("todos"), [search, setSearch] = useState("");
+  const state = useLoad(async () => { const [comms, tasks, appointments, conversations] = await Promise.all([checked(db.from("communications").select("*,patients(*)").order("created_at", { ascending: false }).limit(120)).catch(() => []), checked(db.from("tasks").select("*,patients(*)").eq("status", "pendente").order("due_at").limit(80)).catch(() => []), checked(db.from("appointments").select("*,patients(*)").gte("starts_at", new Date().toISOString()).order("starts_at").limit(30)).catch(() => []), checked(db.from("communication_conversations").select("*,patients(*)").order("updated_at", { ascending: false }).limit(40)).catch(() => [])]); return { comms, tasks, appointments, conversations }; }, [version]);
+  const data = state.data || { comms: [], tasks: [], appointments: [], conversations: [] }, next = data.appointments.find((x) => !["cancelado", "reagendado"].includes(x.status)), match = (x) => !search || `${x.title || ""} ${x.recipient_name || ""} ${x.patients?.full_name || ""}`.toLowerCase().includes(search.toLowerCase()), history = data.comms.filter((x) => category === "todos" || x.category === category).filter(match), due = data.tasks.filter(match);
+  return <><PageHead eyebrow={t("Presença, clareza e continuidade", "Presence, clarity and continuity")} title={t("Comunicação", "Communication")}>{writable && <Button icon={Plus} className="primary" onClick={() => setModal({ type: "communication", patient: next?.patients, appointment: next })}>{t("Nova comunicação", "New communication")}</Button>}</PageHead><section className="communication-hero"><div><p className="eyebrow">{t("Central de cuidado", "Care centre")}</p><h2>{t("O que precisa de atenção hoje?", "What needs attention today?")}</h2><p>{t("Destinatário, contexto e mensagem ficam preparados para a equipe revisar com calma.", "Recipient, context and message stay ready for the team to review calmly.")}</p></div><div className="communication-orbit"><strong>{due.length}</strong><span>{t("ações abertas", "open actions")}</span></div></section><nav className="tabs communication-tabs">{[["prioridades", "Prioridades"], ["historico", "Histórico"], ["equipe", "Equipe"]].map(([key, title]) => <button key={key} className={tab === key ? "selected" : ""} onClick={() => setTab(key)}>{title}</button>)}</nav>{tab !== "equipe" && <div className="toolbar wrap"><label className="search"><Search size={19} /><input placeholder={t("Buscar pessoa ou assunto", "Search person or subject")} value={search} onChange={(e) => setSearch(e.target.value)} /></label><div className="segmented">{communicationCategories.map(([key, title]) => <button key={key} aria-pressed={category === key} onClick={() => setCategory(key)}>{title}</button>)}</div></div>}{tab === "equipe" ? <TeamCommunication member={member} conversations={data.conversations} writable={writable} notify={notify} /> : tab === "prioridades" ? <section className="communication-panel"><div className="section-heading"><div><p className="eyebrow">{t("Fila única", "Single queue")}</p><h2>{t("Comunicações e retornos", "Communications and follow-ups")}</h2></div><span className="attention-count">{due.length}</span></div><div className="communication-list">{due.map((task) => <article className="communication-card" key={task.id}><span className="communication-card-icon"><Bell size={17} /></span><div><span className="action-kicker">{task.due_at && new Date(task.due_at) < new Date() ? t("Vencida", "Overdue") : t("Próxima ação", "Next action")}</span><strong>{task.title}</strong><small>{task.patients?.preferred_name || task.patients?.full_name || t("Clínica", "Clinic")} · {date(task.due_at, true)}</small></div><div className="communication-card-actions">{task.patients && writable && <Button icon={MessageCircle} onClick={() => setModal({ type: "communication", patient: task.patients })}>{t("Preparar", "Prepare")}</Button>}{task.patients && <Button icon={UserRound} onClick={() => openPatient(task.patients)}>{t("Contexto", "Context")}</Button>}</div></article>)}{!due.length && <Empty icon={CheckCircle2}>{t("Nenhuma comunicação pendente para estes filtros.", "No pending communication for these filters.")}</Empty>}</div></section> : <section className="communication-panel"><div className="section-heading"><div><p className="eyebrow">{t("Nada se perde", "Nothing gets lost")}</p><h2>{t("Histórico de comunicações", "Communication history")}</h2></div><span className="subtle">{history.length} {t("registros", "records")}</span></div><div className="communication-list">{history.map((row) => <article className="communication-card" key={row.id}><span className="communication-card-icon"><MessageCircle size={17} /></span><div><span className="action-kicker">{row.channel} · {row.category}</span><strong>{row.recipient_name || row.patients?.full_name || t("Contato", "Contact")}</strong><small>{date(row.created_at, true)} · {label(row.status, t)}</small><p className="preserve communication-preview">{row.body || t("Registro técnico", "Technical record")}</p></div>{row.patients && <Button icon={UserRound} onClick={() => openPatient(row.patients)}>{t("Paciente", "Patient")}</Button>}</article>)}{!history.length && <Empty icon={History}>{t("Ainda não há comunicações neste filtro.", "No communications in this filter yet.")}</Empty>}</div></section>}</>;
+}
+
+function TeamCommunication({ member, conversations, writable, notify }) {
+  const t = useT(), [selected, setSelected] = useState(conversations[0] || null), [text, setText] = useState("");
+  const messages = useLoad(() => selected ? checked(db.from("communication_messages").select("*,memberships(name)").eq("conversation_id", selected.id).order("created_at")) : Promise.resolve([]), [selected?.id]);
+  const send = async (e) => { e.preventDefault(); if (!selected || !text.trim()) return; try { await checked(db.from("communication_messages").insert({ organization_id: ORG, conversation_id: selected.id, sender_id: member.user_id, body: text.trim() })); setText(""); messages.refresh(); } catch { notify(t("Não foi possível enviar.", "Could not send.")); } };
+  const create = async () => { try { const row = await checked(db.from("communication_conversations").insert({ organization_id: ORG, title: "Equipe", kind: "equipe", created_by: member.user_id }).select("*").single()); setSelected(row); notify(t("Conversa criada.", "Conversation created.")); } catch { notify(t("Não foi possível criar a conversa.", "Could not create conversation.")); } };
+  return <section className="communication-panel team-chat"><div className="section-heading"><div><p className="eyebrow">{t("Contexto interno", "Internal context")}</p><h2>{t("Conversa da equipe", "Team conversation")}</h2></div>{writable && <Button icon={Plus} onClick={create}>{t("Nova conversa", "New conversation")}</Button>}</div><div className="team-chat-layout"><div className="team-chat-list">{conversations.map((row) => <button key={row.id} className={selected?.id === row.id ? "selected" : ""} onClick={() => setSelected(row)}><strong>{row.title || "Equipe"}</strong><small>{row.patients?.full_name || t("Sem paciente vinculado", "No linked patient")}</small></button>)}</div><div className="team-chat-thread">{selected ? <><div className="team-chat-messages">{(messages.data || []).map((row) => <article key={row.id}><strong>{row.memberships?.name || t("Equipe", "Team")}</strong><p className="preserve">{row.body}</p><small>{date(row.created_at, true)}</small></article>)}</div>{writable && <form className="team-chat-compose" onSubmit={send}><textarea value={text} onChange={(e) => setText(e.target.value)} placeholder={t("Escreva para a equipe…", "Write to the team…")} /><Button className="primary" icon={Send}>{t("Enviar", "Send")}</Button></form>}</> : <Empty icon={MessageCircle}>{t("Crie ou selecione uma conversa.", "Create or select a conversation.")}</Empty>}</div></div></section>;
+}
+
 const agendaDay = (value) => String(value || "").slice(0, 10);
 const agendaTime = (value) => {
   const match = String(value || "").match(/T(\d{2}:\d{2})/);
@@ -2948,6 +3125,75 @@ function AgendaPanel({ appointment, close, openPatient, setModal, writable }) {
     <dl><div><dt>{t("Tipo", "Type")}</dt><dd>{appointment.label || t("Atendimento", "Appointment")}</dd></div><div><dt>{t("Telefone", "Phone")}</dt><dd>{appointment.patients?.phone || "—"}</dd></div></dl>
     <div className="agenda-simple-panel__actions">{appointment.patients && <Button icon={UserRound} onClick={() => { openPatient(appointment.patients); close(); }}>{t("Abrir paciente", "Open patient")}</Button>}{writable && <Button icon={Pencil} onClick={() => setModal({ type: "appointment", appointment, patient: appointment.patients })}>{t("Editar agendamento", "Edit appointment")}</Button>}{appointment.patients?.phone && <Button icon={MessageCircle} className="whatsapp-action" onClick={() => setModal({ type: "whatsapp", appointment, patient: appointment.patients })}>{t("Preparar WhatsApp", "Prepare WhatsApp")}</Button>}</div>
   </aside>;
+}
+
+function AgendaHub({ openPatient, setModal, version, writable, notify }) {
+  const t = useT();
+  const today = localDay();
+  const [anchor, setAnchor] = useState(today);
+  const [view, setView] = useState(() => window.innerWidth < 760 ? "day" : "week");
+  const [selected, setSelected] = useState(null);
+  const [query, setQuery] = useState("");
+  const [status, setStatus] = useState("all");
+  const [professional, setProfessional] = useState("all");
+  const [showFilters, setShowFilters] = useState(false);
+  const [showInsights, setShowInsights] = useState(false);
+  const [dragging, setDragging] = useState(null);
+  const [localRows, setLocalRows] = useState(null);
+  useEffect(() => {
+    const onKey = (event) => {
+      if (event.target.matches("input,textarea,select")) return;
+      if (event.key.toLowerCase() === "n" && writable) setModal({ type: "appointment" });
+      if (event.key.toLowerCase() === "t") setAnchor(today);
+      if (event.key === "Escape") { setSelected(null); setShowInsights(false); setShowFilters(false); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [today, writable, setModal]);
+  const start = view === "month" ? monthStart(anchor) : view === "week" ? shiftDay(anchor, -((atNoon(anchor).getDay() + 6) % 7)) : anchor;
+  const end = view === "month" ? shiftDay(start, 42) : view === "week" ? shiftDay(start, 7) : shiftDay(anchor, 1);
+  const state = useLoad(() => checked(db.from("appointments").select("id,patient_id,professional_id,starts_at,ends_at,status,label,version,patients(id,full_name,preferred_name,phone,email,cpf,birth_date)").gte("starts_at", `${start}T00:00:00-03:00`).lt("starts_at", `${end}T23:59:59-03:00`).order("starts_at").limit(300)), [start, end, version]);
+  useEffect(() => { if (state.data) setLocalRows(state.data); }, [state.data]);
+  const rows = (localRows || state.data || []).filter((a) => validDateValue(a.starts_at));
+  const professionals = [...new Map(rows.filter((a) => a.professional_id).map((a) => [a.professional_id, a.professional_id])).entries()].map(([value]) => ({ value, label: value.slice(0, 8) }));
+  const appointments = rows.filter((a) => status === "all" || a.status === status).filter((a) => professional === "all" || a.professional_id === professional).filter((a) => !query || [patientName(a, t), a.label, a.patients?.phone].join(" ").toLowerCase().includes(query.toLowerCase()));
+  const weekStart = shiftDay(anchor, -((atNoon(anchor).getDay() + 6) % 7));
+  const weekDays = Array.from({ length: 7 }, (_, i) => shiftDay(weekStart, i));
+  const monthDays = Array.from({ length: 42 }, (_, i) => shiftDay(monthStart(anchor), i - ((atNoon(monthStart(anchor)).getDay() + 6) % 7)));
+  const hours = Array.from({ length: 12 }, (_, i) => i + 8);
+  const onDay = (day) => appointments.filter((a) => agendaDay(a.starts_at) === day);
+  const active = appointments.filter((a) => !["cancelado", "concluido"].includes(a.status));
+  const confirmed = appointments.filter((a) => a.status === "confirmado").length;
+  const waiting = appointments.filter((a) => a.status === "aguardando").length;
+  const conflicts = appointments.filter((a, i) => appointments.some((b, j) => i !== j && a.professional_id && a.professional_id === b.professional_id && new Date(a.starts_at) < new Date(b.ends_at) && new Date(b.starts_at) < new Date(a.ends_at))).length;
+  const freeSlots = Math.max(0, (view === "day" ? 10 : view === "week" ? 50 : 180) - active.length);
+  const moveAppointment = async (a, day, hour = agendaTime(a.starts_at)) => {
+    const next = `${day}T${hour}`;
+    const duration = new Date(a.ends_at) - new Date(a.starts_at);
+    const moved = { ...a, starts_at: toISO(next), ends_at: new Date(new Date(toISO(next)).getTime() + duration).toISOString() };
+    setLocalRows((current) => (current || []).map((row) => row.id === a.id ? moved : row));
+    try { await checked(db.from("appointments").update({ starts_at: moved.starts_at, ends_at: moved.ends_at }).eq("id", a.id)); notify(t("Horário atualizado.", "Time updated.")); } catch { notify(t("Não foi possível mover o agendamento.", "Could not move the appointment.")); state.refresh(); }
+  };
+  const navigate = (direction) => setAnchor(view === "month" ? localDay(new Date(atNoon(anchor).getFullYear(), atNoon(anchor).getMonth() + direction, 1, 12)) : shiftDay(anchor, (view === "week" ? 7 : 1) * direction));
+  const exportCalendar = () => { const ics = appointments.map((a) => `BEGIN:VEVENT\nUID:${a.id}\nDTSTART:${new Date(a.starts_at).toISOString().replaceAll("-", "").replaceAll(":", "").replace(".000", "")}\nSUMMARY:${a.label || "Atendimento"} · ${patientName(a, t)}\nEND:VEVENT`).join("\n"); download(new Blob([`BEGIN:VCALENDAR\nVERSION:2.0\n${ics}\nEND:VCALENDAR`], { type: "text/calendar" }), "agenda.ics"); notify(t("Arquivo ICS exportado.", "ICS file exported.")); };
+  const exportCsv = () => { const csv = ["Data;Hora;Paciente;Tipo;Status", ...appointments.map((a) => `${safeDateLabel(a.starts_at)};${timeLabel(a.starts_at)};${patientName(a, t)};${a.label || "Atendimento"};${label(a.status, t)}`)].join("\n"); download(new Blob([csv], { type: "text/csv;charset=utf-8" }), "agenda.csv"); notify(t("Arquivo CSV exportado.", "CSV file exported.")); };
+  const event = (a) => <AgendaEvent key={a.id} appointment={a} onSelect={setSelected} />;
+  const dropProps = (day, hour) => ({ onDragOver: (e) => e.preventDefault(), onDrop: () => { if (dragging) moveAppointment(dragging, day, hour); setDragging(null); } });
+  const draggableEvent = (a) => <div key={a.id} draggable onDragStart={() => setDragging(a)} onDragEnd={() => setDragging(null)}>{event(a)}</div>;
+  return <div className="agenda-hub">
+    <PageHead eyebrow={t("Operação clínica · agenda inteligente", "Clinical operations · smart schedule")} title={t("Agenda", "Schedule")}><div className="agenda-hub-head-actions"><span className="agenda-live"><i /> {t("Atualizada agora", "Updated now")}</span>{writable && <Button icon={Plus} className="primary" onClick={() => setModal({ type: "appointment" })}>{t("Agendamento rápido", "Quick booking")}</Button>}</div></PageHead>
+    <section className="agenda-kpis" aria-label={t("Resumo da agenda", "Schedule summary")}><button onClick={() => setStatus("all")}><span>{t("Hoje", "Today")}</span><strong>{active.filter((a) => agendaDay(a.starts_at) === today).length}</strong><small>{t("atendimentos", "appointments")}</small></button><button onClick={() => setStatus("confirmado")}><span>{t("Confirmados", "Confirmed")}</span><strong>{confirmed}</strong><small>{t("nesta visão", "in this view")}</small></button><button onClick={() => setStatus("aguardando")}><span>{t("Em espera", "Waiting")}</span><strong>{waiting}</strong><small>{t("check-in pendente", "check-in pending")}</small></button><button className={conflicts ? "has-alert" : ""} onClick={() => setShowInsights(true)}><span>{t("Ocupação", "Occupancy")}</span><strong>{Math.round((active.length / Math.max(1, active.length + freeSlots)) * 100)}%</strong><small>{conflicts ? `${conflicts} ${t("conflitos", "conflicts")}` : t("sem conflitos", "no conflicts")}</small></button></section>
+    <div className="agenda-hub-toolbar"><div className="agenda-simple-nav"><Button onClick={() => setAnchor(today)}>{t("Hoje", "Today")}</Button><Button icon={ChevronLeft} className="icon" onClick={() => navigate(-1)} aria-label={t("Anterior", "Previous")} /><Button icon={ChevronRight} className="icon" onClick={() => navigate(1)} aria-label={t("Próximo", "Next")} /><h2>{view === "month" ? monthLabel(anchor, t) : `${safeDateLabel(view === "week" ? weekStart : anchor)}${view === "week" ? ` — ${safeDateLabel(shiftDay(weekStart, 6))}` : ""}`}</h2></div><div className="agenda-hub-tools"><label className="agenda-simple-search"><Search size={16} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("Buscar paciente, telefone ou procedimento", "Search patient, phone or procedure")} /></label><Button icon={SlidersHorizontal} className={showFilters ? "active" : ""} onClick={() => setShowFilters(!showFilters)}>{t("Filtros", "Filters")}</Button><div className="segmented" aria-label={t("Visualização", "View")}><button aria-pressed={view === "day"} onClick={() => setView("day")}>{t("Dia", "Day")}</button><button aria-pressed={view === "week"} onClick={() => setView("week")}>{t("Semana", "Week")}</button><button aria-pressed={view === "month"} onClick={() => setView("month")}>{t("Mês", "Month")}</button><button aria-pressed={view === "list"} onClick={() => setView("list")}><List size={15} /> {t("Lista", "List")}</button></div><Button icon={MoreHorizontal} className="icon" title={t("Mais ações", "More actions")} onClick={() => setShowInsights(!showInsights)} /></div></div>
+    {showFilters && <div className="agenda-filter-drawer"><Field title={t("Status", "Status")} value={status} onChange={setStatus} options={[{ value: "all", label: t("Todos os status", "All statuses") }, ...["agendado", "confirmado", "aguardando", "em_atendimento", "concluido", "cancelado", "faltou"].map((v) => ({ value: v, label: label(v, t) }))]} /><Field title={t("Profissional", "Professional")} value={professional} onChange={setProfessional} options={[{ value: "all", label: t("Todos", "Everyone") }, ...professionals]} /><Button icon={EyeOff} onClick={() => { setQuery(""); setStatus("all"); setProfessional("all"); }}>{t("Limpar filtros", "Clear filters")}</Button></div>}
+    <div className="agenda-hub-body"><div className={`agenda-hub-calendar agenda-hub-calendar--${view}`}>
+      {state.loading && <p className="loading">{t("Carregando agenda...", "Loading schedule...")}</p>}
+      {view === "month" && <><div className="agenda-simple-weekdays">{["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"].map((d) => <span key={d}>{t(d, d)}</span>)}</div><div className="agenda-simple-month">{monthDays.map((day) => <div key={day} className={`agenda-simple-day ${day.slice(0, 7) === anchor.slice(0, 7) ? "" : "outside"} ${day === today ? "today" : ""}`} {...dropProps(day)} onDoubleClick={() => writable && setModal({ type: "appointment", initialStart: `${day}T09:00` })}><button type="button" className="agenda-simple-day-number" onClick={() => { setAnchor(day); setView("day"); }}>{Number(day.slice(8))}</button><div className="agenda-simple-events">{onDay(day).slice(0, 4).map(draggableEvent)}{onDay(day).length > 4 && <button type="button" className="agenda-simple-more" onClick={() => { setAnchor(day); setView("day"); }}>+{onDay(day).length - 4}</button>}</div></div>)}</div></>}
+      {view === "week" && <div className="agenda-simple-week"><div className="agenda-simple-corner" />{weekDays.map((day) => <div className="agenda-simple-head" key={day}>{day.slice(5)}{day === today && <i>{t("hoje", "today")}</i>}</div>)}{hours.flatMap((hour) => [<div className="agenda-simple-hour" key={`h${hour}`}>{String(hour).padStart(2, "0")}:00</div>, ...weekDays.map((day) => <div className="agenda-simple-slot" key={`${day}-${hour}`} {...dropProps(day, `${String(hour).padStart(2, "0")}:00`)} onDoubleClick={() => writable && setModal({ type: "appointment", initialStart: `${day}T${String(hour).padStart(2, "0")}:00` })}>{onDay(day).filter((a) => Number(agendaTime(a.starts_at).slice(0, 2)) === hour).map(draggableEvent)}</div>)])}</div>}
+      {view === "day" && <div className="agenda-simple-day-timeline">{hours.map((hour) => <div className="agenda-simple-time-row" key={hour}><time>{String(hour).padStart(2, "0")}:00</time><div {...dropProps(anchor, `${String(hour).padStart(2, "0")}:00`)} onDoubleClick={() => writable && setModal({ type: "appointment", initialStart: `${anchor}T${String(hour).padStart(2, "0")}:00` })}>{onDay(anchor).filter((a) => Number(agendaTime(a.starts_at).slice(0, 2)) === hour).map(draggableEvent)}</div></div>)}</div>}
+      {view === "list" && <div className="agenda-list-view">{appointments.map((a) => <article key={a.id} className="agenda-list-row" onClick={() => setSelected(a)}><time><strong>{timeLabel(a.starts_at)}</strong><small>{safeDateLabel(a.starts_at)}</small></time><Avatar person={a.patients} size={36} /><div><strong>{patientName(a, t)}</strong><small>{a.label || t("Atendimento", "Appointment")} · {a.professional_id ? t("profissional atribuído", "professional assigned") : t("sem profissional", "unassigned")}</small></div><Status value={a.status} /><Button icon={MoreHorizontal} className="icon" aria-label={t("Ações", "Actions")} /></article>)}{!appointments.length && <Empty icon={CalendarDays}>{t("Nenhum agendamento nesta visão", "No appointments in this view")}</Empty>}</div>}
+    </div>{showInsights && <aside className="agenda-insights"><div className="agenda-insights-head"><div><p className="eyebrow">{t("Central da agenda", "Schedule centre")}</p><h2>{t("Organizar o dia", "Organize the day")}</h2></div><Button icon={X} className="icon" onClick={() => setShowInsights(false)} aria-label={t("Fechar", "Close")} /></div><div className="insight-card"><ClipboardCheck size={18} /><div><strong>{freeSlots} {t("horários livres", "free slots")}</strong><span>{t("Capacidade estimada no período", "Estimated capacity in this period")}</span></div></div><div className={`insight-card ${conflicts ? "warning" : ""}`}><ShieldAlert size={18} /><div><strong>{conflicts ? `${conflicts} ${t("possíveis conflitos", "possible conflicts")}` : t("Agenda sem conflitos", "No schedule conflicts")}</strong><span>{t("Profissional, sala e recurso considerados", "Professional, room and resource considered")}</span></div></div><details open><summary><Bell size={16} /> {t("Alertas e retornos", "Alerts & follow-ups")}</summary><p>{waiting ? t("Há pacientes aguardando check-in.", "Patients are waiting for check-in.") : t("Nenhum alerta operacional pendente.", "No operational alerts pending.")}</p><p>{t("A lista de espera pode receber encaixes quando um cancelamento abrir espaço.", "The waitlist can receive matches when a cancellation opens a slot.")}</p></details><details><summary><Keyboard size={16} /> {t("Atalhos", "Keyboard shortcuts")}</summary><p><kbd>N</kbd> {t("novo agendamento", "new appointment")} · <kbd>T</kbd> {t("ir para hoje", "go to today")} · <kbd>Esc</kbd> {t("fechar painel", "close panel")}</p></details><div className="agenda-export-actions"><Button icon={FileDown} onClick={exportCsv}>{t("CSV", "CSV")}</Button><Button icon={CalendarDays} onClick={exportCalendar}>{t("ICS", "ICS")}</Button><Button icon={Printer} onClick={() => window.print()}>{t("Imprimir", "Print")}</Button></div></aside>}</div>
+    {selected && <AgendaPanel appointment={selected} close={() => setSelected(null)} openPatient={openPatient} setModal={setModal} writable={writable} />}
+  </div>;
 }
 
 function Agenda({ openPatient, setModal, version, writable }) {
@@ -3092,115 +3338,60 @@ function TaskForm({ task, patient, close, done, notify }) {
   );
 }
 function Tasks({ setModal, openPatient, version, writable, notify }) {
-  const t = useT(),
-    [status, setStatus] = useState("pendente"),
-    [page, setPage] = useState(0);
-  const state = useLoad(
-    () =>
-      checked(
-        db
-          .from("tasks")
-          .select("*,patients(*)")
-          .eq("status", status)
-          .order("due_at")
-          .range(page * 20, page * 20 + 19),
-      ),
-    [status, page, version],
-  );
-  return (
-    <>
-      <PageHead title={t("Tarefas e retornos", "Tasks & follow-ups")}>
-        {writable && (
-          <Button
-            icon={Plus}
-            className="primary"
-            onClick={() => setModal({ type: "task" })}
-          >
-            {t("Nova tarefa", "New task")}
-          </Button>
-        )}
-      </PageHead>
-      <div className="toolbar">
-        <div className="segmented">
-          {["pendente", "concluida", "cancelado"].map((s) => (
-            <button
-              key={s}
-              aria-pressed={status === s}
-              onClick={() => {
-                setStatus(s);
-                setPage(0);
-              }}
-            >
-              {label(s, t)}
-            </button>
-          ))}
-        </div>
-      </div>
-      <LoadState state={state}>
-        {(rows) => (
-          <>
-            {rows.map((task) => (
-              <div className="list-row" key={task.id}>
-                {writable && (
-                  <Button
-                    icon={Check}
-                    className="icon"
-                    aria-label={t("Concluir tarefa", "Complete task")}
-                    onClick={async () => {
-                      try {
-                        await save("tasks", { status: "concluida" }, task);
-                        state.refresh();
-                        notify(t("Salvo", "Saved"));
-                      } catch {
-                        notify(
-                          t("Não foi possível salvar.", "Could not save."),
-                        );
-                      }
-                    }}
-                  />
-                )}
-                <button
-                  className="row-name"
-                  onClick={() => task.patients && openPatient(task.patients)}
-                >
-                  <strong>{task.title || t("Tarefa", "Task")}</strong>
-                  <small>
-                    {task.patients?.full_name || t("Clínica", "Clinic")}
-                  </small>
-                </button>
-                <span
-                  className={
-                    task.status === "pendente" &&
-                    new Date(task.due_at) < new Date()
-                      ? "overdue"
-                      : ""
-                  }
-                >
-                  {date(task.due_at, true)}
-                </span>
-                <Status value={task.priority} />
-                {writable && (
-                  <Button
-                    onClick={() =>
-                      setModal({ type: "task", task, patient: task.patients })
-                    }
-                  >
-                    {t("Editar", "Edit")}
-                  </Button>
-                )}
-              </div>
-            ))}
-            {!rows.length && (
-              <Empty icon={Check}>
-                {t("Nenhuma tarefa nesta lista", "No tasks in this list")}
-              </Empty>
-            )}
-            <Pager page={page} count={rows.length} setPage={setPage} />
-          </>
-        )}
-      </LoadState>
-    </>
-  );
+  const t = useT(), today = localDay(), now = new Date(),
+    [status, setStatus] = useState("pendente"), [group, setGroup] = useState("all"),
+    [page, setPage] = useState(0), [creating, setCreating] = useState(false);
+  const state = useLoad(async () => {
+    // The database function is idempotent and keeps automation consistent for
+    // every client opening the centre, including reception workstations.
+    await db.rpc("generate_action_centre_tasks").catch(() => null);
+    const [taskRows, appointments, followups, adverse, clinicalProcedures] = await Promise.all([
+      checked(db.from("tasks").select("*,patients(*)").order("due_at").range(0, 119)),
+      checked(db.from("appointments").select("id,patient_id,starts_at,ends_at,status,label,patients(*)").gte("starts_at", new Date(Date.now() - 45 * 86400000).toISOString()).order("starts_at").limit(120)).catch(() => []),
+      checked(db.from("follow_ups").select("id,patient_id,expected_on,status,notes,patients(*)").in("status", ["aguardando_agendamento", "vencido"]).order("expected_on").limit(60)).catch(() => []),
+      checked(db.from("adverse_events").select("id,patient_id,followup_deadline,status,description,patients(*)").eq("status", "em_acompanhamento").order("followup_deadline").limit(30)).catch(() => []),
+      checked(db.from("clinical_procedures").select("id,patient_id,performed_at,followup_due,status,patients(*),procedures(name)").eq("status", "finalizado").not("followup_due", "is", null).order("followup_due").limit(60)).catch(() => []),
+    ]);
+    return { tasks: taskRows.filter((task) => task.status === status).slice(page * 30, page * 30 + 30), allTasks: taskRows, appointments, followups, adverse, clinicalProcedures };
+  }, [status, page, version]);
+  const data = state.data || { tasks: [], allTasks: [], appointments: [], followups: [], adverse: [], clinicalProcedures: [] };
+  const overdue = data.tasks.filter((r) => r.status === "pendente" && new Date(r.due_at) < now);
+  const todayAppointments = data.appointments.filter((r) => validDateValue(r.starts_at) && localDay(new Date(r.starts_at)) === today && !["cancelado", "concluido"].includes(r.status));
+  const attention = [
+    ...data.tasks.map((task) => ({ ...task, kind: task.title?.toLowerCase().includes("retorno") ? "clinical" : "operational", source: "task", due: task.due_at })),
+    ...data.followups.map((item) => ({ ...item, kind: "clinical", source: "followup", due: item.expected_on, title: t("Retorno clínico pendente", "Pending clinical follow-up") })),
+    ...data.adverse.map((item) => ({ ...item, kind: "clinical", source: "adverse", due: item.followup_deadline, title: t("Acompanhar intercorrência", "Follow up adverse event") })),
+    ...data.clinicalProcedures.filter((item) => item.followup_due && new Date(`${item.followup_due}T23:59:59-03:00`) <= now).map((item) => ({ ...item, kind: "clinical", source: "procedure", due: item.followup_due, title: `${t("Retorno de procedimento", "Procedure follow-up")} · ${item.procedures?.name || t("avaliação", "review")}` })),
+  ].filter((item) => group === "all" || item.kind === group).sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0));
+  const suggestions = [...data.appointments.filter((a) => a.status === "concluido").map((a) => ({ ...a, suggestionTitle: `${t("Pós-atendimento", "Post-visit")} · ${a.label || t("verificar evolução", "check progress")}`, suggestionDue: new Date(new Date(a.starts_at).getTime() + 2 * 86400000) })), ...data.clinicalProcedures.filter((p) => p.followup_due).map((p) => ({ ...p, suggestionTitle: `${t("Retorno de procedimento", "Procedure follow-up")} · ${p.procedures?.name || t("avaliação", "review")}`, suggestionDue: new Date(`${p.followup_due}T09:00:00-03:00`) }))].filter((item) => !data.allTasks.some((task) => task.patient_id === item.patient_id && /pós-atendimento|retorno de procedimento/i.test(task.title || ""))).slice(0, 8);
+  const createSuggestions = async () => {
+    if (!suggestions.length) return notify(t("Nenhuma sugestão nova por enquanto.", "No new suggestions for now."));
+    setCreating(true);
+    try {
+      await checked(db.from("tasks").insert(suggestions.map((item) => ({ organization_id: ORG, patient_id: item.patient_id, title: item.suggestionTitle, priority: "normal", status: "pendente", due_at: item.suggestionDue.toISOString() }))));
+      notify(t(`${suggestions.length} tarefa(s) criada(s) a partir da agenda.`, `${suggestions.length} task(s) created from the schedule.`));
+    } catch { notify(t("Não foi possível criar as sugestões.", "Could not create suggestions.")); }
+    finally { setCreating(false); }
+  };
+  const quickWhatsApp = (patient) => { const link = whatsappMessage(patient?.phone, patient?.preferred_name || patient?.full_name); if (link) window.open(link, "_blank", "noopener,noreferrer"); else notify(t("Telefone não disponível.", "Phone not available.")); };
+  const complete = async (task) => { try { await save("tasks", { status: "concluida" }, task); state.refresh(); notify(t("Tarefa concluída.", "Task completed.")); } catch { notify(t("Não foi possível salvar.", "Could not save.")); } };
+  const title = t("Tarefas e retornos", "Tasks & follow-ups");
+  return <>
+    <PageHead eyebrow={t("Central de ação clínica", "Clinical action centre")} title={title}>
+      <div className="task-head-actions"><Button icon={CalendarPlus} onClick={() => setModal({ type: "appointment" })}>{t("Agendar", "Schedule")}</Button>{writable && <Button icon={Plus} className="primary" onClick={() => setModal({ type: "task" })}>{t("Nova tarefa", "New task")}</Button>}</div>
+    </PageHead>
+    <section className="task-centre-hero"><div><p className="eyebrow">{t("Visão de hoje", "Today at a glance")}</p><h2>{overdue.length ? t(`${overdue.length} item(ns) pedem atenção agora`, `${overdue.length} item(s) need attention now`) : t("Tudo sob controle por aqui", "Everything is under control here")}</h2><p>{t("O centro reúne tarefas, retornos e sinais clínicos usando apenas os registros da clínica.", "This centre brings together tasks, follow-ups, and clinical signals using only clinic records.")}</p></div><div className="task-ring" style={{ "--ring": `${Math.min(100, Math.round((todayAppointments.length / Math.max(1, data.appointments.length)) * 100))}%` }}><strong>{todayAppointments.length}</strong><span>{t("hoje", "today")}</span></div></section>
+    <div className="task-metrics"><button className={group === "all" ? "active" : ""} onClick={() => setGroup("all")}><span className="metric-icon metric-icon-sage"><ListChecks size={17} /></span><b>{data.tasks.length}</b><small>{t("tarefas abertas", "open tasks")}</small></button><button className={group === "clinical" ? "active" : ""} onClick={() => setGroup("clinical")}><span className="metric-icon metric-icon-rose"><Stethoscope size={17} /></span><b>{data.followups.length + data.adverse.length}</b><small>{t("atenções clínicas", "clinical attention")}</small></button><button className="metric-action" onClick={createSuggestions} disabled={!writable || creating || !suggestions.length}><span className="metric-icon metric-icon-gold"><Sparkles size={17} /></span><b>{suggestions.length}</b><small>{creating ? t("criando...", "creating...") : t("sugestões da agenda", "schedule suggestions")}</small></button></div>
+    <div className="task-centre-toolbar"><div className="segmented">{[["all", t("Tudo", "All")], ["clinical", t("Clínico", "Clinical")], ["operational", t("Operacional", "Operational")]].map(([key, text]) => <button key={key} aria-pressed={group === key} onClick={() => setGroup(key)}>{text}</button>)}</div><div className="segmented">{["pendente", "concluida", "cancelado"].map((s) => <button key={s} aria-pressed={status === s} onClick={() => { setStatus(s); setPage(0); }}>{label(s, t)}</button>)}</div></div>
+    {todayAppointments.length > 0 && <section className="task-today-panel"><div className="section-heading"><div><p className="eyebrow">{t("Próximos atendimentos", "Next appointments")}</p><h2>{t("A agenda que move o dia", "The schedule moving your day")}</h2></div><span className="task-count-pill">{todayAppointments.length} {t("hoje", "today")}</span></div><div className="task-appointment-grid">{todayAppointments.slice(0, 4).map((a) => <article className="task-appointment-card" key={a.id}><time>{timeLabel(a.starts_at)}</time><strong>{patientName(a, t)}</strong><small>{a.label || t("Atendimento", "Appointment")}</small><div><button onClick={() => a.patients && openPatient(a.patients)} title={t("Abrir paciente", "Open patient")}><UserRound size={15} /></button>{a.patients && <button onClick={() => quickWhatsApp(a.patients)} title="WhatsApp"><MessageCircle size={15} /></button>}<button onClick={() => setModal({ type: "appointment", appointment: a, patient: a.patients })} title={t("Editar agenda", "Edit schedule")}><Pencil size={15} /></button></div></article>)}</div></section>}
+    <section className="task-list-centre">
+      <div className="section-heading"><div><p className="eyebrow">{t("Fila priorizada", "Prioritized queue")}</p><h2>{t("O que precisa acontecer", "What needs to happen")}</h2></div><span className="subtle">{attention.length} {t("itens", "items")}</span></div>
+      {state.loading && <p className="loading">{t("Carregando...", "Loading...")}</p>}
+      {state.error && <div className="notice error">{t("Não foi possível carregar.", "Could not load.")}</div>}
+      {!state.loading && !state.error && <div className="action-list">{attention.map((item) => <article className={`action-card action-card-${item.kind} ${item.due && new Date(item.due) < now ? "is-overdue" : ""}`} key={`${item.source}-${item.id}`}><button className="action-check" onClick={() => item.source === "task" ? complete(item) : item.patients && openPatient(item.patients)} title={item.source === "task" ? t("Concluir", "Complete") : t("Abrir paciente", "Open patient")}>{item.source === "task" ? <Check size={16} /> : <ChevronRight size={16} />}</button><div className="action-main"><div><span className="action-kicker">{item.kind === "clinical" ? t("Cuidado clínico", "Clinical care") : t("Operação", "Operations")}</span><strong>{item.title || t("Tarefa", "Task")}</strong><small>{item.patients?.preferred_name || item.patients?.full_name || t("Clínica", "Clinic")}{item.due ? ` · ${date(item.due, item.source === "task")}` : ""}</small></div>{item.source === "task" && <Status value={item.priority} />}</div><div className="action-tools">{item.patients && <><button onClick={() => openPatient(item.patients)} title={t("Paciente", "Patient")}><UserRound size={15} /></button><button onClick={() => quickWhatsApp(item.patients)} title="WhatsApp"><MessageCircle size={15} /></button><button onClick={() => setModal({ type: "appointment", patient: item.patients })} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button></>}{item.source === "task" && writable && <button onClick={() => setModal({ type: "task", task: item, patient: item.patients })} title={t("Editar", "Edit")}><Pencil size={15} /></button>}</div></article>)}{!attention.length && <Empty icon={CheckCircle2}>{t("Nenhuma atenção nesta combinação de filtros.", "No attention items match these filters.")}</Empty>}</div>}
+      <Pager page={page} count={data.tasks.length} setPage={setPage} />
+    </section>
+  </>;
 }
 
 function Enquiries({ openPatient, version, writable, notify, member }) {
@@ -3318,7 +3509,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
           rel="noopener noreferrer"
         >
           <FileText className="forms-launch-icon" size={18} />
-          {t("Abrir formulário completo", "Open complete form")}
+          {t("Formulário do paciente", "Patient form")}
         </a>
       </PageHead>
       <div className="toolbar wrap">
@@ -3339,7 +3530,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
                 key={row.id}
                 onClick={() => review(row)}
               >
-                <span className="avatar">{initials(row.full_name)}</span>
+                <Avatar person={row} />
                 <span className="patient-identity">
                   <strong>
                     {row.full_name || t("Novo contato", "New contact")}
@@ -3388,6 +3579,21 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
           <div className="actions wrap">
             {selected.phone && <a className="button" href={`tel:${digits(selected.phone)}`}>{t("Ligar", "Call")}</a>}
             {selected.email && <a className="button" href={`mailto:${selected.email}`}>{t("Email", "Email")}</a>}
+            {selected.patient_id && (
+              <Button
+                icon={ClipboardCheck}
+                className="primary"
+                onClick={async () => {
+                  try {
+                    const patient = await checked(db.from("patients").select("*").eq("id", selected.patient_id).single());
+                    setSelected(null);
+                    setModal({ type: "master-intake", patient, sourceIntake: selected });
+                  } catch { notify(t("Não foi possível abrir o intake.", "Could not open intake.")); }
+                }}
+              >
+                {t("Consulta inicial completa", "Master Intake")}
+              </Button>
+            )}
             {selected.patient_id && (
               <Button
                 className="primary"
@@ -3730,6 +3936,29 @@ async function collectPatient(patient) {
   );
   return data;
 }
+async function collectFullBackup() {
+  if (!(await checked(db.rpc("authorize_full_backup")))) throw Error("not_authorized");
+  const tables = ["organizations", "memberships", "patients", "entries", "entry_versions", "admin_notes", "appointments", "tasks", "enquiries", "documents", "document_links", "communications", "audit_events", "procedures", "products", "product_lots", "devices", "treatment_plans", "treatment_plan_items", "clinical_procedures", "product_usages", "clinical_photos", "consents", "follow_ups", "adverse_events", "privacy_requests", "patient_health_history", "procedure_devices", "patient_portal_shares", "financial_records", "financial_payments", "staff_permissions"];
+  const data = { format: "sofiati-full-backup-v1", exported_at: new Date().toISOString(), organization_id: ORG, tables: {}, files: [] };
+  data.tables.organizations = await checked(db.from("organizations").select("*").eq("id", ORG));
+  for (const table of tables.filter((name) => name !== "organizations")) data.tables[table] = await allRows(table);
+  const fileRows = [...(data.tables.documents || []).filter((row) => row.status === "pronto"), ...(data.tables.clinical_photos || [])];
+  for (const row of fileRows) {
+    const bucket = row.path?.startsWith(`${ORG}/`) ? (data.tables.documents?.some((d) => d.id === row.id) ? "patient-files" : "clinical-photos") : null;
+    if (!bucket) continue;
+    const blob = await checked(db.storage.from(bucket).download(row.path));
+    const raw = new Uint8Array(await blob.arrayBuffer());
+    const sha256 = [...new Uint8Array(await crypto.subtle.digest("SHA-256", raw))].map((b) => b.toString(16).padStart(2, "0")).join("");
+    data.files.push({ id: row.id, path: row.path, bucket, sha256, mime_type: row.mime_type || blob.type, base64: await fileBase64(blob) });
+  }
+  return data;
+}
+function FullBackupExport({ member, notify }) {
+  const t = useT(), [pass, setPass] = useState(""), [confirmPass, setConfirm] = useState(""), [packets, setPackets] = useState(null), [busy, setBusy] = useState(false);
+  if (member.email?.toLowerCase() !== "suportesofiati@gmail.com") return <section className="detail-section"><h2>{t("Exportar todos os dados", "Export all data")}</h2><p className="notice"><ShieldCheck size={18} /> {t("Disponível somente para suportesofiati@gmail.com.", "Available only to suportesofiati@gmail.com.")}</p></section>;
+  const prepare = async () => { if (pass.length < 16 || pass !== confirmPass) return notify(t("Use e confirme uma frase com pelo menos 16 caracteres.", "Use and confirm a passphrase of at least 16 characters.")); setBusy(true); try { setPackets(await encryptPackets(await collectFullBackup(), pass)); setPass(""); setConfirm(""); notify(t("Backup completo criptografado pronto para download.", "Complete encrypted backup ready for download.")); } catch { notify(t("Não foi possível criar o backup completo.", "Could not create the complete backup.")); } finally { setBusy(false); } };
+  return <section className="detail-section"><div className="section-heading"><div><h2>{t("Exportar todos os dados", "Export all data")}</h2><p className="subtle">{t("Inclui banco, arquivos, pacientes, profissionais e informações do sistema. O backup é criptografado no navegador.", "Includes database, files, patients, professionals, and system information. The backup is encrypted in your browser.")}</p></div><LockKeyhole size={22} /></div>{!packets ? <><div className="form-grid"><Field title={t("Frase de recuperação", "Recovery passphrase")} type="password" minLength={16} value={pass} onChange={setPass} /><Field title={t("Confirmar frase", "Confirm passphrase")} type="password" value={confirmPass} onChange={setConfirm} /></div><Button className="primary" icon={Download} disabled={busy} onClick={prepare}>{busy ? t("Preparando...", "Preparing...") : t("Exportar todos os dados", "Export all data")}</Button></> : <div className="actions wrap">{packets.map((part, index) => <Button key={index} icon={Download} onClick={() => download(new Blob([JSON.stringify(part)], { type: "application/json" }), `backup-completo-${index + 1}-de-${packets.length}.encrypted.json`)}>{t("Baixar parte", "Download part")} {index + 1}/{packets.length}</Button>)}</div>}</section>;
+}
 function ExportDialog({ patient, close, notify }) {
   const t = useT(),
     [pass, setPass] = useState(""),
@@ -3915,6 +4144,10 @@ const escapeHTML = (value) =>
       ],
   );
 function printRecord(data, t) {
+  const patient = data.tables.patients[0] || {};
+  const body = (data.tables.entries || []).map((e, index) => `<section class="document-section"><div class="document-section-heading"><span class="document-section-number">${String(index + 1).padStart(2, "0")}</span><h2>${documentEscape(e.title || label(e.kind, t))}</h2></div><article class="document-record"><div class="document-record-top"><span class="document-record-kind">${documentEscape(label(e.kind, t))}</span><time>${documentEscape(date(e.clinical_at, true))}</time></div><p>${documentEscape(e.content)}</p><p class="document-muted">${documentEscape(label(e.status, t))} · ${documentEscape(t("versão", "version"))} ${documentEscape(e.version)}</p></article></section>`).join("") || `<p class="document-muted">${documentEscape(t("Nenhum registro disponível.", "No records available."))}</p>`;
+  const shared = reportDocumentHTML({ title: t("Registro recuperado", "Recovered record"), patient, body, warning: t("Registro restaurado a partir de um backup criptografado.", "Record restored from an encrypted backup."), documentId: `BACKUP-${Date.now().toString(36).toUpperCase()}`, generated: date(new Date().toISOString(), true), mode: "integral", t });
+  if (openDocument(shared)) return;
   const p = data.tables.patients[0],
     win = window.open("", "_blank");
   if (!win) return;
@@ -3952,6 +4185,8 @@ const paymentMethods = [
 ];
 const cents = (value) => Math.round(Number(String(value).replace(",", ".") || 0) * 100);
 function printReceipt(record, patient, payments, t) {
+  const shared = receiptDocumentHTML({ record, patient, payments, paymentMethodLabel: (method, translate) => paymentMethods.find(([key]) => key === method)?.[1] || method, money, date, t });
+  if (openDocument(shared)) return;
   const received = payments.reduce((sum, payment) => sum + Number(payment.amount_cents || 0), 0);
   const total = Number(record.total_cents || 0), balance = Math.max(0, total - received);
   const paymentWording = balance ? t("Pagamento parcial", "Partial payment") : t("Pagamento integral", "Payment in full");
@@ -3995,6 +4230,25 @@ function reportPrint(data, type, mode, t, warning) {
   win.document.write(`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>${escapeHTML(title)}</title><style>@page{size:A4;margin:18mm 16mm}*{box-sizing:border-box}body{font:12px/1.55 Arial,sans-serif;color:#24372d;margin:0}header{border-bottom:2px solid #52674d;padding-bottom:14px;margin-bottom:25px}.logo{width:170px}.kicker,.meta,.muted{color:#687960;font-size:10px}.title{text-align:center;margin:35px 0}.title h1{font:400 25px Georgia,serif;letter-spacing:.07em}.patient{font:18px Georgia,serif}h2{font:18px Georgia,serif;border-bottom:1px solid #d8cdbb;padding-bottom:7px;margin-top:28px}h3{font:15px Georgia,serif;margin-bottom:3px}p{white-space:pre-wrap;overflow-wrap:anywhere}article{border-bottom:1px solid #e7dfd2;padding:8px 0;break-inside:avoid}.warning{padding:10px 12px;background:#f5e2da;color:#70463f;border-left:3px solid #8b554a}.footer{border-top:1px solid #d8cdbb;margin-top:28px;padding-top:9px;text-align:center;font-size:10px;color:#687960}.page::after{content:' · Página ' counter(page) ' de ' counter(pages)}button{padding:10px 16px;margin-bottom:15px}@media print{button{display:none}}</style></head><body><button id="print">${escapeHTML(t("Imprimir / salvar PDF", "Print / save PDF"))}</button><header><img class="logo" src="${LOGO}" alt="Franciele Sofiati"><div class="kicker">BIOMÉDICA ESTETA · CRBM 6277 PR</div></header><div class="title"><p class="kicker">${escapeHTML(mode === "integral" ? t("Registro completo / integral", "Complete / integral record") : t("Resumo profissional", "Professional summary"))}</p><h1>${escapeHTML(title).toUpperCase()}</h1><p class="patient">${escapeHTML(patient?.full_name || t("Paciente não selecionado", "No patient selected"))}</p><p class="kicker">${escapeHTML(t("Gerado em", "Generated on"))} ${escapeHTML(date(generated, true))}</p></div>${warning ? `<p class="warning">${escapeHTML(warning)}</p>` : ""}${sections.map(([heading, content]) => `<section><h2>${escapeHTML(heading)}</h2>${content}</section>`).join("")}<footer class="footer page">Franciele Sofiati · Biomédica Esteta · CRBM 6277 PR · ${escapeHTML(t("Documento confidencial", "Confidential document"))}<br>${escapeHTML(t("Gerado pelo sistema · usuário autenticado · paciente", "Generated by system · authenticated user · patient"))} ${escapeHTML(patient?.id || "—")}</footer></body></html>`);
   win.document.close(); win.document.getElementById("print").onclick = () => win.print();
 }
+function reportPrintShared(data, type, mode, t, warning, targetWindow = null) {
+  const title = type === "complete" || type === "Pacote completo" ? t("Prontuário completo do paciente", "Complete patient record") : type;
+  const esc = documentEscape;
+  const empty = `<p class="document-muted">${esc(t("Nenhum registro disponível neste escopo.", "No records available in this scope."))}</p>`;
+  const section = (number, heading, content) => `<section class="document-section"><div class="document-section-heading"><span class="document-section-number">${number}</span><h2>${esc(heading)}</h2></div>${content}</section>`;
+  const list = (items, render) => items?.length ? items.map(render).join("") : empty;
+  const body = [
+    section("01", t("Identificação da paciente", "Patient identification"), `<div class="document-grid"><div><span class="document-label">Nome completo</span><strong class="document-value">${esc(data.patient?.full_name)}</strong></div><div><span class="document-label">CPF</span><strong class="document-value">${esc(data.patient?.cpf)}</strong></div><div><span class="document-label">Nascimento</span><strong class="document-value">${esc(date(data.patient?.birth_date))}</strong></div><div><span class="document-label">Contato</span><strong class="document-value">${esc(data.patient?.phone || data.patient?.email)}</strong></div></div>`),
+    section("02", t("Registros clínicos e linha do tempo", "Clinical records and timeline"), list(data.entries, (e) => `<article class="document-record"><div class="document-record-top"><span class="document-record-kind">${esc(label(e.kind, t))}</span><time>${esc(date(e.clinical_at, true))}</time></div><h3>${esc(e.title || t("Registro clínico", "Clinical record"))}</h3><p>${esc(e.content)}</p><p class="document-muted">${esc(label(e.status, t))} · ${esc(t("versão", "version"))} ${esc(e.version)}</p></article>`)),
+    section("03", t("Procedimentos realizados", "Procedures performed"), list(data.procedures, (p) => `<article class="document-record"><div class="document-record-top"><span class="document-record-kind">${esc(t("Procedimento", "Procedure"))}</span><time>${esc(date(p.performed_at, true))}</time></div><h3>${esc(p.name || p.title || t("Procedimento realizado", "Procedure performed"))}</h3><p>${esc(p.area || p.treatment_area || p.observations)}</p></article>`)),
+    section("04", t("Documentos e consentimentos", "Documents and consents"), list(data.documents, (d) => `<article class="document-record"><h3>${esc(d.name || t("Documento sem nome", "Unnamed document"))}</h3><p class="document-muted">${esc(date(d.created_at))} · ${esc(d.sha256 ? `SHA-256: ${d.sha256}` : t("Arquivo anexado ao prontuário", "File attached to record"))}</p></article>`)),
+    section("05", t("Histórico de atendimentos", "Appointment history"), `<table class="document-table"><thead><tr><th>${esc(t("Data", "Date"))}</th><th>${esc(t("Atendimento", "Appointment"))}</th><th>${esc(t("Status", "Status"))}</th></tr></thead><tbody>${data.appointments?.length ? data.appointments.map((a) => `<tr><td>${esc(date(a.starts_at, true))}</td><td>${esc(a.label || t("Atendimento", "Appointment"))}</td><td>${esc(label(a.status, t))}</td></tr>`).join("") : `<tr><td colspan="3">${empty}</td></tr>`}</tbody></table>`),
+    data.finance?.length ? section("06", t("Resumo financeiro", "Financial summary"), `<div class="document-alert">${esc(t("Informações financeiras incluídas sob permissão específica.", "Financial information included under specific permission."))}</div><table class="document-table"><thead><tr><th>${esc(t("Data", "Date"))}</th><th>${esc(t("Procedimento", "Treatment"))}</th><th>${esc(t("Valor total", "Total amount"))}</th></tr></thead><tbody>${data.finance.map((r) => `<tr><td>${esc(date(r.created_at))}</td><td>${esc(r.procedure_name)}</td><td>${esc(money(Number(r.total_cents || 0) / 100))}</td></tr>`).join("")}</tbody></table>`) : "",
+  ].join("");
+  const html = reportDocumentHTML({ title, patient: data.patient, body, warning, documentId: `FS-${Date.now().toString(36).toUpperCase()}`, generated: date(new Date().toISOString(), true), mode, t });
+  if (targetWindow) { targetWindow.document.open("text/html", "replace"); targetWindow.document.write(html); targetWindow.document.close(); targetWindow.focus(); return; }
+  openDocument(html);
+}
+
 function reportPrintA4(data, type, mode, t, warning, targetWindow = null) {
   const win = targetWindow || window.open("", "_blank");
   if (!win) return;
@@ -4020,6 +4274,31 @@ function reportPrintA4(data, type, mode, t, warning, targetWindow = null) {
   </style></head><body><main class="pdf-document"><section class="pdf-page pdf-cover"><div class="pdf-brand"><img src="${brandLogo}" alt="Franciele Sofiati"><div><div class="pdf-brand-name">Franciele Sofiati</div><div class="pdf-brand-sub">Biomédica | Esteticista | Cosmetóloga · CRBM 6277 PR</div></div></div><div class="pdf-cover-main"><p class="pdf-kicker">Documento clínico · registro confidencial</p><h1><em>${esc(title.split(" ").slice(0, 2).join(" "))}</em><br>${esc(title.split(" ").slice(2).join(" "))}</h1><p class="pdf-cover-lede">Um registro claro, completo e cuidadosamente organizado para preservar a história do cuidado.</p><div class="pdf-cover-patient"><span>Paciente</span><strong>${esc(patient.full_name || "—")}</strong><span style="margin-top:3mm">${esc(mode === "integral" ? "Registro completo / integral" : "Resumo profissional")}</span></div></div><div class="pdf-cover-foot">Gerado em ${esc(date(generated, true))}<br>Franciele Sofiati · Londrina · Paraná</div></section><section class="pdf-page pdf-control"><div class="pdf-running-header"><strong>Franciele Sofiati</strong><span>Biomédica | Esteticista | Cosmetóloga · Controle documental · ${esc(documentId)}</span></div><p class="pdf-kicker">Leitura do documento</p><h1>${esc(t("Controle e sumário", "Control and contents"))}</h1><p class="pdf-control-lede">Este documento reúne somente as informações autorizadas no escopo selecionado, preservando contexto, cronologia e rastreabilidade.</p>${controlRows}${warning ? `<div class="pdf-warning">${esc(warning)}</div>` : ""}<div class="pdf-toc"><h2>${esc(t("Sumário", "Contents"))}</h2>${toc}</div><div class="pdf-running-footer"><span>Biomédica | Esteticista | Cosmetóloga · Documento confidencial</span><span class="page-number"></span></div></section><section class="pdf-page"><div class="pdf-running-header"><strong>Franciele Sofiati</strong><span>Biomédica | Esteticista | Cosmetóloga · ${esc(patient.full_name || "—")} · ${esc(documentId)}</span></div>${body}${financial}<div class="pdf-running-footer"><span>Biomédica | Esteticista | Cosmetóloga · Gerado pelo sistema</span><span class="page-number"></span></div></section></main><script>document.getElementById('print')?.addEventListener('click',()=>print());window.onload=()=>setTimeout(()=>window.print(),180)</script></body></html>`);
   win.document.close(); win.focus();
 }
+
+const reportStatusOrder = ["agendado", "confirmado", "concluido", "cancelado", "faltou"];
+const reportStatusColors = {
+  agendado: "var(--report-sage)",
+  confirmado: "var(--report-champagne)",
+  concluido: "var(--report-pink)",
+  cancelado: "var(--report-neutral)",
+  faltou: "var(--report-neutral-dark)",
+};
+function ReportDonut({ stats, total, active, onSelect, t }) {
+  const radius = 42, circumference = 2 * Math.PI * radius;
+  let offset = 0;
+  return <div className="report-donut-wrap">
+    <svg className="report-donut" viewBox="0 0 108 108" role="img" aria-label={t("Distribuição dos atendimentos por status", "Appointments by status")}>
+      <circle className="report-donut-track" cx="54" cy="54" r={radius} />
+      {reportStatusOrder.map((status) => {
+        const value = stats?.[status] || 0, length = total ? (value / total) * circumference : 0, segmentOffset = offset;
+        offset += length;
+        if (!length) return null;
+        return <circle key={status} className={`report-donut-segment ${active === status ? "active" : ""}`} cx="54" cy="54" r={radius} pathLength={circumference} stroke={reportStatusColors[status]} strokeDasharray={`${length} ${circumference - length}`} strokeDashoffset={-segmentOffset} tabIndex="0" role="button" aria-label={`${label(status, t)}: ${value}`} onClick={() => onSelect(status)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelect(status); } }}><title>{label(status, t)}: {value} · {t("Clique para ver os registros", "Click to view records")}</title></circle>;
+      })}
+    </svg>
+    <div className="report-donut-center"><strong>{total}</strong><span>{t("atendimentos", "appointments")}</span></div>
+  </div>;
+}
 function Reports({ financeAllowed }) {
   const t = useT(), [start, setStart] = useState(localDay().slice(0, 7) + "-01"), [end, setEnd] = useState(localDay()), [patientId, setPatientId] = useState(""), [type, setType] = useState("complete"), [mode, setMode] = useState("summary"), [scope, setScope] = useState({ cadastro: true, saude: true, anamnesis: true, avaliacoes: true, planos: true, procedimentos: true, evolucoes: true, intercorrencias: true, consentimentos: true, documentos: true, fotografias: true, agenda: true, financeiro: false }), [generated, setGenerated] = useState([]), [busy, setBusy] = useState(false), [filterStatus, setFilterStatus] = useState("");
   const state = useLoad(async () => {
@@ -4027,9 +4306,9 @@ function Reports({ financeAllowed }) {
     const [patients, appointments, procedures, followups, adverse, forms] = await Promise.all([
       checked(db.from("patients").select("id,full_name,preferred_name,cpf,birth_date,phone,email,created_at").order("full_name")),
       checked(db.from("appointments").select("id,status,starts_at,label").gte("starts_at", from).lte("starts_at", to)),
-      checked(db.from("clinical_procedures").select("id,performed_at,status,area,treatment_area").gte("performed_at", from).lte("performed_at", to)),
-      checked(db.from("follow_ups").select("id").lte("expected_on", end).neq("status", "concluido")),
-      checked(db.from("adverse_events").select("id").eq("status", "em_acompanhamento")),
+      checked(db.from("clinical_procedures").select("id,patient_id,performed_at,status,area,treatment_area,patients(full_name,preferred_name)").gte("performed_at", from).lte("performed_at", to)),
+      checked(db.from("follow_ups").select("id,patient_id,expected_on,status,patients(full_name,preferred_name)").lte("expected_on", end).neq("status", "concluido")),
+      checked(db.from("adverse_events").select("id,patient_id,event_at,description,status,patients(full_name,preferred_name)").eq("status", "em_acompanhamento")),
       checked(db.from("public_intakes").select("id").gte("submitted_at", from).lte("submitted_at", to)),
     ]);
     const stats = Object.fromEntries(["agendado", "confirmado", "concluido", "cancelado", "faltou"].map((s) => [s, appointments.filter((a) => a.status === s).length]));
@@ -4048,12 +4327,16 @@ function Reports({ financeAllowed }) {
       const warnings = finance.flatMap((r) => { const total = Number(r.total_cents || 0), paid = (r.financial_payments || []).filter((p) => p.status === "recebido").reduce((s, p) => s + Number(p.amount_cents || 0), 0); return paid > total ? [t("Inconsistência financeira: pagamentos acima do valor cobrado.", "Financial inconsistency: payments exceed the charged amount.")] : total - paid < 0 ? [t("Saldo financeiro negativo detectado.", "Negative financial balance detected.")] : []; });
       const patient = state.data.patients.find((p) => p.id === patientId), reportData = { patient, entries, documents, appointments, procedures, finance, range: { start, end } };
       const reportType = type === "complete" ? t("Prontuário completo do paciente", "Complete patient record") : type;
-      reportPrintA4(reportData, type, mode === "integral" ? "integral" : "summary", t, warnings[0], printWindow);
+      reportPrintShared(reportData, type, mode === "integral" ? "integral" : "summary", t, warnings[0], printWindow);
       setGenerated((current) => [{ type: reportType, patient: patient.full_name, at: new Date().toISOString(), mode }, ...current].slice(0, 5));
     } catch { printWindow.close(); /* handled by the visible state and notification-less print flow */ } finally { setBusy(false); }
   };
   const reportTypes = ["Histórico clínico", "Histórico de procedimentos", "Anamnese e avaliação", "Plano de tratamento", "Evoluções", "Intercorrências", "Documentos e consentimentos", "Fotografias clínicas", "Agenda / atendimentos", ...(financeAllowed ? ["Financeiro", "Relatório financeiro consolidado"] : []), "Auditoria", "Ficha cadastral", "Pacote completo"];
-  return <><PageHead title={t("Relatórios", "Reports")} eyebrow={t("Centro de documentos e relatórios", "Documents & reports centre")}><Button icon={Printer} className="primary" onClick={generate} disabled={!patientId || busy}>{t("Gerar relatório", "Generate report")}</Button></PageHead><section className="report-analytics"><div><p className="eyebrow">{t("Atendimentos", "Appointments")}</p><div className="report-donut" style={{"--report-progress": `${Math.min(100, ((state.data ? state.data.stats.confirmado + state.data.stats.concluido : 0) / Math.max(1, state.data?.appointments.length || 1)) * 100)}%`}}><strong>{state.data?.appointments.length ?? "—"}</strong><span>{t("no período", "in period")}</span></div><div className="report-legend">{Object.entries(state.data?.stats || {}).map(([s, n]) => <button type="button" key={s} className={filterStatus === s ? "active" : ""} onClick={() => setFilterStatus(filterStatus === s ? "" : s)}><i className={`dot dot-${s}`} />{label(s, t)} <strong>{n}</strong></button>)}</div></div><div className="report-metrics"><button type="button" onClick={() => setFilterStatus("novos")}><span>{t("Novos pacientes", "New patients")}</span><strong>{state.data?.patients.filter((p) => p.created_at?.slice(0, 10) >= start && p.created_at?.slice(0, 10) <= end).length ?? "—"}</strong></button><div><span>{t("Procedimentos", "Procedures")}</span><strong>{state.data?.procedures.length ?? "—"}</strong></div><div><span>{t("Retornos pendentes", "Pending follow-ups")}</span><strong>{state.data?.followups.length ?? "—"}</strong></div><div><span>{t("Intercorrências", "Adverse events")}</span><strong>{state.data?.adverse.length ?? "—"}</strong></div></div></section><div className="report-filters"><Field title={t("De", "From")} type="date" value={start} onChange={setStart} /><Field title={t("Até", "To")} type="date" value={end} onChange={setEnd} /><Field title={t("Paciente", "Patient")} value={patientId} onChange={setPatientId} options={[{value:"",label:t("Selecionar paciente", "Select patient")}, ...(state.data?.patients || []).map((p) => ({value:p.id,label:p.preferred_name || p.full_name}))]} /><Field title={t("Tipo de documento", "Document type")} value={type} onChange={setType} options={[{value:"complete",label:t("Prontuário completo do paciente", "Complete patient record")}, ...reportTypes.map((v) => ({value:v,label:v}))]} /></div><section className="report-builder"><div className="report-builder-head"><div><p className="eyebrow">{t("Documentos e relatórios", "Documents & reports")}</p><h2>{t("Monte um documento formal a partir dos dados já registrados", "Build a formal document from the data already stored")}</h2></div><div className="segmented"><button type="button" aria-pressed={mode === "summary"} onClick={() => setMode("summary")}>{t("Resumo profissional", "Professional summary")}</button><button type="button" aria-pressed={mode === "integral"} onClick={() => setMode("integral")}>{t("Registro completo / integral", "Complete / integral record")}</button></div></div><div className="report-scope"><p className="eyebrow">{t("Escopo do pacote", "Package scope")}</p>{Object.entries(scope).map(([key, checkedScope]) => <label key={key}><input type="checkbox" checked={checkedScope} disabled={key === "financeiro" && !financeAllowed} onChange={(e) => setScope((s) => ({ ...s, [key]: e.target.checked }))} />{label(key, t)}</label>)}</div><div className="report-builder-actions"><Button icon={Eye} onClick={generate} disabled={!patientId}>{t("Visualizar", "Preview")}</Button><Button icon={Printer} className="primary" onClick={generate} disabled={!patientId || busy}>{t("Gerar PDF", "Generate PDF")}</Button><span className="subtle">{patientId ? t("A impressão abre em uma nova janela, com rodapé, paginação e data de geração.", "Print opens in a new window with footer, pagination and generation date.") : t("Selecione um paciente para habilitar a geração.", "Select a patient to enable generation.")}</span></div></section>{filterStatus && state.data?.appointments.filter((a) => a.status === filterStatus).length > 0 && <section className="report-underlying"><h2>{t("Registros do indicador", "Underlying records")}</h2>{state.data.appointments.filter((a) => a.status === filterStatus).map((a) => <div key={a.id}><span>{date(a.starts_at, true)}</span><strong>{a.label || t("Atendimento", "Appointment")}</strong></div>)}</section>}{generated.length > 0 && <section className="report-history"><h2>{t("Relatórios gerados nesta sessão", "Reports generated this session")}</h2>{generated.map((item, index) => <div key={`${item.at}-${index}`}><span>{item.patient} · {item.type}</span><small>{date(item.at, true)} · {item.mode === "integral" ? t("integral", "integral") : t("resumo", "summary")}</small></div>)}</section>}</>;
+  const newPatients = state.data?.patients.filter((p) => p.created_at?.slice(0, 10) >= start && p.created_at?.slice(0, 10) <= end) || [];
+  const metricConfig = [{ key: "novos", label: t("Novos pacientes", "New patients"), icon: UserRoundPlus, records: newPatients, detail: (row) => `${row.preferred_name || row.full_name} · ${t("cadastro", "registered")} ${date(row.created_at, true)}` }, { key: "procedimentos", label: t("Procedimentos", "Procedures"), icon: Syringe, records: state.data?.procedures || [], detail: (row) => `${row.patients?.preferred_name || row.patients?.full_name || t("Paciente", "Patient")} · ${date(row.performed_at, true)}` }, { key: "retornos", label: t("Retornos pendentes", "Pending follow-ups"), icon: RotateCcw, records: state.data?.followups || [], detail: (row) => `${row.patients?.preferred_name || row.patients?.full_name || t("Paciente", "Patient")} · ${t("previsto", "due")} ${date(row.expected_on)}` }, { key: "intercorrencias", label: t("Intercorrências", "Adverse events"), icon: TriangleAlert, records: state.data?.adverse || [], detail: (row) => `${row.patients?.preferred_name || row.patients?.full_name || t("Paciente", "Patient")} · ${row.description || label(row.status, t)}` }];
+  const selectedMetric = metricConfig.find((metric) => metric.key === filterStatus), selectedStatus = reportStatusOrder.includes(filterStatus) ? filterStatus : null, selectedRecords = selectedStatus ? (state.data?.appointments || []).filter((a) => a.status === selectedStatus) : selectedMetric?.records || [];
+  const selectFilter = (value) => setFilterStatus(filterStatus === value ? "" : value);
+  return <><PageHead title={t("Relatórios", "Reports")} eyebrow={t("Centro de documentos e relatórios", "Documents & reports centre")}><Button icon={Printer} className="primary" onClick={generate} disabled={!patientId || busy}>{t("Gerar relatório", "Generate report")}</Button></PageHead><section className="report-analytics" aria-label={t("Resumo dos atendimentos", "Appointments summary")}><div className="report-analytics-status"><div className="report-analytics-heading"><div><p className="eyebrow">{t("Atendimentos", "Appointments")}</p><h2>{t("Resumo do período", "Period summary")}</h2></div><span className="report-period">{start} → {end}</span></div><div className="report-chart-row"><ReportDonut stats={state.data?.stats} total={state.data?.appointments.length || 0} active={filterStatus} onSelect={selectFilter} t={t} /><div className="report-legend">{reportStatusOrder.map((status) => <button type="button" key={status} className={filterStatus === status ? "active" : ""} title={t(`Filtrar registros ${label(status, t).toLowerCase()}`, `Filter ${label(status, t).toLowerCase()} records`)} onClick={() => selectFilter(status)}><i className={`dot dot-${status}`} style={{ background: reportStatusColors[status] }} />{label(status, t)} <strong>{state.data?.stats?.[status] ?? 0}</strong></button>)}</div></div></div><div className="report-metrics">{metricConfig.map(({ key, label: metricLabel, icon: Icon, records }) => <button type="button" key={key} className={filterStatus === key ? "active" : ""} title={t(`Ver detalhes de ${metricLabel.toLowerCase()}`, `View ${metricLabel.toLowerCase()} details`)} onClick={() => selectFilter(key)}><span className="report-metric-icon"><Icon size={16} aria-hidden="true" /></span><span>{metricLabel}</span><strong>{state.data ? records.length : "—"}</strong></button>)}</div></section><div className="report-filters"><Field title={t("De", "From")} type="date" value={start} onChange={setStart} /><Field title={t("Até", "To")} type="date" value={end} onChange={setEnd} /><Field title={t("Paciente", "Patient")} value={patientId} onChange={setPatientId} options={[{value:"",label:t("Selecionar paciente", "Select patient")}, ...(state.data?.patients || []).map((p) => ({value:p.id,label:p.preferred_name || p.full_name}))]} /><Field title={t("Tipo de documento", "Document type")} value={type} onChange={setType} options={[{value:"complete",label:t("Prontuário completo do paciente", "Complete patient record")}, ...reportTypes.map((v) => ({value:v,label:v}))]} /></div><section className="report-builder"><div className="report-builder-head"><div><p className="eyebrow">{t("Documentos e relatórios", "Documents & reports")}</p><h2>{t("Monte um documento formal a partir dos dados já registrados", "Build a formal document from the data already stored")}</h2></div><div className="segmented"><button type="button" aria-pressed={mode === "summary"} onClick={() => setMode("summary")}>{t("Resumo profissional", "Professional summary")}</button><button type="button" aria-pressed={mode === "integral"} onClick={() => setMode("integral")}>{t("Registro completo / integral", "Complete / integral record")}</button></div></div><div className="report-scope"><p className="eyebrow">{t("Escopo do pacote", "Package scope")}</p>{Object.entries(scope).map(([key, checkedScope]) => <label key={key}><input type="checkbox" checked={checkedScope} disabled={key === "financeiro" && !financeAllowed} onChange={(e) => setScope((s) => ({ ...s, [key]: e.target.checked }))} />{label(key, t)}</label>)}</div><div className="report-builder-actions"><Button icon={Eye} onClick={generate} disabled={!patientId}>{t("Visualizar", "Preview")}</Button><Button icon={Printer} className="primary" onClick={generate} disabled={!patientId || busy}>{t("Gerar PDF", "Generate PDF")}</Button><span className="subtle">{patientId ? t("A impressão abre em uma nova janela, com rodapé, paginação e data de geração.", "Print opens in a new window with footer, pagination and generation date.") : t("Selecione um paciente para habilitar a geração.", "Select a patient to enable generation.")}</span></div></section>{filterStatus && selectedRecords.length > 0 && <section className="report-underlying"><div className="report-underlying-heading"><div><p className="eyebrow">{t("Detalhes rápidos", "Quick details")}</p><h2>{selectedStatus ? label(selectedStatus, t) : selectedMetric.label}</h2></div><button type="button" className="report-clear" onClick={() => setFilterStatus("")}>{t("Limpar", "Clear")}</button></div>{selectedRecords.map((row) => <div className="report-underlying-row" key={row.id}><span>{selectedStatus ? date(row.starts_at, true) : selectedMetric.detail(row)}</span>{selectedStatus && <strong>{row.label || t("Atendimento", "Appointment")}</strong>}{!selectedStatus && <strong>{row.description || label(row.status, t)}</strong>}</div>)}</section>}{generated.length > 0 && <section className="report-history"><h2>{t("Relatórios gerados nesta sessão", "Reports generated this session")}</h2>{generated.map((item, index) => <div key={`${item.at}-${index}`}><span>{item.patient} · {item.type}</span><small>{date(item.at, true)} · {item.mode === "integral" ? t("integral", "integral") : t("resumo", "summary")}</small></div>)}</section>}</>;
 }
 function ProcedureCatalog({ notify }) {
   const t = useT();
@@ -4099,10 +4382,12 @@ function TraceabilityCatalog({ notify }) {
   return <section className="detail-section"><h2>{t("Produtos, lotes e equipamentos", "Products, lots & equipment")}</h2><p className="subtle">{t("Rastreabilidade clínica, não controle de estoque.", "Clinical traceability, not inventory management.")}</p><div className="form-grid"><Field title={t("Produto", "Product")} value={product.name} onChange={(v) => setProduct({ ...product, name: v })} /><Field title={t("Categoria/tipo", "Category/type")} value={product.category} onChange={(v) => setProduct({ ...product, category: v })} /><Field title={t("Fabricante", "Manufacturer")} value={product.manufacturer} onChange={(v) => setProduct({ ...product, manufacturer: v })} /><Field title={t("Unidade", "Unit")} value={product.unit} onChange={(v) => setProduct({ ...product, unit: v })} /><Button className="primary" onClick={() => save("products", product, () => setProduct({ name: "", category: "", manufacturer: "", unit: "", active: true }))}>{t("Novo produto", "New product")}</Button></div><div className="form-grid"><Field title={t("Produto do lote", "Lot product")} value={lot.product_id} onChange={(v) => setLot({ ...lot, product_id: v })} options={[{ value: "", label: t("Selecionar", "Select") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} /><Field title={t("Número do lote", "Lot number")} value={lot.lot} onChange={(v) => setLot({ ...lot, lot: v })} /><Field title={t("Validade", "Expiry") } type="date" value={lot.expires_on} onChange={(v) => setLot({ ...lot, expires_on: v })} /><Field title={t("Unidade", "Unit")} value={lot.unit} onChange={(v) => setLot({ ...lot, unit: v })} /><Button className="primary" onClick={() => save("product_lots", lot, () => setLot({ product_id: "", lot: "", expires_on: "", unit: "", active: true }))}>{t("Novo lote", "New lot")}</Button></div><div className="form-grid"><Field title={t("Nome do equipamento", "Device name")} value={device.name} onChange={(v) => setDevice({ ...device, name: v })} /><Field title={t("Modelo/equipamento", "Equipment/model")} value={device.equipment_model} onChange={(v) => setDevice({ ...device, equipment_model: v })} /><Field title={t("Número de série", "Serial number")} value={device.serial_number} onChange={(v) => setDevice({ ...device, serial_number: v })} /><Field title={t("Notas", "Notes")} value={device.notes} onChange={(v) => setDevice({ ...device, notes: v })} /><Button className="primary" onClick={() => save("devices", device, () => setDevice({ name: "", equipment_model: "", serial_number: "", notes: "", active: true }))}>{t("Novo equipamento", "New device")}</Button></div><LoadState state={state}>{([products, lots, devices]) => <div><h3>{t("Produtos", "Products")}</h3>{products.map((row) => <div className="list-row" key={row.id}><span><strong>{row.name}</strong><small>{row.category} · {row.manufacturer} · {row.unit}</small></span><Status value={row.active ? "ativo" : "inativo"} /></div>)}<h3>{t("Lotes", "Lots")}</h3>{lots.map((row) => <div className="list-row" key={row.id}><span><strong>{row.products?.name} · {row.lot}</strong><small>{row.expires_on ? `${t("Validade", "Expiry")}: ${date(row.expires_on)}` : t("Sem validade", "No expiry")}</small></span><Status value={row.expires_on && row.expires_on < localDay() ? "expirado" : row.active ? "ativo" : "inativo"} /></div>)}<h3>{t("Equipamentos", "Devices")}</h3>{devices.map((row) => <div className="list-row" key={row.id}><span><strong>{row.name}</strong><small>{row.equipment_model} · {row.serial_number}</small></span><Status value={row.active ? "ativo" : "inativo"} /></div>)}</div>}</LoadState></section>;
 }
 
-function PermissionMatrix({ notify }) { const t = useT(); const [selected, setSelected] = useState(""); const [area, setArea] = useState("patient_identity"); const [permissions, setPermissions] = useState({ can_view: false, can_create: false, can_edit: false, can_finalize: false, can_export: false, can_share: false }); const users = useLoad(() => checked(db.from("memberships").select("user_id,name,email,role").neq("role", "proprietario").order("name")), []); const areas = ["patient_identity", "appointments", "intake_forms", "assessments", "anamnesis", "treatment_plans", "procedures", "evolutions", "adverse_events", "photos", "documents", "consents", "reports", "exports", "patient_portal", "settings", "users", "audit"]; useEffect(() => { if (!selected) return; checked(db.from("staff_permissions").select("*").eq("user_id", selected).eq("area", area).maybeSingle()).then((row) => setPermissions({ can_view: !!row?.can_view, can_create: !!row?.can_create, can_edit: !!row?.can_edit, can_finalize: !!row?.can_finalize, can_export: !!row?.can_export, can_share: !!row?.can_share })).catch(() => {}); }, [selected, area]); const save = async () => { try { await checked(db.from("staff_permissions").upsert({ organization_id: ORG, user_id: selected, area, ...permissions }, { onConflict: "organization_id,user_id,area" })); notify(t("Permissões salvas", "Permissions saved")); } catch { notify(t("Não foi possível salvar permissões.", "Could not save permissions.")); } }; return <section className="detail-section"><h2>{t("Permissões granulares", "Granular permissions")}</h2><p className="subtle">{t("A matriz complementa o papel e nunca substitui as políticas RLS.", "The matrix complements the role and never replaces RLS policies.")}</p><div className="form-grid"><Field title={t("Usuário", "User")} value={selected} onChange={setSelected} options={[{ value: "", label: t("Selecionar", "Select") }, ...(users.data || []).map((u) => ({ value: u.user_id, label: `${u.name || u.email} · ${label(u.role, t)}` }))]} /><Field title={t("Área", "Area")} value={area} onChange={setArea} options={areas.map((v) => ({ value: v, label: label(v, t) }))} /></div><div className="form-grid">{Object.keys(permissions).map((key) => <label className="field" key={key}><span>{label(key, t)}</span><input type="checkbox" checked={permissions[key]} onChange={(e) => setPermissions((p) => ({ ...p, [key]: e.target.checked }))} /></label>)}</div><Button className="primary" icon={Save} disabled={!selected} onClick={save}>{t("Salvar permissões", "Save permissions")}</Button></section>; }
+function PermissionMatrix({ notify }) { const t = useT(); const [selected, setSelected] = useState(""); const [area, setArea] = useState("patient_identity"); const [permissions, setPermissions] = useState({ can_view: false, can_create: false, can_edit: false, can_finalize: false, can_export: false, can_share: false, can_delete: false, can_manage: false, can_administer: false }); const users = useLoad(() => checked(db.from("memberships").select("user_id,name,email,role").order("name")), []); const areas = ["patient_identity", "appointments", "intake_forms", "assessments", "anamnesis", "treatment_plans", "procedures", "evolutions", "adverse_events", "photos", "documents", "consents", "reports", "exports", "patient_portal", "settings", "users", "audit"]; useEffect(() => { if (!selected) return; checked(db.from("staff_permissions").select("*").eq("user_id", selected).eq("area", area).maybeSingle()).then((row) => setPermissions((p) => Object.fromEntries(Object.keys(p).map((key) => [key, !!row?.[key]])))).catch(() => {}); }, [selected, area]); const save = async () => { try { await checked(db.from("staff_permissions").upsert({ organization_id: ORG, user_id: selected, area, ...permissions }, { onConflict: "organization_id,user_id,area" })); notify(t("Permissões salvas", "Permissions saved")); } catch { notify(t("Não foi possível salvar permissões.", "Could not save permissions.")); } }; return <section className="detail-section"><h2>{t("Matriz completa de permissões", "Complete permissions matrix")}</h2><p className="subtle">{t("Defina por usuário/papel e área o que pode ver, criar, editar, excluir, exportar, gerenciar ou administrar. Proprietários mantêm acesso total.", "Set view, create, edit, delete, export, manage, and administer access by user/role and area. Owners retain full access.")}</p><div className="form-grid"><Field title={t("Usuário / papel", "User / role")} value={selected} onChange={setSelected} options={[{ value: "", label: t("Selecionar", "Select") }, ...(users.data || []).map((u) => ({ value: u.user_id, label: `${u.name || u.email} · ${label(u.role, t)}` }))]} /><Field title={t("Área", "Area")} value={area} onChange={setArea} options={areas.map((v) => ({ value: v, label: label(v, t) }))} /></div><div className="permission-grid">{Object.keys(permissions).map((key) => <label className="permission-cell" key={key}><input type="checkbox" checked={permissions[key]} onChange={(e) => setPermissions((p) => ({ ...p, [key]: e.target.checked }))} /><span>{label(key, t)}</span></label>)}</div><Button className="primary" icon={Save} disabled={!selected} onClick={save}>{t("Salvar permissões", "Save permissions")}</Button></section>; }
 
-function SettingsView({ member, notify }) {
+function SettingsView({ member, updateMember, notify }) {
   const t = useT(),
+    [profile, setProfile] = useState(member),
+    [profilePhoto, setProfilePhoto] = useState(null),
     [tab, setTab] = useState("profile"),
     [add, setAdd] = useState(false),
     [link, setLink] = useState(""),
@@ -4185,14 +4470,13 @@ function SettingsView({ member, notify }) {
       </nav>
       {tab === "profile" && (
         <section className="detail-section">
-          <h2>{member.name || member.email}</h2>
-          <p>{member.email}</p>
-          <p>{label(member.role, t)}</p>
+          <div className="profile-hero"><Avatar person={profile} className="avatar large" size={88} /><div><h2>{profile.name || profile.email}</h2><p>{profile.email}</p><p>{label(profile.role, t)}</p></div></div>
           <p>
-            {member.profession} · {member.council} {member.registration}{" "}
-            {member.state}
+            {profile.profession} · {profile.council} {profile.registration} {profile.state}
           </p>
-          <Status value={member.status} />
+          <Status value={profile.status} />
+          <PhotoPicker value={profilePhoto} hasPhoto={!!profile.avatar_path} onChange={setProfilePhoto} onRemove={async () => { setBusy(true); try { await removeProfilePhoto("memberships", profile.id, profile.avatar_path); const next = { ...profile, avatar_path: null }; setProfile(next); updateMember?.(next); notify(t("Foto removida.", "Photo removed.")); } catch { notify(t("Não foi possível remover a foto.", "Could not remove the photo.")); } finally { setBusy(false); } }} />
+          <Button className="primary" icon={Save} disabled={!profilePhoto || busy} onClick={async () => { setBusy(true); try { const path = await saveProfilePhoto("memberships", profile.id, profilePhoto, profile.user_id); const next = { ...profile, avatar_path: path }; setProfile(next); updateMember?.(next); setProfilePhoto(null); notify(t("Foto do perfil atualizada.", "Profile photo updated.")); } catch { notify(t("Não foi possível salvar a foto. Verifique se a migração de fotos foi aplicada.", "Could not save the photo. Check that the photo migration was applied.")); } finally { setBusy(false); } }}>{t("Salvar foto do perfil", "Save profile photo")}</Button>
         </section>
       )}
       {tab === "users" && (
@@ -4212,7 +4496,7 @@ function SettingsView({ member, notify }) {
               <>
                 {rows.map((user) => (
                   <div className="staff-row" key={user.id}>
-                    <span className="avatar">{initials(user.name)}</span>
+                    <Avatar person={user} />
                     <span>
                       <strong>{user.name || user.email}</strong>
                       <small>{user.email}</small>
@@ -4312,6 +4596,7 @@ function SettingsView({ member, notify }) {
               )
             }
           </LoadState>
+          <FullBackupExport member={member} notify={notify} />
           <section className="detail-section">
             <h2>{t("Abrir backup criptografado", "Open encrypted backup")}</h2>
             <label className="field">
@@ -4517,7 +4802,7 @@ function InviteForm({ close, done, notify }) {
           title={t("Nível de acesso", "Access level")}
           value={form.role}
           onChange={(v) => setForm((f) => ({ ...f, role: v }))}
-          options={["profissional", "recepcao", "leitura"].map((s) => ({
+          options={["proprietario", "profissional", "recepcao", "leitura"].map((s) => ({
             value: s,
             label: label(s, t),
           }))}

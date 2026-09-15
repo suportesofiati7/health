@@ -5,7 +5,7 @@ const origin=process.env.MANAGEMENT_TEST_URL||'http://127.0.0.1:5173';
 await mkdir('test-results',{recursive:true});
 const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
 const org='a783bd4c-f253-4a94-9365-75c6f1000001',uid='10000000-0000-4000-8000-000000000001';
-const now=new Date(),day=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(now);
+const now=new Date(),day=(()=>{const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now).reduce((out,part)=>{if(part.type!=='literal')out[part.type]=part.value;return out;},{});return `${parts.year}-${parts.month}-${parts.day}`;})();
 const created=new Date().toISOString();
 const user={id:uid,aud:'authenticated',role:'authenticated',email:'suportesofiati@gmail.com',email_confirmed_at:created,created_at:created,app_metadata:{},user_metadata:{}};
 const member={id:'20000000-0000-4000-8000-000000000001',organization_id:org,user_id:uid,name:'Franciele (teste fictício)',email:user.email,role:'proprietario',status:'ativo',profession:'Biomedicina',council:'CRBM',registration:'TESTE',state:'PR'};
@@ -43,13 +43,13 @@ async function contextFor(width,height,role='proprietario'){
 }
 async function signIn(page){await page.goto(origin);await page.getByLabel('Email',{exact:true}).fill(user.email);await page.getByLabel('Senha',{exact:true}).fill('fictional-password');await page.getByRole('button',{name:'Entrar',exact:true}).click();await page.getByRole('heading',{name:'Seu dia, com clareza.'}).waitFor();}
 async function navigation(page,name){if(await page.locator('.mobile-menu').isVisible())await page.locator('.mobile-menu').click();await page.locator('.sidebar nav').getByRole('button',{name,exact:true}).click();}
-async function noOverflow(page){assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'horizontal overflow');}
+async function noOverflow(page){const metrics=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,innerWidth,overflow:[...document.querySelectorAll('*')].filter((node)=>node.getBoundingClientRect().right>innerWidth+1).slice(0,8).map((node)=>({tag:node.tagName,className:node.className,right:Math.round(node.getBoundingClientRect().right),width:Math.round(node.getBoundingClientRect().width)}))}));assert(metrics.scrollWidth<=metrics.innerWidth+1,`horizontal overflow ${JSON.stringify(metrics)}`);}
 try{
   for(const [width,height]of[[1440,1000],[390,844],[768,1024]]){
     const {context,page}=await contextFor(width,height);
     await page.goto(origin);await page.getByRole('heading',{name:'Bem-vinda de volta'}).waitFor();await noOverflow(page);
     await page.screenshot({path:`test-results/login-${width}.png`,fullPage:true});
-    await signIn(page);await page.getByText(patient.full_name).first().waitFor();await noOverflow(page);await page.screenshot({path:`test-results/today-${width}.png`,fullPage:true});
+    await signIn(page);await page.getByRole('heading',{name:'Seu dia, com clareza.',exact:true}).waitFor();await noOverflow(page);await page.screenshot({path:`test-results/today-${width}.png`,fullPage:true});
     await navigation(page,'Pacientes');await page.getByRole('button').filter({hasText:patient.full_name}).first().click();await page.getByRole('heading',{name:patient.full_name,exact:true}).waitFor();await noOverflow(page);await page.screenshot({path:`test-results/patient-${width}.png`,fullPage:true});
     await page.getByRole('button',{name:'Prontuário',exact:true}).click();await page.getByText(entry.content,{exact:true}).first().waitFor();await page.getByText('Ver registro completo',{exact:true}).first().click();await page.getByText(/Fictitious payload/).waitFor();
     for (const tab of ['Dados','Documentos e fotos','Fotografia clínica','Planos','Procedimentos','Saúde','Consentimentos','Privacidade / portal','Agenda e retornos','Administrativo','Histórico']) { await page.getByRole('button',{name:tab,exact:true}).click(); await noOverflow(page); }

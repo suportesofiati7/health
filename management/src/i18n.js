@@ -5,6 +5,8 @@ export function useT() {
   return (pt, en) => (lang === "en" ? en : pt);
 }
 export const labels = {
+  can_view: ["Ver", "View"], can_create: ["Criar", "Create"], can_edit: ["Editar", "Edit"],
+  can_delete: ["Excluir", "Delete"], can_export: ["Exportar", "Export"], can_manage: ["Gerenciar", "Manage"], can_administer: ["Administrar", "Administer"],
   owner: ["Proprietário", "Owner"],
   professional: ["Profissional de saúde", "Healthcare professional"],
   reception: ["Recepção", "Reception"],

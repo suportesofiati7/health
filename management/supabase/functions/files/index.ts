@@ -31,23 +31,34 @@ Deno.serve(
     const type = detect(content);
     if (!type || file.type !== type) throw Error("type");
     const digest = await sha256(content);
-    if (kind === "photo") {
+    if (kind === "photo" || kind === "photo_replace") {
       if (!type.startsWith("image/")) throw Error("photo_type");
-      const category = String(form.get("category") || "");
+      const existingId = String(form.get("photo_id") || "");
+      let existing = null;
+      if (existingId) {
+        const result = await scoped.from("clinical_photos").select("*").eq("id", existingId).eq("patient_id", patient).single();
+        if (result.error || !result.data) throw Error("photo_not_found");
+        existing = result.data;
+      }
+      const category = String(form.get("category") || existing?.category || "");
       if (!["antes", "durante", "depois", "evolucao"].includes(category)) throw Error("photo_category");
       const path = `${ORG}/${patient}/${crypto.randomUUID()}.${type === "image/jpeg" ? "jpg" : type.slice(6)}`;
       const { error: uploadError } = await db.storage.from("clinical-photos").upload(path, content, { contentType: type, upsert: false, cacheControl: "0" });
       if (uploadError) throw Error("photo_upload");
-      const { data: photo, error: photoError } = await db.from("clinical_photos").insert({
-        organization_id: ORG, patient_id: patient, path, category, area: String(form.get("area") || "").slice(0, 200),
-        description: String(form.get("description") || "").slice(0, 1000), note: String(form.get("note") || "").slice(0, 1000),
-        clinical_procedure_id: String(form.get("clinical_procedure_id") || "") || null,
-        mime_type: type, size_bytes: file.size, created_by: user.id,
-      }).select("*").single();
+      const metadata = {
+        path, category, area: String(form.get("area") || existing?.area || "").slice(0, 200),
+        description: String(form.get("description") || existing?.description || "").slice(0, 1000),
+        note: String(form.get("note") || existing?.note || "").slice(0, 1000),
+        mime_type: type, size_bytes: file.size,
+      };
+      const { data: photo, error: photoError } = existing
+        ? await scoped.from("clinical_photos").update(metadata).eq("id", existing.id).select("*").single()
+        : await db.from("clinical_photos").insert({ organization_id: ORG, patient_id: patient, ...metadata, clinical_procedure_id: String(form.get("clinical_procedure_id") || "") || null, created_by: user.id }).select("*").single();
       if (photoError) {
         await db.storage.from("clinical-photos").remove([path]);
         throw Error("photo_metadata");
       }
+      if (existing?.path) await db.storage.from("clinical-photos").remove([existing.path]);
       await db.from("audit_events").insert({ organization_id: ORG, actor_id: user.id, action: "foto_clinica_enviada", entity_type: "clinical_photos", entity_id: photo.id });
       return reply(req, { photo });
     }

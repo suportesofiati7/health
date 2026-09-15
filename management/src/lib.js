@@ -59,13 +59,21 @@ export const date = (value, time = false) =>
         new Date(value.length === 10 ? `${value}T12:00:00-03:00` : value),
       )
     : "";
-export const localDay = (value = new Date()) =>
-  new Intl.DateTimeFormat("en-CA", {
+export const localDay = (value = new Date()) => {
+  const instant = typeof value === "string"
+    ? new Date(value.length === 10 ? `${value}T12:00:00-03:00` : value)
+    : value;
+  const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Sao_Paulo",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(value);
+  }).formatToParts(instant).reduce((result, part) => {
+    if (part.type !== "literal") result[part.type] = part.value;
+    return result;
+  }, {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
+};
 export const localDateTime = () =>
   `${localDay()}T${new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date())}`;
 export const toISO = (value) =>

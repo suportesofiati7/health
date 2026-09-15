@@ -57,7 +57,7 @@ Deno.serve(
     if (b.action === "convite") {
       const email = clean(b.email, 254).toLowerCase();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw Error("email");
-      if (!["profissional", "recepcao", "leitura"].includes(b.role))
+      if (!["proprietario", "profissional", "recepcao", "leitura"].includes(b.role))
         throw Error("role");
       const { data, error } = await db.auth.admin.generateLink({
         type: "invite",

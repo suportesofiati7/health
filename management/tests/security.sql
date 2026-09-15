@@ -77,6 +77,9 @@ select pg_temp.denied($q$insert into public.patients(organization_id,cns) values
 insert into public.patients(organization_id,full_name,cpf,cns) values('a783bd4c-f253-4a94-9365-75c6f1000001','Fictional checksum test','52998224725','100000000000007');
 select pg_temp.assert((select count(*)=2 from public.patients),'valid administrative patient insert works');
 select pg_temp.denied($q$insert into public.patients(organization_id,cpf) values('a783bd4c-f253-4a94-9365-75c6f1000001','52998224725')$q$,'exact CPF duplicate prevented');
+insert into public.patients(id,organization_id,full_name,created_by) values('30000000-0000-4000-8000-000000000003','a783bd4c-f253-4a94-9365-75c6f1000001','Fictional deletion test','10000000-0000-4000-8000-000000000003');
+select public.delete_patient('30000000-0000-4000-8000-000000000003');
+select pg_temp.assert((select count(*)=0 from public.patients where id='30000000-0000-4000-8000-000000000003'),'permanent deletion removes patient and dependent records');
 select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000004','session_id','20000000-0000-4000-8000-000000000004','exp',extract(epoch from now()+interval '1 hour'))::text,true);
 select pg_temp.denied($q$insert into public.patients(organization_id,full_name) values('a783bd4c-f253-4a94-9365-75c6f1000001','No')$q$,'readonly cannot insert');
 select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000005','session_id','20000000-0000-4000-8000-000000000005','exp',extract(epoch from now()+interval '1 hour'))::text,true);
