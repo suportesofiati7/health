@@ -31,7 +31,10 @@ select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4
 -- Production migrations seed existing memberships, while this test creates its
 -- memberships after migrations have already run.
 insert into public.staff_permissions(organization_id,user_id,area,can_view,can_create,can_edit,can_finalize,can_export,can_share,updated_by)
-values('a783bd4c-f253-4a94-9365-75c6f1000001','10000000-0000-4000-8000-000000000003','patient_identity',true,true,true,false,false,false,'10000000-0000-4000-8000-000000000001');
+values('a783bd4c-f253-4a94-9365-75c6f1000001','10000000-0000-4000-8000-000000000003','patient_identity',true,true,true,false,false,false,'10000000-0000-4000-8000-000000000001')
+on conflict (organization_id,user_id,area) do update set can_view=true,can_create=true,can_edit=true,updated_by=excluded.updated_by;
+-- The access-role migration seeds this default for every new membership.
+-- Keep the fixture explicit while allowing the production seed to coexist.
 select pg_temp.assert((select count(*)=1 from public.patients),'owner sees only own organization');
 select pg_temp.assert((select count(*)=1 from storage.objects),'owner reads own private file only');
 select pg_temp.assert((select count(*)=0 from storage.objects where name='clinic2/other.pdf'),'guessing another clinic file path fails');

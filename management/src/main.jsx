@@ -77,6 +77,8 @@ import {
   save,
   invoke,
   date,
+  formatDateInput,
+  parseDateInput,
   localDay,
   localDateTime,
   toISO,
@@ -111,8 +113,11 @@ function Status({ value }) {
   const t = useT();
   return <span className={`status status-${value}`}>{label(value, t)}</span>;
 }
-function displayValue(value) {
+function displayValue(value, key = "") {
   if (value === null || value === undefined || value === "") return "—";
+  if (typeof value === "string" && /(?:date|_on|_at|deadline)/i.test(key) && /^\d{4}-\d{2}-\d{2}/.test(value)) {
+    return date(value, /(?:_at|time)/i.test(key));
+  }
   if (typeof value === "object") {
     try {
       return JSON.stringify(value, null, 2);
@@ -141,6 +146,12 @@ function Field({
   ...props
 }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const dateField = type === "date" || type === "datetime-local";
+  const dateTimeField = type === "datetime-local";
+  const [dateText, setDateText] = useState(() => dateField ? formatDateInput(value, dateTimeField) : "");
+  useEffect(() => {
+    if (dateField) setDateText(formatDateInput(value, dateTimeField));
+  }, [dateField, dateTimeField, value]);
   const password = type === "password";
   return (
     <label className={wide ? "field wide" : "field"}>
@@ -164,6 +175,27 @@ function Field({
           value={value ?? ""}
           onChange={(e) => onChange(e.target.value)}
           rows={5}
+          {...props}
+        />
+      ) : dateField ? (
+        <input
+          name={name}
+          type="text"
+          inputMode="numeric"
+          placeholder={dateTimeField ? "dd/mm/aaaa hh:mm" : "dd/mm/aaaa"}
+          aria-label={title}
+          value={dateText}
+          onChange={(e) => {
+            const raw = e.target.value.replace(/[^\d/ :]/g, "").slice(0, dateTimeField ? 16 : 10);
+            setDateText(raw);
+            const parsed = parseDateInput(raw, dateTimeField);
+            if (parsed || raw === "") onChange(parsed);
+          }}
+          onBlur={() => {
+            const parsed = parseDateInput(dateText, dateTimeField);
+            setDateText(parsed ? formatDateInput(parsed, dateTimeField) : "");
+            onChange(parsed);
+          }}
           {...props}
         />
       ) : (
@@ -1289,7 +1321,7 @@ function PatientLifecycleDialog({ patient, close, done, notify }) {
     if (!confirm(t("Excluir este paciente permanentemente? Todos os registros e arquivos serão removidos.", "Permanently delete this patient? All records and files will be removed."))) return;
     setBusy(true);
     try {
-      await checked(db.rpc("delete_patient", { target_patient: patient.id }));
+      await invoke("files", { action: "delete_patient", patient_id: patient.id });
       notify(t("Paciente excluído permanentemente.", "Patient permanently deleted."));
       done();
     } catch (error) {
@@ -2373,7 +2405,7 @@ function ClinicalProcedurePanel({ patient, member, writable, notify }) {
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
   const selected = (state.data?.[0] || []).find((p) => p.id === form.procedure_id);
   const saveProcedure = async (event) => { event.preventDefault(); setBusy(true); try { const values = { organization_id: ORG, patient_id: patient.id, procedure_id: form.procedure_id, professional_id: form.professional_id, appointment_id: form.appointment_id || null, plan_id: form.plan_id || null, performed_at: toISO(form.performed_at), area: form.area, treatment_area: form.area, indication: form.indication, technique: form.technique, parameters: JSON.parse(form.parameters || "{}"), post_care: form.post_care, consent_status: form.consent_status, device_id: form.device_id || null, status: "finalizado", finalized_at: new Date().toISOString(), created_by: member.user_id }; const row = await checked(db.from("clinical_procedures").insert(values).select().single()); if (usage.lot_id) { const lot = (state.data?.[2] || []).find((item) => item.id === usage.lot_id); if (lot?.expires_on && lot.expires_on < localDay()) throw Error("expired"); await checked(db.from("product_usages").insert({ organization_id: ORG, clinical_procedure_id: row.id, lot_id: usage.lot_id, quantity: Number(usage.quantity) || null, unit: usage.unit, created_by: member.user_id })); } notify(t("Procedimento registrado", "Procedure recorded")); setForm((current) => ({ ...current, procedure_id: "", indication: "", technique: "", parameters: "{}", post_care: "", device_id: "" })); } catch (error) { notify(error.message === "expired" ? t("Lote expirado não pode ser usado em novo procedimento.", "An expired lot cannot be used in a new procedure.") : t("Não foi possível registrar. Verifique os campos e a migração clínica.", "Could not record. Check the fields and clinical migration.")); } finally { setBusy(false); } };
-  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Parâmetros do equipamento (JSON)", "Device parameters (JSON)")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide />{selected?.device_relevant && <Field title={t("Equipamento", "Device")} value={form.device_id || ""} onChange={(v) => set("device_id", v)} options={[{ value: "", label: t("Selecionar equipamento", "Select device") }, ...(state.data?.[3] || []).map((d) => ({ value: d.id, label: `${d.name} ${d.equipment_model || ""}` }))]} />}{(selected?.product_relevant || selected?.lot_required) && <><Field title={t("Produto/lote", "Product/lot")} value={usage.lot_id} onChange={(v) => setUsage((u) => ({ ...u, lot_id: v }))} options={[{ value: "", label: t("Selecionar lote", "Select lot") }, ...(state.data?.[2] || []).map((lot) => ({ value: lot.id, label: `${lot.products?.name || "Product"} · ${lot.lot} · ${lot.expires_on || t("sem validade", "no expiry")}` }))]} required={!!selected?.lot_required} /><Field title={t("Quantidade", "Quantity")} type="number" min="0" step="0.01" value={usage.quantity} onChange={(v) => setUsage((u) => ({ ...u, quantity: v }))} /><Field title={t("Unidade", "Unit")} value={usage.unit} onChange={(v) => setUsage((u) => ({ ...u, unit: v }))} /></>}<Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : t("Finalizar procedimento", "Finalize procedure")}</Button></form>}</section>;
+  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Parâmetros do equipamento (JSON)", "Device parameters (JSON)")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide />{selected?.device_relevant && <Field title={t("Equipamento", "Device")} value={form.device_id || ""} onChange={(v) => set("device_id", v)} options={[{ value: "", label: t("Selecionar equipamento", "Select device") }, ...(state.data?.[3] || []).map((d) => ({ value: d.id, label: `${d.name} ${d.equipment_model || ""}` }))]} />}{(selected?.product_relevant || selected?.lot_required) && <><Field title={t("Produto/lote", "Product/lot")} value={usage.lot_id} onChange={(v) => setUsage((u) => ({ ...u, lot_id: v }))} options={[{ value: "", label: t("Selecionar lote", "Select lot") }, ...(state.data?.[2] || []).map((lot) => ({ value: lot.id, label: `${lot.products?.name || "Product"} · ${lot.lot} · ${lot.expires_on ? date(lot.expires_on) : t("sem validade", "no expiry")}` }))]} required={!!selected?.lot_required} /><Field title={t("Quantidade", "Quantity")} type="number" min="0" step="0.01" value={usage.quantity} onChange={(v) => setUsage((u) => ({ ...u, quantity: v }))} /><Field title={t("Unidade", "Unit")} value={usage.unit} onChange={(v) => setUsage((u) => ({ ...u, unit: v }))} /></>}<Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : t("Finalizar procedimento", "Finalize procedure")}</Button></form>}</section>;
 }
 
 function HealthHistoryPanel({ patient, member, writable, notify }) {
@@ -2515,7 +2547,7 @@ function Entry({ entry: e, author, member, onEdit, onAmend }) {
           {Object.entries(e.data || {}).map(([k, v]) => (
             <div key={k}>
               <dt>{fieldTitle(k, t)}</dt>
-              <dd className="preserve">{displayValue(v)}</dd>
+              <dd className="preserve">{displayValue(v, k)}</dd>
             </div>
           ))}
         </dl>
@@ -3383,14 +3415,25 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
     // The database function is idempotent and keeps automation consistent for
     // every client opening the centre, including reception workstations.
     await db.rpc("generate_action_centre_tasks").catch(() => null);
-    const [taskRows, appointments, followups, adverse, clinicalProcedures] = await Promise.all([
-      checked(db.from("tasks").select("*,patients(*)").order("due_at").range(0, 119)),
+    // Keep the task list independent from the optional patient relationship.
+    // A stale PostgREST schema cache or a restricted patient relationship must
+    // not turn an otherwise valid task query into the generic load error.
+    const taskRows = await checked(
+      db.from("tasks").select("*").eq("organization_id", ORG).order("due_at").range(0, 119),
+    );
+    const patientIds = [...new Set(taskRows.map((task) => task.patient_id).filter(Boolean))];
+    const patients = patientIds.length
+      ? await checked(db.from("patients").select("id,full_name,preferred_name,phone,email").eq("organization_id", ORG).in("id", patientIds)).catch(() => [])
+      : [];
+    const patientById = new Map(patients.map((patient) => [patient.id, patient]));
+    const tasksWithPatients = taskRows.map((task) => ({ ...task, patients: patientById.get(task.patient_id) || null }));
+    const [appointments, followups, adverse, clinicalProcedures] = await Promise.all([
       checked(db.from("appointments").select("id,patient_id,starts_at,ends_at,status,label,patients(*)").gte("starts_at", new Date(Date.now() - 45 * 86400000).toISOString()).order("starts_at").limit(120)).catch(() => []),
       checked(db.from("follow_ups").select("id,patient_id,expected_on,status,notes,patients(*)").in("status", ["aguardando_agendamento", "vencido"]).order("expected_on").limit(60)).catch(() => []),
       checked(db.from("adverse_events").select("id,patient_id,followup_deadline,status,description,patients(*)").eq("status", "em_acompanhamento").order("followup_deadline").limit(30)).catch(() => []),
       checked(db.from("clinical_procedures").select("id,patient_id,performed_at,followup_due,status,patients(*),procedures(name)").eq("status", "finalizado").not("followup_due", "is", null).order("followup_due").limit(60)).catch(() => []),
     ]);
-    return { tasks: taskRows.filter((task) => task.status === status).slice(page * 30, page * 30 + 30), allTasks: taskRows, appointments, followups, adverse, clinicalProcedures };
+    return { tasks: tasksWithPatients.filter((task) => task.status === status).slice(page * 30, page * 30 + 30), allTasks: tasksWithPatients, appointments, followups, adverse, clinicalProcedures };
   }, [status, page, version]);
   const data = state.data || { tasks: [], allTasks: [], appointments: [], followups: [], adverse: [], clinicalProcedures: [] };
   const overdue = data.tasks.filter((r) => r.status === "pendente" && new Date(r.due_at) < now);
@@ -4374,7 +4417,7 @@ function Reports({ financeAllowed }) {
   const metricConfig = [{ key: "novos", label: t("Novos pacientes", "New patients"), icon: UserRoundPlus, records: newPatients, detail: (row) => `${row.preferred_name || row.full_name} · ${t("cadastro", "registered")} ${date(row.created_at, true)}` }, { key: "procedimentos", label: t("Procedimentos", "Procedures"), icon: Syringe, records: state.data?.procedures || [], detail: (row) => `${row.patients?.preferred_name || row.patients?.full_name || t("Paciente", "Patient")} · ${date(row.performed_at, true)}` }, { key: "retornos", label: t("Retornos pendentes", "Pending follow-ups"), icon: RotateCcw, records: state.data?.followups || [], detail: (row) => `${row.patients?.preferred_name || row.patients?.full_name || t("Paciente", "Patient")} · ${t("previsto", "due")} ${date(row.expected_on)}` }, { key: "intercorrencias", label: t("Intercorrências", "Adverse events"), icon: TriangleAlert, records: state.data?.adverse || [], detail: (row) => `${row.patients?.preferred_name || row.patients?.full_name || t("Paciente", "Patient")} · ${row.description || label(row.status, t)}` }];
   const selectedMetric = metricConfig.find((metric) => metric.key === filterStatus), selectedStatus = reportStatusOrder.includes(filterStatus) ? filterStatus : null, selectedRecords = selectedStatus ? (state.data?.appointments || []).filter((a) => a.status === selectedStatus) : selectedMetric?.records || [];
   const selectFilter = (value) => setFilterStatus(filterStatus === value ? "" : value);
-  return <><PageHead title={t("Relatórios", "Reports")} eyebrow={t("Centro de documentos e relatórios", "Documents & reports centre")}><Button icon={Printer} className="primary" onClick={generate} disabled={!patientId || busy}>{t("Gerar relatório", "Generate report")}</Button></PageHead><section className="report-analytics" aria-label={t("Resumo dos atendimentos", "Appointments summary")}><div className="report-analytics-status"><div className="report-analytics-heading"><div><p className="eyebrow">{t("Atendimentos", "Appointments")}</p><h2>{t("Resumo do período", "Period summary")}</h2></div><span className="report-period">{start} → {end}</span></div><div className="report-chart-row"><ReportDonut stats={state.data?.stats} total={state.data?.appointments.length || 0} active={filterStatus} onSelect={selectFilter} t={t} /><div className="report-legend">{reportStatusOrder.map((status) => <button type="button" key={status} className={filterStatus === status ? "active" : ""} title={t(`Filtrar registros ${label(status, t).toLowerCase()}`, `Filter ${label(status, t).toLowerCase()} records`)} onClick={() => selectFilter(status)}><i className={`dot dot-${status}`} style={{ background: reportStatusColors[status] }} />{label(status, t)} <strong>{state.data?.stats?.[status] ?? 0}</strong></button>)}</div></div></div><div className="report-metrics">{metricConfig.map(({ key, label: metricLabel, icon: Icon, records }) => <button type="button" key={key} className={filterStatus === key ? "active" : ""} title={t(`Ver detalhes de ${metricLabel.toLowerCase()}`, `View ${metricLabel.toLowerCase()} details`)} onClick={() => selectFilter(key)}><span className="report-metric-icon"><Icon size={16} aria-hidden="true" /></span><span>{metricLabel}</span><strong>{state.data ? records.length : "—"}</strong></button>)}</div></section><div className="report-filters"><Field title={t("De", "From")} type="date" value={start} onChange={setStart} /><Field title={t("Até", "To")} type="date" value={end} onChange={setEnd} /><Field title={t("Paciente", "Patient")} value={patientId} onChange={setPatientId} options={[{value:"",label:t("Selecionar paciente", "Select patient")}, ...(state.data?.patients || []).map((p) => ({value:p.id,label:p.preferred_name || p.full_name}))]} /><Field title={t("Tipo de documento", "Document type")} value={type} onChange={setType} options={[{value:"complete",label:t("Prontuário completo do paciente", "Complete patient record")}, ...reportTypes.map((v) => ({value:v,label:v}))]} /></div><section className="report-builder"><div className="report-builder-head"><div><p className="eyebrow">{t("Documentos e relatórios", "Documents & reports")}</p><h2>{t("Monte um documento formal a partir dos dados já registrados", "Build a formal document from the data already stored")}</h2></div><div className="segmented"><button type="button" aria-pressed={mode === "summary"} onClick={() => setMode("summary")}>{t("Resumo profissional", "Professional summary")}</button><button type="button" aria-pressed={mode === "integral"} onClick={() => setMode("integral")}>{t("Registro completo / integral", "Complete / integral record")}</button></div></div><div className="report-scope"><p className="eyebrow">{t("Escopo do pacote", "Package scope")}</p>{Object.entries(scope).map(([key, checkedScope]) => <label key={key}><input type="checkbox" checked={checkedScope} disabled={key === "financeiro" && !financeAllowed} onChange={(e) => setScope((s) => ({ ...s, [key]: e.target.checked }))} />{label(key, t)}</label>)}</div><div className="report-builder-actions"><Button icon={Eye} onClick={generate} disabled={!patientId}>{t("Visualizar", "Preview")}</Button><Button icon={Printer} className="primary" onClick={generate} disabled={!patientId || busy}>{t("Gerar PDF", "Generate PDF")}</Button><span className="subtle">{patientId ? t("A impressão abre em uma nova janela, com rodapé, paginação e data de geração.", "Print opens in a new window with footer, pagination and generation date.") : t("Selecione um paciente para habilitar a geração.", "Select a patient to enable generation.")}</span></div></section>{filterStatus && selectedRecords.length > 0 && <section className="report-underlying"><div className="report-underlying-heading"><div><p className="eyebrow">{t("Detalhes rápidos", "Quick details")}</p><h2>{selectedStatus ? label(selectedStatus, t) : selectedMetric.label}</h2></div><button type="button" className="report-clear" onClick={() => setFilterStatus("")}>{t("Limpar", "Clear")}</button></div>{selectedRecords.map((row) => <div className="report-underlying-row" key={row.id}><span>{selectedStatus ? date(row.starts_at, true) : selectedMetric.detail(row)}</span>{selectedStatus && <strong>{row.label || t("Atendimento", "Appointment")}</strong>}{!selectedStatus && <strong>{row.description || label(row.status, t)}</strong>}</div>)}</section>}{generated.length > 0 && <section className="report-history"><h2>{t("Relatórios gerados nesta sessão", "Reports generated this session")}</h2>{generated.map((item, index) => <div key={`${item.at}-${index}`}><span>{item.patient} · {item.type}</span><small>{date(item.at, true)} · {item.mode === "integral" ? t("integral", "integral") : t("resumo", "summary")}</small></div>)}</section>}</>;
+  return <><PageHead title={t("Relatórios", "Reports")} eyebrow={t("Centro de documentos e relatórios", "Documents & reports centre")}><Button icon={Printer} className="primary" onClick={generate} disabled={!patientId || busy}>{t("Gerar relatório", "Generate report")}</Button></PageHead><section className="report-analytics" aria-label={t("Resumo dos atendimentos", "Appointments summary")}><div className="report-analytics-status"><div className="report-analytics-heading"><div><p className="eyebrow">{t("Atendimentos", "Appointments")}</p><h2>{t("Resumo do período", "Period summary")}</h2></div><span className="report-period">{date(start)} → {date(end)}</span></div><div className="report-chart-row"><ReportDonut stats={state.data?.stats} total={state.data?.appointments.length || 0} active={filterStatus} onSelect={selectFilter} t={t} /><div className="report-legend">{reportStatusOrder.map((status) => <button type="button" key={status} className={filterStatus === status ? "active" : ""} title={t(`Filtrar registros ${label(status, t).toLowerCase()}`, `Filter ${label(status, t).toLowerCase()} records`)} onClick={() => selectFilter(status)}><i className={`dot dot-${status}`} style={{ background: reportStatusColors[status] }} />{label(status, t)} <strong>{state.data?.stats?.[status] ?? 0}</strong></button>)}</div></div></div><div className="report-metrics">{metricConfig.map(({ key, label: metricLabel, icon: Icon, records }) => <button type="button" key={key} className={filterStatus === key ? "active" : ""} title={t(`Ver detalhes de ${metricLabel.toLowerCase()}`, `View ${metricLabel.toLowerCase()} details`)} onClick={() => selectFilter(key)}><span className="report-metric-icon"><Icon size={16} aria-hidden="true" /></span><span>{metricLabel}</span><strong>{state.data ? records.length : "—"}</strong></button>)}</div></section><div className="report-filters"><Field title={t("De", "From")} type="date" value={start} onChange={setStart} /><Field title={t("Até", "To")} type="date" value={end} onChange={setEnd} /><Field title={t("Paciente", "Patient")} value={patientId} onChange={setPatientId} options={[{value:"",label:t("Selecionar paciente", "Select patient")}, ...(state.data?.patients || []).map((p) => ({value:p.id,label:p.preferred_name || p.full_name}))]} /><Field title={t("Tipo de documento", "Document type")} value={type} onChange={setType} options={[{value:"complete",label:t("Prontuário completo do paciente", "Complete patient record")}, ...reportTypes.map((v) => ({value:v,label:v}))]} /></div><section className="report-builder"><div className="report-builder-head"><div><p className="eyebrow">{t("Documentos e relatórios", "Documents & reports")}</p><h2>{t("Monte um documento formal a partir dos dados já registrados", "Build a formal document from the data already stored")}</h2></div><div className="segmented"><button type="button" aria-pressed={mode === "summary"} onClick={() => setMode("summary")}>{t("Resumo profissional", "Professional summary")}</button><button type="button" aria-pressed={mode === "integral"} onClick={() => setMode("integral")}>{t("Registro completo / integral", "Complete / integral record")}</button></div></div><div className="report-scope"><p className="eyebrow">{t("Escopo do pacote", "Package scope")}</p>{Object.entries(scope).map(([key, checkedScope]) => <label key={key}><input type="checkbox" checked={checkedScope} disabled={key === "financeiro" && !financeAllowed} onChange={(e) => setScope((s) => ({ ...s, [key]: e.target.checked }))} />{label(key, t)}</label>)}</div><div className="report-builder-actions"><Button icon={Eye} onClick={generate} disabled={!patientId}>{t("Visualizar", "Preview")}</Button><Button icon={Printer} className="primary" onClick={generate} disabled={!patientId || busy}>{t("Gerar PDF", "Generate PDF")}</Button><span className="subtle">{patientId ? t("A impressão abre em uma nova janela, com rodapé, paginação e data de geração.", "Print opens in a new window with footer, pagination and generation date.") : t("Selecione um paciente para habilitar a geração.", "Select a patient to enable generation.")}</span></div></section>{filterStatus && selectedRecords.length > 0 && <section className="report-underlying"><div className="report-underlying-heading"><div><p className="eyebrow">{t("Detalhes rápidos", "Quick details")}</p><h2>{selectedStatus ? label(selectedStatus, t) : selectedMetric.label}</h2></div><button type="button" className="report-clear" onClick={() => setFilterStatus("")}>{t("Limpar", "Clear")}</button></div>{selectedRecords.map((row) => <div className="report-underlying-row" key={row.id}><span>{selectedStatus ? date(row.starts_at, true) : selectedMetric.detail(row)}</span>{selectedStatus && <strong>{row.label || t("Atendimento", "Appointment")}</strong>}{!selectedStatus && <strong>{row.description || label(row.status, t)}</strong>}</div>)}</section>}{generated.length > 0 && <section className="report-history"><h2>{t("Relatórios gerados nesta sessão", "Reports generated this session")}</h2>{generated.map((item, index) => <div key={`${item.at}-${index}`}><span>{item.patient} · {item.type}</span><small>{date(item.at, true)} · {item.mode === "integral" ? t("integral", "integral") : t("resumo", "summary")}</small></div>)}</section>}</>;
 }
 function ProcedureCatalog({ notify }) {
   const t = useT();
@@ -4420,10 +4463,39 @@ function TraceabilityCatalog({ notify }) {
   return <section className="detail-section"><h2>{t("Produtos, lotes e equipamentos", "Products, lots & equipment")}</h2><p className="subtle">{t("Rastreabilidade clínica, não controle de estoque.", "Clinical traceability, not inventory management.")}</p><div className="form-grid"><Field title={t("Produto", "Product")} value={product.name} onChange={(v) => setProduct({ ...product, name: v })} /><Field title={t("Categoria/tipo", "Category/type")} value={product.category} onChange={(v) => setProduct({ ...product, category: v })} /><Field title={t("Fabricante", "Manufacturer")} value={product.manufacturer} onChange={(v) => setProduct({ ...product, manufacturer: v })} /><Field title={t("Unidade", "Unit")} value={product.unit} onChange={(v) => setProduct({ ...product, unit: v })} /><Button className="primary" onClick={() => save("products", product, () => setProduct({ name: "", category: "", manufacturer: "", unit: "", active: true }))}>{t("Novo produto", "New product")}</Button></div><div className="form-grid"><Field title={t("Produto do lote", "Lot product")} value={lot.product_id} onChange={(v) => setLot({ ...lot, product_id: v })} options={[{ value: "", label: t("Selecionar", "Select") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} /><Field title={t("Número do lote", "Lot number")} value={lot.lot} onChange={(v) => setLot({ ...lot, lot: v })} /><Field title={t("Validade", "Expiry") } type="date" value={lot.expires_on} onChange={(v) => setLot({ ...lot, expires_on: v })} /><Field title={t("Unidade", "Unit")} value={lot.unit} onChange={(v) => setLot({ ...lot, unit: v })} /><Button className="primary" onClick={() => save("product_lots", lot, () => setLot({ product_id: "", lot: "", expires_on: "", unit: "", active: true }))}>{t("Novo lote", "New lot")}</Button></div><div className="form-grid"><Field title={t("Nome do equipamento", "Device name")} value={device.name} onChange={(v) => setDevice({ ...device, name: v })} /><Field title={t("Modelo/equipamento", "Equipment/model")} value={device.equipment_model} onChange={(v) => setDevice({ ...device, equipment_model: v })} /><Field title={t("Número de série", "Serial number")} value={device.serial_number} onChange={(v) => setDevice({ ...device, serial_number: v })} /><Field title={t("Notas", "Notes")} value={device.notes} onChange={(v) => setDevice({ ...device, notes: v })} /><Button className="primary" onClick={() => save("devices", device, () => setDevice({ name: "", equipment_model: "", serial_number: "", notes: "", active: true }))}>{t("Novo equipamento", "New device")}</Button></div><LoadState state={state}>{([products, lots, devices]) => <div><h3>{t("Produtos", "Products")}</h3>{products.map((row) => <div className="list-row" key={row.id}><span><strong>{row.name}</strong><small>{row.category} · {row.manufacturer} · {row.unit}</small></span><Status value={row.active ? "ativo" : "inativo"} /></div>)}<h3>{t("Lotes", "Lots")}</h3>{lots.map((row) => <div className="list-row" key={row.id}><span><strong>{row.products?.name} · {row.lot}</strong><small>{row.expires_on ? `${t("Validade", "Expiry")}: ${date(row.expires_on)}` : t("Sem validade", "No expiry")}</small></span><Status value={row.expires_on && row.expires_on < localDay() ? "expirado" : row.active ? "ativo" : "inativo"} /></div>)}<h3>{t("Equipamentos", "Devices")}</h3>{devices.map((row) => <div className="list-row" key={row.id}><span><strong>{row.name}</strong><small>{row.equipment_model} · {row.serial_number}</small></span><Status value={row.active ? "ativo" : "inativo"} /></div>)}</div>}</LoadState></section>;
 }
 
-function PermissionMatrix({ notify }) { const t = useT(); const [selected, setSelected] = useState(""); const [area, setArea] = useState("patient_identity"); const [permissions, setPermissions] = useState({ can_view: false, can_create: false, can_edit: false, can_finalize: false, can_export: false, can_share: false, can_delete: false, can_manage: false, can_administer: false }); const users = useLoad(() => checked(db.from("memberships").select("user_id,name,email,role").order("name")), []); const areas = ["patient_identity", "appointments", "intake_forms", "assessments", "anamnesis", "treatment_plans", "procedures", "evolutions", "adverse_events", "photos", "documents", "consents", "reports", "exports", "patient_portal", "settings", "users", "audit"]; useEffect(() => { if (!selected) return; checked(db.from("staff_permissions").select("*").eq("user_id", selected).eq("area", area).maybeSingle()).then((row) => setPermissions((p) => Object.fromEntries(Object.keys(p).map((key) => [key, !!row?.[key]])))).catch(() => {}); }, [selected, area]); const save = async () => { try { await checked(db.from("staff_permissions").upsert({ organization_id: ORG, user_id: selected, area, ...permissions }, { onConflict: "organization_id,user_id,area" })); notify(t("Permissões salvas", "Permissions saved")); } catch { notify(t("Não foi possível salvar permissões.", "Could not save permissions.")); } }; return <section className="detail-section"><h2>{t("Matriz completa de permissões", "Complete permissions matrix")}</h2><p className="subtle">{t("Defina por usuário/papel e área o que pode ver, criar, editar, excluir, exportar, gerenciar ou administrar. Proprietários mantêm acesso total.", "Set view, create, edit, delete, export, manage, and administer access by user/role and area. Owners retain full access.")}</p><div className="form-grid"><Field title={t("Usuário / papel", "User / role")} value={selected} onChange={setSelected} options={[{ value: "", label: t("Selecionar", "Select") }, ...(users.data || []).map((u) => ({ value: u.user_id, label: `${u.name || u.email} · ${label(u.role, t)}` }))]} /><Field title={t("Área", "Area")} value={area} onChange={setArea} options={areas.map((v) => ({ value: v, label: label(v, t) }))} /></div><div className="permission-grid">{Object.keys(permissions).map((key) => <label className="permission-cell" key={key}><input type="checkbox" checked={permissions[key]} onChange={(e) => setPermissions((p) => ({ ...p, [key]: e.target.checked }))} /><span>{label(key, t)}</span></label>)}</div><Button className="primary" icon={Save} disabled={!selected} onClick={save}>{t("Salvar permissões", "Save permissions")}</Button></section>; }
+const ACCESS_ROLES = [
+  "proprietario", "suporte_ti", "gestor_clinica", "profissional", "medico",
+  "enfermeiro", "fisioterapeuta", "nutricionista", "psicologo",
+  "assistente_clinico", "recepcao", "secretaria", "coordenador_operacional",
+  "financeiro", "auditor", "marketing", "consultor_externo", "fornecedor", "leitura",
+];
+const OWNER_ROLES = ["proprietario", "suporte_ti"];
+const ROLE_DESCRIPTIONS = {
+  proprietario: ["Acesso total; administra equipe, permissões, dados, auditoria e continuidade.", "Full access; manages team, permissions, data, audit and continuity."],
+  suporte_ti: ["Desenvolvimento/suporte técnico; acesso total somente quando a Sofiati atribuir este nível.", "Development/technical support; full access only when Sofiati assigns this level."],
+  gestor_clinica: ["Coordena a operação e a qualidade, sem administrar proprietários.", "Coordinates operations and quality without owner administration."],
+  profissional: ["Executa o cuidado clínico e finaliza registros dentro da habilitação.", "Delivers clinical care and finalizes records within scope."],
+  medico: ["Avalia, diagnostica, prescreve e supervisiona dentro da habilitação.", "Assesses, diagnoses, prescribes and supervises within scope."],
+  enfermeiro: ["Triagem, cuidados e acompanhamento de enfermagem.", "Nursing triage, care and follow-up."],
+  fisioterapeuta: ["Avaliação e registros de fisioterapia autorizados.", "Authorized physiotherapy assessment and records."],
+  nutricionista: ["Avaliação, plano e acompanhamento nutricional.", "Nutrition assessment, plans and follow-up."],
+  psicologo: ["Registros e acompanhamento psicológico autorizado.", "Authorized psychological records and follow-up."],
+  assistente_clinico: ["Apoia o atendimento sem finalizar registros clínicos.", "Supports visits without finalizing clinical records."],
+  recepcao: ["Cadastro, contatos, agenda, formulários e comunicação operacional.", "Registration, contacts, scheduling, forms and operational communication."],
+  secretaria: ["Cadastro, agenda, documentos administrativos e comunicação.", "Registration, scheduling, administrative documents and communication."],
+  coordenador_operacional: ["Coordena fluxo, agenda, tarefas e equipe do dia.", "Coordinates workflow, schedule, tasks and daily team."],
+  financeiro: ["Cobranças e conciliação apenas quando o módulo financeiro liberar.", "Charges and reconciliation when enabled by the finance module."],
+  auditor: ["Leitura de dados autorizados e trilhas, sem edição clínica.", "Reads authorized data and audit trails, without clinical editing."],
+  marketing: ["Somente materiais/dados explicitamente compartilhados.", "Only explicitly shared materials/data."],
+  consultor_externo: ["Acesso temporário e mínimo ao escopo compartilhado.", "Temporary minimum access to the shared scope."],
+  fornecedor: ["Suporte temporário sem dados clínicos por padrão.", "Temporary support with no clinical data by default."],
+  leitura: ["Consulta administrativa limitada, sem edição.", "Limited administrative read-only access."],
+};
+function PermissionMatrix({ notify }) { const t = useT(); const [selected, setSelected] = useState(""); const [area, setArea] = useState("patient_identity"); const [permissions, setPermissions] = useState({ can_view: false, can_create: false, can_edit: false, can_finalize: false, can_export: false, can_share: false, can_delete: false, can_manage: false, can_administer: false }); const users = useLoad(() => checked(db.from("memberships").select("user_id,name,email,role").order("name")), []); const areas = ["patient_identity", "appointments", "intake_forms", "assessments", "anamnesis", "treatment_plans", "procedures", "evolutions", "adverse_events", "photos", "documents", "consents", "reports", "exports", "patient_portal", "communications", "finance", "inventory", "clinical_records", "external_sharing", "settings", "users", "audit", "integrations", "security", "data_retention"]; useEffect(() => { if (!selected) return; checked(db.from("staff_permissions").select("*").eq("user_id", selected).eq("area", area).maybeSingle()).then((row) => setPermissions((p) => Object.fromEntries(Object.keys(p).map((key) => [key, !!row?.[key]])))).catch(() => {}); }, [selected, area]); const save = async () => { try { await checked(db.from("staff_permissions").upsert({ organization_id: ORG, user_id: selected, area, ...permissions }, { onConflict: "organization_id,user_id,area" })); notify(t("Permissões salvas", "Permissions saved")); } catch { notify(t("Não foi possível salvar permissões.", "Could not save permissions.")); } }; return <section className="detail-section"><h2>{t("Matriz completa de permissões", "Complete permissions matrix")}</h2><p className="subtle">{t("Defina por usuário/papel e área o que pode ver, criar, editar, excluir, exportar, gerenciar ou administrar. Proprietários mantêm acesso total.", "Set view, create, edit, delete, export, manage, and administer access by user/role and area. Owners retain full access.")}</p><div className="form-grid"><Field title={t("Usuário / papel", "User / role")} value={selected} onChange={setSelected} options={[{ value: "", label: t("Selecionar", "Select") }, ...(users.data || []).map((u) => ({ value: u.user_id, label: `${u.name || u.email} · ${label(u.role, t)}` }))]} /><Field title={t("Área", "Area")} value={area} onChange={setArea} options={areas.map((v) => ({ value: v, label: label(v, t) }))} /></div><div className="permission-grid">{Object.keys(permissions).map((key) => <label className="permission-cell" key={key}><input type="checkbox" checked={permissions[key]} onChange={(e) => setPermissions((p) => ({ ...p, [key]: e.target.checked }))} /><span>{label(key, t)}</span></label>)}</div><Button className="primary" icon={Save} disabled={!selected} onClick={save}>{t("Salvar permissões", "Save permissions")}</Button></section>; }
 
 function SettingsView({ member, updateMember, notify }) {
   const t = useT(),
+    ownerAccess = OWNER_ROLES.includes(member.role),
     [profile, setProfile] = useState(member),
     [profilePhoto, setProfilePhoto] = useState(null),
     [tab, setTab] = useState("profile"),
@@ -4439,14 +4511,14 @@ function SettingsView({ member, updateMember, notify }) {
   );
   const usage = useLoad(
     () =>
-      member.role === "proprietario"
+      ownerAccess
         ? checked(db.rpc("storage_usage"))
         : Promise.resolve(null),
     [member.role],
   );
   const audit = useLoad(
     () =>
-      member.role === "proprietario" && tab === "audit"
+      ownerAccess && tab === "audit"
         ? checked(
             db
               .from("audit_events")
@@ -4483,7 +4555,7 @@ function SettingsView({ member, updateMember, notify }) {
       <nav className="tabs">
         {[
           ["profile", t("Meu perfil", "My profile")],
-          ...(member.role === "proprietario"
+          ...(ownerAccess
             ? [
                 ["users", t("Usuários", "Users")],
                 ["permissions", t("Permissões", "Permissions")],
@@ -4529,6 +4601,8 @@ function SettingsView({ member, updateMember, notify }) {
               {t("Adicionar usuário", "Add user")}
             </Button>
           </div>
+          <div className="notice"><ShieldCheck size={18} /><span>{t("Apenas a conta da Sofiati pode convidar Proprietário ou Suporte técnico/desenvolvimento. Esses níveis têm acesso total; use-os somente para a proprietária e o desenvolvedor autorizado.", "Only Sofiati's account can invite Owner or Technical support/developer. These levels have full access; use them only for the owner and authorized developer.")}</span></div>
+          <div className="role-catalog-grid">{ACCESS_ROLES.map((role) => <article key={role} className="role-catalog-card"><strong>{label(role, t)}</strong><p>{ROLE_DESCRIPTIONS[role]?.[t("pt", "en") === "en" ? 1 : 0]}</p></article>)}</div>
           <LoadState state={state}>
             {(rows) => (
               <>
@@ -4546,18 +4620,16 @@ function SettingsView({ member, updateMember, notify }) {
                       <Status value="proprietario" />
                     ) : (
                       <>
-                        {user.role === "proprietario" ? <Status value="proprietario" /> : <Field
+                        {OWNER_ROLES.includes(user.role) ? <Status value={user.role} /> : <Field
                           title={t("Acesso", "Access")}
                           value={user.role}
                           disabled={busy}
                           onChange={(role) => change(user, { role })}
                           options={[
-                            "profissional",
-                            "recepcao",
-                            "leitura",
+                            ...ACCESS_ROLES.filter((role) => !OWNER_ROLES.includes(role)),
                           ].map((s) => ({ value: s, label: label(s, t) }))}
                         />}
-                        {user.role === "proprietario" ? <Status value={user.status} /> : <Field
+                        {OWNER_ROLES.includes(user.role) ? <Status value={user.status} /> : <Field
                           title={t("Situação", "Status")}
                           value={user.status}
                           disabled={busy}
@@ -4862,11 +4934,12 @@ function InviteForm({ close, done, notify }) {
           title={t("Nível de acesso", "Access level")}
           value={form.role}
           onChange={(v) => setForm((f) => ({ ...f, role: v }))}
-          options={["profissional", "recepcao", "leitura"].map((s) => ({
+          options={ACCESS_ROLES.map((s) => ({
             value: s,
             label: label(s, t),
           }))}
         />
+        <p className="subtle role-invite-help">{ROLE_DESCRIPTIONS[form.role]?.[t("pt", "en") === "en" ? 1 : 0]}</p>
         <footer className="form-footer">
           <Button type="button" onClick={close}>
             {t("Cancelar", "Cancel")}

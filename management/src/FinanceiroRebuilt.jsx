@@ -15,7 +15,7 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-import { db, ORG, checked, date, localDay, money } from "./lib";
+import { db, ORG, checked, date, formatDateInput, localDay, money, parseDateInput } from "./lib";
 import { useT, label } from "./i18n";
 import { openDocument, receiptDocumentHTML } from "./documentSystem";
 
@@ -44,8 +44,14 @@ const derivedStatus = (record) => {
 
 function Field({ label: title, value, onChange, type = "text", options, ...props }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const dateField = type === "date" || type === "datetime-local";
+  const dateTimeField = type === "datetime-local";
+  const [dateText, setDateText] = useState(() => dateField ? formatDateInput(value, dateTimeField) : "");
+  useEffect(() => {
+    if (dateField) setDateText(formatDateInput(value, dateTimeField));
+  }, [dateField, dateTimeField, value]);
   const password = type === "password";
-  return <label className="finance-field"><span>{title}</span>{options ? <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} {...props}>{options.map(([value, text]) => <option key={value} value={value}>{text}</option>)}</select> : <span className={password ? "field-input-wrap has-password-toggle" : "field-input-wrap"}><input type={password && passwordVisible ? "text" : type} value={value ?? ""} onChange={(e) => onChange(e.target.value)} {...props} />{password && <button type="button" className="password-toggle" aria-label={passwordVisible ? "Ocultar senha" : "Mostrar senha"} aria-pressed={passwordVisible} onClick={() => setPasswordVisible((visible) => !visible)}>{passwordVisible ? <EyeOff size={17} aria-hidden="true" /> : <Eye size={17} aria-hidden="true" />}</button>}</span>}</label>;
+  return <label className="finance-field"><span>{title}</span>{options ? <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} {...props}>{options.map(([value, text]) => <option key={value} value={value}>{text}</option>)}</select> : <span className={password ? "field-input-wrap has-password-toggle" : "field-input-wrap"}><input type={dateField ? "text" : password && passwordVisible ? "text" : type} inputMode={dateField ? "numeric" : undefined} placeholder={dateField ? (dateTimeField ? "dd/mm/aaaa hh:mm" : "dd/mm/aaaa") : props.placeholder} value={dateField ? dateText : value ?? ""} onChange={(e) => { if (!dateField) return onChange(e.target.value); const raw = e.target.value.replace(/[^\d/ :]/g, "").slice(0, dateTimeField ? 16 : 10); setDateText(raw); const parsed = parseDateInput(raw, dateTimeField); if (parsed || raw === "") onChange(parsed); }} onBlur={() => { if (!dateField) return; const parsed = parseDateInput(dateText, dateTimeField); setDateText(parsed ? formatDateInput(parsed, dateTimeField) : ""); onChange(parsed); }} {...props} />{password && <button type="button" className="password-toggle" aria-label={passwordVisible ? "Ocultar senha" : "Mostrar senha"} aria-pressed={passwordVisible} onClick={() => setPasswordVisible((visible) => !visible)}>{passwordVisible ? <EyeOff size={17} aria-hidden="true" /> : <Eye size={17} aria-hidden="true" />}</button>}</span>}</label>;
 }
 
 function Modal({ title, close, children }) {

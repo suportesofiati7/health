@@ -10,8 +10,39 @@ import {
 
 Deno.serve(
   endpoint(async (req) => {
-    const { db, scoped, user } = await identity(req);
+    const { db, scoped, user } = await identity(req, ["proprietario", "profissional", "recepcao"]);
     await limit(db, "upload:" + user.id, 40, 3600);
+    const body = req.headers.get("content-type")?.includes("application/json")
+      ? await req.json()
+      : null;
+    if (body?.action === "delete_patient") {
+      const patientId = String(body.patient_id || "");
+      if (!patientId) throw Error("patient_not_found");
+
+      // Storage objects must be removed through the Storage API. Listing is
+      // done before the RPC because the RPC removes the relational metadata.
+      const targets = [
+        ["profile-photos", `${ORG}/patient/${patientId}`],
+        ["clinical-photos", `${ORG}/${patientId}`],
+        ["patient-files", `${ORG}/${patientId}`],
+      ] as const;
+      for (const [bucket, prefix] of targets) {
+        const { data: listed, error: listError } = await db.storage
+          .from(bucket)
+          .list(prefix, { limit: 1000, offset: 0 });
+        if (listError) throw Error("storage_list");
+        const paths = (listed || [])
+          .filter((entry) => entry.id)
+          .map((entry) => `${prefix}/${entry.name}`);
+        if (paths.length) {
+          const { error: removeError } = await db.storage.from(bucket).remove(paths);
+          if (removeError) throw Error("storage_remove");
+        }
+      }
+      const { error: deleteError } = await scoped.rpc("delete_patient", { target_patient: patientId });
+      if (deleteError) throw deleteError;
+      return reply(req, { deleted: patientId });
+    }
     const bytes = await bounded(req, 8500000);
     const form = await new Response(bytes, {
       headers: { "Content-Type": req.headers.get("content-type") || "" },

@@ -59,12 +59,33 @@ export const date = (value, time = false) =>
   value
     ? new Intl.DateTimeFormat("pt-BR", {
         timeZone: "America/Sao_Paulo",
-        dateStyle: "short",
-        ...(time ? { timeStyle: "short" } : {}),
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        ...(time ? { hour: "2-digit", minute: "2-digit", hour12: false } : {}),
       }).format(
         new Date(value.length === 10 ? `${value}T12:00:00-03:00` : value),
       )
     : "";
+
+const DATE_INPUT_RE = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+const DATETIME_INPUT_RE = /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/;
+
+export function formatDateInput(value, time = false) {
+  if (!value) return "";
+  const match = String(value).match(time ? /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/ : /^(\d{4})-(\d{2})-(\d{2})/);
+  return match ? `${match[3]}/${match[2]}/${match[1]}${time ? ` ${match[4]}:${match[5]}` : ""}` : String(value);
+}
+
+export function parseDateInput(value, time = false) {
+  const match = String(value || "").match(time ? DATETIME_INPUT_RE : DATE_INPUT_RE);
+  if (!match) return "";
+  const [, day, month, year, hour = "00", minute = "00"] = match;
+  if (Number(hour) > 23 || Number(minute) > 59) return "";
+  const candidate = new Date(`${year}-${month}-${day}T${hour}:${minute}:00-03:00`);
+  if (Number.isNaN(candidate.getTime()) || candidate.getDate() !== Number(day) || candidate.getMonth() + 1 !== Number(month)) return "";
+  return time ? `${year}-${month}-${day}T${hour}:${minute}` : `${year}-${month}-${day}`;
+}
 export const localDay = (value = new Date()) => {
   const instant = typeof value === "string"
     ? new Date(value.length === 10 ? `${value}T12:00:00-03:00` : value)

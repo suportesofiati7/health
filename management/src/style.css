@@ -1005,6 +1005,11 @@ main#main {
 .camera-capture { display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px; }
 .camera-capture video { width:min(320px,100%);aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:#14231d; }
 .permission-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:16px 0; }
+.role-catalog-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin:16px 0 24px; }
+.role-catalog-card { padding:14px; border:1px solid var(--ui-border); border-radius:12px; background:var(--ui-surface-soft); }
+.role-catalog-card strong { display:block; color:var(--ui-text); }
+.role-catalog-card p { margin:6px 0 0; color:var(--ui-text-secondary); font-size:13px; line-height:1.4; }
+.role-invite-help { margin-top:-8px; }
 .permission-cell { display:flex;align-items:center;gap:8px;padding:12px;border:1px solid var(--line, #d8dfd4);border-radius:10px; }
 .avatar.large {
   width: 70px;
