@@ -3224,6 +3224,18 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
     return checked(q.range(page * 20, page * 20 + 19));
   };
   const state = useLoad(loadRows, [page, status, search, version]);
+  const saveIntake = async (values) => {
+    const row = await checked(
+      db
+        .from("public_intakes")
+        .update(values)
+        .eq("id", selected.id)
+        .select("id,status,patient_id,internal_notes,retention_hold")
+        .single(),
+    );
+    state.refresh();
+    return row;
+  };
   const review = async (row) => {
     setSelected(row);
     setNotes(row.internal_notes);
@@ -3275,13 +3287,21 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
           existing_patient: existing || null,
         }),
       );
+      if (!id) throw new Error("conversion_no_patient");
       const p = await checked(
         db.from("patients").select("*").eq("id", id).single(),
       );
+      notify(t("Formulário convertido em paciente.", "Form converted to patient."));
       setSelected(null);
       openPatient(p);
-    } catch {
-      notify(t("Não foi possível converter.", "Could not convert."));
+    } catch (error) {
+      console.error("PUBLIC_INTAKE_CONVERSION_FAILED", error);
+      const message = error?.code === "23505"
+        ? t("Já existe um paciente com este CPF. Abra o formulário novamente e use Vincular.", "A patient with this CPF already exists. Reopen the form and use Link.")
+        : error?.message === "conversion_no_patient"
+          ? t("A conversão não retornou um paciente. Tente novamente.", "Conversion did not return a patient. Try again.")
+          : t("Não foi possível converter. Verifique a mensagem no console e tente novamente.", "Could not convert. Check the console message and try again.");
+      notify(message);
     } finally {
       setBusy(false);
     }
@@ -3431,19 +3451,13 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
                 onClick={async () => {
                   setBusy(true);
                   try {
-                    await checked(
-                      db
-                        .from("public_intakes")
-                        .update({
-                          internal_notes: notes,
-                          status: selected.status === "novo" ? "em_analise" : selected.status,
-                          retention_hold: selected.retention_hold === true,
-                          reviewed_by: member?.user_id,
-                          reviewed_at: new Date().toISOString(),
-                        })
-                        .eq("id", selected.id),
-                    );
-                    state.refresh();
+                    await saveIntake({
+                      internal_notes: notes,
+                      status: selected.status === "novo" ? "em_analise" : selected.status,
+                      retention_hold: selected.retention_hold === true,
+                      reviewed_by: member?.user_id,
+                      reviewed_at: new Date().toISOString(),
+                    });
                     setSelected(null);
                     notify(t("Salvo", "Saved"));
                   } catch {
@@ -3465,7 +3479,27 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
                   {t("Converter em paciente", "Convert to patient")}
                 </Button>
               )}
-              <Button disabled={busy || selected.status === "convertido"} onClick={() => setSelected((current) => ({ ...current, status: "arquivado" }))}>
+              <Button
+                disabled={busy || selected.status === "convertido"}
+                onClick={async () => {
+                  setBusy(true);
+                  try {
+                    await saveIntake({
+                      status: "arquivado",
+                      internal_notes: notes,
+                      reviewed_by: member?.user_id,
+                      reviewed_at: new Date().toISOString(),
+                    });
+                    setSelected(null);
+                    notify(t("Formulário arquivado.", "Form archived."));
+                  } catch (error) {
+                    console.error("PUBLIC_INTAKE_ARCHIVE_FAILED", error);
+                    notify(t("Não foi possível arquivar.", "Could not archive."));
+                  } finally {
+                    setBusy(false);
+                  }
+                }}
+              >
                 {t("Arquivar", "Archive")}
               </Button>
             </footer>
