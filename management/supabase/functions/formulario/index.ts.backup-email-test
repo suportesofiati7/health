@@ -88,42 +88,14 @@ Deno.serve(endpoint(async (req) => {
       `ID interno: ${intake.id}`,
       "Abra o aplicativo de gestão para revisar os dados completos com autenticação.",
     ].join("\n"));
-    const emailResponse = await fetch(
-      `https://formsubmit.co/ajax/${encodeURIComponent(notification)}`,
-      {
-        method: "POST",
-        body: message,
-        signal: AbortSignal.timeout(10000),
-      },
-    );
-
-    const emailBody = await emailResponse.text();
-
-    if (!emailResponse.ok) {
-      console.error(
-        "FORMULARIO_EMAIL_FAILED",
-        emailResponse.status,
-        emailBody.slice(0, 500),
-      );
-    } else {
-      console.log(
-        "FORMULARIO_EMAIL_SENT",
-        intake.id,
-        emailResponse.status,
-      );
-    }
-  } catch (error) {
-    emailStatus = "error";
-    console.error(
-      "FORMULARIO_EMAIL_EXCEPTION",
-      error instanceof Error ? error.message : "unknown",
-    );
+    await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(notification)}`, {
+      method: "POST",
+      body: message,
+      signal: AbortSignal.timeout(10000),
+    });
+  } catch {
+    // Notification failure must not turn a successfully stored intake into a
+    // duplicate when the visitor retries the form.
   }
-
-  return reply(req, {
-    received: true,
-    intake_id: intake.id,
-    attachments: attachments.length,
-    email_status: emailStatus,
-  }, 202);
+  return reply(req, { received: true }, 202);
 }));

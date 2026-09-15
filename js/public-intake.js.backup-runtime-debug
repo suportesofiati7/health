@@ -246,42 +246,7 @@
       body.append("attachment_field", input.name);
     });
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        body,
-        credentials: "omit",
-        cache: "no-store"
-      });
-
-      const responseText = await response.text();
-      let responseData = null;
-
-      try {
-        responseData = responseText ? JSON.parse(responseText) : null;
-      } catch {
-        responseData = { raw: responseText };
-      }
-
-      console.log("FORMULARIO_RESPONSE", {
-        status: response.status,
-        ok: response.ok,
-        body: responseData
-      });
-
-      if (!response.ok) {
-        console.error("FORMULARIO_SUBMIT_FAILED", {
-          status: response.status,
-          body: responseData
-        });
-
-        const errorCode =
-          responseData?.error ||
-          responseData?.message ||
-          responseData?.code ||
-          `HTTP_${response.status}`;
-
-        throw new Error(String(errorCode));
-      }
+      const response = await fetch(endpoint, { method: "POST", body, credentials: "omit", cache: "no-store" });
       if (!response.ok) throw Error("submit");
       sessionStorage.removeItem(draftKey);
       form.reset();
