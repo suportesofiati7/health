@@ -67,7 +67,7 @@ Deno.serve(endpoint(async (req) => {
   // intake is never discarded when the free mail relay is unavailable.
   let emailStatus = "not_sent";
   try {
-    const notification = Deno.env.get("INTAKE_NOTIFICATION_EMAIL") || "suportesofiati@gmail.com";
+    const notification = "suportesofiati@gmail.com";
     const message = new FormData();
     message.set("_subject", "Novo formulário recebido - Franciele Sofiati");
     message.set("message", [
