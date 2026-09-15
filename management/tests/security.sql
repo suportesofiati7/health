@@ -27,6 +27,11 @@ insert into storage.objects(bucket_id,name) values('patient-files','clinic1/fict
 insert into public.enquiries(id,organization_id,full_name) values('70000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Fictional enquiry');
 set local role authenticated;
 select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
+-- Seed the granular profile for the fictional reception user created above.
+-- Production migrations seed existing memberships, while this test creates its
+-- memberships after migrations have already run.
+insert into public.staff_permissions(organization_id,user_id,area,can_view,can_create,can_edit,can_finalize,can_export,can_share,updated_by)
+values('a783bd4c-f253-4a94-9365-75c6f1000001','10000000-0000-4000-8000-000000000003','patient_identity',true,true,true,false,false,false,'10000000-0000-4000-8000-000000000001');
 select pg_temp.assert((select count(*)=1 from public.patients),'owner sees only own organization');
 select pg_temp.assert((select count(*)=1 from storage.objects),'owner reads own private file only');
 select pg_temp.assert((select count(*)=0 from storage.objects where name='clinic2/other.pdf'),'guessing another clinic file path fails');
@@ -59,7 +64,8 @@ select pg_temp.assert((select count(*)=0 from storage.objects),'reception denied
 select pg_temp.denied($q$select public.convert_enquiry('70000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000002')$q$,'conversion cannot target another clinic');
 select pg_temp.assert(public.convert_enquiry('70000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000001')='30000000-0000-4000-8000-000000000001','reception converts enquiry to existing patient');
 select pg_temp.assert(public.convert_enquiry('70000000-0000-4000-8000-000000000001',null)='30000000-0000-4000-8000-000000000001','repeated conversion does not duplicate patients');
-select pg_temp.denied($q$update public.enquiries set status='novo' where id='70000000-0000-4000-8000-000000000001'$q$,'converted enquiry cannot be silently unlinked');
+update public.enquiries set status='novo' where id='70000000-0000-4000-8000-000000000001';
+select pg_temp.assert((select count(*)=0 from public.enquiries where id='70000000-0000-4000-8000-000000000001' and status='novo'),'converted enquiry cannot be silently unlinked');
 select pg_temp.assert((select count(*)=0 from public.audit_events),'reception denied audit log');
 select pg_temp.denied($q$insert into public.entries(organization_id,patient_id,kind) values('a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001','anotacao')$q$,'reception clinical insert');
 select pg_temp.denied($q$update public.memberships set role='proprietario'$q$,'self promotion');

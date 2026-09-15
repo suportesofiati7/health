@@ -80,6 +80,17 @@ function Status({ value }) {
   const t = useT();
   return <span className={`status status-${value}`}>{label(value, t)}</span>;
 }
+function displayValue(value) {
+  if (value === null || value === undefined || value === "") return "—";
+  if (typeof value === "object") {
+    try {
+      return JSON.stringify(value, null, 2);
+    } catch {
+      return String(value);
+    }
+  }
+  return String(value);
+}
 function Empty({ icon: Icon = ClipboardList, children }) {
   return (
     <div className="empty">
@@ -2321,7 +2332,7 @@ function Entry({ entry: e, author, member, onEdit, onAmend }) {
           {Object.entries(e.data || {}).map(([k, v]) => (
             <div key={k}>
               <dt>{fieldTitle(k, t)}</dt>
-              <dd className="preserve">{v || "—"}</dd>
+              <dd className="preserve">{displayValue(v)}</dd>
             </div>
           ))}
         </dl>
