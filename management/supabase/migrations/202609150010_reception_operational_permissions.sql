@@ -70,7 +70,8 @@ begin
         can_edit,
         can_finalize,
         can_export,
-        can_share
+        can_share,
+        updated_by
       )
       values (
         r.organization_id,
@@ -81,7 +82,22 @@ begin
         p.can_edit,
         p.can_finalize,
         p.can_export,
-        p.can_share
+        p.can_share,
+        coalesce(
+          (
+            select m.user_id
+            from public.memberships m
+            where m.organization_id = r.organization_id
+              and lower(m.role::text) in (
+                'owner',
+                'proprietario',
+                'proprietário'
+              )
+            order by m.user_id
+            limit 1
+          ),
+          r.user_id
+        )
       )
       on conflict (organization_id, user_id, area)
       do update set
@@ -90,7 +106,8 @@ begin
         can_edit     = excluded.can_edit,
         can_finalize = excluded.can_finalize,
         can_export   = excluded.can_export,
-        can_share    = excluded.can_share;
+        can_share    = excluded.can_share,
+        updated_by   = excluded.updated_by;
 
     end loop;
   end loop;
