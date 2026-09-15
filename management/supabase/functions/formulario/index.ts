@@ -87,8 +87,10 @@ Deno.serve(endpoint(async (req) => {
         body: message,
         headers: {
           Accept: "application/json",
-          Origin: Deno.env.get("PUBLIC_ORIGIN") || "https://francielesofiati.com",
-          Referer: `${Deno.env.get("PUBLIC_ORIGIN") || "https://francielesofiati.com"}/formulario`,
+          Origin: "https://francielesofiati.com",
+          Referer: "https://francielesofiati.com/formulario",
+          "X-Requested-With": "XMLHttpRequest",
+          "User-Agent": "Mozilla/5.0 (Sofiati public intake)",
         },
         signal: AbortSignal.timeout(10000),
       },
