@@ -60,6 +60,35 @@
   // are sent only to the private intake bucket; the server still enforces the
   // per-file, total-size and file-count limits.
   form.querySelectorAll('input[type="file"]').forEach((input) => input.removeAttribute("accept"));
+
+  // Keep the custom file-status label synchronized with the real browser
+  // file input. Event delegation also covers file inputs added dynamically.
+  form.addEventListener("change", (event) => {
+    const input = event.target;
+
+    if (!(input instanceof HTMLInputElement) || input.type !== "file") return;
+
+    const field = input.closest(".sf-consent-field");
+    const status = field?.querySelector(".sf-file-status");
+    if (!status) return;
+
+    const files = Array.from(input.files || []);
+
+    if (files.length === 0) {
+      status.textContent = "Nenhum arquivo selecionado";
+      status.removeAttribute("title");
+      return;
+    }
+
+    if (files.length === 1) {
+      status.textContent = files[0].name;
+      status.title = files[0].name;
+      return;
+    }
+
+    status.textContent = `${files.length} arquivos selecionados`;
+    status.title = files.map((file) => file.name).join(", ");
+  });
   const marketingCard = cards.find((card) => card.querySelector("h2")?.textContent.includes("Registro fotográfico"));
   if (marketingCard && !form.elements.marketing_authorization_files) {
     const uploads = document.createElement("div");
