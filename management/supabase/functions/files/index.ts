@@ -26,6 +26,8 @@ Deno.serve(
         ["clinical-photos", `${ORG}/${patientId}`],
         ["patient-files", `${ORG}/${patientId}`],
       ] as const;
+      const { error: deleteError } = await scoped.rpc("delete_patient", { target_patient: patientId });
+      if (deleteError) throw deleteError;
       for (const [bucket, prefix] of targets) {
         const { data: listed, error: listError } = await db.storage
           .from(bucket)
@@ -39,8 +41,6 @@ Deno.serve(
           if (removeError) throw Error("storage_remove");
         }
       }
-      const { error: deleteError } = await scoped.rpc("delete_patient", { target_patient: patientId });
-      if (deleteError) throw deleteError;
       return reply(req, { deleted: patientId });
     }
     const bytes = await bounded(req, 8500000);
