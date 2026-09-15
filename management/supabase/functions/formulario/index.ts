@@ -13,17 +13,8 @@ function ext(name: string, type: string) {
 
 Deno.serve(endpoint(async (req) => {
   const form = await req.formData();
-  const token = clean(form.get("token"), 2048);
-  const turnstileSecret = Deno.env.get("TURNSTILE_SECRET_KEY");
   const salt = Deno.env.get("RATE_LIMIT_SALT");
-  if (!turnstileSecret || !salt) throw Error("unconfigured");
-  const verification = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    body: new URLSearchParams({ secret: turnstileSecret, response: token }),
-  }).then((r) => r.json());
-  const allowedHosts = [Deno.env.get("PUBLIC_ORIGIN"), Deno.env.get("MANAGEMENT_ORIGIN")]
-    .filter(Boolean).map((value) => new URL(value!).hostname);
-  if (!verification.success || !allowedHosts.includes(verification.hostname) || verification.action !== "formulario") throw Error("challenge");
+  if (!salt) throw Error("unconfigured");
 
   const ip = (req.headers.get("x-forwarded-for") || "nao_confirmado").split(",")[0].trim();
   await limit(admin(), "formulario:ip:" + await sha256(new TextEncoder().encode(salt + ip)), 3, 3600);

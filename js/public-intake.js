@@ -217,51 +217,6 @@
     form.querySelectorAll("[data-form-state]").forEach((node) => { node.hidden = node.dataset.formState !== name; });
     if (text) form.querySelector(`[data-form-state="${name}"]`)?.querySelector("span")?.replaceChildren(document.createTextNode(text));
   };
-  function renderTurnstile() {
-    const sitekey = window.SOFIATI_PUBLIC?.turnstileSiteKey || "0x4AAAAAAE0b8mFSgQqazkH8";
-    if (!sitekey) return;
-    const holder = document.createElement("div");
-    holder.id = "intake-turnstile";
-    form.querySelector(".sf-consent-card--submit")?.prepend(holder);
-    const script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-    script.async = true;
-    script.onload = () => {
-      try {
-        window.turnstile.render(holder, {
-          sitekey,
-          action: "formulario",
-          callback: (token) => {
-            form.dataset.turnstile = token;
-            submitButton.disabled = false;
-          },
-          "expired-callback": () => {
-            form.dataset.turnstile = "";
-            submitButton.disabled = false;
-            state("error", "A verificação expirou. Confirme novamente para enviar.");
-          },
-          "error-callback": () => {
-            form.dataset.turnstile = "";
-            submitButton.disabled = false;
-            state("error", "Não foi possível carregar a verificação. Atualize a página e tente novamente.");
-          },
-        });
-      } catch {
-        submitButton.disabled = false;
-        state("error", "Não foi possível carregar a verificação. Atualize a página e tente novamente.");
-      }
-    };
-    script.onerror = () => {
-      submitButton.disabled = false;
-      state("error", "Não foi possível carregar a verificação. Atualize a página e tente novamente.");
-    };
-    document.head.append(script);
-  }
-  renderTurnstile();
-  if (!window.SOFIATI_PUBLIC?.turnstileSiteKey) {
-    submitButton.disabled = true;
-    state("error");
-  }
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (submitting || !form.checkValidity()) { form.reportValidity(); return; }
@@ -270,11 +225,6 @@
       firstProcedure?.setCustomValidity("Selecione pelo menos um procedimento.");
       firstProcedure?.reportValidity();
       firstProcedure?.setCustomValidity("");
-      return;
-    }
-    const turnstileToken = form.dataset.turnstile || form.querySelector('input[name="cf-turnstile-response"]')?.value || "";
-    if (!turnstileToken) {
-      state("error", "Confirme a verificação de segurança antes de enviar.");
       return;
     }
     submitting = true;
@@ -293,7 +243,6 @@
     values.form_version = form.dataset.formVersion;
     values.language = document.documentElement.lang || "pt-BR";
     const body = new FormData();
-    body.set("token", turnstileToken);
     body.set("payload", JSON.stringify(values));
     const files = [...form.querySelectorAll('input[type="file"]')].flatMap((input) => [...input.files].map((file) => ({ input, file })));
     if (files.length > 10 || files.some(({ file }) => file.size < 1 || file.size > 10 * 1024 * 1024) || files.reduce((sum, { file }) => sum + file.size, 0) > 50 * 1024 * 1024) {
@@ -352,8 +301,6 @@
       state("error");
       submitting = false;
       submitButton.disabled = false;
-      if (window.turnstile) window.turnstile.reset();
-      form.dataset.turnstile = "";
     }
   });
 })();
