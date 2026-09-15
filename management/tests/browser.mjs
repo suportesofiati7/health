@@ -11,7 +11,8 @@ const user={id:uid,aud:'authenticated',role:'authenticated',email:'fictional@exa
 const member={id:'20000000-0000-4000-8000-000000000001',organization_id:org,user_id:uid,name:'Franciele (teste fictício)',email:user.email,role:'proprietario',status:'ativo',profession:'Biomedicina',council:'CRBM',registration:'TESTE',state:'PR'};
 const patient={id:'30000000-0000-4000-8000-000000000001',organization_id:org,full_name:'Marina Exemplo Fictício',preferred_name:'',birth_date:'1992-03-12',phone:'43999990000',email:'marina@example.invalid',cpf:null,rg:'',cns:null,address:{},guardian:{},emergency_contact:{},status:'ativo',created_at:created,version:1};
 const entry={id:'40000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,kind:'avaliacao',title:'Avaliação fictícia',content:'CONTEÚDO FICTÍCIO: pele sensível; avaliação sem dados reais.',data:{concern:'Objetivo fictício de cuidado',payload:{full_name:'Fictitious payload',selected_procedure:['fictitious procedure']}},status:'finalizado',created_by:uid,clinical_at:created,created_at:created,version:1};
-const fixtures={memberships:[member],patients:[patient],entries:[entry],entry_versions:[],documents:[],document_links:[],communications:[],admin_notes:[],enquiries:[{id:'70000000-0000-4000-8000-000000000001',organization_id:org,full_name:'Contato Exemplo Fictício',phone:'43988880000',email:'enquiry@example.invalid',status:'novo',internal_notes:'',created_at:created,consent_at:created}],appointments:[{id:'50000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,patients:patient,starts_at:`${day}T14:00:00-03:00`,ends_at:`${day}T15:00:00-03:00`,status:'confirmado',label:'Avaliação estética',version:1}],tasks:[{id:'60000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,patients:patient,title:'Confirmar retorno fictício',due_at:`${day}T10:00:00-03:00`,status:'pendente',priority:'alta',version:1}],audit_events:[]};
+const intake={id:'70000000-0000-4000-8000-000000000001',organization_id:org,full_name:'Contato Exemplo Fictício',phone:'43988880000',email:'enquiry@example.invalid',status:'novo',internal_notes:'',created_at:created,submitted_at:created,consent_at:created,form_version:'2026-09-14',payload:{selected_procedure:'procedimento fictício'}};
+const fixtures={memberships:[member],patients:[patient],entries:[entry],entry_versions:[],documents:[],document_links:[],communications:[],admin_notes:[],public_intakes:[intake],enquiries:[intake],appointments:[{id:'50000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,patients:patient,starts_at:`${day}T14:00:00-03:00`,ends_at:`${day}T15:00:00-03:00`,status:'confirmado',label:'Avaliação estética',version:1}],tasks:[{id:'60000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,patients:patient,title:'Confirmar retorno fictício',due_at:`${day}T10:00:00-03:00`,status:'pendente',priority:'alta',version:1}],audit_events:[]};
 const jwt=`${Buffer.from(JSON.stringify({alg:'HS256',typ:'JWT'})).toString('base64url')}.${Buffer.from(JSON.stringify({sub:uid,exp:Math.floor(Date.now()/1000)+3600,session_id:'90000000-0000-4000-8000-000000000001',role:'authenticated'})).toString('base64url')}.fictional-signature`;
 const failures=[];let posts=[];
 async function contextFor(width,height,role='proprietario'){
@@ -23,6 +24,7 @@ async function contextFor(width,height,role='proprietario'){
     if(path.endsWith('/auth/v1/user'))return json(user);
     if(path.endsWith('/auth/v1/logout'))return json({});
     if(path.includes('/rpc/storage_usage'))return json({bytes:10485760,files:5,limit:800000000,database_bytes:5000000});
+    if(path.includes('/rpc/convert_public_intake'))return json(patient.id);
     if(path.includes('/rpc/'))return json(null);
     const table=path.split('/').at(-1);let rows=structuredClone(fixtures[table]||[]);
     if(table==='memberships')rows=rows.map(m=>({...m,role}));
@@ -48,7 +50,8 @@ try{
     await signIn(page);await page.getByText(patient.full_name).first().waitFor();await noOverflow(page);await page.screenshot({path:`test-results/today-${width}.png`,fullPage:true});
     await navigation(page,'Pacientes');await page.getByRole('button').filter({hasText:patient.full_name}).first().click();await page.getByRole('heading',{name:patient.full_name,exact:true}).waitFor();await noOverflow(page);await page.screenshot({path:`test-results/patient-${width}.png`,fullPage:true});
     await page.getByRole('button',{name:'Prontuário',exact:true}).click();await page.getByText(entry.content,{exact:true}).first().waitFor();await page.getByText('Ver registro completo',{exact:true}).first().click();await page.getByText(/Fictitious payload/).waitFor();
-    await page.getByRole('button',{name:'EN',exact:true}).click();assert.equal(await page.getByText(entry.content,{exact:true}).count(),2);await page.getByRole('button',{name:'Clinical record',exact:true}).waitFor();
+    for (const tab of ['Dados','Documentos e fotos','Fotografia clínica','Planos','Procedimentos','Saúde','Consentimentos','Privacidade / portal','Agenda e retornos','Administrativo','Histórico']) { await page.getByRole('button',{name:tab,exact:true}).click(); await noOverflow(page); }
+    await page.getByRole('button',{name:'Prontuário',exact:true}).click(); await page.getByRole('button',{name:'EN',exact:true}).click();assert.equal(await page.getByText(entry.content,{exact:true}).count(),2);await page.getByRole('button',{name:'Clinical record',exact:true}).waitFor();
     await page.getByRole('button',{name:'PT',exact:true}).click();
     await page.getByRole('button',{name:'Anotação clínica',exact:true}).click();await page.getByLabel('Registro livre / observações').fill('NOTA FICTÍCIA de teste');await noOverflow(page);await page.screenshot({path:`test-results/note-${width}.png`,fullPage:true});
     await page.getByRole('button',{name:'Salvar rascunho',exact:true}).evaluate((button) => button.click());await page.locator('dialog').waitFor({state:'detached'});
@@ -56,6 +59,9 @@ try{
     await navigation(page,'Agenda');await page.getByRole('heading',{name:'Agenda',exact:true}).waitFor();await noOverflow(page);
     await navigation(page,'Tarefas');await page.getByRole('heading',{name:'Tarefas e retornos'}).waitFor();await noOverflow(page);
     await navigation(page,'Formulários');await page.getByRole('heading',{name:'Formulários',exact:true}).waitFor();await noOverflow(page);
+    for (const statusName of ['Todos','Novo','Em análise','Contatado','Aguardando','Convertido','Arquivado']) { await page.getByRole('button',{name:statusName,exact:true}).click(); }
+    await page.getByRole('button',{name:/Contato Exemplo Fictício/}).click(); await page.getByRole('heading',{name:'Revisar formulário'}).waitFor();
+    await page.getByLabel('Status').selectOption('em_analise'); await page.getByRole('button',{name:'Salvar análise',exact:true}).click(); await page.locator('dialog').waitFor({state:'detached'}); assert(posts.some(p=>p.table==='public_intakes'&&p.body.status==='em_analise'));
     await navigation(page,'Relatórios');await page.getByRole('heading',{name:'Relatórios',exact:true}).waitFor();await noOverflow(page);
     await navigation(page,'Configurações');await page.getByRole('button',{name:'Usuários',exact:true}).click();await page.getByRole('heading',{name:'Equipe autorizada'}).waitFor();await noOverflow(page);
     await page.getByRole('button',{name:'Sair',exact:true}).click();await page.getByRole('heading',{name:'Bem-vinda de volta'}).waitFor();

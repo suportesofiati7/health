@@ -3389,6 +3389,27 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
           <div className="actions wrap">
             {selected.phone && <a className="button" href={`tel:${digits(selected.phone)}`}>{t("Ligar", "Call")}</a>}
             {selected.email && <a className="button" href={`mailto:${selected.email}`}>{t("Email", "Email")}</a>}
+            {selected.patient_id && (
+              <Button
+                className="primary"
+                onClick={async () => {
+                  setBusy(true);
+                  try {
+                    const patient = await checked(
+                      db.from("patients").select("*").eq("id", selected.patient_id).single(),
+                    );
+                    setSelected(null);
+                    openPatient(patient);
+                  } catch {
+                    notify(t("Não foi possível abrir o paciente vinculado.", "Could not open the linked patient."));
+                  } finally {
+                    setBusy(false);
+                  }
+                }}
+              >
+                {t("Abrir paciente", "Open patient")}
+              </Button>
+            )}
           </div>
           {files.length > 0 && (
             <div className="notice">
@@ -3449,6 +3470,10 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
                 icon={Save}
                 disabled={busy}
                 onClick={async () => {
+                  if (selected.status === "convertido" && !selected.patient_id) {
+                    await convert(null);
+                    return;
+                  }
                   setBusy(true);
                   try {
                     await saveIntake({
@@ -4518,32 +4543,7 @@ function PreRegistration({ languageControl }) {
     [form, setForm] = useState({ preferred_contact: "whatsapp" }),
     [busy, setBusy] = useState(false),
     [success, setSuccess] = useState(false),
-    [error, setError] = useState(""),
-    [token, setToken] = useState("");
-  const widget = useRef();
-  useEffect(() => {
-    const key = import.meta.env.VITE_TURNSTILE_SITE_KEY;
-    if (!key) return;
-    let id;
-    const init = () => {
-      id = window.turnstile.render(widget.current, {
-        sitekey: key,
-        action: "preregister",
-        callback: setToken,
-        "expired-callback": () => setToken(""),
-      });
-    };
-    const script = document.createElement("script");
-    script.src =
-      "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-    script.async = true;
-    script.onload = init;
-    document.head.append(script);
-    return () => {
-      if (id !== undefined) window.turnstile?.remove(id);
-      script.remove();
-    };
-  }, []);
+    [error, setError] = useState("");
   return (
     <div className="auth-screen">
       <header className="auth-top">
@@ -4577,7 +4577,6 @@ function PreRegistration({ languageControl }) {
               try {
                 await invoke("intake", {
                   ...form,
-                  token,
                   privacy: form.privacy === true,
                 });
                 setSuccess(true);
@@ -4588,8 +4587,6 @@ function PreRegistration({ languageControl }) {
                     "Could not submit. Try again or contact the clinic.",
                   ),
                 );
-                setToken("");
-                window.turnstile?.reset();
               } finally {
                 setBusy(false);
               }
@@ -4663,24 +4660,15 @@ function PreRegistration({ languageControl }) {
                 )}
               </p>
             </details>
-            <div ref={widget} />
-            {!import.meta.env.VITE_TURNSTILE_SITE_KEY && (
-              <p className="notice">
-                {t(
-                  "Formulário temporariamente indisponível. Entre em contato com a clínica.",
-                  "Form is temporarily unavailable. Please contact the clinic.",
-                )}
-              </p>
-            )}
             {error && (
-              <p className="notice error" role="alerta">
+              <p className="notice error" role="alert">
                 {error}
               </p>
             )}
             <Button
               icon={ArrowRight}
               className="primary full"
-              disabled={busy || !token}
+              disabled={busy}
             >
               {busy
                 ? t("Enviando...", "Sending...")
