@@ -74,6 +74,7 @@ Deno.serve(endpoint(async (req) => {
   }
   // Email is only a notification. Supabase remains authoritative and the
   // intake is never discarded when the free mail relay is unavailable.
+  let emailStatus = "not_sent";
   try {
     const notification = Deno.env.get("INTAKE_NOTIFICATION_EMAIL") || "suportesofiati@gmail.com";
     const message = new FormData();
@@ -93,19 +94,33 @@ Deno.serve(endpoint(async (req) => {
       {
         method: "POST",
         body: message,
+        headers: {
+          Accept: "application/json",
+          Origin: Deno.env.get("PUBLIC_ORIGIN") || "https://francielesofiati.com",
+          Referer: `${Deno.env.get("PUBLIC_ORIGIN") || "https://francielesofiati.com"}/formulario`,
+        },
         signal: AbortSignal.timeout(10000),
       },
     );
 
     const emailBody = await emailResponse.text();
+    let emailResult: { success?: boolean } | null = null;
+    try {
+      emailResult = JSON.parse(emailBody);
+    } catch {
+      // Treat a non-JSON response as a failed notification even when the
+      // provider incorrectly returns HTTP 200.
+    }
 
-    if (!emailResponse.ok) {
+    if (!emailResponse.ok || emailResult?.success !== true) {
+      emailStatus = "error";
       console.error(
         "FORMULARIO_EMAIL_FAILED",
         emailResponse.status,
         emailBody.slice(0, 500),
       );
     } else {
+      emailStatus = "sent";
       console.log(
         "FORMULARIO_EMAIL_SENT",
         intake.id,
