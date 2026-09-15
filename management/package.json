@@ -13,7 +13,8 @@
     "test:browser": "node tests/browser.mjs",
     "sync:backend": "bash scripts/sync-backend.sh",
     "configure": "node scripts/configure-project.mjs",
-    "bootstrap": "node scripts/bootstrap-owner.mjs"
+    "bootstrap": "node scripts/bootstrap-owner.mjs",
+    "remove:requested-staff": "node scripts/remove-requested-staff.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.116.0",

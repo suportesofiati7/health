@@ -95,6 +95,7 @@ import { encryptPackets, decryptPackets, fileBase64, download } from "./crypto";
 import { Language, useT, label } from "./i18n";
 import "./style.css";
 import FinanceiroRebuilt from "./FinanceiroRebuilt";
+import CommunicationHub from "./CommunicationHub";
 import { documentEscape, openDocument, receiptDocumentHTML, reportDocumentHTML } from "./documentSystem";
 // App chrome and generated documents share the same clinic brand source.
 const LOGO = "/brand.png";
@@ -727,7 +728,7 @@ function Clinic({ language, setLanguage }) {
             </header>
             <main id="main" tabIndex={-1}>
               {view === "home" && <HomeView {...common} />}
-              {view === "communication" && <Communication {...common} />}
+              {view === "communication" && <CommunicationHub {...common} />}
               {view === "patients" && <Patients {...common} />}
               {view === "patient" && patient && (
                 <Patient

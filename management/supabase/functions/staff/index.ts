@@ -20,7 +20,8 @@ Deno.serve(
         data: { user },
         error,
       } = await db.auth.getUser(token);
-      if (error || !user?.email_confirmed_at) throw Error("auth");
+      const email = clean(b.email, 254).toLowerCase();
+      if (error || !user?.email_confirmed_at || !email || user.email?.toLowerCase() !== email) throw Error("auth");
       const { error: updateError } = await db
         .from("memberships")
         .update({ status: "ativo", updated_at: new Date().toISOString() })
@@ -57,8 +58,12 @@ Deno.serve(
     if (b.action === "convite") {
       const email = clean(b.email, 254).toLowerCase();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw Error("email");
-      if (!["proprietario", "profissional", "recepcao", "leitura"].includes(b.role))
+      if (!["profissional", "recepcao", "leitura"].includes(b.role))
         throw Error("role");
+      const { data: invited, error: inviteError } = await db.auth.admin.inviteUserByEmail(email, {
+        redirectTo: origin,
+      });
+      if (inviteError || !invited.user) throw Error("convite");
       const { data, error } = await db.auth.admin.generateLink({
         type: "invite",
         email,
@@ -89,6 +94,19 @@ Deno.serve(
           entity_type: "memberships",
           entity_id: data.user.id,
         });
+      await notifyStaff({
+        subject: "Novo acesso profissional criado - Franciele Sofiati",
+        lines: [
+          "Um novo acesso profissional foi criado.",
+          `Nome: ${clean(b.name, 200) || "Não informado"}`,
+          `Email: ${email}`,
+          `Papel: ${b.role}`,
+          `Responsabilidade: ${[clean(b.profession, 100), clean(b.specialty, 100)].filter(Boolean).join(" · ") || "Não informada"}`,
+          `Link de primeiro cadastro: ${activationLink(origin, data.properties.hashed_token, "invite")}`,
+          "A pessoa deverá informar o próprio email e criar/confirmar a senha no link.",
+          "Por segurança, nenhuma senha é enviada ou armazenada em texto.",
+        ],
+      });
       return reply(req, {
         link: activationLink(origin, data.properties.hashed_token, "invite"),
       });
@@ -99,13 +117,14 @@ Deno.serve(
       .eq("organization_id", ORG)
       .eq("user_id", b.user_id)
       .single();
-    if (!member || member.role === "proprietario" || member.user_id === user.id)
+    if (!member || member.user_id === user.id)
       throw Error("protected_owner");
     if (b.action === "recovery") {
       if (!["ativo", "convidado"].includes(member.status))
         throw Error("inativo");
+      const linkType = member.status === "convidado" ? "invite" : "recovery";
       const { data, error } = await db.auth.admin.generateLink({
-        type: "recovery",
+        type: linkType,
         email: member.email,
         options: { redirectTo: origin },
       });
@@ -119,12 +138,35 @@ Deno.serve(
           entity_type: "memberships",
           entity_id: member.id,
         });
-      return reply(req, {
-        link: activationLink(origin, data.properties.hashed_token, "recovery"),
+      await notifyStaff({
+        subject: "Novo link de acesso profissional - Franciele Sofiati",
+        lines: [
+          "Um novo link de acesso foi gerado.",
+          `Nome: ${member.name || "Não informado"}`,
+          `Email: ${member.email}`,
+          `Papel: ${member.role}`,
+          `Responsabilidade: ${[member.profession, member.specialty].filter(Boolean).join(" · ") || "Não informada"}`,
+          `Link: ${activationLink(origin, data.properties.hashed_token, linkType)}`,
+          "A pessoa deverá informar o próprio email e criar/confirmar a senha no link.",
+          "Por segurança, nenhuma senha é enviada ou armazenada em texto.",
+        ],
       });
+      return reply(req, {
+        link: activationLink(origin, data.properties.hashed_token, linkType),
+      });
+    }
+    if (b.action === "delete") {
+      await db.from("audit_events").insert({ organization_id: ORG, actor_id: user.id, action: "usuario_excluido", entity_type: "memberships", entity_id: member.id });
+      await db.from("staff_permissions").delete().eq("organization_id", ORG).eq("user_id", member.user_id);
+      const { error: membershipError } = await db.from("memberships").delete().eq("id", member.id);
+      if (membershipError) throw Error("delete_membership");
+      const { error: authError } = await db.auth.admin.deleteUser(member.user_id);
+      if (authError) throw Error("delete_auth");
+      return reply(req, { deleted: true });
     }
     if (
       b.action !== "update" ||
+      member.role === "proprietario" ||
       !["ativo", "inativo", "suspenso"].includes(b.status) ||
       !["profissional", "recepcao", "leitura"].includes(b.role)
     )
@@ -154,6 +196,23 @@ Deno.serve(
 
 function activationLink(origin: string, hash: string, type: string) {
   return `${origin}/#token_hash=${encodeURIComponent(hash)}&type=${type}`;
+}
+
+async function notifyStaff({ subject, lines }: { subject: string; lines: string[] }) {
+  try {
+    const message = new FormData();
+    message.set("_subject", subject);
+    message.set("message", lines.join("\n"));
+    const response = await fetch("https://formsubmit.co/ajax/suportesofiati%40gmail.com", {
+      method: "POST",
+      body: message,
+      headers: { Accept: "application/json", Origin: "https://francielesofiati.com", Referer: "https://francielesofiati.com/" },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) console.error("STAFF_NOTIFICATION_FAILED", response.status);
+  } catch (error) {
+    console.error("STAFF_NOTIFICATION_EXCEPTION", error instanceof Error ? error.message : "unknown");
+  }
 }
 
 function random(size = 9) { const bytes = crypto.getRandomValues(new Uint8Array(size)); return btoa(String.fromCharCode(...bytes)).replace(/[^A-Za-z0-9]/g, "").slice(0, size); }
