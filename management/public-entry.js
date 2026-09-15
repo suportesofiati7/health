@@ -1,4 +1,8 @@
 (() => {
+  document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+  });
   let language = localStorage.getItem('sofiati-language') || 'pt';
   const translate = () => {
     document.documentElement.lang = language === 'en' ? 'en' : 'pt-BR';

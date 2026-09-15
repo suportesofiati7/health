@@ -35,6 +35,11 @@ import {
   Send,
   History,
   Link as LinkIcon,
+  Moon,
+  Sun,
+  Cake,
+  Pencil,
+  ExternalLink,
 } from "lucide-react";
 import {
   db,
@@ -59,7 +64,6 @@ import {
 import { encryptPackets, decryptPackets, fileBase64, download } from "./crypto";
 import { Language, useT, label } from "./i18n";
 import "./style.css";
-
 const LOGO = "/brand.png";
 function Button({ icon: Icon, children, className = "", ...props }) {
   return (
@@ -218,7 +222,7 @@ function useDirty() {
       ),
   };
 }
-function PatientPortal({ languageControl }) {
+function PatientPortal({ languageControl, themeControl }) {
   const t = useT();
   const [cpf, setCpf] = useState(""), [password, setPassword] = useState(""), [newPassword, setNewPassword] = useState(""), [session, setSession] = useState(null), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const tokenKey = "sofiati-patient-portal-token";
@@ -227,9 +231,22 @@ function PatientPortal({ languageControl }) {
   const login = async (event) => { event.preventDefault(); setBusy(true); setError(""); try { const data = await portalRequest({ action: "login", cpf, password }); apply(data, data.token); setPassword(""); } catch { setError(t("Não foi possível entrar. Verifique CPF e senha.", "Could not sign in. Check CPF and password.")); } finally { setBusy(false); } };
   const changePassword = async (event) => { event.preventDefault(); if (newPassword.length < 12) { setError(t("Use pelo menos 12 caracteres.", "Use at least 12 characters.")); return; } setBusy(true); try { await portalRequest({ action: "change_password", password: newPassword }, session.token); const data = await portalRequest({ action: "refresh" }, session.token); apply(data); setNewPassword(""); } catch { setError(t("Não foi possível alterar a senha.", "Could not change password.")); } finally { setBusy(false); } };
   const logout = async () => { try { if (session?.token) await portalRequest({ action: "logout" }, session.token); } catch {} sessionStorage.removeItem(tokenKey); setSession(null); };
-  return <div className="auth-screen"><header className="auth-top"><a href="https://francielesofiati.com">Franciele Sofiati</a>{languageControl}</header><main className="auth-main"> <img className="auth-logo" src={LOGO} alt="Franciele Sofiati" /><p className="eyebrow">{t("Área do Paciente", "Patient Area")}</p>{!session ? <><h1>{t("Acesso seguro", "Secure access")}</h1><form onSubmit={login}><Field title="CPF" value={cpf} onChange={setCpf} inputMode="numeric" autoComplete="username" required /><Field title={t("Senha", "Password")} type="password" value={password} onChange={setPassword} autoComplete="current-password" required /><Button className="primary full" icon={LockKeyhole} disabled={busy}>{t("Entrar", "Sign in")}</Button></form></> : <><h1>{session.patient?.preferred_name || session.patient?.full_name}</h1><p>{t("Recursos disponibilizados pela clínica", "Resources shared by the clinic")}</p>{session.must_change_password && <form className="detail-section" onSubmit={changePassword}><h2>{t("Defina uma nova senha", "Set a new password")}</h2><Field title={t("Nova senha", "New password")} type="password" minLength={12} value={newPassword} onChange={setNewPassword} required /><Button className="primary" disabled={busy}>{t("Salvar senha", "Save password")}</Button></form>}<div className="document-list">{(session.resources || []).map((resource) => <div className="document-row" key={`${resource.type}-${resource.id}`}><span><strong>{label(resource.type, t)}{resource.name ? ` · ${resource.name}` : ""}</strong><small>{resource.description || resource.post_care || resource.area || resource.label || date(resource.starts_at, true)}</small></span>{resource.url && <a className="button" href={resource.url} target="_blank" rel="noopener noreferrer">{t("Abrir", "Open")}</a>}</div>)}{!session.resources?.length && <Empty icon={ShieldCheck}>{t("Ainda não há recursos compartilhados.", "No resources have been shared yet.")}</Empty>}</div><Button onClick={logout}>{t("Sair", "Sign out")}</Button></>}{error && <p className="notice error" role="alert">{error}</p>}</main><footer className="auth-footer">Franciele Sofiati · Londrina, PR</footer></div>;
+  return <div className="auth-screen"><header className="auth-top"><a href="https://francielesofiati.com" target="_blank" rel="noopener noreferrer">Franciele Sofiati</a>{languageControl}</header><main className="auth-main"> <img className="auth-logo" src={LOGO} alt="Franciele Sofiati" /><p className="eyebrow">{t("Área do Paciente", "Patient Area")}</p>{!session ? <><h1>{t("Acesso seguro", "Secure access")}</h1><form onSubmit={login}><Field title="CPF" value={cpf} onChange={setCpf} inputMode="numeric" autoComplete="username" required /><Field title={t("Senha", "Password")} type="password" value={password} onChange={setPassword} autoComplete="current-password" required /><Button className="primary full" icon={LockKeyhole} disabled={busy}>{t("Entrar", "Sign in")}</Button></form></> : <><h1>{session.patient?.preferred_name || session.patient?.full_name}</h1><p>{t("Recursos disponibilizados pela clínica", "Resources shared by the clinic")}</p>{session.must_change_password && <form className="detail-section" onSubmit={changePassword}><h2>{t("Defina uma nova senha", "Set a new password")}</h2><Field title={t("Nova senha", "New password")} type="password" minLength={12} value={newPassword} onChange={setNewPassword} required /><Button className="primary" disabled={busy}>{t("Salvar senha", "Save password")}</Button></form>}<div className="document-list">{(session.resources || []).map((resource) => <div className="document-row" key={`${resource.type}-${resource.id}`}><span><strong>{label(resource.type, t)}{resource.name ? ` · ${resource.name}` : ""}</strong><small>{resource.description || resource.post_care || resource.area || resource.label || date(resource.starts_at, true)}</small></span>{resource.url && <a className="button" href={resource.url} target="_blank" rel="noopener noreferrer">{t("Abrir", "Open")}</a>}</div>)}{!session.resources?.length && <Empty icon={ShieldCheck}>{t("Ainda não há recursos compartilhados.", "No resources have been shared yet.")}</Empty>}</div><Button onClick={logout}>{t("Sair", "Sign out")}</Button></>}{error && <p className="notice error" role="alert">{error}</p>}</main><footer className="auth-footer">Franciele Sofiati · Londrina, PR</footer></div>;
 }
 
+class AppErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+  render() {
+    if (!this.state.error) return this.props.children;
+    return <div className="fatal-error"><div><p className="eyebrow">Franciele Sofiati · Área Profissional</p><h1>{this.props.t("Não foi possível abrir esta tela", "This screen could not be opened")}</h1><p>{this.props.t("Atualize a página. Se o problema continuar, envie este código para o suporte:", "Refresh the page. If the problem continues, send this code to support:")}</p><code>{this.state.error?.message || "unknown_error"}</code><button className="primary" onClick={() => window.location.reload()}>{this.props.t("Recarregar", "Reload")}</button></div></div>;
+  }
+}
 function App() {
   const [lang, setLang] = useState(
     localStorage.getItem("sofiati-language") || "pt",
@@ -257,13 +274,19 @@ function PublicIntakeRoute({ languageControl }) {
       <main>
         <h1>Formulário de cadastro e consentimentos</h1>
         <p>O formulário oficial está no site Franciele Sofiati. Esta rota é pública e não abre nenhuma área da clínica.</p>
-        <a className="button primary" href="https://francielesofiati.com/formulario">Abrir formulário</a>
+        <a className="button primary" href="https://francielesofiati.com/formulario" target="_blank" rel="noopener noreferrer">Abrir formulário</a>
       </main>
     </div>
   );
 }
 function Clinic({ language, setLanguage }) {
   const t = useT();
+  const [theme, setTheme] = useState(
+    localStorage.getItem("sofiati-theme") ||
+      (window.matchMedia?.("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"),
+  );
   const [member, setMember] = useState(null),
     [checking, setChecking] = useState(true),
     [activation, setActivation] = useState(false);
@@ -274,6 +297,10 @@ function Clinic({ language, setLanguage }) {
     [toast, setToast] = useState(""),
     [menu, setMenu] = useState(false);
   const notify = (text) => setToast(text);
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("sofiati-theme", theme);
+  }, [theme]);
   const loadMember = async () => {
     const {
       data: { user },
@@ -405,8 +432,17 @@ function Clinic({ language, setLanguage }) {
       ))}
     </div>
   );
+  const themeControl = (
+    <Button
+      icon={theme === "dark" ? Sun : Moon}
+      className="icon theme-toggle"
+      aria-label={theme === "dark" ? t("Usar tema claro", "Use light theme") : t("Usar tema escuro", "Use dark theme")}
+      title={theme === "dark" ? t("Usar tema claro", "Use light theme") : t("Usar tema escuro", "Use dark theme")}
+      onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+    />
+  );
   if (["/patient", "/patient.html", "/paciente", "/paciente.html"].includes(location.pathname))
-    return <PatientPortal languageControl={languageControl} />;
+    return <PatientPortal languageControl={languageControl} themeControl={themeControl} />;
   const refreshed = () => {
     setVersion((n) => n + 1);
     setModal(null);
@@ -425,9 +461,9 @@ function Clinic({ language, setLanguage }) {
     writable = member?.role !== "leitura";
   const nav = [
     ["home", Home, t("Início", "Today")],
-    ["agenda", CalendarDays, t("Agenda", "Schedule")],
     ["patients", Users, t("Pacientes", "Patients")],
     ["enquiries", Inbox, t("Formulários", "Forms")],
+    ["agenda", CalendarDays, t("Agenda", "Schedule")],
     ["tasks", ClipboardList, t("Tarefas", "Tasks")],
     ["reports", BarChart3, t("Relatórios", "Reports")],
     ["settings", Settings, t("Configurações", "Settings")],
@@ -455,6 +491,7 @@ function Clinic({ language, setLanguage }) {
         <Auth
           activation={activation}
           languageControl={languageControl}
+          themeControl={themeControl}
           notify={notify}
           onLogin={async () => {
             setActivation(false);
@@ -519,6 +556,21 @@ function Clinic({ language, setLanguage }) {
               </span>
               <div className="topbar-right">
                 {languageControl}
+                <Button
+                  icon={theme === "dark" ? Sun : Moon}
+                  className="icon theme-toggle"
+                  aria-label={
+                    theme === "dark"
+                      ? t("Usar tema claro", "Use light theme")
+                      : t("Usar tema escuro", "Use dark theme")
+                  }
+                  title={
+                    theme === "dark"
+                      ? t("Usar tema claro", "Use light theme")
+                      : t("Usar tema escuro", "Use dark theme")
+                  }
+                  onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+                />
                 <span className="user-avatar">
                   {member.name?.slice(0, 1) || "F"}
                 </span>
@@ -583,6 +635,14 @@ function Clinic({ language, setLanguage }) {
           notify={notify}
         />
       )}
+      {member && modal?.type === "whatsapp" && (
+        <WhatsappComposer
+          appointment={modal.appointment}
+          patient={modal.patient}
+          close={() => setModal(null)}
+          notify={notify}
+        />
+      )}
       {member && modal?.type === "task" && (
         <TaskForm
           {...modal}
@@ -623,7 +683,7 @@ function Clinic({ language, setLanguage }) {
     </>
   );
 }
-function Auth({ activation, onLogin, languageControl, notify }) {
+function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
   const t = useT(),
     [email, setEmail] = useState(""),
     [password, setPassword] = useState(""),
@@ -677,8 +737,8 @@ function Auth({ activation, onLogin, languageControl, notify }) {
   return (
     <div className="auth-screen">
       <header className="auth-top">
-        <a href="https://francielesofiati.com">Franciele Sofiati</a>
-        {languageControl}
+        <a href="https://francielesofiati.com" target="_blank" rel="noopener noreferrer">Franciele Sofiati</a>
+        <div className="auth-tools">{languageControl}{themeControl}</div>
       </header>
       <main className="auth-main">
         <img className="auth-logo" src={LOGO} alt="Franciele Sofiati" />
@@ -1883,6 +1943,25 @@ function Patient({
                         </small>
                       </span>
                       <Button
+                        icon={ExternalLink}
+                        className="icon"
+                        title={t("Abrir em nova aba", "Open in new tab")}
+                        aria-label={t("Abrir em nova aba", "Open in new tab")}
+                        onClick={async () => {
+                          try {
+                            const { data } = await checked(
+                              db.storage
+                                .from("patient-files")
+                                .createSignedUrl(doc.path, 300),
+                            );
+                            if (!data?.signedUrl) throw Error("signed_url");
+                            window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+                          } catch {
+                            notify(t("Não foi possível abrir.", "Could not open."));
+                          }
+                        }}
+                      />
+                      <Button
                         icon={Download}
                         className="icon"
                         title={t("Baixar arquivo", "Download file")}
@@ -2628,7 +2707,7 @@ function AppointmentRow({
     </div>
   );
 }
-function AppointmentForm({ appointment, patient, close, done, notify }) {
+function AppointmentForm({ appointment, patient, initialStart, close, done, notify }) {
   const t = useT(),
     dirty = useDirty(),
     [form, setForm] = useState(
@@ -2642,7 +2721,7 @@ function AppointmentForm({ appointment, patient, close, done, notify }) {
     [start, setStart] = useState(
       appointment
         ? `${localDay(new Date(appointment.starts_at))}T${new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit" }).format(new Date(appointment.starts_at))}`
-        : localDateTime(),
+        : initialStart || localDateTime(),
     ),
     [duration, setDuration] = useState(
       appointment
@@ -2782,142 +2861,103 @@ function AppointmentForm({ appointment, patient, close, done, notify }) {
     </Dialog>
   );
 }
-function Agenda({ openPatient, setModal, version, clinical, writable }) {
-  const t = useT(),
-    [day, setDay] = useState(localDay()),
-    [mode, setMode] = useState("day");
-  const days = mode === "day" ? 1 : mode === "week" ? 7 : 31;
-  const end = new Date(
-    new Date(day + "T00:00:00-03:00").getTime() + days * 86400000,
-  ).toISOString();
-  const state = useLoad(
-    () =>
-      checked(
-        db
-          .from("appointments")
-          .select("*,patients(*)")
-          .gte("starts_at", day + "T00:00:00-03:00")
-          .lt("starts_at", end)
-          .order("starts_at")
-          .limit(200),
-      ),
-    [day, mode, version],
-  );
-  return (
-    <>
-      <PageHead
-        title={t("Agenda", "Schedule")}
-        eyebrow={t("Cada encontro importa", "Every visit matters")}
-      >
-        {writable && (
-          <Button
-            icon={Plus}
-            className="primary"
-            onClick={() => setModal({ type: "appointment" })}
-          >
-            {t("Agendar", "Schedule")}
-          </Button>
-        )}
-      </PageHead>
-      <div className="toolbar wrap">
-        <div className="actions">
-          <Button
-            icon={ChevronLeft}
-            className="icon"
-            aria-label={t("Período anterior", "Previous period")}
-            onClick={() =>
-              setDay(
-                localDay(
-                  new Date(
-                    new Date(day + "T12:00:00-03:00").getTime() -
-                      days * 86400000,
-                  ),
-                ),
-              )
-            }
-          />
-          <Field
-            title={t("Data", "Date")}
-            type="date"
-            value={day}
-            onChange={setDay}
-          />
-          <Button
-            icon={ChevronRight}
-            className="icon"
-            aria-label={t("Próximo período", "Next period")}
-            onClick={() =>
-              setDay(
-                localDay(
-                  new Date(
-                    new Date(day + "T12:00:00-03:00").getTime() +
-                      days * 86400000,
-                  ),
-                ),
-              )
-            }
-          />
-          <Button onClick={() => setDay(localDay())}>
-            {t("Hoje", "Today")}
-          </Button>
-        </div>
-        <div className="segmented">
-          {[
-            ["day", t("Dia", "Day")],
-            ["week", t("Semana", "Week")],
-            ["month", t("31 dias", "31 days")],
-          ].map(([k, title]) => (
-            <button
-              key={k}
-              aria-pressed={mode === k}
-              onClick={() => setMode(k)}
-            >
-              {title}
-            </button>
-          ))}
-        </div>
-      </div>
-      <LoadState state={state}>
-        {(rows) => (
-          <>
-            {rows.map((a, i) => (
-              <React.Fragment key={a.id}>
-                {(i === 0 ||
-                  localDay(new Date(rows[i - 1].starts_at)) !==
-                    localDay(new Date(a.starts_at))) && (
-                  <h2 className="date-heading">{date(a.starts_at)}</h2>
-                )}
-                <AppointmentRow
-                  appointment={a}
-                  openPatient={openPatient}
-                  setModal={setModal}
-                  clinical={clinical}
-                  writable={writable}
-                />
-              </React.Fragment>
-            ))}
-            {!rows.length && (
-              <Empty icon={CalendarDays}>
-                {t(
-                  "Nenhum agendamento neste período",
-                  "No appointments in this period",
-                )}
-              </Empty>
-            )}
-            {rows.length === 200 && (
-              <p className="notice">
-                {t(
-                  "Mostrando 200 agendamentos. Selecione um período menor.",
-                  "Showing 200 appointments. Select a shorter period.",
-                )}
-              </p>
-            )}
-          </>
-        )}
-      </LoadState>
-    </>
-  );
+const dayKey = (value) => localDay(value);
+const atNoon = (key) => new Date(`${key}T12:00:00-03:00`);
+const shiftDay = (key, amount) => {
+  const value = atNoon(key);
+  value.setDate(value.getDate() + amount);
+  return localDay(value);
+};
+const monthStart = (key) => `${key.slice(0, 7)}-01`;
+const monthLabel = (key, t) => new Intl.DateTimeFormat(t("pt-BR", "en-US"), { month: "long", year: "numeric", timeZone: "America/Sao_Paulo" }).format(atNoon(key));
+const validDateValue = (value) => {
+  if (!value) return false;
+  const parsed = new Date(value.length === 10 ? `${value}T12:00:00-03:00` : value);
+  return !Number.isNaN(parsed.getTime());
+};
+const safeDateLabel = (value, time = false) => validDateValue(value) ? date(value, time) : "—";
+const timeLabel = (value) => validDateValue(value) ? new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit" }).format(new Date(value)) : "—";
+const patientName = (a, t) => a.patients?.preferred_name || a.patients?.full_name || t("Paciente", "Patient");
+const statusTone = (value) => ({ confirmado: "confirmed", concluido: "completed", cancelado: "cancelled", faltou: "noshow", aguardando: "waiting" }[value] || "scheduled");
+
+function WhatsappComposer({ appointment, patient, close, notify }) {
+  const t = useT();
+  const [template, setTemplate] = useState("confirmacao");
+  const [consents, setConsents] = useState([]);
+  const first = (patient?.preferred_name || patient?.full_name || "").split(" ")[0];
+  const data = { primeiro_nome: first, data: date(appointment.starts_at), hora: timeLabel(appointment.starts_at) };
+  const templates = {
+    confirmacao: ["Confirmação", `Olá, ${data.primeiro_nome}. Tudo bem?\n\nEstamos confirmando seu atendimento com Franciele Sofiati para ${data.data}, às ${data.hora}.\n\nCaso precise reagendar, por favor entre em contato conosco.`],
+    lembrete: ["Lembrete", `Olá, ${data.primeiro_nome}.\n\nPassando para lembrar do seu atendimento com Franciele Sofiati amanhã, ${data.data}, às ${data.hora}.\n\nEsperamos você.`],
+    hoje: ["Lembrete no dia", `Olá, ${data.primeiro_nome}.\n\nSeu atendimento com Franciele Sofiati está marcado para hoje às ${data.hora}.\n\nAté breve.`],
+    retorno: ["Pós-atendimento / retorno", `Olá, ${data.primeiro_nome}. Tudo bem?\n\nEstamos entrando em contato para saber como você está após seu atendimento.\n\nSe precisar falar conosco ou tiver alguma dúvida, estamos à disposição.`],
+    aniversario: ["Aniversário", `Feliz aniversário, ${data.primeiro_nome}! 🎂\n\nA equipe Franciele Sofiati deseja um dia muito especial para você.`],
+  };
+  useEffect(() => { checked(db.from("consents").select("kind,status").eq("patient_id", patient?.id)).then(setConsents).catch(() => setConsents([])); }, [patient?.id]);
+  const allowedPhone = whatsapp(patient?.phone);
+  const marketingAllowed = consents.some((c) => c.kind === "publicacao_marketing" && c.status === "aceito");
+  const [message, setMessage] = useState(templates[template][1]);
+  useEffect(() => setMessage(templates[template][1]), [template]);
+  const open = () => { if (!allowedPhone) return notify(t("Telefone não disponível em formato válido.", "Phone is not available in a valid format.")); window.open(`${allowedPhone}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer"); notify(t("Mensagem preparada. Abrir no WhatsApp", "Message prepared. Open in WhatsApp")); close(); };
+  return <Dialog title={t("Preparar mensagem", "Prepare message")} close={close}>
+    <div className="whatsapp-composer">
+      <p className="subtle">{patientName(appointment, t)} · {date(appointment.starts_at, true)}</p>
+      <Field title={t("Modelo", "Template")} value={template} onChange={setTemplate} options={Object.entries(templates).map(([value, labels]) => ({ value, label: labels[0] }))} />
+      {!marketingAllowed && <p className="consent-note"><ShieldCheck size={15} /> {t("Modelos promocionais desativados: consentimento de marketing não confirmado.", "Promotional templates disabled: marketing consent is not confirmed.")}</p>}
+      <Field title={t("Mensagem editável", "Editable message")} type="textarea" value={message} onChange={setMessage} />
+      <p className="subtle">{t("A aplicação não confirma o envio. Revise a mensagem antes de abrir o WhatsApp.", "The application cannot confirm delivery. Review the message before opening WhatsApp.")}</p>
+      <footer className="form-footer"><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={MessageCircle} onClick={open} disabled={!allowedPhone}>{t("Abrir no WhatsApp", "Open WhatsApp")}</Button></footer>
+    </div>
+  </Dialog>;
 }
+
+const agendaDay = (value) => String(value || "").slice(0, 10);
+const agendaTime = (value) => {
+  const match = String(value || "").match(/T(\d{2}:\d{2})/);
+  return match ? match[1] : "—";
+};
+
+function AgendaEvent({ appointment, onSelect }) {
+  const t = useT();
+  return <button type="button" className={`agenda-simple-event agenda-simple-event--${statusTone(appointment.status)}`} onClick={() => onSelect(appointment)}>
+    <time>{agendaTime(appointment.starts_at)}</time><strong>{patientName(appointment, t)}</strong><small>{appointment.label || t("Atendimento", "Appointment")}</small>
+  </button>;
+}
+
+function AgendaPanel({ appointment, close, openPatient, setModal, writable }) {
+  const t = useT();
+  return <aside className="agenda-simple-panel" aria-label={t("Detalhes do agendamento", "Appointment details")}>
+    <div className="agenda-simple-panel__top"><p className="eyebrow">{t("Agendamento", "Appointment")}</p><Button icon={X} className="icon" onClick={close} aria-label={t("Fechar", "Close")} /></div>
+    <h2>{patientName(appointment, t)}</h2><p className="agenda-simple-panel__time"><Clock size={16} /> {agendaDay(appointment.starts_at)} · {agendaTime(appointment.starts_at)}</p><Status value={appointment.status} />
+    <dl><div><dt>{t("Tipo", "Type")}</dt><dd>{appointment.label || t("Atendimento", "Appointment")}</dd></div><div><dt>{t("Telefone", "Phone")}</dt><dd>{appointment.patients?.phone || "—"}</dd></div></dl>
+    <div className="agenda-simple-panel__actions">{appointment.patients && <Button icon={UserRound} onClick={() => { openPatient(appointment.patients); close(); }}>{t("Abrir paciente", "Open patient")}</Button>}{writable && <Button icon={Pencil} onClick={() => setModal({ type: "appointment", appointment, patient: appointment.patients })}>{t("Editar agendamento", "Edit appointment")}</Button>}{appointment.patients?.phone && <Button icon={MessageCircle} className="whatsapp-action" onClick={() => setModal({ type: "whatsapp", appointment, patient: appointment.patients })}>{t("Preparar WhatsApp", "Prepare WhatsApp")}</Button>}</div>
+  </aside>;
+}
+
+function Agenda({ openPatient, setModal, version, writable }) {
+  const t = useT();
+  const today = localDay();
+  const [anchor, setAnchor] = useState(today), [mode, setMode] = useState(() => window.innerWidth <= 700 ? "day" : "month"), [selected, setSelected] = useState(null), [query, setQuery] = useState(""), [statusFilter, setStatusFilter] = useState("all");
+  const start = mode === "month" ? monthStart(anchor) : mode === "week" ? shiftDay(anchor, -((atNoon(anchor).getDay() + 6) % 7)) : anchor;
+  const end = mode === "month" ? shiftDay(start, 42) : mode === "week" ? shiftDay(start, 7) : mode === "range" ? shiftDay(anchor, 31) : shiftDay(anchor, 1);
+  const state = useLoad(() => checked(db.from("appointments").select("id,patient_id,professional_id,starts_at,ends_at,status,label,version,patients(id,full_name,preferred_name,phone,email,cpf,birth_date)").gte("starts_at", `${start}T00:00:00-03:00`).lt("starts_at", `${end}T23:59:59-03:00`).order("starts_at").limit(300)), [start, end, version]);
+  const appointments = (state.data || []).filter((a) => validDateValue(a.starts_at)).filter((a) => statusFilter === "all" || a.status === statusFilter).filter((a) => !query || [patientName(a, t), a.label, a.patients?.phone].join(" ").toLowerCase().includes(query.toLowerCase()));
+  const monthDays = Array.from({ length: 42 }, (_, i) => shiftDay(monthStart(anchor), i - ((atNoon(monthStart(anchor)).getDay() + 6) % 7)));
+  const weekStart = shiftDay(anchor, -((atNoon(anchor).getDay() + 6) % 7));
+  const weekDays = Array.from({ length: 7 }, (_, i) => shiftDay(weekStart, i));
+  const hours = Array.from({ length: 14 }, (_, i) => i + 7);
+  const onDay = (day) => appointments.filter((a) => agendaDay(a.starts_at) === day);
+  const navigate = (direction) => setAnchor(mode === "month" ? localDay(new Date(atNoon(anchor).getFullYear(), atNoon(anchor).getMonth() + direction, 1, 12)) : shiftDay(anchor, (mode === "week" ? 7 : mode === "range" ? 31 : 1) * direction));
+  const newAppointment = (day, hour = "09:00") => writable && setModal({ type: "appointment", initialStart: `${day}T${hour}` });
+  const event = (a) => <AgendaEvent key={a.id} appointment={a} onSelect={setSelected} />;
+  return <div className="agenda-simple"><PageHead title={t("Agenda", "Schedule")} eyebrow={t("Operação clínica", "Clinical operations")}><span className="agenda-simple-count"><strong>{appointments.length}</strong> {t("agendamentos", "appointments")}</span></PageHead>
+    <div className="agenda-simple-toolbar"><div className="agenda-simple-nav"><Button onClick={() => setAnchor(today)}>{t("Hoje", "Today")}</Button><Button icon={ChevronLeft} className="icon" onClick={() => navigate(-1)} aria-label={t("Anterior", "Previous")} /><Button icon={ChevronRight} className="icon" onClick={() => navigate(1)} aria-label={t("Próximo", "Next")} /><h2>{anchor.slice(0, 7)}</h2></div><div className="agenda-simple-controls"><label className="agenda-simple-search"><Search size={16} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("Buscar paciente ou procedimento", "Search patient or procedure")} /></label><Field title={t("Status", "Status")} value={statusFilter} onChange={setStatusFilter} options={[{ value: "all", label: t("Todos os status", "All statuses") }, ...["agendado", "confirmado", "aguardando", "em_atendimento", "concluido", "cancelado", "faltou"].map((v) => ({ value: v, label: label(v, t) }))]} /><div className="segmented">{[["day", t("Dia", "Day")], ["week", t("Semana", "Week")], ["month", t("Mês", "Month")], ["range", t("31 dias", "31 days")]].map(([key, title]) => <button key={key} aria-pressed={mode === key} onClick={() => setMode(key)}>{title}</button>)}</div>{writable && <Button icon={Plus} className="primary" onClick={() => setModal({ type: "appointment" })}>{t("Novo agendamento", "New appointment")}</Button>}</div></div>
+    <div className="agenda-simple-mobile-strip">{Array.from({ length: 7 }, (_, i) => shiftDay(today, i - 2)).map((day) => <button key={day} className={day === anchor ? "selected" : ""} onClick={() => { setAnchor(day); setMode("day"); }}><small>{day.slice(5)}</small><strong>{day.slice(8)}</strong></button>)}</div>
+    {state.loading && <p className="loading">{t("Carregando agenda...", "Loading schedule...")}</p>}{state.error && <div className="notice error">{t("Não foi possível carregar os agendamentos.", "Could not load appointments.")}</div>}
+    <div className="agenda-simple-shell">{mode === "month" && <><div className="agenda-simple-weekdays">{["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"].map((d) => <span key={d}>{t(d, d)}</span>)}</div><div className="agenda-simple-month">{monthDays.map((day) => <div key={day} className={`agenda-simple-day ${day.slice(0, 7) === anchor.slice(0, 7) ? "" : "outside"} ${day === today ? "today" : ""}`} onDoubleClick={() => newAppointment(day)}><button type="button" className="agenda-simple-day-number" onClick={() => { setAnchor(day); setMode("day"); }}>{Number(day.slice(8))}</button><div className="agenda-simple-events">{onDay(day).slice(0, 4).map(event)}{onDay(day).length > 4 && <button type="button" className="agenda-simple-more" onClick={() => { setAnchor(day); setMode("day"); }}>+{onDay(day).length - 4}</button>}</div></div>)}</div></>}{mode === "week" && <div className="agenda-simple-week"><div className="agenda-simple-corner" />{weekDays.map((day) => <div className="agenda-simple-head" key={day}>{day.slice(5)}</div>)}{hours.flatMap((hour) => [<div className="agenda-simple-hour" key={`h${hour}`}>{String(hour).padStart(2, "0")}:00</div>, ...weekDays.map((day) => <div className="agenda-simple-slot" role="button" tabIndex="0" key={`${day}-${hour}`} onClick={() => newAppointment(day, `${String(hour).padStart(2, "0")}:00`)}>{onDay(day).filter((a) => Number(agendaTime(a.starts_at).slice(0, 2)) === hour).map(event)}</div>)])}</div>}{mode === "day" && <div className="agenda-simple-day-timeline">{hours.map((hour) => <div className="agenda-simple-time-row" key={hour}><time>{String(hour).padStart(2, "0")}:00</time><div onClick={() => newAppointment(anchor, `${String(hour).padStart(2, "0")}:00`)}>{onDay(anchor).filter((a) => Number(agendaTime(a.starts_at).slice(0, 2)) === hour).map(event)}</div></div>)}</div>}{mode === "range" && <div className="agenda-simple-range">{Array.from({ length: 31 }, (_, i) => shiftDay(anchor, i)).map((day) => <section key={day}><h3>{day}</h3>{onDay(day).map(event)}{!onDay(day).length && <p>{t("Livre", "Available")}</p>}</section>)}</div>}{!appointments.length && !state.loading && <Empty icon={CalendarDays}>{t("Nenhum agendamento neste período", "No appointments in this period")}</Empty>}</div>
+    {selected && <AgendaPanel appointment={selected} close={() => setSelected(null)} openPatient={openPatient} setModal={setModal} writable={writable} />}</div>;
+}
+
 function TaskForm({ task, patient, close, done, notify }) {
   const t = useT(),
     dirty = useDirty(),
@@ -3236,12 +3276,12 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
         eyebrow={t("Primeiro contato", "First contact")}
       >
         <a
-          className="button"
+          className="button primary forms-launch-button"
           href="https://francielesofiati.com/formulario"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <LinkIcon size={17} />
+          <FileText className="forms-launch-icon" size={18} />
           {t("Abrir formulário completo", "Open complete form")}
         </a>
       </PageHead>
@@ -4424,7 +4464,7 @@ function PreRegistration({ languageControl }) {
   return (
     <div className="auth-screen">
       <header className="auth-top">
-        <a href="https://francielesofiati.com">Franciele Sofiati</a>
+        <a href="https://francielesofiati.com" target="_blank" rel="noopener noreferrer">Franciele Sofiati</a>
         {languageControl}
       </header>
       <main className="preregister">
@@ -4441,7 +4481,7 @@ function PreRegistration({ languageControl }) {
                 "Our team will contact you.",
               )}
             </p>
-            <a href="https://francielesofiati.com">
+            <a href="https://francielesofiati.com" target="_blank" rel="noopener noreferrer">
               {t("Voltar ao site", "Back to website")}
             </a>
           </div>
@@ -4571,4 +4611,4 @@ function PreRegistration({ languageControl }) {
   );
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(<AppErrorBoundary t={(pt, en) => (localStorage.getItem("sofiati-language") === "en" ? en : pt)}><App /></AppErrorBoundary>);
