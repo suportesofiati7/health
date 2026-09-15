@@ -58,8 +58,20 @@ Deno.serve(
     if (b.action === "convite") {
       const email = clean(b.email, 254).toLowerCase();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw Error("email");
-      if (!["profissional", "recepcao", "leitura"].includes(b.role))
+      const supportedRoles = [
+        "proprietario", "profissional", "recepcao", "leitura",
+        "gestor_clinica", "coordenador_operacional", "medico", "enfermeiro",
+        "fisioterapeuta", "nutricionista", "psicologo", "assistente_clinico",
+        "secretaria", "financeiro", "auditor", "marketing", "suporte_ti",
+        "consultor_externo", "fornecedor",
+      ];
+      if (!supportedRoles.includes(b.role))
         throw Error("role");
+      // Only Franciele Sofiati's owner identity can create another full owner
+      // or technical-support owner. A technical owner may administer the
+      // system, but can never promote another person to that level.
+      if (["proprietario", "suporte_ti"].includes(b.role) && user.email?.toLowerCase() !== "suportesofiati@gmail.com")
+        throw Error("owner_only_sofiati");
       const { data: invited, error: inviteError } = await db.auth.admin.inviteUserByEmail(email, {
         redirectTo: origin,
       });
