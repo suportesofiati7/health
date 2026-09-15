@@ -862,6 +862,11 @@ function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
     setBusy(true);
     try {
       if (activation) {
+        const current = await checked(db.auth.getUser());
+        if (current.user?.email?.toLowerCase() !== email.trim().toLowerCase()) {
+          notify(t("O email informado não corresponde ao convite.", "The email does not match the invitation."));
+          return;
+        }
         if (password.length < 12 || password !== confirmPassword) {
           notify(
             t(
@@ -872,7 +877,7 @@ function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
           return;
         }
         await checked(db.auth.updateUser({ password }));
-        await invoke("staff", { action: "activate" });
+        await invoke("staff", { action: "activate", email });
         await onLogin();
       } else if (recovery) {
         await db.auth.resetPasswordForEmail(email, {
@@ -918,8 +923,7 @@ function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
               : t("Bem-vinda de volta", "Welcome back")}
         </h1>
         <form onSubmit={submit}>
-          {!activation && (
-            <Field
+          <Field
               name="email"
               title="Email"
               type="email"
@@ -928,7 +932,6 @@ function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
               value={email}
               onChange={setEmail}
             />
-          )}
           {!recovery && (
             <Field
               name="password"
@@ -1008,7 +1011,11 @@ function HomeView({
   writable,
   clinical,
 }) {
-  const t = useT(), today = localDay(), now = new Date();
+  const t = useT(), [clock, setClock] = useState(() => new Date()), now = clock, today = localDay(clock);
+  useEffect(() => {
+    const timer = window.setInterval(() => setClock(new Date()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
   const state = useLoad(async () => {
     const optional = (query) => checked(query).catch(() => []);
     const nextWeek = shiftDay(today, 7);
@@ -1027,7 +1034,7 @@ function HomeView({
       member?.role === "proprietario" ? optional(db.from("financial_records").select("id,total_cents,status,due_on,patient_id,financial_payments(amount_cents,status)").neq("status", "cancelado").limit(100)) : [],
     ]);
     return { appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance };
-  }, [version, member?.role, clinical]);
+  }, [version, member?.role, clinical, today]);
   return (
     <>
       <PageHead
@@ -1084,7 +1091,7 @@ function HomeView({
           const openBalance = (finance || []).reduce((sum, record) => sum + Math.max(0, Number(record.total_cents || 0) - (record.financial_payments || []).filter((payment) => payment.status === "recebido").reduce((paid, payment) => paid + Number(payment.amount_cents || 0), 0)), 0);
           return (
           <>
-            <section className="home-hero"><div><p className="eyebrow">{t("Command center · hoje", "Command center · today")}</p><h2>{t("Seu dia, com clareza.", "Your day, at a glance.")}</h2><p>{date(today, true)} · {activeAppointments.length} {t("atendimentos ativos", "active visits")}</p></div><div className="home-hero-orbit"><strong>{checkedIn.length}</strong><span>{t("em fluxo", "in flow")}</span></div></section>
+            <section className="home-hero"><div><p className="eyebrow">{t("Command center · hoje", "Command center · today")}</p><h2>{t("Seu dia, com clareza.", "Your day, at a glance.")}</h2><p data-live-clock>{date(now, true)} · {activeAppointments.length} {t("atendimentos ativos", "active visits")}</p></div><div className="home-hero-orbit"><strong>{checkedIn.length}</strong><span>{t("em fluxo", "in flow")}</span></div></section>
             <div className="home-metrics">
               <button onClick={() => navigate("agenda")}><span className="metric-icon metric-icon-sage"><CalendarDays size={17}/></span><strong>{activeAppointments.length}</strong><small>{t("agenda hoje", "today's schedule")}</small><i>{todayAppointments.filter((a) => a.status === "confirmado").length} {t("confirmados", "confirmed")}</i></button>
               <button onClick={() => navigate("agenda")}><span className="metric-icon metric-icon-rose"><UserCheck size={17}/></span><strong>{checkedIn.length}</strong><small>{t("aguardando / em atendimento", "waiting / in visit")}</small><i>{todayAppointments.filter((a) => a.status === "concluido").length} {t("concluídos", "completed")}</i></button>
@@ -4534,11 +4541,11 @@ function SettingsView({ member, updateMember, notify }) {
                         {user.profession} · {user.council} {user.registration}
                       </small>
                     </span>
-                    {user.role === "proprietario" ? (
+                    {user.role === "proprietario" && user.user_id === member.user_id ? (
                       <Status value="proprietario" />
                     ) : (
                       <>
-                        <Field
+                        {user.role === "proprietario" ? <Status value="proprietario" /> : <Field
                           title={t("Acesso", "Access")}
                           value={user.role}
                           disabled={busy}
@@ -4548,8 +4555,8 @@ function SettingsView({ member, updateMember, notify }) {
                             "recepcao",
                             "leitura",
                           ].map((s) => ({ value: s, label: label(s, t) }))}
-                        />
-                        <Field
+                        />}
+                        {user.role === "proprietario" ? <Status value={user.status} /> : <Field
                           title={t("Situação", "Status")}
                           value={user.status}
                           disabled={busy}
@@ -4560,9 +4567,9 @@ function SettingsView({ member, updateMember, notify }) {
                             "inativo",
                             "suspenso",
                           ].map((s) => ({ value: s, label: label(s, t) }))}
-                        />
-                        <Button
-                          icon={LinkIcon}
+                        />}
+                          <Button
+                            icon={LinkIcon}
                           disabled={
                             busy || !["ativo", "convidado"].includes(user.status)
                           }
@@ -4586,7 +4593,29 @@ function SettingsView({ member, updateMember, notify }) {
                             }
                           }}
                         >
-                          {t("Novo link", "New link")}
+                          {user.status === "convidado"
+                            ? t("Link de primeiro cadastro", "First setup link")
+                            : t("Novo link de acesso", "New access link")}
+                        </Button>
+                        <Button
+                          icon={Trash2}
+                          className="danger"
+                          disabled={busy}
+                          onClick={async () => {
+                            if (!window.confirm(t(`Excluir definitivamente ${user.name || user.email}?`, `Permanently delete ${user.name || user.email}?`))) return;
+                            setBusy(true);
+                            try {
+                              await invoke("staff", { action: "delete", user_id: user.user_id });
+                              state.refresh();
+                              notify(t("Usuário excluído.", "User deleted."));
+                            } catch {
+                              notify(t("Não foi possível excluir o usuário. Verifique se ele não possui registros vinculados.", "Could not delete the user. Check whether linked records exist."));
+                            } finally {
+                              setBusy(false);
+                            }
+                          }}
+                        >
+                          {t("Excluir", "Delete")}
                         </Button>
                       </>
                     )}
@@ -4832,7 +4861,7 @@ function InviteForm({ close, done, notify }) {
           title={t("Nível de acesso", "Access level")}
           value={form.role}
           onChange={(v) => setForm((f) => ({ ...f, role: v }))}
-          options={["proprietario", "profissional", "recepcao", "leitura"].map((s) => ({
+          options={["profissional", "recepcao", "leitura"].map((s) => ({
             value: s,
             label: label(s, t),
           }))}

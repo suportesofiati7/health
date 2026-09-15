@@ -50,7 +50,7 @@ try{
     const {context,page}=await contextFor(width,height);
     await page.goto(origin);await page.getByRole('heading',{name:'Bem-vinda de volta'}).waitFor();await noOverflow(page);
     await page.screenshot({path:`test-results/login-${width}.png`,fullPage:true});
-    await signIn(page);await page.getByRole('heading',{name:'Seu dia, com clareza.',exact:true}).first().waitFor();await noOverflow(page);await page.screenshot({path:`test-results/today-${width}.png`,fullPage:true});
+    await signIn(page);await page.getByRole('heading',{name:'Seu dia, com clareza.',exact:true}).first().waitFor();assert.match(await page.locator('[data-live-clock]').innerText(),/^\d{2}\/\d{2}\/\d{4}, \d{2}:\d{2} · /);await noOverflow(page);await page.screenshot({path:`test-results/today-${width}.png`,fullPage:true});
     await navigation(page,'Pacientes');await page.getByRole('button').filter({hasText:patient.preferred_name}).first().click();await page.getByRole('heading',{name:patient.preferred_name,exact:true}).waitFor();await noOverflow(page);await page.screenshot({path:`test-results/patient-${width}.png`,fullPage:true});
     await page.getByRole('button',{name:'Prontuário',exact:true}).click();await page.getByText(entry.content,{exact:true}).first().waitFor();await page.getByText('Ver registro completo',{exact:true}).first().click();await page.getByText(/Fictitious payload/).waitFor();
     for (const tab of ['Dados','Documentos e fotos','Fotografia clínica','Planos','Procedimentos','Saúde','Consentimentos','Privacidade / portal','Agenda e retornos','Administrativo','Histórico']) { await page.getByRole('button',{name:tab,exact:true}).click(); await noOverflow(page); }
