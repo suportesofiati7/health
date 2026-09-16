@@ -213,6 +213,21 @@ function Field({
     </label>
   );
 }
+
+function FilePicker({ accept, capture, multiple = false, disabled = false, name, onChange, className = "", value }) {
+  const t = useT();
+  const input = useRef(null);
+  const files = value === undefined ? [] : (Array.isArray(value) ? value : value ? [value] : []);
+  const handleChange = (event) => onChange?.(multiple ? [...event.target.files] : (event.target.files[0] || null));
+  const fileLabel = files.length
+    ? (files.length === 1 ? files[0].name : `${files.length} ${t("arquivos selecionados", "files selected")}`)
+    : t("Nenhum arquivo escolhido", "No file chosen");
+  return <span className={`file-picker ${className}`}>
+    <input ref={input} className="file-picker-input" name={name} type="file" accept={accept} capture={capture} multiple={multiple} disabled={disabled} onChange={handleChange} />
+    <button type="button" className="file-picker-button" disabled={disabled} onClick={() => input.current?.click()}>{t("Escolher arquivo", "Choose file")}</button>
+    <span className="file-picker-name" title={fileLabel}>{fileLabel}</span>
+  </span>;
+}
 function usePrivateImage(bucket, path) {
   const [url, setUrl] = useState("");
   useEffect(() => {
@@ -270,7 +285,7 @@ function PhotoPicker({ value, onChange, hasPhoto = false, onRemove, title }) {
   };
   const capture = () => { if (!videoReady || !video.current?.videoWidth) return; const canvas = document.createElement("canvas"); canvas.width = video.current.videoWidth; canvas.height = video.current.videoHeight; canvas.getContext("2d").drawImage(video.current, 0, 0); canvas.toBlob((blob) => { if (blob) onChange(new File([blob], "profile-photo.jpg", { type: "image/jpeg" })); stop(); }, "image/jpeg", .9); };
   return <div className="photo-picker">
-    <label className="field"><span>{title || t("Foto do perfil", "Profile photo")}</span><input type="file" accept="image/*" capture="user" onChange={(e) => { setCameraError(""); onChange(e.target.files[0] || null); }} /></label>
+    <label className="field"><span>{title || t("Foto do perfil", "Profile photo")}</span><FilePicker accept="image/*" capture="user" onChange={(file) => { setCameraError(""); onChange(file); }} value={value} /></label>
     {(preview || value) && <div className="photo-picker-preview"><img src={preview} alt={t("Pré-visualização da foto selecionada", "Preview of selected photo")} /><div><strong>{t("Pré-visualização", "Preview")}</strong><small>{value?.name || "photo"}</small></div></div>}
     <div className="photo-picker-actions"><Button type="button" icon={Camera} onClick={openCamera}>{t("Usar câmera", "Use camera")}</Button>{(value || hasPhoto) && <Button type="button" icon={Trash2} onClick={() => onRemove ? onRemove() : onChange(null)}>{t("Remover foto", "Remove photo")}</Button>}</div>
     {cameraError && <p className="notice error">{cameraError}</p>}
@@ -3507,6 +3522,23 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
     state.refresh();
     return row;
   };
+  const deleteIntake = async () => {
+    if (!confirm(t("Excluir este formulário permanentemente? Os arquivos enviados também serão removidos.", "Permanently delete this form? Uploaded files will also be removed."))) return;
+    setBusy(true);
+    try {
+      await invoke("files", { action: "delete_intake", intake_id: selected.id });
+      setSelected(null);
+      state.refresh();
+      notify(t("Formulário excluído permanentemente.", "Form permanently deleted."));
+    } catch (error) {
+      const reason = `${error?.code || ""} ${error?.message || ""}`.toLowerCase();
+      notify(reason.includes("retention_hold")
+        ? t("Este formulário está sob retenção legal e só pode ser excluído pela proprietária.", "This form is under legal hold and can only be deleted by the owner.")
+        : reason.includes("function") || reason.includes("pgrst202")
+          ? t("A exclusão de formulários ainda não está ativa no servidor. Aplique a migração e publique novamente.", "Form deletion is not active on the server yet. Apply the migration and publish again.")
+          : t("Não foi possível excluir o formulário. Verifique sua permissão e tente novamente.", "Could not delete the form. Check your permission and try again."));
+    } finally { setBusy(false); }
+  };
   const review = async (row) => {
     setSelected(row);
     setNotes(row.internal_notes);
@@ -3813,6 +3845,14 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
               >
                 {t("Arquivar", "Archive")}
               </Button>
+              <Button
+                icon={Trash2}
+                className="danger"
+                disabled={busy}
+                onClick={deleteIntake}
+              >
+                {t("Excluir permanentemente", "Delete permanently")}
+              </Button>
             </footer>
           )}
         </Dialog>
@@ -3905,11 +3945,11 @@ function DocumentForm({ patient, entries = [], close, done, notify }) {
           <Paperclip size={28} />
           <label>
             <span>{t("Selecionar arquivo", "Choose file")}</span>
-            <input
-              type="file"
+            <FilePicker
               accept="application/pdf,image/jpeg,image/png,image/webp"
               disabled={!!uploaded}
-              onChange={(e) => setFile(e.target.files[0] || null)}
+              onChange={setFile}
+              value={file}
             />
           </label>
           <small>PDF · JPG · PNG · WebP · 8 MB</small>
@@ -4733,11 +4773,11 @@ function SettingsView({ member, updateMember, notify }) {
             <h2>{t("Abrir backup criptografado", "Open encrypted backup")}</h2>
             <label className="field">
               <span>{t("Arquivo de backup", "Backup file")}</span>
-              <input
-                type="file"
+              <FilePicker
                 accept="application/json,.json"
                 multiple
-                onChange={(e) => setRecoveryFile([...e.target.files])}
+                onChange={setRecoveryFile}
+                value={recoveryFile}
               />
             </label>
             <Field

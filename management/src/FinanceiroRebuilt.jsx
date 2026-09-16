@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertCircle,
   Check,
@@ -41,6 +41,17 @@ const derivedStatus = (record) => {
   if (record.due_on && record.due_on < localDay()) return "vencido";
   return "pendente";
 };
+
+function FinanceFilePicker({ name, accept }) {
+  const t = useT();
+  const input = useRef(null);
+  const [fileName, setFileName] = useState("");
+  return <span className="file-picker">
+    <input ref={input} className="file-picker-input" name={name} type="file" accept={accept} onChange={(event) => setFileName(event.target.files[0]?.name || "")} />
+    <button type="button" className="file-picker-button" onClick={() => input.current?.click()}>{t("Escolher arquivo", "Choose file")}</button>
+    <span className="file-picker-name">{fileName || t("Nenhum arquivo escolhido", "No file chosen")}</span>
+  </span>;
+}
 
 function Field({ label: title, value, onChange, type = "text", options, ...props }) {
   const [passwordVisible, setPasswordVisible] = useState(false);

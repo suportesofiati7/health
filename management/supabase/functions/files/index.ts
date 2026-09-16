@@ -47,6 +47,23 @@ Deno.serve(
       }
       return reply(req, { deleted: patientId });
     }
+    if (body?.action === "delete_intake") {
+      const intakeId = String(body.intake_id || "");
+      if (!intakeId) throw Error("intake_not_found");
+      const { data: files, error: fileLookupError } = await scoped
+        .from("public_intake_files")
+        .select("path")
+        .eq("intake_id", intakeId);
+      if (fileLookupError) throw fileLookupError;
+      const { error: deleteError } = await scoped.rpc("delete_public_intake", { target_intake: intakeId });
+      if (deleteError) throw deleteError;
+      const paths = (files || []).map((file) => file.path);
+      if (paths.length) {
+        const { error: removeError } = await db.storage.from("intake-private").remove(paths);
+        if (removeError) throw Error("storage_remove");
+      }
+      return reply(req, { deleted: intakeId });
+    }
     const bytes = await bounded(req, 8500000);
     const form = await new Response(bytes, {
       headers: { "Content-Type": req.headers.get("content-type") || "" },

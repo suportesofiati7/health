@@ -3623,6 +3623,44 @@ progress {
   background: var(--surface-soft);
 }
 
+/* Keep browser-native file controls from leaking English copy into the UI. */
+.file-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  vertical-align: middle;
+}
+.file-picker-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.file-picker-button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 9px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--surface-raised);
+  cursor: pointer;
+  font: inherit;
+}
+.file-picker-button:hover { border-color: var(--brand-gold-500); }
+.file-picker-button:disabled { opacity: .55; cursor: not-allowed; }
+.file-picker-name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.upload-zone .file-picker { margin: 15px auto; }
+.upload-zone .file-picker-name { max-width: 260px; }
+
 /* ==========================================================================
    DIALOGS
    ========================================================================== */
