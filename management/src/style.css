@@ -3631,10 +3631,13 @@ progress {
   max-width: 100%;
   vertical-align: middle;
 }
-.file-picker-input {
+.file-picker-input,
+.upload-zone .file-picker-input {
   position: absolute;
   width: 1px;
   height: 1px;
+  max-width: 1px;
+  min-width: 1px;
   opacity: 0;
   pointer-events: none;
 }
@@ -3660,6 +3663,40 @@ progress {
 }
 .upload-zone .file-picker { margin: 15px auto; }
 .upload-zone .file-picker-name { max-width: 260px; }
+
+.context-menu {
+  position: fixed;
+  z-index: 1000;
+  display: grid;
+  min-width: 220px;
+  padding: 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-overlay);
+}
+.context-menu-heading {
+  overflow: hidden;
+  padding: 8px 10px 7px;
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.context-menu button {
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--text);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+.context-menu button:hover,
+.context-menu button:focus-visible { background: var(--surface-soft); outline: 0; }
+.context-menu button.danger { color: var(--danger, #a54d45); }
+.context-menu button.danger:hover,
+.context-menu button.danger:focus-visible { background: color-mix(in srgb, var(--danger, #a54d45) 10%, transparent); }
 
 /* ==========================================================================
    DIALOGS

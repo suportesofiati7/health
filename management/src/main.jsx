@@ -135,6 +135,17 @@ function Empty({ icon: Icon = ClipboardList, children }) {
     </div>
   );
 }
+function PatientContextMenu({ patient, x, y, close, openPatient, setModal }) {
+  const t = useT();
+  const action = (callback) => { close(); callback(); };
+  return <div className="context-menu" role="menu" style={{ left: x, top: y }} onContextMenu={(event) => event.preventDefault()}>
+    <strong className="context-menu-heading">{patient.preferred_name || patient.full_name || t("Paciente", "Patient")}</strong>
+    <button type="button" role="menuitem" onClick={() => action(() => openPatient(patient))}>{t("Abrir prontuário", "Open record")}</button>
+    <button type="button" role="menuitem" onClick={() => action(() => setModal({ type: "patient", patient }))}>{t("Editar cadastro", "Edit details")}</button>
+    <button type="button" role="menuitem" onClick={() => action(() => setModal({ type: "patient-lifecycle", patient }))}>{patient.status === "inativo" ? t("Reativar paciente", "Restore patient") : t("Arquivar paciente", "Archive patient")}</button>
+    <button type="button" role="menuitem" className="danger" onClick={() => action(() => setModal({ type: "patient-lifecycle", patient }))}>{t("Excluir permanentemente", "Delete permanently")}</button>
+  </div>;
+}
 function Field({
   name,
   title,
@@ -1203,7 +1214,15 @@ function Patients({ openPatient, setModal, version, writable }) {
     [search, setSearch] = useState(""),
     [term, setTerm] = useState(""),
     [showArchived, setShowArchived] = useState(false),
-    [page, setPage] = useState(0);
+    [page, setPage] = useState(0),
+    [contextMenu, setContextMenu] = useState(null);
+  useEffect(() => {
+    const close = () => setContextMenu(null);
+    const onKeyDown = (event) => event.key === "Escape" && close();
+    document.addEventListener("click", close);
+    document.addEventListener("keydown", onKeyDown);
+    return () => { document.removeEventListener("click", close); document.removeEventListener("keydown", onKeyDown); };
+  }, []);
   useEffect(() => {
     const id = setTimeout(() => {
       setTerm(safeSearch(search));
@@ -1272,8 +1291,14 @@ function Patients({ openPatient, setModal, version, writable }) {
                   key={p.id}
                   className="patient-row"
                   onClick={() => openPatient(p)}
+                  onContextMenu={(event) => {
+                    if (!writable) return;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    setContextMenu({ patient: p, x: Math.min(event.clientX, window.innerWidth - 250), y: Math.min(event.clientY, window.innerHeight - 230) });
+                  }}
                 >
-                  <Avatar person={p} onReplace={() => writable && setModal({ type: "patient", patient: p })} />
+                  <Avatar person={p} />
                   <span className="patient-identity">
                     <strong>
                       {p.full_name || t("Paciente sem nome", "Unnamed patient")}
@@ -1302,6 +1327,7 @@ function Patients({ openPatient, setModal, version, writable }) {
               </Empty>
             )}
             <Pager page={page} count={patients.length} setPage={setPage} />
+            {contextMenu && <PatientContextMenu {...contextMenu} close={() => setContextMenu(null)} openPatient={openPatient} setModal={setModal} />}
           </>
         )}
       </LoadState>
