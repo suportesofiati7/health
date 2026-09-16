@@ -1375,6 +1375,7 @@ function Patients({ openPatient, setModal, version, writable }) {
                   writable && { icon: CalendarPlus, label: t("Agendar atendimento", "Schedule appointment"), onClick: () => setModal({ type: "appointment", patient: p }) },
                   writable && { icon: MessageCircle, label: t("Enviar mensagem", "Send message"), onClick: () => setModal({ type: "communication", patient: p }) },
                   writable && { icon: Archive, label: p.status === "inativo" ? t("Reativar paciente", "Restore patient") : t("Arquivar paciente", "Archive patient"), onClick: () => setModal({ type: "patient-lifecycle", patient: p }) },
+                  writable && { icon: Trash2, label: t("Excluir permanentemente", "Delete permanently"), danger: true, onClick: () => setModal({ type: "patient-lifecycle", patient: p }) },
                 ]}>
                 <button
                   key={p.id}
@@ -3653,11 +3654,12 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
     state.refresh();
     return row;
   };
-  const deleteIntake = async () => {
+  const deleteIntake = async (target = selected) => {
+    if (!target?.id) return;
     if (!confirm(t("Excluir este formulário permanentemente? Os arquivos enviados também serão removidos.", "Permanently delete this form? Uploaded files will also be removed."))) return;
     setBusy(true);
     try {
-      await invoke("files", { action: "delete_intake", intake_id: selected.id });
+      await invoke("files", { action: "delete_intake", intake_id: target.id });
       setSelected(null);
       state.refresh();
       notify(t("Formulário excluído permanentemente.", "Form permanently deleted."));
@@ -3773,9 +3775,15 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
         {(rows) => (
           <>
             {rows.map((row) => (
+              <ContextActions key={row.id} label={row.full_name || t("Formulário", "Form")} actions={[
+                { icon: Eye, label: t("Revisar formulário", "Review form"), onClick: () => review(row) },
+                row.patient_id && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: async () => { const patient = await checked(db.from("patients").select("*").eq("id", row.patient_id).single()); openPatient(patient); } },
+                row.phone && { icon: Phone, label: t("Ligar", "Call"), onClick: () => { window.location.href = `tel:${digits(row.phone)}`; } },
+                row.email && { icon: Mail, label: t("Enviar email", "Send email"), onClick: () => { window.location.href = `mailto:${row.email}`; } },
+                writable && { icon: Trash2, label: t("Excluir formulário", "Delete form"), danger: true, onClick: () => deleteIntake(row) },
+              ]}>
               <button
                 className="patient-row"
-                key={row.id}
                 onClick={() => review(row)}
               >
                 <Avatar person={row} />
@@ -3789,6 +3797,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
                 <Status value={row.status} />
                 <ChevronRight size={18} />
               </button>
+              </ContextActions>
             ))}
             {!rows.length && (
               <Empty icon={Inbox}>
