@@ -99,6 +99,7 @@ import "./style.css";
 import FinanceiroRebuilt from "./FinanceiroRebuilt";
 import CommunicationHub from "./CommunicationHub";
 import { documentEscape, openDocument, receiptDocumentHTML, reportDocumentHTML } from "./documentSystem";
+import ContextActions from "./ContextActions";
 // App chrome and generated documents share the same clinic brand source.
 const LOGO = "/brand.png";
 function Button({ icon: Icon, children, className = "", ...props }) {
@@ -489,7 +490,8 @@ function Clinic({ language, setLanguage }) {
     [modal, setModal] = useState(null),
     [version, setVersion] = useState(0),
     [toast, setToast] = useState(""),
-    [menu, setMenu] = useState(false);
+    [menu, setMenu] = useState(false),
+    [commandOpen, setCommandOpen] = useState(false);
   const notify = (text) => setToast(text);
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -613,6 +615,16 @@ function Clinic({ language, setLanguage }) {
       return () => clearTimeout(id);
     }
   }, [toast]);
+  useEffect(() => {
+    const onShortcut = (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setCommandOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onShortcut);
+    return () => window.removeEventListener("keydown", onShortcut);
+  }, []);
   const languageControl = (
     <div className="languages" aria-label={t("Idioma", "Language")}>
       {["pt", "en"].map((l) => (
@@ -753,6 +765,7 @@ function Clinic({ language, setLanguage }) {
                   ? t("Prontuário", "Patient record")
                   : nav.find((n) => n[0] === view)?.[2]}
               </span>
+              <button className="global-command-trigger" onClick={() => setCommandOpen(true)} aria-label={t("Buscar paciente ou ação", "Search a patient or action")}><Search size={17} /><span>{t("Buscar paciente ou agir…", "Search or take action…")}</span><kbd>⌘ K</kbd></button>
               <div className="topbar-right">
                 {languageControl}
                 <Button
@@ -906,6 +919,7 @@ function Clinic({ language, setLanguage }) {
           {toast}
         </div>
       )}
+      <CommandPalette open={commandOpen} close={() => setCommandOpen(false)} openPatient={openPatient} setModal={setModal} navigate={navigate} writable={writable} clinical={clinical} view={view} patient={patient} />
     </>
   );
 }
@@ -1049,6 +1063,74 @@ function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
       <footer className="auth-footer">Franciele Sofiati · Londrina, PR</footer>
     </div>
   );
+}
+
+function CommandPalette({ open, close, openPatient, setModal, navigate, writable, clinical, view, patient }) {
+  const t = useT();
+  const inputRef = useRef(null);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    setQuery("");
+    setResults([]);
+    requestAnimationFrame(() => inputRef.current?.focus());
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || query.trim().length < 2) {
+      setResults([]);
+      return undefined;
+    }
+    let live = true;
+    const timer = setTimeout(async () => {
+      setLoading(true);
+      try {
+        const term = safeSearch(query.trim());
+        const rows = await checked(db.from("patients").select("*").eq("status", "ativo").or(`full_name.ilike.%${term}%,preferred_name.ilike.%${term}%,cpf.ilike.%${term}%,phone.ilike.%${term}%,email.ilike.%${term}%`).order("full_name").limit(8));
+        if (live) setResults(rows || []);
+      } catch {
+        if (live) setResults([]);
+      } finally {
+        if (live) setLoading(false);
+      }
+    }, 180);
+    return () => { live = false; clearTimeout(timer); };
+  }, [open, query]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") close();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, close]);
+
+  if (!open) return null;
+  const run = (callback) => { close(); callback(); };
+  const actions = [
+    writable && { icon: UserRoundPlus, label: t("Novo paciente", "New patient"), hint: t("Cadastrar sem sair da tela", "Add without leaving this screen"), run: () => setModal({ type: "patient" }) },
+    writable && { icon: CalendarPlus, label: t("Agendar atendimento", "Schedule appointment"), hint: t("Abrir agenda já com o contexto", "Open scheduling with context"), run: () => setModal({ type: "appointment", patient }) },
+    writable && { icon: ListChecks, label: t("Nova tarefa", "New task"), hint: t("Criar uma próxima ação", "Create a next action"), run: () => setModal({ type: "task", patient }) },
+    clinical && patient && { icon: Stethoscope, label: t("Novo atendimento", "New consultation"), hint: t("Registrar no prontuário atual", "Record in the current chart"), run: () => setModal({ type: "entry", kind: "atendimento", patient }) },
+    writable && patient && { icon: MessageCircle, label: t("Enviar mensagem", "Send message"), hint: t("Usar os dados deste paciente", "Use this patient's details"), run: () => setModal({ type: "communication", patient }) },
+  ].filter(Boolean);
+  const destinations = [
+    [Home, t("Início", "Today"), "home"], [CalendarDays, t("Agenda", "Schedule"), "agenda"], [Users, t("Pacientes", "Patients"), "patients"], [ClipboardList, t("Tarefas", "Tasks"), "tasks"], [Inbox, t("Formulários", "Forms"), "enquiries"],
+  ];
+  return <div className="command-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && close()}>
+    <section className="command-palette" role="dialog" aria-modal="true" aria-labelledby="command-title">
+      <div className="command-search"><Search size={20} /><input ref={inputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t("Buscar paciente ou ação…", "Search a patient or action…")} aria-label={t("Buscar paciente ou ação", "Search a patient or action")} /><kbd>ESC</kbd></div>
+      <div className="command-body">
+        <p className="command-label" id="command-title">{query.trim().length >= 2 ? t("Pacientes encontrados", "Patients found") : patient ? t("Ações neste paciente", "Actions for this patient") : t("Ações rápidas", "Quick actions")}</p>
+        {query.trim().length >= 2 ? <>{loading && <p className="command-empty">{t("Buscando…", "Searching…")}</p>}{!loading && results.map((item) => <button className="command-item" key={item.id} onClick={() => run(() => openPatient(item))}><Avatar person={item} size={34} /><span><strong>{item.preferred_name || item.full_name}</strong><small>{item.phone || item.email || t("Abrir prontuário", "Open patient record")}</small></span><ArrowRight size={16} /></button>)}{!loading && !results.length && <p className="command-empty">{t("Nenhum paciente encontrado. Tente nome, CPF ou telefone.", "No patient found. Try a name, CPF, or phone number.")}</p>}</> : <><div className="command-actions">{actions.map((item) => <button className="command-action" key={item.label} onClick={() => run(item.run)}><span className="command-icon"><item.icon size={18} /></span><span><strong>{item.label}</strong><small>{item.hint}</small></span><ArrowRight size={15} /></button>)}</div><p className="command-label command-nav-label">{t("Ir para", "Go to")}</p><div className="command-destinations">{destinations.map(([Icon, labelText, key]) => <button key={key} className={view === key ? "active" : ""} onClick={() => run(() => navigate(key))}><Icon size={16} />{labelText}</button>)}</div></>}
+      </div>
+      <footer className="command-footer"><span><kbd>⌘ K</kbd> {t("abrir a qualquer momento", "open anytime")}</span><span>{t("Ações ficam no contexto atual", "Actions stay in your current context")}</span></footer>
+    </section>
+  </div>;
 }
 function PageHead({ eyebrow, title, children }) {
   return (
@@ -1287,16 +1369,17 @@ function Patients({ openPatient, setModal, version, writable }) {
           <>
             <div className="patient-list">
               {patients.map((p) => (
+                <ContextActions key={p.id} label={p.preferred_name || p.full_name || t("Paciente", "Patient")} actions={[
+                  { icon: UserRound, label: t("Abrir prontuário", "Open record"), onClick: () => openPatient(p) },
+                  writable && { icon: Pencil, label: t("Editar cadastro", "Edit details"), onClick: () => setModal({ type: "patient", patient: p }) },
+                  writable && { icon: CalendarPlus, label: t("Agendar atendimento", "Schedule appointment"), onClick: () => setModal({ type: "appointment", patient: p }) },
+                  writable && { icon: MessageCircle, label: t("Enviar mensagem", "Send message"), onClick: () => setModal({ type: "communication", patient: p }) },
+                  writable && { icon: Archive, label: p.status === "inativo" ? t("Reativar paciente", "Restore patient") : t("Arquivar paciente", "Archive patient"), onClick: () => setModal({ type: "patient-lifecycle", patient: p }) },
+                ]}>
                 <button
                   key={p.id}
                   className="patient-row"
                   onClick={() => openPatient(p)}
-                  onContextMenu={(event) => {
-                    if (!writable) return;
-                    event.preventDefault();
-                    event.stopPropagation();
-                    setContextMenu({ patient: p, x: Math.min(event.clientX, window.innerWidth - 250), y: Math.min(event.clientY, window.innerHeight - 230) });
-                  }}
                 >
                   <Avatar person={p} />
                   <span className="patient-identity">
@@ -1317,6 +1400,7 @@ function Patients({ openPatient, setModal, version, writable }) {
                   <Status value={p.status} />
                   <ChevronRight size={18} />
                 </button>
+                </ContextActions>
               ))}
             </div>
             {!patients.length && (
@@ -1370,6 +1454,12 @@ function PatientLifecycleDialog({ patient, close, done, notify }) {
       console.error("delete_patient failed", error);
       notify(reason.includes("patient_has_payment")
         ? t("Este paciente tem pagamento registrado e só Franciele pode excluí-lo.", "This patient has a payment and only Franciele can delete them.")
+        : reason.includes("not_authorized")
+          ? t("Sua função não pode excluir este paciente. Use uma conta proprietária.", "Your role cannot delete this patient. Use an owner account.")
+          : reason.includes("database_constraint")
+            ? t("O servidor bloqueou a exclusão por um vínculo de dados. O registro foi preservado; veja o console para o código técnico.", "The server blocked deletion because of a data relationship. The record was preserved; see the console for the technical code.")
+            : reason.includes("storage")
+              ? t("Os arquivos privados não puderam ser removidos com segurança. Nada foi apagado.", "Private files could not be safely removed. Nothing was deleted.")
         : reason.includes("function") || reason.includes("pgrst202")
           ? t("A exclusão ainda não está ativa no servidor. Aplique as migrações e publique novamente.", "Deletion is not active on the server yet. Apply the migrations and publish again.")
           : t(`Não foi possível excluir o paciente. ${error?.message || "Verifique sua permissão e tente novamente."}`, `Could not delete the patient. ${error?.message || "Check your permission and try again."}`));
@@ -1858,6 +1948,14 @@ function Patient({
                     {t("Novo atendimento", "New consultation")}
                   </Button>
                 )}
+              </div>
+            </div>
+            <div className="patient-context-bar" aria-label={t("Ações rápidas do paciente", "Patient quick actions")}>
+              <span><Sparkles size={15} /> {t("Ações rápidas para este prontuário", "Quick actions for this record")}</span>
+              <div>
+                {writable && <Button icon={CalendarPlus} onClick={() => setModal({ type: "appointment", patient })}>{t("Agendar", "Schedule")}</Button>}
+                {writable && <Button icon={MessageCircle} onClick={() => setModal({ type: "communication", patient })}>{t("Comunicar", "Message")}</Button>}
+                {clinical && <Button icon={Plus} className="primary" onClick={() => actions("atendimento")}>{t("Registrar atendimento", "Record visit")}</Button>}
               </div>
             </div>
             <nav
@@ -2930,6 +3028,12 @@ function AppointmentRow({
 }) {
   const t = useT();
   return (
+    <ContextActions className="appointment-context-item" label={a.patients?.preferred_name || a.patients?.full_name || t("Agendamento", "Appointment")} actions={[
+      a.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(a.patients) },
+      clinical && a.patients && { icon: Stethoscope, label: t("Iniciar atendimento", "Start consultation"), onClick: () => setModal({ type: "entry", patient: a.patients, kind: "atendimento" }) },
+      writable && { icon: CalendarDays, label: t("Editar agendamento", "Edit appointment"), onClick: () => setModal({ type: "appointment", appointment: a, patient: a.patients }) },
+      writable && a.patients && { icon: MessageCircle, label: t("Enviar mensagem", "Send message"), onClick: () => setModal({ type: "communication", patient: a.patients, appointment: a }) },
+    ]}>
     <div className="appointment-row">
       <time>
         {new Intl.DateTimeFormat("pt-BR", {
@@ -2978,6 +3082,7 @@ function AppointmentRow({
         />
       )}
     </div>
+    </ContextActions>
   );
 }
 function AppointmentForm({ appointment, patient, initialStart, close, done, notify }) {
@@ -3223,9 +3328,9 @@ const agendaTime = (value) => {
 
 function AgendaEvent({ appointment, onSelect }) {
   const t = useT();
-  return <button type="button" className={`agenda-simple-event agenda-simple-event--${statusTone(appointment.status)}`} onClick={() => onSelect(appointment)}>
+  return <ContextActions className="agenda-event-context-item" label={patientName(appointment, t)} actions={[{ icon: Eye, label: t("Abrir detalhes", "Open details"), onClick: () => onSelect(appointment) }]}><button type="button" className={`agenda-simple-event agenda-simple-event--${statusTone(appointment.status)}`} onClick={() => onSelect(appointment)}>
     <time>{agendaTime(appointment.starts_at)}</time><strong>{patientName(appointment, t)}</strong><small>{appointment.label || t("Atendimento", "Appointment")}</small>
-  </button>;
+  </button></ContextActions>;
 }
 
 function AgendaPanel({ appointment, close, openPatient, setModal, writable }) {
@@ -3505,12 +3610,12 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
     <section className="task-centre-hero"><div><p className="eyebrow">{t("Visão de hoje", "Today at a glance")}</p><h2>{overdue.length ? t(`${overdue.length} item(ns) pedem atenção agora`, `${overdue.length} item(s) need attention now`) : t("Tudo sob controle por aqui", "Everything is under control here")}</h2><p>{t("O centro reúne tarefas, retornos e sinais clínicos usando apenas os registros da clínica.", "This centre brings together tasks, follow-ups, and clinical signals using only clinic records.")}</p></div><div className="task-ring" style={{ "--ring": `${Math.min(100, Math.round((todayAppointments.length / Math.max(1, data.appointments.length)) * 100))}%` }}><strong>{todayAppointments.length}</strong><span>{t("hoje", "today")}</span></div></section>
     <div className="task-metrics"><button className={group === "all" ? "active" : ""} onClick={() => setGroup("all")}><span className="metric-icon metric-icon-sage"><ListChecks size={17} /></span><b>{data.tasks.length}</b><small>{t("tarefas abertas", "open tasks")}</small></button><button className={group === "clinical" ? "active" : ""} onClick={() => setGroup("clinical")}><span className="metric-icon metric-icon-rose"><Stethoscope size={17} /></span><b>{data.followups.length + data.adverse.length}</b><small>{t("atenções clínicas", "clinical attention")}</small></button><button className="metric-action" onClick={createSuggestions} disabled={!writable || creating || !suggestions.length}><span className="metric-icon metric-icon-gold"><Sparkles size={17} /></span><b>{suggestions.length}</b><small>{creating ? t("criando...", "creating...") : t("sugestões da agenda", "schedule suggestions")}</small></button></div>
     <div className="task-centre-toolbar"><div className="segmented">{[["all", t("Tudo", "All")], ["clinical", t("Clínico", "Clinical")], ["operational", t("Operacional", "Operational")]].map(([key, text]) => <button key={key} aria-pressed={group === key} onClick={() => setGroup(key)}>{text}</button>)}</div><div className="segmented">{["pendente", "concluida", "cancelado"].map((s) => <button key={s} aria-pressed={status === s} onClick={() => { setStatus(s); setPage(0); }}>{label(s, t)}</button>)}</div></div>
-    {todayAppointments.length > 0 && <section className="task-today-panel"><div className="section-heading"><div><p className="eyebrow">{t("Próximos atendimentos", "Next appointments")}</p><h2>{t("A agenda que move o dia", "The schedule moving your day")}</h2></div><span className="task-count-pill">{todayAppointments.length} {t("hoje", "today")}</span></div><div className="task-appointment-grid">{todayAppointments.slice(0, 4).map((a) => <article className="task-appointment-card" key={a.id}><time>{timeLabel(a.starts_at)}</time><strong>{patientName(a, t)}</strong><small>{a.label || t("Atendimento", "Appointment")}</small><div><button onClick={() => a.patients && openPatient(a.patients)} title={t("Abrir paciente", "Open patient")}><UserRound size={15} /></button>{a.patients && <button onClick={() => quickWhatsApp(a.patients)} title="WhatsApp"><MessageCircle size={15} /></button>}<button onClick={() => setModal({ type: "appointment", appointment: a, patient: a.patients })} title={t("Editar agenda", "Edit schedule")}><Pencil size={15} /></button></div></article>)}</div></section>}
+    {todayAppointments.length > 0 && <section className="task-today-panel"><div className="section-heading"><div><p className="eyebrow">{t("Próximos atendimentos", "Next appointments")}</p><h2>{t("A agenda que move o dia", "The schedule moving your day")}</h2></div><span className="task-count-pill">{todayAppointments.length} {t("hoje", "today")}</span></div><div className="task-appointment-grid">{todayAppointments.slice(0, 4).map((a) => <ContextActions key={a.id} label={patientName(a, t)} actions={[a.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(a.patients) }, a.patients && { icon: MessageCircle, label: "WhatsApp", onClick: () => quickWhatsApp(a.patients) }, { icon: Pencil, label: t("Editar agenda", "Edit schedule"), onClick: () => setModal({ type: "appointment", appointment: a, patient: a.patients }) }]}><article className="task-appointment-card"><time>{timeLabel(a.starts_at)}</time><strong>{patientName(a, t)}</strong><small>{a.label || t("Atendimento", "Appointment")}</small><div><button onClick={() => a.patients && openPatient(a.patients)} title={t("Abrir paciente", "Open patient")}><UserRound size={15} /></button>{a.patients && <button onClick={() => quickWhatsApp(a.patients)} title="WhatsApp"><MessageCircle size={15} /></button>}<button onClick={() => setModal({ type: "appointment", appointment: a, patient: a.patients })} title={t("Editar agenda", "Edit schedule")}><Pencil size={15} /></button></div></article></ContextActions>)}</div></section>}
     <section className="task-list-centre">
       <div className="section-heading"><div><p className="eyebrow">{t("Fila priorizada", "Prioritized queue")}</p><h2>{t("O que precisa acontecer", "What needs to happen")}</h2></div><span className="subtle">{attention.length} {t("itens", "items")}</span></div>
       {state.loading && <p className="loading">{t("Carregando...", "Loading...")}</p>}
       {state.error && <div className="notice error">{t("Não foi possível carregar.", "Could not load.")}</div>}
-      {!state.loading && !state.error && <div className="action-list">{attention.map((item) => <article className={`action-card action-card-${item.kind} ${item.due && new Date(item.due) < now ? "is-overdue" : ""}`} key={`${item.source}-${item.id}`}><button className="action-check" onClick={() => item.source === "task" ? complete(item) : item.patients && openPatient(item.patients)} title={item.source === "task" ? t("Concluir", "Complete") : t("Abrir paciente", "Open patient")}>{item.source === "task" ? <Check size={16} /> : <ChevronRight size={16} />}</button><div className="action-main"><div><span className="action-kicker">{item.kind === "clinical" ? t("Cuidado clínico", "Clinical care") : t("Operação", "Operations")}</span><strong>{item.title || t("Tarefa", "Task")}</strong><small>{item.patients?.preferred_name || item.patients?.full_name || t("Clínica", "Clinic")}{item.due ? ` · ${date(item.due, item.source === "task")}` : ""}</small></div>{item.source === "task" && <Status value={item.priority} />}</div><div className="action-tools">{item.patients && <><button onClick={() => openPatient(item.patients)} title={t("Paciente", "Patient")}><UserRound size={15} /></button><button onClick={() => quickWhatsApp(item.patients)} title="WhatsApp"><MessageCircle size={15} /></button><button onClick={() => setModal({ type: "appointment", patient: item.patients })} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button></>}{item.source === "task" && writable && <button onClick={() => setModal({ type: "task", task: item, patient: item.patients })} title={t("Editar", "Edit")}><Pencil size={15} /></button>}</div></article>)}{!attention.length && <Empty icon={CheckCircle2}>{t("Nenhuma atenção nesta combinação de filtros.", "No attention items match these filters.")}</Empty>}</div>}
+      {!state.loading && !state.error && <div className="action-list">{attention.map((item) => <ContextActions key={`${item.source}-${item.id}`} label={item.title || t("Tarefa", "Task")} actions={[item.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(item.patients) }, item.patients && { icon: MessageCircle, label: "WhatsApp", onClick: () => quickWhatsApp(item.patients) }, item.patients && { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => setModal({ type: "appointment", patient: item.patients }) }, item.source === "task" && writable && { icon: Pencil, label: t("Editar tarefa", "Edit task"), onClick: () => setModal({ type: "task", task: item, patient: item.patients }) }, item.source === "task" && { icon: Check, label: t("Concluir", "Complete"), onClick: () => complete(item) }]}><article className={`action-card action-card-${item.kind} ${item.due && new Date(item.due) < now ? "is-overdue" : ""}`}><button className="action-check" onClick={() => item.source === "task" ? complete(item) : item.patients && openPatient(item.patients)} title={item.source === "task" ? t("Concluir", "Complete") : t("Abrir paciente", "Open patient")}>{item.source === "task" ? <Check size={16} /> : <ChevronRight size={16} />}</button><div className="action-main"><div><span className="action-kicker">{item.kind === "clinical" ? t("Cuidado clínico", "Clinical care") : t("Operação", "Operations")}</span><strong>{item.title || t("Tarefa", "Task")}</strong><small>{item.patients?.preferred_name || item.patients?.full_name || t("Clínica", "Clinic")}{item.due ? ` · ${date(item.due, item.source === "task")}` : ""}</small></div>{item.source === "task" && <Status value={item.priority} />}</div><div className="action-tools">{item.patients && <><button onClick={() => openPatient(item.patients)} title={t("Paciente", "Patient")}><UserRound size={15} /></button><button onClick={() => quickWhatsApp(item.patients)} title="WhatsApp"><MessageCircle size={15} /></button><button onClick={() => setModal({ type: "appointment", patient: item.patients })} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button></>}{item.source === "task" && writable && <button onClick={() => setModal({ type: "task", task: item, patient: item.patients })} title={t("Editar", "Edit")}><Pencil size={15} /></button>}</div></article></ContextActions>)}{!attention.length && <Empty icon={CheckCircle2}>{t("Nenhuma atenção nesta combinação de filtros.", "No attention items match these filters.")}</Empty>}</div>}
       <Pager page={page} count={data.tasks.length} setPage={setPage} />
     </section>
   </>;
@@ -3560,6 +3665,10 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
       const reason = `${error?.code || ""} ${error?.message || ""}`.toLowerCase();
       notify(reason.includes("retention_hold")
         ? t("Este formulário está sob retenção legal e só pode ser excluído pela proprietária.", "This form is under legal hold and can only be deleted by the owner.")
+        : reason.includes("not_authorized")
+          ? t("Sua função não pode excluir este formulário. Use uma conta proprietária.", "Your role cannot delete this form. Use an owner account.")
+          : reason.includes("storage")
+            ? t("Os anexos privados não puderam ser removidos com segurança. Nada foi apagado.", "Private attachments could not be safely removed. Nothing was deleted.")
         : reason.includes("function") || reason.includes("pgrst202")
           ? t("A exclusão de formulários ainda não está ativa no servidor. Aplique a migração e publique novamente.", "Form deletion is not active on the server yet. Apply the migration and publish again.")
           : t("Não foi possível excluir o formulário. Verifique sua permissão e tente novamente.", "Could not delete the form. Check your permission and try again."));

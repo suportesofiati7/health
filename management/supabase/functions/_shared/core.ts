@@ -37,8 +37,19 @@ export function endpoint(handler: (req: Request) => Promise<Response>) {
       return reply(req, { error: "origin" }, 403);
     try {
       return await handler(req);
-    } catch {
-      return reply(req, { error: "request_failed" }, 400);
+    } catch (error) {
+      // Keep the client-facing error actionable without exposing stack traces,
+      // SQL, tokens, or storage paths. This is important for audited workflows
+      // such as patient/intake deletion: the UI must be able to distinguish a
+      // permission block from a missing migration or a retention hold.
+      const values = error && typeof error === "object"
+        ? ["code", "message", "details", "hint"].map((key) => String((error as Record<string, unknown>)[key] || ""))
+        : [String(error || "")];
+      const raw = values.find((value) => /(?:patient_has_payment|retention_hold|not_authorized|patient_not_found|intake_not_found|storage_|function|pgrst|23503|23505)/i.test(value)) || values[0];
+      const known = raw.match(/patient_has_payment|retention_hold|not_authorized|patient_not_found|intake_not_found|storage_[a-z_]+/i)?.[0];
+      const code = known || (/^PGRST\d+$/i.test(raw) || /^23\d{3}$/.test(raw) ? "database_constraint" : /^[a-z][a-z0-9_:-]{1,79}$/i.test(raw) ? raw : "request_failed");
+      console.error("EDGE_REQUEST_FAILED", code);
+      return reply(req, { error: code }, 400);
     }
   };
 }

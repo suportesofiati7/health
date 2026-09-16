@@ -151,7 +151,16 @@ export async function save(table, values, existing) {
 }
 export async function invoke(name, body) {
   const { data, error } = await db.functions.invoke(name, { body });
-  if (error || data?.error) throw { code: data?.error || "request_failed" };
+  if (error) {
+    let payload = data;
+    try {
+      if (!payload && error.context?.json) payload = await error.context.json();
+    } catch {
+      // Supabase may already have consumed the response body.
+    }
+    throw { code: payload?.error || error.name || "request_failed", message: payload?.error || error.message || "request_failed" };
+  }
+  if (data?.error) throw { code: data.error, message: data.error };
   return data;
 }
 export async function portalRequest(body, token = "") {

@@ -250,6 +250,55 @@ button:focus-visible, .button:focus-visible, a:focus-visible, input:focus-visibl
 @media(max-width:600px){.agenda-hub-head-actions{width:100%;justify-content:space-between}.agenda-hub-head-actions .primary{flex:1}.agenda-kpis button{padding:12px}.agenda-hub-toolbar{display:grid}.agenda-hub-tools{display:grid;grid-template-columns:1fr auto}.agenda-hub-tools .agenda-simple-search{grid-column:1/-1;width:100%}.agenda-hub-tools .segmented{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr)}.agenda-hub-tools .segmented button{justify-content:center;min-height:40px;padding-inline:3px;font-size:10px}.agenda-filter-drawer{display:grid;grid-template-columns:1fr 1fr;align-items:end}.agenda-filter-drawer .field{min-width:0}.agenda-filter-drawer button{grid-column:1/-1}.agenda-list-row{grid-template-columns:62px 32px minmax(0,1fr) 28px}.agenda-list-row .status{display:none}.agenda-list-row>button{grid-column:4;grid-row:1}.agenda-list-row .avatar{width:32px!important;height:32px!important}.agenda-insights{position:fixed;inset:auto 8px 8px;width:auto;max-height:78vh;min-height:0;overflow:auto}.agenda-hub-calendar{border-radius:12px}.agenda-hub-calendar--day{width:100%}}
 @media print{.sidebar,.topbar,.app-footer,.agenda-hub-head-actions,.agenda-hub-toolbar,.agenda-kpis,.agenda-insights,.agenda-simple-panel{display:none!important}.workspace,main#main{padding:0!important}.agenda-hub-calendar{border:0;box-shadow:none}.agenda-simple-event{color:#111!important;background:#fff!important}}
 
+/* Context-first command surface: search and actions stay available without changing screens. */
+.global-command-trigger { display:flex; align-items:center; gap:9px; width:min(310px,28vw); min-height:38px; margin-left:auto; padding:0 11px; border:1px solid var(--ui-border); border-radius:10px; color:var(--ui-text-muted); background:var(--ui-surface-soft); text-align:left; font-size:12px; box-shadow:none; }
+.global-command-trigger:hover { color:var(--ui-text); border-color:var(--brand-champagne-300); background:var(--ui-surface); box-shadow:none; }
+.global-command-trigger span { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.global-command-trigger kbd, .command-search kbd, .command-footer kbd { padding:2px 5px; border:1px solid var(--ui-border); border-radius:5px; color:var(--ui-text-muted); background:var(--ui-surface); font:10px var(--font-ui); }
+.command-backdrop { position:fixed; inset:0; z-index:300; display:grid; place-items:start center; padding:10vh 20px 30px; background:rgb(24 34 27 / 42%); backdrop-filter:blur(4px); }
+.command-palette { width:min(660px,100%); overflow:hidden; border:1px solid var(--ui-border); border-radius:18px; background:var(--ui-surface); box-shadow:0 26px 80px rgb(20 29 21 / 30%); }
+.command-search { display:flex; align-items:center; gap:10px; min-height:62px; padding:0 18px; border-bottom:1px solid var(--ui-divider); color:var(--brand-terracotta-500); }
+.command-search input { flex:1; min-width:0; padding:0; border:0; outline:0; color:var(--ui-text); background:transparent; font-size:16px; }
+.command-body { max-height:min(60vh,520px); overflow:auto; padding:15px; }
+.command-label { margin:0 3px 9px; color:var(--ui-text-muted); font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.command-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.command-action, .command-item { display:flex; align-items:center; gap:10px; width:100%; padding:11px; border:1px solid var(--ui-border); border-radius:11px; color:var(--ui-text); background:var(--ui-surface); text-align:left; box-shadow:none; }
+.command-action:hover, .command-item:hover { border-color:var(--brand-champagne-300); background:var(--ui-surface-active); box-shadow:none; }
+.command-action > span:nth-child(2), .command-item > span { flex:1; min-width:0; }
+.command-action strong, .command-item strong { display:block; font-size:12px; }
+.command-action small, .command-item small { display:block; margin-top:2px; overflow:hidden; color:var(--ui-text-muted); font-size:10px; text-overflow:ellipsis; white-space:nowrap; }
+.command-icon { display:grid; place-items:center; width:32px; height:32px; flex-shrink:0; border-radius:9px; color:var(--brand-terracotta-500); background:var(--brand-ivory-100); }
+.command-nav-label { margin-top:19px; }
+.command-destinations { display:flex; gap:7px; flex-wrap:wrap; }
+.command-destinations button { display:inline-flex; align-items:center; gap:6px; min-height:34px; padding:7px 10px; border:1px solid var(--ui-border); border-radius:8px; color:var(--ui-text-secondary); background:var(--ui-surface-soft); font-size:11px; box-shadow:none; }
+.command-destinations button:hover, .command-destinations button.active { border-color:var(--brand-champagne-300); color:var(--ui-text); background:var(--ui-surface-active); box-shadow:none; }
+.command-empty { padding:26px 8px; color:var(--ui-text-muted); text-align:center; font-size:12px; }
+.command-item { margin-bottom:7px; }
+.command-footer { display:flex; justify-content:space-between; gap:12px; padding:10px 16px; border-top:1px solid var(--ui-divider); color:var(--ui-text-muted); font-size:10px; }
+.patient-context-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:10px 0 14px; padding:9px 12px; border:1px solid var(--ui-border); border-radius:11px; color:var(--ui-text-secondary); background:var(--ui-surface-soft); font-size:11px; }
+.patient-context-bar > span { display:inline-flex; align-items:center; gap:6px; }
+.patient-context-bar > span svg { color:var(--brand-terracotta-500); }
+.patient-context-bar > div { display:flex; gap:6px; flex-wrap:wrap; }
+.patient-context-bar button { min-height:31px; padding:6px 9px; font-size:11px; }
+.context-actions { position:relative; min-width:0; }
+.context-actions-trigger { position:absolute; z-index:2; top:50%; right:8px; display:grid; place-items:center; width:29px; height:29px; padding:0; transform:translateY(-50%); border:1px solid transparent; border-radius:7px; color:var(--ui-text-muted); background:transparent; opacity:0; box-shadow:none; }
+.context-actions:hover > .context-actions-trigger, .context-actions:focus-within > .context-actions-trigger, .context-actions-trigger:focus-visible { opacity:1; }
+.context-actions-trigger:hover { border-color:var(--ui-border); color:var(--ui-text); background:var(--ui-surface); box-shadow:none; }
+.context-actions-menu { position:absolute; z-index:350; top:calc(100% + 6px); right:8px; display:grid; width:min(235px,calc(100vw - 28px)); padding:6px; border:1px solid var(--ui-border); border-radius:11px; background:var(--ui-surface); box-shadow:0 15px 35px rgb(20 29 21 / 20%); }
+.context-actions-menu-floating { position:fixed; top:auto; right:auto; }
+.context-actions-menu > strong { padding:6px 9px 7px; overflow:hidden; color:var(--ui-text-muted); font-size:10px; text-overflow:ellipsis; white-space:nowrap; }
+.context-actions-menu > button { display:flex; align-items:center; gap:8px; min-height:34px; padding:7px 9px; border:0; border-radius:7px; color:var(--ui-text); background:transparent; text-align:left; font-size:11px; box-shadow:none; }
+.context-actions-menu > button:hover { background:var(--ui-surface-active); box-shadow:none; }
+.context-actions-menu > button.danger { color:var(--brand-terracotta-deep); }
+.appointment-context-item > .context-actions-trigger { right:2px; }
+.appointment-context-item .appointment-row { padding-right:42px; }
+.task-appointment-grid > .context-actions, .action-list > .context-actions { min-width:0; }
+.task-appointment-grid > .context-actions .context-actions-trigger { top:9px; right:7px; transform:none; }
+.action-list > .context-actions .context-actions-trigger { top:14px; right:12px; transform:none; }
+.finance-table tr { position:relative; }
+.finance-table tr:hover .finance-detail-button { opacity:1; }
+@media (max-width:760px) { .global-command-trigger { width:38px; margin-left:auto; padding:0; justify-content:center; }.global-command-trigger span,.global-command-trigger kbd { display:none; }.command-actions { grid-template-columns:1fr; }.command-footer { flex-direction:column; }.patient-context-bar { align-items:flex-start; flex-direction:column; }.patient-context-bar > div { width:100%; }.patient-context-bar button { flex:1; } }
+
 /* ======================= TASK ACTION CENTRE ============================== */
 .task-head-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .agenda-simple { max-width: 100%; overflow-x: clip; }
@@ -2327,7 +2376,59 @@ details .form-grid {
 .calendar-panel dd { margin: 0; color: var(--text); font-size: 12px; text-align: right; overflow-wrap: anywhere; }
 .panel-actions { display: grid; gap: 9px; margin-top: 28px; }
 .panel-actions button { width: 100%; }
-.whatsapp-action { border-color: color-mix(in srgb, #25d366 40%, var(--border)); color: #168346; background: color-mix(in srgb, #25d366 9%, var(--surface)); }
+.whatsapp-action {
+  border-color: #55b879;
+  color: #0d5c31;
+  background: #e5f7eb;
+}
+.whatsapp-action:hover:not(:disabled),
+.whatsapp-action:focus-visible {
+  border-color: #168346;
+  color: #073d20;
+  background: #ccefd8;
+}
+:root[data-theme="dark"] .whatsapp-action {
+  border-color: #55c77e;
+  color: #d7ffe3;
+  background: #153b26;
+}
+:root[data-theme="dark"] .whatsapp-action:hover:not(:disabled),
+:root[data-theme="dark"] .whatsapp-action:focus-visible {
+  border-color: #86e8a5;
+  color: #effff3;
+  background: #205b38;
+}
+
+/* Compact agenda workspace: keep the calendar visible above the fold. */
+@media (min-width: 901px) {
+  main#main:has(.agenda-hub) { padding-top: 24px; }
+  .agenda-hub .page-head { margin-bottom: 10px; padding-bottom: 10px; }
+  .agenda-hub .page-head h1 { font-size: clamp(28px, 2.4vw, 38px); }
+  .agenda-hub .agenda-hub-head-actions { gap: 9px; }
+  .agenda-hub .agenda-hub-head-actions .primary { min-height: 38px; padding: 8px 12px; }
+  .agenda-hub .agenda-kpis { gap: 8px; margin-bottom: 10px; }
+  .agenda-hub .agenda-kpis button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 9px 12px;
+  }
+  .agenda-hub .agenda-kpis span { font-size: 10px; }
+  .agenda-hub .agenda-kpis strong { order: 2; font-size: 21px; }
+  .agenda-hub .agenda-kpis small { order: 3; margin-left: auto; font-size: 9px; }
+  .agenda-hub .agenda-hub-toolbar { gap: 10px; margin-bottom: 8px; }
+  .agenda-hub .agenda-simple-nav { flex: 0 0 auto; gap: 5px; }
+  .agenda-hub .agenda-simple-nav h2 { font-size: 17px; }
+  .agenda-hub .agenda-hub-tools { flex: 1; flex-wrap: nowrap; gap: 6px; }
+  .agenda-hub .agenda-hub-tools .agenda-simple-search { flex: 1 1 260px; width: auto; min-width: 170px; min-height: 38px; }
+  .agenda-hub .agenda-hub-tools > button:not(.icon) { min-height: 38px; padding: 8px 11px; }
+  .agenda-hub .agenda-hub-tools .segmented button { min-height: 38px; padding: 8px 10px; }
+  .agenda-hub .agenda-hub-calendar--week .agenda-simple-slot { min-height: 56px; }
+  .agenda-hub .agenda-hub-calendar--week .agenda-simple-hour { padding-block: 7px; }
+  .agenda-hub .agenda-hub-calendar--month .agenda-simple-month { grid-auto-rows: minmax(88px, 1fr); }
+  .agenda-hub .agenda-hub-calendar--month .agenda-simple-day { padding: 6px; }
+}
 
 @media (max-width: 760px) {
   main#main { padding: 22px 14px 40px; }
@@ -4257,6 +4358,99 @@ button.primary, .button.primary { color: var(--ui-primary-text, #fff); backgroun
 .finance-status-parcial { color: var(--brand-gold-deep); background: var(--brand-champagne-soft); }
 .finance-status-vencido { color: var(--brand-terracotta-deep); background: var(--brand-blush-soft, var(--brand-blush)); }
 .finance-status-cancelado, .finance-status-corrigido { color: var(--ui-text-muted); background: var(--ui-surface-muted, var(--ui-surface-soft)); }
+
+/* ======================== CONTRAST GUARANTEE =============================
+   Keep semantic text roles separate from decorative brand fills.  Several
+   older component rules use the brand accent directly as text; the darker
+   light-theme value and lighter dark-theme value below keep that text
+   readable on normal surfaces in either mode. */
+:root, :root[data-theme="dark"] {
+  --ui-accent-text: var(--brand-terracotta-deep);
+  --ui-on-accent: var(--ui-text);
+  --ui-on-primary: var(--ui-primary-text);
+  --ui-on-soft: var(--ui-text);
+  --ui-surface-muted: var(--ui-surface-soft);
+  --brand-blush-soft: var(--brand-blush);
+}
+
+:root[data-theme="dark"] {
+  --ui-accent-text: #f0c0b7;
+  --ui-on-accent: #2b211f;
+  --ui-on-primary: #354235;
+  --ui-on-soft: var(--ui-text);
+}
+
+/* Accent labels are text, not filled pills. */
+.eyebrow {
+  color: var(--ui-accent-text);
+  background: transparent;
+}
+
+a,
+.text-button,
+.text-action,
+.agenda-simple-more,
+.tabs button.selected,
+.patient-heading .eyebrow {
+  color: var(--ui-accent-text);
+}
+
+.tabs button.selected {
+  background: transparent;
+  border-bottom-color: var(--ui-accent-text);
+}
+
+/* Filled accent markers keep a contrasting label/icon where applicable. */
+.timeline details::before,
+.today .day-number,
+.agenda-zero-day.today .agenda-zero-day-number,
+.agenda-simple-day.today .agenda-simple-day-number {
+  color: var(--ui-on-accent);
+}
+
+.sidebar nav button.selected {
+  color: var(--ui-on-primary);
+  background: var(--ui-primary);
+}
+
+button.primary,
+.button.primary,
+.finance-primary {
+  color: var(--ui-on-primary);
+}
+
+:root[data-theme="dark"] button.primary,
+:root[data-theme="dark"] .button.primary,
+:root[data-theme="dark"] .finance-primary {
+  color: var(--ui-on-primary);
+}
+
+/* Soft status surfaces need their own dark text in light mode and light text
+   in dark mode; inheriting a decorative sage/pink token is not sufficient. */
+.finance-status-pago,
+.finance-status-parcial,
+.finance-status-vencido,
+.finance-status-cancelado,
+.finance-status-corrigido,
+.task-count-pill,
+.attention-count,
+.provenance,
+.metric-icon,
+.journey-number {
+  text-shadow: none;
+}
+
+.finance-status-pago { color: #28532e; }
+.finance-status-parcial { color: #62470d; }
+.finance-status-vencido { color: #713229; }
+.finance-status-cancelado,
+.finance-status-corrigido { color: var(--ui-text-secondary); }
+
+:root[data-theme="dark"] .finance-status-pago { color: #d5f3d6; }
+:root[data-theme="dark"] .finance-status-parcial { color: #ffdfa0; }
+:root[data-theme="dark"] .finance-status-vencido { color: #ffd0c8; }
+:root[data-theme="dark"] .finance-status-cancelado,
+:root[data-theme="dark"] .finance-status-corrigido { color: var(--ui-text-secondary); }
 
 
 
