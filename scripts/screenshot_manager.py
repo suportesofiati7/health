@@ -342,6 +342,10 @@ async function settle(page) {
 
 
 def main() -> int:
+    if any(argument in {"-h", "--help"} for argument in sys.argv[1:]):
+        print(__doc__)
+        print("\nThe manager is interactive and offers page, viewport, element and full-page capture choices.")
+        return 0
     try:
         subprocess.run(["node", "-e", "require('playwright-core')"], cwd=ROOT, check=True, capture_output=True)
         pages, viewports = choose_pages(), choose_viewports()

@@ -50,8 +50,18 @@ export function placeholders(text) {
   ])];
 }
 
+// SQL-seeded models can contain the two literal characters "\\n". Normalize
+// them once at the shared boundary for WhatsApp, email, previews, and copies.
+export function normalizeMessageText(text) {
+  return String(text || '')
+    .replace(/\\r\\n/g, '\n')
+    .replace(/\\n/g, '\n')
+    .replace(/\\r/g, '\n')
+    .replace(/\\t/g, '\t');
+}
+
 export function renderTemplate(text, values) {
-  return String(text || '').replace(/\{\{([a-zA-Z0-9_]+)\}\}|\{([a-zA-Z0-9_]+)\}/g, (_, doubleKey, singleKey) => {
+  return normalizeMessageText(text).replace(/\{\{([a-zA-Z0-9_]+)\}\}|\{([a-zA-Z0-9_]+)\}/g, (_, doubleKey, singleKey) => {
     const key = doubleKey || singleKey;
     const value = values?.[key];
     return value === undefined || value === null ? (doubleKey ? `{{${key}}}` : `{${key}}`) : String(value);
@@ -73,7 +83,7 @@ export async function sendFormSubmitEmail({ recipient, subject, body, patient, s
       name: sender || 'Franciele Sofiati',
       email: sender || 'suportesofiati@gmail.com',
       recipient: patient?.full_name || patient?.preferred_name || '',
-      message: `FRANCIELE SOFIATI\n\n${body}`,
+      message: `FRANCIELE SOFIATI\n\n${normalizeMessageText(body).trim()}`,
     }),
   });
   if (!response.ok) throw new Error(`FormSubmit returned ${response.status}`);

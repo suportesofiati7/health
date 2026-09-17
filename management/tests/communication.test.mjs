@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { emailSubject, renderTemplate, valuesForPatient } from '../src/communicationTemplates.js';
+import { emailSubject, normalizeMessageText, renderTemplate, valuesForPatient } from '../src/communicationTemplates.js';
 
 const patient = {
   full_name: 'Ashlyn Ann Merrigan', preferred_name: 'Ashlyn', phone: '554399614069', email: 'team.ashtra.ai@gmail.com',
@@ -28,4 +28,10 @@ test('all seeded communication placeholders render for a complete Ashlyn fixture
 test('email subject keeps the Franciele Sofiati brand and a short human teaser', () => {
   assert.equal(emailSubject('', 'Cancelamento cuidadoso'), 'Franciele Sofiati · Cancelamento cuidadoso');
   assert.equal(emailSubject('Franciele Sofiati · Atualização do atendimento'), 'Franciele Sofiati · Atualização do atendimento');
+});
+
+test('escaped SQL line breaks become real WhatsApp line breaks', () => {
+  const rendered = renderTemplate('Olá, {{nome}}.\\n\\nTudo bem?', { nome: 'Ashlyn' });
+  assert.equal(rendered, 'Olá, Ashlyn.\n\nTudo bem?');
+  assert.equal(normalizeMessageText('a\\nb\\tc'), 'a\nb\tc');
 });

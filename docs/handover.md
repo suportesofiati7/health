@@ -19,11 +19,13 @@ The shipped site has no runtime npm dependencies. `npm audit --omit=dev` is clea
 | Edit Portuguese page copy | Edit the corresponding root HTML page; Portuguese is the default language. |
 | Update the English pair | Edit the mapped `en/` page in `data/page-pairs.json`, then run `npm run check:pt`. |
 | Check everything and build | `npm run release:check` |
-| Refresh robots/sitemap and audit SEO | `npm run seo:refresh` |
+| Refresh robots/sitemap and audit SEO | `npm run site:index` then `npm run seo` |
+| Update edited translations | `npm run site:translate` |
+| Commit and push with today's date | `npm run git:publish` |
 | Check a broken asset path | `npm run check:assets` |
 | Check consent and analytics hooks | `npm run check:analytics` |
-| Weekly performance evidence | `npm run maintain:performance` |
-| Full performance audit | `npm run perf:all && npm run perf:budget` |
+| Regular maintenance | `npm run maintain` |
+| Regular maintenance plus backend | `npm run maintain -- --backend` |
 
 ## Before editing
 
@@ -45,5 +47,5 @@ The shipped site has no runtime npm dependencies. `npm audit --omit=dev` is clea
 
 - Missing headers/footer in a source preview: use HTTP, not `file://`.
 - A language switcher link is wrong: update `data/page-pairs.json`; Portuguese and English slugs are allowed to differ.
-- Sitemap check says stale: run `python3 scripts/generate-robots.py` and `python3 scripts/generate-sitemap.py`, then rerun `npm run check:seo`.
+- Sitemap check says stale: run `npm run site:index`, then rerun `npm run seo`.
 - Build error after updating dependencies: delete only `node_modules/`, run `npm ci`, then rerun the release gate. Do not delete the lockfile to solve an install problem.

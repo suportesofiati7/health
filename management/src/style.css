@@ -302,6 +302,10 @@ button:focus-visible, .button:focus-visible, a:focus-visible, input:focus-visibl
 @keyframes context-menu-in { from { opacity:0; transform:translateY(-4px) scale(.98); } to { opacity:1; transform:none; } }
 .appointment-context-item > .context-actions-trigger { right:2px; }
 .appointment-context-item .appointment-row { padding-right:42px; }
+.agenda-list-context-item { display:block; }
+.agenda-list-context-item > .context-actions-trigger { top:50%; right:4px; }
+.agenda-list-context-item .agenda-list-row { padding-right:48px; }
+.agenda-simple-time-slot { min-width:0; }
 .task-appointment-grid > .context-actions, .action-list > .context-actions { min-width:0; }
 .task-appointment-grid > .context-actions .context-actions-trigger { top:9px; right:7px; transform:none; }
 .action-list > .context-actions .context-actions-trigger { top:14px; right:12px; transform:none; }

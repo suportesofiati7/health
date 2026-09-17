@@ -7,7 +7,8 @@
 3. Refresh search-discovery files after a route, canonical-origin or indexability change:
 
    ```bash
-   npm run seo:refresh
+   npm run site:index
+   npm run seo
    ```
 
 4. Run `npm run release:check` before handoff or deployment.

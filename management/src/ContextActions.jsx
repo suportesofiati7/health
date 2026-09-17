@@ -8,7 +8,7 @@ import { MoreHorizontal } from "lucide-react";
  */
 const LONG_PRESS_MS = 560;
 
-export default function ContextActions({ label, actions = [], children, className = "", actionLabel = "Ações / Actions", hint = "Clique com o botão direito ou use o botão de ações / Right-click or use the actions button" }) {
+export default function ContextActions({ label, actions = [], children, className = "", actionLabel = "Ações / Actions", hint = "Clique com o botão direito ou use o botão de ações / Right-click or use the actions button", showTrigger = true, ...props }) {
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -91,9 +91,9 @@ export default function ContextActions({ label, actions = [], children, classNam
     event.preventDefault();
     setActiveIndex((current) => (current + direction + availableActions.length) % availableActions.length);
   };
-  return <div ref={ref} className={`context-actions ${open ? "is-open" : ""} ${className}`} onContextMenu={(event) => show(event, true)} onTouchStart={startLongPress} onTouchMove={cancelLongPress} onTouchEnd={cancelLongPress} onClick={handleClick}>
+  return <div ref={ref} {...props} className={`context-actions ${open ? "is-open" : ""} ${className}`} onContextMenu={(event) => show(event, true)} onTouchStart={startLongPress} onTouchMove={cancelLongPress} onTouchEnd={cancelLongPress} onClick={handleClick}>
     {children}
-    <button ref={triggerRef} type="button" className="context-actions-trigger" aria-label={`${label}: ${actionLabel}`} aria-haspopup="menu" aria-expanded={open} title={`${actionLabel} · ${hint}`} onClick={(event) => { event.stopPropagation(); show(event); }}><MoreHorizontal size={17} aria-hidden="true" /><span className="sr-only">{actionLabel}</span></button>
+    {showTrigger && <button ref={triggerRef} type="button" className="context-actions-trigger" aria-label={`${label}: ${actionLabel}`} aria-haspopup="menu" aria-expanded={open} title={`${actionLabel} · ${hint}`} onClick={(event) => { event.stopPropagation(); show(event); }}><MoreHorizontal size={17} aria-hidden="true" /><span className="sr-only">{actionLabel}</span></button>}
     {open && <div className={`context-actions-menu ${position ? "context-actions-menu-floating" : ""}`} role="menu" aria-label={`${actionLabel}: ${label}`} style={position ? { left: position.x, top: position.y } : undefined} onClick={(event) => event.stopPropagation()} onKeyDown={(event) => {
       if (event.key === "ArrowDown" || event.key === "ArrowRight") move(event, 1);
       if (event.key === "ArrowUp" || event.key === "ArrowLeft") move(event, -1);

@@ -36,7 +36,7 @@ git diff --check
 
 `release:check` runs asset, PT-BR, SEO/discovery and analytics validation, then builds the deployable artifact. It does not publish anything.
 
-`npm run build` runs the unified `scripts/search_discovery.py --rebuild --no-notify`
+`npm run build` runs the unified `scripts/index-site.py --rebuild --no-notify`
 pre-build hook, so the committed public discovery files stay synchronized with
 the actual HTML route set. The deployment helper additionally runs the same
 command with IndexNow notifications enabled; its private state file is ignored

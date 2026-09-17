@@ -41,18 +41,19 @@ def read_text(path: Path) -> str:
 
 
 def validate_generated_files() -> tuple[int, int]:
-    sitemap_generator = load_script("sofiati_generate_sitemap", "generate-sitemap.py")
-    robots_generator = load_script("sofiati_generate_robots", "generate-robots.py")
+    discovery = load_script("sofiati_search_discovery", "search_discovery.py")
+    origin = discovery.origin()
+    pages, excluded = discovery.discover(origin)
 
     actual_sitemap = read_text(SITEMAP)
-    expected_sitemap = sitemap_generator.render_sitemap()
+    expected_sitemap = discovery.render_sitemap(pages)
     if actual_sitemap != expected_sitemap:
-        raise RuntimeError("sitemap.xml is stale; run python3 scripts/generate-sitemap.py")
+        raise RuntimeError("sitemap.xml is stale; run python3 scripts/index-site.py")
 
     actual_robots = read_text(ROBOTS)
-    expected_robots = robots_generator.render_robots()
+    expected_robots = discovery.render_robots(origin)
     if actual_robots != expected_robots:
-        raise RuntimeError("robots.txt is stale; run python3 scripts/generate-robots.py")
+        raise RuntimeError("robots.txt is stale; run python3 scripts/index-site.py")
 
     try:
         root = ET.fromstring(actual_sitemap)
@@ -91,7 +92,7 @@ def validate_generated_files() -> tuple[int, int]:
     for runtime_path in ("/assets/", "/css/", "/data/", "/js/", "/partials/"):
         if runtime_path in disallowed_paths:
             raise RuntimeError(f"robots.txt blocks a required render path: {runtime_path}")
-    return len(urls), len(robots_generator.NON_PUBLIC_PATHS)
+    return len(urls), len(excluded)
 
 
 def local_file_for_url(url: str, origin: str) -> Path:

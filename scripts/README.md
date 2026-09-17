@@ -14,47 +14,35 @@ Run commands from the repository root. Prefer the npm aliases below; they group 
 | `npm run build` | Recreate the deployable `dist/` output. |
 | `npm run release:check` | Validate, then build. Use before each deployment. |
 | `npm run serve` | Serve the built `dist/` output locally. |
-| `npm run seo:refresh` | Regenerate `robots.txt`/`sitemap.xml` and write the SEO maintenance report. |
-| `npm run seo:discover` | Discover public HTML routes, rebuild discovery files and notify IndexNow for changes. |
-| `npm run seo:validate` | Validate discovery files without writing or notifying. |
-| `npm run maintain:performance` | Run the weekly mobile performance sample and write recommendations. |
+| `npm run git:publish` | Add, commit with today's date and push to the current GitHub branch; use `--allow-empty` for a dated checkpoint. |
+| `npm run screenshots` | Open the interactive screenshot manager for routes, viewports and elements. |
+| `npm run site:index` | Update `robots.txt`, `sitemap.xml`, `llms.txt` and submit changed URLs to IndexNow. |
+| `npm run site:translate` | Incrementally update edited/created Portuguese pages and shared translations. |
+| `npm run seo` | Run the full internal/external link, metadata, schema, image, language and asset audit with terminal recommendations. |
+| `npm run seo:refresh` | Run the SEO audit and apply only reviewed deterministic metadata fixes. |
+| `npm run maintain` | Run the regular site and management maintenance checks; add `--backend` for Supabase migrations and Edge Functions. |
 
 ## Content and localization
 
 ```bash
-python3 scripts/export-editable-bilingual-content.py
-python3 scripts/apply-editable-bilingual-content.py --apply
+npm run site:translate
 npm run check:pt
 ```
 
-The export/apply pair creates one bilingual Word document with English and Brazilian Portuguese text in side-by-side editable columns. Review its preview before applying changes. Portuguese root pages are the published default-language source; update the mapped English page under `en/` and run `npm run check:pt` to verify the pair. Do not publish legacy `/pt/` output.
+The translation manager incrementally synchronizes edited, created and obsolete bilingual pages using the local translation engine and preserves reviewed overrides. Portuguese root pages are the published default-language source; update the mapped English page under `en/` and run `npm run check:pt` to verify the pair. Do not publish legacy `/pt/` output.
 
 ## Search and analytics
 
-Run `npm run seo:refresh` after changing public routes, indexability, canonical URLs or the canonical domain. It regenerates only discovery files and reports editorial issues; it does not invent marketing copy.
+Run `npm run site:index` after changing public routes, indexability, canonical URLs or the canonical domain. Run `npm run seo` for the complete audit. The SEO tool deliberately reports speculative filename, alt-text, schema and keyword changes for review rather than inventing clinical claims.
 
 After generated HTML or PT-BR output changes, run:
 
 ```bash
-python3 scripts/install-analytics.py
 npm run check:analytics
 ```
 
-The installer is idempotent and keeps analytics consent-gated.
-
-## Performance
-
-```bash
-npm run perf:images
-npm run perf:all
-npm run perf:budget
-npm run perf:ci
-```
-
-Use `npm run maintain:performance -- --full` before major releases. It removes its disposable `dist/` output when complete. Review generated `reports/` and `performance-reports/` before committing them.
-
-`python3 scripts/weekly-performance-maintenance.py --safe-fixes` previews the only automated markup remediation. Add `--apply-safe-fixes` only after review; it is limited to missing intrinsic dimensions on local raster images.
+Analytics configuration is maintained directly in the site source and checked by the validation command.
 
 ## Direct tools
 
-`generate-robots.py`, `generate-sitemap.py`, `check-seo-files.py`, `check-local-assets.py`, `check-seo-implementation.py`, `check-analytics-implementation.py`, `install-analytics.py` and `screenshot_manager.py` can be used directly when a focused check is more useful than the grouped npm command. Their names describe their scope; use `--help` for options.
+The top-level entrypoints are `git-publish.py`, `screenshot_manager.py`, `index-site.py`, `translate-site.py`, `seo.py` and `maintenance.py`. They call the focused validation/build modules internally. Use `--help` for options.

@@ -2,20 +2,16 @@
 
 Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-internal-links.py` after changes.
 
-- Canonical indexable pages: 192
-- Crawlable internal links: 1251
-- Broken internal links: 1
-- Orphan pages: 15
-- Underlinked pages (<2 internal links): 130
+- Canonical indexable pages: 190
+- Crawlable internal links: 1252
+- Broken internal links: 0
+- Orphan pages: 13
+- Underlinked pages (<2 internal links): 128
 
 ## Files
 
 - `internal-links.csv`: source, destination, descriptive anchor, status, rel and link type.
 - `internal-link-pages.csv`: incoming-link totals, click depth and orphan flag.
-
-## Broken internal links
-
-- `https://francielesofiati.com/en/blog/frugal-chic-intentional-aesthetic-care` → `https://francielesofiati.com/about`
 
 ## Underlinked pages
 
@@ -140,11 +136,9 @@ Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-i
 - `https://francielesofiati.com/en/blog/useful-questions-to-ask-before-an-aesthetic-procedure` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/visible-small-vessels-appearance-symptoms-and-assessment-are-not-the-same` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/when-an-overworked-skin-barrier-needs-a-pause` (1 incoming links; depth None)
-- `https://francielesofiati.com/en/form` (0 incoming links; depth None)
 - `https://francielesofiati.com/en/mission` (0 incoming links; depth None)
 - `https://francielesofiati.com/en/testimonials` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/values` (0 incoming links; depth None)
-- `https://francielesofiati.com/formulario` (0 incoming links; depth None)
 - `https://francielesofiati.com/missao` (0 incoming links; depth None)
 - `https://francielesofiati.com/perguntas` (1 incoming links; depth 1)
 - `https://francielesofiati.com/servicos/peeling-de-ata` (0 incoming links; depth None)
