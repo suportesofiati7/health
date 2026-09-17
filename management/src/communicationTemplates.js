@@ -1,10 +1,23 @@
 export const STANDARD_PLACEHOLDERS = [
   ['nome', 'Primeiro nome do cliente', 'Cliente'], ['nome_completo', 'Nome completo', 'Cliente'],
   ['telefone', 'Telefone', 'Cliente'], ['email', 'E-mail', 'Cliente'], ['cpf', 'CPF', 'Cliente'],
-  ['data_nascimento', 'Data de nascimento', 'Cliente'], ['numero_cliente', 'Código do cliente', 'Cliente'],
+  ['rg', 'RG/documento de identidade', 'Cliente'], ['cns', 'CNS', 'Cliente'],
+  ['data_nascimento', 'Data de nascimento', 'Cliente'], ['endereco_paciente', 'Endereço do paciente', 'Cliente'],
+  ['cidade', 'Cidade do paciente', 'Cliente'], ['estado', 'Estado do paciente', 'Cliente'],
+  ['ocupacao', 'Ocupação', 'Cliente'], ['convenio', 'Convênio', 'Cliente'],
+  ['contato_emergencia', 'Contato de emergência', 'Cliente'], ['responsavel_legal', 'Responsável legal', 'Cliente'],
+  ['numero_cliente', 'Código do cliente', 'Cliente'],
   ['numero_caso', 'Número interno do caso', 'Atendimento'], ['tipo_servico', 'Serviço/procedimento', 'Processo/serviço'],
   ['responsavel', 'Profissional responsável', 'Profissional'], ['data', 'Data relacionada', 'Agendamento'],
-  ['hora', 'Horário', 'Agendamento'], ['data_hora', 'Data e horário', 'Agendamento'], ['local', 'Endereço/local', 'Agendamento'],
+  ['hora', 'Horário', 'Agendamento'], ['data_hora', 'Data e horário', 'Agendamento'], ['data_consulta', 'Data da consulta', 'Agendamento'],
+  ['hora_consulta', 'Horário da consulta', 'Agendamento'], ['status_agendamento', 'Status do agendamento', 'Agendamento'],
+  ['modalidade', 'Modalidade', 'Agendamento'], ['local', 'Endereço/local', 'Agendamento'], ['local_ou_link', 'Endereço ou link', 'Agendamento'],
+  ['id_agendamento', 'Número do agendamento', 'Agendamento'],
+  ['nome_clinica', 'Nome da clínica', 'Clínica'], ['endereco_clinica', 'Endereço da clínica', 'Clínica'],
+  ['rua_clinica', 'Rua da clínica', 'Clínica'], ['numero_clinica', 'Número da clínica', 'Clínica'],
+  ['bairro_clinica', 'Bairro da clínica', 'Clínica'], ['cidade_clinica', 'Cidade da clínica', 'Clínica'],
+  ['estado_clinica', 'Estado da clínica', 'Clínica'], ['cep_clinica', 'CEP da clínica', 'Clínica'],
+  ['telefone_clinica', 'Telefone da clínica', 'Clínica'], ['link_mapa', 'Link do mapa', 'Clínica'],
   ['link', 'Link relevante', 'Atendimento'], ['link_reuniao', 'Link da reunião', 'Agendamento'], ['valor', 'Valor', 'Financeiro'],
   ['forma_pagamento', 'Forma de pagamento', 'Financeiro'], ['vencimento', 'Data de vencimento', 'Financeiro'],
   ['numero_parcela', 'Número da parcela', 'Financeiro'], ['documento', 'Nome do documento', 'Documentos'],
@@ -25,11 +38,25 @@ const textValue = (value) => String(value || '').trim();
 const objectText = (value) => value && typeof value === 'object' ? Object.values(value).filter(Boolean).join(', ') : textValue(value);
 const moneyValue = (cents) => Number.isFinite(Number(cents)) ? `R$ ${(Number(cents) / 100).toFixed(2).replace('.', ',')}` : '';
 
+export const CLINIC = Object.freeze({
+  name: 'Metropolitan Med Center',
+  street: 'Rua Mato Grosso',
+  number: '1114',
+  neighborhood: 'Centro',
+  city: 'Londrina',
+  state: 'PR',
+  postalCode: '86010-180',
+  telephone: '+55 43 99104-3536',
+  mapUrl: 'https://share.google/IVrtPxwbL6uukvSdo',
+});
+
+const clinicAddress = `${CLINIC.name}, ${CLINIC.street}, ${CLINIC.number}, ${CLINIC.neighborhood}, ${CLINIC.city} – ${CLINIC.state}`;
+
 export function valuesForPatient(patient, member, appointment) {
   const first = firstName(patient);
   const appointmentDate = dateValue(appointment?.starts_at);
   const appointmentTime = timeValue(appointment?.starts_at);
-  const address = patient?.address && typeof patient.address === 'object'
+  const patientAddress = patient?.address && typeof patient.address === 'object'
     ? [patient.address.street, patient.address.number, patient.address.neighborhood, patient.address.city, patient.address.state].filter(Boolean).join(', ')
     : '';
   const snapshot = appointment?.procedure_snapshot || {};
@@ -41,11 +68,12 @@ export function valuesForPatient(patient, member, appointment) {
   return {
     nome: first, primeiro_nome: first, nome_completo: textValue(patient?.full_name || patient?.preferred_name), telefone: textValue(patient?.phone), email: textValue(patient?.email),
     cpf: textValue(patient?.cpf), rg: textValue(patient?.rg), cns: textValue(patient?.cns), data_nascimento: birthDate,
-    endereco: address, cidade: textValue(patient?.address?.city), estado: textValue(patient?.address?.state), ocupacao: textValue(patient?.occupation), convenio: textValue(patient?.insurance),
+    endereco: clinicAddress, endereco_clinica: clinicAddress, rua_clinica: CLINIC.street, numero_clinica: CLINIC.number, bairro_clinica: CLINIC.neighborhood, cidade_clinica: CLINIC.city, estado_clinica: CLINIC.state, cep_clinica: CLINIC.postalCode, nome_clinica: CLINIC.name, telefone_clinica: CLINIC.telephone, link_mapa: CLINIC.mapUrl,
+    endereco_paciente: patientAddress, cidade: textValue(patient?.address?.city), estado: textValue(patient?.address?.state), ocupacao: textValue(patient?.occupation), convenio: textValue(patient?.insurance),
     contato_emergencia: objectText(patient?.emergency_contact), responsavel_legal: objectText(patient?.guardian),
     nome_atendente: professional, responsavel: professional, nome_profissional: professional, nome_empresa: 'Franciele Sofiati', data_hoje: dateValue(new Date()),
     data: appointmentDate || 'a combinar', hora: appointmentTime || 'a combinar', data_hora: appointmentDate && appointmentTime ? `${appointmentDate} às ${appointmentTime}` : 'a combinar',
-    data_consulta: appointmentDate || 'a combinar', hora_consulta: appointmentTime || 'a combinar', local: address || 'Londrina, PR', local_ou_link: address || 'Londrina, PR', link: 'este canal', link_reuniao: 'o link será enviado pela equipe', link_localizacao: 'a localização será enviada pela equipe', link_feedback: 'o link será enviado pela equipe', link_avaliacao: 'o link será enviado pela equipe',
+    data_consulta: appointmentDate || 'a combinar', hora_consulta: appointmentTime || 'a combinar', id_agendamento: textValue(appointment?.id), status_agendamento: textValue(appointment?.status) || 'a confirmar', local: clinicAddress, local_ou_link: textValue(appointment?.modality) === 'online' ? 'atendimento on-line — o link será enviado pela equipe' : clinicAddress, link: 'este canal', link_reuniao: 'o link será enviado pela equipe', link_localizacao: CLINIC.mapUrl, link_feedback: 'o link será enviado pela equipe', link_avaliacao: 'o link será enviado pela equipe',
     tipo_servico: service, tipo_atendimento: service, procedimento: service, modalidade: textValue(appointment?.modality) || 'presencial', assunto: service, observacao: textValue(appointment?.notes) || 'Se precisar de qualquer esclarecimento, estamos à disposição.', contexto: service,
     lista_informacoes: generic, lista_documentos: 'os documentos solicitados', documento: 'o documento solicitado', informacao_solicitada: 'a informação solicitada', perguntas_iniciais: 'qual é a sua principal dúvida e como podemos ajudar', meio_envio: 'este WhatsApp',
     indicador: 'uma pessoa conhecida', orientacao_documento: 'Se precisar de ajuda, pode nos escrever por aqui.', orientacao: 'Siga as orientações recebidas e, em caso de dúvida, fale conosco.', informacoes_atendimento: 'Se precisar alterar alguma informação, avise-nos com antecedência.', informacoes_pagamento: 'Se já realizou o pagamento, pode nos enviar o comprovante por aqui.',

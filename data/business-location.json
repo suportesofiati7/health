@@ -4,7 +4,7 @@
   "telephone": "+5543991043536",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "R. Mato Grosso, 1114",
+    "streetAddress": "Rua Mato Grosso, 1114",
     "addressLocality": "Londrina",
     "addressRegion": "PR",
     "postalCode": "86010-180",

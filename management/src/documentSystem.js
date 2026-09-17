@@ -18,12 +18,12 @@ export const DOCUMENT_CSS = `
 @media print{html,body{background:var(--ivory)}.document{width:210mm;margin:0;box-shadow:none}.document-print{display:none}.document-footer{break-inside:avoid}}
 `;
 
-export function documentHeader({ kicker = "Documento clínico · registro confidencial", title, subtitle = "", meta = "CRBM 6277 PR<br>Londrina · Paraná" }) {
+export function documentHeader({ kicker = "Documento clínico · registro confidencial", title, subtitle = "", meta = "Metropolitan Med Center<br>Rua Mato Grosso, 1114<br>Centro · Londrina · PR" }) {
   return `<header class="document-header"><div class="document-header-context"><p class="document-kicker">${kicker}</p><h1 class="document-title">${title}</h1>${subtitle ? `<p class="document-subtitle">${subtitle}</p>` : ""}</div><div class="document-header-meta">${meta}</div><div class="document-header-brand"><img class="document-header-logo" src="${DOCUMENT_LOGO}" alt="Franciele Sofiati"><div class="document-brand"><div class="document-brand-name">Franciele Sofiati</div><div class="document-brand-sub">Biomedicina estética avançada</div><div class="document-brand-credentials">CRBM 6277 PR · Londrina, Paraná</div></div></div></header>`;
 }
 
 export function documentFooter({ confidential = true } = {}) {
-  return `<footer class="document-footer"><span><strong>Franciele Sofiati</strong> · (43) 9 9999-9999 · contato@francielesofiati.com.br</span><span>CRBM 6277 PR · Londrina, Paraná${confidential ? " · Documento confidencial" : ""}</span></footer>`;
+  return `<footer class="document-footer"><span><strong>Metropolitan Med Center</strong> · Rua Mato Grosso, 1114 · Centro · Londrina – PR</span><span>Franciele Sofiati · CRBM 6277 PR${confidential ? " · Documento confidencial" : ""}</span></footer>`;
 }
 
 export function wrapDocument({ title, kicker, subtitle, body, meta, warning = "", confidential = true, autoPrint = true }) {

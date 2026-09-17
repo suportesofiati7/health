@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { emailSubject, normalizeMessageText, renderTemplate, valuesForPatient } from '../src/communicationTemplates.js';
+import { CLINIC, emailSubject, normalizeMessageText, renderTemplate, valuesForPatient } from '../src/communicationTemplates.js';
 
 const patient = {
   full_name: 'Ashlyn Ann Merrigan', preferred_name: 'Ashlyn', phone: '554399614069', email: 'team.ashtra.ai@gmail.com',
@@ -34,4 +34,23 @@ test('escaped SQL line breaks become real WhatsApp line breaks', () => {
   const rendered = renderTemplate('Olá, {{nome}}.\\n\\nTudo bem?', { nome: 'Ashlyn' });
   assert.equal(rendered, 'Olá, Ashlyn.\n\nTudo bem?');
   assert.equal(normalizeMessageText('a\\nb\\tc'), 'a\nb\tc');
+});
+
+test('appointment and clinic placeholders use the complete operational context', () => {
+  const values = valuesForPatient({ ...patient, cpf: '529.982.247-25' }, member, {
+    id: 'appointment-123456', starts_at: '2026-09-25T15:00:00-03:00', status: 'confirmado',
+    label: 'Consulta de revisão', modality: 'presencial', total_cents: 15000,
+  });
+  const rendered = renderTemplate(
+    '{{nome_completo}} · CPF {{cpf}} · {{telefone}}\n{{tipo_servico}} · {{data_hora}} · {{status_agendamento}}\n{{nome_clinica}} · {{endereco_clinica}} · {{link_mapa}} · {{numero_cliente}} · {{id_agendamento}}',
+    values,
+  );
+  assert.match(rendered, /Ashlyn Ann Merrigan/);
+  assert.match(rendered, /529\.982\.247-25/);
+  assert.match(rendered, /Consulta de revisão/);
+  assert.match(rendered, /25\/09\/2026 às 15:00/);
+  assert.match(rendered, /confirmado/);
+  assert.match(rendered, new RegExp(CLINIC.name));
+  assert.match(rendered, /Rua Mato Grosso, 1114, Centro, Londrina/);
+  assert.match(rendered, /appointment-123/);
 });
