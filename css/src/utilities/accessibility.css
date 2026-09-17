@@ -1,4 +1,11 @@
 @layer utilities {
+  /* Lighthouse found several low-contrast surfaces in the homepage's key
+     conversion and proof sections. Keep these colors readable in both locales. */
+  .sf-page[data-page="home"] #care-pathways .sf-content-card p { color: rgb(255 253 249 / .92); }
+  .sf-page[data-page="home"] #treatments-new .sf-home-mobile-chapter__note { color: var(--forest-900); }
+  .sf-page[data-page="home"] #results-in-context :is(.sf-home-results__factors p, figcaption) { color: rgb(255 253 249 / .92); }
+  .sf-page[data-page="home"] .sffo-button { color: var(--forest-900); }
+
   [data-reveal] { opacity: 1; transform: none; }
 
   /* Main content must remain in the natural document flow while scrolling. */

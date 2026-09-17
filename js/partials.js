@@ -63,23 +63,21 @@ async function fetchPagePairs() {
   return payload.pages;
 }
 
-function currentFilename() {
-  const path = decodeURIComponent(window.location.pathname || '').replace(/\/+$/, '');
-  if (!path || /\/(?:pt|pt-br|en)$/i.test(path)) return 'index.html';
-  const filename = path.split('/').pop() || 'index.html';
-  return filename.includes('.') ? filename : `${filename}.html`;
-}
-
-function pageKey(value) {
-  const filename = (value || '').split('/').pop() || 'index.html';
-  return filename.replace(/\.html?$/i, '') || 'index';
+function currentRoute() {
+  const path = decodeURIComponent(window.location.pathname || '')
+    .replace(/^\/+/, '')
+    .replace(/\/+$/, '');
+  if (!path) return 'index.html';
+  if (/^(?:en|pt|pt-br)$/i.test(path)) return `${path.toLowerCase()}/index.html`;
+  const last = path.split('/').pop() || 'index.html';
+  return last.includes('.') ? path : `${path}.html`;
 }
 
 function currentPagePair(pairs, portuguese) {
-  const key = pageKey(currentFilename());
+  const route = currentRoute();
   return pairs.find((pair) => {
     const candidate = portuguese ? pair['pt-BR'] : pair.en;
-    return typeof candidate === 'string' && pageKey(candidate) === key;
+    return typeof candidate === 'string' && candidate.replace(/^\/+/, '') === route;
   });
 }
 

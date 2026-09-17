@@ -24,6 +24,25 @@
   [hidden] { display: none; }
 }
 
+/* No-build deployment overrides: keep the visible hero lightweight and key
+   homepage controls readable even when css/src is not rebuilt by Cloudflare. */
+@layer pages {
+  .sf-page[data-page="home"] [data-pattern="hero"],
+  .sf-page[data-page="consent-form"] [data-pattern="hero"],
+  .sf-page[data-page="faq"] [data-pattern="hero"] {
+    --hero-scene-image: url("../assets/pages/home/hero/bioestimulador-colageno-consulta-presencial-inicio-imagem-destaque-franciele-sofiati-gleba-palhano.webp");
+  }
+}
+@layer components {
+  .sft-lang { min-inline-size: 1.5rem; min-block-size: 1.5rem; }
+}
+@layer utilities {
+  .sf-page[data-page="home"] #care-pathways .sf-content-card p { color: rgb(255 253 249 / .92); }
+  .sf-page[data-page="home"] #treatments-new .sf-home-mobile-chapter__note { color: var(--forest-900); }
+  .sf-page[data-page="home"] #results-in-context :is(.sf-home-results__factors p, figcaption) { color: rgb(255 253 249 / .92); }
+  .sf-page[data-page="home"] .sffo-button { color: var(--forest-900); }
+}
+
 /* Public intake hierarchy: the first card owns its small brand lockup. */
 .sf-consent-form {
   margin-block-start: clamp(1rem, 2vw, 2rem);

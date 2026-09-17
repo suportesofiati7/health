@@ -4,9 +4,8 @@ This is a framework-free static website. The repository is the authoring source;
 
 | Area | Owner | Notes |
 | --- | --- | --- |
-| Root `*.html` | English public pages | Edit these pages directly. Preserve metadata, IDs, `data-*` hooks and partial templates. |
-| `pt/` | Brazilian Portuguese public pages | Generated/localized output. Use the translation inputs and generator; validate after any source change. |
-| `journal/` | English Journal pages | Published static pages. No current Journal generator is included in this checkout. Edit with the same care as root English pages. |
+| Root `*.html` | Brazilian Portuguese public pages | Published static pages. Preserve metadata, IDs, `data-*` hooks and partial templates. |
+| `en/` | English public pages and Journal articles | Published static pages. Edit with the same care as root pages. |
 | `partials/` and `partials/pt-BR/` | Shared interface | Header, navigation, footer, cookie banner and floating controls. They load at runtime in source previews and are inlined during production builds. |
 | `css/site.css` | Public stylesheet | The production build minifies and fingerprints it. There is no separate CSS compilation command in this checkout. |
 | `js/` | Browser behaviour | `js/main.js` is the module entry point. Consent/analytics scripts remain separate so consent defaults load first. |

@@ -5,8 +5,8 @@
 ## Coverage
 
 - Public HTML pages parsed: 197
-- Canonical, indexable URLs in sitemap: 192
-- Images audited: 712
+- Canonical, indexable URLs in sitemap: 190
+- Images audited: 710
 - Decorative images with empty alt text: 167
 - Post-hero navigation targets: 193
 
@@ -179,7 +179,7 @@
 | `en/contact.html` | 83 chars | 185 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | ContactPage |
 | `en/cookies.html` | 39 chars | 92 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
 | `en/faq.html` | 42 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
-| `en/form.html` | 24 chars | 126 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
+| `en/form.html` | 24 chars | 126 chars | `noindex, follow` | noindex utility |
 | `en/index.html` | 51 chars | 158 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage |
 | `en/laser.html` | 48 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
 | `en/mission.html` | 46 chars | 145 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
@@ -189,7 +189,7 @@
 | `en/thank-you.html` | 58 chars | 165 chars | `noindex, follow` | noindex utility |
 | `en/treatments.html` | 52 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Service, ItemList |
 | `en/values.html` | 39 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
-| `formulario.html` | 30 chars | 174 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
+| `formulario.html` | 30 chars | 174 chars | `noindex, follow` | noindex utility |
 | `index.html` | 49 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage |
 | `laser.html` | 49 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
 | `missao.html` | 26 chars | 116 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
@@ -353,7 +353,6 @@
 - [en/contact.html] description is 185 characters
 - [en/cookies.html] description is 92 characters
 - [en/testimonials.html] title is 83 characters
-- [formulario.html] description is 174 characters
 - [missao.html] description is 116 characters
 - [servicos/peim-tratamento-estetico-para-microvasos.html] title is 72 characters
 - [servicos/toxina-botulinica-platisma-e-terco-inferior.html] title is 71 characters

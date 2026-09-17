@@ -1,9 +1,9 @@
 /*
  * Franciele Sofiati analytics configuration
  *
- * GTM is the only Google-tag delivery path. It is requested only after the
- * visitor grants analytics consent; individual pages must not add gtag.js or
- * a second GTM bootstrap.
+ * Google measurement is requested only after the visitor grants analytics
+ * consent. The site keeps its event data in dataLayer so the configured GTM
+ * container and GA4 Google tag can receive the same consented events.
  *
  * Set debug to true only for local/preview validation. Consent remains required
  * in debug mode. Basic consent mode means GTM is not requested until the visitor
@@ -19,6 +19,7 @@
     productionDomain: "francielesofiati.com",
     streamName: "FrancieleStream",
     streamId: "15290697519",
+    measurementId: "G-S41CQ1303W",
     gtmContainerId: "GTM-P9PF3SV4",
     consentMode: "basic",
     consentStorageKey: "sofiati_cookie_preferences_v3",

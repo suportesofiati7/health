@@ -63,6 +63,7 @@ def main() -> int:
     branch = args.branch or output(["git", "branch", "--show-current"]) or "main"
 
     try:
+      run([sys.executable, "scripts/search_discovery.py", "--rebuild"])
       run(["npm", "run", "build"])
       run(["git", "add", "-A"])
       run(["git", "commit", "--allow-empty", "-m", message])

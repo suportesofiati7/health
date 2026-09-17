@@ -5,6 +5,7 @@
   "description": "Build, validation and performance tooling for the Franciele Sofiati website.",
   "type": "module",
   "scripts": {
+    "prebuild": "python3 scripts/search_discovery.py --rebuild --no-notify",
     "build": "node scripts/build/build-production.mjs",
     "serve": "node scripts/build/serve-production.mjs .",
     "perf:baseline": "node scripts/performance/performance-audit.mjs --source . --label baseline",
@@ -19,6 +20,8 @@
     "check:assets": "python3 scripts/check-local-assets.py",
     "check:pt": "python3 scripts/check-portuguese-site.py --strict-warnings",
     "check:seo": "python3 scripts/check-seo-files.py && python3 scripts/check-seo-implementation.py && python3 scripts/check-social-previews.py",
+    "seo:discover": "python3 scripts/search_discovery.py --rebuild",
+    "seo:validate": "python3 scripts/search_discovery.py --validate",
     "check:analytics": "python3 scripts/check-analytics-implementation.py",
     "seo:refresh": "python3 scripts/weekly-seo-maintenance.py",
     "maintain:performance": "python3 scripts/weekly-performance-maintenance.py",

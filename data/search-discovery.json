@@ -1,0 +1,9 @@
+{
+  "name": "Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist",
+  "summary": "Official bilingual website for Franciele Sofiati, a Biomédica, Esteticista and Cosmetóloga (CRBM 6277) providing consultation-led aesthetic care and educational information in Londrina, Paraná, Brazil.",
+  "sections": [
+    {"title": "Primary pages", "paths": ["/", "/sobre", "/consulta", "/tratamentos", "/contato", "/perguntas", "/cookies"]},
+    {"title": "Care topics", "paths": ["/pele", "/laser", "/cuidados", "/resultados", "/depoimentos", "/missao", "/valores", "/en/", "/en/about", "/en/treatments", "/en/contact"]},
+    {"title": "Journal", "paths": ["/blog", "/blog/botox-londrina-guia-completo", "/blog/consulta-estetica-como-se-preparar", "/blog/pele-e-gravidez-perguntas-seguras", "/blog/laser-co2-recuperacao-e-cuidados", "/en/blog/consultation-first", "/en/blog/skin-barrier", "/en/blog/facial-redness", "/en/blog/acne-scars"]}
+  ]
+}

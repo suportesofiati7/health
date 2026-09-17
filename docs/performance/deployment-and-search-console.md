@@ -13,7 +13,7 @@ The build:
 
 - composes shared navigation, footer and consent partials into every HTML page;
 - bundles and minifies first-party JavaScript;
-- combines the consent-aware measurement files without adding direct GA4;
+- combines the consent-aware measurement files, including the consent-gated GA4 Google tag and GTM loader;
 - minifies CSS and HTML;
 - creates responsive AVIF and WebP image variants;
 - preloads only the route-specific hero image;
@@ -31,7 +31,7 @@ The build:
 7. Purge only changed HTML, manifest, sitemap and robots entries if a manual Cloudflare purge is needed. Hashed assets do not need purging.
 8. Confirm response compression is Brotli or gzip and that HTTP/2 or HTTP/3 is active at the CDN.
 9. Confirm HTML returns `Cache-Control: public, max-age=0, must-revalidate`; hashed files under `/assets/build/` and `/assets/generated/` should return one-year immutable caching.
-10. Confirm `thank-you.html` and `pt/thank-you.html` return `private, no-store` and retain their `noindex` tags.
+10. Confirm `obrigada.html` and `en/thank-you.html` return `private, no-store` and retain their `noindex` tags.
 
 Do not add an immutable cache rule to every `/assets/*` file unless all those filenames become content-addressed. The generated rules deliberately reserve immutable caching for hashed output.
 

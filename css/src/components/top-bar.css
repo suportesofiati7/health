@@ -12,7 +12,7 @@
   .sft-location { border: 1px solid var(--color-border-warm); background: color-mix(in srgb, var(--white) 58%, transparent); }
   .sft-leaf, .sft-icon { inline-size: .95rem; block-size: .95rem; flex: 0 0 auto; stroke: var(--gold-500); }
   .sft-languages { gap: .45rem; border: 0; background: none; padding: 0; }
-  .sft-lang { min-block-size: 1.25rem; display: grid; place-items: center; border-block-end: 1px solid transparent; color: var(--color-text-muted); font-size: .65rem; font-weight: 850; line-height: 1; text-decoration: none; }
+  .sft-lang { min-inline-size: 1.5rem; min-block-size: 1.5rem; display: grid; place-items: center; border-block-end: 1px solid transparent; color: var(--color-text-muted); font-size: .65rem; font-weight: 850; line-height: 1; text-decoration: none; }
   .sft-lang[aria-current], html[lang="en"] .sft-lang[lang="en"], html[lang="pt-BR"] .sft-lang[lang="pt-BR"] { border-block-end-color: var(--gold-500); background: none; color: var(--gold-500); }
 
   @media (min-width: 48rem) {
@@ -31,7 +31,7 @@
     .sft-location, .sft-languages { border-inline-start: 1px solid color-mix(in srgb, var(--gold-300) 42%, transparent); padding-inline-start: 1rem; }
     .sft-leaf, .sft-icon { inline-size: 1rem; block-size: 1rem; stroke: var(--gold-300); }
     .sft-languages { gap: .5rem; border-block: 0; border-inline-end: 0; border-radius: 0; background: none; padding-block: 0; padding-inline-end: 0; }
-    .sft-lang { min-block-size: 1.35rem; color: color-mix(in srgb, var(--ivory-50) 88%, transparent); font-family: var(--font-body); font-size: .68rem; font-weight: 800; }
+    .sft-lang { min-inline-size: 1.5rem; min-block-size: 1.5rem; color: color-mix(in srgb, var(--ivory-50) 88%, transparent); font-family: var(--font-body); font-size: .68rem; font-weight: 800; }
     .sft-lang[aria-current], html[lang="en"] .sft-lang[lang="en"], html[lang="pt-BR"] .sft-lang[lang="pt-BR"] { border-block-end-color: var(--gold-300); background: none; color: var(--gold-300); }
   }
 

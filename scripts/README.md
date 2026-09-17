@@ -15,6 +15,8 @@ Run commands from the repository root. Prefer the npm aliases below; they group 
 | `npm run release:check` | Validate, then build. Use before each deployment. |
 | `npm run serve` | Serve the built `dist/` output locally. |
 | `npm run seo:refresh` | Regenerate `robots.txt`/`sitemap.xml` and write the SEO maintenance report. |
+| `npm run seo:discover` | Discover public HTML routes, rebuild discovery files and notify IndexNow for changes. |
+| `npm run seo:validate` | Validate discovery files without writing or notifying. |
 | `npm run maintain:performance` | Run the weekly mobile performance sample and write recommendations. |
 
 ## Content and localization
@@ -22,11 +24,10 @@ Run commands from the repository root. Prefer the npm aliases below; they group 
 ```bash
 python3 scripts/export-editable-bilingual-content.py
 python3 scripts/apply-editable-bilingual-content.py --apply
-python3 scripts/generate-portuguese-site.py
 npm run check:pt
 ```
 
-The export/apply pair creates one bilingual Word document with English and Brazilian Portuguese text in side-by-side editable columns. Review its preview before applying changes. Portuguese edits are written directly to the corresponding published PT-BR source; run the PT-BR generator afterwards so it records page-level Portuguese edits as manual overrides. Shared partials are regenerated from translation memory, so maintain recurring shared-interface wording in `data/translation/`.
+The export/apply pair creates one bilingual Word document with English and Brazilian Portuguese text in side-by-side editable columns. Review its preview before applying changes. Portuguese root pages are the published default-language source; update the mapped English page under `en/` and run `npm run check:pt` to verify the pair. Do not publish legacy `/pt/` output.
 
 ## Search and analytics
 

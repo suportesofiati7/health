@@ -21,7 +21,7 @@ REPORT = ROOT / "reports" / "validation" / "seo.md"
 SEO = json.loads((ROOT / "data" / "seo.json").read_text(encoding="utf-8"))
 ORIGIN = str(SEO["domain"]).rstrip("/")
 INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-NOINDEX = {"404.html", "obrigada.html", "en/404.html", "en/thank-you.html"}
+NOINDEX = {"404.html", "obrigada.html", "en/404.html", "en/thank-you.html", "formulario.html", "en/form.html", "typography-plan.html"}
 JUMP_EXEMPT = {"404.html", "index.html", "en/404.html", "en/index.html"}
 FORBIDDEN_SCHEMA_KEYS = {
     "pricerange",
@@ -67,6 +67,8 @@ def public_pages() -> list[Path]:
     pages = [ROOT / route for route in route_names]
     pages.extend(path for path in ROOT.glob("*.html") if "noindex" in path.read_text(encoding="utf-8", errors="ignore").lower())
     pages.extend(path for path in (ROOT / "journal").glob("*.html") if "noindex" in path.read_text(encoding="utf-8", errors="ignore").lower())
+    pages.extend(path for path in (ROOT / "en").glob("*.html") if path.name != "botox-londrina.html")
+    pages.extend(path for path in (ROOT / "en" / "blog").glob("*.html"))
     pages.extend(path for directory in ("blog", "servicos") for path in (ROOT / directory).glob("*.html"))
     return sorted({path for path in pages if path.exists()}, key=lambda path: path.relative_to(ROOT).as_posix())
 

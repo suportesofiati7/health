@@ -699,6 +699,7 @@ def main() -> int:
         "gtmContainer": config_source.count('"GTM-P9PF3SV4"') == 1,
         "streamName": '"FrancieleStream"' in config_source,
         "streamId": '"15290697519"' in config_source,
+        "measurementId": '"G-S41CQ1303W"' in config_source,
     }
     if not all(id_status.values()):
         errors.append(f"Analytics ID status is incorrect: {id_status}")
@@ -714,8 +715,10 @@ def main() -> int:
         errors.append(f"Missing implemented events: {missing_events}")
     if "page_context" not in analytics_source:
         errors.append("Internal page_context setup event is missing")
-    if "googletagmanager.com/gtag/js" in consent_source:
-        errors.append("Consent loader contains a direct GA4 gtag.js installation")
+    if "googletagmanager.com/gtag/js" not in consent_source:
+        errors.append("Consent loader does not contain the consent-gated GA4 loader")
+    if "loadGoogleTag" not in consent_source:
+        errors.append("Consent loader does not expose the GA4 loader")
     if "recordGooglePageView" in consent_source:
         errors.append("Consent loader contains a duplicate direct page-view path")
 

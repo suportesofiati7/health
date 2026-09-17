@@ -89,7 +89,7 @@ function publicHtmlFiles() {
   return walk(ROOT, (file) => {
     const rel = toPosix(relative(ROOT, file));
     return extname(file).toLowerCase() === '.html'
-      && (/^[^/]+\.html$/.test(rel) || /^(?:en|journal)\/[^/]+\.html$/.test(rel) || /^en\/journal\/[^/]+\.html$/.test(rel) || /^(?:blog|servicos)\/[^/]+\.html$/.test(rel));
+      && (/^[^/]+\.html$/.test(rel) || /^(?:en|journal)\/[^/]+\.html$/.test(rel) || /^en\/(?:journal|blog)\/[^/]+\.html$/.test(rel) || /^(?:blog|servicos)\/[^/]+\.html$/.test(rel));
   });
 }
 
@@ -497,7 +497,7 @@ async function copyReferencedAssets() {
 }
 
 async function copySupportFiles() {
-  for (const file of ['_redirects', 'robots.txt', 'sitemap.xml', 'sitemap-images.xml', 'sitemap-index.xml', 'llms.txt', 'site.webmanifest', 'favicon.ico']) {
+  for (const file of ['_redirects', 'robots.txt', 'sitemap.xml', 'sitemap-images.xml', 'sitemap-index.xml', 'llms.txt', 'e7555acad3a644ab84a3f76774ab4ede.txt', 'site.webmanifest', 'favicon.ico']) {
     await copyFile(resolve(ROOT, file), resolve(DIST, file));
   }
   await mkdir(resolve(DIST, 'data'), { recursive: true });
@@ -513,6 +513,10 @@ async function copySupportFiles() {
     '  Cache-Control: public, max-age=0, must-revalidate',
     '  X-Content-Type-Options: nosniff',
     '  Referrer-Policy: strict-origin-when-cross-origin',
+    '  Link: <https://francielesofiati.com/llms.txt>; rel="describedby"',
+    '',
+    '/*.txt',
+    '  Content-Type: text/plain; charset=UTF-8',
     '',
     '/assets/build/*',
     '  Cache-Control: public, max-age=31536000, immutable',

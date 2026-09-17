@@ -2,8 +2,8 @@
 
 ## Standard page change
 
-1. Edit the relevant English root HTML page. Keep its title, canonical URL, structured data, section IDs and `data-*` attributes unless the change intentionally requires updating them.
-2. Make the equivalent PT-BR change through the translation workflow when content has changed.
+1. Edit the relevant root Portuguese HTML page. Portuguese is the public default and the canonical editorial language (`lang="pt-BR"`). Keep its title, canonical URL, structured data, section IDs and `data-*` attributes unless the change intentionally requires updating them.
+2. Make the equivalent English change in the paired `en/` page. The pair is defined in `data/page-pairs.json`; do not infer a pair from similar filenames because Portuguese slugs are intentionally localized.
 3. Refresh search-discovery files after a route, canonical-origin or indexability change:
 
    ```bash
@@ -12,16 +12,13 @@
 
 4. Run `npm run release:check` before handoff or deployment.
 
-## Brazilian Portuguese
+## Language generation and QA
 
-The generator updates Portuguese pages and shared PT-BR partials from English source plus files under `data/translation/`.
+The deployed language system is Portuguese-first: root pages and `partials/pt-BR/` are loaded by default, while English pages and `partials/` are selected only after the visitor uses the language switcher. `pt-BR` is the correct browser/search locale for Brazilian Portuguese; it does not imply a `/pt/` URL.
 
-```bash
-python3 scripts/generate-portuguese-site.py
-npm run check:pt
-```
+Run `npm run check:pt` after changing either side of a pair. It validates the route map, reciprocal `hreflang` values, `lang` attributes, links and translation hooks. The legacy Argos generator and `/pt/` output model are retained only as historical tooling and must not be used to publish or move the current root Portuguese routes.
 
-Use `data/translation/pt-BR-glossary.json` for recurring terminology, `pt-BR-memory.json` for established translations and `pt-BR-overrides.json` for intentional page-specific wording. Do not hand-edit generated PT-BR partials: a generator run overwrites them.
+Use `data/translation/pt-BR-glossary.json` for recurring Brazilian Portuguese terminology. Do not add `/pt/` pages or duplicate routes.
 
 ## Shared interface, styles and behaviour
 

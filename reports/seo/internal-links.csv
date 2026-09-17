@@ -1,4 +1,6 @@
 source_page,destination_page,anchor_text,status,rel,type
+https://francielesofiati.com/en,https://francielesofiati.com/management/pre-cadastro,Pre-registration,200,follow,contextual
+https://francielesofiati.com/en,https://francielesofiati.com/management/access,Professional Area,200,follow,contextual
 https://francielesofiati.com/en,https://francielesofiati.com/en/consultation,Consult,200,follow,contextual
 https://francielesofiati.com/en,https://francielesofiati.com/en/treatments,Treatments,200,follow,contextual
 https://francielesofiati.com/en,https://francielesofiati.com/en/skin,"Skin clarity and comfort Congestion, sensitivity, uneven texture, acne tendency,
@@ -881,7 +883,7 @@ https://francielesofiati.com/blog/expectativa-e-tempo-biologico,https://franciel
 https://francielesofiati.com/blog/expectativa-e-tempo-biologico,https://francielesofiati.com/servicos/radiofrequencia,Conhecer o serviço de consulta e cuidado,200,follow,contextual
 https://francielesofiati.com/en/blog/frugal-chic-intentional-aesthetic-care,https://francielesofiati.com/en,Home,200,follow,breadcrumb
 https://francielesofiati.com/en/blog/frugal-chic-intentional-aesthetic-care,https://francielesofiati.com/en/blog,Journal,200,follow,breadcrumb
-https://francielesofiati.com/en/blog/frugal-chic-intentional-aesthetic-care,https://francielesofiati.com/about,Franciele Sofiati,broken,follow,navigational
+https://francielesofiati.com/en/blog/frugal-chic-intentional-aesthetic-care,https://francielesofiati.com/en/about,Franciele Sofiati,200,follow,navigational
 https://francielesofiati.com/en/blog/frugal-chic-intentional-aesthetic-care,https://francielesofiati.com/en/consultation,aesthetic consultation in Londrina,200,follow,contextual
 https://francielesofiati.com/en/blog/frugal-chic-intentional-aesthetic-care,https://francielesofiati.com/en/treatments,aesthetic treatments in Londrina,200,follow,contextual
 https://francielesofiati.com/en/blog/frugal-chic-intentional-aesthetic-care,https://francielesofiati.com/en/laser,aesthetic laser guide,200,follow,contextual

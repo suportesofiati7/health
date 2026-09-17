@@ -102,7 +102,7 @@ def local_file_for_url(url: str, origin: str) -> Path:
     if parsed.query or parsed.fragment:
         raise RuntimeError(f"llms.txt links must be clean canonical URLs: {url}")
     path = parsed.path
-    if path == "/":
+    if path in {"", "/"}:
         return ROOT / "index.html"
     if path.endswith("/"):
         return ROOT / path.lstrip("/") / "index.html"

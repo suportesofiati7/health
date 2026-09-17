@@ -119,11 +119,14 @@ def _alternate(soup: BeautifulSoup, language: str) -> str | None:
 
 
 def _public_url(path: str) -> str:
-    if path == "index.html":
+    clean_path = path.replace("\\", "/")
+    if clean_path == "index.html":
         return f"{DOMAIN}/"
-    if path == "en/index.html":
+    if clean_path == "en/index.html":
         return f"{DOMAIN}/en/"
-    return f"{DOMAIN}/{path}"
+    if clean_path.endswith(".html"):
+        clean_path = clean_path[:-5]
+    return f"{DOMAIN}/{clean_path}"
 
 
 def validate_page(
@@ -250,7 +253,18 @@ def validate_partial(root: Path, filename: str, allowlist: set[str]) -> list[Val
 def validate_site(root: Path, pages: list[str] | None = None) -> ValidationSummary:
     allowlist = load_allowlist(root / "data" / "translation" / "pt-BR-allowlist.txt")
     if pages:
-        selected_pairs = [(page, page) for page in pages]
+        page_data = json.loads((root / "data" / "page-pairs.json").read_text(encoding="utf-8"))
+        known_pairs = [
+            (item["en"], item["pt-BR"])
+            for item in page_data.get("pages", [])
+            if isinstance(item, dict)
+            and isinstance(item.get("en"), str)
+            and isinstance(item.get("pt-BR"), str)
+        ]
+        selected_pairs = []
+        for page in pages:
+            match = next((pair for pair in known_pairs if page in pair), None)
+            selected_pairs.append(match or (page, page))
     else:
         page_data = json.loads((root / "data" / "page-pairs.json").read_text(encoding="utf-8"))
         selected_pairs = [

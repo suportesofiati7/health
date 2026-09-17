@@ -1,11 +1,12 @@
 # Google Analytics, GTM and Search Console Setup
 
-This guide separates what is already implemented in the repository from the Google account work that must still be completed. Analytics is **not live** while the placeholder IDs remain in the code or until the GTM container is configured and published.
+This guide separates what is already implemented in the repository from the Google account work that must still be completed. Analytics is **not fully live** until the deployed site has the configured Measurement ID and the GTM container is configured and published. The direct GA4 Google tag provides page measurement after consent; GTM routes the site's custom dataLayer events.
 
 ## What the code already does
 
 - Creates one sitewide `dataLayer`.
-- Uses Google Tag Manager as the only delivery path for GA4.
+- Stores the GA4 Measurement ID in site configuration and loads Google's GA4 tag only after analytics consent.
+- Loads the configured GTM container only after analytics consent for custom dataLayer events.
 - Defaults all optional Consent Mode v2 categories to denied.
 - Keeps advertising storage, advertising user data and advertising personalisation denied.
 - Uses basic consent mode: GTM is not requested until analytics permission is granted.
@@ -16,7 +17,7 @@ This guide separates what is already implemented in the repository from the Goog
 - Requires a confirmed Formspree response before `form_success` or `generate_lead`.
 - Deduplicates leads with a short-lived, random, non-personal `sessionStorage` record.
 - Limits JavaScript error reporting to a type, script basename and coarse line bucket.
-- Keeps `thank-you.html` and `pt/thank-you.html` set to `noindex, follow`.
+- Keeps `obrigada.html` and `en/thank-you.html` set to `noindex, follow`.
 
 The relevant files are:
 
@@ -26,18 +27,18 @@ The relevant files are:
 - `js/components/cookie-controls.js`
 - `js/components/forms.js`
 
-Run `python3 scripts/install-analytics.py` after regenerating HTML or translations. It installs the script block and tracking attributes idempotently.
+The analytics scripts and tracking attributes are part of the page source and shared partials; run `npm run check:analytics` after changing HTML or translations.
 
 ## Values that must be replaced
 
 Open `js/analytics-config.js`.
 
-1. Replace `GTM-REPLACE_ME` with the Web container ID from Tag Manager. A real container ID starts with `GTM-`.
-2. Replace `G-REPLACE_ME` with the GA4 Web stream Measurement ID. A real Measurement ID starts with `G-`.
+1. Keep `measurementId` equal to the GA4 Web stream Measurement ID. The current configured value is `G-S41CQ1303W`.
+2. Replace `GTM-REPLACE_ME` with the Web container ID from Tag Manager. A real container ID starts with `GTM-`.
 3. Leave `consentMode: "basic"` unchanged unless the privacy architecture is deliberately reviewed.
 4. Keep `debug: false` in production. Set it temporarily to `true` in a local or preview deployment to add `debug_mode` and console diagnostics.
 
-The GA4 ID in this file is a documented reference. The operative Google Tag is created inside GTM using the same ID. Do not paste Google's direct `gtag.js` snippet into any HTML page.
+The GA4 ID in this file is used by the consent manager to load one direct Google tag after consent. The custom-event routing is configured inside GTM using the same ID. Do not paste a second Google tag, GTM snippet or GTM noscript iframe into any HTML page.
 
 ## 1. Create GA4
 
@@ -98,8 +99,8 @@ Avoid registering URLs, unique tokens, errors, every question or other high-card
 2. Create a business-owned GTM account, or use the existing business account.
 3. Create a **Web** container for `francielesofiati.com`.
 4. Copy the container ID beginning with `GTM-`.
-5. Replace `GTM-REPLACE_ME` in `js/analytics-config.js`.
-6. Do not install GTM again through a CMS, hosting integration, inline snippet or plugin. The repository loads it dynamically after consent.
+5. Keep `GTM-P9PF3SV4` in `js/analytics-config.js` only if it is the verified business-owned Web container.
+6. Do not install GTM or GA4 again through a CMS, hosting integration, inline snippet or plugin. The repository loads both paths dynamically after consent.
 7. Do not add an unconditional GTM `noscript` iframe. A noscript iframe cannot read the existing JavaScript consent choice and would undermine basic consent mode.
 
 ### Create the main Google Tag

@@ -1,28 +1,23 @@
-# Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist
-# Public pages and the assets required to render them are crawlable.
-# Excluded paths are repository sources or QA artifacts, not private access controls.
+# Public crawl guidance only; this is not an access-control mechanism.
 
 User-agent: *
 Allow: /
-Disallow: /.agents/
-Disallow: /.codex/
 Disallow: /.git/
+Disallow: /.codex/
+Disallow: /.agents/
 Disallow: /__pycache__/
 Disallow: /backups/
-Disallow: /css/src/
 Disallow: /docs/
+Disallow: /management/
 Disallow: /node_modules/
-Disallow: /posts/
 Disallow: /qa/
-Disallow: /references/
 Disallow: /reports/
-Disallow: /screenshots/
 Disallow: /scripts/
 Disallow: /tests/
+Disallow: /tmp/
+Disallow: /.search-discovery-state.json
+Disallow: /.env
 Disallow: /.gitignore
-Disallow: /.translation-cache.json
 Disallow: /README.md
-Disallow: /requirements-translation.txt
 
 Sitemap: https://francielesofiati.com/sitemap.xml
-Sitemap: https://francielesofiati.com/sitemap-index.xml

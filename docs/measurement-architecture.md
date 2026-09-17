@@ -3,18 +3,20 @@
 The website has one consent-aware measurement path for every Portuguese and
 English route:
 
-`cookie choice → dataLayer → GTM-P9PF3SV4 → GA4`
+`cookie choice → consent manager → GA4 Google tag + GTM-P9PF3SV4 → GA4`
 
-Do not add `gtag.js`, another GTM snippet, or a GTM `<noscript>` iframe to an
-HTML page. `js/consent-manager.js` sets Consent Mode defaults to denied, then
-loads the container once only when analytics consent is granted. This is basic
+Do not add another `gtag.js`, another GTM snippet, or a GTM `<noscript>` iframe
+to an HTML page. `js/consent-manager.js` sets Consent Mode defaults to denied,
+then loads the GA4 Google tag and container once only when analytics consent is
+granted. This is basic
 Consent Mode: no Google container request is made before that choice.
 
 ## GTM configuration
 
-The GTM container must contain the only Google tag for GA4 measurement ID
-`G-S41CQ1303W`. Enable its normal page-view trigger; do not add a second GA4
-configuration or a separate Google tag `GT-P8Z9PB5L` on the site.
+The site already loads one GA4 Google tag for measurement ID `G-S41CQ1303W`.
+The GTM container should contain the custom-event routing only; do not add a
+second GA4 configuration, page-view tag, or a separate Google tag
+`GT-P8Z9PB5L`.
 
 Create a Custom Event trigger for the following `dataLayer` event names and
 send identically named GA4 events:

@@ -16,8 +16,8 @@ The shipped site has no runtime npm dependencies. `npm audit --omit=dev` is clea
 
 | Need | Command or location |
 | --- | --- |
-| Edit English page copy | Edit the corresponding root HTML page. |
-| Update PT-BR after English changes | `python3 scripts/generate-portuguese-site.py && npm run check:pt` |
+| Edit Portuguese page copy | Edit the corresponding root HTML page; Portuguese is the default language. |
+| Update the English pair | Edit the mapped `en/` page in `data/page-pairs.json`, then run `npm run check:pt`. |
 | Check everything and build | `npm run release:check` |
 | Refresh robots/sitemap and audit SEO | `npm run seo:refresh` |
 | Check a broken asset path | `npm run check:assets` |
@@ -38,11 +38,12 @@ The shipped site has no runtime npm dependencies. `npm audit --omit=dev` is clea
 1. Confirm the final domain in `data/seo.json` and the page-level canonical tags.
 2. Run `npm run release:check` and `git diff --check` with no errors.
 3. Inspect the `dist/` preview on desktop and mobile.
-4. Deploy `dist/`, then complete the live checks in [Deployment](deployment.md).
+4. Deploy the public `health` project using its existing no-build Cloudflare
+   configuration, then complete the live checks in [Deployment](deployment.md).
 
 ## Troubleshooting
 
 - Missing headers/footer in a source preview: use HTTP, not `file://`.
-- A PT-BR change disappears: put repeatable wording in `data/translation/` and regenerate rather than editing generator-owned output.
+- A language switcher link is wrong: update `data/page-pairs.json`; Portuguese and English slugs are allowed to differ.
 - Sitemap check says stale: run `python3 scripts/generate-robots.py` and `python3 scripts/generate-sitemap.py`, then rerun `npm run check:seo`.
 - Build error after updating dependencies: delete only `node_modules/`, run `npm ci`, then rerun the release gate. Do not delete the lockfile to solve an install problem.

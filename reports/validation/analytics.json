@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "generatedAt": "2026-09-05T15:48:26.900912+00:00",
+  "generatedAt": "2026-09-17T11:27:14.758485+00:00",
   "pagesChecked": 176,
   "scriptsPresent": {
     "required": [
@@ -1775,7 +1775,8 @@
   "analyticsIds": {
     "gtmContainer": true,
     "streamName": true,
-    "streamId": true
+    "streamId": true,
+    "measurementId": true
   },
   "duplicateInstallations": {
     "directGtagImplementations": 0,
@@ -1866,7 +1867,7 @@
       {
         "page": "formulario.html",
         "id": "consent-authorisation-form",
-        "fields": 55,
+        "fields": 53,
         "intentionallyIgnored": true
       }
     ],

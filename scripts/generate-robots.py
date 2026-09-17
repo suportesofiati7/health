@@ -1,72 +1,20 @@
 #!/usr/bin/env python3
-"""Generate a concise robots.txt for the public static site."""
-
+"""Backward-compatible entrypoint for the unified search discovery utility."""
 from __future__ import annotations
-
-import json
+import importlib.util
 from pathlib import Path
-
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-SEO_DATA = ROOT / "data" / "seo.json"
-ROBOTS = ROOT / "robots.txt"
-
-# These paths are repository sources or QA artifacts, not public site content.
-# robots.txt is only crawl guidance; the deployment should still publish from a
-# clean allowlisted artifact rather than exposing the repository root.
-NON_PUBLIC_PATHS = (
-    "/.agents/",
-    "/.codex/",
-    "/.git/",
-    "/__pycache__/",
-    "/backups/",
-    "/css/src/",
-    "/docs/",
-    "/node_modules/",
-    "/posts/",
-    "/qa/",
-    "/references/",
-    "/reports/",
-    "/screenshots/",
-    "/scripts/",
-    "/tests/",
-    "/.gitignore",
-    "/.translation-cache.json",
-    "/README.md",
-    "/requirements-translation.txt",
-)
-
-
-def site_origin() -> str:
-    try:
-        data = json.loads(SEO_DATA.read_text(encoding="utf-8"))
-    except (OSError, UnicodeError, json.JSONDecodeError) as error:
-        raise RuntimeError(f"Could not read data/seo.json: {error}") from error
-    origin = str(data.get("domain") or "").rstrip("/")
-    if not origin.startswith("https://"):
-        raise RuntimeError("data/seo.json domain must be an absolute HTTPS origin")
-    return origin
-
+spec = importlib.util.spec_from_file_location("search_discovery", ROOT / "scripts" / "search_discovery.py")
+module = importlib.util.module_from_spec(spec)
+assert spec.loader
+sys.modules[spec.name] = module
+spec.loader.exec_module(module)
+NON_PUBLIC_PATHS = ("/.git/", "/.codex/", "/.agents/", "/__pycache__/", "/backups/", "/docs/", "/management/", "/node_modules/", "/qa/", "/reports/", "/scripts/", "/tests/", "/tmp/", "/.search-discovery-state.json", "/.env", "/.gitignore", "/README.md")
 
 def render_robots() -> str:
-    disallow = "\n".join(f"Disallow: {path}" for path in NON_PUBLIC_PATHS)
-    return (
-        "# Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist\n"
-        "# Public pages and the assets required to render them are crawlable.\n"
-        "# Excluded paths are repository sources or QA artifacts, not private access controls.\n\n"
-        "User-agent: *\n"
-        "Allow: /\n"
-        f"{disallow}\n\n"
-        f"Sitemap: {site_origin()}/sitemap.xml\n"
-        f"Sitemap: {site_origin()}/sitemap-index.xml\n"
-    )
-
-
-def main() -> int:
-    ROBOTS.write_text(render_robots(), encoding="utf-8")
-    print(f"Generated robots.txt with {len(NON_PUBLIC_PATHS)} non-public path exclusions.")
-    return 0
-
+    return module.render_robots(module.origin())
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(module.main(["--rebuild", "--no-notify"]))

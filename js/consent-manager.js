@@ -1,5 +1,5 @@
 /*
- * Consent Mode v2 bridge and consent-gated GTM loader.
+ * Consent Mode v2 bridge and consent-gated Google measurement loaders.
  *
  * This module reuses the site's existing cookie controls and storage record.
  * In basic mode GTM is never requested before analytics permission. Advertising
@@ -23,6 +23,7 @@
   });
   let currentPreferences = { ...defaultPreferences };
   let gtmRequested = false;
+  let googleTagRequested = false;
   let gtmScheduled = false;
 
   function debug(message, detail) {
@@ -70,6 +71,40 @@
       && !/REPLACE/i.test(config.gtmContainerId);
   }
 
+  function validMeasurementId() {
+    return /^G-[A-Z0-9]+$/i.test(config.measurementId)
+      && !/REPLACE/i.test(config.measurementId);
+  }
+
+  function loadGoogleTag() {
+    if (googleTagRequested || !currentPreferences.analytics) return false;
+    if (!validMeasurementId()) {
+      debug("GA4 remains inactive until a valid Measurement ID is configured.");
+      document.documentElement.dataset.analyticsGa4 = "placeholder";
+      return false;
+    }
+    if (document.querySelector("script[data-franciele-google-tag]")) {
+      googleTagRequested = true;
+      return false;
+    }
+
+    googleTagRequested = true;
+    window.gtag = window.gtag || function gtag() {
+      dataLayer.push(arguments);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", config.measurementId);
+    const script = document.createElement("script");
+    script.async = true;
+    script.dataset.francieleGoogleTag = "consent-granted";
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(config.measurementId)}`;
+    script.referrerPolicy = "strict-origin-when-cross-origin";
+    document.head.append(script);
+    document.documentElement.dataset.analyticsGa4 = "requested";
+    debug("GA4 Google tag requested after analytics consent.");
+    return true;
+  }
+
   function loadGtm() {
     if (gtmRequested || !currentPreferences.analytics) return false;
     if (!validContainerId()) {
@@ -108,6 +143,10 @@
     }, 0);
   }
 
+  function scheduleGoogleTag() {
+    window.setTimeout(() => loadGoogleTag(), 0);
+  }
+
   function apply(preferences, source, initial) {
     const previous = currentPreferences;
     currentPreferences = normalize(preferences);
@@ -131,7 +170,10 @@
       }));
     }
 
-    if (currentPreferences.analytics) scheduleGtm();
+    if (currentPreferences.analytics) {
+      scheduleGoogleTag();
+      scheduleGtm();
+    }
     debug("Consent state applied.", currentPreferences);
     return { ...currentPreferences };
   }
@@ -160,6 +202,7 @@
     get: () => ({ ...currentPreferences }),
     hasAnalyticsConsent: () => currentPreferences.analytics,
     apply,
+    loadGoogleTag,
     loadGtm
   });
 })(window, document);

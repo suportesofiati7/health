@@ -1,7 +1,7 @@
 import { assetPrefix } from '../core/page.js';
 import { whatsappUrl } from '../core/whatsapp.js';
 
-const AVATAR = 'assets/chatbot/ChatGPT Image 23 de jul. de 2026, 08_22_35.png';
+const AVATAR = 'assets/chatbot/sofiati-assistente.webp';
 const INVITE_KEY = 'sofiati_virtual_assistant_invite_seen';
 const LEAD_KEY = 'sofiati_virtual_assistant_lead_seen';
 

@@ -1,4 +1,12 @@
 @layer pages {
+  /* Keep the visible homepage scene lightweight on the no-build Cloudflare
+     deployment as well as in the generated artifact. */
+  .sf-page[data-page="home"] [data-pattern="hero"],
+  .sf-page[data-page="consent-form"] [data-pattern="hero"],
+  .sf-page[data-page="faq"] [data-pattern="hero"] {
+    --hero-scene-image: url("../assets/pages/home/hero/bioestimulador-colageno-consulta-presencial-inicio-imagem-destaque-franciele-sofiati-gleba-palhano.webp");
+  }
+
   /* Franciele is already part of each finished clinic scene, so no additional
      portrait is rendered. Keep the route-to-image art direction here: both
      language versions share the same data-page value and therefore the same
