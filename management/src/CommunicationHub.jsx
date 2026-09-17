@@ -35,6 +35,8 @@ function ExternalMessage({ patients, initialPatient, member, close, notify, refr
   const [category, setCategory] = useState("agendamento");
   const [body, setBody] = useState("");
   const [subject, setSubject] = useState("");
+  const [sourceBody, setSourceBody] = useState("");
+  const [sourceSubject, setSourceSubject] = useState("");
   const [templates, setTemplates] = useState([]);
   const [templateId, setTemplateId] = useState("");
   const [busy, setBusy] = useState(false);
@@ -43,14 +45,16 @@ function ExternalMessage({ patients, initialPatient, member, close, notify, refr
   const values = valuesForPatient(patient, member);
   const missing = missingPlaceholders(body, values);
   useEffect(() => { checked(db.from("communication_templates").select("*").eq("active", true).order("category,name,variant")).then(setTemplates).catch(() => setTemplates([])); }, []);
-  useEffect(() => { if (templateId === "__free__") return; const item = templates.find((row) => row.id === templateId) || templates.find((row) => row.channel === channel && row.category === category) || templates.find((row) => row.channel === channel); if (item) { setTemplateId(item.id); setCategory(item.category || category); setSubject(renderTemplate(item.subject, values)); setBody(renderTemplate(item.body, values)); } }, [templates, channel, category, patientId, templateId]);
+  useEffect(() => { if (templateId === "__free__") return; const item = templates.find((row) => row.id === templateId) || templates.find((row) => row.channel === channel && row.category === category) || templates.find((row) => row.channel === channel); if (item) { setTemplateId(item.id); setCategory(item.category || category); setSourceSubject(item.subject || ""); setSourceBody(item.body || ""); setSubject(renderTemplate(item.subject, values)); setBody(renderTemplate(item.body, values)); } }, [templates, channel, category, patientId, templateId]);
   const selected = templates.find((row) => row.id === templateId);
   const saveTemplate = async (asNew = false) => {
     if (!selected || !body.trim()) return;
     const name = asNew ? window.prompt(t("Nome do novo modelo", "Name for the new template"), selected.name) : selected.name;
     if (!name?.trim()) return;
     try {
-      const payload = { name: name.trim(), category, channel, variant: selected.variant || "standard", subject, body: body.trim(), sender_mode: selected.sender_mode || "sender", sensitive: Boolean(selected.sensitive), created_by: member.user_id };
+      const renderedSourceSubject = renderTemplate(sourceSubject, values);
+      const renderedSourceBody = renderTemplate(sourceBody, values);
+      const payload = { name: name.trim(), category, channel, variant: selected.variant || "standard", subject: subject === renderedSourceSubject ? sourceSubject : subject, body: body.trim() === renderedSourceBody ? sourceBody : body.trim(), sender_mode: selected.sender_mode || "sender", sensitive: Boolean(selected.sensitive), created_by: member.user_id };
       if (asNew) await checked(db.from("communication_templates").insert({ organization_id: ORG, ...payload }));
       else await checked(db.from("communication_templates").update(payload).eq("id", selected.id));
       const rows = await checked(db.from("communication_templates").select("*").eq("active", true).order("category,name,variant")); setTemplates(rows); notify(t(asNew ? "Modelo salvo para uso futuro." : "Modelo atual substituído.", asNew ? "Template saved for future use." : "Current template updated."));
@@ -108,7 +112,7 @@ export default function CommunicationHub({ member, openPatient, version, writabl
   const loadMessages = async (id) => { if (!id) return; const rows = await checked(db.from("communication_messages").select("*").eq("conversation_id", id).order("created_at").range(0, 299)).catch(() => []); const ids = rows.map((row) => row.id); const [reacts, files] = await Promise.all([ids.length ? checked(db.from("communication_reactions").select("*").in("message_id", ids)).catch(() => []) : [], ids.length ? checked(db.from("communication_attachments").select("*").in("message_id", ids)).catch(() => []) : []]); setMessages(rows.map((row) => ({ ...row, reactions: reacts.filter((item) => item.message_id === row.id), attachments: files.filter((item) => item.message_id === row.id) }))); };
   const load = async () => { try { const [conversations, patients, staff, communications, reads, notifications] = await Promise.all([
     checked(db.from("communication_conversations").select("id,organization_id,title,kind,patient_id,created_by,created_at,updated_at,archived_at,pinned_at,last_message_at,last_message_preview,patients(id,full_name,preferred_name)").order("pinned_at", { ascending: false, nullsFirst: false }).order("updated_at", { ascending: false }).limit(200)),
-    checked(db.from("patients").select("id,full_name,preferred_name,phone,email,status").eq("status", "ativo").order("full_name").limit(500)), checked(db.from("memberships").select("user_id,name,email,role").eq("status", "ativo").order("name")), checked(db.from("communications").select("*,patients(id,full_name,preferred_name)").order("created_at", { ascending: false }).limit(120)), checked(db.from("communication_reads").select("*").eq("user_id", member.user_id)), checked(db.from("communication_notifications").select("*").eq("user_id", member.user_id).is("read_at", null).order("created_at", { ascending: false }).limit(50)),
+    checked(db.from("patients").select("id,full_name,preferred_name,phone,email,birth_date,cpf,rg,cns,address,emergency_contact,guardian,occupation,insurance,status").eq("status", "ativo").order("full_name").limit(500)), checked(db.from("memberships").select("user_id,name,email,role").eq("status", "ativo").order("name")), checked(db.from("communications").select("*,patients(id,full_name,preferred_name)").order("created_at", { ascending: false }).limit(120)), checked(db.from("communication_reads").select("*").eq("user_id", member.user_id)), checked(db.from("communication_notifications").select("*").eq("user_id", member.user_id).is("read_at", null).order("created_at", { ascending: false }).limit(50)),
   ]); setData({ conversations, patients, staff, communications, reads, notifications }); setSelected((current) => current && conversations.some((row) => row.id === current.id) ? current : conversations.find((row) => !row.archived_at) || conversations[0] || null); } catch { notify(t("Não foi possível carregar a comunicação.", "Could not load communication.")); } };
   useEffect(() => { load(); }, [version, member.user_id]);
   useEffect(() => { loadMessages(selected?.id); if (!selected?.id) return; const now = new Date().toISOString(); checked(db.from("communication_reads").upsert({ organization_id: ORG, conversation_id: selected.id, user_id: member.user_id, last_read_at: now }, { onConflict: "organization_id,conversation_id,user_id" })).then(() => setData((current) => ({ ...current, reads: [...current.reads.filter((row) => row.conversation_id !== selected.id), { conversation_id: selected.id, user_id: member.user_id, last_read_at: now }] }))).catch(() => null); }, [selected?.id]);

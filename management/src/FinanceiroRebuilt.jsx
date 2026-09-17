@@ -28,6 +28,7 @@ import {
 import { useT, label } from "./i18n";
 import { openDocument, receiptDocumentHTML } from "./documentSystem";
 import { PatientPicker } from "./PatientPicker";
+import ContextActions from "./ContextActions";
 
 const paymentMethods = [
   ["pix", "PIX", "PIX"],
@@ -747,7 +748,7 @@ export default function Financeiro({ notify, version }) {
             </p>
             <h2>{t("Cobranças", "Charges")}</h2>
           </div>
-          <span>
+          <span title={t("Use os botões ou clique com o botão direito em um lançamento para ações rápidas.", "Use the buttons or right-click an entry for quick actions.")}>
             {records.length}{" "}
             {records.length === 1
               ? t("lançamento", "entry")
@@ -813,13 +814,21 @@ export default function Financeiro({ notify, version }) {
                       </span>
                     </td>
                     <td>
-                      <button
-                        type="button"
-                        className="finance-detail-button"
-                        onClick={() => setExpanded(open ? null : record.id)}
+                      <ContextActions
+                        label={`${record.patients?.preferred_name || record.patients?.full_name || t("Paciente", "Patient")} · ${record.procedure_name || t("Cobrança", "Charge")}`}
+                        actions={[
+                          recordBalance(record) > 0 && { icon: WalletCards, label: t("Registrar pagamento", "Record payment"), onClick: () => setExpanded(record.id) },
+                          { icon: FileText, label: t("Atualizar Nota Fiscal", "Update invoice"), onClick: () => openNF(record) },
+                          { icon: Receipt, label: t("Abrir recibo / PDF", "Open receipt / PDF"), onClick: () => openReceipt(record) },
+                        ]}
+                        actionLabel={t("Ações rápidas", "Quick actions")}
                       >
-                        {open ? t("Fechar", "Close") : t("Abrir", "Open")}
-                      </button>
+                        <div className="finance-row-actions">
+                          {recordBalance(record) > 0 && <button type="button" className="finance-detail-button finance-quick-payment" onClick={() => setExpanded(record.id)}>{t("Registrar pagamento", "Record payment")}</button>}
+                          <button type="button" className="finance-detail-button" onClick={() => setExpanded(open ? null : record.id)}>{open ? t("Fechar", "Close") : t("Detalhes", "Details")}</button>
+                          <button type="button" className="finance-detail-button" onClick={() => openNF(record)}>{record.nota_fiscal_issued ? t("Ver NF", "View invoice") : t("Emitir NF", "Add invoice")}</button>
+                        </div>
+                      </ContextActions>
                     </td>
                   </tr>
                 );
@@ -1006,7 +1015,7 @@ export default function Financeiro({ notify, version }) {
               min="0"
               step="0.01"
               value={nf.nf_amount}
-              onChange={(v) => setNf({ ...nf, nota_fiscal_url: v })}
+              onChange={(v) => setNf({ ...nf, nf_amount: v })}
             />
             <Field
               label={t("Link oficial", "Official link")}

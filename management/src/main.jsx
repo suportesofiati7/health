@@ -860,7 +860,7 @@ function Clinic({ language, setLanguage }) {
               {view === "reports" && <Reports {...common} />}
               {view === "finance" && financeAllowed && <FinanceiroRebuilt {...common} />}
               {view === "procedures" && proceduresAllowed && <ProcedureCatalog notify={notify} />}
-              {view === "quality" && proceduresAllowed && <DataQualityDashboardComplete notify={notify} />}
+              {view === "quality" && proceduresAllowed && <DataQualityDashboardComplete notify={notify} openPatient={openPatient} onNavigate={setView} />}
               {view === "settings" && <SettingsView {...common} />}
               </Suspense>
             </main>
@@ -1869,6 +1869,19 @@ function Patient({
   }, [initial.id, page]);
   const [adminText, setAdminText] = useState(""),
     [adminBusy, setAdminBusy] = useState(false);
+  const [fhirBusy, setFhirBusy] = useState(false);
+  const exportFHIR = async () => {
+    setFhirBusy(true);
+    try {
+      await collectPatientFHIR(initial);
+      notify(t("Arquivo FHIR exportado.", "FHIR file exported."));
+    } catch (error) {
+      console.error("FHIR export failed", error);
+      notify(t("Não foi possível exportar o FHIR. Verifique seu acesso ao Supabase.", "FHIR export failed. Check your Supabase access."));
+    } finally {
+      setFhirBusy(false);
+    }
+  };
   const addAdminNote = async (patient) => {
     setAdminBusy(true);
     try {
@@ -2009,7 +2022,7 @@ function Patient({
               <span><Sparkles size={15} /> {t("Ações rápidas para este prontuário", "Quick actions for this record")}</span>
               <div>
                 {writable && <Button icon={CalendarPlus} onClick={() => setModal({ type: "appointment", patient })}>{t("Agendar", "Schedule")}</Button>}
-                {clinical && <Button icon={Download} onClick={() => collectPatientFHIR(patient)}>{t("Exportar FHIR", "Export FHIR")}</Button>}
+                {clinical && <Button icon={Download} disabled={fhirBusy} onClick={exportFHIR}>{fhirBusy ? t("Exportando...", "Exporting...") : t("Exportar FHIR", "Export FHIR")}</Button>}
                 {writable && <Button icon={MessageCircle} onClick={() => setModal({ type: "communication", patient })}>{t("Comunicar", "Message")}</Button>}
                 {clinical && <Button icon={Plus} className="primary" onClick={() => actions("atendimento")}>{t("Registrar atendimento", "Record visit")}</Button>}
               </div>
@@ -3316,7 +3329,8 @@ function WhatsappComposer({ appointment, patient, member, close, notify }) {
     const name = asNew ? window.prompt(t("Nome do novo modelo", "Name for the new template"), selected.name) : selected.name;
     if (!name?.trim()) return;
     try {
-      const payload = { name: name.trim(), subject: selected.subject || "", body: message.trim(), category: selected.category || "agendamento", channel: "whatsapp", variant: selected.variant || "standard", sender_mode: selected.sender_mode || "sender", sensitive: Boolean(selected.sensitive), created_by: member?.user_id };
+      const renderedBody = renderCommunication(selected.body, { ...patient, appointment }, { name: "Franciele Sofiati", role: "proprietario" });
+      const payload = { name: name.trim(), subject: selected.subject || "", body: message.trim() === renderedBody ? selected.body : message.trim(), category: selected.category || "agendamento", channel: "whatsapp", variant: selected.variant || "standard", sender_mode: selected.sender_mode || "sender", sensitive: Boolean(selected.sensitive), created_by: member?.user_id };
       if (asNew || !templatesState.data?.length) await checked(db.from("communication_templates").insert({ organization_id: ORG, ...payload }));
       else await checked(db.from("communication_templates").update(payload).eq("id", selected.id));
       templatesState.refresh(); notify(t(asNew ? "Modelo salvo para uso futuro." : "Modelo atual substituído.", asNew ? "Template saved for future use." : "Current template updated."));
@@ -4285,7 +4299,81 @@ async function collectPatient(patient) {
   );
   return data;
 }
-async function collectPatientFHIR(patient) { const exported = await collectPatient(patient); const p = exported.tables.patients?.[0] || patient; const bundle = { resourceType: "Bundle", type: "collection", timestamp: new Date().toISOString(), entry: [{ resource: { resourceType: "Patient", id: p.id, name: [{ text: p.full_name || p.preferred_name || "" }], telecom: [{ system: "phone", value: p.phone || "" }, { system: "email", value: p.email || "" }].filter((item) => item.value), birthDate: p.birth_date || undefined } }, ...(exported.tables.appointments || []).map((a) => ({ resource: { resourceType: "Appointment", id: a.id, status: a.status === "concluido" ? "fulfilled" : a.status === "cancelado" ? "cancelled" : "booked", start: a.starts_at, end: a.ends_at, description: a.label || "" } })), ...(exported.tables.clinical_procedures || []).map((c) => ({ resource: { resourceType: "Procedure", id: c.id, status: c.status === "finalizado" ? "completed" : "preparation", performedDateTime: c.performed_at, bodySite: c.area ? [{ text: c.area }] : undefined } }))] }; download(new Blob([JSON.stringify(bundle, null, 2)], { type: "application/fhir+json" }), `paciente-${p.id}-fhir.json`); }
+async function collectPatientFHIR(patient) {
+  const [p, appointments, procedures] = await Promise.all([
+    checked(db.from("patients").select("*").eq("id", patient.id).single()),
+    checked(
+      db
+        .from("appointments")
+        .select("id,status,starts_at,ends_at,label")
+        .eq("patient_id", patient.id)
+        .order("starts_at"),
+    ),
+    checked(
+      db
+        .from("clinical_procedures")
+        .select("id,status,performed_at,area")
+        .eq("patient_id", patient.id)
+        .order("performed_at"),
+    ),
+  ]);
+  await checked(
+    db.rpc("record_access", {
+      org: ORG,
+      entity: patient.id,
+      event: "exportacao_prontuario",
+    }),
+  );
+  const bundle = {
+    resourceType: "Bundle",
+    type: "collection",
+    timestamp: new Date().toISOString(),
+    entry: [
+      {
+        resource: {
+          resourceType: "Patient",
+          id: p.id,
+          name: [{ text: p.full_name || p.preferred_name || "" }],
+          telecom: [
+            { system: "phone", value: p.phone || "" },
+            { system: "email", value: p.email || "" },
+          ].filter((item) => item.value),
+          ...(p.birth_date ? { birthDate: p.birth_date } : {}),
+        },
+      },
+      ...appointments.map((a) => ({
+        resource: {
+          resourceType: "Appointment",
+          id: a.id,
+          status:
+            a.status === "concluido"
+              ? "fulfilled"
+              : a.status === "cancelado"
+                ? "cancelled"
+                : "booked",
+          start: a.starts_at,
+          end: a.ends_at,
+          description: a.label || "",
+        },
+      })),
+      ...procedures.map((c) => ({
+        resource: {
+          resourceType: "Procedure",
+          id: c.id,
+          status: c.status === "finalizado" ? "completed" : "preparation",
+          ...(c.performed_at ? { performedDateTime: c.performed_at } : {}),
+          ...(c.area ? { bodySite: [{ text: c.area }] } : {}),
+        },
+      })),
+    ],
+  };
+  download(
+    new Blob([JSON.stringify(bundle, null, 2)], {
+      type: "application/fhir+json",
+    }),
+    `paciente-${p.id}-fhir.json`,
+  );
+}
 async function collectFullBackup() {
   if (!(await checked(db.rpc("authorize_full_backup")))) throw Error("not_authorized");
   const tables = ["organizations", "memberships", "patients", "entries", "entry_versions", "admin_notes", "appointments", "tasks", "enquiries", "documents", "document_links", "communications", "audit_events", "procedures", "products", "product_lots", "devices", "treatment_plans", "treatment_plan_items", "clinical_procedures", "product_usages", "clinical_photos", "consents", "follow_ups", "adverse_events", "privacy_requests", "patient_health_history", "procedure_devices", "patient_portal_shares", "patient_portal_actions", "waitlist_entries", "inventory_movements", "financial_records", "financial_payments", "staff_permissions"];
@@ -4699,17 +4787,52 @@ function DataQualityDashboard({ notify }) {
   ]), []);
   return <section className="detail-section"><div className="toolbar"><div><p className="eyebrow">{t("Governança clínica", "Clinical governance")}</p><h2>{t("Qualidade dos dados", "Data quality")}</h2><p className="subtle">{t("Identifique o que precisa de revisão antes de publicar ou finalizar um atendimento.", "Identify what needs review before publishing or finalizing care.")}</p></div></div><LoadState state={state}>{([procedures, patients, consents, clinical]) => { const missing = procedures.filter((p) => p.missing_fields?.length || (p.next_review_on && p.next_review_on < localDay())); const pendingConsent = clinical.filter((p) => p.consent_status === "pendente").length; const incompleteClinical = clinical.filter((p) => p.status === "finalizado" && (!p.technique || !p.post_care)).length; const cards = [[t("Procedimentos para revisão", "Procedures needing review"), missing.length, t("Preço, fonte, consentimento ou conteúdo ausente", "Missing price, source, consent, or content")], [t("Consentimentos pendentes", "Pending consents"), pendingConsent, t("Atendimentos clínicos sem consentimento aceito", "Clinical records without accepted consent")], [t("Registros clínicos incompletos", "Incomplete clinical records"), incompleteClinical, t("Finalizados sem técnica ou pós-cuidado", "Finalized without technique or aftercare")], [t("Pacientes ativos", "Active patients"), patients.length, t("Base atual da clínica", "Current clinic population")]]; return <><div className="metric-grid">{cards.map(([title, value, hint]) => <article className="metric-card" key={title}><span>{title}</span><strong>{value}</strong><small>{hint}</small></article>)}</div><div className="rows">{missing.map((row) => <div className="list-row" key={row.id}><span><strong>{row.name}</strong><small>{row.missing_fields?.length ? `${t("Campos", "Fields")}: ${row.missing_fields.join(", ")}` : t("Revisão vencida", "Review overdue")}</small></span><Status value={row.review_status || "aprovacao_pendente"} /></div>)}{!missing.length && <Empty icon={CheckCircle2}>{t("Nenhuma falha de catálogo encontrada.", "No catalogue quality issues found.")}</Empty>}</div></>; }}</LoadState></section>;
 }
-function DataQualityDashboardComplete({ notify }) {
+function DataQualityDashboardComplete({ notify, openPatient, onNavigate }) {
   const t = useT();
-  const state = useLoad(async () => { const optional = (query) => checked(query).catch(() => []); return Promise.all([
-    optional(db.from("procedure_catalog_quality").select("*")),
-    optional(db.from("patients").select("id,full_name,preferred_name,phone,email,cpf,birth_date,status").eq("status", "ativo")),
-    optional(db.from("consents").select("id,patient_id,clinical_procedure_id,status,kind")),
-    optional(db.from("clinical_procedures").select("id,patient_id,procedure_id,status,consent_status,technique,post_care,indication,area")),
-    optional(db.from("treatment_plans").select("id,patient_id,status,objectives")),
-    optional(db.from("patient_portal_actions").select("id,status")),
-  ]); }, []);
-  return <section className="detail-section"><div className="toolbar"><div><p className="eyebrow">{t("Governança clínica", "Clinical governance")}</p><h2>{t("Qualidade dos dados", "Data quality")}</h2><p className="subtle">{t("Fila objetiva para corrigir cadastro, catálogo, consentimentos, prontuário e portal.", "An objective queue for patient, catalogue, consent, clinical-record and portal quality.")}</p></div></div><LoadState state={state}>{([catalogue, patients, consents, clinical, plans, portalActions]) => { const patientMissing = patients.filter((p) => !p.phone || !p.email || !p.cpf || !p.birth_date); const catalogueMissing = catalogue.filter((p) => p.missing_fields?.length); const overdue = catalogue.filter((p) => p.next_review_on && p.next_review_on < localDay()); const consentMissing = clinical.filter((p) => p.consent_status !== "aceito" && p.consent_status !== "nao_aplicavel").filter((p) => !consents.some((c) => c.clinical_procedure_id === p.id && c.kind === "procedimento" && c.status === "aceito")); const clinicalMissing = clinical.filter((p) => p.status === "finalizado" && (!p.procedure_id || !p.indication || !p.technique || !p.post_care || !p.area)); const planMissing = plans.filter((p) => !p.objectives || !p.status); const cards = [[t("Pacientes incompletos", "Incomplete patients"), patientMissing.length, t("Contato, CPF ou nascimento ausente", "Missing contact, tax ID or birth date")], [t("Catálogo incompleto", "Incomplete catalogue"), catalogueMissing.length, t("Preço, conteúdo ou fonte ausente", "Missing price, content or source")], [t("Consentimentos pendentes", "Missing consents"), consentMissing.length, t("Atendimentos sem aceite compatível", "Care without matching acceptance")], [t("Registros clínicos incompletos", "Incomplete clinical records"), clinicalMissing.length, t("Campos essenciais ausentes", "Required fields missing")], [t("Planos incompletos", "Incomplete treatment plans"), planMissing.length, t("Objetivos ou status ausente", "Missing objectives or status")], [t("Revisões vencidas", "Overdue reviews"), overdue.length, t("Procedimentos que precisam de revisão", "Procedures due for review")], [t("Ações do portal", "Portal actions"), portalActions.filter((a) => a.status === "pendente").length, t("Solicitações aguardando equipe", "Requests awaiting staff")]]; return <><div className="metric-grid">{cards.map(([title, value, hint]) => <article className="metric-card" key={title}><span>{title}</span><strong>{value}</strong><small>{hint}</small></article>)}</div><div className="rows">{catalogueMissing.map((row) => <div className="list-row" key={`catalogue-${row.id}`}><span><strong>{row.name}</strong><small>{t("Campos", "Fields")}: {(row.missing_fields || []).join(", ")}</small></span><Status value="aprovacao_pendente" /></div>)}{patientMissing.slice(0, 20).map((row) => <div className="list-row" key={`patient-${row.id}`}><span><strong>{row.preferred_name || row.full_name}</strong><small>{t("Cadastro incompleto", "Incomplete patient record")}</small></span><Status value="pendente" /></div>)}{!catalogueMissing.length && !patientMissing.length && !consentMissing.length && !clinicalMissing.length && !planMissing.length && !overdue.length && !portalActions.some((a) => a.status === "pendente") && <Empty icon={CheckCircle2}>{t("Nenhum problema de qualidade encontrado.", "No data-quality issues found.")}</Empty>}</div></>; }}</LoadState></section>;
+  const state = useLoad(async () => {
+    const optional = (query) => checked(query).catch(() => []);
+    return Promise.all([
+      optional(db.from("procedure_catalog_quality").select("*")),
+      optional(db.from("patients").select("id,full_name,preferred_name,phone,email,cpf,birth_date,status").eq("status", "ativo")),
+      optional(db.from("consents").select("id,patient_id,clinical_procedure_id,status,kind")),
+      optional(db.from("clinical_procedures").select("id,patient_id,procedure_id,status,consent_status,technique,post_care,indication,area")),
+      optional(db.from("treatment_plans").select("id,patient_id,status,objectives")),
+      optional(db.from("patient_portal_actions").select("id,patient_id,status,action_type")),
+    ]);
+  }, []);
+  const patientName = (patient) => patient?.preferred_name || patient?.full_name || t("Paciente", "Patient");
+  const goPatient = (patient) => {
+    if (patient?.id && openPatient) openPatient(patient);
+    else notify(t("Abra o cadastro do paciente para corrigir este item.", "Open the patient record to fix this item."));
+  };
+  const goCatalogue = () => {
+    if (onNavigate) onNavigate("procedures");
+    notify(t("Catálogo aberto. Complete os campos indicados e salve.", "Catalogue opened. Complete the indicated fields and save."));
+  };
+  return <section className="detail-section">
+    <div className="toolbar"><div><p className="eyebrow">{t("Governança clínica", "Clinical governance")}</p><h2>{t("Qualidade dos dados", "Data quality")}</h2><p className="subtle">{t("Fila objetiva para corrigir cadastro, catálogo, consentimentos, prontuário e portal.", "An objective queue for patient, catalogue, consent, clinical-record and portal quality.")}</p></div><Button icon={RefreshCw} onClick={state.refresh}>{t("Atualizar fila", "Refresh queue")}</Button></div>
+    <LoadState state={state}>{([catalogue, patients, consents, clinical, plans, portalActions]) => {
+      const patientMissing = patients.filter((p) => !p.phone || !p.email || !p.cpf || !p.birth_date);
+      const catalogueMissing = catalogue.filter((p) => p.missing_fields?.length);
+      const overdue = catalogue.filter((p) => p.next_review_on && p.next_review_on < localDay());
+      const consentMissing = clinical.filter((p) => p.consent_status !== "aceito" && p.consent_status !== "nao_aplicavel").filter((p) => !consents.some((c) => c.clinical_procedure_id === p.id && c.kind === "procedimento" && c.status === "aceito"));
+      const clinicalMissing = clinical.filter((p) => p.status === "finalizado" && (!p.procedure_id || !p.indication || !p.technique || !p.post_care || !p.area));
+      const planMissing = plans.filter((p) => !p.objectives || !p.status);
+      const portalPending = portalActions.filter((a) => a.status === "pendente");
+      const patientFor = (row) => patients.find((patient) => patient.id === row?.patient_id);
+      const cards = [[t("Pacientes incompletos", "Incomplete patients"), patientMissing.length, t("Contato, CPF ou nascimento ausente", "Missing contact, tax ID or birth date")], [t("Catálogo incompleto", "Incomplete catalogue"), catalogueMissing.length, t("Preço, conteúdo ou fonte ausente", "Missing price, content or source")], [t("Consentimentos pendentes", "Missing consents"), consentMissing.length, t("Atendimentos sem aceite compatível", "Care without matching acceptance")], [t("Registros clínicos incompletos", "Incomplete clinical records"), clinicalMissing.length, t("Campos essenciais ausentes", "Required fields missing")], [t("Planos incompletos", "Incomplete treatment plans"), planMissing.length, t("Objetivos ou status ausente", "Missing objectives or status")], [t("Revisões vencidas", "Overdue reviews"), overdue.length, t("Procedimentos que precisam de revisão", "Procedures due for review")], [t("Ações do portal", "Portal actions"), portalPending.length, t("Solicitações aguardando equipe", "Requests awaiting staff")]];
+      const rows = [
+        ...catalogueMissing.map((row) => ({ key: `catalogue-${row.id}`, title: row.name, detail: `${t("Campos", "Fields")}: ${(row.missing_fields || []).join(", ")}`, status: "aprovacao_pendente", action: goCatalogue, actionLabel: t("Completar catálogo", "Complete catalogue"), menu: [{ icon: ArrowRight, label: t("Abrir catálogo", "Open catalogue"), onClick: goCatalogue }] })),
+        ...patientMissing.slice(0, 20).map((row) => ({ key: `patient-${row.id}`, title: patientName(row), detail: t("Cadastro incompleto: telefone, e-mail, CPF ou nascimento.", "Incomplete record: phone, email, tax ID or birth date."), status: "pendente", action: () => goPatient(row), actionLabel: t("Abrir cadastro", "Open record"), menu: [{ icon: UserRound, label: t("Corrigir cadastro", "Fix patient record"), onClick: () => goPatient(row) }] })),
+        ...consentMissing.map((row) => ({ key: `consent-${row.id}`, title: patientName(patientFor(row)), detail: t("Consentimento do procedimento ainda não foi aceito.", "Procedure consent has not been accepted."), status: "pendente", action: () => goPatient(patientFor(row)), actionLabel: t("Abrir prontuário", "Open record"), menu: [{ icon: ArrowRight, label: t("Revisar consentimento", "Review consent"), onClick: () => goPatient(patientFor(row)) }] })),
+        ...clinicalMissing.map((row) => ({ key: `clinical-${row.id}`, title: patientName(patientFor(row)), detail: t("Registro finalizado com campos clínicos essenciais ausentes.", "Finalized record is missing essential clinical fields."), status: "pendente", action: () => goPatient(patientFor(row)), actionLabel: t("Completar prontuário", "Complete record"), menu: [{ icon: ArrowRight, label: t("Completar prontuário", "Complete record"), onClick: () => goPatient(patientFor(row)) }] })),
+        ...planMissing.map((row) => ({ key: `plan-${row.id}`, title: patientName(patientFor(row)), detail: t("Plano sem objetivo ou status definido.", "Plan has no objective or status."), status: "pendente", action: () => goPatient(patientFor(row)), actionLabel: t("Revisar plano", "Review plan"), menu: [{ icon: ArrowRight, label: t("Revisar plano", "Review plan"), onClick: () => goPatient(patientFor(row)) }] })),
+        ...portalPending.map((row) => ({ key: `portal-${row.id}`, title: patientName(patientFor(row)), detail: row.action_type || t("Solicitação aguardando a equipe.", "Request waiting for the team."), status: "pendente", action: () => goPatient(patientFor(row)), actionLabel: t("Abrir paciente", "Open patient"), menu: [{ icon: ArrowRight, label: t("Atender solicitação", "Handle request"), onClick: () => goPatient(patientFor(row)) }] })),
+        ...overdue.filter((row) => !catalogueMissing.some((item) => item.id === row.id)).map((row) => ({ key: `overdue-${row.id}`, title: row.name, detail: `${t("Revisão vencida em", "Review overdue on")} ${date(row.next_review_on)}`, status: "revisao_vencida", action: goCatalogue, actionLabel: t("Revisar catálogo", "Review catalogue"), menu: [{ icon: ArrowRight, label: t("Abrir catálogo", "Open catalogue"), onClick: goCatalogue }] })),
+      ];
+      return <><div className="metric-grid">{cards.map(([title, value, hint]) => <article className="metric-card" key={title}><span>{title}</span><strong>{value}</strong><small>{hint}</small></article>)}</div><div className="rows"><div className="subtle" style={{ marginBottom: 12 }}>{t("Clique na ação para corrigir agora. Use ⋯ ou o botão direito para ver o mesmo menu de ações.", "Click an action to fix it now. Use ⋯ or right-click to see the same action menu.")}</div>{rows.map((row) => <ContextActions key={row.key} label={row.title} actions={row.menu}><div className="list-row"><span><strong>{row.title}</strong><small>{row.detail}</small></span><span className="row-actions"><Status value={row.status} /><Button className="secondary" onClick={row.action}>{row.actionLabel}</Button></span></div></ContextActions>)}{!rows.length && <Empty icon={CheckCircle2}>{t("Nenhum problema de qualidade encontrado.", "No data-quality issues found.")}</Empty>}</div></>;
+    }}</LoadState>
+  </section>;
 }
 
 function ProcedureCatalog({ notify }) {
