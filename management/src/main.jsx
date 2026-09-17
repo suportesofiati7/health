@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { Suspense, lazy, useState, useEffect, useRef, useCallback } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Home,
@@ -96,10 +96,12 @@ import {
 import { encryptPackets, decryptPackets, fileBase64, download } from "./crypto";
 import { Language, useT, label } from "./i18n";
 import "./style.css";
-import FinanceiroRebuilt from "./FinanceiroRebuilt";
-import CommunicationHub from "./CommunicationHub";
+const FinanceiroRebuilt = lazy(() => import("./FinanceiroRebuilt"));
+const CommunicationHub = lazy(() => import("./CommunicationHub"));
 import { documentEscape, openDocument, receiptDocumentHTML, reportDocumentHTML } from "./documentSystem";
 import ContextActions from "./ContextActions";
+import { emailSubject, renderTemplate, sendFormSubmitEmail, valuesForPatient } from "./communicationTemplates";
+import { setProcedureCatalog, SmartTextControl } from "./autocomplete";
 // App chrome and generated documents share the same clinic brand source.
 const LOGO = "/brand.png";
 function Button({ icon: Icon, children, className = "", ...props }) {
@@ -155,6 +157,7 @@ function Field({
   onChange,
   options,
   wide,
+  suggestions,
   ...props
 }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -182,11 +185,13 @@ function Field({
           ))}
         </select>
       ) : type === "textarea" ? (
-        <textarea
+        <SmartTextControl
+          as="textarea"
           name={name}
           value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(value) => onChange(value)}
           rows={5}
+          suggestions={suggestions}
           {...props}
         />
       ) : dateField ? (
@@ -212,11 +217,12 @@ function Field({
         />
       ) : (
         <span className={password ? "field-input-wrap has-password-toggle" : "field-input-wrap"}>
-          <input
+          <SmartTextControl
             name={name}
             type={password && passwordVisible ? "text" : type}
             value={value ?? ""}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(value) => onChange(value)}
+            suggestions={password ? [] : suggestions}
             {...props}
           />
           {password && <button type="button" className="password-toggle" aria-label={passwordVisible ? "Ocultar senha" : "Mostrar senha"} aria-pressed={passwordVisible} onClick={() => setPasswordVisible((visible) => !visible)}>{passwordVisible ? <EyeOff size={17} aria-hidden="true" /> : <Eye size={17} aria-hidden="true" />}</button>}
@@ -445,6 +451,10 @@ function App() {
   const [lang, setLang] = useState(
     localStorage.getItem("sofiati-language") || "pt",
   );
+  useEffect(() => {
+    document.documentElement.lang = lang === "en" ? "en" : "pt-BR";
+    document.documentElement.dir = "ltr";
+  }, [lang]);
   return (
     <Language.Provider value={lang}>
       <Clinic
@@ -492,7 +502,19 @@ function Clinic({ language, setLanguage }) {
     [toast, setToast] = useState(""),
     [menu, setMenu] = useState(false),
     [commandOpen, setCommandOpen] = useState(false);
+  const [suggestionsReady, setSuggestionsReady] = useState(0);
   const notify = (text) => setToast(text);
+  useEffect(() => {
+    if (!member) {
+      setProcedureCatalog([]);
+      return undefined;
+    }
+    let live = true;
+    checked(db.from("procedures").select("id,name,category,active").eq("active", true).order("name"))
+      .then((rows) => { if (live) { setProcedureCatalog(rows); setSuggestionsReady((value) => value + 1); } })
+      .catch(() => {});
+    return () => { live = false; };
+  }, [member?.user_id]);
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("sofiati-theme", theme);
@@ -663,8 +685,8 @@ function Clinic({ language, setLanguage }) {
     setPatient(null);
     setMenu(false);
   };
-  const financeAllowed = member?.role === "proprietario" && member?.email?.toLowerCase() === "suportesofiati@gmail.com";
-  const clinical = ["proprietario", "profissional"].includes(member?.role),
+  const financeAllowed = ["proprietario", "suporte_ti"].includes(member?.role),
+    clinical = ["proprietario", "suporte_ti", "profissional"].includes(member?.role),
     writable = member?.role !== "leitura";
   const nav = [
     ["home", Home, t("Início", "Today")],
@@ -798,6 +820,7 @@ function Clinic({ language, setLanguage }) {
               </div>
             </header>
             <main id="main" tabIndex={-1}>
+              <Suspense fallback={<div className="route-loading" role="status"><RefreshCw size={18} className="spin" />{t("Carregando módulo…", "Loading module…")}</div>}>
               {view === "home" && <HomeView {...common} />}
               {view === "communication" && <CommunicationHub {...common} />}
               {view === "patients" && <Patients {...common} />}
@@ -814,6 +837,7 @@ function Clinic({ language, setLanguage }) {
               {view === "reports" && <Reports {...common} />}
               {view === "finance" && financeAllowed && <FinanceiroRebuilt {...common} />}
               {view === "settings" && <SettingsView {...common} />}
+              </Suspense>
             </main>
             <footer className="app-footer">
               <span>Franciele Sofiati</span>
@@ -860,6 +884,7 @@ function Clinic({ language, setLanguage }) {
         <WhatsappComposer
           appointment={modal.appointment}
           patient={modal.patient}
+          member={member}
           close={() => setModal(null)}
           notify={notify}
         />
@@ -1171,8 +1196,8 @@ function HomeView({
       clinical ? optional(db.from("entries").select("id,patient_id,kind,status,created_at").eq("status", "finalizado").limit(200)) : [],
       clinical ? optional(db.from("treatment_plans").select("id,patient_id,status,expected_followup,patients(*)").in("status", ["planejado", "em_andamento"]).limit(100)) : [],
       clinical ? optional(db.from("clinical_procedures").select("id,patient_id,status,followup_due,patients(*)").eq("status", "finalizado").limit(100)) : [],
-      member?.role === "proprietario" ? optional(db.from("audit_events").select("id,action,entity_type,created_at").order("created_at", { ascending: false }).limit(6)) : [],
-      member?.role === "proprietario" ? optional(db.from("financial_records").select("id,total_cents,status,due_on,patient_id,financial_payments(amount_cents,status)").neq("status", "cancelado").limit(100)) : [],
+      ["proprietario", "suporte_ti"].includes(member?.role) ? optional(db.from("audit_events").select("id,action,entity_type,created_at").order("created_at", { ascending: false }).limit(6)) : [],
+      ["proprietario", "suporte_ti"].includes(member?.role) ? optional(db.from("financial_records").select("id,total_cents,status,due_on,patient_id,financial_payments(amount_cents,status)").neq("status", "cancelado").limit(100)) : [],
     ]);
     return { appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance };
   }, [version, member?.role, clinical, today]);
@@ -1238,14 +1263,14 @@ function HomeView({
               <button onClick={() => navigate("agenda")}><span className="metric-icon metric-icon-rose"><UserCheck size={17}/></span><strong>{checkedIn.length}</strong><small>{t("aguardando / em atendimento", "waiting / in visit")}</small><i>{todayAppointments.filter((a) => a.status === "concluido").length} {t("concluídos", "completed")}</i></button>
               <button onClick={() => navigate("enquiries")}><span className="metric-icon metric-icon-gold"><ClipboardCheck size={17}/></span><strong>{enquiries.length + masterIntakes.length}</strong><small>{t("formulários e intakes", "forms and intakes")}</small><i>{enquiries.length} {t("pré-cadastros", "pre-registrations")}</i></button>
               <button onClick={() => navigate("tasks")}><span className="metric-icon metric-icon-pink"><ListChecks size={17}/></span><strong>{pendingTasks.length}</strong><small>{t("atenções abertas", "open attention")}</small><i>{pendingTasks.filter((x) => new Date(x.due_at) < now).length} {t("vencidas", "overdue")}</i></button>
-              {member?.role === "proprietario" && <button onClick={() => navigate("finance")}><span className="metric-icon metric-icon-gold"><WalletCards size={17}/></span><strong>{money(openBalance / 100)}</strong><small>{t("lançamentos ativos", "active charges")}</small><i>{finance.length} {t("registros", "records")}</i></button>}
+              {["proprietario", "suporte_ti"].includes(member?.role) && <button onClick={() => navigate("finance")}><span className="metric-icon metric-icon-gold"><WalletCards size={17}/></span><strong>{money(openBalance / 100)}</strong><small>{t("lançamentos ativos", "active charges")}</small><i>{finance.length} {t("registros", "records")}</i></button>}
             </div>
             <div className="home-grid">
               <section className="home-panel home-agenda"><div className="section-heading"><div><p className="eyebrow">{t("Próximos passos", "Next steps")}</p><h2>{t("Agenda de hoje", "Today's schedule")}</h2></div><button className="text-action" onClick={() => navigate("agenda")}>{t("Abrir agenda", "Open schedule")} <ArrowRight size={15}/></button></div>{todayAppointments.slice(0, 6).map((a) => <AppointmentRow key={a.id} appointment={a} openPatient={openPatient} setModal={setModal} clinical={clinical}/>)}{!todayAppointments.length && <Empty icon={CalendarDays}>{t("Nenhum agendamento para hoje", "No appointments today")}</Empty>}</section>
               <section className="home-panel home-attention"><div className="section-heading"><div><p className="eyebrow">{t("Fila única", "Single queue")}</p><h2>{t("Precisa de atenção", "Needs attention")}</h2></div><span className="attention-count">{attention.length}</span></div>{attention.length ? attention.map((item) => <button className={`home-attention-row tone-${item.tone}`} key={item.id} onClick={item.action}><span className="attention-dot"/><span><strong>{item.title}</strong><small>{item.detail || t("Sem paciente vinculado", "No linked patient")} · {date(item.due, true)}</small></span><ChevronRight size={15}/></button>) : <Empty icon={CheckCircle2}>{t("Tudo em dia", "All caught up")}</Empty>}</section>
             </div>
             <section className="home-panel home-journey"><div className="section-heading"><div><p className="eyebrow">{t("Continuidade do cuidado", "Continuity of care")}</p><h2>{t("Jornada dos pacientes", "Patient journey")}</h2></div><button className="text-action" onClick={() => navigate("reports")}>{t("Ver detalhes", "View details")} <ArrowRight size={15}/></button></div><div className="journey-flow">{journey.map(([name, count], index) => <button key={name} onClick={() => navigate(index < 2 ? "enquiries" : index === 3 ? "agenda" : "tasks")}><span className={`journey-number journey-number-${index}`}>{count}</span><small>{name}</small>{index < journey.length - 1 && <ArrowRight size={14}/>}</button>)}</div></section>
-            <div className="home-grid home-grid-bottom"><section className="home-panel home-capacity"><div className="section-heading"><div><p className="eyebrow">{t("Próximos 7 dias", "Next 7 days")}</p><h2>{t("Capacidade da agenda", "Schedule capacity")}</h2></div><span className="subtle">{capacity.reduce((sum, d) => sum + d.total - d.booked, 0)} {t("vagas estimadas", "estimated openings")}</span></div><div className="capacity-heatmap">{capacity.map((item) => <button key={item.day} title={`${date(item.day)} · ${item.booked}/${item.total}`} onClick={() => { navigate("agenda"); }}><small>{new Intl.DateTimeFormat("pt-BR", { weekday: "short", timeZone: "America/Sao_Paulo" }).format(atNoon(item.day)).replace(".", "")}</small><span style={{ "--fill": `${Math.min(100, (item.booked / item.total) * 100)}%` }}><i/></span><strong>{Math.max(0, item.total - item.booked)}</strong></button>)}</div></section><section className="home-panel home-recent"><div className="section-heading"><h2>{t("Atividade recente", "Recent activity")}</h2><History size={17}/></div>{member?.role === "proprietario" && audit.length ? audit.map((item) => <div className="home-activity" key={item.id}><span>{auditLabel(item.action, t)}</span><small>{entityLabel(item.entity_type, t)} · {date(item.created_at, true)}</small></div>) : homePatients.slice(0, 4).map((p) => <button className="home-activity home-activity-link" key={p.id} onClick={() => openPatient(p)}><Avatar person={p} size={28}/><span>{p.preferred_name || p.full_name}</span><small>{date(p.created_at, true)}</small></button>)}</section></div>
+            <div className="home-grid home-grid-bottom"><section className="home-panel home-capacity"><div className="section-heading"><div><p className="eyebrow">{t("Próximos 7 dias", "Next 7 days")}</p><h2>{t("Capacidade da agenda", "Schedule capacity")}</h2></div><span className="subtle">{capacity.reduce((sum, d) => sum + d.total - d.booked, 0)} {t("vagas estimadas", "estimated openings")}</span></div><div className="capacity-heatmap">{capacity.map((item) => <button key={item.day} title={`${date(item.day)} · ${item.booked}/${item.total}`} onClick={() => { navigate("agenda"); }}><small>{new Intl.DateTimeFormat("pt-BR", { weekday: "short", timeZone: "America/Sao_Paulo" }).format(atNoon(item.day)).replace(".", "")}</small><span style={{ "--fill": `${Math.min(100, (item.booked / item.total) * 100)}%` }}><i/></span><strong>{Math.max(0, item.total - item.booked)}</strong></button>)}</div></section><section className="home-panel home-recent"><div className="section-heading"><h2>{t("Atividade recente", "Recent activity")}</h2><History size={17}/></div>{["proprietario", "suporte_ti"].includes(member?.role) && audit.length ? audit.map((item) => <div className="home-activity" key={item.id}><span>{auditLabel(item.action, t)}</span><small>{entityLabel(item.entity_type, t)} · {date(item.created_at, true)}</small></div>) : homePatients.slice(0, 4).map((p) => <button className="home-activity home-activity-link" key={p.id} onClick={() => openPatient(p)}><Avatar person={p} size={28}/><span>{p.preferred_name || p.full_name}</span><small>{date(p.created_at, true)}</small></button>)}</section></div>
           </>
           );
         }}
@@ -2248,7 +2273,15 @@ function Patient({
                 </div>
                 <div className="document-list">
                   {documents.map((doc) => (
-                    <div className="document-row" key={doc.id}>
+                    <ContextActions key={doc.id} label={doc.name || t("Documento", "Document")} actions={[
+                      { icon: ExternalLink, label: t("Abrir documento", "Open document"), onClick: async () => {
+                        try { const { data } = await checked(db.storage.from("patient-files").createSignedUrl(doc.path, 300)); if (!data?.signedUrl) throw Error("signed_url"); window.open(data.signedUrl, "_blank", "noopener,noreferrer"); } catch { notify(t("Não foi possível abrir.", "Could not open.")); }
+                      } },
+                      { icon: Download, label: t("Baixar arquivo", "Download file"), onClick: async () => {
+                        try { await checked(db.rpc("record_access", { org: ORG, entity: doc.id, event: "download_documento" })); const blob = await checked(db.storage.from("patient-files").download(doc.path)); download(blob, doc.name); } catch { notify(t("Não foi possível baixar.", "Could not download.")); }
+                      } },
+                    ]}>
+                    <div className="document-row">
                       <FileText size={24} />
                       <span>
                         <strong>{doc.name}</strong>
@@ -2308,6 +2341,7 @@ function Patient({
                         }}
                       />
                     </div>
+                    </ContextActions>
                   ))}
                 </div>
                 {!documents.length && (
@@ -2353,7 +2387,10 @@ function Patient({
                   </Empty>
                 )}
                 {tasks.map((task) => (
-                  <div className="list-row" key={task.id}>
+                  <ContextActions key={task.id} label={task.title || t("Tarefa", "Task")} actions={[
+                    writable && { icon: Pencil, label: t("Editar tarefa", "Edit task"), onClick: () => setModal({ type: "task", patient, task }) },
+                  ]}>
+                  <div className="list-row">
                     <span>
                       <strong>{task.title}</strong>
                       <small>{date(task.due_at, true)}</small>
@@ -2369,6 +2406,7 @@ function Patient({
                       </Button>
                     )}
                   </div>
+                  </ContextActions>
                 ))}
               </>
             )}
@@ -2534,7 +2572,7 @@ function TreatmentPlans({ patient, member, writable, clinical, notify, setModal 
   const startProcedure = async (plan, item) => { try { await checked(db.from("clinical_procedures").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: item.procedure_id, plan_id: plan.id, professional_id: member.user_id, area: item.area || "", observations: "", technique: "", post_care: "", status: "rascunho", created_by: member.user_id })); notify(t("Procedimento iniciado como rascunho; complete-o na aba Procedimentos.", "Procedure started as a draft; complete it in the Procedures tab.")); } catch { notify(t("Não foi possível iniciar o procedimento.", "Could not start the procedure.")); } };
   return <section className="detail-section"><div className="section-heading"><h2>{t("Planos de tratamento", "Treatment plans")}</h2></div>
     {writable && clinical && <form className="form-grid" onSubmit={savePlan}><Field title={t("Título", "Title")} value={form.title} onChange={(v) => set("title", v)} required wide /><Field title={t("Objetivos", "Objectives")} type="textarea" value={form.objectives} onChange={(v) => set("objectives", v)} wide /><Field title={t("Áreas de tratamento", "Treatment areas")} value={form.areas} onChange={(v) => set("areas", v)} /><Field title={t("Responsável", "Responsible professional")} value={form.responsible_user} onChange={(v) => set("responsible_user", v)} options={[{ value: member.user_id, label: member.name || member.email }]} /><Field title={t("Retorno esperado", "Expected follow-up")} type="date" value={form.expected_followup} onChange={(v) => set("expected_followup", v)} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["planejado", "em_andamento", "concluido", "suspenso", "cancelado"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Procedimento planejado", "Planned procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar", "Select") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.name }))]} /><Field title={t("Sequência", "Sequence")} type="number" min="1" value={form.sequence_no} onChange={(v) => set("sequence_no", v)} /><Field title={t("Sessões", "Sessions")} type="number" min="1" value={form.sessions} onChange={(v) => set("sessions", v)} /><Field title={t("Área do item", "Item area")} value={form.item_area} onChange={(v) => set("item_area", v)} /><Field title={t("Notas", "Notes")} type="textarea" value={form.item_notes} onChange={(v) => set("item_notes", v)} wide /><Field title={t("Notas profissionais", "Professional notes")} type="textarea" value={form.professional_notes} onChange={(v) => set("professional_notes", v)} wide /><Button className="primary" icon={Save} disabled={busy}>{busy ? t("Salvando...", "Saving...") : t("Criar plano", "Create plan")}</Button></form>}
-    <LoadState state={state}>{([plans]) => plans.map((plan) => <article className="entry" key={plan.id}><div className="entry-head"><span><strong>{plan.title}</strong> · {date(plan.created_at)}</span><Status value={plan.status} /></div><p className="preserve">{plan.objectives || t("Sem objetivos registrados", "No objectives recorded")}</p><small>{plan.areas} · {plan.expected_followup ? `${t("Retorno", "Follow-up")}: ${date(plan.expected_followup)}` : ""}</small>{plan.treatment_plan_items?.map((item) => <div className="list-row" key={item.id}><span><strong>{item.sequence_no}. {item.procedures?.name}</strong><small>{item.area} · {item.sessions} {t("sessão(ões)", "session(s)")}</small></span>{clinical && writable && <Button icon={ArrowRight} onClick={() => startProcedure(plan, item)}>{t("Iniciar procedimento", "Start procedure")}</Button>}</div>)}</article>)}</LoadState>
+    <LoadState state={state}>{([plans]) => plans.map((plan) => <ContextActions key={plan.id} label={plan.title || t("Plano de tratamento", "Treatment plan")} actions={[{ icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => setModal({ type: "appointment", patient }) }]}><article className="entry"><div className="entry-head"><span><strong>{plan.title}</strong> · {date(plan.created_at)}</span><Status value={plan.status} /></div><p className="preserve">{plan.objectives || t("Sem objetivos registrados", "No objectives recorded")}</p><small>{plan.areas} · {plan.expected_followup ? `${t("Retorno", "Follow-up")}: ${date(plan.expected_followup)}` : ""}</small>{plan.treatment_plan_items?.map((item) => <div className="list-row" key={item.id}><span><strong>{item.sequence_no}. {item.procedures?.name}</strong><small>{item.area} · {item.sessions} {t("sessão(ões)", "session(s)")}</small></span>{clinical && writable && <Button icon={ArrowRight} onClick={() => startProcedure(plan, item)}>{t("Iniciar procedimento", "Start procedure")}</Button>}</div>)}</article></ContextActions>)}</LoadState>
   </section>;
 }
 
@@ -2645,7 +2683,7 @@ function Provenance({ value }) {
 
 function MasterIntake({ patient: initialPatient, sourceIntake, member, close, notify, done }) {
   const t = useT();
-  const clinical = ["proprietario", "profissional"].includes(member.role);
+  const clinical = ["proprietario", "suporte_ti", "profissional"].includes(member.role);
   const [patient, setPatient] = useState(initialPatient), [form, setForm] = useState(null), [provenance, setProvenance] = useState({}), [status, setStatus] = useState("rascunho"), [missing, setMissing] = useState([]), [busy, setBusy] = useState(false), [loaded, setLoaded] = useState(false), [savedAt, setSavedAt] = useState("");
   const source = sourceIntake?.payload || {};
   const base = (p) => ({
@@ -3115,7 +3153,7 @@ function AppointmentForm({ appointment, patient, initialStart, close, done, noti
         db
           .from("memberships")
           .select("user_id,name")
-          .in("role", ["proprietario", "profissional"])
+          .in("role", ["proprietario", "suporte_ti", "profissional"])
           .eq("status", "ativo"),
       ),
     [],
@@ -3259,52 +3297,73 @@ const timeLabel = (value) => validDateValue(value) ? new Intl.DateTimeFormat("pt
 const patientName = (a, t) => a.patients?.preferred_name || a.patients?.full_name || t("Paciente", "Patient");
 const statusTone = (value) => ({ confirmado: "confirmed", concluido: "completed", cancelado: "cancelled", faltou: "noshow", aguardando: "waiting" }[value] || "scheduled");
 
-function WhatsappComposer({ appointment, patient, close, notify }) {
+function WhatsappComposer({ appointment, patient, member, close, notify }) {
   const t = useT();
-  const [template, setTemplate] = useState("confirmacao");
+  const templatesState = useLoad(() => checked(db.from("communication_templates").select("*").eq("active", true).is("deleted_at", null).eq("channel", "whatsapp").order("category,name,variant")), []);
+  const [templateId, setTemplateId] = useState("");
   const [consents, setConsents] = useState([]);
   const first = (patient?.preferred_name || patient?.full_name || "").split(" ")[0];
   const data = { primeiro_nome: first, data: date(appointment.starts_at), hora: timeLabel(appointment.starts_at) };
-  const templates = {
+  const fallbackTemplates = {
     confirmacao: ["Confirmação", `Olá, ${data.primeiro_nome}. Tudo bem?\n\nEstamos confirmando seu atendimento com Franciele Sofiati para ${data.data}, às ${data.hora}.\n\nCaso precise reagendar, por favor entre em contato conosco.`],
     lembrete: ["Lembrete", `Olá, ${data.primeiro_nome}.\n\nPassando para lembrar do seu atendimento com Franciele Sofiati amanhã, ${data.data}, às ${data.hora}.\n\nEsperamos você.`],
     hoje: ["Lembrete no dia", `Olá, ${data.primeiro_nome}.\n\nSeu atendimento com Franciele Sofiati está marcado para hoje às ${data.hora}.\n\nAté breve.`],
     retorno: ["Pós-atendimento / retorno", `Olá, ${data.primeiro_nome}. Tudo bem?\n\nEstamos entrando em contato para saber como você está após seu atendimento.\n\nSe precisar falar conosco ou tiver alguma dúvida, estamos à disposição.`],
     aniversario: ["Aniversário", `Feliz aniversário, ${data.primeiro_nome}! 🎂\n\nA equipe Franciele Sofiati deseja um dia muito especial para você.`],
   };
+  const templates = templatesState.data?.length ? templatesState.data : Object.entries(fallbackTemplates).map(([id, [name, body]]) => ({ id, name, body, subject: "", category: "agendamento", variant: "standard" }));
+  const selected = templates.find((item) => item.id === templateId) || templates[0];
+  useEffect(() => { if (!templateId && templates[0]) setTemplateId(templates[0].id); }, [templateId, templates.length]);
   useEffect(() => { checked(db.from("consents").select("kind,status").eq("patient_id", patient?.id)).then(setConsents).catch(() => setConsents([])); }, [patient?.id]);
   const allowedPhone = whatsapp(patient?.phone);
   const marketingAllowed = consents.some((c) => c.kind === "publicacao_marketing" && c.status === "aceito");
-  const [message, setMessage] = useState(templates[template][1]);
-  useEffect(() => setMessage(templates[template][1]), [template]);
+  const [message, setMessage] = useState("");
+  useEffect(() => { if (selected) setMessage(renderCommunication(selected.body, { ...patient, appointment }, { name: "Franciele Sofiati", role: "proprietario" })); }, [selected?.id, patient?.id, appointment?.id]);
+  const saveTemplate = async (asNew = false) => {
+    if (!selected || !message.trim()) return;
+    const name = asNew ? window.prompt(t("Nome do novo modelo", "Name for the new template"), selected.name) : selected.name;
+    if (!name?.trim()) return;
+    try {
+      const payload = { name: name.trim(), subject: selected.subject || "", body: message.trim(), category: selected.category || "agendamento", channel: "whatsapp", variant: selected.variant || "standard", sender_mode: selected.sender_mode || "sender", sensitive: Boolean(selected.sensitive), created_by: member?.user_id };
+      if (asNew || !templatesState.data?.length) await checked(db.from("communication_templates").insert({ organization_id: ORG, ...payload }));
+      else await checked(db.from("communication_templates").update(payload).eq("id", selected.id));
+      templatesState.refresh(); notify(t(asNew ? "Modelo salvo para uso futuro." : "Modelo atual substituído.", asNew ? "Template saved for future use." : "Current template updated."));
+    } catch { notify(t("Não foi possível salvar o modelo.", "Could not save the template.")); }
+  };
+  const renameTemplate = async () => {
+    if (!selected || !templatesState.data?.length) return;
+    const name = window.prompt(t("Novo nome do modelo", "New template name"), selected.name);
+    if (!name?.trim() || name.trim() === selected.name) return;
+    try { await checked(db.from("communication_templates").update({ name: name.trim() }).eq("id", selected.id)); templatesState.refresh(); notify(t("Modelo renomeado.", "Template renamed.")); } catch { notify(t("Não foi possível renomear o modelo.", "Could not rename the template.")); }
+  };
   const open = () => { if (!allowedPhone) return notify(t("Telefone não disponível em formato válido.", "Phone is not available in a valid format.")); window.open(`${whatsappWeb(patient?.phone)}&text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer"); notify(t("Mensagem preparada. Abrir no WhatsApp", "Message prepared. Open in WhatsApp")); close(); };
   return <Dialog title={t("Preparar mensagem", "Prepare message")} close={close}>
     <div className="whatsapp-composer">
       <p className="subtle">{patientName(appointment, t)} · {date(appointment.starts_at, true)}</p>
-      <Field title={t("Modelo", "Template")} value={template} onChange={setTemplate} options={Object.entries(templates).map(([value, labels]) => ({ value, label: labels[0] }))} />
+      <ContextActions className="template-field-actions" label={selected?.name || t("Modelo", "Template")} actions={[{ icon: Save, label: t("Salvar modelo atual", "Save current template"), onClick: () => saveTemplate(false) }, { icon: Save, label: t("Salvar como novo modelo", "Save as new template"), onClick: () => saveTemplate(true) }, templatesState.data?.length && { icon: Pencil, label: t("Renomear modelo", "Rename template"), onClick: renameTemplate }]}>
+        <Field title={t("Modelo", "Template")} value={selected?.id || ""} onChange={setTemplateId} options={templates.map((item) => ({ value: item.id, label: `${item.name} · ${item.category}` }))} />
+      </ContextActions>
       {!marketingAllowed && <p className="consent-note"><ShieldCheck size={15} /> {t("Modelos promocionais desativados: consentimento de marketing não confirmado.", "Promotional templates disabled: marketing consent is not confirmed.")}</p>}
       <Field title={t("Mensagem editável", "Editable message")} type="textarea" value={message} onChange={setMessage} />
       <p className="subtle">{t("A aplicação não confirma o envio. Revise a mensagem antes de abrir o WhatsApp.", "The application cannot confirm delivery. Review the message before opening WhatsApp.")}</p>
-      <footer className="form-footer"><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={MessageCircle} onClick={open} disabled={!allowedPhone}>{t("Abrir no WhatsApp", "Open WhatsApp")}</Button></footer>
+      <footer className="form-footer"><Button type="button" onClick={() => saveTemplate(false)} icon={Save} disabled={!templatesState.data?.length}>{t("Salvar modelo atual", "Save current template")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={MessageCircle} onClick={open} disabled={!allowedPhone}>{t("Abrir no WhatsApp", "Open WhatsApp")}</Button></footer>
     </div>
   </Dialog>;
 }
 
 const communicationCategories = [["todos", "Todos"], ["agendamento", "Agendamentos"], ["lead", "Leads"], ["feedback", "Feedback"], ["interno", "Equipe"], ["profissional", "Profissionais"]];
 const senderSignature = (member) => member?.role === "proprietario" && String(member?.name || "").toLowerCase().includes("franciele") ? "Franciele Sofiati" : "Recepção da Franciele Sofiati";
-const renderCommunication = (body, context, member) => {
-  const values = { primeiro_nome: (context?.preferred_name || context?.full_name || "").split(" ")[0], nome_completo: context?.full_name || "", data_consulta: context?.appointment ? date(context.appointment.starts_at) : "", hora_consulta: context?.appointment ? timeLabel(context.appointment.starts_at) : "", endereco: "Londrina, PR", link_feedback: "", documento: "", assinatura_remetente: senderSignature(member) };
-  return String(body || "").replace(/\{([\w]+)\}/g, (_, key) => values[key] ?? "").replace(/\n{3,}/g, "\n\n").trim();
-};
+const renderCommunication = (body, context, member) => renderTemplate(body, valuesForPatient(context, member, context?.appointment));
 function CommunicationComposer({ patient: initialPatient, appointment, template: initialTemplate, member, close, notify }) {
   const t = useT(), templates = useLoad(() => checked(db.from("communication_templates").select("*").eq("active", true).order("category,name,variant")), []), [patient] = useState(initialPatient || appointment?.patients || null), [templateId, setTemplateId] = useState(initialTemplate?.id || ""), [channel, setChannel] = useState(initialTemplate?.channel || "whatsapp"), [subject, setSubject] = useState(""), [body, setBody] = useState(""), [signature, setSignature] = useState(senderSignature(member)), [preference, setPreference] = useState(null), [busy, setBusy] = useState(false);
   useEffect(() => { if (patient?.id) checked(db.from("communication_preferences").select("*").eq("patient_id", patient.id).maybeSingle()).then(setPreference).catch(() => setPreference(null)); }, [patient?.id]);
   const selected = (templates.data || []).find((x) => x.id === templateId);
   useEffect(() => { if (templateId === "__free__") return; const item = selected || (templates.data || []).find((x) => x.channel === channel); if (item) { setTemplateId(item.id); setSubject(renderCommunication(item.subject, { ...patient, appointment }, member)); setSignature(senderSignature(member)); setBody(renderCommunication(item.body, { ...patient, appointment }, member)); } }, [templates.data, templateId, channel, patient?.id, appointment?.id, member?.user_id]);
   const recipient = channel === "email" ? patient?.email : patient?.phone;
-  const saveAsTemplate = async () => { const name = window.prompt(t("Nome do novo modelo", "Name for the new template")); if (!name?.trim()) return; try { await checked(db.from("communication_templates").insert({ organization_id: ORG, name: name.trim(), category: selected?.category || "administrativo", channel, variant: "standard", subject, body, sender_mode: "sender", sensitive: false, created_by: member.user_id })); templates.refresh(); notify(t("Modelo salvo para uso futuro.", "Template saved for future use.")); } catch { notify(t("Não foi possível salvar o modelo.", "Could not save the template.")); } };
-  const submit = async (e) => { e.preventDefault(); if (preference?.do_not_contact) return notify(t("Este paciente pediu para não ser contatado. Revise as preferências antes de continuar.", "This patient requested no contact. Review preferences before continuing.")); if (!patient || !recipient) return notify(t("Selecione um contato com telefone ou email válido.", "Select a contact with a valid phone or email.")); const target = channel === "whatsapp" ? `${whatsappWeb(recipient)}&text=${encodeURIComponent(body)}` : channel === "telefone" ? `tel:${digits(recipient)}` : `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; const popup = window.open(target, "_blank", "noopener,noreferrer"); setBusy(true); try { const row = await checked(db.from("communications").insert({ organization_id: ORG, patient_id: patient.id, appointment_id: appointment?.id || null, channel, direction: "outbound", visibility: "external", category: selected?.category || "administrativo", subject, body, rendered_signature: signature, recipient_name: patient.full_name || patient.preferred_name || "", recipient_address: recipient, template_id: templateId === "__free__" ? null : (templateId || null), status: "rascunho", packet_sha256: "", created_by: member.user_id }).select().single()); if (!popup) window.open(target, "_blank", "noopener,noreferrer"); await checked(db.from("communications").update({ status: channel === "telefone" ? "enviado" : "nao_confirmado", sent_at: new Date().toISOString() }).eq("id", row.id)); notify(t("Contato preparado e registrado no histórico.", "Contact prepared and recorded in history.")); close(); } catch { popup?.close(); notify(t("Não foi possível registrar a comunicação.", "Could not record the communication.")); } finally { setBusy(false); } };
-  return <Dialog title={t("Preparar comunicação", "Prepare communication")} close={close} wide><form className="communication-composer" onSubmit={submit}><div className="communication-recipient"><strong>{patient?.preferred_name || patient?.full_name || t("Nenhum destinatário", "No recipient")}</strong><span>{recipient || t("Sem contato neste canal", "No contact for this channel")}</span></div>{preference?.do_not_contact && <p className="notice error">{t("Não contatar: preferência registrada no cadastro.", "Do not contact: preference recorded in the patient record.")}</p>}<div className="form-grid"><Field title={t("Canal", "Channel")} value={channel} onChange={setChannel} options={[{ value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "Email" }, { value: "telefone", label: t("Telefone", "Phone") }]} /><Field title={t("Modelo", "Template")} value={templateId} onChange={setTemplateId} options={[{ value: "__free__", label: t("Mensagem livre", "Free message") }, ...(templates.data || []).filter((x) => x.channel === channel).map((x) => ({ value: x.id, label: `${x.name} · ${x.variant}` }))]} /></div>{channel === "email" && <Field title={t("Assunto", "Subject")} value={subject} onChange={setSubject} />}<Field title={t("Assinatura", "Signature")} value={signature} onChange={(v) => { setSignature(v); setBody((current) => current.replace(/(Com carinho,\n)?(Recepção da Franciele Sofiati|Franciele Sofiati)$/, `$1${v}`)); }} /><Field title={t("Mensagem editável", "Editable message")} type="textarea" value={body} onChange={setBody} required /><p className="consent-note"><ShieldCheck size={15} /> {t("Revise antes de abrir o WhatsApp ou o rascunho de email. A aplicação não afirma que a mensagem foi entregue.", "Review before opening WhatsApp or the email draft. The app does not claim delivery.")}</p><footer className="form-footer"><Button type="button" onClick={saveAsTemplate} icon={Save}>{t("Salvar como modelo", "Save as template")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Send} disabled={busy || !body || preference?.do_not_contact}>{t("Abrir canal e registrar", "Open channel and record")}</Button></footer></form></Dialog>;
+  const saveTemplate = async (asNew = false) => { if (!body.trim()) return; const name = asNew ? window.prompt(t("Nome do novo modelo", "Name for the new template"), selected?.name || "") : selected?.name; if (!name?.trim()) return; try { const payload = { name: name.trim(), category: selected?.category || "administrativo", channel, variant: selected?.variant || "standard", subject, body, sender_mode: selected?.sender_mode || "sender", sensitive: Boolean(selected?.sensitive), created_by: member.user_id }; if (asNew || !selected) await checked(db.from("communication_templates").insert({ organization_id: ORG, ...payload })); else await checked(db.from("communication_templates").update(payload).eq("id", selected.id)); templates.refresh(); notify(t(asNew ? "Modelo salvo para uso futuro." : "Modelo atual substituído.", asNew ? "Template saved for future use." : "Current template updated.")); } catch { notify(t("Não foi possível salvar o modelo.", "Could not save the template.")); } };
+  const renameTemplate = async () => { if (!selected) return; const name = window.prompt(t("Novo nome do modelo", "New template name"), selected.name); if (!name?.trim() || name.trim() === selected.name) return; try { await checked(db.from("communication_templates").update({ name: name.trim() }).eq("id", selected.id)); templates.refresh(); notify(t("Modelo renomeado.", "Template renamed.")); } catch { notify(t("Não foi possível renomear o modelo.", "Could not rename the template.")); } };
+  const submit = async (e) => { e.preventDefault(); if (preference?.do_not_contact) return notify(t("Este paciente pediu para não ser contatado. Revise as preferências antes de continuar.", "This patient requested no contact. Review preferences before continuing.")); if (!patient || !recipient) return notify(t("Selecione um contato com telefone ou email válido.", "Select a contact with a valid phone or email.")); const finalSubject = channel === "email" ? emailSubject(subject, selected?.name) : subject; const target = channel === "whatsapp" ? `${whatsappWeb(recipient)}&text=${encodeURIComponent(body)}` : channel === "telefone" ? `tel:${digits(recipient)}` : null; const popup = target ? window.open(target, "_blank", "noopener,noreferrer") : null; setBusy(true); try { if (channel === "email") await sendFormSubmitEmail({ recipient, subject: finalSubject, body, patient, sender: member.email || member.name }); const row = await checked(db.from("communications").insert({ organization_id: ORG, patient_id: patient.id, appointment_id: appointment?.id || null, channel, direction: "outbound", visibility: "external", category: selected?.category || "administrativo", subject: finalSubject, body, rendered_signature: signature, recipient_name: patient.full_name || patient.preferred_name || "", recipient_address: recipient, template_id: templateId === "__free__" ? null : (templateId || null), status: "rascunho", packet_sha256: "", created_by: member.user_id }).select().single()); if (!popup && target) window.open(target, "_blank", "noopener,noreferrer"); await checked(db.from("communications").update({ status: channel === "telefone" || channel === "email" ? "enviado" : "nao_confirmado", sent_at: new Date().toISOString() }).eq("id", row.id)); notify(t(channel === "email" ? "Email enviado e registrado no histórico." : "Contato preparado e registrado no histórico.", channel === "email" ? "Email sent and recorded in history." : "Contact prepared and recorded in history.")); close(); } catch { popup?.close(); notify(t(channel === "email" ? "Não foi possível enviar o email." : "Não foi possível registrar a comunicação.", channel === "email" ? "Could not send the email." : "Could not record the communication.")); } finally { setBusy(false); } };
+  return <Dialog title={t("Preparar comunicação", "Prepare communication")} close={close} wide><form className="communication-composer" onSubmit={submit}><div className="communication-recipient"><strong>{patient?.preferred_name || patient?.full_name || t("Nenhum destinatário", "No recipient")}</strong><span>{recipient || t("Sem contato neste canal", "No contact for this channel")}</span></div>{preference?.do_not_contact && <p className="notice error">{t("Não contatar: preferência registrada no cadastro.", "Do not contact: preference recorded in the patient record.")}</p>}<div className="form-grid"><Field title={t("Canal", "Channel")} value={channel} onChange={setChannel} options={[{ value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "Email" }, { value: "telefone", label: t("Telefone", "Phone") }]} /><ContextActions className="template-field-actions" label={selected?.name || t("Modelo", "Template")} actions={[{ icon: Save, label: t("Salvar modelo atual", "Save current template"), onClick: () => saveTemplate(false) }, { icon: Save, label: t("Salvar como novo modelo", "Save as new template"), onClick: () => saveTemplate(true) }, selected && { icon: Pencil, label: t("Renomear modelo", "Rename template"), onClick: renameTemplate }]}><Field title={t("Modelo", "Template")} value={templateId} onChange={setTemplateId} options={[{ value: "__free__", label: t("Mensagem livre", "Free message") }, ...(templates.data || []).filter((x) => x.channel === channel).map((x) => ({ value: x.id, label: `${x.name} · ${x.variant}` }))]} /></ContextActions></div>{channel === "email" && <Field title={t("Assunto", "Subject")} value={subject} onChange={setSubject} />}<Field title={t("Assinatura", "Signature")} value={signature} onChange={(v) => { setSignature(v); setBody((current) => current.replace(/(Com carinho,\n)?(Recepção da Franciele Sofiati|Franciele Sofiati)$/, `$1${v}`)); }} /><Field title={t("Mensagem editável", "Editable message")} type="textarea" value={body} onChange={setBody} required /><p className="consent-note"><ShieldCheck size={15} /> {t("Revise antes de abrir o WhatsApp ou o rascunho de email. A aplicação não afirma que a mensagem foi entregue.", "Review before opening WhatsApp or the email draft. The app does not claim delivery.")}</p><footer className="form-footer"><Button type="button" onClick={() => saveTemplate(false)} icon={Save} disabled={!selected}>{t("Salvar modelo atual", "Save current template")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Send} disabled={busy || !body || preference?.do_not_contact}>{t("Abrir canal e registrar", "Open channel and record")}</Button></footer></form></Dialog>;
 }
 function Communication({ member, setModal, openPatient, version, writable, notify }) {
   const t = useT(), [tab, setTab] = useState("prioridades"), [category, setCategory] = useState("todos"), [search, setSearch] = useState("");
@@ -4220,7 +4279,7 @@ async function collectFullBackup() {
 }
 function FullBackupExport({ member, notify }) {
   const t = useT(), [pass, setPass] = useState(""), [confirmPass, setConfirm] = useState(""), [packets, setPackets] = useState(null), [busy, setBusy] = useState(false);
-  if (member.email?.toLowerCase() !== "suportesofiati@gmail.com") return <section className="detail-section"><h2>{t("Exportar todos os dados", "Export all data")}</h2><p className="notice"><ShieldCheck size={18} /> {t("Disponível somente para suportesofiati@gmail.com.", "Available only to suportesofiati@gmail.com.")}</p></section>;
+  if (!["proprietario", "suporte_ti"].includes(member.role)) return <section className="detail-section"><h2>{t("Exportar todos os dados", "Export all data")}</h2><p className="notice"><ShieldCheck size={18} /> {t("Disponível somente para proprietários.", "Available only to owners.")}</p></section>;
   const prepare = async () => { if (pass.length < 16 || pass !== confirmPass) return notify(t("Use e confirme uma frase com pelo menos 16 caracteres.", "Use and confirm a passphrase of at least 16 characters.")); setBusy(true); try { setPackets(await encryptPackets(await collectFullBackup(), pass)); setPass(""); setConfirm(""); notify(t("Backup completo criptografado pronto para download.", "Complete encrypted backup ready for download.")); } catch { notify(t("Não foi possível criar o backup completo.", "Could not create the complete backup.")); } finally { setBusy(false); } };
   return <section className="detail-section"><div className="section-heading"><div><h2>{t("Exportar todos os dados", "Export all data")}</h2><p className="subtle">{t("Inclui banco, arquivos, pacientes, profissionais e informações do sistema. O backup é criptografado no navegador.", "Includes database, files, patients, professionals, and system information. The backup is encrypted in your browser.")}</p></div><LockKeyhole size={22} /></div>{!packets ? <><div className="form-grid"><Field title={t("Frase de recuperação", "Recovery passphrase")} type="password" minLength={16} value={pass} onChange={setPass} /><Field title={t("Confirmar frase", "Confirm passphrase")} type="password" value={confirmPass} onChange={setConfirm} /></div><Button className="primary" icon={Download} disabled={busy} onClick={prepare}>{busy ? t("Preparando...", "Preparing...") : t("Exportar todos os dados", "Export all data")}</Button></> : <div className="actions wrap">{packets.map((part, index) => <Button key={index} icon={Download} onClick={() => download(new Blob([JSON.stringify(part)], { type: "application/json" }), `backup-completo-${index + 1}-de-${packets.length}.encrypted.json`)}>{t("Baixar parte", "Download part")} {index + 1}/{packets.length}</Button>)}</div>}</section>;
 }
@@ -4654,9 +4713,10 @@ const ACCESS_ROLES = [
   "financeiro", "auditor", "marketing", "consultor_externo", "fornecedor", "leitura",
 ];
 const OWNER_ROLES = ["proprietario", "suporte_ti"];
+const canDeleteStaffMember = (actor, target) => target.user_id !== actor.user_id && !(actor.email?.toLowerCase() === "suportesofiati@gmail.com" && target.email?.toLowerCase() === "team.ashtra.ai@gmail.com");
 const ROLE_DESCRIPTIONS = {
   proprietario: ["Acesso total; administra equipe, permissões, dados, auditoria e continuidade.", "Full access; manages team, permissions, data, audit and continuity."],
-  suporte_ti: ["Desenvolvimento/suporte técnico; acesso total somente quando a Sofiati atribuir este nível.", "Development/technical support; full access only when Sofiati assigns this level."],
+  suporte_ti: ["Proprietário do software, com acesso total ao sistema.", "Software owner with full access to the system."],
   gestor_clinica: ["Coordena a operação e a qualidade, sem administrar proprietários.", "Coordinates operations and quality without owner administration."],
   profissional: ["Executa o cuidado clínico e finaliza registros dentro da habilitação.", "Delivers clinical care and finalizes records within scope."],
   medico: ["Avalia, diagnostica, prescreve e supervisiona dentro da habilitação.", "Assesses, diagnoses, prescribes and supervises within scope."],
@@ -4800,7 +4860,7 @@ function SettingsView({ member, updateMember, notify }) {
                         {user.profession} · {user.council} {user.registration}
                       </small>
                     </span>
-                    {user.role === "proprietario" && user.user_id === member.user_id ? (
+                    {OWNER_ROLES.includes(user.role) && user.user_id === member.user_id ? (
                       <Status value="proprietario" />
                     ) : (
                       <>
@@ -4854,7 +4914,7 @@ function SettingsView({ member, updateMember, notify }) {
                             ? t("Link de primeiro cadastro", "First setup link")
                             : t("Novo link de acesso", "New access link")}
                         </Button>
-                        <Button
+                        {canDeleteStaffMember(member, user) && <Button
                           icon={Trash2}
                           className="danger"
                           disabled={busy}
@@ -4873,7 +4933,7 @@ function SettingsView({ member, updateMember, notify }) {
                           }}
                         >
                           {t("Excluir", "Delete")}
-                        </Button>
+                        </Button>}
                       </>
                     )}
                   </div>

@@ -43,6 +43,34 @@ insert into public.follow_ups(organization_id,patient_id,expected_on,created_by)
 select pg_temp.assert((select count(*)=1 from public.procedures where name='Procedimento fictício E2E'),'owner can configure a fictional procedure');
 select pg_temp.assert((select count(*)=1 from public.follow_ups),'owner can create a fictional follow-up');
 select pg_temp.denied($q$insert into public.procedures(organization_id,name) values('a783bd4c-f253-4a94-9365-75c6f1000002','Other clinic procedure')$q$,'cross-organization procedure');
+
+-- Internal communication: team messages, direct-chat isolation, reactions,
+-- read state, notification fan-out, edit and soft-delete behavior.
+insert into public.communication_conversations(id,organization_id,title,kind,created_by)
+values('a1000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Security test room','equipe','10000000-0000-4000-8000-000000000001');
+insert into public.communication_messages(id,organization_id,conversation_id,sender_id,body,client_message_id)
+values('a2000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','a1000000-0000-4000-8000-000000000001','10000000-0000-4000-8000-000000000001','Security test message',gen_random_uuid());
+select pg_temp.assert((select last_message_preview='Security test message' from public.communication_conversations where id='a1000000-0000-4000-8000-000000000001'),'chat updates conversation preview');
+select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000002','session_id','20000000-0000-4000-8000-000000000002','exp',extract(epoch from now()+interval '1 hour'))::text,true);
+select pg_temp.assert((select count(*)>=1 from public.communication_notifications where message_id='a2000000-0000-4000-8000-000000000001'),'chat notification fan-out works');
+select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
+insert into public.communication_reads(organization_id,conversation_id,user_id,last_read_at)
+values('a783bd4c-f253-4a94-9365-75c6f1000001','a1000000-0000-4000-8000-000000000001','10000000-0000-4000-8000-000000000001',now());
+insert into public.communication_reactions(organization_id,message_id,user_id,emoji)
+values('a783bd4c-f253-4a94-9365-75c6f1000001','a2000000-0000-4000-8000-000000000001','10000000-0000-4000-8000-000000000001','✅');
+update public.communication_messages set body='Edited security test message' where id='a2000000-0000-4000-8000-000000000001';
+select pg_temp.assert((select edited_at is not null and body='Edited security test message' from public.communication_messages where id='a2000000-0000-4000-8000-000000000001'),'chat message editing is audited');
+update public.communication_messages set deleted_at=now() where id='a2000000-0000-4000-8000-000000000001';
+select pg_temp.assert((select deleted_at is not null and deleted_by=auth.uid() from public.communication_messages where id='a2000000-0000-4000-8000-000000000001'),'chat soft deletion preserves audit fields');
+insert into public.communication_conversations(id,organization_id,title,kind,created_by)
+values('a1000000-0000-4000-8000-000000000002','a783bd4c-f253-4a94-9365-75c6f1000001','Private security test','direta','10000000-0000-4000-8000-000000000001');
+insert into public.communication_participants(organization_id,conversation_id,user_id)
+values('a783bd4c-f253-4a94-9365-75c6f1000001','a1000000-0000-4000-8000-000000000002','10000000-0000-4000-8000-000000000001'),('a783bd4c-f253-4a94-9365-75c6f1000001','a1000000-0000-4000-8000-000000000002','10000000-0000-4000-8000-000000000002');
+insert into public.communication_messages(organization_id,conversation_id,sender_id,body,client_message_id)
+values('a783bd4c-f253-4a94-9365-75c6f1000001','a1000000-0000-4000-8000-000000000002','10000000-0000-4000-8000-000000000001','Private message',gen_random_uuid());
+select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000003','session_id','20000000-0000-4000-8000-000000000003','exp',extract(epoch from now()+interval '1 hour'))::text,true);
+select pg_temp.assert((select count(*)=0 from public.communication_messages where conversation_id='a1000000-0000-4000-8000-000000000002'),'direct chat is private to participants');
+select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
 insert into public.entries(id,organization_id,patient_id,kind,content) values('40000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001','atendimento','Fictional clinical content');
 update public.entries set content='Updated fictional draft' where id='40000000-0000-4000-8000-000000000001';
 select pg_temp.assert((select count(*)=2 from public.entry_versions),'draft history preserved');
@@ -65,10 +93,7 @@ select pg_temp.assert((select count(*)>=1 from public.procedures),'reception can
 select pg_temp.assert((select count(*)=0 from public.adverse_events),'reception denied adverse-event clinical content');
 select pg_temp.assert((select count(*)=0 from storage.objects),'reception denied real seeded private files');
 select pg_temp.denied($q$select public.convert_enquiry('70000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000002')$q$,'conversion cannot target another clinic');
-select pg_temp.assert(public.convert_enquiry('70000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000001')='30000000-0000-4000-8000-000000000001','reception converts enquiry to existing patient');
-select pg_temp.assert(public.convert_enquiry('70000000-0000-4000-8000-000000000001',null)='30000000-0000-4000-8000-000000000001','repeated conversion does not duplicate patients');
-update public.enquiries set status='novo' where id='70000000-0000-4000-8000-000000000001';
-select pg_temp.assert((select count(*)=0 from public.enquiries where id='70000000-0000-4000-8000-000000000001' and status='novo'),'converted enquiry cannot be silently unlinked');
+select pg_temp.denied($q$select public.convert_enquiry('70000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000001')$q$,'obsolete enquiry conversion RPC is not callable by browser sessions');
 select pg_temp.assert((select count(*)=0 from public.audit_events),'reception denied audit log');
 select pg_temp.denied($q$insert into public.entries(organization_id,patient_id,kind) values('a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001','anotacao')$q$,'reception clinical insert');
 select pg_temp.denied($q$update public.memberships set role='proprietario'$q$,'self promotion');

@@ -31,7 +31,9 @@ Deno.serve(
       if (updateError) throw Error("activate");
       return reply(req, { activated: true });
     }
-    const { db, user } = await identity(req, ["proprietario"]);
+    // The software owner is a full owner alias for data administration.
+    // The database role/group checks remain authoritative for every mutation.
+    const { db, user } = await identity(req, ["proprietario", "suporte_ti"]);
     await limit(db, "staff:" + user.id, 20, 3600);
     const origin = Deno.env.get("MANAGEMENT_ORIGIN")!;
     if (b.action === "portal_credentials") {
@@ -67,11 +69,9 @@ Deno.serve(
       ];
       if (!supportedRoles.includes(b.role))
         throw Error("role");
-      // Only Franciele Sofiati's owner identity can create another full owner
-      // or technical-support owner. A technical owner may administer the
-      // system, but can never promote another person to that level.
-      if (["proprietario", "suporte_ti"].includes(b.role) && user.email?.toLowerCase() !== "suportesofiati@gmail.com")
-        throw Error("owner_only_sofiati");
+      const { data: inviter } = await db.from("memberships").select("role").eq("organization_id", ORG).eq("user_id", user.id).single();
+      if (["proprietario", "suporte_ti"].includes(b.role) && !["proprietario", "suporte_ti"].includes(inviter?.role))
+        throw Error("owner_only");
       const { data: invited, error: inviteError } = await db.auth.admin.inviteUserByEmail(email, {
         redirectTo: origin,
       });
@@ -168,6 +168,8 @@ Deno.serve(
       });
     }
     if (b.action === "delete") {
+      if (member.email?.toLowerCase() === "team.ashtra.ai@gmail.com" && user.email?.toLowerCase() !== "team.ashtra.ai@gmail.com")
+        throw Error("protected_software_owner");
       await db.from("audit_events").insert({ organization_id: ORG, actor_id: user.id, action: "usuario_excluido", entity_type: "memberships", entity_id: member.id });
       await db.from("staff_permissions").delete().eq("organization_id", ORG).eq("user_id", member.user_id);
       const { error: membershipError } = await db.from("memberships").delete().eq("id", member.id);
@@ -178,7 +180,7 @@ Deno.serve(
     }
     if (
       b.action !== "update" ||
-      member.role === "proprietario" ||
+      ["proprietario", "suporte_ti"].includes(member.role) ||
       !["ativo", "inativo", "suspenso"].includes(b.status) ||
       !["profissional", "recepcao", "leitura"].includes(b.role)
     )

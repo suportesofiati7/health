@@ -44,6 +44,22 @@ Supabase user, active membership, session id, expiry, and revoked sessions.
   storage quota before writing private Storage objects.
 - Downloads are authorized by RLS and logged through `record_access`.
 
+## Supabase Security Advisor follow-up
+
+The obsolete `public.convert_enquiry(uuid, uuid)` RPC is revoked from browser
+roles by migration `202609170001_security_advisor_hardening.sql`; the current
+workflow uses `convert_public_intake`.
+
+The remaining SECURITY DEFINER RPCs are intentional server-side workflow
+boundaries. They validate `auth.uid()` and the clinic role before changing
+patient, intake, audit, or operational data, and are retained for the current
+authenticated UI workflow. Do not grant them to `anon` or `public`.
+
+Have I Been Pwned leaked-password protection is a Supabase Auth project
+setting, not a database migration setting. Enable it in the project dashboard:
+Authentication → Configuration → Password Security → Leaked password
+protection. This requires the project owner/admin account.
+
 ## Sessions
 
 - Supabase JWT expiry is intended to be 900 seconds in production.

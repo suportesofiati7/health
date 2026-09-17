@@ -14,13 +14,31 @@ export const STANDARD_PLACEHOLDERS = [
 ];
 
 const firstName = (patient) => (patient?.preferred_name || patient?.full_name || '').trim().split(/\s+/)[0] || '';
+const dateValue = (value) => value ? new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo' }).format(new Date(value)) : '';
+const timeValue = (value) => value ? new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }).format(new Date(value)) : '';
 
-export function valuesForPatient(patient, member) {
+export function valuesForPatient(patient, member, appointment) {
+  const first = firstName(patient);
+  const appointmentDate = dateValue(appointment?.starts_at);
+  const appointmentTime = timeValue(appointment?.starts_at);
+  const address = patient?.address && typeof patient.address === 'object'
+    ? [patient.address.street, patient.address.number, patient.address.neighborhood, patient.address.city, patient.address.state].filter(Boolean).join(', ')
+    : '';
+  const service = appointment?.label || 'seu atendimento';
+  const generic = 'as informações necessárias para darmos continuidade ao atendimento';
   return {
-    nome: firstName(patient), nome_completo: patient?.full_name || '', telefone: patient?.phone || '', email: patient?.email || '',
-    nome_atendente: member?.name || '', responsavel: member?.name || '', nome_empresa: 'Franciele Sofiatis', data_hoje: new Intl.DateTimeFormat('pt-BR').format(new Date()),
+    nome: first, primeiro_nome: first, nome_completo: patient?.full_name || '', telefone: patient?.phone || '', email: patient?.email || '',
+    nome_atendente: member?.name || 'Franciele Sofiati', responsavel: member?.name || 'Franciele Sofiati', nome_profissional: member?.name || 'Franciele Sofiati', nome_empresa: 'Franciele Sofiati', data_hoje: dateValue(new Date()),
+    data: appointmentDate || 'a combinar', hora: appointmentTime || 'a combinar', data_hora: appointmentDate && appointmentTime ? `${appointmentDate} às ${appointmentTime}` : 'a combinar',
+    data_consulta: appointmentDate || 'a combinar', hora_consulta: appointmentTime || 'a combinar', local: address || 'Londrina, PR', endereco: address || 'Londrina, PR', local_ou_link: address || 'Londrina, PR', link: 'este canal', link_reuniao: 'o link será enviado pela equipe', link_localizacao: 'a localização será enviada pela equipe', link_feedback: 'o link será enviado pela equipe', link_avaliacao: 'o link será enviado pela equipe',
+    tipo_servico: service, tipo_atendimento: service, modalidade: 'presencial', assunto: 'seu atendimento', observacao: 'Se precisar de qualquer esclarecimento, estamos à disposição.', contexto: 'seu atendimento',
+    lista_informacoes: generic, lista_documentos: 'os documentos solicitados', documento: 'o documento solicitado', informacao_solicitada: 'a informação solicitada', perguntas_iniciais: 'qual é a sua principal dúvida e como podemos ajudar', meio_envio: 'este WhatsApp',
+    indicador: 'uma pessoa conhecida', orientacao_documento: 'Se precisar de ajuda, pode nos escrever por aqui.', orientacao: 'Siga as orientações recebidas e, em caso de dúvida, fale conosco.', informacoes_atendimento: 'Se precisar alterar alguma informação, avise-nos com antecedência.', informacoes_pagamento: 'Se já realizou o pagamento, pode nos enviar o comprovante por aqui.',
+    resumo_proposta: 'o plano conversado', valor: 'conforme combinado', condicoes: 'As condições seguem a proposta apresentada.', proximos_passos: 'a próxima etapa do atendimento', opcoes_horarios: 'os horários disponíveis apresentados pela equipe', resultado: 'atendimento concluído conforme planejado', orientacoes_finais: 'Siga as orientações combinadas para os próximos dias.',
+    pendencias: 'as informações pendentes', pendencia: 'as informações necessárias', proximo_passo: 'a próxima etapa do atendimento', informacao_ou_documento: 'as informações enviadas', prazo: 'o prazo combinado', data_limite_interna: appointmentDate || 'a combinar', protocolo: 'o protocolo do atendimento', procedimento: service, status: 'em acompanhamento',
+    forma_pagamento: 'a forma combinada', vencimento: appointmentDate || 'a combinar', dados_pagamento: 'Os dados de pagamento serão enviados pela equipe.', numero_cliente: 'a confirmar', numero_caso: 'a confirmar', numero_parcela: 'a confirmar', nome_atendente: member?.name || 'Franciele Sofiati', texto_livre: 'a mensagem principal', mensagem_principal: 'a mensagem principal', informacao_complementar: 'Se houver qualquer dúvida, estamos à disposição.', acao_solicitada: 'responda quando puder', prazo_ou_proximo_passo: 'aguarde nosso próximo contato', horario_funcionamento: 'de segunda a sexta-feira, em horário comercial',
     // Legacy values remain supported while old saved templates are migrated gradually.
-    primeiro_nome: firstName(patient), assinatura_remetente: member?.name || 'Franciele Sofiatis',
+    assinatura_remetente: member?.name || 'Franciele Sofiati',
   };
 }
 
@@ -33,13 +51,33 @@ export function placeholders(text) {
 }
 
 export function renderTemplate(text, values) {
-  return String(text || '').replace(/\{\{([a-zA-Z0-9_]+)\}\}/g, (_, key) => {
+  return String(text || '').replace(/\{\{([a-zA-Z0-9_]+)\}\}|\{([a-zA-Z0-9_]+)\}/g, (_, doubleKey, singleKey) => {
+    const key = doubleKey || singleKey;
     const value = values?.[key];
-    return value === undefined || value === null ? `{{${key}}}` : String(value);
-  }).replace(/\{([a-zA-Z0-9_]+)\}/g, (_, key) => {
-    const value = values?.[key];
-    return value === undefined || value === null ? `{${key}}` : String(value);
+    return value === undefined || value === null ? (doubleKey ? `{{${key}}}` : `{${key}}`) : String(value);
   }).replace(/\n{3,}/g, '\n\n').trim();
+}
+
+export function emailSubject(subject, templateName = 'Mensagem') {
+  const taste = String(subject || templateName || 'Mensagem').replace(/^Franciele Sofiati\s*[·|-]?\s*/i, '').trim().split(/\s+/).slice(0, 3).join(' ') || 'Mensagem';
+  return `Franciele Sofiati · ${taste}`;
+}
+
+export async function sendFormSubmitEmail({ recipient, subject, body, patient, sender }) {
+  const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      _subject: subject,
+      _template: 'table',
+      name: sender || 'Franciele Sofiati',
+      email: sender || 'suportesofiati@gmail.com',
+      recipient: patient?.full_name || patient?.preferred_name || '',
+      message: `FRANCIELE SOFIATI\n\n${body}`,
+    }),
+  });
+  if (!response.ok) throw new Error(`FormSubmit returned ${response.status}`);
+  return response.json().catch(() => ({ success: true }));
 }
 
 export function missingPlaceholders(text, values) {

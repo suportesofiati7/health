@@ -1,5 +1,6 @@
 import {
   ORG,
+  admin,
   identity,
   endpoint,
   bounded,
@@ -10,7 +11,10 @@ import {
 
 Deno.serve(
   endpoint(async (req) => {
-    const { db, scoped, user } = await identity(req, ["proprietario", "profissional", "recepcao"]);
+    // suporte_ti is the software-owner alias and is intentionally accepted
+    // here. private.has_role() still enforces the organization/session checks
+    // inside the database RPCs and table policies.
+    const { db, scoped, user } = await identity(req, ["proprietario", "suporte_ti", "profissional", "recepcao"]);
     await limit(db, "upload:" + user.id, 40, 3600);
     const body = req.headers.get("content-type")?.includes("application/json")
       ? await req.json()
@@ -28,13 +32,7 @@ Deno.serve(
       ] as const;
       const removals: Array<readonly [string, string[]]> = [];
       for (const [bucket, prefix] of targets) {
-        const { data: listed, error: listError } = await db.storage
-          .from(bucket)
-          .list(prefix, { limit: 1000, offset: 0 });
-        if (listError) throw Error("storage_list");
-        const paths = (listed || [])
-          .filter((entry) => entry.id)
-          .map((entry) => `${prefix}/${entry.name}`);
+        const paths = await listStorageTree(db, bucket, prefix);
         removals.push([bucket, paths]);
       }
       const { error: deleteError } = await scoped.rpc("delete_patient", { target_patient: patientId });
@@ -45,6 +43,13 @@ Deno.serve(
           if (removeError) throw Error("storage_remove");
         }
       }
+      const { data: stillThere, error: verifyError } = await db
+        .from("patients")
+        .select("id")
+        .eq("id", patientId)
+        .maybeSingle();
+      if (verifyError) throw Error("delete_verify");
+      if (stillThere) throw Error("delete_not_complete");
       return reply(req, { deleted: patientId });
     }
     if (body?.action === "delete_intake") {
@@ -62,6 +67,13 @@ Deno.serve(
         const { error: removeError } = await db.storage.from("intake-private").remove(paths);
         if (removeError) throw Error("storage_remove");
       }
+      const { data: stillThere, error: verifyError } = await db
+        .from("public_intakes")
+        .select("id")
+        .eq("id", intakeId)
+        .maybeSingle();
+      if (verifyError) throw Error("delete_verify");
+      if (stillThere) throw Error("delete_not_complete");
       return reply(req, { deleted: intakeId });
     }
     const bytes = await bounded(req, 8500000);
@@ -185,4 +197,19 @@ function detect(b: Uint8Array) {
     return "application/pdf";
   }
   return null;
+}
+
+async function listStorageTree(db: ReturnType<typeof admin>, bucket: string, root: string) {
+  const paths: string[] = [];
+  const visit = async (prefix: string): Promise<void> => {
+    const { data, error } = await db.storage.from(bucket).list(prefix, { limit: 1000, offset: 0 });
+    if (error) throw Error("storage_list");
+    for (const entry of data || []) {
+      const path = `${prefix}/${entry.name}`;
+      if (entry.id) paths.push(path);
+      else await visit(path);
+    }
+  };
+  await visit(root);
+  return paths;
 }
