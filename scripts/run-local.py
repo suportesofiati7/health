@@ -15,7 +15,8 @@ import webbrowser
 from pathlib import Path
 
 
-APP_DIR = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
+APP_DIR = ROOT / "management"
 HOST = "127.0.0.1"
 FIRST_PORT = 5550
 MAX_PORT = 5650

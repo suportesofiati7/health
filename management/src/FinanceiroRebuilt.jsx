@@ -15,9 +15,19 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-import { db, ORG, checked, date, formatDateInput, localDay, money, parseDateInput } from "./lib";
+import {
+  db,
+  ORG,
+  checked,
+  date,
+  formatDateInput,
+  localDay,
+  money,
+  parseDateInput,
+} from "./lib";
 import { useT, label } from "./i18n";
 import { openDocument, receiptDocumentHTML } from "./documentSystem";
+import { PatientPicker } from "./PatientPicker";
 
 const paymentMethods = [
   ["pix", "PIX", "PIX"],
@@ -28,11 +38,24 @@ const paymentMethods = [
   ["boleto", "Boleto", "Boleto"],
   ["outro", "Outro", "Other"],
 ];
-const paymentMethodLabel = (method, t) => { const row = paymentMethods.find(([key]) => key === method); return row ? t(row[1], row[2]) : method; };
-const cents = (value) => Math.round(Number(String(value || "").replace(",", ".")) * 100);
-const activePayments = (payments) => payments.filter((p) => p.status === "recebido");
-const receivedCents = (payments) => activePayments(payments).reduce((sum, p) => sum + Number(p.amount_cents || 0), 0);
-const recordBalance = (record) => Math.max(0, Number(record.total_cents || 0) - receivedCents(record.payments || []));
+const paymentMethodLabel = (method, t) => {
+  const row = paymentMethods.find(([key]) => key === method);
+  return row ? t(row[1], row[2]) : method;
+};
+const cents = (value) =>
+  Math.round(Number(String(value || "").replace(",", ".")) * 100);
+const activePayments = (payments) =>
+  payments.filter((p) => p.status === "recebido");
+const receivedCents = (payments) =>
+  activePayments(payments).reduce(
+    (sum, p) => sum + Number(p.amount_cents || 0),
+    0,
+  );
+const recordBalance = (record) =>
+  Math.max(
+    0,
+    Number(record.total_cents || 0) - receivedCents(record.payments || []),
+  );
 const derivedStatus = (record) => {
   if (["cancelado", "corrigido"].includes(record.status)) return record.status;
   const received = receivedCents(record.payments || []);
@@ -46,80 +69,1194 @@ function FinanceFilePicker({ name, accept }) {
   const t = useT();
   const input = useRef(null);
   const [fileName, setFileName] = useState("");
-  return <span className="file-picker">
-    <input ref={input} className="file-picker-input" name={name} type="file" accept={accept} onChange={(event) => setFileName(event.target.files[0]?.name || "")} />
-    <button type="button" className="file-picker-button" onClick={() => input.current?.click()}>{t("Escolher arquivo", "Choose file")}</button>
-    <span className="file-picker-name">{fileName || t("Nenhum arquivo escolhido", "No file chosen")}</span>
-  </span>;
+  return (
+    <span className="file-picker">
+      <input
+        ref={input}
+        className="file-picker-input"
+        name={name}
+        type="file"
+        accept={accept}
+        onChange={(event) => setFileName(event.target.files[0]?.name || "")}
+      />
+      <button
+        type="button"
+        className="file-picker-button"
+        onClick={() => input.current?.click()}
+      >
+        {t("Escolher arquivo", "Choose file")}
+      </button>
+      <span className="file-picker-name">
+        {fileName || t("Nenhum arquivo escolhido", "No file chosen")}
+      </span>
+    </span>
+  );
 }
 
-function Field({ label: title, value, onChange, type = "text", options, ...props }) {
+function Field({
+  label: title,
+  value,
+  onChange,
+  type = "text",
+  options,
+  ...props
+}) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const dateField = type === "date" || type === "datetime-local";
   const dateTimeField = type === "datetime-local";
-  const [dateText, setDateText] = useState(() => dateField ? formatDateInput(value, dateTimeField) : "");
+  const [dateText, setDateText] = useState(() =>
+    dateField ? formatDateInput(value, dateTimeField) : "",
+  );
   useEffect(() => {
     if (dateField) setDateText(formatDateInput(value, dateTimeField));
   }, [dateField, dateTimeField, value]);
+  if (options && /paciente|patient/i.test(String(title || ""))) return <PatientPicker title={title} value={value} onChange={onChange} initial={options.find(([id]) => id === value) ? { id: value, full_name: options.find(([id]) => id === value)?.[1] } : null} />;
   const password = type === "password";
-  return <label className="finance-field"><span>{title}</span>{options ? <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} {...props}>{options.map(([value, text]) => <option key={value} value={value}>{text}</option>)}</select> : <span className={password ? "field-input-wrap has-password-toggle" : "field-input-wrap"}><input type={dateField ? "text" : password && passwordVisible ? "text" : type} inputMode={dateField ? "numeric" : undefined} placeholder={dateField ? (dateTimeField ? "dd/mm/aaaa hh:mm" : "dd/mm/aaaa") : props.placeholder} value={dateField ? dateText : value ?? ""} onChange={(e) => { if (!dateField) return onChange(e.target.value); const raw = e.target.value.replace(/[^\d/ :]/g, "").slice(0, dateTimeField ? 16 : 10); setDateText(raw); const parsed = parseDateInput(raw, dateTimeField); if (parsed || raw === "") onChange(parsed); }} onBlur={() => { if (!dateField) return; const parsed = parseDateInput(dateText, dateTimeField); setDateText(parsed ? formatDateInput(parsed, dateTimeField) : ""); onChange(parsed); }} {...props} />{password && <button type="button" className="password-toggle" aria-label={passwordVisible ? "Ocultar senha" : "Mostrar senha"} aria-pressed={passwordVisible} onClick={() => setPasswordVisible((visible) => !visible)}>{passwordVisible ? <EyeOff size={17} aria-hidden="true" /> : <Eye size={17} aria-hidden="true" />}</button>}</span>}</label>;
+  return (
+    <label className="finance-field">
+      <span>{title}</span>
+      {options ? (
+        <select
+          value={value ?? ""}
+          onChange={(e) => onChange(e.target.value)}
+          {...props}
+        >
+          {options.map(([value, text]) => (
+            <option key={value} value={value}>
+              {text}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <span
+          className={
+            password
+              ? "field-input-wrap has-password-toggle"
+              : "field-input-wrap"
+          }
+        >
+          <input
+            type={
+              dateField ? "text" : password && passwordVisible ? "text" : type
+            }
+            inputMode={dateField ? "numeric" : undefined}
+            placeholder={
+              dateField
+                ? dateTimeField
+                  ? "dd/mm/aaaa hh:mm"
+                  : "dd/mm/aaaa"
+                : props.placeholder
+            }
+            value={dateField ? dateText : (value ?? "")}
+            onChange={(e) => {
+              if (!dateField) return onChange(e.target.value);
+              const raw = e.target.value
+                .replace(/[^\d/ :]/g, "")
+                .slice(0, dateTimeField ? 16 : 10);
+              setDateText(raw);
+              const parsed = parseDateInput(raw, dateTimeField);
+              if (parsed || raw === "") onChange(parsed);
+            }}
+            onBlur={() => {
+              if (!dateField) return;
+              const parsed = parseDateInput(dateText, dateTimeField);
+              setDateText(parsed ? formatDateInput(parsed, dateTimeField) : "");
+              onChange(parsed);
+            }}
+            {...props}
+          />
+          {password && (
+            <button
+              type="button"
+              className="password-toggle"
+              aria-label={passwordVisible ? "Ocultar senha" : "Mostrar senha"}
+              aria-pressed={passwordVisible}
+              onClick={() => setPasswordVisible((visible) => !visible)}
+            >
+              {passwordVisible ? (
+                <EyeOff size={17} aria-hidden="true" />
+              ) : (
+                <Eye size={17} aria-hidden="true" />
+              )}
+            </button>
+          )}
+        </span>
+      )}
+    </label>
+  );
 }
 
 function Modal({ title, close, children }) {
-  return <div className="finance-modal-backdrop" role="presentation" onMouseDown={(e) => e.target === e.currentTarget && close()}><section className="finance-modal" role="dialog" aria-modal="true" aria-label={title}><header><div><p className="finance-kicker">Franciele Sofiati · Financeiro</p><h2>{title}</h2></div><button type="button" className="finance-icon-button" aria-label="Fechar" onClick={close}><X size={18} /></button></header>{children}</section></div>;
+  return (
+    <div
+      className="finance-modal-backdrop"
+      role="presentation"
+      onMouseDown={(e) => e.target === e.currentTarget && close()}
+    >
+      <section
+        className="finance-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+      >
+        <header>
+          <div>
+            <p className="finance-kicker">Franciele Sofiati · Financeiro</p>
+            <h2>{title}</h2>
+          </div>
+          <button
+            type="button"
+            className="finance-icon-button"
+            aria-label="Fechar"
+            onClick={close}
+          >
+            <X size={18} />
+          </button>
+        </header>
+        {children}
+      </section>
+    </div>
+  );
 }
 
 function receiptHTML(record, patient, payments, t) {
-  const received = receivedCents(payments), total = Number(record.total_cents || 0), balance = Math.max(0, total - received);
-  const rows = activePayments(payments).map((p) => `<tr><td>${date(p.paid_on)}</td><td>${paymentMethodLabel(p.method, t)}</td><td>${money(Number(p.amount_cents || 0) / 100)}</td></tr>`).join("");
-  const escape = (value) => String(value ?? "—").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const received = receivedCents(payments),
+    total = Number(record.total_cents || 0),
+    balance = Math.max(0, total - received);
+  const rows = activePayments(payments)
+    .map(
+      (p) =>
+        `<tr><td>${date(p.paid_on)}</td><td>${paymentMethodLabel(p.method, t)}</td><td>${money(Number(p.amount_cents || 0) / 100)}</td></tr>`,
+    )
+    .join("");
+  const escape = (value) =>
+    String(value ?? "—").replace(
+      /[&<>"']/g,
+      (c) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[c],
+    );
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Recibo ${escape(record.receipt_number || record.id.slice(0, 8))}</title><style>
 @page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;background:#d8d0c1;color:#24372d;font:12px/1.55 Arial,sans-serif}.sheet{width:210mm;min-height:297mm;margin:0 auto;padding:22mm 20mm;background:#fbf6eb;position:relative;overflow:hidden}.sheet:before,.sheet:after{content:"";position:absolute;border:1px solid #cfae77;border-radius:50%;opacity:.35}.sheet:before{width:90mm;height:90mm;right:-52mm;top:-48mm}.sheet:after{width:70mm;height:70mm;left:-44mm;bottom:-35mm}.brand{border-bottom:2px solid #52674d;padding-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end}.monogram{width:58px;height:58px;border:1px solid #b58a4b;border-radius:50%;display:grid;place-items:center;color:#52674d;font:30px Georgia,serif}.brand-name{font:24px Georgia,serif;color:#24372d}.brand-sub{color:#8b554a;font-size:9px;letter-spacing:.18em;text-transform:uppercase}.eyebrow{color:#8b554a;font-size:10px;letter-spacing:.14em;text-transform:uppercase}.title{text-align:center;margin:30mm 0 20mm}.title h1{font:400 25px Georgia,serif;letter-spacing:.12em;margin:0 0 8px}.title p{color:#687960;margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 30px;border-top:1px solid #d8cdbb;border-bottom:1px solid #d8cdbb;padding:18px 0}.label{display:block;color:#687960;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.value{display:block;font-size:15px;margin-top:3px}.payments{width:100%;border-collapse:collapse;margin-top:25px}.payments th{text-align:left;color:#687960;font-size:10px;text-transform:uppercase;border-bottom:1px solid #d8cdbb;padding:8px 4px}.payments td{padding:11px 4px;border-bottom:1px solid #e7dfd2}.payments th:last-child,.payments td:last-child{text-align:right}.summary{margin-top:24px;margin-left:auto;width:72%;border-left:3px solid #b58a4b;padding:14px 18px;background:#edf1e8}.summary div{display:flex;justify-content:space-between;padding:5px 0}.summary .balance{color:#8b554a;font-size:16px;font-weight:bold}.wording{margin:24px 0;padding:14px;background:#f5e2da;color:#70463f}.signature{margin:38mm auto 0;text-align:center;width:65%;border-top:1px solid #788d72;padding-top:8px}.footer{position:absolute;bottom:16mm;left:20mm;right:20mm;border-top:1px solid #d8cdbb;padding-top:10px;text-align:center;color:#687960;font-size:10px}@media print{body{background:#fbf6eb}.sheet{margin:0;box-shadow:none}button{display:none}}
 </style></head><body><button id="print">${escape(t("Imprimir / salvar PDF", "Print / save PDF"))}</button><main class="sheet"><header class="brand"><div><div class="brand-name">Franciele Sofiati</div><div class="brand-sub">Biomédica · Estética avançada</div></div><div class="monogram">FS</div></header><div class="title"><p class="eyebrow">${escape(t("Recibo de pagamento", "Payment receipt"))}</p><h1>RECIBO DE PAGAMENTO</h1><p>${escape(t("Documento de reconhecimento de pagamento · não é Nota Fiscal", "Payment acknowledgment · not a fiscal invoice"))}</p></div><section class="grid"><div><span class="label">Recebemos de</span><span class="value">${escape(patient?.preferred_name || patient?.full_name)}</span></div><div><span class="label">Recibo nº</span><span class="value">${escape(record.receipt_number || record.id.slice(0, 8).toUpperCase())}</span></div><div><span class="label">CPF</span><span class="value">${escape(patient?.cpf || "Não informado")}</span></div><div><span class="label">Serviço / procedimento</span><span class="value">${escape(record.procedure_name)}</span></div></section><table class="payments"><thead><tr><th>Data</th><th>Forma de pagamento</th><th>Valor recebido</th></tr></thead><tbody>${rows || `<tr><td colspan="3">${escape(t("Nenhum pagamento registrado", "No payment recorded"))}</td></tr>`}</tbody></table><section class="summary"><div><span>Total do tratamento</span><strong>${money(total / 100)}</strong></div><div><span>Total recebido</span><strong>${money(received / 100)}</strong></div><div class="balance"><span>Saldo atual</span><strong>${money(balance / 100)}</strong></div></section><p class="wording">${escape(balance ? t("Pagamento parcial recebido. O saldo permanece em aberto.", "Partial payment received. The balance remains outstanding.") : t("Pagamento integral recebido. Não há saldo pendente.", "Payment in full received. No balance remains."))}</p><div class="signature">Franciele Sofiati<br><strong>Biomédica Esteta · CRBM 6277 PR</strong><br>Londrina, Paraná</div><footer class="footer">AUTOCUIDADO TAMBÉM É INVESTIMENTO. · Franciele Sofiati · Londrina–Paraná</footer></main><script>document.getElementById('print').onclick=()=>window.print();</script></body></html>`;
 }
 
 function receiptHTMLPremiumBase(record, patient, payments, t) {
-  const received = receivedCents(payments), total = Number(record.total_cents || 0), balance = Math.max(0, total - received);
-  const esc = (value) => String(value ?? "—").replace(/[&<>\"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const rows = activePayments(payments).map((p) => `<tr><td>${date(p.paid_on)}</td><td>${esc(paymentMethodLabel(p.method, t))}</td><td>${money(Number(p.amount_cents || 0) / 100)}</td></tr>`).join("");
+  const received = receivedCents(payments),
+    total = Number(record.total_cents || 0),
+    balance = Math.max(0, total - received);
+  const esc = (value) =>
+    String(value ?? "—").replace(
+      /[&<>\"']/g,
+      (c) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[c],
+    );
+  const rows = activePayments(payments)
+    .map(
+      (p) =>
+        `<tr><td>${date(p.paid_on)}</td><td>${esc(paymentMethodLabel(p.method, t))}</td><td>${money(Number(p.amount_cents || 0) / 100)}</td></tr>`,
+    )
+    .join("");
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Recibo ${esc(record.receipt_number || record.id.slice(0, 8))}</title><style>
 @page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;background:#24352c;color:#24352c;font:12px/1.55 Arial,sans-serif}.sheet{width:210mm;min-height:297mm;margin:0 auto;padding:17mm 20mm 24mm;background:#fbf8ef;position:relative;overflow:hidden}.sheet:before{content:"";position:absolute;inset:8mm;border:1px solid #d3bd86;pointer-events:none}.sheet:after{content:"";position:absolute;width:85mm;height:85mm;right:-48mm;bottom:-32mm;border:1px solid #809178;border-radius:50%;opacity:.42}.topbar{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;padding:0 0 14px;border-bottom:5px solid #52694e}.identity{display:flex;align-items:center;gap:13px}.logo{width:54px;height:54px;object-fit:contain}.brand-name{font:500 23px Georgia,serif;color:#304936;letter-spacing:.01em}.brand-sub{margin-top:3px;color:#8b604d;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.header-meta{text-align:right;color:#6c7e6b;font-size:10px;line-height:1.7}.title{position:relative;z-index:1;padding:24mm 8mm 16mm}.eyebrow{margin:0 0 9px;color:#a46e55;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}.title h1{margin:0;color:#304936;font:500 29px/1.08 Georgia,serif;letter-spacing:.1em}.receipt-no{margin:10px 0 0;color:#788674;font-size:11px;letter-spacing:.06em}.rule{height:1px;background:#d5c596}.details{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:0 38px;padding:17px 0;border-bottom:1px solid #c9d2c3}.detail{padding:3px 0 15px}.label{display:block;color:#70816e;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.value{display:block;margin-top:5px;color:#263a2d;font:500 15px Georgia,serif}.payments{position:relative;z-index:1;width:100%;border-collapse:collapse;margin-top:25px}.payments caption{margin-bottom:10px;color:#304936;font:500 17px Georgia,serif;text-align:left}.payments th{padding:8px 10px;color:#70816e;background:#e5ede1;border-bottom:2px solid #809178;font-size:9px;text-align:left;letter-spacing:.12em;text-transform:uppercase}.payments td{padding:13px 10px;border-bottom:1px solid #d9e0d5;color:#34483a}.payments th:last-child,.payments td:last-child{text-align:right}.summary{position:relative;z-index:1;width:74%;margin:25px 0 0 auto;border:1px solid #b5c7ad;border-radius:2px;background:#e9f0e5}.summary-head{padding:10px 16px;background:#52694e;color:#fff9ed;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.summary-body{padding:12px 17px}.summary div{display:flex;justify-content:space-between;gap:20px;padding:7px 0;border-bottom:1px solid #cbd8c5}.summary div:last-child{border-bottom:0}.summary span{color:#526653}.summary strong{color:#263a2d;font-size:14px}.summary .received{padding-top:11px;color:#304936;font-size:17px;font-weight:800}.summary .received strong{color:#304936;font-size:20px}.summary .balance{color:#985a4b;font-weight:700}.summary .balance strong{color:#985a4b;font-size:16px}.wording{position:relative;z-index:1;margin:20px 0 0;padding:13px 16px;border-left:4px solid #b58a4b;background:#f3ead7;color:#536352}.signature{position:relative;z-index:1;margin:34mm auto 0;width:62%;padding-top:12px;border-top:1px solid #52694e;text-align:center;color:#52694e}.signature-name{font:italic 25px Georgia,serif;color:#304936}.signature small{display:block;margin-top:4px;color:#6e7b6b;font-size:10px}.footer{position:absolute;z-index:1;bottom:0;left:0;right:0;padding:13px 20mm;background:#304936;color:#ead9a7;text-align:center;font-size:9px;letter-spacing:.08em}.footer em{color:#d89178;font-style:normal}@media print{body{background:#fbf8ef}.sheet{margin:0;box-shadow:none}#print{display:none}}#print{position:fixed;z-index:4;top:14px;right:18px;padding:10px 14px;border:0;border-radius:4px;background:#52694e;color:#fff9ed;font-weight:700;cursor:pointer}</style></head><body><button id="print">${esc(t("Imprimir / salvar PDF", "Print / save PDF"))}</button><main class="sheet"><header class="topbar"><div class="identity"><img class="logo" src="/brand.png" alt="Franciele Sofiati"><div><div class="brand-name">Franciele Sofiati</div><div class="brand-sub">Biomédica · Estética avançada</div></div></div><div class="header-meta">CRBM 6277 PR<br>Londrina · Paraná</div></header><section class="title"><p class="eyebrow">${esc(t("Documento financeiro", "Financial document"))}</p><h1>RECIBO DE PAGAMENTO</h1><p class="receipt-no">${esc(t("Recibo nº", "Receipt no."))} ${esc(record.receipt_number || record.id.slice(0, 8).toUpperCase())}</p></section><section class="details"><div class="detail"><span class="label">${esc(t("Recebemos de", "Received from"))}</span><span class="value">${esc(patient?.preferred_name || patient?.full_name)}</span></div><div class="detail"><span class="label">${esc(t("Data do pagamento", "Payment date"))}</span><span class="value">${esc(activePayments(payments)[0] ? date(activePayments(payments)[0].paid_on) : "—")}</span></div><div class="detail"><span class="label">CPF</span><span class="value">${esc(patient?.cpf || t("Não informado", "Not provided"))}</span></div><div class="detail"><span class="label">${esc(t("Serviço / procedimento", "Service / treatment"))}</span><span class="value">${esc(record.procedure_name)}</span></div></section><table class="payments"><caption>${esc(t("Resumo dos pagamentos", "Payment summary"))}</caption><thead><tr><th>${esc(t("Data", "Date"))}</th><th>${esc(t("Forma de pagamento", "Payment method"))}</th><th>${esc(t("Valor recebido", "Amount received"))}</th></tr></thead><tbody>${rows || `<tr><td colspan="3">${esc(t("Nenhum pagamento registrado", "No payment recorded"))}</td></tr>`}</tbody></table><section class="summary"><div class="summary-head">${esc(t("Resumo financeiro", "Financial summary"))}</div><div class="summary-body"><div><span>${esc(t("Total do tratamento", "Treatment total"))}</span><strong>${money(total / 100)}</strong></div><div class="received"><span>${esc(t("Valor recebido", "Amount received"))}</span><strong>${money(received / 100)}</strong></div><div class="balance"><span>${esc(t("Saldo atual", "Current balance"))}</span><strong>${money(balance / 100)}</strong></div></div></section><p class="wording">${esc(balance ? t("Pagamento parcial recebido. O saldo permanece em aberto.", "Partial payment received. The balance remains outstanding.") : t("Pagamento integral recebido. Não há saldo pendente.", "Payment in full received. No balance remains."))}</p><div class="signature"><div class="signature-name">Franciele Sofiati</div><small>Biomédica Esteta · CRBM 6277 PR · Londrina, Paraná</small></div><footer class="footer"><em>Autocuidado também é investimento.</em> · Franciele Sofiati · Londrina–Paraná</footer></main><script>document.getElementById('print').onclick=()=>window.print();</script></body></html>`;
 }
 
 function receiptHTMLPremiumStyled(record, patient, payments, t) {
-  return receiptHTMLPremiumBase(record, patient, payments, t).replace("</style>", `.sheet{padding-top:13mm}.sheet:before{inset:6mm;border-color:#b5c6ad}.topbar{min-height:74px;box-shadow:0 8px 0 #e5ede1}.topbar .identity{gap:16px}.topbar .logo{width:60px;height:60px}.topbar .brand-name{font-size:25px;letter-spacing:.015em}.topbar .brand-sub{font-size:8px;letter-spacing:.2em}.header-meta{font-size:9px;letter-spacing:.08em}.title{padding-top:22mm;padding-bottom:14mm}.title h1{max-width:12ch;line-height:.98}.details{padding-top:20px;padding-bottom:6px}.detail{padding-bottom:18px}.value{font-size:16px}.payments{margin-top:31px;border:1px solid #b9cbb3;border-radius:3px;border-spacing:0;background:#fffdf7;overflow:hidden;box-shadow:0 10px 24px rgba(48,73,54,.07)}.payments caption{padding:0 0 12px;font-size:18px;letter-spacing:-.01em}.payments thead th{padding:12px 14px;background:#52694e;color:#fffdf7;border-bottom:0;font-size:9px;letter-spacing:.15em}.payments tbody td{padding:14px;color:#415342;border-bottom:1px solid #d9e3d5;font-size:12px}.payments tbody tr:last-child td{border-bottom:0}.payments tbody tr:nth-child(even){background:#f3f7ef}.payments tbody td:last-child{color:#304936;font:700 15px Arial,sans-serif;letter-spacing:.01em}.payments tbody td:last-child:before{content:'R$ ';font-size:10px;font-weight:500;color:#809178}.summary{margin-top:29px;border-color:#9fb79a;box-shadow:0 12px 26px rgba(48,73,54,.08)}.summary-head{padding:11px 17px;background:#304936}.summary-body{padding:13px 18px}.summary .received{border-top:1px solid #a7bca2;margin-top:4px}.wording{max-width:none;background:#eef3e9;border-left-color:#b58a4b;color:#465948}.signature{margin-top:31mm}.footer{padding-top:15px;padding-bottom:15px}</style>`);
+  return receiptHTMLPremiumBase(record, patient, payments, t).replace(
+    "</style>",
+    `.sheet{padding-top:13mm}.sheet:before{inset:6mm;border-color:#b5c6ad}.topbar{min-height:74px;box-shadow:0 8px 0 #e5ede1}.topbar .identity{gap:16px}.topbar .logo{width:60px;height:60px}.topbar .brand-name{font-size:25px;letter-spacing:.015em}.topbar .brand-sub{font-size:8px;letter-spacing:.2em}.header-meta{font-size:9px;letter-spacing:.08em}.title{padding-top:22mm;padding-bottom:14mm}.title h1{max-width:12ch;line-height:.98}.details{padding-top:20px;padding-bottom:6px}.detail{padding-bottom:18px}.value{font-size:16px}.payments{margin-top:31px;border:1px solid #b9cbb3;border-radius:3px;border-spacing:0;background:#fffdf7;overflow:hidden;box-shadow:0 10px 24px rgba(48,73,54,.07)}.payments caption{padding:0 0 12px;font-size:18px;letter-spacing:-.01em}.payments thead th{padding:12px 14px;background:#52694e;color:#fffdf7;border-bottom:0;font-size:9px;letter-spacing:.15em}.payments tbody td{padding:14px;color:#415342;border-bottom:1px solid #d9e3d5;font-size:12px}.payments tbody tr:last-child td{border-bottom:0}.payments tbody tr:nth-child(even){background:#f3f7ef}.payments tbody td:last-child{color:#304936;font:700 15px Arial,sans-serif;letter-spacing:.01em}.payments tbody td:last-child:before{content:'R$ ';font-size:10px;font-weight:500;color:#809178}.summary{margin-top:29px;border-color:#9fb79a;box-shadow:0 12px 26px rgba(48,73,54,.08)}.summary-head{padding:11px 17px;background:#304936}.summary-body{padding:13px 18px}.summary .received{border-top:1px solid #a7bca2;margin-top:4px}.wording{max-width:none;background:#eef3e9;border-left-color:#b58a4b;color:#465948}.signature{margin-top:31mm}.footer{padding-top:15px;padding-bottom:15px}</style>`,
+  );
 }
 
 function receiptHTMLPremium(record, patient, payments, t) {
-  const logo = "https://francielesofiati.com/assets/shared/brand/logotipo-franciele-sofiati-expertise-estetica-estetica-avancada-londrina-centro.png";
-  return receiptHTMLPremiumStyled(record, patient, payments, t).replace("</style>", `.topbar .identity{flex:1;min-width:0}.topbar .logo{content:url('${logo}');width:118mm;max-width:72%;height:auto;max-height:23mm;object-fit:contain;object-position:left center}.topbar .identity>div{display:none}.payments{table-layout:fixed;width:100%}.payments th:nth-child(1),.payments td:nth-child(1){width:24%}.payments th:nth-child(2),.payments td:nth-child(2){width:43%}.payments th:nth-child(3),.payments td:nth-child(3){width:33%}.payments th,.payments td{overflow-wrap:anywhere}.payments tbody td:last-child{white-space:nowrap}.footer{min-height:25mm;padding:12px 20mm;font-size:0;background-color:#304936;background-image:url('${logo}');background-position:center;background-repeat:no-repeat;background-size:min(118mm,72%);border-top:0}</style>`);
+  const logo =
+    "https://francielesofiati.com/assets/shared/brand/logotipo-franciele-sofiati-expertise-estetica-estetica-avancada-londrina-centro.png";
+  return receiptHTMLPremiumStyled(record, patient, payments, t).replace(
+    "</style>",
+    `.topbar .identity{flex:1;min-width:0}.topbar .logo{content:url('${logo}');width:118mm;max-width:72%;height:auto;max-height:23mm;object-fit:contain;object-position:left center}.topbar .identity>div{display:none}.payments{table-layout:fixed;width:100%}.payments th:nth-child(1),.payments td:nth-child(1){width:24%}.payments th:nth-child(2),.payments td:nth-child(2){width:43%}.payments th:nth-child(3),.payments td:nth-child(3){width:33%}.payments th,.payments td{overflow-wrap:anywhere}.payments tbody td:last-child{white-space:nowrap}.footer{min-height:25mm;padding:12px 20mm;font-size:0;background-color:#304936;background-image:url('${logo}');background-position:center;background-repeat:no-repeat;background-size:min(118mm,72%);border-top:0}</style>`,
+  );
 }
 
 export default function Financeiro({ notify, version }) {
   const t = useT();
-  const [expanded, setExpanded] = useState(null), [showCharge, setShowCharge] = useState(false), [nfRecord, setNfRecord] = useState(null), [refund, setRefund] = useState(null), [refundReason, setRefundReason] = useState(""), [busy, setBusy] = useState(false);
-  const [form, setForm] = useState({ patient_id: "", procedure_name: "", total: "", due_on: localDay(), notes: "" });
-  const [payment, setPayment] = useState({ amount: "", paid_on: localDay(), method: "pix", notes: "" });
-  const [nf, setNf] = useState({ status: "pendente", nf_number: "", nf_issued_on: "", nf_amount: "", nota_fiscal_url: "" });
-  useEffect(() => { if (refund) setRefundReason(""); }, [refund]);
-  const patients = useLoadFinance(() => checked(db.from("patients").select("id,full_name,preferred_name,cpf").eq("status", "ativo").order("full_name")), []);
-  const state = useLoadFinance(async () => { const records = await checked(db.from("financial_records").select("*,patients(id,full_name,preferred_name,cpf)").order("created_at", { ascending: false })); const payments = records.length ? await checked(db.from("financial_payments").select("*").in("record_id", records.map((r) => r.id)).order("paid_on", { ascending: false })) : []; return records.map((r) => ({ ...r, payments: payments.filter((p) => p.record_id === r.id) })); }, [version]);
+  const [expanded, setExpanded] = useState(null),
+    [showCharge, setShowCharge] = useState(false),
+    [nfRecord, setNfRecord] = useState(null),
+    [refund, setRefund] = useState(null),
+    [refundReason, setRefundReason] = useState(""),
+    [busy, setBusy] = useState(false);
+  const [form, setForm] = useState({
+    patient_id: "",
+    procedure_id: "",
+    procedure_name: "",
+    total: "",
+    discount: "",
+    package_name: "",
+    installment_number: "",
+    installment_total: "",
+    due_on: localDay(),
+    notes: "",
+  });
+  const [payment, setPayment] = useState({
+    amount: "",
+    paid_on: localDay(),
+    method: "pix",
+    notes: "",
+  });
+  const [nf, setNf] = useState({
+    status: "pendente",
+    nf_number: "",
+    nf_issued_on: "",
+    nf_amount: "",
+    nota_fiscal_url: "",
+  });
+  useEffect(() => {
+    if (refund) setRefundReason("");
+  }, [refund]);
+  const patients = useLoadFinance(
+    () =>
+      checked(
+        db
+          .from("patients")
+          .select("id,full_name,preferred_name,cpf")
+          .eq("status", "ativo")
+          .order("full_name"),
+      ),
+    [],
+  );
+  const procedures = useLoadFinance(
+    () =>
+      checked(
+        db
+          .from("procedures")
+          .select(
+            "id,name,category,default_duration,followup_days,price_cents,description,benefits,before_after_care,recovery,expected_results",
+          )
+          .eq("active", true)
+          .order("name"),
+      ),
+    [],
+  );
+  const state = useLoadFinance(async () => {
+    const records = await checked(
+      db
+        .from("financial_records")
+        .select("*,patients(id,full_name,preferred_name,cpf)")
+        .order("created_at", { ascending: false }),
+    );
+    const payments = records.length
+      ? await checked(
+          db
+            .from("financial_payments")
+            .select("*")
+            .in(
+              "record_id",
+              records.map((r) => r.id),
+            )
+            .order("paid_on", { ascending: false }),
+        )
+      : [];
+    return records.map((r) => ({
+      ...r,
+      payments: payments.filter((p) => p.record_id === r.id),
+    }));
+  }, [version]);
   const records = state.data || [];
-  const totals = useMemo(() => records.reduce((a, r) => { const status = derivedStatus(r), received = receivedCents(r.payments), balance = recordBalance(r); a.received += received; a.balance += ["cancelado", "corrigido"].includes(status) ? 0 : balance; a.overdue += status === "vencido" ? balance : 0; a.nf += !r.nota_fiscal_issued ? 1 : 0; return a; }, { received: 0, balance: 0, overdue: 0, nf: 0 }), [records]);
-  if (state.loading) return <main className="finance-workspace"><div className="finance-state" role="status">Carregando financeiro…</div></main>;
-  if (state.error) return <main className="finance-workspace"><div className="finance-state finance-state-error" role="alert"><AlertCircle size={20} /><span>Não foi possível carregar os dados financeiros.</span><button type="button" className="finance-secondary" onClick={state.refresh}>Tentar novamente</button></div></main>;
-  const setCharge = (key, value) => setForm((current) => ({ ...current, [key]: value }));
-  const saveCharge = async (e) => { e.preventDefault(); setBusy(true); try { const record = await checked(db.from("financial_records").insert({ organization_id: ORG, patient_id: form.patient_id, procedure_name: form.procedure_name.trim(), total_cents: cents(form.total), due_on: form.due_on || null, notes: form.notes, receipt_number: `FS-${new Date().getFullYear()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}` }).select().single()); setForm({ patient_id: "", procedure_name: "", total: "", due_on: localDay(), notes: "" }); setShowCharge(false); state.refresh(); notify(t("Cobrança criada.", "Charge created.")); return record; } catch { notify(t("Não foi possível criar a cobrança.", "Could not create the charge.")); } finally { setBusy(false); } };
-  const addPayment = async (record) => { const amount = cents(payment.amount); const balance = recordBalance(record); if (amount <= 0) return notify(t("Informe um valor válido.", "Enter a valid amount.")); if (amount > balance) return notify(t("O pagamento não pode ser maior que o saldo atual.", "Payment cannot exceed the current balance.")); setBusy(true); try { await checked(db.from("financial_payments").insert({ organization_id: ORG, record_id: record.id, patient_id: record.patient_id, amount_cents: amount, paid_on: payment.paid_on, method: payment.method, notes: payment.notes })); setPayment({ amount: "", paid_on: localDay(), method: "pix", notes: "" }); state.refresh(); notify(t("Pagamento registrado e saldo atualizado.", "Payment recorded and balance updated.")); } catch (error) { notify(error?.code === "finance_payment_over_total" ? t("O pagamento excede o saldo.", "Payment exceeds the balance.") : t("Não foi possível registrar o pagamento.", "Could not record the payment.")); } finally { setBusy(false); } };
-  const openReceipt = (record) => { try { const receipt = receiptDocumentHTML({ record, patient: record.patients, payments: record.payments, paymentMethodLabel, money, date, t }); if (!openDocument(receipt)) throw Error("popup_blocked"); notify(t("Recibo aberto em uma nova aba. Use Imprimir / salvar PDF.", "Receipt opened in a new tab. Use Print / save PDF.")); } catch { notify(t("Não foi possível abrir o recibo. Permita pop-ups para este site e tente novamente.", "Could not open the receipt. Allow pop-ups for this site and try again.")); } };
-  const saveNF = async (e) => { e.preventDefault(); setBusy(true); try { const file = e.currentTarget.nf_file.files[0]; let path = nfRecord.nota_fiscal_path || ""; if (file) { const allowed = ["application/pdf", "image/jpeg", "image/png", "application/xml", "text/xml"].includes(file.type) || /\.(pdf|jpe?g|png|xml)$/i.test(file.name); if (!allowed || file.size > 8388608) throw Error("invalid_file"); path = `${ORG}/${nfRecord.id}/nf-${crypto.randomUUID()}-${file.name.replace(/[^\w.-]/g, "_")}`; await checked(db.storage.from("finance-private").upload(path, file, { upsert: false, contentType: file.type || "application/octet-stream" })); } await checked(db.from("financial_records").update({ nota_fiscal_issued: nf.status === "emitida", nf_number: nf.nf_number.trim(), nf_issued_on: nf.nf_issued_on || null, nf_amount_cents: nf.nf_amount ? cents(nf.nf_amount) : null, nota_fiscal_url: nf.nota_fiscal_url.trim(), nota_fiscal_path: path }).eq("id", nfRecord.id)); setNfRecord(null); state.refresh(); notify(t("Nota Fiscal atualizada.", "Invoice updated.")); } catch (error) { notify(error?.message === "invalid_file" ? t("Arquivo inválido. Use PDF, XML, JPG ou PNG de até 8 MB.", "Invalid file. Use PDF, XML, JPG or PNG up to 8 MB.") : t("Não foi possível salvar a Nota Fiscal.", "Could not save the invoice.")); } finally { setBusy(false); } };
-  const openNF = (record) => { setNfRecord(record); setNf({ status: record.nota_fiscal_issued ? "emitida" : "pendente", nf_number: record.nf_number || "", nf_issued_on: record.nf_issued_on || "", nf_amount: record.nf_amount_cents ? (record.nf_amount_cents / 100).toFixed(2) : "", nota_fiscal_url: record.nota_fiscal_url || "" }); };
-  const openNFFile = async (record) => { try { const { data, error } = await db.storage.from("finance-private").createSignedUrl(record.nota_fiscal_path, 300); if (error || !data?.signedUrl) throw error || Error("signed_url"); window.open(data.signedUrl, "_blank", "noopener,noreferrer"); } catch { notify(t("Não foi possível abrir o arquivo da Nota Fiscal.", "Could not open the invoice file.")); } };
-  const refundPayment = async (e) => { e.preventDefault(); if (!refundReason.trim()) return notify(t("Informe o motivo do estorno.", "Enter a refund reason.")); setBusy(true); try { await checked(db.from("financial_payments").update({ status: "estornado", refunded_on: localDay(), refund_reason: refundReason.trim() }).eq("id", refund.id)); setRefund(null); setRefundReason(""); state.refresh(); notify(t("Pagamento estornado e saldo recalculado.", "Payment refunded and balance recalculated.")); } catch { notify(t("Não foi possível estornar o pagamento.", "Could not refund the payment.")); } finally { setBusy(false); } };
-  return <main className="finance-workspace"><div className="finance-titlebar"><div><p className="finance-kicker">{t("Área exclusiva do proprietário · suportesofiati@gmail.com", "Owner-only area · suportesofiati@gmail.com")}</p><h1>{t("Financeiro", "Finance")}</h1><p className="finance-intro">{t("Cobranças, pagamentos e documentos fiscais em uma visão clara e auditável.", "Charges, payments and tax documents in a clear, auditable view.")}</p></div><button type="button" className="finance-primary" onClick={() => setShowCharge(true)}><Plus size={18} /> {t("Nova cobrança", "New charge")}</button></div><section className="finance-metrics" aria-label={t("Resumo financeiro", "Financial summary")}><Metric icon={WalletCards} label={t("Total recebido", "Total received")} value={money(totals.received / 100)} tone="received" /><Metric label={t("Saldo em aberto", "Open balance")} value={money(totals.balance / 100)} tone="open" /><Metric label={t("Vencido", "Overdue")} value={money(totals.overdue / 100)} tone="overdue" /><Metric label={t("NF pendente", "Pending invoice")} value={String(totals.nf)} tone="invoice" /></section><section className="finance-ledger"><div className="finance-section-heading"><div><p className="finance-kicker">{t("Livro financeiro", "Financial ledger")}</p><h2>{t("Cobranças", "Charges")}</h2></div><span>{records.length} {records.length === 1 ? t("lançamento", "entry") : t("lançamentos", "entries")}</span></div><div className="finance-table-wrap"><table className="finance-table"><thead><tr>{["Paciente|Patient", "Serviço|Service", "Total|Total", "Recebido|Received", "Saldo|Balance", "Vencimento|Due date", "Status|Status"].map((v) => { const [pt, en] = v.split("|"); return <th key={v}>{t(pt, en)}</th>; })}<th /></tr></thead><tbody>{records.map((record) => { const status = derivedStatus(record), open = expanded === record.id; return <tr key={record.id} className={open ? "is-expanded" : ""}><td><strong>{record.patients?.preferred_name || record.patients?.full_name || t("Paciente", "Patient")}</strong><small>{record.patients?.cpf || t("CPF não informado", "CPF not provided")}</small></td><td>{record.procedure_name || "—"}</td><td>{money(record.total_cents / 100)}</td><td className="finance-received">{money(receivedCents(record.payments) / 100)}</td><td className={recordBalance(record) ? "finance-balance" : "finance-paid"}>{money(recordBalance(record) / 100)}</td><td>{record.due_on ? date(record.due_on) : "—"}</td><td><span className={`finance-status finance-status-${status}`}>{label(status, t)}</span></td><td><button type="button" className="finance-detail-button" onClick={() => setExpanded(open ? null : record.id)}>{open ? t("Fechar", "Close") : t("Abrir", "Open")}</button></td></tr>; })}</tbody></table></div>{!records.length && <div className="finance-empty"><WalletCards size={30} /><h3>{t("Nenhuma cobrança registrada", "No charges recorded")}</h3><p>{t("Comece pelo primeiro lançamento financeiro.", "Start with the first financial entry.")}</p></div>}{records.map((record) => expanded === record.id && <ChargeDetails key={`details-${record.id}`} record={record} t={t} busy={busy} payment={payment} setPayment={setPayment} onPayment={() => addPayment(record)} onReceipt={() => openReceipt(record)} onNF={() => openNF(record)} onOpenNF={() => openNFFile(record)} onRefund={setRefund} />)}</section>{showCharge && <Modal title={t("Nova cobrança", "New charge")} close={() => !busy && setShowCharge(false)}><form className="finance-form" onSubmit={saveCharge}><Field label={t("Paciente", "Patient")} value={form.patient_id} onChange={(v) => setCharge("patient_id", v)} options={[["", t("Selecionar paciente", "Select patient")], ...(patients.data || []).map((p) => [p.id, p.preferred_name || p.full_name])]} required /><Field label={t("Serviço / procedimento", "Service / treatment")} value={form.procedure_name} onChange={(v) => setCharge("procedure_name", v)} required /><Field label={t("Valor total (R$)", "Total amount (BRL)")} type="number" min="0.01" step="0.01" value={form.total} onChange={(v) => setCharge("total", v)} required /><Field label={t("Vencimento", "Due date")} type="date" value={form.due_on} onChange={(v) => setCharge("due_on", v)} /><label className="finance-field"><span>{t("Observações", "Notes")}</span><textarea value={form.notes} onChange={(e) => setCharge("notes", e.target.value)} rows="4" /></label><div className="finance-modal-actions"><button type="button" className="finance-secondary" onClick={() => setShowCharge(false)}>{t("Cancelar", "Cancel")}</button><button className="finance-primary" disabled={busy}><Save size={17} /> {busy ? t("Salvando…", "Saving…") : t("Salvar cobrança", "Save charge")}</button></div></form></Modal>}{nfRecord && <Modal title={t("Nota Fiscal", "Invoice")} close={() => !busy && setNfRecord(null)}><form className="finance-form" onSubmit={saveNF}><p className="finance-separation"><FileText size={18} /> {t("Nota Fiscal é independente do recibo de pagamento.", "The invoice is independent from the payment receipt.")}</p><Field label={t("Status", "Status")} value={nf.status} onChange={(v) => setNf({ ...nf, status: v })} options={[["pendente", t("Pendente", "Pending")], ["emitida", t("Emitida", "Issued")]]} /><Field label={t("Número da NF", "Invoice number")} value={nf.nf_number} onChange={(v) => setNf({ ...nf, nf_number: v })} /><Field label={t("Data de emissão", "Issue date")} type="date" value={nf.nf_issued_on} onChange={(v) => setNf({ ...nf, nf_issued_on: v })} /><Field label={t("Valor da NF (R$)", "Invoice amount (BRL)")} type="number" min="0" step="0.01" value={nf.nf_amount} onChange={(v) => setNf({ ...nf, nota_fiscal_url: v })} /><Field label={t("Link oficial", "Official link")} type="url" value={nf.nota_fiscal_url} onChange={(v) => setNf({ ...nf, nota_fiscal_url: v })} /><label className="finance-field"><span>{t("PDF / XML / imagem segura", "PDF / XML / secure image")}</span><input name="nf_file" type="file" accept="application/pdf,application/xml,text/xml,image/jpeg,image/png" /></label><div className="finance-modal-actions"><button type="button" className="finance-secondary" onClick={() => setNfRecord(null)}>{t("Cancelar", "Cancel")}</button><button className="finance-primary" disabled={busy}><Save size={17} /> {busy ? t("Salvando…", "Saving…") : t("Salvar Nota Fiscal", "Save invoice")}</button></div></form></Modal>}{refund && <Modal title={t("Corrigir / reembolsar pagamento", "Correct / refund payment")} close={() => !busy && setRefund(null)}><form className="finance-form" onSubmit={refundPayment}><div className="finance-refund-warning"><AlertCircle size={18} /><span>{t("O pagamento será preservado no histórico e marcado como estornado. O saldo será recalculado automaticamente.", "The payment will remain in history and be marked as refunded. The balance will be recalculated automatically.")}</span></div><p><strong>{money(refund.amount_cents / 100)}</strong> · {date(refund.paid_on)}</p><Field label={t("Motivo", "Reason")} value={refundReason} onChange={setRefundReason} name="reason" required /><div className="finance-modal-actions"><button type="button" className="finance-secondary" onClick={() => setRefund(null)}>{t("Cancelar", "Cancel")}</button><button className="finance-primary" disabled={busy}><RotateCcw size={17} /> {t("Confirmar estorno", "Confirm refund")}</button></div></form></Modal>}</main>;
+  const totals = useMemo(
+    () =>
+      records.reduce(
+        (a, r) => {
+          const status = derivedStatus(r),
+            received = receivedCents(r.payments),
+            balance = recordBalance(r);
+          a.received += received;
+          a.balance += ["cancelado", "corrigido"].includes(status)
+            ? 0
+            : balance;
+          a.overdue += status === "vencido" ? balance : 0;
+          a.nf += !r.nota_fiscal_issued ? 1 : 0;
+          return a;
+        },
+        { received: 0, balance: 0, overdue: 0, nf: 0 },
+      ),
+    [records],
+  );
+  if (state.loading)
+    return (
+      <main className="finance-workspace">
+        <div className="finance-state" role="status">
+          Carregando financeiro…
+        </div>
+      </main>
+    );
+  if (state.error)
+    return (
+      <main className="finance-workspace">
+        <div className="finance-state finance-state-error" role="alert">
+          <AlertCircle size={20} />
+          <span>Não foi possível carregar os dados financeiros.</span>
+          <button
+            type="button"
+            className="finance-secondary"
+            onClick={state.refresh}
+          >
+            Tentar novamente
+          </button>
+        </div>
+      </main>
+    );
+  const setCharge = (key, value) =>
+    setForm((current) => ({ ...current, [key]: value }));
+  const saveCharge = async (e) => {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      const selectedProcedure = (procedures.data || []).find(
+        (p) =>
+          p.id === form.procedure_id ||
+          p.name.toLowerCase() === form.procedure_name.trim().toLowerCase(),
+      );
+      const record = await checked(
+        db
+          .from("financial_records")
+          .insert({
+            organization_id: ORG,
+            patient_id: form.patient_id,
+            procedure_id: selectedProcedure?.id || null,
+            procedure_name: form.procedure_name.trim(),
+            procedure_snapshot: selectedProcedure
+              ? { ...selectedProcedure, selected_at: new Date().toISOString() }
+              : {},
+            total_cents: cents(form.total),
+            discount_cents: cents(form.discount),
+            package_name: form.package_name.trim(),
+            installment_number: form.installment_number
+              ? Number(form.installment_number)
+              : null,
+            installment_total: form.installment_total
+              ? Number(form.installment_total)
+              : null,
+            due_on: form.due_on || null,
+            notes: form.notes,
+            receipt_number: `FS-${new Date().getFullYear()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`,
+          })
+          .select()
+          .single(),
+      );
+      setForm({
+        patient_id: "",
+        procedure_id: "",
+        procedure_name: "",
+        total: "",
+        discount: "",
+        package_name: "",
+        installment_number: "",
+        installment_total: "",
+        due_on: localDay(),
+        notes: "",
+      });
+      setShowCharge(false);
+      state.refresh();
+      notify(
+        selectedProcedure
+          ? t(
+              "Cobrança criada a partir do catálogo.",
+              "Charge created from the catalogue.",
+            )
+          : t(
+              "Cobrança criada como serviço personalizado.",
+              "Charge created as a custom service.",
+            ),
+      );
+      return record;
+    } catch {
+      notify(
+        t("Não foi possível criar a cobrança.", "Could not create the charge."),
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const addPayment = async (record) => {
+    const amount = cents(payment.amount);
+    const balance = recordBalance(record);
+    if (amount <= 0)
+      return notify(t("Informe um valor válido.", "Enter a valid amount."));
+    if (amount > balance)
+      return notify(
+        t(
+          "O pagamento não pode ser maior que o saldo atual.",
+          "Payment cannot exceed the current balance.",
+        ),
+      );
+    setBusy(true);
+    try {
+      await checked(
+        db
+          .from("financial_payments")
+          .insert({
+            organization_id: ORG,
+            record_id: record.id,
+            patient_id: record.patient_id,
+            amount_cents: amount,
+            paid_on: payment.paid_on,
+            method: payment.method,
+            notes: payment.notes,
+          }),
+      );
+      setPayment({ amount: "", paid_on: localDay(), method: "pix", notes: "" });
+      state.refresh();
+      notify(
+        t(
+          "Pagamento registrado e saldo atualizado.",
+          "Payment recorded and balance updated.",
+        ),
+      );
+    } catch (error) {
+      notify(
+        error?.code === "finance_payment_over_total"
+          ? t("O pagamento excede o saldo.", "Payment exceeds the balance.")
+          : t(
+              "Não foi possível registrar o pagamento.",
+              "Could not record the payment.",
+            ),
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const openReceipt = (record) => {
+    try {
+      const receipt = receiptDocumentHTML({
+        record,
+        patient: record.patients,
+        payments: record.payments,
+        paymentMethodLabel,
+        money,
+        date,
+        t,
+      });
+      if (!openDocument(receipt)) throw Error("popup_blocked");
+      notify(
+        t(
+          "Recibo aberto em uma nova aba. Use Imprimir / salvar PDF.",
+          "Receipt opened in a new tab. Use Print / save PDF.",
+        ),
+      );
+    } catch {
+      notify(
+        t(
+          "Não foi possível abrir o recibo. Permita pop-ups para este site e tente novamente.",
+          "Could not open the receipt. Allow pop-ups for this site and try again.",
+        ),
+      );
+    }
+  };
+  const saveNF = async (e) => {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      const file = e.currentTarget.nf_file.files[0];
+      let path = nfRecord.nota_fiscal_path || "";
+      if (file) {
+        const allowed =
+          [
+            "application/pdf",
+            "image/jpeg",
+            "image/png",
+            "application/xml",
+            "text/xml",
+          ].includes(file.type) || /\.(pdf|jpe?g|png|xml)$/i.test(file.name);
+        if (!allowed || file.size > 8388608) throw Error("invalid_file");
+        path = `${ORG}/${nfRecord.id}/nf-${crypto.randomUUID()}-${file.name.replace(/[^\w.-]/g, "_")}`;
+        await checked(
+          db.storage
+            .from("finance-private")
+            .upload(path, file, {
+              upsert: false,
+              contentType: file.type || "application/octet-stream",
+            }),
+        );
+      }
+      await checked(
+        db
+          .from("financial_records")
+          .update({
+            nota_fiscal_issued: nf.status === "emitida",
+            nf_number: nf.nf_number.trim(),
+            nf_issued_on: nf.nf_issued_on || null,
+            nf_amount_cents: nf.nf_amount ? cents(nf.nf_amount) : null,
+            nota_fiscal_url: nf.nota_fiscal_url.trim(),
+            nota_fiscal_path: path,
+          })
+          .eq("id", nfRecord.id),
+      );
+      setNfRecord(null);
+      state.refresh();
+      notify(t("Nota Fiscal atualizada.", "Invoice updated."));
+    } catch (error) {
+      notify(
+        error?.message === "invalid_file"
+          ? t(
+              "Arquivo inválido. Use PDF, XML, JPG ou PNG de até 8 MB.",
+              "Invalid file. Use PDF, XML, JPG or PNG up to 8 MB.",
+            )
+          : t(
+              "Não foi possível salvar a Nota Fiscal.",
+              "Could not save the invoice.",
+            ),
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const openNF = (record) => {
+    setNfRecord(record);
+    setNf({
+      status: record.nota_fiscal_issued ? "emitida" : "pendente",
+      nf_number: record.nf_number || "",
+      nf_issued_on: record.nf_issued_on || "",
+      nf_amount: record.nf_amount_cents
+        ? (record.nf_amount_cents / 100).toFixed(2)
+        : "",
+      nota_fiscal_url: record.nota_fiscal_url || "",
+    });
+  };
+  const openNFFile = async (record) => {
+    try {
+      const { data, error } = await db.storage
+        .from("finance-private")
+        .createSignedUrl(record.nota_fiscal_path, 300);
+      if (error || !data?.signedUrl) throw error || Error("signed_url");
+      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+    } catch {
+      notify(
+        t(
+          "Não foi possível abrir o arquivo da Nota Fiscal.",
+          "Could not open the invoice file.",
+        ),
+      );
+    }
+  };
+  const refundPayment = async (e) => {
+    e.preventDefault();
+    if (!refundReason.trim())
+      return notify(
+        t("Informe o motivo do estorno.", "Enter a refund reason."),
+      );
+    setBusy(true);
+    try {
+      await checked(
+        db
+          .from("financial_payments")
+          .update({
+            status: "estornado",
+            refunded_on: localDay(),
+            refund_reason: refundReason.trim(),
+          })
+          .eq("id", refund.id),
+      );
+      setRefund(null);
+      setRefundReason("");
+      state.refresh();
+      notify(
+        t(
+          "Pagamento estornado e saldo recalculado.",
+          "Payment refunded and balance recalculated.",
+        ),
+      );
+    } catch {
+      notify(
+        t(
+          "Não foi possível estornar o pagamento.",
+          "Could not refund the payment.",
+        ),
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <main className="finance-workspace">
+      <div className="finance-titlebar">
+        <div>
+          <p className="finance-kicker">
+            {t(
+              "Área exclusiva do proprietário · suportesofiati@gmail.com",
+              "Owner-only area · suportesofiati@gmail.com",
+            )}
+          </p>
+          <h1>{t("Financeiro", "Finance")}</h1>
+          <p className="finance-intro">
+            {t(
+              "Cobranças, pagamentos e documentos fiscais em uma visão clara e auditável.",
+              "Charges, payments and tax documents in a clear, auditable view.",
+            )}
+          </p>
+        </div>
+        <button
+          type="button"
+          className="finance-primary"
+          onClick={() => setShowCharge(true)}
+        >
+          <Plus size={18} /> {t("Nova cobrança", "New charge")}
+        </button>
+      </div>
+      <section
+        className="finance-metrics"
+        aria-label={t("Resumo financeiro", "Financial summary")}
+      >
+        <Metric
+          icon={WalletCards}
+          label={t("Total recebido", "Total received")}
+          value={money(totals.received / 100)}
+          tone="received"
+        />
+        <Metric
+          label={t("Saldo em aberto", "Open balance")}
+          value={money(totals.balance / 100)}
+          tone="open"
+        />
+        <Metric
+          label={t("Vencido", "Overdue")}
+          value={money(totals.overdue / 100)}
+          tone="overdue"
+        />
+        <Metric
+          label={t("NF pendente", "Pending invoice")}
+          value={String(totals.nf)}
+          tone="invoice"
+        />
+      </section>
+      <section className="finance-ledger">
+        <div className="finance-section-heading">
+          <div>
+            <p className="finance-kicker">
+              {t("Livro financeiro", "Financial ledger")}
+            </p>
+            <h2>{t("Cobranças", "Charges")}</h2>
+          </div>
+          <span>
+            {records.length}{" "}
+            {records.length === 1
+              ? t("lançamento", "entry")
+              : t("lançamentos", "entries")}
+          </span>
+        </div>
+        <div className="finance-table-wrap">
+          <table className="finance-table">
+            <thead>
+              <tr>
+                {[
+                  "Paciente|Patient",
+                  "Serviço|Service",
+                  "Total|Total",
+                  "Recebido|Received",
+                  "Saldo|Balance",
+                  "Vencimento|Due date",
+                  "Status|Status",
+                ].map((v) => {
+                  const [pt, en] = v.split("|");
+                  return <th key={v}>{t(pt, en)}</th>;
+                })}
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {records.map((record) => {
+                const status = derivedStatus(record),
+                  open = expanded === record.id;
+                return (
+                  <tr key={record.id} className={open ? "is-expanded" : ""}>
+                    <td>
+                      <strong>
+                        {record.patients?.preferred_name ||
+                          record.patients?.full_name ||
+                          t("Paciente", "Patient")}
+                      </strong>
+                      <small>
+                        {record.patients?.cpf ||
+                          t("CPF não informado", "CPF not provided")}
+                      </small>
+                    </td>
+                    <td>{record.procedure_name || "—"}</td>
+                    <td>{money(record.total_cents / 100)}</td>
+                    <td className="finance-received">
+                      {money(receivedCents(record.payments) / 100)}
+                    </td>
+                    <td
+                      className={
+                        recordBalance(record)
+                          ? "finance-balance"
+                          : "finance-paid"
+                      }
+                    >
+                      {money(recordBalance(record) / 100)}
+                    </td>
+                    <td>{record.due_on ? date(record.due_on) : "—"}</td>
+                    <td>
+                      <span
+                        className={`finance-status finance-status-${status}`}
+                      >
+                        {label(status, t)}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="finance-detail-button"
+                        onClick={() => setExpanded(open ? null : record.id)}
+                      >
+                        {open ? t("Fechar", "Close") : t("Abrir", "Open")}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        {!records.length && (
+          <div className="finance-empty">
+            <WalletCards size={30} />
+            <h3>{t("Nenhuma cobrança registrada", "No charges recorded")}</h3>
+            <p>
+              {t(
+                "Comece pelo primeiro lançamento financeiro.",
+                "Start with the first financial entry.",
+              )}
+            </p>
+          </div>
+        )}
+        {records.map(
+          (record) =>
+            expanded === record.id && (
+              <ChargeDetails
+                key={`details-${record.id}`}
+                record={record}
+                t={t}
+                busy={busy}
+                payment={payment}
+                setPayment={setPayment}
+                onPayment={() => addPayment(record)}
+                onReceipt={() => openReceipt(record)}
+                onNF={() => openNF(record)}
+                onOpenNF={() => openNFFile(record)}
+                onRefund={setRefund}
+              />
+            ),
+        )}
+      </section>
+      {showCharge && (
+        <Modal
+          title={t("Nova cobrança", "New charge")}
+          close={() => !busy && setShowCharge(false)}
+        >
+          <form className="finance-form" onSubmit={saveCharge}>
+            <Field
+              label={t("Paciente", "Patient")}
+              value={form.patient_id}
+              onChange={(v) => setCharge("patient_id", v)}
+              options={[
+                ["", t("Selecionar paciente", "Select patient")],
+                ...(patients.data || []).map((p) => [
+                  p.id,
+                  p.preferred_name || p.full_name,
+                ]),
+              ]}
+              required
+            />
+            <Field
+              label={t("Procedimento do catálogo", "Catalogue procedure")}
+              value={form.procedure_id}
+              onChange={(v) => {
+                const procedure = (procedures.data || []).find((row) => row.id === v);
+                setCharge("procedure_id", v);
+                if (procedure) {
+                  setCharge("procedure_name", procedure.name);
+                  if (procedure.price_cents != null) setCharge("total", (Number(procedure.price_cents) / 100).toFixed(2));
+                }
+              }}
+              options={[
+                ["", t("Serviço personalizado", "Custom service")],
+                ...(procedures.data || []).map((p) => [p.id, `${p.name}${p.price_cents == null ? "" : ` · R$ ${(Number(p.price_cents) / 100).toFixed(2).replace(".", ",")}`}`]),
+              ]}
+            />
+            <Field
+              label={t("Serviço / procedimento", "Service / treatment")}
+              value={form.procedure_name}
+              onChange={(v) => setCharge("procedure_name", v)}
+              required
+            />
+            <Field
+              label={t("Valor total (R$)", "Total amount (BRL)")}
+              type="number"
+              min="0.01"
+              step="0.01"
+              value={form.total}
+              onChange={(v) => setCharge("total", v)}
+              required
+            />
+            <Field
+              label={t("Desconto (R$)", "Discount (BRL)")}
+              type="number"
+              min="0"
+              step="0.01"
+              value={form.discount}
+              onChange={(v) => setCharge("discount", v)}
+            />
+            <Field
+              label={t("Pacote / plano comercial", "Package / commercial plan")}
+              value={form.package_name}
+              onChange={(v) => setCharge("package_name", v)}
+            />
+            <Field
+              label={t("Parcela nº", "Installment no.")}
+              type="number"
+              min="1"
+              value={form.installment_number}
+              onChange={(v) => setCharge("installment_number", v)}
+            />
+            <Field
+              label={t("Total de parcelas", "Total installments")}
+              type="number"
+              min="1"
+              value={form.installment_total}
+              onChange={(v) => setCharge("installment_total", v)}
+            />
+            <Field
+              label={t("Vencimento", "Due date")}
+              type="date"
+              value={form.due_on}
+              onChange={(v) => setCharge("due_on", v)}
+            />
+            <label className="finance-field">
+              <span>{t("Observações", "Notes")}</span>
+              <textarea
+                value={form.notes}
+                onChange={(e) => setCharge("notes", e.target.value)}
+                rows="4"
+              />
+            </label>
+            <div className="finance-modal-actions">
+              <button
+                type="button"
+                className="finance-secondary"
+                onClick={() => setShowCharge(false)}
+              >
+                {t("Cancelar", "Cancel")}
+              </button>
+              <button className="finance-primary" disabled={busy}>
+                <Save size={17} />{" "}
+                {busy
+                  ? t("Salvando…", "Saving…")
+                  : t("Salvar cobrança", "Save charge")}
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+      {nfRecord && (
+        <Modal
+          title={t("Nota Fiscal", "Invoice")}
+          close={() => !busy && setNfRecord(null)}
+        >
+          <form className="finance-form" onSubmit={saveNF}>
+            <p className="finance-separation">
+              <FileText size={18} />{" "}
+              {t(
+                "Nota Fiscal é independente do recibo de pagamento.",
+                "The invoice is independent from the payment receipt.",
+              )}
+            </p>
+            <Field
+              label={t("Status", "Status")}
+              value={nf.status}
+              onChange={(v) => setNf({ ...nf, status: v })}
+              options={[
+                ["pendente", t("Pendente", "Pending")],
+                ["emitida", t("Emitida", "Issued")],
+              ]}
+            />
+            <Field
+              label={t("Número da NF", "Invoice number")}
+              value={nf.nf_number}
+              onChange={(v) => setNf({ ...nf, nf_number: v })}
+            />
+            <Field
+              label={t("Data de emissão", "Issue date")}
+              type="date"
+              value={nf.nf_issued_on}
+              onChange={(v) => setNf({ ...nf, nf_issued_on: v })}
+            />
+            <Field
+              label={t("Valor da NF (R$)", "Invoice amount (BRL)")}
+              type="number"
+              min="0"
+              step="0.01"
+              value={nf.nf_amount}
+              onChange={(v) => setNf({ ...nf, nota_fiscal_url: v })}
+            />
+            <Field
+              label={t("Link oficial", "Official link")}
+              type="url"
+              value={nf.nota_fiscal_url}
+              onChange={(v) => setNf({ ...nf, nota_fiscal_url: v })}
+            />
+            <label className="finance-field">
+              <span>
+                {t("PDF / XML / imagem segura", "PDF / XML / secure image")}
+              </span>
+              <input
+                name="nf_file"
+                type="file"
+                accept="application/pdf,application/xml,text/xml,image/jpeg,image/png"
+              />
+            </label>
+            <div className="finance-modal-actions">
+              <button
+                type="button"
+                className="finance-secondary"
+                onClick={() => setNfRecord(null)}
+              >
+                {t("Cancelar", "Cancel")}
+              </button>
+              <button className="finance-primary" disabled={busy}>
+                <Save size={17} />{" "}
+                {busy
+                  ? t("Salvando…", "Saving…")
+                  : t("Salvar Nota Fiscal", "Save invoice")}
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+      {refund && (
+        <Modal
+          title={t(
+            "Corrigir / reembolsar pagamento",
+            "Correct / refund payment",
+          )}
+          close={() => !busy && setRefund(null)}
+        >
+          <form className="finance-form" onSubmit={refundPayment}>
+            <div className="finance-refund-warning">
+              <AlertCircle size={18} />
+              <span>
+                {t(
+                  "O pagamento será preservado no histórico e marcado como estornado. O saldo será recalculado automaticamente.",
+                  "The payment will remain in history and be marked as refunded. The balance will be recalculated automatically.",
+                )}
+              </span>
+            </div>
+            <p>
+              <strong>{money(refund.amount_cents / 100)}</strong> ·{" "}
+              {date(refund.paid_on)}
+            </p>
+            <Field
+              label={t("Motivo", "Reason")}
+              value={refundReason}
+              onChange={setRefundReason}
+              name="reason"
+              required
+            />
+            <div className="finance-modal-actions">
+              <button
+                type="button"
+                className="finance-secondary"
+                onClick={() => setRefund(null)}
+              >
+                {t("Cancelar", "Cancel")}
+              </button>
+              <button className="finance-primary" disabled={busy}>
+                <RotateCcw size={17} />{" "}
+                {t("Confirmar estorno", "Confirm refund")}
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+    </main>
+  );
 }
 
-function Metric({ icon: Icon, label: title, value, tone }) { return <div className={`finance-metric finance-metric-${tone}`}>{Icon && <Icon size={19} />}<span>{title}</span><strong>{value}</strong></div>; }
-function ChargeDetails({ record, t, busy, payment, setPayment, onPayment, onReceipt, onNF, onOpenNF, onRefund }) { const active = activePayments(record.payments); return <div className="finance-charge-details"><div className="finance-detail-heading"><div><p className="finance-kicker">{t("Detalhes do lançamento", "Entry details")}</p><h3>{record.procedure_name || t("Serviço", "Service")}</h3></div><div className="finance-detail-total"><span>{t("Saldo atual", "Current balance")}</span><strong>{money(recordBalance(record) / 100)}</strong></div></div><div className="finance-detail-grid"><div><span>{t("Total", "Total")}</span><strong>{money(record.total_cents / 100)}</strong></div><div><span>{t("Recebido", "Received")}</span><strong>{money(receivedCents(record.payments) / 100)}</strong></div><div><span>{t("Pagamentos ativos", "Active payments")}</span><strong>{active.length}</strong></div></div><div className="finance-detail-actions"><button type="button" className="finance-primary" onClick={onReceipt}><Receipt size={17} /> {t("Gerar recibo / PDF", "Generate receipt / PDF")}</button><button type="button" className="finance-secondary" onClick={onNF}><FileText size={17} /> {t("Nota Fiscal", "Invoice")}</button>{record.nota_fiscal_path && <button type="button" className="finance-secondary" onClick={onOpenNF}><ExternalLink size={17} /> {t("Abrir arquivo NF", "Open invoice file")}</button>}<button type="button" className="finance-secondary" onClick={() => onRefund(active[0])} disabled={!active.length}><RotateCcw size={17} /> {t("Corrigir / Reembolsar", "Correct / Refund")}</button></div><div className="finance-payment-box"><h4>{t("Registrar pagamento", "Record payment")}</h4><div className="finance-payment-form"><Field label={t("Valor recebido (R$)", "Amount received (BRL)")} type="number" min="0.01" step="0.01" value={payment.amount} onChange={(v) => setPayment({ ...payment, amount: v })} /><Field label={t("Data", "Date")} type="date" value={payment.paid_on} onChange={(v) => setPayment({ ...payment, paid_on: v })} /><Field label={t("Forma", "Method")} value={payment.method} onChange={(v) => setPayment({ ...payment, method: v })} options={paymentMethods.map(([key, pt, en]) => [key, t(pt, en)])} /><button type="button" className="finance-primary" disabled={busy || recordBalance(record) <= 0} onClick={onPayment}><Check size={17} /> {t("Registrar pagamento", "Record payment")}</button></div></div><div className="finance-history"><h4>{t("Histórico de pagamentos", "Payment history")}</h4>{record.payments.length ? record.payments.map((p) => <div className={`finance-history-row finance-payment-${p.status}`} key={p.id}><span>{date(p.paid_on)} · {paymentMethodLabel(p.method, t)}<small>{p.status === "estornado" ? `${t("Estornado", "Refunded")}${p.refund_reason ? ` · ${p.refund_reason}` : ""}` : p.notes || t("Recebido", "Received")}</small></span><strong>{money(p.amount_cents / 100)}</strong></div>) : <p className="finance-muted">{t("Nenhum pagamento registrado.", "No payments recorded.")}</p>}</div></div>; }
+function Metric({ icon: Icon, label: title, value, tone }) {
+  return (
+    <div className={`finance-metric finance-metric-${tone}`}>
+      {Icon && <Icon size={19} />}
+      <span>{title}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+function ChargeDetails({
+  record,
+  t,
+  busy,
+  payment,
+  setPayment,
+  onPayment,
+  onReceipt,
+  onNF,
+  onOpenNF,
+  onRefund,
+}) {
+  const active = activePayments(record.payments);
+  return (
+    <div className="finance-charge-details">
+      <div className="finance-detail-heading">
+        <div>
+          <p className="finance-kicker">
+            {t("Detalhes do lançamento", "Entry details")}
+          </p>
+          <h3>{record.procedure_name || t("Serviço", "Service")}</h3>
+        </div>
+        <div className="finance-detail-total">
+          <span>{t("Saldo atual", "Current balance")}</span>
+          <strong>{money(recordBalance(record) / 100)}</strong>
+        </div>
+      </div>
+      <div className="finance-detail-grid">
+        <div>
+          <span>{t("Total", "Total")}</span>
+          <strong>{money(record.total_cents / 100)}</strong>
+        </div>
+        <div>
+          <span>{t("Recebido", "Received")}</span>
+          <strong>{money(receivedCents(record.payments) / 100)}</strong>
+        </div>
+        <div>
+          <span>{t("Pagamentos ativos", "Active payments")}</span>
+          <strong>{active.length}</strong>
+        </div>
+        <div>
+          <span>{t("Desconto", "Discount")}</span>
+          <strong>{money(Number(record.discount_cents || 0) / 100)}</strong>
+        </div>
+        <div>
+          <span>{t("Pacote / parcela", "Package / installment")}</span>
+          <strong>{record.package_name || (record.installment_total ? `${record.installment_number || 1}/${record.installment_total}` : "—")}</strong>
+        </div>
+      </div>
+      <div className="finance-detail-actions">
+        <button type="button" className="finance-primary" onClick={onReceipt}>
+          <Receipt size={17} />{" "}
+          {t("Gerar recibo / PDF", "Generate receipt / PDF")}
+        </button>
+        <button type="button" className="finance-secondary" onClick={onNF}>
+          <FileText size={17} /> {t("Nota Fiscal", "Invoice")}
+        </button>
+        {record.nota_fiscal_path && (
+          <button
+            type="button"
+            className="finance-secondary"
+            onClick={onOpenNF}
+          >
+            <ExternalLink size={17} />{" "}
+            {t("Abrir arquivo NF", "Open invoice file")}
+          </button>
+        )}
+        <button
+          type="button"
+          className="finance-secondary"
+          onClick={() => onRefund(active[0])}
+          disabled={!active.length}
+        >
+          <RotateCcw size={17} />{" "}
+          {t("Corrigir / Reembolsar", "Correct / Refund")}
+        </button>
+      </div>
+      <div className="finance-payment-box">
+        <h4>{t("Registrar pagamento", "Record payment")}</h4>
+        <div className="finance-payment-form">
+          <Field
+            label={t("Valor recebido (R$)", "Amount received (BRL)")}
+            type="number"
+            min="0.01"
+            step="0.01"
+            value={payment.amount}
+            onChange={(v) => setPayment({ ...payment, amount: v })}
+          />
+          <Field
+            label={t("Data", "Date")}
+            type="date"
+            value={payment.paid_on}
+            onChange={(v) => setPayment({ ...payment, paid_on: v })}
+          />
+          <Field
+            label={t("Forma", "Method")}
+            value={payment.method}
+            onChange={(v) => setPayment({ ...payment, method: v })}
+            options={paymentMethods.map(([key, pt, en]) => [key, t(pt, en)])}
+          />
+          <button
+            type="button"
+            className="finance-primary"
+            disabled={busy || recordBalance(record) <= 0}
+            onClick={onPayment}
+          >
+            <Check size={17} /> {t("Registrar pagamento", "Record payment")}
+          </button>
+        </div>
+      </div>
+      <div className="finance-history">
+        <h4>{t("Histórico de pagamentos", "Payment history")}</h4>
+        {record.payments.length ? (
+          record.payments.map((p) => (
+            <div
+              className={`finance-history-row finance-payment-${p.status}`}
+              key={p.id}
+            >
+              <span>
+                {date(p.paid_on)} · {paymentMethodLabel(p.method, t)}
+                <small>
+                  {p.status === "estornado"
+                    ? `${t("Estornado", "Refunded")}${p.refund_reason ? ` · ${p.refund_reason}` : ""}`
+                    : p.notes || t("Recebido", "Received")}
+                </small>
+              </span>
+              <strong>{money(p.amount_cents / 100)}</strong>
+            </div>
+          ))
+        ) : (
+          <p className="finance-muted">
+            {t("Nenhum pagamento registrado.", "No payments recorded.")}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
 
-function useLoadFinance(loader, deps) { const [state, setState] = useState({ data: null, loading: true, error: false }); const [tick, setTick] = useState(0); useEffect(() => { let alive = true; setState((s) => ({ ...s, loading: true, error: false })); Promise.resolve(loader()).then((data) => alive && setState({ data, loading: false, error: false })).catch(() => alive && setState({ data: null, loading: false, error: true })); return () => { alive = false; }; }, [...deps, tick]); return { ...state, refresh: () => setTick((n) => n + 1) }; }
+function useLoadFinance(loader, deps) {
+  const [state, setState] = useState({
+    data: null,
+    loading: true,
+    error: false,
+  });
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    let alive = true;
+    setState((s) => ({ ...s, loading: true, error: false }));
+    Promise.resolve(loader())
+      .then((data) => alive && setState({ data, loading: false, error: false }))
+      .catch(
+        () => alive && setState({ data: null, loading: false, error: true }),
+      );
+    return () => {
+      alive = false;
+    };
+  }, [...deps, tick]);
+  return { ...state, refresh: () => setTick((n) => n + 1) };
+}

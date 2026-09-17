@@ -28,6 +28,10 @@ async function session(req: Request) {
 async function resources(db: ReturnType<typeof admin>, patientId: string) {
   const { data: shares } = await db.from("patient_portal_shares").select("*").eq("organization_id", ORG).eq("patient_id", patientId).eq("status", "shared").order("shared_at", { ascending: false });
   const output: Record<string, unknown>[] = [];
+  const { data: appointments } = await db.from("appointments").select("id,starts_at,ends_at,status,label,procedure_id").eq("organization_id", ORG).eq("patient_id", patientId).gte("starts_at", new Date().toISOString()).order("starts_at").limit(20);
+  for (const appointment of appointments || []) output.push({ type: "appointment", ...appointment });
+  const { data: plans } = await db.from("treatment_plans").select("id,title,objectives,areas,status,expected_followup,treatment_plan_items(id,sequence_no,sessions,area,notes,procedures(name))").eq("organization_id", ORG).eq("patient_id", patientId).in("status", ["planejado", "em_andamento"]).order("created_at", { ascending: false });
+  for (const plan of plans || []) output.push({ type: "treatment_plan", ...plan });
   for (const share of shares || []) {
     if (!share.resource_id && share.resource_type !== "post_care") continue;
     if (share.resource_type === "document") {
@@ -73,6 +77,23 @@ Deno.serve(endpoint(async (req) => {
     const password = clean(body.password, 200); if (password.length < 12) throw Error("password");
     const salt = crypto.getRandomValues(new Uint8Array(16)); const hash = await passwordHash(password, salt);
     await db.from("patient_portal_accounts").update({ password_salt: b64(salt), password_hash: b64(hash), must_change_password: false, failed_attempts: 0, updated_at: new Date().toISOString() }).eq("id", current.account.id);
+    return reply(req, { ok: true });
+  }
+  if (action === "portal_action") {
+    const actionType = clean(body.action_type, 40);
+    if (!["confirmar_agendamento", "solicitar_reagendamento", "cancelar_agendamento", "solicitar_retorno", "reportar_sintoma"].includes(actionType)) throw Error("action_type");
+    const appointmentId = clean(body.appointment_id, 80) || null;
+    const procedureId = clean(body.clinical_procedure_id, 80) || null;
+    if (appointmentId) {
+      const { data } = await db.from("appointments").select("id").eq("organization_id", ORG).eq("patient_id", current.patient.id).eq("id", appointmentId).maybeSingle();
+      if (!data) throw Error("appointment");
+    }
+    if (procedureId) {
+      const { data } = await db.from("clinical_procedures").select("id").eq("organization_id", ORG).eq("patient_id", current.patient.id).eq("id", procedureId).maybeSingle();
+      if (!data) throw Error("procedure");
+    }
+    const { error } = await db.from("patient_portal_actions").insert({ organization_id: ORG, patient_id: current.patient.id, action_type: actionType, appointment_id: appointmentId, clinical_procedure_id: procedureId, notes: clean(body.notes, 3000) });
+    if (error) throw error;
     return reply(req, { ok: true });
   }
   if (action === "refresh") return reply(req, { patient: current.patient, resources: await resources(db, current.patient.id), must_change_password: current.account.must_change_password });

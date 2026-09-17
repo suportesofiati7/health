@@ -74,20 +74,16 @@ export function emailSubject(subject, templateName = 'Mensagem') {
 }
 
 export async function sendFormSubmitEmail({ recipient, subject, body, patient, sender }) {
-  const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({
-      _subject: subject,
-      _template: 'table',
-      name: sender || 'Franciele Sofiati',
-      email: sender || 'suportesofiati@gmail.com',
-      recipient: patient?.full_name || patient?.preferred_name || '',
-      message: `FRANCIELE SOFIATI\n\n${normalizeMessageText(body).trim()}`,
-    }),
+  const { invoke } = await import('./lib');
+  const result = await invoke('communication-email', {
+    recipient,
+    subject,
+    body: normalizeMessageText(body).trim(),
+    patient_name: patient?.full_name || patient?.preferred_name || '',
+    sender,
   });
-  if (!response.ok) throw new Error(`FormSubmit returned ${response.status}`);
-  return response.json().catch(() => ({ success: true }));
+  if (result?.error || result?.status !== 'sent') throw new Error(result?.error || 'email_not_confirmed');
+  return result;
 }
 
 export function missingPlaceholders(text, values) {

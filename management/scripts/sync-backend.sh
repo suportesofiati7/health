@@ -22,6 +22,8 @@ echo "== Deploying all Supabase Edge Functions =="
 for function_name in intake formulario staff files email-backup; do
   npx supabase functions deploy "$function_name" --project-ref "$PROJECT_REF" --no-verify-jwt
 done
+# communication-email requires an authenticated staff JWT.
+npx supabase functions deploy communication-email --project-ref "$PROJECT_REF"
 # portal is intentionally JWT-protected in supabase/config.toml.
 npx supabase functions deploy portal --project-ref "$PROJECT_REF"
 

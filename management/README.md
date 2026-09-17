@@ -10,7 +10,7 @@ Do not enter real patient data until the remote production gates in
 ## Local Development
 
 To start the local app by clicking a file, double-click the executable
-`run-local.py` and choose “Run in Terminal” if your file manager asks. It tries
+`../scripts/run-local.py` and choose “Run in Terminal” if your file manager asks. It tries
 `127.0.0.1:5550` first, then automatically checks the next ports until the app
 is running and opens the working URL in the browser.
 
