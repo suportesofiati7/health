@@ -781,6 +781,7 @@ export default function Financeiro({ notify, version }) {
                 return (
                   <tr key={record.id} className={open ? "is-expanded" : ""}>
                     <td>
+                      <span className="finance-patient-thumb" aria-hidden="true">{(record.patients?.preferred_name || record.patients?.full_name || "P").slice(0, 1).toUpperCase()}</span>
                       <strong>
                         {record.patients?.preferred_name ||
                           record.patients?.full_name ||
@@ -791,7 +792,7 @@ export default function Financeiro({ notify, version }) {
                           t("CPF não informado", "CPF not provided")}
                       </small>
                     </td>
-                    <td>{record.procedure_name || "—"}</td>
+                    <td><span className="finance-service-thumb" aria-hidden="true" />{record.procedure_name || "—"}</td>
                     <td>{money(record.total_cents / 100)}</td>
                     <td className="finance-received">
                       {money(receivedCents(record.payments) / 100)}

@@ -1,4 +1,32 @@
 @layer pages {
+  /* Rebuild: contact opens directly into the form, with the same dark
+     organic palette and quiet gold/rose details as the interest funnel. */
+  .sf-page[data-page="contact"] { background:#151c18; }
+  .sf-page[data-page="contact"] .sf-breadcrumbs { display:none; }
+  .sf-page[data-page="contact"] #contact-form-section { min-block-size:auto; padding-block:clamp(3rem,7vw,7rem) !important; border:0; background:radial-gradient(circle at 8% 12%,rgb(126 148 115 / .22),transparent 28rem),radial-gradient(circle at 92% 80%,rgb(164 112 91 / .16),transparent 28rem),linear-gradient(135deg,#151c18,#202a23 54%,#171d19) !important; }
+  .sf-page[data-page="contact"] #contact-form-section::before,.sf-page[data-page="contact"] #contact-form-section::after { display:none; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width:min(74rem,calc(100% - 2rem)); grid-template-columns:minmax(0,1fr); gap:1.25rem; overflow:visible; border:0; border-radius:0; background:transparent; box-shadow:none; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro { display:none; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-body { grid-row:1; padding:0; }
+  .sf-page[data-page="contact"] #contact-form { max-width:62rem; margin-inline:auto; padding:clamp(1.4rem,4vw,3.2rem); border:1px solid rgb(225 206 160 / .3); border-radius:1.4rem .45rem 1.4rem 1.4rem; background:rgb(245 239 227 / .97); color:#253329; box-shadow:1.5rem 1.5rem 0 rgb(214 184 117 / .12),0 2rem 5rem rgb(0 0 0 / .25); }
+  .sf-page[data-page="contact"] #contact-form::before { content:"Contato clínico  ·  01 / conversa"; display:block; margin-block-end:1.1rem; color:#9b6c57; font-size:.67rem; font-weight:780; letter-spacing:.2em; text-transform:uppercase; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction { margin-block:0 1.6rem; padding-block-end:1.4rem; border-block-end:1px solid rgb(37 51 41 / .16); color:#263a2d; font-family:var(--font-display); font-size:clamp(1.8rem,3vw,2.8rem); letter-spacing:-.04em; line-height:1; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after { content:"A equipe retorna com clareza sobre o próximo passo."; display:block; margin-block-start:.65rem; color:#6d776d; font-family:var(--font-body); font-size:.9rem; letter-spacing:0; line-height:1.55; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-grid { gap:1.15rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field label { color:#4d5e50; font-size:.68rem; font-weight:780; letter-spacing:.13em; text-transform:uppercase; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea) { border:0; border-bottom:1px solid rgb(37 51 41 / .3); border-radius:0; background:transparent; color:#263a2d; }
+  .sf-page[data-page="contact"] #contact-form .sf-field textarea { min-block-size:9rem; border:1px solid rgb(37 51 41 / .22); border-radius:.45rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea):focus { border-color:#9b6c57; box-shadow:0 2px 0 #9b6c57; }
+  .sf-page[data-page="contact"] #contact-form .sf-field--checkbox { color:#657166; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-submit { justify-content:flex-start; margin-block-start:1rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-button--primary { border:0; border-radius:.35rem; background:#3f5744; box-shadow:.35rem .35rem 0 #d6b875; color:#fff8eb; letter-spacing:.12em; }
+  .sf-page[data-page="contact"] .sf-direct-contact { max-width:62rem; margin:1rem auto 0; padding:1.2rem 0 0; border:0; border-block-start:1px solid rgb(244 238 226 / .18); background:transparent; color:#f4eee2; }
+  .sf-page[data-page="contact"] .sf-direct-contact__portrait,.sf-page[data-page="contact"] .sf-direct-contact__header { display:none; }
+  .sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns:repeat(3,1fr); gap:.7rem; }
+  .sf-page[data-page="contact"] .sf-contact-card { min-block-size:6.5rem; padding:1rem; border:1px solid rgb(244 238 226 / .16); border-radius:.5rem; background:rgb(245 239 227 / .06); color:#f4eee2; box-shadow:none; }
+  .sf-page[data-page="contact"] .sf-contact-card__detail { color:#b8b5a9; }
+  @media (max-width:760px) { .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width:min(100% - 1.25rem,42rem); }.sf-page[data-page="contact"] #contact-form { padding:1.3rem; border-radius:1rem .35rem 1rem 1rem; box-shadow:.55rem .55rem 0 rgb(214 184 117 / .14),0 1rem 2rem rgb(0 0 0 / .2); }.sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns:1fr; } }
+
   /* Contact is one form-only room. The fixed page artwork remains visible in
      the side fields while a single opaque centre rail carries every control. */
   .sf-page[data-page="contact"] #contact-form-section {
@@ -552,4 +580,167 @@
     .sf-page[data-page="contact"] .sf-contact-card:nth-child(3) { border-radius: .55rem .55rem 4rem .55rem; }
     .sf-page[data-page="contact"] .sf-direct-contact__notice { grid-template-columns: 1fr; }
   }
+}
+
+@layer pages {
+  /* Contact follows the same reference card as the interest intake, with a
+     two-column rhythm for the short fields. */
+  .sf-page[data-page="contact"] { background:#f4f1e9; }
+  .sf-page[data-page="contact"] #contact-form-section { padding:clamp(3rem,8vw,7rem) 1rem !important; background:radial-gradient(circle at 12% 18%,rgb(213 219 201 / .38),transparent 28rem),#f4f1e9 !important; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width:min(57rem,100%); }
+  .sf-page[data-page="contact"] #contact-form { position:relative; overflow:hidden; max-width:none; padding:clamp(2.5rem,6vw,5rem); border:1px solid #c9c7b9; border-radius:2rem; background:rgba(255,254,250,.95); color:#344338; box-shadow:0 1.5rem 3.5rem rgb(53 65 52 / .14),inset 0 1px 0 #fff; }
+  .sf-page[data-page="contact"] #contact-form::before { content:"Contato  ·  01 / conversa"; display:flex; align-items:center; gap:.9rem; margin:0 0 1.8rem; color:#7d8875; font-size:.67rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; }
+  .sf-page[data-page="contact"] #contact-form::after { content:""; position:absolute; inset:1.8rem 1.8rem auto auto; width:7rem; height:10rem; background:url("../assets/brand/logotipo-franciele-sofiati-clinica-premium-estetica-avancada-londrina-centro.webp") center/contain no-repeat; opacity:.34; pointer-events:none; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction { position:relative; z-index:1; margin:0 7rem 2.7rem 0; padding:0 0 2.1rem; border:0; color:#3b4b3b; font-family:var(--font-display); font-size:clamp(2.5rem,5vw,4.2rem); font-weight:400; letter-spacing:-.055em; line-height:.98; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after { display:block; max-width:38rem; margin-top:1rem; color:#696960; font-family:var(--font-body); font-size:1.03rem; letter-spacing:0; line-height:1.6; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.55rem 1.35rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field { position:relative; gap:.55rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field label { color:#364538; font-size:1rem; font-weight:500; letter-spacing:0; text-transform:none; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea) { min-height:3.7rem; box-sizing:border-box; border:1px solid #c9c9bf; border-radius:.7rem; padding:.85rem 1rem .85rem 3.65rem; background:#fffefa; color:#354438; font-size:1rem; box-shadow:inset 0 1px 2px rgb(52 64 53 / .03); }
+  .sf-page[data-page="contact"] #contact-form .sf-field textarea { min-height:8.8rem; padding-top:1rem; resize:vertical; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea):focus { border-color:#7e9079; box-shadow:0 0 0 .18rem rgb(126 144 121 / .16); }
+  .sf-page[data-page="contact"] #contact-form .sf-field::before { position:absolute; z-index:1; left:1.25rem; bottom:1.05rem; color:#677067; font-size:1.35rem; line-height:1; }
+  .sf-page[data-page="contact"] #contact-form .sf-field:nth-child(1)::before { content:"♙"; }
+  .sf-page[data-page="contact"] #contact-form .sf-field:nth-child(2)::before { content:"⌕"; }
+  .sf-page[data-page="contact"] #contact-form .sf-field:nth-child(3)::before { content:"✉"; }
+  .sf-page[data-page="contact"] #contact-form .sf-field:nth-child(4)::before { content:"⌄"; }
+  .sf-page[data-page="contact"] #contact-form .sf-field:nth-child(5)::before { content:"□"; bottom:auto; top:3.15rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field--checkbox::before { display:none; }
+  .sf-page[data-page="contact"] #contact-form .sf-field--checkbox input { min-height:auto; width:1.45rem; padding:0; accent-color:#758871; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-submit { margin-top:1.7rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-button--primary { width:100%; min-height:4.25rem; border:0; border-radius:.8rem; background:#879b80; box-shadow:0 .65rem 1.2rem rgb(92 112 88 / .2); color:#fffef8; font-family:var(--font-display); font-size:1.35rem; font-weight:400; letter-spacing:0; text-transform:none; }
+  .sf-page[data-page="contact"] .sf-funnel-challenge { position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; }
+  .sf-page[data-page="contact"] .sf-direct-contact { display:none; }
+  html[lang="en"] .sf-page[data-page="contact"] #contact-form::before { content:"Contact  ·  01 / conversation"; }
+  @media (max-width:650px) {
+    .sf-page[data-page="contact"] #contact-form { padding:2rem 1.25rem 2.5rem; border-radius:1.35rem; }
+    .sf-page[data-page="contact"] #contact-form .sf-form-introduction { margin-right:3rem; font-size:clamp(2.35rem,11vw,3.5rem); }
+    .sf-page[data-page="contact"] #contact-form .sf-form-grid { grid-template-columns:1fr; }
+    .sf-page[data-page="contact"] #contact-form::after { width:4.5rem; height:6.5rem; inset:1.2rem .8rem auto auto; }
+  }
+}
+
+/* Final form-first composition: the form is the page, while direct contact is
+   deliberately reduced to a quiet supporting row below it. */
+@layer pages {
+  .sf-page[data-page="contact"] #contact-form-section {
+    min-block-size: auto !important;
+    padding-block: clamp(2.75rem, 7vw, 6.5rem) !important;
+    background:
+      radial-gradient(circle at 8% 12%, rgb(126 148 115 / .2), transparent 28rem),
+      radial-gradient(circle at 92% 80%, rgb(164 112 91 / .16), transparent 28rem),
+      linear-gradient(135deg, #151c18, #202a23 54%, #171d19) !important;
+  }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout {
+    width: min(74rem, calc(100% - 2rem));
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.25rem;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro { display: none !important; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-body { grid-row: 1; padding: 0; }
+  .sf-page[data-page="contact"] #contact-form {
+    max-width: 62rem;
+    margin-inline: auto;
+    padding: clamp(1.35rem, 4vw, 3.2rem);
+    border: 1px solid rgb(225 206 160 / .3);
+    border-radius: 1.4rem .45rem 1.4rem 1.4rem;
+    background: rgb(245 239 227 / .98);
+    color: #253329;
+    box-shadow: 1.2rem 1.2rem 0 rgb(214 184 117 / .13), 0 2rem 5rem rgb(0 0 0 / .25);
+  }
+  .sf-page[data-page="contact"] #contact-form::before {
+    content: "Contato clínico  ·  01 / conversa";
+    display: block;
+    margin-block-end: 1rem;
+    color: #9b6c57;
+    font-size: .67rem;
+    font-weight: 780;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+  }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction {
+    margin-block: 0 1.6rem;
+    padding-block-end: 1.4rem;
+    border-block-end: 1px solid rgb(37 51 41 / .16);
+    color: #263a2d;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: -.04em;
+    line-height: 1;
+  }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after {
+    content: "A equipe retorna com clareza sobre o próximo passo.";
+    display: block;
+    margin-block-start: .65rem;
+    color: #6d776d;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    letter-spacing: 0;
+    line-height: 1.55;
+  }
+  .sf-page[data-page="contact"] #contact-form .sf-field label { color: #4d5e50; font-size: .68rem; font-weight: 780; letter-spacing: .13em; text-transform: uppercase; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input, select, textarea) { border: 0; border-bottom: 1px solid rgb(37 51 41 / .3); border-radius: 0; background: transparent; color: #263a2d; }
+  .sf-page[data-page="contact"] #contact-form .sf-field textarea { min-block-size: 9rem; border: 1px solid rgb(37 51 41 / .22); border-radius: .45rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input, select, textarea):focus { border-color: #9b6c57; box-shadow: 0 2px 0 #9b6c57; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-submit { justify-content: flex-start; margin-block-start: 1rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-button--primary { border: 0; border-radius: .35rem; background: #3f5744; box-shadow: .35rem .35rem 0 #d6b875; color: #fff8eb; letter-spacing: .12em; }
+  .sf-page[data-page="contact"] .sf-direct-contact { max-width: 62rem; margin: 1rem auto 0; padding: 1.2rem 0 0; border: 0; border-block-start: 1px solid rgb(244 238 226 / .18); background: transparent; }
+  .sf-page[data-page="contact"] .sf-direct-contact__portrait, .sf-page[data-page="contact"] .sf-direct-contact__header { display: none; }
+  .sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+  .sf-page[data-page="contact"] .sf-contact-card { min-block-size: 6.5rem; padding: 1rem; border: 1px solid rgb(244 238 226 / .16); border-radius: .5rem; background: rgb(245 239 227 / .06); color: #f4eee2; box-shadow: none; }
+  .sf-page[data-page="contact"] .sf-contact-card__detail { color: #b8b5a9; }
+  .sf-page[data-page="contact"] .sf-main > .sf-section:not(#contact-form-section) { display: none !important; }
+  html[lang="en"] .sf-page[data-page="contact"] #contact-form::before { content: "Clinical contact  ·  01 / conversation"; }
+  html[lang="en"] .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after { content: "The team will reply with a clear next step."; }
+  @media (max-width: 760px) {
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width: min(100% - 1.25rem, 42rem); }
+    .sf-page[data-page="contact"] #contact-form { padding: 1.3rem; border-radius: 1rem .35rem 1rem 1rem; box-shadow: .55rem .55rem 0 rgb(214 184 117 / .14), 0 1rem 2rem rgb(0 0 0 / .2); }
+    .sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns: 1fr; }
+  }
+}
+
+
+/* Final reference-card finish. */
+@layer pages {
+  .sf-page[data-page="contact"] { background:#f4f1e9 !important; }
+  .sf-page[data-page="contact"] #contact-form-section { padding:clamp(3rem,8vw,7rem) 1rem !important; background:radial-gradient(circle at 12% 18%,rgb(213 219 201 / .38),transparent 28rem),#f4f1e9 !important; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width:min(57rem,100%) !important; }
+  .sf-page[data-page="contact"] #contact-form { max-width:none !important; padding:clamp(2.5rem,6vw,5rem) !important; border:1px solid #c9c7b9 !important; border-radius:2rem !important; background:rgba(255,254,250,.95) !important; color:#344338 !important; box-shadow:0 1.5rem 3.5rem rgb(53 65 52 / .14),inset 0 1px 0 #fff !important; }
+  .sf-page[data-page="contact"] #contact-form::before { content:"Contato  ·  01 / conversa" !important; display:block; margin:0 0 1.8rem; color:#7d8875; font-size:.67rem; letter-spacing:.22em; text-transform:uppercase; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction { margin:0 7rem 2.7rem 0 !important; padding:0 0 2.1rem !important; border:0 !important; color:#3b4b3b !important; font-family:var(--font-display); font-size:clamp(2.5rem,5vw,4.2rem) !important; font-weight:400; letter-spacing:-.055em; line-height:.98; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after { display:block; margin-top:1rem; color:#696960; font-family:var(--font-body); font-size:1.03rem; letter-spacing:0; line-height:1.6; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:1.55rem 1.35rem !important; }
+  .sf-page[data-page="contact"] #contact-form .sf-field label { color:#364538 !important; font-size:1rem !important; font-weight:500; letter-spacing:0; text-transform:none; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea) { min-height:3.7rem; border:1px solid #c9c9bf !important; border-radius:.7rem !important; padding:.85rem 1rem .85rem 3.65rem !important; background:#fffefa !important; color:#354438 !important; box-shadow:inset 0 1px 2px rgb(52 64 53 / .03); }
+  .sf-page[data-page="contact"] #contact-form .sf-field textarea { min-height:8.8rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea):focus { border-color:#7e9079 !important; box-shadow:0 0 0 .18rem rgb(126 144 121 / .16) !important; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-submit { margin-top:1.7rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-button--primary { width:100%; min-height:4.25rem; border:0; border-radius:.8rem; background:#879b80; box-shadow:0 .65rem 1.2rem rgb(92 112 88 / .2); color:#fffef8; font-family:var(--font-display); font-size:1.35rem; font-weight:400; letter-spacing:0; text-transform:none; }
+  .sf-page[data-page="contact"] .sf-funnel-challenge, .sf-page[data-page="contact"] #contact-form .sf-funnel-challenge { min-height:5.2rem; margin-top:1.65rem; border:1px solid #deded8; border-radius:.7rem; background:#fffefa; }
+  .sf-page[data-page="contact"] .sf-direct-contact { display:none !important; }
+  html[lang="en"] .sf-page[data-page="contact"] #contact-form::before { content:"Contact  ·  01 / conversation" !important; }
+  @media (max-width:650px) {
+    .sf-page[data-page="contact"] #contact-form { padding:2rem 1.25rem 2.5rem !important; border-radius:1.35rem !important; }
+    .sf-page[data-page="contact"] #contact-form .sf-form-introduction { margin-right:3rem !important; font-size:clamp(2.35rem,11vw,3.5rem) !important; }
+    .sf-page[data-page="contact"] #contact-form .sf-form-grid { grid-template-columns:1fr !important; }
+  }
+}
+
+
+/* Final reference layout correction */
+@layer pages {
+ .sf-page[data-page="contact"] #contact-form .sf-form-introduction { background:transparent !important; }
+ .sf-page[data-page="contact"] #contact-form .sf-field--full { grid-column:1 / -1 !important; }
+}
+
+
+/* Monogram branding and invisible security widgets. */
+@layer pages {
+  .sf-interest-form::after, .sf-page[data-page="contact"] #contact-form::after { background-image:url("../assets/brand/logotipo-franciele-sofiati-clinica-premium-estetica-avancada-londrina-centro.webp") !important; }
+  .sf-interest-challenge, .sf-funnel-challenge { position:absolute !important; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; }
 }

@@ -12183,3 +12183,810 @@
   .sf-page[data-page="faq"] .sf-faq-panel + .sf-faq-panel { margin-block-start: .85rem; }
   .sf-page[data-page="faq"] .sf-faq-panel__header { display: none; }
 }
+
+
+/* Runtime rebuild additions: contact and interest form */
+@layer pages {
+  /* Rebuild: contact opens directly into the form, with the same dark
+     organic palette and quiet gold/rose details as the interest funnel. */
+  .sf-page[data-page="contact"] { background:#151c18; }
+  .sf-page[data-page="contact"] .sf-breadcrumbs { display:none; }
+  .sf-page[data-page="contact"] #contact-form-section { min-block-size:auto; padding-block:clamp(3rem,7vw,7rem) !important; border:0; background:radial-gradient(circle at 8% 12%,rgb(126 148 115 / .22),transparent 28rem),radial-gradient(circle at 92% 80%,rgb(164 112 91 / .16),transparent 28rem),linear-gradient(135deg,#151c18,#202a23 54%,#171d19) !important; }
+  .sf-page[data-page="contact"] #contact-form-section::before,.sf-page[data-page="contact"] #contact-form-section::after { display:none; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width:min(74rem,calc(100% - 2rem)); grid-template-columns:minmax(0,1fr); gap:1.25rem; overflow:visible; border:0; border-radius:0; background:transparent; box-shadow:none; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro { display:none; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-body { grid-row:1; padding:0; }
+  .sf-page[data-page="contact"] #contact-form { max-width:62rem; margin-inline:auto; padding:clamp(1.4rem,4vw,3.2rem); border:1px solid rgb(225 206 160 / .3); border-radius:1.4rem .45rem 1.4rem 1.4rem; background:rgb(245 239 227 / .97); color:#253329; box-shadow:1.5rem 1.5rem 0 rgb(214 184 117 / .12),0 2rem 5rem rgb(0 0 0 / .25); }
+  .sf-page[data-page="contact"] #contact-form::before { content:"Contato clínico  ·  01 / conversa"; display:block; margin-block-end:1.1rem; color:#9b6c57; font-size:.67rem; font-weight:780; letter-spacing:.2em; text-transform:uppercase; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction { margin-block:0 1.6rem; padding-block-end:1.4rem; border-block-end:1px solid rgb(37 51 41 / .16); color:#263a2d; font-family:var(--font-display); font-size:clamp(1.8rem,3vw,2.8rem); letter-spacing:-.04em; line-height:1; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after { content:"A equipe retorna com clareza sobre o próximo passo."; display:block; margin-block-start:.65rem; color:#6d776d; font-family:var(--font-body); font-size:.9rem; letter-spacing:0; line-height:1.55; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-grid { gap:1.15rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field label { color:#4d5e50; font-size:.68rem; font-weight:780; letter-spacing:.13em; text-transform:uppercase; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea) { border:0; border-bottom:1px solid rgb(37 51 41 / .3); border-radius:0; background:transparent; color:#263a2d; }
+  .sf-page[data-page="contact"] #contact-form .sf-field textarea { min-block-size:9rem; border:1px solid rgb(37 51 41 / .22); border-radius:.45rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea):focus { border-color:#9b6c57; box-shadow:0 2px 0 #9b6c57; }
+  .sf-page[data-page="contact"] #contact-form .sf-field--checkbox { color:#657166; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-submit { justify-content:flex-start; margin-block-start:1rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-button--primary { border:0; border-radius:.35rem; background:#3f5744; box-shadow:.35rem .35rem 0 #d6b875; color:#fff8eb; letter-spacing:.12em; }
+  .sf-page[data-page="contact"] .sf-direct-contact { max-width:62rem; margin:1rem auto 0; padding:1.2rem 0 0; border:0; border-block-start:1px solid rgb(244 238 226 / .18); background:transparent; color:#f4eee2; }
+  .sf-page[data-page="contact"] .sf-direct-contact__portrait,.sf-page[data-page="contact"] .sf-direct-contact__header { display:none; }
+  .sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns:repeat(3,1fr); gap:.7rem; }
+  .sf-page[data-page="contact"] .sf-contact-card { min-block-size:6.5rem; padding:1rem; border:1px solid rgb(244 238 226 / .16); border-radius:.5rem; background:rgb(245 239 227 / .06); color:#f4eee2; box-shadow:none; }
+  .sf-page[data-page="contact"] .sf-contact-card__detail { color:#b8b5a9; }
+  @media (max-width:760px) { .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width:min(100% - 1.25rem,42rem); }.sf-page[data-page="contact"] #contact-form { padding:1.3rem; border-radius:1rem .35rem 1rem 1rem; box-shadow:.55rem .55rem 0 rgb(214 184 117 / .14),0 1rem 2rem rgb(0 0 0 / .2); }.sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns:1fr; } }
+
+  /* Contact is one form-only room. The fixed page artwork remains visible in
+     the side fields while a single opaque centre rail carries every control. */
+  .sf-page[data-page="contact"] #contact-form-section {
+    --section-canvas-max: 68rem;
+    min-block-size: 70svh;
+    padding-block: clamp(3.5rem, 7vw, 7rem) !important;
+    border-block: 1px solid color-mix(in srgb, var(--gold-500) 45%, transparent);
+    background:
+      linear-gradient(90deg, rgb(255 253 249 / .2), rgb(248 232 226 / .48) 50%, rgb(255 253 249 / .2)) !important;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section::before {
+    content: "";
+    position: absolute;
+    inset: clamp(1.5rem, 4vw, 4rem) 50% auto auto;
+    z-index: 0;
+    inline-size: min(42vw, 38rem);
+    block-size: clamp(12rem, 28vw, 25rem);
+    border: 1px solid color-mix(in srgb, var(--gold-500) 42%, transparent);
+    border-block-end: 0;
+    border-radius: 50% 50% 0 0;
+    translate: 50% 0;
+    pointer-events: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section::after {
+    content: "";
+    position: absolute;
+    inset: auto -5rem -6rem auto;
+    z-index: 0;
+    inline-size: clamp(16rem, 30vw, 32rem);
+    aspect-ratio: 1;
+    background: url("../assets/shared/interface-icons/download-agenda-blog-simbolo-digital-sofiati-londrina-centro-03.svg") center / contain no-repeat;
+    opacity: .1;
+    rotate: -12deg;
+    pointer-events: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--gold-500) 58%, transparent);
+    border-radius: 8rem 1rem 1rem;
+    background: var(--ivory-50);
+    box-shadow: 0 2.5rem 7rem rgb(36 49 41 / .2), inset 0 1px 0 rgb(255 255 255 / .9);
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro {
+    position: relative;
+    inset-block-start: auto;
+    overflow: hidden;
+    margin: 0 !important;
+    border: 0;
+    border-block-end: 1px solid color-mix(in srgb, var(--gold-500) 42%, transparent);
+    background:
+      radial-gradient(circle at 10% 0%, rgb(244 210 195 / .42), transparent 34%),
+      linear-gradient(118deg, var(--ivory-50), var(--blush-50) 58%, var(--sage-50));
+    padding: clamp(2.5rem, 6vw, 5.5rem);
+    text-align: center !important;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro::after {
+    content: "FS";
+    position: absolute;
+    inset: auto -1.5rem -3.4rem auto;
+    color: rgb(189 121 107 / .075);
+    font-family: var(--font-heading);
+    font-size: clamp(9rem, 20vw, 15rem);
+    font-style: italic;
+    line-height: .8;
+    pointer-events: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-eyebrow {
+    justify-content: center !important;
+    color: var(--rose-gold-700);
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro h1 {
+    position: relative;
+    z-index: 1;
+    max-inline-size: 11ch;
+    margin-inline: auto;
+    color: var(--forest-900);
+    font-family: var(--font-heading);
+    font-size: clamp(3.25rem, 7vw, 6.25rem);
+    font-weight: 400;
+    letter-spacing: -.055em;
+    line-height: .92;
+    text-wrap: balance;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide {
+    position: relative;
+    z-index: 1;
+    max-inline-size: 38rem;
+    margin: clamp(2rem, 4vw, 3.25rem) auto 0;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__promise {
+    margin-inline: auto;
+    color: var(--rose-gold-700);
+    font-size: var(--type-small);
+    font-weight: 790;
+    letter-spacing: .09em;
+    line-height: 1.65;
+    text-transform: uppercase;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide h2 {
+    margin-block: 1.5rem .65rem;
+    color: var(--forest-900);
+    font-family: var(--font-heading);
+    font-size: clamp(1.45rem, 2vw, 1.85rem);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes {
+    display: grid;
+    max-inline-size: 32rem;
+    margin-inline: auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes li {
+    display: grid;
+    grid-template-columns: minmax(5rem, .35fr) minmax(0, 1fr);
+    gap: 1rem;
+    margin: 0;
+    border-block-start: 1px solid color-mix(in srgb, var(--gold-500) 30%, transparent);
+    padding-block: .7rem;
+    text-align: start;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes a {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(5rem, .35fr) minmax(0, 1fr);
+    gap: 1rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes span {
+    color: var(--rose-gold-700);
+    font-size: .72rem;
+    font-weight: 820;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__routes strong {
+    min-inline-size: 0;
+    color: var(--forest-900);
+    font-size: .9rem;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-form-guide__safety {
+    margin: 1.25rem auto 0;
+    border-inline-start: 2px solid var(--rose-gold-500);
+    background: rgb(248 232 226 / .76);
+    padding: .8rem 1rem;
+    color: var(--forest-800);
+    font-size: .875rem;
+    line-height: 1.55;
+    text-align: start;
+  }
+
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-body {
+    border: 0;
+    border-radius: 0;
+    background:
+      repeating-linear-gradient(0deg, rgb(88 74 48 / .018) 0 1px, transparent 1px 6px),
+      var(--ivory-50);
+    padding: clamp(1.5rem, 5vw, 4.5rem);
+    box-shadow: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form {
+    max-inline-size: 52rem;
+    margin-inline: auto;
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    border: 0;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .sf-page[data-page="contact"] #contact-form .sf-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.15rem, 2vw, 1.65rem);
+  }
+
+  .sf-page[data-page="contact"] #contact-form .sf-field { grid-column: auto; }
+
+  .sf-page[data-page="contact"] #contact-form :is(input:not([type="checkbox"]), select, textarea) {
+    border-color: color-mix(in srgb, var(--olive-700) 28%, transparent);
+    border-radius: .35rem;
+    background: var(--white);
+    box-shadow: 0 .55rem 1.4rem rgb(53 62 43 / .045);
+  }
+
+  .sf-page[data-page="contact"] #contact-form textarea { min-block-size: 12rem; }
+
+  .sf-page[data-page="contact"] #contact-form .sf-field--checkbox {
+    border-block-start: 1px solid color-mix(in srgb, var(--gold-500) 28%, transparent);
+    padding-block-start: .8rem;
+  }
+
+  .sf-page[data-page="contact"] #contact-form > .sf-button {
+    inline-size: 100%;
+    min-block-size: 4.2rem;
+    border-radius: .3rem;
+    box-shadow: 0 1rem 2.5rem rgb(36 49 41 / .18);
+  }
+
+  /* Direct channels become a deliberate final room rather than an unstyled
+     line of links. The porcelain still life is a real site asset and the
+     cards preserve strong contrast over it at every viewport. */
+  .sf-page[data-page="contact"] .sf-direct-contact {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-block-start: 1px solid rgb(234 213 173 / .52);
+    background:
+      linear-gradient(102deg, rgb(36 49 41 / .97) 0 36%, rgb(48 61 51 / .88) 58%, rgb(36 49 41 / .72)),
+      url("../assets/shared/call-to-action/fresco-salvia-vasinhos-faciais-planejamento-individual-asset-estetica-londrina-centro.png") center / cover no-repeat;
+    padding: clamp(2.5rem, 6vw, 5.5rem);
+    color: var(--ivory-50);
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact::before {
+    content: "";
+    position: absolute;
+    inset: clamp(1rem, 3vw, 2.75rem);
+    z-index: -1;
+    border: 1px solid rgb(234 213 173 / .25);
+    border-start-start-radius: clamp(4rem, 9vw, 9rem);
+    pointer-events: none;
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact::after {
+    content: "FS";
+    position: absolute;
+    inset: auto 1.5rem -2.3rem auto;
+    z-index: -1;
+    color: rgb(234 213 173 / .1);
+    font-family: var(--font-heading);
+    font-size: clamp(8rem, 18vw, 15rem);
+    font-style: italic;
+    line-height: .72;
+    pointer-events: none;
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__header {
+    display: block;
+    max-inline-size: 74rem;
+    margin-inline: auto;
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__header .sf-eyebrow {
+    justify-content: flex-start !important;
+    margin-block-end: 1rem;
+    color: var(--gold-200) !important;
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__header h2 {
+    max-inline-size: 14ch;
+    color: var(--ivory-50);
+    font-family: var(--font-heading);
+    font-size: clamp(2.65rem, 5vw, 5.4rem);
+    font-weight: 400;
+    letter-spacing: -.045em;
+    line-height: .92;
+    text-wrap: balance;
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__introduction {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: end;
+    max-inline-size: 30ch;
+    margin-block-end: .55rem;
+    border-inline-start: 1px solid rgb(234 213 173 / .52);
+    padding-inline-start: clamp(1.25rem, 3vw, 2.25rem);
+    color: rgb(255 253 249 / .82);
+    font-family: var(--font-heading);
+    font-size: clamp(1.3rem, 2vw, 1.85rem);
+    font-style: italic;
+    line-height: 1.35;
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__portrait {
+    max-inline-size: 74rem;
+    margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+    overflow: hidden;
+    border: 1px solid rgb(234 213 173 / .52);
+    border-radius: 7rem .75rem .75rem;
+    background: var(--forest-800);
+    box-shadow: 0 1.4rem 3rem rgb(14 25 18 / .28);
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__portrait img {
+    inline-size: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+    object-position: center 42%;
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(.8rem, 1.8vw, 1.5rem);
+    max-inline-size: 74rem;
+    margin: clamp(2.5rem, 5vw, 4.5rem) auto 0;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1rem;
+    min-block-size: clamp(13rem, 18vw, 16rem);
+    overflow: hidden;
+    border: 1px solid rgb(234 213 173 / .58);
+    border-radius: 5.5rem .6rem .6rem;
+    background:
+      radial-gradient(circle at 0 0, rgb(239 210 202 / .72), transparent 40%),
+      rgb(255 253 249 / .94);
+    padding: clamp(1.3rem, 2.4vw, 2rem);
+    color: var(--forest-900);
+    text-decoration: none;
+    box-shadow: 0 1.35rem 3rem rgb(14 25 18 / .24), inset 0 1px 0 rgb(255 255 255 / .94);
+    backdrop-filter: blur(.55rem);
+    transition: translate var(--duration-standard) var(--ease-emphasized), border-color var(--duration-fast), box-shadow var(--duration-standard);
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card:nth-child(2) {
+    border-radius: .6rem 5.5rem .6rem .6rem;
+    background:
+      radial-gradient(circle at 100% 0, rgb(219 228 209 / .82), transparent 42%),
+      rgb(255 253 249 / .94);
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card:nth-child(3) {
+    border-radius: .6rem .6rem 5.5rem .6rem;
+    background:
+      radial-gradient(circle at 100% 100%, rgb(244 232 210 / .82), transparent 44%),
+      rgb(255 253 249 / .94);
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card::after {
+    content: "";
+    position: absolute;
+    inset: auto -3rem -4rem auto;
+    inline-size: 9rem;
+    aspect-ratio: 1;
+    border: 1px solid rgb(180 137 80 / .18);
+    border-radius: 50%;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card__icon {
+    display: grid;
+    place-items: center;
+    inline-size: 3.5rem;
+    aspect-ratio: 1;
+    border: 1px solid rgb(180 137 80 / .42);
+    border-radius: 50%;
+    background: rgb(255 253 249 / .78);
+    color: var(--rose-gold-700);
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card__content {
+    display: grid;
+    align-content: start;
+    min-inline-size: 0;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card__label {
+    color: var(--rose-gold-700);
+    font-size: .69rem;
+    font-weight: 840;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card__title {
+    margin-block-start: 1.7rem;
+    color: var(--forest-900);
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2vw, 1.85rem);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card__detail {
+    margin-block-start: .7rem;
+    color: var(--color-text-secondary);
+    font-size: clamp(.82rem, 1vw, .95rem);
+    font-weight: 650;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card__arrow {
+    display: grid;
+    place-items: center;
+    inline-size: 2rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    color: var(--olive-700);
+    transition: translate var(--duration-fast) var(--ease-standard), background var(--duration-fast);
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card:hover {
+    translate: 0 -.4rem;
+    border-color: var(--gold-300);
+    box-shadow: 0 1.8rem 3.8rem rgb(14 25 18 / .3), inset 0 1px 0 rgb(255 255 255 / .94);
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card:hover .sf-contact-card__arrow {
+    translate: .25rem 0;
+    background: var(--sage-100);
+  }
+
+  .sf-page[data-page="contact"] .sf-contact-card:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 .18rem var(--forest-800), 0 0 0 .4rem var(--gold-200), 0 1.8rem 3.8rem rgb(14 25 18 / .3);
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__notice {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 1rem;
+    max-inline-size: 74rem;
+    margin: clamp(1.25rem, 2.5vw, 2rem) auto 0;
+    border-block: 1px solid rgb(234 213 173 / .34);
+    background: rgb(17 30 20 / .38);
+    padding: 1rem clamp(1rem, 2.5vw, 1.75rem);
+    color: rgb(255 253 249 / .83);
+    backdrop-filter: blur(.45rem);
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__notice-icon {
+    display: grid;
+    place-items: center;
+    inline-size: 2.5rem;
+    aspect-ratio: 1;
+    border: 1px solid rgb(234 213 173 / .42);
+    border-radius: 50%;
+    color: var(--gold-200);
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__notice p {
+    display: grid;
+    gap: .25rem;
+    max-inline-size: 66ch;
+    line-height: 1.55;
+  }
+
+  .sf-page[data-page="contact"] .sf-direct-contact__notice strong {
+    color: var(--ivory-50);
+    font-size: .76rem;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 47.999rem) {
+    .sf-page[data-page="contact"] #contact-form-section {
+      padding-block: 2.25rem !important;
+    }
+
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout {
+      border-radius: 4.5rem .7rem .7rem;
+    }
+
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro {
+      padding: 2rem 1.25rem;
+    }
+
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro h1 {
+      font-size: clamp(2.8rem, 13vw, 4rem);
+    }
+
+    .sf-page[data-page="contact"] .sf-contact-form-guide__routes li {
+      grid-template-columns: 1fr;
+      gap: .2rem;
+    }
+
+    .sf-page[data-page="contact"] .sf-contact-form-guide__routes a {
+      grid-template-columns: 1fr;
+      gap: .2rem;
+    }
+
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-body {
+      padding: 1.25rem;
+    }
+
+    .sf-page[data-page="contact"] .sf-direct-contact {
+      background:
+        linear-gradient(rgb(36 49 41 / .9), rgb(36 49 41 / .94)),
+        url("../assets/shared/call-to-action/fresco-salvia-vasinhos-faciais-planejamento-individual-asset-estetica-londrina-centro.png") 72% center / auto 100% no-repeat;
+      padding: 2.5rem 1.25rem;
+    }
+
+    .sf-page[data-page="contact"] .sf-direct-contact::before { inset: .75rem; border-start-start-radius: 3.5rem; }
+
+    .sf-page[data-page="contact"] .sf-direct-contact__header {
+      grid-template-columns: 1fr;
+    }
+
+    .sf-page[data-page="contact"] .sf-direct-contact__header :is(.sf-eyebrow, h2, .sf-direct-contact__introduction) {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
+    .sf-page[data-page="contact"] .sf-direct-contact__header h2 { max-inline-size: 11ch; }
+
+    .sf-page[data-page="contact"] .sf-direct-contact__introduction {
+      margin-block-start: 1.25rem;
+      padding-inline-start: 1rem;
+    }
+
+    .sf-page[data-page="contact"] .sf-direct-contact__portrait {
+      border-radius: 4rem .55rem .55rem;
+    }
+
+    .sf-page[data-page="contact"] .sf-direct-contact__portrait img {
+      aspect-ratio: 4 / 3;
+      object-position: center;
+    }
+
+    .sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns: 1fr; }
+
+    .sf-page[data-page="contact"] .sf-contact-card {
+      min-block-size: 11.5rem;
+      border-radius: 4rem .55rem .55rem;
+    }
+
+    .sf-page[data-page="contact"] .sf-contact-card:nth-child(2) { border-radius: .55rem 4rem .55rem .55rem; }
+    .sf-page[data-page="contact"] .sf-contact-card:nth-child(3) { border-radius: .55rem .55rem 4rem .55rem; }
+    .sf-page[data-page="contact"] .sf-direct-contact__notice { grid-template-columns: 1fr; }
+  }
+}
+
+/* Final form-first composition: the form is the page, while direct contact is
+   deliberately reduced to a quiet supporting row below it. */
+@layer pages {
+  .sf-page[data-page="contact"] #contact-form-section {
+    min-block-size: auto !important;
+    padding-block: clamp(2.75rem, 7vw, 6.5rem) !important;
+    background:
+      radial-gradient(circle at 8% 12%, rgb(126 148 115 / .2), transparent 28rem),
+      radial-gradient(circle at 92% 80%, rgb(164 112 91 / .16), transparent 28rem),
+      linear-gradient(135deg, #151c18, #202a23 54%, #171d19) !important;
+  }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout {
+    width: min(74rem, calc(100% - 2rem));
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.25rem;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-intro { display: none !important; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-body { grid-row: 1; padding: 0; }
+  .sf-page[data-page="contact"] #contact-form {
+    max-width: 62rem;
+    margin-inline: auto;
+    padding: clamp(1.35rem, 4vw, 3.2rem);
+    border: 1px solid rgb(225 206 160 / .3);
+    border-radius: 1.4rem .45rem 1.4rem 1.4rem;
+    background: rgb(245 239 227 / .98);
+    color: #253329;
+    box-shadow: 1.2rem 1.2rem 0 rgb(214 184 117 / .13), 0 2rem 5rem rgb(0 0 0 / .25);
+  }
+  .sf-page[data-page="contact"] #contact-form::before {
+    content: "Contato clínico  ·  01 / conversa";
+    display: block;
+    margin-block-end: 1rem;
+    color: #9b6c57;
+    font-size: .67rem;
+    font-weight: 780;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+  }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction {
+    margin-block: 0 1.6rem;
+    padding-block-end: 1.4rem;
+    border-block-end: 1px solid rgb(37 51 41 / .16);
+    color: #263a2d;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: -.04em;
+    line-height: 1;
+  }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after {
+    content: "A equipe retorna com clareza sobre o próximo passo.";
+    display: block;
+    margin-block-start: .65rem;
+    color: #6d776d;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    letter-spacing: 0;
+    line-height: 1.55;
+  }
+  .sf-page[data-page="contact"] #contact-form .sf-field label { color: #4d5e50; font-size: .68rem; font-weight: 780; letter-spacing: .13em; text-transform: uppercase; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input, select, textarea) { border: 0; border-bottom: 1px solid rgb(37 51 41 / .3); border-radius: 0; background: transparent; color: #263a2d; }
+  .sf-page[data-page="contact"] #contact-form .sf-field textarea { min-block-size: 9rem; border: 1px solid rgb(37 51 41 / .22); border-radius: .45rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input, select, textarea):focus { border-color: #9b6c57; box-shadow: 0 2px 0 #9b6c57; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-submit { justify-content: flex-start; margin-block-start: 1rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-button--primary { border: 0; border-radius: .35rem; background: #3f5744; box-shadow: .35rem .35rem 0 #d6b875; color: #fff8eb; letter-spacing: .12em; }
+  .sf-page[data-page="contact"] .sf-direct-contact { max-width: 62rem; margin: 1rem auto 0; padding: 1.2rem 0 0; border: 0; border-block-start: 1px solid rgb(244 238 226 / .18); background: transparent; }
+  .sf-page[data-page="contact"] .sf-direct-contact__portrait, .sf-page[data-page="contact"] .sf-direct-contact__header { display: none; }
+  .sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+  .sf-page[data-page="contact"] .sf-contact-card { min-block-size: 6.5rem; padding: 1rem; border: 1px solid rgb(244 238 226 / .16); border-radius: .5rem; background: rgb(245 239 227 / .06); color: #f4eee2; box-shadow: none; }
+  .sf-page[data-page="contact"] .sf-contact-card__detail { color: #b8b5a9; }
+  @media (max-width: 760px) {
+    .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width: min(100% - 1.25rem, 42rem); }
+    .sf-page[data-page="contact"] #contact-form { padding: 1.3rem; border-radius: 1rem .35rem 1rem 1rem; box-shadow: .55rem .55rem 0 rgb(214 184 117 / .14), 0 1rem 2rem rgb(0 0 0 / .2); }
+    .sf-page[data-page="contact"] .sf-direct-contact__grid { grid-template-columns: 1fr; }
+  }
+}
+
+@layer pages {
+  .sf-interest-page { --interest-ink:#f4eee2; --interest-muted:#b8b5a9; --interest-line:rgb(244 238 226 / .18); background:#151c18; color:var(--interest-ink); }
+  .sf-interest-page .sf-main { min-height:calc(100svh - 8rem); display:grid; align-items:center; padding-block:clamp(3.5rem,8vw,8rem); background:radial-gradient(circle at 12% 18%,rgb(126 148 115 / .22),transparent 30rem),radial-gradient(circle at 90% 78%,rgb(164 112 91 / .16),transparent 28rem),linear-gradient(135deg,#151c18 0%,#202a23 54%,#171d19 100%); }
+  .sf-interest-shell { width:min(75rem,calc(100% - 2rem)); margin-inline:auto; display:grid; grid-template-columns:minmax(16rem,.7fr) minmax(28rem,1.3fr); gap:clamp(2rem,7vw,8rem); align-items:center; }
+  .sf-interest-aside { align-self:center; max-width:28rem; }
+  .sf-interest-aside .sf-eyebrow,.sf-interest-index { color:#d6b875; font-size:.67rem; font-weight:780; letter-spacing:.2em; text-transform:uppercase; }
+  .sf-interest-aside h1 { margin-block:1.3rem 1.4rem; color:var(--interest-ink); font-family:var(--font-display); font-size:clamp(2.5rem,5vw,4.8rem); font-weight:430; letter-spacing:-.055em; line-height:.97; }
+  .sf-interest-aside>p { max-width:25rem; color:var(--interest-muted); font-size:1rem; line-height:1.7; }
+  .sf-interest-signature { display:grid; gap:.25rem; margin-top:clamp(2.5rem,7vw,5rem); padding-top:1rem; border-top:1px solid var(--interest-line); color:#ead9af; font-family:var(--font-display); font-size:1.15rem; font-style:italic; }
+  .sf-interest-signature small { color:var(--interest-muted); font-family:var(--font-body); font-size:.64rem; font-style:normal; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+  .sf-interest-form { padding:clamp(1.5rem,4vw,3.3rem); border:1px solid rgb(225 206 160 / .28); border-radius:1.4rem .45rem 1.4rem 1.4rem; background:rgb(245 239 227 / .97); color:#253329; box-shadow:1.5rem 1.5rem 0 rgb(214 184 117 / .12),0 2rem 5rem rgb(0 0 0 / .25); }
+  .sf-interest-form-head { padding-bottom:1.5rem; border-bottom:1px solid rgb(37 51 41 / .16); }
+  .sf-interest-form-head :is(h1, h2) { margin:.7rem 0 .45rem; color:#263a2d; font-family:var(--font-display); font-size:clamp(1.8rem,3vw,2.8rem); font-weight:480; letter-spacing:-.04em; line-height:1; }
+  .sf-interest-form-head p { color:#6d776d; font-size:.9rem; line-height:1.55; }
+  .sf-interest-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.15rem; padding-block:1.7rem; }
+  .sf-interest-field { display:grid; gap:.45rem; }
+  .sf-interest-field-wide { grid-column:1 / -1; }
+  .sf-interest-field label { color:#4d5e50; font-size:.68rem; font-weight:780; letter-spacing:.13em; text-transform:uppercase; }
+  .sf-interest-field label em { color:#a66957; font-style:normal; }
+  .sf-interest-field label span { color:#8a9388; font-size:.6rem; font-weight:600; letter-spacing:.05em; text-transform:none; }
+  .sf-interest-field :is(input,textarea) { width:100%; border:0; border-bottom:1px solid rgb(37 51 41 / .3); border-radius:0; outline:0; padding:.75rem .1rem; background:transparent; color:#263a2d; font-size:1rem; }
+  .sf-interest-field textarea { min-height:8rem; resize:vertical; border:1px solid rgb(37 51 41 / .22); border-radius:.45rem; padding:.85rem; }
+  .sf-interest-field :is(input,textarea)::placeholder { color:#92988f; }
+  .sf-interest-field :is(input,textarea):focus { border-color:#9b6c57; box-shadow:0 2px 0 #9b6c57; }
+  .sf-interest-consent { display:flex; gap:.7rem; align-items:flex-start; color:#657166; font-size:.75rem; line-height:1.45; }
+  .sf-interest-consent input { flex:0 0 auto; margin-top:.15rem; accent-color:#52694e; }
+  .sf-interest-challenge { min-height:0; margin-top:1rem; }
+  .sf-interest-submit { display:flex; align-items:center; gap:1rem; margin-top:1.4rem; }
+  .sf-interest-submit .sf-button { border:0; border-radius:.35rem; background:#3f5744; box-shadow:.35rem .35rem 0 #d6b875; color:#fff8eb; letter-spacing:.12em; }
+  .sf-interest-submit .sf-button span { margin-left:.6rem; color:#e2c98b; font-size:1.1rem; }
+  #interest-result { color:#536653; font-size:.8rem; line-height:1.4; }
+  .sf-interest-page .sf-footer { background:#121813; }
+  @media (max-width:760px) {
+    .sf-interest-page .sf-main { padding-block:2.5rem 4rem; }
+    .sf-interest-shell { width:min(100% - 1.25rem,42rem); grid-template-columns:1fr; gap:2.5rem; }
+    .sf-interest-aside { max-width:none; }
+    .sf-interest-aside h1 { max-width:12ch; font-size:clamp(2.8rem,13vw,4rem); }
+    .sf-interest-signature { margin-top:1.8rem; }
+    .sf-interest-form { padding:1.3rem; border-radius:1rem .35rem 1rem 1rem; box-shadow:.55rem .55rem 0 rgb(214 184 117 / .14),0 1rem 2rem rgb(0 0 0 / .2); }
+  }
+  @media (max-width:500px) { .sf-interest-fields { grid-template-columns:1fr; } .sf-interest-field-wide { grid-column:auto; } .sf-interest-submit { align-items:flex-start; flex-direction:column; } }
+}
+
+
+/* Runtime final override: contact page is form-only */
+@layer pages {
+  .sf-page[data-page="contact"] .sf-main > .sf-section:not(#contact-form-section) { display:none !important; }
+  html[lang="en"] .sf-page[data-page="contact"] #contact-form::before { content:"Clinical contact  ·  01 / conversation"; }
+  html[lang="en"] .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after { content:"The team will reply with a clear next step."; }
+}
+
+
+/* Final reference-card finish. */
+@layer pages {
+  .sf-page[data-page="contact"] { background:#f4f1e9 !important; }
+  .sf-page[data-page="contact"] #contact-form-section { padding:clamp(3rem,8vw,7rem) 1rem !important; background:radial-gradient(circle at 12% 18%,rgb(213 219 201 / .38),transparent 28rem),#f4f1e9 !important; }
+  .sf-page[data-page="contact"] #contact-form-section .sf-form-section-layout { width:min(57rem,100%) !important; }
+  .sf-page[data-page="contact"] #contact-form { max-width:none !important; padding:clamp(2.5rem,6vw,5rem) !important; border:1px solid #c9c7b9 !important; border-radius:2rem !important; background:rgba(255,254,250,.95) !important; color:#344338 !important; box-shadow:0 1.5rem 3.5rem rgb(53 65 52 / .14),inset 0 1px 0 #fff !important; }
+  .sf-page[data-page="contact"] #contact-form::before { content:"Contato  ·  01 / conversa" !important; display:block; margin:0 0 1.8rem; color:#7d8875; font-size:.67rem; letter-spacing:.22em; text-transform:uppercase; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction { margin:0 7rem 2.7rem 0 !important; padding:0 0 2.1rem !important; border:0 !important; color:#3b4b3b !important; font-family:var(--font-display); font-size:clamp(2.5rem,5vw,4.2rem) !important; font-weight:400; letter-spacing:-.055em; line-height:.98; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after { display:block; margin-top:1rem; color:#696960; font-family:var(--font-body); font-size:1.03rem; letter-spacing:0; line-height:1.6; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:1.55rem 1.35rem !important; }
+  .sf-page[data-page="contact"] #contact-form .sf-field label { color:#364538 !important; font-size:1rem !important; font-weight:500; letter-spacing:0; text-transform:none; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea) { min-height:3.7rem; border:1px solid #c9c9bf !important; border-radius:.7rem !important; padding:.85rem 1rem .85rem 3.65rem !important; background:#fffefa !important; color:#354438 !important; box-shadow:inset 0 1px 2px rgb(52 64 53 / .03); }
+  .sf-page[data-page="contact"] #contact-form .sf-field textarea { min-height:8.8rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-field :is(input,select,textarea):focus { border-color:#7e9079 !important; box-shadow:0 0 0 .18rem rgb(126 144 121 / .16) !important; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-submit { margin-top:1.7rem; }
+  .sf-page[data-page="contact"] #contact-form .sf-button--primary { width:100%; min-height:4.25rem; border:0; border-radius:.8rem; background:#879b80; box-shadow:0 .65rem 1.2rem rgb(92 112 88 / .2); color:#fffef8; font-family:var(--font-display); font-size:1.35rem; font-weight:400; letter-spacing:0; text-transform:none; }
+  .sf-page[data-page="contact"] .sf-funnel-challenge, .sf-page[data-page="contact"] #contact-form .sf-funnel-challenge { min-height:5.2rem; margin-top:1.65rem; border:1px solid #deded8; border-radius:.7rem; background:#fffefa; }
+  .sf-page[data-page="contact"] .sf-direct-contact { display:none !important; }
+  html[lang="en"] .sf-page[data-page="contact"] #contact-form::before { content:"Contact  ·  01 / conversation" !important; }
+  @media (max-width:650px) {
+    .sf-page[data-page="contact"] #contact-form { padding:2rem 1.25rem 2.5rem !important; border-radius:1.35rem !important; }
+    .sf-page[data-page="contact"] #contact-form .sf-form-introduction { margin-right:3rem !important; font-size:clamp(2.35rem,11vw,3.5rem) !important; }
+    .sf-page[data-page="contact"] #contact-form .sf-form-grid { grid-template-columns:1fr !important; }
+  }
+}
+
+
+/* Final interest reference-card finish */
+/* Reference form direction: quiet ivory card, editorial serif hierarchy,
+   outlined controls and a single confident action. */
+@layer pages {
+  .sf-interest-page { background: #f4f1e9; color: #344338; }
+  .sf-interest-page .sf-main { min-height: auto; display:block; padding: clamp(3rem, 8vw, 7rem) 1rem; background: radial-gradient(circle at 12% 18%, rgb(213 219 201 / .38), transparent 28rem), #f4f1e9; }
+  .sf-interest-shell { width: min(53rem, 100%); margin-inline:auto; display:block; }
+  .sf-interest-form { position:relative; overflow:hidden; padding: clamp(2.5rem, 6vw, 5rem); border:1px solid #c9c7b9; border-radius:2rem; background: rgba(255,254,250,.94); color:#344338; box-shadow: 0 1.5rem 3.5rem rgb(53 65 52 / .14), inset 0 1px 0 #fff; }
+  .sf-interest-form::after { content:""; position:absolute; inset:1.8rem 1.8rem auto auto; width:7rem; height:10rem; background:url("../assets/shared/interface-icons/folha-idioma-estetica-avancada-simbolo-digital-sofiati-londrina-centro-14.svg") center/contain no-repeat; opacity:.24; pointer-events:none; }
+  .sf-interest-form-head { position:relative; z-index:1; padding:0 7rem 2.6rem 0; border:0; }
+  .sf-interest-index { display:flex; align-items:center; gap:.9rem; color:#7d8875; font-size:.67rem; letter-spacing:.22em; }
+  .sf-interest-index::before { content:""; width:2.5rem; height:1px; background:#596c58; }
+  .sf-interest-form-head :is(h1,h2) { margin:1.8rem 0 .9rem; color:#3b4b3b; font-family:var(--font-display); font-size:clamp(2.5rem, 5vw, 4.2rem); font-weight:400; letter-spacing:-.055em; line-height:.98; }
+  .sf-interest-form-head p { max-width:38rem; color:#696960; font-size:1.03rem; line-height:1.6; }
+  .sf-interest-fields { grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.55rem 1.35rem; padding:0; }
+  .sf-interest-field { gap:.55rem; }
+  .sf-interest-field label { color:#364538; font-size:1rem; font-weight:500; letter-spacing:0; text-transform:none; }
+  .sf-interest-field label em { color:#a94f43; }
+  .sf-interest-field :is(input,textarea) { min-height:3.7rem; box-sizing:border-box; border:1px solid #c9c9bf; border-radius:.7rem; padding:.85rem 1rem .85rem 3.65rem; background:#fffefa; color:#354438; font-size:1rem; box-shadow: inset 0 1px 2px rgb(52 64 53 / .03); }
+  .sf-interest-field textarea { min-height:8.8rem; padding-top:1rem; resize:vertical; }
+  .sf-interest-field :is(input,textarea):focus { border-color:#7e9079; box-shadow:0 0 0 .18rem rgb(126 144 121 / .16); }
+  .sf-interest-field { position:relative; }
+  .sf-interest-field::before { position:absolute; z-index:1; left:1.25rem; bottom:1.05rem; color:#677067; font-size:1.35rem; line-height:1; }
+  .sf-interest-field:nth-child(1)::before { content:"♙"; }
+  .sf-interest-field:nth-child(2)::before { content:"✉"; }
+  .sf-interest-field:nth-child(3)::before { content:"⌕"; }
+  .sf-interest-field:nth-child(4)::before { content:"▣"; }
+  .sf-interest-field:nth-child(5)::before { content:"□"; bottom:auto; top:3.15rem; }
+  .sf-interest-consent { margin-top:1.65rem; align-items:center; color:#66675f; font-size:.92rem; }
+  .sf-interest-consent input { width:1.45rem; height:1.45rem; margin:0; accent-color:#758871; }
+  .sf-interest-challenge { min-height:5.2rem; margin-top:1.65rem; border:1px solid #deded8; border-radius:.7rem; background:#fffefa; }
+  .sf-interest-submit { display:block; margin-top:1.7rem; }
+  .sf-interest-submit .sf-button { width:100%; min-height:4.25rem; border:0; border-radius:.8rem; background:#879b80; box-shadow:0 .65rem 1.2rem rgb(92 112 88 / .2); color:#fffef8; font-family:var(--font-display); font-size:1.35rem; font-weight:400; letter-spacing:0; text-transform:none; }
+  .sf-interest-submit .sf-button span { float:right; margin-right:.7rem; color:#fffef8; font-size:1.6rem; }
+  #interest-result { margin-top:.8rem; text-align:center; }
+  .sf-interest-form::before { content:"CUIDAR DE VOCÊ É A NOSSA ESSÊNCIA"; position:absolute; inset:auto 0 1.7rem; z-index:1; color:#a1a99a; font-size:.62rem; font-weight:700; letter-spacing:.28em; text-align:center; }
+  @media (max-width: 650px) {
+    .sf-interest-page .sf-main { padding:2rem .7rem 4rem; }
+    .sf-interest-form { padding:2rem 1.25rem 4.5rem; border-radius:1.35rem; }
+    .sf-interest-form-head { padding-right:3rem; }
+    .sf-interest-form-head :is(h1,h2) { font-size:clamp(2.35rem,11vw,3.5rem); }
+    .sf-interest-fields { grid-template-columns:1fr; }
+    .sf-interest-field-wide { grid-column:auto; }
+    .sf-interest-form::after { width:4.5rem; height:6.5rem; inset:1.2rem .8rem auto auto; }
+  }
+}
+
+
+/* Final reference layout correction */
+@layer pages {
+ .sf-page[data-page="contact"] #contact-form .sf-form-introduction { background:transparent !important; }
+ .sf-page[data-page="contact"] #contact-form .sf-field--full { grid-column:1 / -1 !important; }
+}
+
+
+/* Monogram branding and invisible security widgets. */
+@layer pages {
+  .sf-interest-form::after, .sf-page[data-page="contact"] #contact-form::after { background-image:url("../assets/brand/logotipo-franciele-sofiati-clinica-premium-estetica-avancada-londrina-centro.webp") !important; }
+  .sf-interest-challenge, .sf-funnel-challenge { position:absolute !important; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; }
+}

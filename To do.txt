@@ -1,21 +1,67 @@
-Início → 
+Início → I feel the command center home doesnt actually help, can you give me a plan about how to update this section so its more helpful. I like the colours and icons here on this page but the rest of the system is missing it
 
-Agenda → 
+Agenda → I feel the page lacks other colours yellow and pink and Hoje
 
-Pacientes → 
 
-Comunicação → 
+14/09/2026 — 20/09/2026
+Buscar paciente, telefone ou procedimento
+Filtros
+Dia
+Semana
+Mês
+Lista
 
-Tarefas → 
+ and the theHoje
+0
+atendimentos
 
-Formulários → 
+Confirmados
+1
+nesta visão
 
-Procedimentos → 
+Em espera
+0
+check-in pendente
 
-Financeiro → 
+Ocupação
+6%
+ should be on th esame row smaller stats and needs iocns and colour Also the  actual calender takes up to much space
 
-Relatórios → 
+Pacientes → also remove the Buscar modelo by text compleltly from here and make sure the abrir whatsapp is working 
 
-Qualidade → 
+Comunicação → remove the Buscar modelo by text compleltly from here and the other places and make the buttons down the end white, yellow and whatsapp abrir cananal the typical whstapp colour make sure its readible on dark and light mode and make sure its wokring inside Comunicação externa, change from abrir canal text to abrir whatsapp
+and make sure the abrir whatsapp is working . Also all the editable messages are not picking up all the things automatically e..g time day of consulta, options for consulta, proxima etapa, proxima pagamento when they parcel the payment, o link da google my business reviews  https://share.google/3x0ErYeWQ4EHJTpJB etc. Also should be one message that asks them if they have time before to fill out this form https://francielesofiati.com/formulario should be an automatic message. Also I want a interested in service lead intake form on the static site that the patient can just express interest it should be super basic on the forumalrio page if they dont want to do everything they can just give their name cpf email and a short message box of thie rissue or treatment they are interested in and it goes automatically to formsubmit email but also makes it go into the system for later conversion into a real patient when they can fill out the other forms with franciele reception but should be one form no repeating and in patients communication
 
-Configurações  →
+make sure the communication externa matches the patients communication and vice versa i need to be able to find the smae setting there and here but im tired to make changes to one and it not change the other they should be the same communication tools features fucntions data etc i just want to access it from ttwo diffeent places
+
+Tarefas → I feel this is just giving me more work to do but not making it as fast as possible 
+
+
+
+
+Formulários → I feel this form doesnt actually help as its so long and complex and doesnt actually reduce the quantity that needs to be filled out with the client in the reception, 1st consulation,  real produre etc i want want centrealised form tht will do everything so clients just do one form, and then the staff reception check it and then i check it too each one able tooverride the other but i want the patietnt o do most of the work, can you give me a plan about how to update this section so its more helpful do not make any changes yet. i want only a plan
+
+Procedimentos → Add images for each procurede typical of the service it represents on the catalogue make it looklike an actual cataloue with images.
+
+Financeiro → the quicka ctions button of 3 dots is covering the other buttons fixall the buttons so it looks banlanced. Add a thumbnail of the patients face, a thumbnail of the service from service catalougue small but cute. th erecibidos text of the money is not viisble on the page e.g. R$ 950,00 etc
+
+Relatórios →
+
+Qualidade → needs more colours the ststistics take up too much space and they are missing icons like the side panel yellowish colour. Also the Clique na ação para corrigir agora. Use ⋯ ou o botão direito para ver o mesmo menu de ações. instructions doesnt need to be visible. Also the 3 quick actions are covering the buttons too fix that
+
+Configurações → this is great but takes up too much space. redign it into two coloumns and add some icons to make it obvious Proprietária da clínica Acesso total; administra equipe, permissões, dados, auditoria e continuidade. Proprietário do software Proprietário do software, com acesso total ao sistema. Gestor(a) da clínica Coordena a operação e a qualidade, sem administrar proprietários. Profissional de saúde Executa o cuidado clínico e finaliza registros dentro da habilitação. Médico(a) Avalia, diagnostica ....etc
+
+THE Meu perfil section doesnt look beautifully deisgned like a real profile of a professional section. I wouldlike to make theuser feel proud of themselves and  use more o f my theme colours and icons and bettter margins card etc they should be able to edit everything ther eby right clicking on it. of course the first time the system can automatically fillout accrodingto the data we have but they should be able tooveride it 
+
+
+the auditoria section should say th euser logged in who did the change too. and write portuguese on portuguese and english on english
+
+In the top bar right hand where it has the breadcrumbs Buscar paciente ou agir…
+⌘ K
+PT
+EN
+
+ section in the center it should have an automatic date and time that uploads to the timezone but now is in parana brazil on every page and a little tiny circular icon of her logo https://francielesofiati.com/ and a clickable one to her site and a littlemini instagram with 
+@sofiati_biomedica two of these should look small centered and amazing matching light an ddark readbale etc
+
+Always rebuild, sync backend, edge etc when finished doing hte above

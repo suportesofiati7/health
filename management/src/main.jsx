@@ -115,6 +115,15 @@ function Button({ icon: Icon, children, className = "", ...props }) {
     </button>
   );
 }
+function ClinicTopbarMeta({ t }) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => { const timer = window.setInterval(() => setNow(new Date()), 30000); return () => window.clearInterval(timer); }, []);
+  return <div className="clinic-topbar-meta">
+    <time dateTime={now.toISOString()}><Clock size={14} />{new Intl.DateTimeFormat(t("pt-BR", "en-GB"), { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(now)}</time>
+    <a href="https://francielesofiati.com/" target="_blank" rel="noopener noreferrer" title={t("Abrir site", "Open website")}><img src={LOGO} alt="" /></a>
+    <a href="https://www.instagram.com/sofiati_biomedica/" target="_blank" rel="noopener noreferrer" title="Instagram"><span aria-hidden="true">◎</span><span>@sofiati_biomedica</span></a>
+  </div>;
+}
 function Status({ value }) {
   const t = useT();
   return <span className={`status status-${value}`}>{label(value, t)}</span>;
@@ -810,6 +819,7 @@ function Clinic({ language, setLanguage }) {
                   ? t("Prontuário", "Patient record")
                   : nav.find((n) => n[0] === view)?.[2]}
               </span>
+              <ClinicTopbarMeta t={t} />
               <button className="global-command-trigger" onClick={() => setCommandOpen(true)} aria-label={t("Buscar paciente ou ação", "Search a patient or action")}><Search size={17} /><span>{t("Buscar paciente ou agir…", "Search or take action…")}</span><kbd>⌘ K</kbd></button>
               <div className="topbar-right">
                 {languageControl}
@@ -3493,7 +3503,7 @@ function AgendaHub({ openPatient, setModal, version, writable, notify }) {
   const blankActions = (day, hour = "09:00") => writable ? [{ icon: Plus, label: t("Novo agendamento", "New appointment"), onClick: () => setModal({ type: "appointment", initialStart: `${day}T${hour}` }), shortcut: "N" }, { icon: CalendarDays, label: t("Abrir este dia", "Open this day"), onClick: () => { setAnchor(day); setView("day"); } }] : [{ icon: CalendarDays, label: t("Abrir este dia", "Open this day"), onClick: () => { setAnchor(day); setView("day"); } }];
   return <div className="agenda-hub">
     <PageHead eyebrow={t("Operação clínica · agenda inteligente", "Clinical operations · smart schedule")} title={t("Agenda", "Schedule")}><div className="agenda-hub-head-actions"><span className="agenda-live"><i /> {t("Atualizada agora", "Updated now")}</span>{writable && <Button icon={Plus} className="primary" onClick={() => setModal({ type: "appointment" })}>{t("Agendamento rápido", "Quick booking")}</Button>}</div></PageHead>
-    <section className="agenda-kpis" aria-label={t("Resumo da agenda", "Schedule summary")}><button onClick={() => setStatus("all")}><span>{t("Hoje", "Today")}</span><strong>{active.filter((a) => agendaDay(a.starts_at) === today).length}</strong><small>{t("atendimentos", "appointments")}</small></button><button onClick={() => setStatus("confirmado")}><span>{t("Confirmados", "Confirmed")}</span><strong>{confirmed}</strong><small>{t("nesta visão", "in this view")}</small></button><button onClick={() => setStatus("aguardando")}><span>{t("Em espera", "Waiting")}</span><strong>{waiting}</strong><small>{t("check-in pendente", "check-in pending")}</small></button><button className={conflicts ? "has-alert" : ""} onClick={() => setShowInsights(true)}><span>{t("Ocupação", "Occupancy")}</span><strong>{Math.round((active.length / Math.max(1, active.length + freeSlots)) * 100)}%</strong><small>{conflicts ? `${conflicts} ${t("conflitos", "conflicts")}` : t("sem conflitos", "no conflicts")}</small></button></section>
+    <section className="agenda-kpis" aria-label={t("Resumo da agenda", "Schedule summary")}><button className="agenda-kpi-today" onClick={() => setStatus("all")}><CalendarDays size={16}/><span>{t("Hoje", "Today")}</span><strong>{active.filter((a) => agendaDay(a.starts_at) === today).length}</strong><small>{t("atendimentos", "appointments")}</small></button><button className="agenda-kpi-confirmed" onClick={() => setStatus("confirmado")}><CheckCircle2 size={16}/><span>{t("Confirmados", "Confirmed")}</span><strong>{confirmed}</strong><small>{t("nesta visão", "in this view")}</small></button><button className="agenda-kpi-waiting" onClick={() => setStatus("aguardando")}><Clock size={16}/><span>{t("Em espera", "Waiting")}</span><strong>{waiting}</strong><small>{t("check-in pendente", "check-in pending")}</small></button><button className={`agenda-kpi-occupancy ${conflicts ? "has-alert" : ""}`} onClick={() => setShowInsights(true)}><BarChart3 size={16}/><span>{t("Ocupação", "Occupancy")}</span><strong>{Math.round((active.length / Math.max(1, active.length + freeSlots)) * 100)}%</strong><small>{conflicts ? `${conflicts} ${t("conflitos", "conflicts")}` : t("sem conflitos", "no conflicts")}</small></button></section>
     <div className="agenda-hub-toolbar"><div className="agenda-simple-nav"><Button onClick={() => setAnchor(today)}>{t("Hoje", "Today")}</Button><Button icon={ChevronLeft} className="icon" onClick={() => navigate(-1)} aria-label={t("Anterior", "Previous")} /><Button icon={ChevronRight} className="icon" onClick={() => navigate(1)} aria-label={t("Próximo", "Next")} /><h2>{view === "month" ? monthLabel(anchor, t) : `${safeDateLabel(view === "week" ? weekStart : anchor)}${view === "week" ? ` — ${safeDateLabel(shiftDay(weekStart, 6))}` : ""}`}</h2></div><div className="agenda-hub-tools"><label className="agenda-simple-search"><Search size={16} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("Buscar paciente, telefone ou procedimento", "Search patient, phone or procedure")} /></label><Button icon={SlidersHorizontal} className={showFilters ? "active" : ""} onClick={() => setShowFilters(!showFilters)}>{t("Filtros", "Filters")}</Button><div className="segmented" aria-label={t("Visualização", "View")}><button aria-pressed={view === "day"} onClick={() => setView("day")}>{t("Dia", "Day")}</button><button aria-pressed={view === "week"} onClick={() => setView("week")}>{t("Semana", "Week")}</button><button aria-pressed={view === "month"} onClick={() => setView("month")}>{t("Mês", "Month")}</button><button aria-pressed={view === "list"} onClick={() => setView("list")}><List size={15} /> {t("Lista", "List")}</button></div><Button icon={MoreHorizontal} className="icon" title={t("Mais ações", "More actions")} onClick={() => setShowInsights(!showInsights)} /></div></div>
     {showFilters && <div className="agenda-filter-drawer"><Field title={t("Status", "Status")} value={status} onChange={setStatus} options={[{ value: "all", label: t("Todos os status", "All statuses") }, ...["agendado", "confirmado", "aguardando", "em_atendimento", "concluido", "cancelado", "faltou"].map((v) => ({ value: v, label: label(v, t) }))]} /><Field title={t("Profissional", "Professional")} value={professional} onChange={setProfessional} options={[{ value: "all", label: t("Todos", "Everyone") }, ...professionals]} /><Button icon={EyeOff} onClick={() => { setQuery(""); setStatus("all"); setProfessional("all"); }}>{t("Limpar filtros", "Clear filters")}</Button></div>}
     <div className="agenda-hub-body"><div className={`agenda-hub-calendar agenda-hub-calendar--${view}`}>
@@ -3928,6 +3938,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
             {date(selected.submitted_at || selected.created_at, true)}
           </p>
           <p className="subtle">{t("Versão", "Version")}: {selected.form_version} · {t("Retenção até", "Retention until")}: {date(selected.retention_expires_at)}</p>
+          {(selected.payload?.interest_note || selected.payload?.message || selected.payload?.reason) && <div className="intake-message-preview"><span>{t("Mensagem recebida", "Message received")}</span><p>{selected.payload.interest_note || selected.payload.message || selected.payload.reason}</p></div>}
           <div className="actions wrap">
             {selected.phone && <a className="button" href={`tel:${digits(selected.phone)}`}>{t("Ligar", "Call")}</a>}
             {selected.email && <a className="button" href={`mailto:${selected.email}`}>{t("Email", "Email")}</a>}
@@ -4830,7 +4841,7 @@ function DataQualityDashboardComplete({ notify, openPatient, onNavigate }) {
         ...portalPending.map((row) => ({ key: `portal-${row.id}`, title: patientName(patientFor(row)), detail: row.action_type || t("Solicitação aguardando a equipe.", "Request waiting for the team."), status: "pendente", action: () => goPatient(patientFor(row)), actionLabel: t("Abrir paciente", "Open patient"), menu: [{ icon: ArrowRight, label: t("Atender solicitação", "Handle request"), onClick: () => goPatient(patientFor(row)) }] })),
         ...overdue.filter((row) => !catalogueMissing.some((item) => item.id === row.id)).map((row) => ({ key: `overdue-${row.id}`, title: row.name, detail: `${t("Revisão vencida em", "Review overdue on")} ${date(row.next_review_on)}`, status: "revisao_vencida", action: goCatalogue, actionLabel: t("Revisar catálogo", "Review catalogue"), menu: [{ icon: ArrowRight, label: t("Abrir catálogo", "Open catalogue"), onClick: goCatalogue }] })),
       ];
-      return <><div className="metric-grid">{cards.map(([title, value, hint]) => <article className="metric-card" key={title}><span>{title}</span><strong>{value}</strong><small>{hint}</small></article>)}</div><div className="rows"><div className="subtle" style={{ marginBottom: 12 }}>{t("Clique na ação para corrigir agora. Use ⋯ ou o botão direito para ver o mesmo menu de ações.", "Click an action to fix it now. Use ⋯ or right-click to see the same action menu.")}</div>{rows.map((row) => <ContextActions key={row.key} label={row.title} actions={row.menu}><div className="list-row"><span><strong>{row.title}</strong><small>{row.detail}</small></span><span className="row-actions"><Status value={row.status} /><Button className="secondary" onClick={row.action}>{row.actionLabel}</Button></span></div></ContextActions>)}{!rows.length && <Empty icon={CheckCircle2}>{t("Nenhum problema de qualidade encontrado.", "No data-quality issues found.")}</Empty>}</div></>;
+      return <><div className="quality-metric-grid">{cards.map(([title, value, hint], index) => <article className={`metric-card quality-metric quality-metric-${index}`} key={title}><span>{title}</span><strong>{value}</strong><small>{hint}</small></article>)}</div><div className="rows quality-action-list">{rows.map((row) => <ContextActions key={row.key} label={row.title} actions={row.menu}><div className="list-row"><span><strong>{row.title}</strong><small>{row.detail}</small></span><span className="row-actions"><Status value={row.status} /><Button className="secondary" onClick={row.action}>{row.actionLabel}</Button></span></div></ContextActions>)}{!rows.length && <Empty icon={CheckCircle2}>{t("Nenhum problema de qualidade encontrado.", "No data-quality issues found.")}</Empty>}</div></>;
     }}</LoadState>
   </section>;
 }
@@ -4854,6 +4865,7 @@ function ProcedureCatalog({ notify }) {
     ["outro", "Outro"],
   ];
   const blank = { name: "", category: "outro", description: "", purpose: "", indications: "", areas: "", default_duration: 60, interval_days: 30, sessions: "", follow_up: "", followup_days: 30, price: "", commercial_config: "{}", benefits: "", before_after_care: "", recovery: "", expected_results: "", clinical_details: "{}", official_information: "{}", protocol_instructions: "", materials: "{}", documents: "{}", availability: "{}", source_references: "[]", booking_buffer_minutes: 0, room_requirement: "", eligible_roles: "[]", questionnaire: "[]", required_consents: "[]", public_description: "", review_status: "aprovacao_pendente", next_review_on: "", product_relevant: false, lot_required: false, device_relevant: false, photos_expected: false, treatment_areas: "", consent_template: "", consent_template_version: "", post_care: "", relevant_fields: "{}", device_parameters: "[]", contraindications: "", risks: "", precautions: "", products: "", equipment: "", consumables: "", consent_requirements: "", photo_requirements: "", availability_notes: "", assessment_questions: "" };
+  const procedureImage = (procedure) => { const name = `${procedure?.name || ""} ${procedure?.category || ""}`.toLowerCase(); const slug = name.includes("toxina") ? "toxina-botulinica-terco-superior-da-face" : name.includes("ultraformer") ? "ultraformer-mpt" : name.includes("light sheer") || name.includes("pelos") ? "reducao-de-pelos-a-laser-com-lightsheer-duet" : name.includes("co2") || name.includes("acu") ? "laser-acupulse-co2" : name.includes("microagul") || name.includes("mmp") ? "microagulhamento" : name.includes("capilar") ? "mesoterapia-capilar" : name.includes("limpeza") ? "limpeza-de-pele-profunda" : name.includes("peeling") ? "peeling-retinoico" : name.includes("vasinho") || name.includes("peim") ? "peim-tratamento-estetico-para-microvasos" : name.includes("laser") ? "plataforma-harmony-de-laser-e-luz" : "planejamento-estetico-rejuvenescimento-facial-biomedica-esteta"; return `https://francielesofiati.com/assets/social/content-pages/servicos/${slug}.png`; };
   const [form, setForm] = useState(blank), [editing, setEditing] = useState(null), [busy, setBusy] = useState(false);
   const state = useLoad(() => checked(db.from("procedures").select("*").order("active", { ascending: false }).order("name")), [editing]);
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
@@ -4920,7 +4932,7 @@ function ProcedureCatalog({ notify }) {
       <Field title={t("Parâmetros do equipamento (JSON)", "Device parameters (JSON)")} type="textarea" value={form.device_parameters} onChange={(v) => set("device_parameters", v)} />
       <footer className="form-footer"><Button type="button" onClick={() => { setEditing(null); setForm(blank); }}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Save} disabled={busy}>{busy ? t("Salvando...", "Saving...") : t("Salvar", "Save")}</Button></footer>
     </form>}
-    <LoadState state={state}>{(rows) => <div className="rows">{rows.map((procedure) => <div className="list-row" key={procedure.id}><span><strong>{procedure.name}</strong><small>{label(procedure.category, t)} · {procedure.price_cents == null ? t("preço não definido", "price not set") : `R$ ${(Number(procedure.price_cents) / 100).toFixed(2).replace(".", ",")}`} · {procedure.default_duration} min · {procedure.followup_days ? `${procedure.followup_days} ${t("dias", "days")}` : t("sem retorno padrão", "no default follow-up")} · {procedure.areas || procedure.treatment_areas || t("áreas não definidas", "areas not defined")}</small></span><Status value={procedure.active ? "ativo" : "inativo"} /><Button onClick={() => edit(procedure)}>{t("Editar", "Edit")}</Button><Button onClick={() => draftFill(procedure)}>{t("Completar texto", "Complete text")}</Button><Button onClick={() => { setEditing({}); setForm(editForm({ ...procedure, id: undefined, name: `${procedure.name} — cópia` })); }}>{t("Duplicar modelo", "Duplicate model")}</Button><Button onClick={async () => { await checked(db.from("procedures").update({ active: !procedure.active }).eq("id", procedure.id)); state.refresh(); }}>{procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate")}</Button></div>)}{!rows.length && <Empty icon={ClipboardList}>{t("Nenhum procedimento configurado.", "No procedures configured.")}</Empty>}</div>}</LoadState>
+    <LoadState state={state}>{(rows) => <div className="procedure-catalog-grid">{rows.map((procedure) => <div className="procedure-catalog-card" key={procedure.id}><div className="procedure-catalog-image" role="img" aria-label={procedure.name} /><div className="procedure-catalog-card-content"><span><strong>{procedure.name}</strong><small>{label(procedure.category, t)} · {procedure.price_cents == null ? t("preço não definido", "price not set") : `R$ ${(Number(procedure.price_cents) / 100).toFixed(2).replace(".", ",")} `} · {procedure.default_duration} min</small></span><Status value={procedure.active ? "ativo" : "inativo"} /><p>{procedure.description || t("Descrição pendente no catálogo.", "Catalogue description pending.")}</p><div className="procedure-catalog-card-actions"><Button onClick={() => edit(procedure)}>{t("Editar", "Edit")}</Button><Button onClick={() => draftFill(procedure)}>{t("Completar texto", "Complete text")}</Button><Button onClick={async () => { await checked(db.from("procedures").update({ active: !procedure.active }).eq("id", procedure.id)); state.refresh(); }}>{procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate")}</Button></div></div></div>)}{!rows.length && <Empty icon={ClipboardList}>{t("Nenhum procedimento configurado.", "No procedures configured.")}</Empty>}</div>}</LoadState>
   </section>;
 }
 function TraceabilityCatalog({ notify }) {
@@ -4977,7 +4989,8 @@ function SettingsView({ member, updateMember, notify }) {
     [busy, setBusy] = useState(false),
     [recoveryFile, setRecoveryFile] = useState([]),
     [recovered, setRecovered] = useState(null),
-    [pass, setPass] = useState("");
+    [pass, setPass] = useState(""),
+    [profileEditing, setProfileEditing] = useState(false);
   const state = useLoad(
     () => checked(db.from("memberships").select("*").order("name")),
     [],
@@ -4992,13 +5005,10 @@ function SettingsView({ member, updateMember, notify }) {
   const audit = useLoad(
     () =>
       ownerAccess && tab === "audit"
-        ? checked(
-            db
-              .from("audit_events")
-              .select("*")
-              .order("created_at", { ascending: false })
-              .limit(100),
-          )
+        ? Promise.all([
+            checked(db.from("audit_events").select("*").order("created_at", { ascending: false }).limit(100)),
+            checked(db.from("memberships").select("user_id,name,email")),
+          ]).then(([events, users]) => events.map((event) => ({ ...event, actor: (users || []).find((user) => user.user_id === event.actor_id) })))
         : Promise.resolve([]),
     [tab],
   );
@@ -5052,7 +5062,8 @@ function SettingsView({ member, updateMember, notify }) {
       </nav>
       {tab === "profile" && (
         <section className="detail-section">
-          <div className="profile-hero"><Avatar person={profile} className="avatar large" size={88} /><div><h2>{profile.name || profile.email}</h2><p>{profile.email}</p><p>{label(profile.role, t)}</p></div></div>
+          <div className="profile-hero" onContextMenu={(event) => { event.preventDefault(); setProfileEditing(true); }} title={t("Clique com o botão direito para editar seu perfil", "Right-click to edit your profile")}><Avatar person={profile} className="avatar large" size={88} /><div><h2>{profile.name || profile.email}</h2><p>{profile.email}</p><p>{label(profile.role, t)}</p><small className="profile-edit-hint">{t("Clique com o botão direito para editar", "Right-click to edit")}</small></div></div>
+          {profileEditing && <section className="profile-edit-card"><div className="section-heading"><div><h3>{t("Editar perfil profissional", "Edit professional profile")}</h3><p className="subtle">{t("Atualize os dados que aparecem para a equipe.", "Update the details shown to the team.")}</p></div><Button className="icon" icon={X} onClick={() => setProfileEditing(false)} aria-label={t("Fechar edição", "Close editing")} /></div><div className="form-grid"><Field title={t("Nome", "Name")} value={profile.name || ""} onChange={(value) => setProfile((current) => ({ ...current, name: value }))} /><Field title={t("Profissão", "Profession")} value={profile.profession || ""} onChange={(value) => setProfile((current) => ({ ...current, profession: value }))} /><Field title={t("Conselho", "Council")} value={profile.council || ""} onChange={(value) => setProfile((current) => ({ ...current, council: value }))} /><Field title={t("Registro", "Registration")} value={profile.registration || ""} onChange={(value) => setProfile((current) => ({ ...current, registration: value }))} /><Field title={t("Estado", "State")} value={profile.state || ""} onChange={(value) => setProfile((current) => ({ ...current, state: value }))} /></div><Button className="primary" icon={Save} onClick={async () => { setBusy(true); try { const next = { name: profile.name || "", profession: profile.profession || "", council: profile.council || "", registration: profile.registration || "", state: profile.state || "" }; await checked(db.from("memberships").update(next).eq("id", profile.id)); const updated = { ...profile, ...next }; setProfile(updated); updateMember?.(updated); setProfileEditing(false); notify(t("Perfil atualizado.", "Profile updated.")); } catch { notify(t("Não foi possível atualizar o perfil.", "Could not update the profile.")); } finally { setBusy(false); } }}>{t("Salvar perfil", "Save profile")}</Button></section>}
           <p>
             {profile.profession} · {profile.council} {profile.registration} {profile.state}
           </p>
@@ -5265,6 +5276,7 @@ function SettingsView({ member, updateMember, notify }) {
                   <time>{date(row.created_at, true)}</time>
                   <span>{auditLabel(row.action, t)}</span>
                   <span>{entityLabel(row.entity_type, t)}</span>
+                  <span>{row.actor?.name || row.actor?.email || row.actor_id?.slice(0, 8) || t("Usuário do sistema", "System user")}</span>
                   <code>{row.entity_id?.slice(0, 8)}</code>
                 </div>
               ))}

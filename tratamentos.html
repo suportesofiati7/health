@@ -1339,7 +1339,7 @@
         ==================================================== -->
         <section
           id="${escapeHTML(section.id)}"
-          class="sf-section ${escapeHTML(section.composition)} sf-treatment-compact-section"
+          class="sf-section sf-composition-${escapeHTML(section.pattern)} ${escapeHTML(section.composition)} sf-treatment-compact-section"
           ${section.title ? `aria-labelledby="${escapeHTML(section.headingId)}"` : `aria-label="${escapeHTML(section.eyebrow)}"`}
           data-chapter="${escapeHTML(section.chapter)}"
           data-pattern="${escapeHTML(section.pattern)}"

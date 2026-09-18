@@ -3,6 +3,8 @@ import { currentPage } from '../core/page.js';
 
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/suportesofiati@gmail.com';
 const FORMSUBMIT_AJAX_ENDPOINT = 'https://formsubmit.co/ajax/suportesofiati@gmail.com';
+const CLINIC_INTAKE_ENDPOINT = 'https://naypgbhwnlbyqqqfftgn.supabase.co/functions/v1/intake';
+const CLINIC_INTAKE_KEY = 'sb_publishable_jH3gQ7-Tx8_-B191w3Gr1A_GkGHG9Hf';
 
 const FORM_ENDPOINTS = Object.freeze({
   consultation: FORMSUBMIT_AJAX_ENDPOINT,
@@ -158,6 +160,40 @@ function selectedText(form, names) {
     if (field?.tagName === 'SELECT') return field.selectedOptions?.[0]?.textContent?.trim() || field.value || '';
   }
   return '';
+}
+
+function clinicFunnelPayload(payload, form) {
+  const fullName = payload.full_name || payload.name || '';
+  const privacy = Boolean(payload.privacy === 'on' || payload.privacy_acknowledgement || payload.privacy === 'agreed');
+  if (!fullName || (!payload.phone && !payload.email) || !privacy) return null;
+  return {
+    full_name: fullName,
+    phone: payload.phone || '',
+    email: payload.email || '',
+    cpf: payload.cpf || '',
+    preferred_contact: payload.preferred_contact || (payload.phone ? 'whatsapp' : 'email'),
+    reason: payload.reason || '',
+    message: payload.message || '',
+    interest_note: payload.interest_note || '',
+    language: document.documentElement.lang || 'pt-BR',
+    form_type: form.dataset.formType || form.dataset.formName || 'site',
+    source: window.location.href,
+    privacy: true,
+    website: '',
+    token: payload.token
+  };
+}
+
+async function sendToClinicFunnel(payload, form) {
+  if (!payload.token) payload.token = await window.SofiatiFunnelToken?.(form) || '';
+  if (!payload.token) throw new Error('Clinic funnel security token unavailable');
+  const response = await fetch(CLINIC_INTAKE_ENDPOINT, {
+    method: 'POST',
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json', apikey: CLINIC_INTAKE_KEY },
+    body: JSON.stringify(payload)
+  });
+  if (!response.ok) throw new Error(`Clinic intake failed (${response.status})`);
+  return response;
 }
 
 function pageCategory() {
@@ -664,14 +700,18 @@ export function initForms() {
         payload._subject = isConsultation ? 'Nova solicitação de consulta — Franciele Sofiati' : 'Novo contato pelo site — Franciele Sofiati';
       }
       try {
-        const response = await fetch(endpoint, {
+        const funnel = clinicFunnelPayload(payload, form);
+        const [response] = await Promise.all([
+          fetch(endpoint, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(payload)
-        });
+          }),
+          funnel ? sendToClinicFunnel(funnel, form) : Promise.resolve(null)
+        ]);
         const result = await response.json().catch(() => null);
         if (!response.ok || result?.success === false) throw new Error(`Form submission failed (${response.status})`);
         form.reset();

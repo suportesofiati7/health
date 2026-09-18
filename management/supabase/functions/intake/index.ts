@@ -14,9 +14,16 @@ Deno.serve(
     const b = await json(req, 6000);
     const allowed = [
       "full_name",
+      "cpf",
       "phone",
       "email",
       "preferred_contact",
+      "interest_note",
+      "language",
+      "reason",
+      "message",
+      "form_type",
+      "source",
       "privacy",
       "website",
       "token",
@@ -64,18 +71,29 @@ Deno.serve(
         3,
         86400,
       );
+    const interest_note = clean(b.interest_note || [b.reason, b.message].filter(Boolean).join(" — "), 1000);
+    const cpf = clean(b.cpf, 30).replace(/\D/g, "");
+    const payload = {
+      form_type: clean(b.form_type, 40) || "site",
+      source: clean(b.source, 500),
+      reason: clean(b.reason, 300),
+      message: clean(b.message, 1200),
+      interest_note,
+      preferred_contact: clean(b.preferred_contact, 20),
+    };
     const { error } = await db
-      .from("enquiries")
+      .from("public_intakes")
       .insert({
         organization_id: ORG,
-        full_name,
+        full_name: full_name || "Contato sem nome",
+        preferred_name: full_name.split(/\s+/)[0] || "",
         phone,
         email,
-        preferred_contact: ["whatsapp", "phone", "email"].includes(
-          b.preferred_contact,
-        )
-          ? b.preferred_contact
-          : "whatsapp",
+        cpf,
+        selected_procedure: clean(b.reason, 300),
+        form_version: payload.form_type,
+        language: clean(b.language, 20) || "pt-BR",
+        payload,
       });
     if (error) throw Error("save");
     // Never return a record, identifier, duplicate signal or account information.

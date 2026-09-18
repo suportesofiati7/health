@@ -573,7 +573,7 @@
 
   <url>
     <loc>https://francielesofiati.com/consulta</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/consultation" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/consulta" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/consulta" />
@@ -581,7 +581,7 @@
 
   <url>
     <loc>https://francielesofiati.com/contato</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/contact" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/contato" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/contato" />
@@ -1197,7 +1197,7 @@
 
   <url>
     <loc>https://francielesofiati.com/en/consultation</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/consultation" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/consulta" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/consulta" />
@@ -1205,7 +1205,7 @@
 
   <url>
     <loc>https://francielesofiati.com/en/contact</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/contact" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/contato" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/contato" />
@@ -1221,7 +1221,7 @@
 
   <url>
     <loc>https://francielesofiati.com/en/faq</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/faq" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/perguntas" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/perguntas" />
@@ -1233,6 +1233,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/" />
+  </url>
+
+  <url>
+    <loc>https://francielesofiati.com/en/interest</loc>
+    <lastmod>2026-09-18</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/interest" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/formulario-interesse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/formulario-interesse" />
   </url>
 
   <url>
@@ -1277,7 +1285,7 @@
 
   <url>
     <loc>https://francielesofiati.com/en/treatments</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/treatments" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/tratamentos" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/tratamentos" />
@@ -1289,6 +1297,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/values" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/valores" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/valores" />
+  </url>
+
+  <url>
+    <loc>https://francielesofiati.com/formulario-interesse</loc>
+    <lastmod>2026-09-18</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/interest" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/formulario-interesse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/formulario-interesse" />
   </url>
 
   <url>
@@ -1489,7 +1505,7 @@
 
   <url>
     <loc>https://francielesofiati.com/tratamentos</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://francielesofiati.com/en/treatments" />
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://francielesofiati.com/tratamentos" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://francielesofiati.com/tratamentos" />

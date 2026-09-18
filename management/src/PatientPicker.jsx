@@ -43,20 +43,12 @@ export function PatientPicker({ value, onChange, initial, title }) {
 
 export function TemplatePicker({ templates, value, onChange, channel, title }) {
   const t = useT();
-  const [term, setTerm] = useState("");
-  const [open, setOpen] = useState(false);
   const available = useMemo(() => (templates || []).filter((row) => !channel || row.channel === channel), [templates, channel]);
   const selected = available.find((row) => row.id === value);
-  const visible = useMemo(() => { const q = normalize(term); return available.filter((row) => !q || normalize(`${row.name} ${row.body} ${row.subject} ${row.category}`).includes(q)); }, [available, term]);
-  useEffect(() => { if (!selected) setTerm(""); }, [selected?.id]);
-  const choose = (row) => { onChange(row.id); setTerm(""); setOpen(false); };
   return <div className="template-picker-sections">
-    <label className="field template-picker-select"><span>{t("Selecionar modelo", "Select template")}</span><select value={value || ""} onChange={(event) => { const row = available.find((item) => String(item.id) === event.target.value); if (row) choose(row); }} aria-label={title || t("Modelo", "Template")}>
+    <label className="field template-picker-select"><span>{t("Selecionar modelo", "Select template")}</span><select value={value || ""} onChange={(event) => onChange(event.target.value)} aria-label={title || t("Modelo", "Template")}>
       <option value="">{t("Escolha um modelo…", "Choose a template…")}</option>
       {available.map((row) => <option key={row.id} value={row.id}>{row.name} · {row.category || t("sem categoria", "uncategorized")} · {row.variant || "standard"}</option>)}
     </select></label>
-    <div className="template-picker-search"><span className="template-picker-section-label">{t("Buscar modelo", "Search templates")}</span>
-      <label className="field searchable-picker"><span className="sr-only">{t("Buscar modelo", "Search templates")}</span><div className="searchable-picker-input"><Search size={16} aria-hidden="true" /><input value={term} onChange={(event) => { setTerm(event.target.value); setOpen(true); }} onFocus={() => setOpen(true)} onBlur={() => setTimeout(() => setOpen(false), 150)} placeholder={t("Digite nome ou conteúdo do modelo", "Type template name or content")} autoComplete="off" /></div>{open && <div className="searchable-picker-menu" role="listbox">{visible.slice(0, 30).map((row) => <button type="button" role="option" key={row.id} onMouseDown={(event) => event.preventDefault()} onClick={() => choose(row)} className={row.id === value ? "selected" : ""}><span><strong>{row.name}</strong><small>{row.category} · {row.variant || "standard"} · {String(row.body || "").replace(/\s+/g, " ").slice(0, 100)}</small></span>{row.id === value && <Check size={15} />}</button>)}{!visible.length && <p>{t("Nenhum modelo encontrado.", "No template found.")}</p>}</div>}</label>
-    </div>
   </div>;
 }

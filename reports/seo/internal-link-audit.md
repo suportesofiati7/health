@@ -2,11 +2,11 @@
 
 Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-internal-links.py` after changes.
 
-- Canonical indexable pages: 190
-- Crawlable internal links: 1252
+- Canonical indexable pages: 192
+- Crawlable internal links: 1250
 - Broken internal links: 0
-- Orphan pages: 13
-- Underlinked pages (<2 internal links): 128
+- Orphan pages: 15
+- Underlinked pages (<2 internal links): 130
 
 ## Files
 
@@ -136,9 +136,11 @@ Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-i
 - `https://francielesofiati.com/en/blog/useful-questions-to-ask-before-an-aesthetic-procedure` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/visible-small-vessels-appearance-symptoms-and-assessment-are-not-the-same` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/blog/when-an-overworked-skin-barrier-needs-a-pause` (1 incoming links; depth None)
+- `https://francielesofiati.com/en/interest` (0 incoming links; depth None)
 - `https://francielesofiati.com/en/mission` (0 incoming links; depth None)
 - `https://francielesofiati.com/en/testimonials` (1 incoming links; depth None)
 - `https://francielesofiati.com/en/values` (0 incoming links; depth None)
+- `https://francielesofiati.com/formulario-interesse` (0 incoming links; depth None)
 - `https://francielesofiati.com/missao` (0 incoming links; depth None)
 - `https://francielesofiati.com/perguntas` (1 incoming links; depth 1)
 - `https://francielesofiati.com/servicos/peeling-de-ata` (0 incoming links; depth None)

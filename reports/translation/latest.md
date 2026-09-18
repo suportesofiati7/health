@@ -1,49 +1,50 @@
 # Portuguese generation review
 
-Generated: 2026-07-19T13:31:12.437990+00:00
-Mode: `full`
+Generated: 2026-09-18T11:44:48.538152+00:00
+Mode: `incremental`
 Engine: `argos:en->pb:installed`
 
 ## Summary
 
-- Units scanned: 26
-- Pages/partials created: 0
-- Pages/partials updated: 26
+- Units scanned: 27
+- Pages/partials created: 19
+- Pages/partials updated: 8
 - Unchanged units skipped: 0
-- Manual overrides preserved: 6
+- Manual overrides preserved: 0
 - Conflicts requiring review: 0
 - Failures: 0
 - Obsolete outputs deleted: 0
-- Backup: `backups/pt/20260719-103111`
+- Backup: `backups/pt/20260918-084332`
 - Manifest: `.translation-cache.json`
 
 ## Files
 
-- `404.html` — updated
-- `about.html` — updated
-- `accessibility.html` — updated
-- `care.html` — updated
-- `consultation.html` — updated
-- `contact.html` — updated
-- `cookies.html` — updated
-- `faq.html` — updated
-- `index.html` — updated
-- `journal.html` — updated
-- `laser.html` — updated
-- `legal.html` — updated
-- `mission.html` — updated
-- `privacy.html` — updated
-- `results.html` — updated
-- `skin.html` — updated
-- `testimonials.html` — updated
-- `thank-you.html` — updated
-- `treatments.html` — updated
-- `values.html` — updated
+- `404.html` — created
+- `blog.html` — created
+- `consulta.html` — created
+- `contato.html` — created
+- `cookies.html` — created
+- `cuidados.html` — created
+- `depoimentos.html` — created
+- `formulario.html` — created
+- `index.html` — created
+- `laser.html` — created
+- `missao.html` — created
+- `obrigada.html` — created
+- `pele.html` — created
+- `perguntas.html` — created
+- `resultados.html` — created
+- `sobre.html` — created
+- `tratamentos.html` — created
+- `typography-plan.html` — created
+- `valores.html` — created
 - `partials/cookie-banner.html` — updated
 - `partials/floating-widgets.html` — updated
 - `partials/footer.html` — updated
 - `partials/header.html` — updated
 - `partials/mobile-menu.html` — updated
+- `partials/newsletter-strip.html` — updated
+- `partials/quick-contact.html` — updated
 - `partials/top-bar.html` — updated
 
 ## Override conflicts
@@ -60,11 +61,712 @@ None.
 
 ## Post-generation validation
 
-- Errors: 5
-- Warnings: 0
+- Errors: 705
+- Warnings: 1
 
-- ERROR: skin.html: untranslated block text:id:a-useful-routine/div[1]/div[1]/article[1]/p[1]:0: AM
-- ERROR: skin.html: untranslated block text:id:a-useful-routine/div[1]/div[1]/article[2]/p[1]:0: PM
-- ERROR: skin.html: untranslated block text:id:pigment-sun-and-memory/div[1]/div[1]/article[8]/h3[1]:0: Timeline
-- ERROR: thank-you.html: untranslated block jsonld:0:isPartOf/name: Franciele Sofiati Biomédica
-- ERROR: partials/footer.html: untranslated block text:id:sf-footer-inline/div[1]/div[1]/div[2]/div[1]/div[1]/a[2]/span[2]:0: sofiatimendonca@gmail.com
+- ERROR: cuidados.html: HTML tag structure differs from English source
+- ERROR: formulario.html: HTML tag structure differs from English source
+- ERROR: perguntas.html: HTML tag structure differs from English source
+- ERROR: perguntas.html: CSS classes differ from English source
+- ERROR: perguntas.html: element IDs differ from English source
+- ERROR: perguntas.html: missing translated block attr:id:common-questions/div[1]/div[1]/img[1]:alt
+- ERROR: perguntas.html: missing translated block text:id:common-questions/div[1]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:faq-title:0
+- ERROR: perguntas.html: missing translated block text:id:common-questions/div[1]/div[1]/p[3]:0
+- ERROR: perguntas.html: missing translated block text:id:common-questions/div[1]/div[1]/div[1]/a[1]:0
+- ERROR: perguntas.html: missing translated block text:id:common-questions/div[1]/div[1]/div[1]/a[2]:0
+- ERROR: perguntas.html: missing translated block attr:id:main/a[1]:aria-label
+- ERROR: perguntas.html: missing translated block text:id:main/div[1]/label[1]:0
+- ERROR: perguntas.html: missing translated block attr:id:faq-search:placeholder
+- ERROR: perguntas.html: missing translated block text:id:faq-intro/div[1]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:faq-intro/div[1]/div[1]/h2[1]:0
+- ERROR: perguntas.html: missing translated block text:id:faq-intro/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/header[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/header[1]/h2[1]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/header[1]/p[2]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[1]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[1]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[2]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[2]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[3]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[3]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[4]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[4]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[5]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:approach/div[1]/div[1]/details[5]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/header[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/header[1]/h2[1]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/header[1]/p[2]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[1]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[1]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[2]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[2]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[3]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[3]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[4]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[4]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[5]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:services/div[1]/div[1]/details[5]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/header[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/header[1]/h2[1]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/header[1]/p[2]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[1]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[1]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[2]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[2]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[3]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[3]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[4]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[4]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[5]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:skin/div[1]/div[1]/details[5]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/header[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/header[1]/h2[1]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/header[1]/p[2]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[1]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[1]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[2]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[2]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[3]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[3]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[4]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[4]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[5]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:recovery/div[1]/div[1]/details[5]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/header[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/header[1]/h2[1]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/header[1]/p[2]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[1]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[1]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[2]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[2]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[3]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[3]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[4]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[4]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[5]/summary[1]/span[2]:0
+- ERROR: perguntas.html: missing translated block text:id:relationship/div[1]/div[1]/details[5]/div[1]/p[1]:0
+- ERROR: perguntas.html: missing translated block jsonld:0:@graph/3/mainEntity/24/name
+- ERROR: perguntas.html: missing translated block jsonld:0:@graph/3/mainEntity/24/acceptedAnswer/text
+- ERROR: blog.html: HTML tag structure differs from English source
+- ERROR: blog.html: CSS classes differ from English source
+- ERROR: blog.html: element IDs differ from English source
+- ERROR: blog.html: untranslated block text:id:main/header[1]/div[1]/span[3]:0: Volume 1
+- ERROR: blog.html: untranslated block text:id:lead-story-title/em[1]:0: Botox
+- ERROR: blog.html: untranslated block text:id:consultation-care/div[1]/article[1]/a[1]/div[1]/h3[1]/em[1]:0: Frugal Chic
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[1]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a protocolo profissional de despigmentacao
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[1]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[2]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[2]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[3]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peeling de jessner
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[3]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[4]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[4]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[5]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[5]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[6]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a microagulhamento
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[6]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[7]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[7]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[8]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a microagulhamento
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[8]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[9]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a microagulhamento
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[9]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[10]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a plataforma harmony de laser e luz
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[10]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[11]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a protocolo profissional de despigmentacao
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[11]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[12]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a protocolo profissional de despigmentacao
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[12]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[13]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[13]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[14]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peeling de jessner
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[14]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[15]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peeling de diamante
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[15]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[16]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peeling de cristal microdermoabrasao
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[16]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[17]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peeling de diamante
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[17]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[18]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peeling ultrassonico
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[18]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[19]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peeling retinoico
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[19]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[20]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peeling de jessner
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[20]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[21]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a plataforma harmony de laser e luz
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[21]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[22]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a reducao de pelos a laser com lightsheer duet
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[22]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[23]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a reducao de pelos a laser com lightsheer duet
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[23]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[24]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a laser acupulse co2
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[24]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[25]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a laser acupulse co2
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[25]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[26]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a laser acupulse co2
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[26]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[27]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a plataforma harmony de laser e luz
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[27]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[28]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a radiofrequencia
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[28]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[29]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a ultraformer mpt
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[29]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[30]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a tecnologia de plasma
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[30]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[31]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peim tratamento estetico para microvasos
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[31]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[32]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a peim tratamento estetico para microvasos
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[32]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[33]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a toxina botulinica terco superior da face
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[33]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[34]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a toxina botulinica terco superior da face
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[34]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[35]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a toxina botulinica platisma e terco inferior
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[35]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[36]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a toxina botulinica terco superior da face
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[36]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[37]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a microagulhamento
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[37]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[38]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a microagulhamento
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[38]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[39]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a mesoterapia capilar
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[39]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[40]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a mesoterapia capilar
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[40]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[41]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a mmp microinfusao de medicamentos na pele
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[41]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[42]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a mesoterapia capilar
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[42]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[43]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[43]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[44]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[44]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[45]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a laser acupulse co2
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[45]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[46]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a protocolo profissional de despigmentacao
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[46]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[47]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a microagulhamento
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[47]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[48]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[48]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[49]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a limpeza de pele profunda
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[49]/a[1]/div[1]/p[3]:0
+- ERROR: blog.html: untranslated block attr:id:journal-library/div[1]/article[50]/a[1]/figure[1]/img[1]:alt: Imagem relacionada a radiofrequencia
+- ERROR: blog.html: missing translated block text:id:journal-library/div[1]/article[50]/a[1]/div[1]/p[3]:0
+- ERROR: laser.html: HTML tag structure differs from English source
+- ERROR: resultados.html: HTML tag structure differs from English source
+- ERROR: pele.html: HTML tag structure differs from English source
+- ERROR: tratamentos.html: HTML tag structure differs from English source
+- ERROR: tratamentos.html: CSS classes differ from English source
+- ERROR: tratamentos.html: element IDs differ from English source
+- ERROR: tratamentos.html: missing translated block text:id:treatment-options/div[1]/div[1]/div[1]/a[2]:0
+- ERROR: tratamentos.html: missing translated block attr:id:main/a[1]:aria-label
+- ERROR: tratamentos.html: missing translated block text:id:treatment-finder/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-02-begin-with-the-concern:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-finder/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:treatment-finder/div[1]/div[1]:aria-label
+- ERROR: tratamentos.html: missing translated block text:id:treatment-finder/div[1]/div[1]/div[1]/div[1]/label[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[4]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[5]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[6]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[7]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[8]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-concern/option[9]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-finder/div[1]/div[1]/div[1]/div[2]/label[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-area/option[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-area/option[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-area/option[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-area/option[4]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-area/option[5]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-area/option[6]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-finder/div[1]/div[1]/div[1]/div[3]/label[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-technology/option[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-technology/option[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-technology/option[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-technology/option[4]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-technology/option[5]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-technology/option[6]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-technology/option[7]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-technology/option[8]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-finder/div[1]/div[1]/div[1]/div[4]/label[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-recovery/option[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-recovery/option[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-recovery/option[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-filter-recovery/option[4]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatment-finder/div[1]/div[1]/div[2]/button[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-03-ultraformer-mpt:0
+- ERROR: tratamentos.html: missing translated block attr:id:featured-treatment/div[1]/div[1]/article[1]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/div[1]/article[1]/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:featured-treatment/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-04-cleansing-and-skin-preparation:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:facial-cleansing/div[1]/div[1]/article[1]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:facial-cleansing/div[1]/div[1]/article[2]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/div[1]/article[2]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:facial-cleansing/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-05-mechanical-exfoliation-options:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:mechanical-exfoliation/div[1]/div[1]/article[1]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:mechanical-exfoliation/div[1]/div[1]/article[2]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/div[1]/article[2]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:mechanical-exfoliation/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-06-chemical-peel-options:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:chemical-renewal/div[1]/div[1]/article[1]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[2]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[3]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:chemical-renewal/div[1]/div[1]/article[4]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/div[1]/article[4]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:chemical-renewal/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-07-laser-and-energy-based-care:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:laser-services/div[1]/div[1]/article[2]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[2]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block attr:id:laser-services/div[1]/div[1]/article[3]/figure[1]/img[1]:alt
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/div[1]/article[3]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:laser-services/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-08-expression-and-facial-balance:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/div[1]/article[2]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:expression-and-lower-face/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-09-hair-and-scalp-care:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/div[1]/article[2]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/ol[1]/li[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/ol[1]/li[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/ol[1]/li[2]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/ol[1]/li[2]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/ol[1]/li[3]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/ol[1]/li[3]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:scalp-and-microinfusion/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:treatments-09-microneedling:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[1]/article[1]/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/header[1]/h3[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/header[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/h4[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[1]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/h4[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[2]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/figure[1]/span[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/p[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/h4[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/p[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/ul[1]/li[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/ul[1]/li[2]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/ul[1]/li[3]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/dl[1]/div[1]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/dl[1]/div[1]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/dl[1]/div[2]/dt[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/dl[1]/div[2]/dd[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/aside[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/div[2]/article[3]/div[1]/aside[1]/strong[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:microneedling/div[1]/a[1]:0
+- ERROR: tratamentos.html: missing translated block text:id:booking-guide/div[1]/header[1]/h2[1]:0
+- ERROR: tratamentos.html: missing translated block jsonld:0:@graph/1/hasCredential/name
+- ERROR: tratamentos.html: missing translated block jsonld:0:@graph/2/areaServed/containedInPlace/name
+- ERROR: tratamentos.html: missing translated block jsonld:0:@graph/2/areaServed/containedInPlace/containedInPlace/name
+- ERROR: tratamentos.html: missing translated block jsonld:0:@graph/3/name
+- ERROR: tratamentos.html: missing translated block jsonld:0:@graph/3/description
+- ERROR: tratamentos.html: missing translated block jsonld:0:@graph/4/caption
+- ERROR: tratamentos.html: missing translated block jsonld:0:@graph/5/itemListElement/0/name
+- ERROR: tratamentos.html: missing translated block jsonld:0:@graph/5/itemListElement/1/name
+- ERROR: blog/depilacao-a-laser-preparo-e-expectativas.html: HTML tag structure differs from English source
+- ERROR: blog/depilacao-a-laser-preparo-e-expectativas.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a reducao de pelos a laser com lightsheer duet, no Journal de Franciele Sofiati e
+- ERROR: blog/melasma-manchas-e-fotoprotecao.html: HTML tag structure differs from English source
+- ERROR: blog/melasma-manchas-e-fotoprotecao.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a protocolo profissional de despigmentacao, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/peeling-quimico-recuperacao-seguranca.html: HTML tag structure differs from English source
+- ERROR: blog/peeling-quimico-recuperacao-seguranca.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling de jessner, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/cicatrizes-de-acne-textura-e-plano.html: HTML tag structure differs from English source
+- ERROR: blog/cicatrizes-de-acne-textura-e-plano.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a microagulhamento, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/laser-co2-recuperacao-e-cuidados.html: HTML tag structure differs from English source
+- ERROR: blog/laser-co2-recuperacao-e-cuidados.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a laser acupulse co2, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/microagulhamento-o-que-avaliar.html: HTML tag structure differs from English source
+- ERROR: blog/microagulhamento-o-que-avaliar.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a microagulhamento, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/queda-capilar-quando-investigar.html: HTML tag structure differs from English source
+- ERROR: blog/queda-capilar-quando-investigar.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a mesoterapia capilar, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/toxina-botulinica-naturalidade-e-planejamento.html: HTML tag structure differs from English source
+- ERROR: blog/toxina-botulinica-naturalidade-e-planejamento.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a toxina botulinica terco superior da face, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/fotoprotecao-que-cabe-na-rotina.html: HTML tag structure differs from English source
+- ERROR: blog/fotoprotecao-que-cabe-na-rotina.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a protocolo profissional de despigmentacao, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/barreira-cutanea-sinais-de-sobrecarga.html: HTML tag structure differs from English source
+- ERROR: blog/barreira-cutanea-sinais-de-sobrecarga.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/acidos-na-rotina-ordem-e-cautela.html: HTML tag structure differs from English source
+- ERROR: blog/acidos-na-rotina-ordem-e-cautela.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling de jessner, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/limpeza-de-pele-e-barreira.html: HTML tag structure differs from English source
+- ERROR: blog/limpeza-de-pele-e-barreira.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/maquiagem-e-pele-sensivel.html: HTML tag structure differs from English source
+- ERROR: blog/maquiagem-e-pele-sensivel.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/poros-textura-e-expectativas.html: HTML tag structure differs from English source
+- ERROR: blog/poros-textura-e-expectativas.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a microagulhamento, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/cravos-e-extracao-segura.html: HTML tag structure differs from English source
+- ERROR: blog/cravos-e-extracao-segura.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/acne-ativa-prioridade-antes-da-textura.html: HTML tag structure differs from English source
+- ERROR: blog/acne-ativa-prioridade-antes-da-textura.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a microagulhamento, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/marcas-pos-acne-e-cicatrizes.html: HTML tag structure differs from English source
+- ERROR: blog/marcas-pos-acne-e-cicatrizes.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a microagulhamento, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/vermelhidao-persistente-quando-investigar.html: HTML tag structure differs from English source
+- ERROR: blog/vermelhidao-persistente-quando-investigar.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a plataforma harmony de laser e luz, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/melasma-calor-luz-e-rotina.html: HTML tag structure differs from English source
+- ERROR: blog/melasma-calor-luz-e-rotina.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a protocolo profissional de despigmentacao, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/mancha-pos-inflamatoria-o-que-muda.html: HTML tag structure differs from English source
+- ERROR: blog/mancha-pos-inflamatoria-o-que-muda.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a protocolo profissional de despigmentacao, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/pele-e-gravidez-perguntas-seguras.html: HTML tag structure differs from English source
+- ERROR: blog/pele-e-gravidez-perguntas-seguras.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/peeling-caseiro-risco-e-contexto.html: HTML tag structure differs from English source
+- ERROR: blog/peeling-caseiro-risco-e-contexto.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling de jessner, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/esfoliacao-fisica-quando-menos-ajuda.html: HTML tag structure differs from English source
+- ERROR: blog/esfoliacao-fisica-quando-menos-ajuda.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling de diamante, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/microdermoabrasao-objetivos-realistas.html: HTML tag structure differs from English source
+- ERROR: blog/microdermoabrasao-objetivos-realistas.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling de cristal microdermoabrasao, no Journal de Franciele Sofiati em Londri
+- ERROR: blog/peeling-de-diamante-o-que-avaliar.html: HTML tag structure differs from English source
+- ERROR: blog/peeling-de-diamante-o-que-avaliar.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling de diamante, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/peeling-ultrassonico-em-uma-rotina.html: HTML tag structure differs from English source
+- ERROR: blog/peeling-ultrassonico-em-uma-rotina.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling ultrassonico, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/peeling-retinoico-recuperacao-planejada.html: HTML tag structure differs from English source
+- ERROR: blog/peeling-retinoico-recuperacao-planejada.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling retinoico, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/peeling-de-jessner-cautela-e-indicacao.html: HTML tag structure differs from English source
+- ERROR: blog/peeling-de-jessner-cautela-e-indicacao.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peeling de jessner, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/laser-e-pele-bronzeada.html: HTML tag structure differs from English source
+- ERROR: blog/laser-e-pele-bronzeada.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a plataforma harmony de laser e luz, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/depilacao-laser-rosto-e-hormonios.html: HTML tag structure differs from English source
+- ERROR: blog/depilacao-laser-rosto-e-hormonios.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a reducao de pelos a laser com lightsheer duet, no Journal de Franciele Sofiati e
+- ERROR: blog/depilacao-laser-intervalos-e-ciclo.html: HTML tag structure differs from English source
+- ERROR: blog/depilacao-laser-intervalos-e-ciclo.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a reducao de pelos a laser com lightsheer duet, no Journal de Franciele Sofiati e
+- ERROR: blog/laser-co2-e-eventos-importantes.html: HTML tag structure differs from English source
+- ERROR: blog/laser-co2-e-eventos-importantes.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a laser acupulse co2, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/laser-co2-e-fotoprotecao-pos.html: HTML tag structure differs from English source
+- ERROR: blog/laser-co2-e-fotoprotecao-pos.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a laser acupulse co2, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/laser-e-cicatrizes-de-acne.html: HTML tag structure differs from English source
+- ERROR: blog/laser-e-cicatrizes-de-acne.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a laser acupulse co2, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/luz-intensa-pulsada-e-avaliacao.html: HTML tag structure differs from English source
+- ERROR: blog/luz-intensa-pulsada-e-avaliacao.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a plataforma harmony de laser e luz, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/radiofrequencia-e-colageno-tempo.html: HTML tag structure differs from English source
+- ERROR: blog/radiofrequencia-e-colageno-tempo.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a radiofrequencia, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/ultraformer-mpt-e-objetivos.html: HTML tag structure differs from English source
+- ERROR: blog/ultraformer-mpt-e-objetivos.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a ultraformer mpt, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/tecnologia-de-plasma-antes-de-decidir.html: HTML tag structure differs from English source
+- ERROR: blog/tecnologia-de-plasma-antes-de-decidir.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a tecnologia de plasma, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/microvasos-queixas-e-avaliacao.html: HTML tag structure differs from English source
+- ERROR: blog/microvasos-queixas-e-avaliacao.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peim tratamento estetico para microvasos, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/peim-o-que-informar-antes.html: HTML tag structure differs from English source
+- ERROR: blog/peim-o-que-informar-antes.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a peim tratamento estetico para microvasos, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/toxina-botulinica-primeira-consulta.html: HTML tag structure differs from English source
+- ERROR: blog/toxina-botulinica-primeira-consulta.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a toxina botulinica terco superior da face, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/toxina-botulinica-e-assimetrias.html: HTML tag structure differs from English source
+- ERROR: blog/toxina-botulinica-e-assimetrias.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a toxina botulinica terco superior da face, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/terco-inferior-da-face-conversa-cuidadosa.html: HTML tag structure differs from English source
+- ERROR: blog/terco-inferior-da-face-conversa-cuidadosa.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a toxina botulinica platisma e terco inferior, no Journal de Franciele Sofiati em
+- ERROR: blog/naturalidade-e-planejamento-facial.html: HTML tag structure differs from English source
+- ERROR: blog/naturalidade-e-planejamento-facial.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a toxina botulinica terco superior da face, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/microagulhamento-e-manchas.html: HTML tag structure differs from English source
+- ERROR: blog/microagulhamento-e-manchas.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a microagulhamento, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/microagulhamento-e-acne-inflamada.html: HTML tag structure differs from English source
+- ERROR: blog/microagulhamento-e-acne-inflamada.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a microagulhamento, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/couros-cabeludo-e-queda-sinais-de-alerta.html: HTML tag structure differs from English source
+- ERROR: blog/couros-cabeludo-e-queda-sinais-de-alerta.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a mesoterapia capilar, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/afinamento-capilar-e-fotografias.html: HTML tag structure differs from English source
+- ERROR: blog/afinamento-capilar-e-fotografias.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a mesoterapia capilar, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/mmp-couro-cabeludo-perguntas.html: HTML tag structure differs from English source
+- ERROR: blog/mmp-couro-cabeludo-perguntas.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a mmp microinfusao de medicamentos na pele, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/mesoterapia-capilar-e-plano.html: HTML tag structure differs from English source
+- ERROR: blog/mesoterapia-capilar-e-plano.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a mesoterapia capilar, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/consulta-estetica-como-se-preparar.html: HTML tag structure differs from English source
+- ERROR: blog/consulta-estetica-como-se-preparar.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/perguntas-antes-de-um-procedimento.html: HTML tag structure differs from English source
+- ERROR: blog/perguntas-antes-de-um-procedimento.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/pos-procedimento-sinais-para-contato.html: HTML tag structure differs from English source
+- ERROR: blog/pos-procedimento-sinais-para-contato.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a laser acupulse co2, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/sol-e-recuperacao-cutanea.html: HTML tag structure differs from English source
+- ERROR: blog/sol-e-recuperacao-cutanea.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a protocolo profissional de despigmentacao, no Journal de Franciele Sofiati em Lo
+- ERROR: blog/fotos-antes-depois-leitura-critica.html: HTML tag structure differs from English source
+- ERROR: blog/fotos-antes-depois-leitura-critica.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a microagulhamento, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/privacidade-em-tratamentos-esteticos.html: HTML tag structure differs from English source
+- ERROR: blog/privacidade-em-tratamentos-esteticos.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/rotina-minima-pele-sobrecarga.html: HTML tag structure differs from English source
+- ERROR: blog/rotina-minima-pele-sobrecarga.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a limpeza de pele profunda, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/expectativa-e-tempo-biologico.html: HTML tag structure differs from English source
+- ERROR: blog/expectativa-e-tempo-biologico.html: untranslated block jsonld:0:@graph/6/caption: Imagem relacionada a radiofrequencia, no Journal de Franciele Sofiati em Londrina.
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: HTML tag structure differs from English source
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: untranslated block text:id:main/nav[1]/ol[1]/li[3]/span[1]:0: Frugal Chic
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: untranslated block text:id:main/article[1]/header[1]/div[1]/h1[1]/em[1]:0: Frugal Chic
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: missing translated block text:id:main/article[1]/div[1]/div[1]/section[2]/h2[1]:1
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[2]/h2[1]/em[1]:0: Frugal Chic
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[2]/p[1]/em[1]:0: Frugal Chic
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: missing translated block text:id:main/article[1]/div[1]/div[1]/section[5]/h3[1]:1
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: missing translated block text:id:main/article[1]/div[1]/div[1]/section[5]/h3[1]/em[1]:0
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[8]/p[2]/em[1]:0: Frugal Chic
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: missing translated block text:id:main/article[1]/div[1]/div[1]/section[10]/h2[1]:1
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[10]/h2[1]/em[1]:0: Frugal Chic
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: untranslated block jsonld:0:@graph/0/name: Franciele Sofiati · Biomédica | Esteticista | Cosmetóloga
+- ERROR: blog/frugal-chic-escolhas-conscientes.html: untranslated block jsonld:0:@graph/4/itemListElement/2/name: Frugal Chic
+- ERROR: blog/botox-londrina-guia-completo.html: HTML tag structure differs from English source
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/header[1]/div[1]/h1[1]/em[1]:0: Botox
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[1]/a[1]/strong[1]:0: ANVISA
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[2]/a[1]:0: — Botulinum Toxin
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[2]/a[1]/strong[1]:0: NCBI Bookshelf
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[3]/a[1]:0: — Botulinum Toxin Treatment of the Upper Face
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[3]/a[1]/strong[1]:0: NCBI Bookshelf
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[4]/a[1]:0: — BOTOX (onabotulinumtoxinA)
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[4]/a[1]/strong[1]:0: DailyMed
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[5]/a[1]:0: — Neuromodulators
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[5]/a[1]/strong[1]:0: American Society for Dermatologic Surgery
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[20]/form[1]/label[2]:0: E-mail
+- ERROR: blog/botox-londrina-guia-completo.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[21]/h2[1]/em[1]:0: Botox
+- ERROR: blog/why-aesthetic-care-begins-with-consultation.html: HTML tag structure differs from English source
+- ERROR: blog/rebuilding-an-overwhelmed-skin-barrier.html: HTML tag structure differs from English source
+- ERROR: blog/professional-skin-cleansing-guide.html: HTML tag structure differs from English source
+- ERROR: blog/professional-skin-cleansing-guide.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[6]/p[1]/a[1]:0: acne
+- ERROR: blog/understanding-facial-pigmentation.html: HTML tag structure differs from English source
+- ERROR: blog/understanding-acne-scar-treatment.html: HTML tag structure differs from English source
+- ERROR: blog/persistent-facial-redness-and-vessels.html: HTML tag structure differs from English source
+- ERROR: blog/persistent-facial-redness-and-vessels.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[2]/p[2]:0: Vascular
+- ERROR: blog/fractional-co2-laser-recovery-and-aftercare.html: HTML tag structure differs from English source
+- ERROR: blog/ultrasound-radiofrequency-collagen-treatment.html: HTML tag structure differs from English source
+- ERROR: blog/laser-hair-removal-process-and-maintenance.html: HTML tag structure differs from English source
+- ERROR: blog/hair-thinning-causes-and-scalp-care.html: HTML tag structure differs from English source
+- ERROR: blog/hair-thinning-causes-and-scalp-care.html: untranslated block text:id:main/article[1]/div[1]/div[1]/section[3]/ul[1]/li[3]/strong[1]:0: Alopecia areata
+- ERROR: partials/footer.html: broken local reference src='../assets/shared/brand/logotipo-franciele-sofiati-expertise-estetica-estetica-avancada-londrina-centro.png'
+- ERROR: partials/header.html: broken local reference src='../assets/shared/brand/sofiati-mark-96.webp'
+- ERROR: partials/mobile-menu.html: broken local reference src='../assets/brand/monograma-franciele-sofiati-expertise-estetica-estetica-avancada-londrina-centro.webp'
+- ERROR: partials/newsletter-strip.html: untranslated block attr:id:newsletter-strip-email:placeholder: you@example.com
+- ERROR: partials/quick-contact.html: untranslated block attr:id:quick-contact-email:placeholder: you@example.com
+- ERROR: partials/top-bar.html: broken local reference href='../index.html'
+- REVIEW: blog/botox-londrina-guia-completo.html: possible English residue in text:id:main/article[1]/div[1]/div[1]/section[17]/ul[1]/li[3]/a[1]:0: the, treatment

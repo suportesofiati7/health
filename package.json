@@ -22,7 +22,8 @@
     "seo:refresh": "python3 scripts/seo.py --apply",
     "maintain": "python3 scripts/maintenance.py",
     "validate": "npm run check:assets && npm run check:pt && npm run check:seo && npm run check:analytics",
-    "release:check": "npm run validate && npm run build"
+    "release:check": "npm run validate && npm run build",
+    "rebuild:sync": "python3 scripts/rebuild-and-sync.py"
   },
   "engines": {
     "node": ">=22.19"

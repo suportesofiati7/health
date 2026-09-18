@@ -33,6 +33,11 @@
       "pt-BR": "contato.html"
     },
     {
+      "id": "interest-form",
+      "en": "en/interest.html",
+      "pt-BR": "formulario-interesse.html"
+    },
+    {
       "id": "cookies",
       "en": "en/cookies.html",
       "pt-BR": "cookies.html"

@@ -4,11 +4,11 @@
 
 ## Coverage
 
-- Public HTML pages parsed: 197
-- Canonical, indexable URLs in sitemap: 190
+- Public HTML pages parsed: 199
+- Canonical, indexable URLs in sitemap: 192
 - Images audited: 710
 - Decorative images with empty alt text: 167
-- Post-hero navigation targets: 193
+- Post-hero navigation targets: 195
 
 ## Validation summary
 
@@ -181,6 +181,7 @@
 | `en/faq.html` | 42 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
 | `en/form.html` | 24 chars | 126 chars | `noindex, follow` | noindex utility |
 | `en/index.html` | 51 chars | 158 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage |
+| `en/interest.html` | 72 chars | 146 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, ContactPage |
 | `en/laser.html` | 48 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
 | `en/mission.html` | 46 chars | 145 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
 | `en/results.html` | 48 chars | 127 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
@@ -189,6 +190,7 @@
 | `en/thank-you.html` | 58 chars | 165 chars | `noindex, follow` | noindex utility |
 | `en/treatments.html` | 52 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Service, ItemList |
 | `en/values.html` | 39 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
+| `formulario-interesse.html` | 70 chars | 170 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, ContactPage |
 | `formulario.html` | 30 chars | 174 chars | `noindex, follow` | noindex utility |
 | `index.html` | 49 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, FAQPage |
 | `laser.html` | 49 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
@@ -352,6 +354,7 @@
 - [en/contact.html] title is 83 characters
 - [en/contact.html] description is 185 characters
 - [en/cookies.html] description is 92 characters
+- [en/interest.html] title is 72 characters
 - [en/testimonials.html] title is 83 characters
 - [missao.html] description is 116 characters
 - [servicos/peim-tratamento-estetico-para-microvasos.html] title is 72 characters

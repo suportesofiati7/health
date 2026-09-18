@@ -1,7 +1,7 @@
 {
   "status": "PASS",
-  "generatedAt": "2026-09-17T11:27:14.758485+00:00",
-  "pagesChecked": 176,
+  "generatedAt": "2026-09-18T13:34:01.991806+00:00",
+  "pagesChecked": 178,
   "scriptsPresent": {
     "required": [
       "analytics-config.js",
@@ -1581,6 +1581,16 @@
         "correctOrder": true
       },
       {
+        "page": "en/interest.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "en/laser.html",
         "scripts": [
           "../js/analytics-config.js",
@@ -1656,6 +1666,16 @@
           "../js/analytics-config.js",
           "../js/consent-manager.js",
           "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "formulario-interesse.html",
+        "scripts": [
+          "js/analytics-config.js",
+          "js/consent-manager.js",
+          "js/analytics.js"
         ],
         "count": 3,
         "correctOrder": true
@@ -1784,9 +1804,9 @@
     "gtmLoaderGuardImplemented": true
   },
   "formsChecked": {
-    "count": 10,
+    "count": 12,
     "trackedCount": 4,
-    "ignoredCount": 6,
+    "ignoredCount": 8,
     "records": [
       {
         "page": "consulta.html",
@@ -1865,6 +1885,18 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "en/interest.html",
+        "id": "interest-form",
+        "fields": 7,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "formulario-interesse.html",
+        "id": "interest-form",
+        "fields": 7,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "formulario.html",
         "id": "consent-authorisation-form",
         "fields": 53,
@@ -1914,7 +1946,7 @@
           "name": "all_pages_load_without_javascript_errors",
           "passed": true,
           "detail": {
-            "pages": 176,
+            "pages": 178,
             "errors": []
           }
         },

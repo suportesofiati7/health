@@ -5,6 +5,7 @@ import { initFloatingTools } from './components/floating-tools.js';
 import { initVirtualAssistant } from './components/virtual-assistant.js';
 import { initCookies } from './components/cookie-controls.js';
 import { initForms } from './components/forms.js';
+import { initClinicFunnel } from './components/clinic-funnel.js';
 import { initTreatmentDirectory } from './components/treatments.js';
 import { initFaqCategories, initFaqSearch } from './pages/faq.js';
 import { initBlogSearch } from './pages/blog.js';
@@ -38,6 +39,7 @@ export function initSite() {
     initCookies();
     initFooter();
     configureFormSubmitEndpoints();
+    initClinicFunnel();
     initForms();
     initFaqSearch();
     initFaqCategories();
