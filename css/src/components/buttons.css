@@ -54,6 +54,10 @@
     box-shadow: 0 .42rem .9rem rgb(20 37 27 / .08), inset 0 1px 0 rgb(255 255 255 / .86);
   }
 
+  .sfm-primary { border-color: var(--gold-300); background: color-mix(in srgb, var(--menu-green) 84%, #000); color: var(--ivory-50); }
+  .sfm-secondary { border-color: var(--gold-300); background: color-mix(in srgb, var(--menu-green) 72%, #000); color: var(--ivory-50); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ivory-50) 12%, transparent); }
+  .sfm-secondary:hover { background: color-mix(in srgb, var(--menu-green) 62%, #000); color: var(--ivory-50); }
+
   .sf-button--outline:hover, .sf-button--light:hover, .sffo-button:hover, .sfm-secondary:hover, .sfc-button--outline:hover { border-color: var(--gold-500); background: var(--ivory-50); color: var(--forest-900); }
 
   /* Tertiary: low-emphasis actions, still visibly interactive. */

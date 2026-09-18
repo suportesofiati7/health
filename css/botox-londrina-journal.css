@@ -114,53 +114,6 @@ body.sf-journal-article--botox-londrina .sja-main > .sf-breadcrumbs {
     transform-origin: center center;
   }
 
-  body.sf-journal-article--botox-londrina #sf-topbar-inline,
-  body.sf-journal-article--botox-londrina #sf-header-inline {
-    position: absolute;
-    z-index: 100;
-    inset-inline: 0;
-  }
-
-  body.sf-journal-article--botox-londrina #sf-topbar-inline {
-    inset-block-start: 0;
-  }
-
-  body.sf-journal-article--botox-londrina #sf-header-inline {
-    inset-block-start: 4.25rem;
-  }
-
-  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-header-shell {
-    background:
-      linear-gradient(90deg, rgb(39 60 45 / .78), rgb(39 60 45 / .62)),
-      rgb(39 60 45 / .42);
-    border-color: rgb(242 198 109 / .48);
-    box-shadow: 0 1rem 2.8rem rgb(15 24 18 / .24), inset 0 1px 0 rgb(255 253 248 / .14);
-    color: var(--ivory-50);
-    backdrop-filter: blur(10px);
-  }
-
-  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-brand,
-  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-nav-link,
-  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-contact {
-    color: var(--ivory-50);
-  }
-
-  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-brand-role,
-  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-nav-link[aria-current],
-  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-nav-link.is-current {
-    color: var(--blx-gold);
-  }
-
-  body.sf-journal-article--botox-londrina #sf-header-inline .sfi-contact {
-    border-color: rgb(242 198 109 / .72);
-    background: rgb(255 253 248 / .08);
-  }
-
-  body.sf-journal-article--botox-londrina #sf-header-inline.is-scrolled .sfi-header-shell {
-    background: var(--ivory-50);
-    color: var(--color-text-primary);
-    backdrop-filter: none;
-  }
 }
 
 .sf-journal-article .sja-article--botox-londrina .sja-reading-grid--full {

@@ -13,7 +13,7 @@
     /* The menu is the colour reference for every viewport-wide green surface.
        Bands and the footer use the translucent derivative so the shared page
        panorama can remain faintly visible beneath the same green. */
-    --menu-green: #3f5039;
+    --menu-green: #66745F;
     --menu-green-overlay: color-mix(in srgb, var(--menu-green) 92%, transparent);
     --olive-700: var(--menu-green);
     --forest-700: #334734;

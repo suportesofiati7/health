@@ -193,13 +193,18 @@
     .sfi-contact-icon { inline-size: 1.7rem; block-size: 1.7rem; flex: 0 0 auto; border-radius: 50%; background: var(--gold-500); color: var(--champagne-100); }
   }
 
-  @media (max-width: 55.999rem) { .sfi-nav { display: none; } .sfi-menu-button { display: grid; } }
-  @media (max-width: 45rem) {
-    #sf-header-inline { inset-block-start: .35rem; padding-inline: .6rem; }
-    .sfi-header-shell { min-block-size: 4.1rem; grid-template-columns: minmax(0, 1fr) auto; padding: .48rem; }
+  /* Desktop is the same approved navigation from 64rem upward. Tablet and
+     mobile use the shared menu trigger below that breakpoint. */
+  @media (max-width: 63.999rem) { .sfi-nav { display: none; } .sfi-menu-button { display: grid; } }
+  @media (max-width: 47.999rem) {
+    #sf-header-inline { position: relative; inset-block-start: 0; padding-inline: .6rem; }
+    .sfi-header-shell { min-block-size: 4.1rem; grid-template-columns: minmax(0, 1fr) auto; padding: .48rem; border-color: color-mix(in srgb, var(--gold-300) 62%, transparent); background: var(--menu-green); color: var(--ivory-50); box-shadow: 0 .75rem 1.6rem rgb(14 23 13 / .2), inset 0 1px 0 color-mix(in srgb, var(--ivory-50) 15%, transparent); }
+    .sfi-header-shell::before { background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold-300) 62%, transparent), transparent); }
     .sfi-brand-mark { inline-size: 2.85rem; block-size: 2.85rem; }
     .sfi-brand-logo { inline-size: 1.78rem; block-size: 1.78rem; }
-    .sfi-brand-name { font-size: 1.3rem; }
+    .sfi-brand-name { color: var(--ivory-50); font-size: 1.3rem; }
+    .sfi-brand-role { color: var(--rose-gold-500); }
+    .sfi-menu-button { border-color: color-mix(in srgb, var(--gold-300) 74%, transparent); background: color-mix(in srgb, var(--menu-green) 78%, #000); color: var(--gold-200); }
     .sfi-actions .sfi-contact { display: none; }
   }
   @media (max-width: 24.5rem) { .sfi-brand-role { display: none; } .sfi-brand-name { font-size: 1.16rem; } }
