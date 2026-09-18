@@ -48,6 +48,14 @@
   @media (max-width: 26.875rem) { .sft-motto { display: none; } .sft-inner { grid-template-columns: 1fr; } .sft-actions { justify-content: flex-end; } }
 }
 
+/* The utility chrome stays visually light over the page artwork. */
+@layer components {
+  #sf-language-strip-inline { background: transparent; }
+  #sf-language-strip-inline a { border: 1px solid color-mix(in srgb, var(--gold-300) 72%, transparent); border-radius: .2rem; background: var(--menu-green); color: var(--ivory-50); }
+  #sf-language-strip-inline a + a { margin-inline-start: .15rem; }
+  #sf-language-strip-inline a:hover, #sf-language-strip-inline a:focus-visible, html[lang="en"] #sf-language-strip-inline a[lang="en"], html[lang="pt-BR"] #sf-language-strip-inline a[lang="pt-BR"] { background: var(--menu-green); color: var(--gold-300); }
+}
+
 /* One lightweight utility row: all secondary links live here, above the
    single shared brand header. */
 @layer components {
