@@ -103,6 +103,8 @@ import ContextActions from "./ContextActions";
 import { emailSubject, missingPlaceholders, normalizeMessageText, renderTemplate, sendFormSubmitEmail, valuesForPatient } from "./communicationTemplates";
 import { setProcedureCatalog, SmartTextControl } from "./autocomplete";
 import { PatientPicker, TemplatePicker } from "./PatientPicker";
+// App chrome and generated documents share the same clinic brand source.
+const LOGO = "/brand.png";
 const LAST_VIEW_KEY = "sofiati-last-management-view";
 const PERSISTED_VIEWS = ["home", "communication", "patients", "agenda", "tasks", "enquiries", "reports", "finance", "procedures", "quality", "settings"];
 function Button({ icon: Icon, children, className = "", ...props }) {
@@ -112,6 +114,15 @@ function Button({ icon: Icon, children, className = "", ...props }) {
       {children}
     </button>
   );
+}
+function ClinicTopbarMeta({ t }) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => { const timer = window.setInterval(() => setNow(new Date()), 30000); return () => window.clearInterval(timer); }, []);
+  return <div className="clinic-topbar-meta">
+    <time dateTime={now.toISOString()}><Clock size={14} />{new Intl.DateTimeFormat(t("pt-BR", "en-GB"), { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(now)}</time>
+    <a href="https://francielesofiati.com/" target="_blank" rel="noopener noreferrer" title={t("Abrir site", "Open website")}><img src={LOGO} alt="" /></a>
+    <a href="https://www.instagram.com/sofiati_biomedica/" target="_blank" rel="noopener noreferrer" title="Instagram"><span aria-hidden="true">◎</span><span>@sofiati_biomedica</span></a>
+  </div>;
 }
 function Status({ value }) {
   const t = useT();
@@ -808,6 +819,7 @@ function Clinic({ language, setLanguage }) {
                   ? t("Prontuário", "Patient record")
                   : nav.find((n) => n[0] === view)?.[2]}
               </span>
+              <ClinicTopbarMeta t={t} />
               <button className="global-command-trigger" onClick={() => setCommandOpen(true)} aria-label={t("Buscar paciente ou ação", "Search a patient or action")}><Search size={17} /><span>{t("Buscar paciente ou agir…", "Search or take action…")}</span><kbd>⌘ K</kbd></button>
               <div className="topbar-right">
                 {languageControl}
