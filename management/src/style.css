@@ -1097,8 +1097,12 @@ main#main {
 .role-invite-help { margin-top:-8px; }
 .permission-cell { display:flex;align-items:center;gap:8px;padding:12px;border:1px solid var(--line, #d8dfd4);border-radius:10px; }
 .procedure-catalog-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; }
+.procedure-catalog-context { position:relative; min-width:0; }
 .procedure-catalog-card { overflow:hidden; border:1px solid var(--ui-border); border-radius:16px; background:var(--ui-surface); box-shadow:var(--ui-shadow); }
-.procedure-catalog-image { min-height:136px; background:linear-gradient(135deg,#87977d55,#ca887f55), url("https://francielesofiati.com/assets/social/content-pages/servicos/peeling-retinoico.png") center/cover; }
+.procedure-catalog-image { display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; background:linear-gradient(135deg,#87977d55,#ca887f55); }
+.procedure-image-editor-preview { display:grid; gap:6px; }
+.procedure-image-editor-preview img { display:block; width:min(100%,640px); aspect-ratio:16 / 9; object-fit:cover; border-radius:12px; background:linear-gradient(135deg,#87977d55,#ca887f55); }
+.procedure-image-editor-preview small { color:var(--ui-text-secondary); font-size:11px; }
 .procedure-catalog-card-content { display:grid; gap:9px; padding:14px; }
 .procedure-catalog-card-content > span { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
 .procedure-catalog-card-content strong { display:block; color:var(--ui-text); }

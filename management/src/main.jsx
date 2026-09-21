@@ -48,6 +48,7 @@ import {
   Receipt,
   Upload,
   Camera,
+  Image,
   Trash2,
   CheckCircle2,
   Phone,
@@ -96,6 +97,7 @@ import {
 import { encryptPackets, decryptPackets, fileBase64, download } from "./crypto";
 import { Language, useT, label } from "./i18n";
 import "./style.css";
+import "./responsive-overhaul.css";
 const FinanceiroRebuilt = lazy(() => import("./FinanceiroRebuilt"));
 const CommunicationHub = lazy(() => import("./CommunicationHub"));
 import { documentEscape, openDocument, receiptDocumentHTML, reportDocumentHTML } from "./documentSystem";
@@ -666,6 +668,19 @@ function Clinic({ language, setLanguage }) {
     window.addEventListener("keydown", onShortcut);
     return () => window.removeEventListener("keydown", onShortcut);
   }, []);
+  useEffect(() => {
+    if (!menu) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setMenu(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [menu]);
   const languageControl = (
     <div className="languages" aria-label={t("Idioma", "Language")}>
       {["pt", "en"].map((l) => (
@@ -805,12 +820,14 @@ function Clinic({ language, setLanguage }) {
               <span>{t("Ambiente restrito", "Restricted workspace")}</span>
             </div>
           </aside>
+          {menu && <button type="button" className="sidebar-scrim" aria-label={t("Fechar menu", "Close menu")} onClick={() => setMenu(false)} />}
           <div className="workspace">
             <header className="topbar">
               <Button
                 icon={Menu}
                 className="icon mobile-menu"
                 aria-label={t("Menu", "Menu")}
+                aria-expanded={menu}
                 onClick={() => setMenu(!menu)}
               />
               <span className="breadcrumb">
@@ -4864,8 +4881,14 @@ function ProcedureCatalog({ notify }) {
     ["depilacao", "Depilação"],
     ["outro", "Outro"],
   ];
-  const blank = { name: "", category: "outro", description: "", purpose: "", indications: "", areas: "", default_duration: 60, interval_days: 30, sessions: "", follow_up: "", followup_days: 30, price: "", commercial_config: "{}", benefits: "", before_after_care: "", recovery: "", expected_results: "", clinical_details: "{}", official_information: "{}", protocol_instructions: "", materials: "{}", documents: "{}", availability: "{}", source_references: "[]", booking_buffer_minutes: 0, room_requirement: "", eligible_roles: "[]", questionnaire: "[]", required_consents: "[]", public_description: "", review_status: "aprovacao_pendente", next_review_on: "", product_relevant: false, lot_required: false, device_relevant: false, photos_expected: false, treatment_areas: "", consent_template: "", consent_template_version: "", post_care: "", relevant_fields: "{}", device_parameters: "[]", contraindications: "", risks: "", precautions: "", products: "", equipment: "", consumables: "", consent_requirements: "", photo_requirements: "", availability_notes: "", assessment_questions: "" };
-  const procedureImage = (procedure) => { const name = `${procedure?.name || ""} ${procedure?.category || ""}`.toLowerCase(); const slug = name.includes("toxina") ? "toxina-botulinica-terco-superior-da-face" : name.includes("ultraformer") ? "ultraformer-mpt" : name.includes("light sheer") || name.includes("pelos") ? "reducao-de-pelos-a-laser-com-lightsheer-duet" : name.includes("co2") || name.includes("acu") ? "laser-acupulse-co2" : name.includes("microagul") || name.includes("mmp") ? "microagulhamento" : name.includes("capilar") ? "mesoterapia-capilar" : name.includes("limpeza") ? "limpeza-de-pele-profunda" : name.includes("peeling") ? "peeling-retinoico" : name.includes("vasinho") || name.includes("peim") ? "peim-tratamento-estetico-para-microvasos" : name.includes("laser") ? "plataforma-harmony-de-laser-e-luz" : "planejamento-estetico-rejuvenescimento-facial-biomedica-esteta"; return `https://francielesofiati.com/assets/social/content-pages/servicos/${slug}.png`; };
+  const blank = { name: "", category: "outro", image_url: "", description: "", purpose: "", indications: "", areas: "", default_duration: 60, interval_days: 30, sessions: "", follow_up: "", followup_days: 30, price: "", commercial_config: "{}", benefits: "", before_after_care: "", recovery: "", expected_results: "", clinical_details: "{}", official_information: "{}", protocol_instructions: "", materials: "{}", documents: "{}", availability: "{}", source_references: "[]", booking_buffer_minutes: 0, room_requirement: "", eligible_roles: "[]", questionnaire: "[]", required_consents: "[]", public_description: "", review_status: "aprovacao_pendente", next_review_on: "", product_relevant: false, lot_required: false, device_relevant: false, photos_expected: false, treatment_areas: "", consent_template: "", consent_template_version: "", post_care: "", relevant_fields: "{}", device_parameters: "[]", contraindications: "", risks: "", precautions: "", products: "", equipment: "", consumables: "", consent_requirements: "", photo_requirements: "", availability_notes: "", assessment_questions: "" };
+  const procedureImage = (procedure) => {
+    if (procedure?.image_url) return procedure.image_url;
+    const name = `${procedure?.name || ""} ${procedure?.category || ""}`.toLowerCase();
+    const matches = [["toxina", "toxina-botulinica-terco-superior-da-face"], ["ultraformer", "ultraformer-mpt"], ["light sheer", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["pelos", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["co2", "laser-acupulse-co2"], ["acu", "laser-acupulse-co2"], ["microagul", "microagulhamento"], ["mmp", "mmp-microinfusao-de-medicamentos-na-pele"], ["capilar", "mesoterapia-capilar"], ["limpeza", "limpeza-de-pele-profunda"], ["jessner", "peeling-de-jessner"], ["cristal", "peeling-de-cristal-microdermoabrasao"], ["diamante", "peeling-de-diamante"], ["ultrasson", "peeling-ultrassonico"], ["retino", "peeling-retinoico"], ["peeling", "peeling-retinoico"], ["vasinho", "peim-tratamento-estetico-para-microvasos"], ["peim", "peim-tratamento-estetico-para-microvasos"], ["plasma", "tecnologia-de-plasma"], ["radiofrequencia", "radiofrequencia"], ["laser", "plataforma-harmony-de-laser-e-luz"], ["mancha", "protocolo-profissional-de-despigmentacao"]];
+    const slug = matches.find(([term]) => name.includes(term))?.[1] || "limpeza-de-pele-profunda";
+    return `https://francielesofiati.com/assets/social/content-pages/servicos/${slug}.png`;
+  };
   const [form, setForm] = useState(blank), [editing, setEditing] = useState(null), [busy, setBusy] = useState(false);
   const state = useLoad(() => checked(db.from("procedures").select("*").order("active", { ascending: false }).order("name")), [editing]);
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
@@ -4890,6 +4913,8 @@ function ProcedureCatalog({ notify }) {
     {!!editing && <form className="form-grid" onSubmit={saveProcedure}>
       <Field title={t("Nome", "Name")} value={form.name} onChange={(v) => set("name", v)} required wide />
       <Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} options={categories.map(([value, pt]) => ({ value, label: t(pt, pt) }))} />
+      <Field title={t("Imagem do serviço (URL)", "Service image (URL)")} value={form.image_url} onChange={(v) => set("image_url", v)} wide />
+      <div className="procedure-image-editor-preview wide"><img src={procedureImage(form)} alt={form.name || t("Prévia da imagem do serviço", "Service image preview")} /><small>{t("Prévia 16:9 · use uma imagem própria ou um endereço HTTPS online. Deixe vazio para usar a imagem sugerida para este serviço.", "16:9 preview · use your own image or an online HTTPS image URL. Leave empty to use the suggested image for this service.")}</small></div>
       <Field title={t("Descrição", "Description")} type="textarea" value={form.description} onChange={(v) => set("description", v)} wide />
       <Field title={t("Finalidade", "Purpose")} type="textarea" value={form.purpose} onChange={(v) => set("purpose", v)} />
       <Field title={t("Indicações", "Indications")} type="textarea" value={form.indications} onChange={(v) => set("indications", v)} />
@@ -4932,7 +4957,7 @@ function ProcedureCatalog({ notify }) {
       <Field title={t("Parâmetros do equipamento (JSON)", "Device parameters (JSON)")} type="textarea" value={form.device_parameters} onChange={(v) => set("device_parameters", v)} />
       <footer className="form-footer"><Button type="button" onClick={() => { setEditing(null); setForm(blank); }}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Save} disabled={busy}>{busy ? t("Salvando...", "Saving...") : t("Salvar", "Save")}</Button></footer>
     </form>}
-    <LoadState state={state}>{(rows) => <div className="procedure-catalog-grid">{rows.map((procedure) => <div className="procedure-catalog-card" key={procedure.id}><div className="procedure-catalog-image" role="img" aria-label={procedure.name} /><div className="procedure-catalog-card-content"><span><strong>{procedure.name}</strong><small>{label(procedure.category, t)} · {procedure.price_cents == null ? t("preço não definido", "price not set") : `R$ ${(Number(procedure.price_cents) / 100).toFixed(2).replace(".", ",")} `} · {procedure.default_duration} min</small></span><Status value={procedure.active ? "ativo" : "inativo"} /><p>{procedure.description || t("Descrição pendente no catálogo.", "Catalogue description pending.")}</p><div className="procedure-catalog-card-actions"><Button onClick={() => edit(procedure)}>{t("Editar", "Edit")}</Button><Button onClick={() => draftFill(procedure)}>{t("Completar texto", "Complete text")}</Button><Button onClick={async () => { await checked(db.from("procedures").update({ active: !procedure.active }).eq("id", procedure.id)); state.refresh(); }}>{procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate")}</Button></div></div></div>)}{!rows.length && <Empty icon={ClipboardList}>{t("Nenhum procedimento configurado.", "No procedures configured.")}</Empty>}</div>}</LoadState>
+    <LoadState state={state}>{(rows) => <div className="procedure-catalog-grid">{rows.map((procedure) => <ContextActions key={procedure.id} label={procedure.name} actions={[{ icon: Pencil, label: t("Editar serviço e catálogo", "Edit service and catalogue"), onClick: () => edit(procedure) }, { icon: Image, label: t("Alterar imagem", "Change image"), onClick: () => edit(procedure) }, { icon: FileText, label: t("Completar texto", "Complete text"), onClick: () => draftFill(procedure) }, { icon: procedure.active ? EyeOff : Eye, label: procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate"), onClick: async () => { await checked(db.from("procedures").update({ active: !procedure.active }).eq("id", procedure.id)); state.refresh(); } }]} className="procedure-catalog-context"><article className="procedure-catalog-card"><img className="procedure-catalog-image" src={procedureImage(procedure)} alt={procedure.name} loading="lazy" /><div className="procedure-catalog-card-content"><span><strong>{procedure.name}</strong><small>{label(procedure.category, t)} · {procedure.price_cents == null ? t("preço não definido", "price not set") : `R$ ${(Number(procedure.price_cents) / 100).toFixed(2).replace(".", ",")} `} · {procedure.default_duration} min</small></span><Status value={procedure.active ? "ativo" : "inativo"} /><p>{procedure.description || t("Descrição pendente no catálogo.", "Catalogue description pending.")}</p><div className="procedure-catalog-card-actions"><Button onClick={() => edit(procedure)}>{t("Editar", "Edit")}</Button><Button onClick={() => draftFill(procedure)}>{t("Completar texto", "Complete text")}</Button><Button onClick={async () => { await checked(db.from("procedures").update({ active: !procedure.active }).eq("id", procedure.id)); state.refresh(); }}>{procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate")}</Button></div></div></article></ContextActions>)}{!rows.length && <Empty icon={ClipboardList}>{t("Nenhum procedimento configurado.", "No procedures configured.")}</Empty>}</div>}</LoadState>
   </section>;
 }
 function TraceabilityCatalog({ notify }) {

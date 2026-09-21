@@ -1,0 +1,218 @@
+/* Responsive system pass: shared shell, forms, records and dense workspaces. */
+:root {
+  --sidebar-width: 252px;
+  --header-height: 70px;
+  --content-width: 1880px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { min-width: 320px; scroll-padding-top: calc(var(--header-height) + 16px); }
+body { min-width: 320px; overflow-x: hidden; }
+.app-shell { min-width: 0; grid-template-columns: var(--sidebar-width) minmax(0, 1fr); }
+.workspace, #main, #main > *, .detail-section, .patient-workspace, .patient-content,
+.page-head > *, .toolbar > *, .section-heading > *, .form-grid > *, .rows > *,
+.list-row > *, .communication-card > *, .report-builder > *, .finance-workspace > * { min-width: 0; }
+.workspace { width: 100%; max-width: 100%; }
+.sidebar { z-index: 1000; }
+.sidebar nav button { min-height: 46px; }
+.sidebar-scrim { display: none; }
+.topbar { min-height: var(--header-height); height: auto; padding-inline: clamp(20px, 2.1vw, 40px); gap: clamp(10px, 1.25vw, 20px); }
+.breadcrumb { flex: 0 1 auto; min-width: 0; white-space: nowrap; }
+.clinic-topbar-meta { flex: 0 1 auto; min-width: 0; }
+.global-command-trigger { flex: 1 1 210px; min-width: 38px; max-width: 420px; }
+.topbar-right { flex: 0 0 auto; min-width: 0; }
+main#main { width: 100%; max-width: var(--content-width); padding: clamp(24px, 2.6vw, 48px) clamp(24px, 3vw, 58px) 64px; overflow-x: clip; }
+.app-footer { gap: 12px; padding-inline: clamp(24px, 3vw, 58px); }
+
+/* Keep editing controls and cards legible at laptop and desktop sizes. */
+.page-head { align-items: flex-end; flex-wrap: wrap; gap: 16px 28px; }
+.page-head > :first-child { flex: 1 1 300px; }
+.page-head .actions { flex-wrap: wrap; }
+.toolbar, .section-heading { min-width: 0; flex-wrap: wrap; }
+.toolbar > :first-child { min-width: min(260px, 100%); }
+.form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; }
+.form-grid > .wide, .form-grid > .form-section-title.wide,
+.form-grid > .form-footer, .form-grid > .notice.wide { grid-column: 1 / -1; }
+.field { min-width: 0; }
+.field input:not(.file-picker-input), .field select, .field textarea, .search, .smart-field-control { width: 100%; min-width: 0; max-width: 100%; }
+.field textarea { min-height: 104px; resize: vertical; }
+.form-footer { display: flex; flex-wrap: wrap; gap: 10px; }
+.form-footer button { min-height: 42px; }
+.tabs, .segmented { max-width: 100%; }
+.tabs { overflow-x: auto; scrollbar-width: thin; }
+.tabs button, .segmented button { flex: 0 0 auto; min-height: 42px; }
+.detail-section { max-width: 100%; }
+.master-intake-grid, .procedure-catalog-grid, .role-catalog-grid,
+.patient-grid, .recent-grid, .home-grid, .home-grid-bottom,
+.report-metrics, .quality-metric-grid { min-width: 0; }
+.patient-card, .communication-card, .document-row, .list-row { overflow-wrap: anywhere; }
+table { max-width: 100%; }
+.modal-backdrop { padding: clamp(12px, 3vw, 28px); }
+.modal { width: min(100%, 920px); max-height: min(90dvh, 1000px); overflow: auto; }
+
+@media (min-width: 1700px) {
+  :root { --sidebar-width: 272px; }
+  .sidebar { padding-inline: 18px; }
+  .sidebar nav button { min-height: 48px; font-size: 13px; }
+  main#main { padding-inline: clamp(58px, 4vw, 92px); }
+}
+
+@media (max-width: 1200px) and (min-width: 761px) {
+  :root { --sidebar-width: 218px; }
+  .sidebar { padding: 18px 11px; }
+  .sidebar .brand { margin-inline: 0; }
+  .sidebar .brand > span { font-size: 15px; }
+  .sidebar nav button { gap: 9px; padding-inline: 9px; font-size: 12px; }
+  .topbar { padding-inline: 20px; }
+  .clinic-topbar-meta { display: none; }
+  main#main { padding: 26px 26px 52px; }
+  .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
+  .dashboard-grid > section + section { border-left: 0; }
+  .home-grid, .home-grid-bottom { grid-template-columns: minmax(0, 1fr); }
+  .detail-section { padding: clamp(16px, 2vw, 24px); }
+}
+
+@media (max-width: 900px) and (min-width: 761px) {
+  :root { --sidebar-width: 202px; }
+  .sidebar { padding-inline: 9px; }
+  .sidebar .brand img { width: 40px; height: 40px; }
+  .sidebar .brand > span { font-size: 13px; }
+  .sidebar nav button { min-height: 43px; font-size: 11px; }
+  .topbar { gap: 10px; padding-inline: 15px; }
+  .breadcrumb { font-size: 11px; gap: 6px; }
+  .global-command-trigger { flex-basis: 40px; max-width: 42px; justify-content: center; padding-inline: 0; }
+  .global-command-trigger span, .global-command-trigger kbd { display: none; }
+  .topbar-right { gap: 4px; }
+  .topbar-right .user-name, .topbar-right .user-avatar { display: none; }
+  main#main { padding: 22px 20px 44px; }
+  .recent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  :root { --header-height: 60px; }
+  html, body, #root { width: 100%; max-width: 100%; }
+  .app-shell { display: block; min-height: 100dvh; }
+  .workspace { min-height: 100dvh; }
+  .sidebar {
+    display: flex;
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1001;
+    width: min(330px, calc(100vw - 48px));
+    height: 100dvh;
+    padding: max(16px, env(safe-area-inset-top)) 14px max(18px, env(safe-area-inset-bottom));
+    transform: translateX(-105%);
+    transition: transform .22s ease;
+    box-shadow: var(--shadow-overlay);
+    overscroll-behavior: contain;
+  }
+  .sidebar.open { display: flex; transform: translateX(0); }
+  .sidebar .brand { display: flex; min-height: 84px; margin: 0 4px 16px; padding: 8px 6px 16px; }
+  .sidebar .brand img { width: 46px; height: 46px; }
+  .sidebar nav { gap: 5px; overflow-y: auto; }
+  .sidebar nav button { min-height: 48px; padding: 10px 12px; font-size: 14px; }
+  .sidebar-bottom { margin-top: auto; padding-bottom: 8px; }
+  .sidebar-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100dvh;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: rgb(23 31 24 / 42%);
+    box-shadow: none;
+    backdrop-filter: blur(2px);
+  }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    display: flex;
+    min-height: var(--header-height);
+    height: auto;
+    padding: 7px max(12px, env(safe-area-inset-right)) 7px max(12px, env(safe-area-inset-left));
+    gap: 7px;
+    overflow: visible;
+    box-shadow: 0 5px 18px rgb(36 46 36 / 5%);
+  }
+  .mobile-menu { display: inline-flex; flex: 0 0 40px; width: 40px; height: 40px; justify-content: center; padding: 0; }
+  .breadcrumb { flex: 1 1 auto; min-width: 0; margin: 0; gap: 5px; overflow: hidden; font-size: 11px; text-overflow: ellipsis; }
+  .clinic-topbar-meta { display: none; }
+  .global-command-trigger { display: inline-flex; flex: 0 0 40px; width: 40px; height: 40px; margin: 0; padding: 0; justify-content: center; }
+  .global-command-trigger span, .global-command-trigger kbd { display: none; }
+  .topbar-right { flex: 0 0 auto; gap: 3px; }
+  .topbar-right .user-name, .topbar-right .user-avatar { display: none; }
+  .topbar-right > .icon { width: 38px; min-width: 38px; height: 40px; padding: 0; }
+  .languages button { min-width: 30px; min-height: 38px; padding: 5px; font-size: 10px; }
+  main#main { width: 100%; max-width: none; margin: 0; padding: 22px 16px max(38px, env(safe-area-inset-bottom)); overflow-x: clip; }
+  .app-footer { padding: 14px 16px max(14px, env(safe-area-inset-bottom)); font-size: 10px; }
+  .page-head { align-items: stretch; flex-direction: column; gap: 14px; margin-bottom: 20px; padding-bottom: 18px; }
+  .page-head > :first-child { flex: 0 1 auto; }
+  .page-head h1 { font-size: clamp(29px, 8vw, 38px); line-height: 1.06; overflow-wrap: anywhere; }
+  .page-head .actions { flex: 0 0 auto; width: 100%; justify-content: flex-start; }
+  .page-head .actions > button { flex: 1 1 auto; }
+  .toolbar { align-items: stretch; gap: 12px; }
+  .toolbar > :first-child { min-width: 100%; }
+  .toolbar > button, .toolbar > .button { width: 100%; }
+  .section-heading { align-items: flex-start; gap: 9px; }
+  .form-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .form-grid > .wide, .form-grid > .form-section-title.wide,
+  .form-grid > .form-footer, .form-grid > .notice.wide { grid-column: 1; }
+  .field > span { font-size: 12px; }
+  .field input:not(.file-picker-input), .field select, .field textarea, .search { min-height: 44px; font-size: 16px; }
+  .field textarea { min-height: 112px; }
+  .form-footer { position: sticky; bottom: 0; z-index: 20; margin: 12px -16px -16px; padding: 12px 16px max(12px, env(safe-area-inset-bottom)); border-top: 1px solid var(--ui-border); background: color-mix(in srgb, var(--ui-surface) 94%, transparent); backdrop-filter: blur(14px); }
+  .form-footer button { flex: 1 1 130px; min-height: 46px; }
+  .tabs { margin-inline: -16px; padding-inline: 16px; }
+  .tabs button, .segmented button { min-height: 44px; }
+  .detail-section { margin-block: 12px; padding: 16px; border-radius: 15px; }
+  .detail-section + .detail-section { margin-top: 12px; }
+  .master-intake-grid, .procedure-catalog-grid, .role-catalog-grid,
+  .patient-grid, .home-grid, .home-grid-bottom { grid-template-columns: minmax(0, 1fr); }
+  .recent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .today-strip { grid-template-columns: minmax(0, 1fr); }
+  .today-strip > div + div { padding-left: 16px; border-left: 0; border-top: 1px solid var(--ui-divider); }
+  .metric-grid, .home-metrics, .report-metrics, .quality-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .patient-heading { align-items: flex-start; padding: 18px 16px; }
+  .patient-heading > .actions { width: 100%; }
+  .patient-heading > .actions button { flex: 1 1 120px; }
+  .journey { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .journey button { min-width: 0; }
+  .list-row, .document-row { align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+  .list-row > span:first-child, .document-row > span { flex: 1 1 100%; }
+  .list-row .row-actions, .document-row > button { flex: 1 1 auto; }
+  .communication-card { align-items: flex-start; flex-wrap: wrap; }
+  .communication-card > div:nth-child(2) { flex: 1 1 calc(100% - 52px); }
+  .communication-card-actions { flex: 1 1 100%; width: 100%; margin: 0; }
+  .communication-card-actions button { flex: 1 1 auto; min-height: 42px; }
+  .calendar-shell, .agenda-zero-shell, .agenda-simple-shell { max-width: 100%; }
+  table { display: block; width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+  .modal-backdrop { align-items: flex-end; padding: 8px; }
+  .modal { width: 100%; max-width: 100%; max-height: calc(100dvh - 16px); padding: 18px 16px max(18px, env(safe-area-inset-bottom)); border-radius: 20px 20px 12px 12px; }
+  .communication-composer { min-width: 0; }
+}
+
+@media (max-width: 430px) {
+  .topbar { gap: 4px; padding-inline: 8px; }
+  .mobile-menu, .global-command-trigger { flex-basis: 36px; width: 36px; min-width: 36px; height: 38px; }
+  .breadcrumb { font-size: 10px; }
+  .topbar-right { gap: 1px; }
+  .topbar-right > .icon { flex: 0 0 34px; width: 34px; min-width: 34px; height: 38px; }
+  .languages button { min-width: 26px; padding-inline: 3px; }
+  main#main { padding: 18px 12px 34px; }
+  .app-footer { padding-inline: 12px; }
+  .detail-section { padding: 14px 12px; }
+  .recent-grid, .metric-grid, .home-metrics, .report-metrics,
+  .quality-metric-grid, .journey { grid-template-columns: minmax(0, 1fr); }
+  .home-hero { padding: 16px; }
+  .home-hero h2 { font-size: clamp(28px, 9vw, 36px); }
+  .segmented { max-width: 100%; overflow-x: auto; }
+  .form-footer { margin-inline: -12px; padding-inline: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar { transition: none; }
+}

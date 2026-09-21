@@ -823,6 +823,7 @@ export default function Financeiro({ notify, version }) {
                           { icon: Receipt, label: t("Abrir recibo / PDF", "Open receipt / PDF"), onClick: () => openReceipt(record) },
                         ]}
                         actionLabel={t("Ações rápidas", "Quick actions")}
+                        showTrigger={false}
                       >
                         <div className="finance-row-actions">
                           {recordBalance(record) > 0 && <button type="button" className="finance-detail-button finance-quick-payment" onClick={() => setExpanded(record.id)}>{t("Registrar pagamento", "Record payment")}</button>}
