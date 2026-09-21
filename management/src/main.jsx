@@ -327,20 +327,41 @@ function PhotoPicker({ value, onChange, hasPhoto = false, onRemove, title }) {
     {camera && <div className="camera-capture"><video ref={video} playsInline muted onLoadedMetadata={() => setVideoReady(true)} /><Button type="button" className="primary" disabled={!videoReady} icon={Camera} onClick={capture}>{videoReady ? t("Capturar", "Capture") : t("Preparando câmera...", "Preparing camera...")}</Button><Button type="button" onClick={stop}>{t("Cancelar", "Cancel")}</Button></div>}
   </div>;
 }
+function procedureImageSlug(procedure) {
+  const name = `${procedure?.name || ""} ${procedure?.category || ""}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/₂/g, "2");
+  const matches = [["terco inferior", "toxina-botulinica-platisma-e-terco-inferior"], ["platisma", "toxina-botulinica-platisma-e-terco-inferior"], ["ata", "peeling-de-ata"], ["ultraformer", "ultraformer-mpt"], ["light sheer", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["lightsheer", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["depilacao", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["hair removal", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["pelos", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["co2", "laser-acupulse-co2"], ["acu", "laser-acupulse-co2"], ["mmp", "mmp-microinfusao-de-medicamentos-na-pele"], ["microagul", "microagulhamento"], ["capilar", "mesoterapia-capilar"], ["limpeza", "limpeza-de-pele-profunda"], ["cleansing", "limpeza-de-pele-profunda"], ["jessner", "peeling-de-jessner"], ["cristal", "peeling-de-cristal-microdermoabrasao"], ["diamante", "peeling-de-diamante"], ["ultrasson", "peeling-ultrassonico"], ["retino", "peeling-retinoico"], ["vasinho", "peim-tratamento-estetico-para-microvasos"], ["microvaso", "peim-tratamento-estetico-para-microvasos"], ["peim", "peim-tratamento-estetico-para-microvasos"], ["plasma", "tecnologia-de-plasma"], ["radiofrequencia", "radiofrequencia"], ["melasma", "protocolo-profissional-de-despigmentacao"], ["pigment", "protocolo-profissional-de-despigmentacao"], ["mancha", "protocolo-profissional-de-despigmentacao"], ["harmony", "plataforma-harmony-de-laser-e-luz"], ["laser", "plataforma-harmony-de-laser-e-luz"], ["peeling", "peeling-retinoico"]];
+  return matches.find(([term]) => name.includes(term))?.[1] || "limpeza-de-pele-profunda";
+}
+function procedureOnlineImageUrl(procedure) {
+  const sourceNames = {
+    "peeling-de-ata": "peeling-ata",
+    "peeling-de-jessner": "peeling-jessner",
+    "protocolo-profissional-de-despigmentacao": "protocolo-despigmentacao",
+    "toxina-botulinica-terco-superior-da-face": "toxina-botulinica-terco-superior",
+    "peim-tratamento-estetico-para-microvasos": "peim-microvasos",
+    "plataforma-harmony-de-laser-e-luz": "plataforma-harmony-laser-luz",
+    "mmp-microinfusao-de-medicamentos-na-pele": "mmp-microinfusao",
+    "tecnologia-de-plasma": "tecnologia-plasma-jet",
+    "reducao-de-pelos-a-laser-com-lightsheer-duet": "lightsheer-duet-depilacao-laser",
+    "toxina-botulinica-platisma-e-terco-inferior": "toxina-botulinica-platisma-terco-inferior",
+  };
+  const slug = procedureImageSlug(procedure);
+  return `https://francielesofiati.com/assets/treatments/services/${sourceNames[slug] || slug}.png`;
+}
 function procedureImageUrl(procedure) {
   if (procedure?.image_url && !procedure.image_url.startsWith("storage://")) return procedure.image_url;
-  const name = `${procedure?.name || ""} ${procedure?.category || ""}`.toLowerCase();
-  const matches = [["toxina", "toxina-botulinica-terco-superior-da-face"], ["ultraformer", "ultraformer-mpt"], ["light sheer", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["pelos", "reducao-de-pelos-a-laser-com-lightsheer-duet"], ["co2", "laser-acupulse-co2"], ["acu", "laser-acupulse-co2"], ["microagul", "microagulhamento"], ["mmp", "mmp-microinfusao-de-medicamentos-na-pele"], ["capilar", "mesoterapia-capilar"], ["limpeza", "limpeza-de-pele-profunda"], ["jessner", "peeling-de-jessner"], ["cristal", "peeling-de-cristal-microdermoabrasao"], ["diamante", "peeling-de-diamante"], ["ultrasson", "peeling-ultrassonico"], ["retino", "peeling-retinoico"], ["peeling", "peeling-retinoico"], ["vasinho", "peim-tratamento-estetico-para-microvasos"], ["peim", "peim-tratamento-estetico-para-microvasos"], ["plasma", "tecnologia-de-plasma"], ["radiofrequencia", "radiofrequencia"], ["laser", "plataforma-harmony-de-laser-e-luz"], ["mancha", "protocolo-profissional-de-despigmentacao"]];
-  const slug = matches.find(([term]) => name.includes(term))?.[1] || "limpeza-de-pele-profunda";
-  return `/procedure-images/${slug}.png`;
+  return procedureOnlineImageUrl(procedure);
 }
 function ProcedureImage({ procedure, className = "", onError }) {
   const storedPath = procedure?.image_url?.startsWith("storage://")
     ? procedure.image_url.slice("storage://".length)
     : "";
   const storedUrl = usePrivateImage("profile-photos", storedPath);
-  const fallback = procedureImageUrl(procedure);
-  return <img className={className} src={storedPath ? (storedUrl || undefined) : fallback} alt={procedure?.name || ""} loading="lazy" onError={(event) => { if (!event.currentTarget.dataset.fallbackApplied) { event.currentTarget.dataset.fallbackApplied = "true"; event.currentTarget.src = fallback; } else onError?.(event); }} />;
+  const onlineSource = procedureOnlineImageUrl(procedure);
+  const localFallback = `/procedure-images/${procedureImageSlug(procedure)}.png`;
+  const primary = storedPath ? storedUrl : procedure?.image_url || onlineSource;
+  const fallbacks = [...new Set([onlineSource, localFallback])].filter((source) => source !== primary);
+  return <img className={className} src={primary || undefined} alt={procedure?.name || ""} loading="lazy" onError={(event) => { const next = fallbacks.shift(); if (next) event.currentTarget.src = next; else onError?.(event); }} />;
 }
 async function saveProfilePhoto(table, id, file, userId, oldPath) {
   if (!file) return null;
@@ -801,11 +822,10 @@ function Clinic({ language, setLanguage }) {
           <aside className={menu ? "sidebar open" : "sidebar"}>
             <a
               className="brand"
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("home");
-              }}
+              href="https://francielesofiati.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t("Abrir o site Franciele Sofiati", "Open the Franciele Sofiati website")}
             >
               <img src={LOGO} alt="Franciele Sofiati" />
               <span>
@@ -1363,7 +1383,7 @@ const whatsappMessage = (phone, name = "") => {
   const text = `Olá${name ? `, ${name}` : ""}! Aqui é da clínica Franciele Sofiati. Podemos conversar sobre seu atendimento?`;
   return `${base}&text=${encodeURIComponent(text)}`;
 };
-function Pager({ page, count, setPage }) {
+function Pager({ page, count, setPage, exact = false, pageSize = 20 }) {
   const t = useT();
   return (
     <div className="pager">
@@ -1381,7 +1401,7 @@ function Pager({ page, count, setPage }) {
         icon={ChevronRight}
         className="icon"
         aria-label={t("Próxima", "Next")}
-        disabled={count < 20}
+        disabled={exact ? (page + 1) * pageSize >= count : count < 20}
         onClick={() => setPage(page + 1)}
       />
     </div>
@@ -3166,7 +3186,7 @@ function AppointmentRow({
     </ContextActions>
   );
 }
-function AppointmentForm({ appointment, patient, initialStart, close, done, notify }) {
+function AppointmentForm({ appointment, patient, initialStart, followup, close, done, notify }) {
   const t = useT(),
     dirty = useDirty(),
     [form, setForm] = useState(
@@ -3189,6 +3209,7 @@ function AppointmentForm({ appointment, patient, initialStart, close, done, noti
         : 60,
     ),
     [busy, setBusy] = useState(false),
+    [followupAppointment, setFollowupAppointment] = useState(null),
     [recurrenceCount, setRecurrenceCount] = useState(1),
     [recurrenceInterval, setRecurrenceInterval] = useState(0);
   const procedures = useLoad(() => checked(db.from("procedures").select("id,name,category,default_duration,price_cents,description,availability").eq("active", true).order("name")), []);
@@ -3220,21 +3241,29 @@ function AppointmentForm({ appointment, patient, initialStart, close, done, noti
       return;
     }
     setBusy(true);
+    let firstCreated = followupAppointment;
     try {
-      if (!appointment && Number(recurrenceCount) > 1 && Number(recurrenceInterval) <= 0) { notify(t("Informe o intervalo entre sessões recorrentes.", "Enter the interval between recurring sessions.")); setBusy(false); return; }
+      if (!appointment && !followup && Number(recurrenceCount) > 1 && Number(recurrenceInterval) <= 0) { notify(t("Informe o intervalo entre sessões recorrentes.", "Enter the interval between recurring sessions.")); setBusy(false); return; }
       const recurrenceGroupId = recurrenceCount > 1 ? crypto.randomUUID() : null;
-      for (let index = 0; index < (appointment ? 1 : Number(recurrenceCount) || 1); index += 1) {
-        const startsAt = new Date(new Date(toISO(start)).getTime() + index * Number(recurrenceInterval || 0) * 86400000);
-        await save("appointments", { patient_id: form.patient_id, procedure_id: form.procedure_id || null, procedure_snapshot: selectedProcedure ? { ...selectedProcedure, selected_at: new Date().toISOString() } : {}, recurrence_group_id: recurrenceGroupId, recurrence_index: index + 1, professional_id: form.professional_id || null, label: form.label, starts_at: startsAt.toISOString(), ends_at: new Date(startsAt.getTime() + Number(duration) * 60000).toISOString(), status: form.status }, appointment && index === 0 ? appointment : null);
+      if (!followupAppointment) {
+        const count = followup || appointment ? 1 : Number(recurrenceCount) || 1;
+        for (let index = 0; index < count; index += 1) {
+          const startsAt = new Date(new Date(toISO(start)).getTime() + index * Number(recurrenceInterval || 0) * 86400000);
+          const created = await save("appointments", { patient_id: form.patient_id, procedure_id: form.procedure_id || null, procedure_snapshot: selectedProcedure ? { ...selectedProcedure, selected_at: new Date().toISOString() } : {}, recurrence_group_id: recurrenceGroupId, recurrence_index: index + 1, professional_id: form.professional_id || null, label: form.label, starts_at: startsAt.toISOString(), ends_at: new Date(startsAt.getTime() + Number(duration) * 60000).toISOString(), status: form.status }, appointment && index === 0 ? appointment : null);
+          if (!index && !appointment) { firstCreated = created; if (followup) setFollowupAppointment(created); }
+        }
+      }
+      if (followup && firstCreated) {
+        const result = await db.rpc("set_follow_up_status", { p_follow_up_id: followup.id, p_status: "agendado", p_appointment_id: firstCreated.id });
+        if (result.error) throw result.error;
       }
       dirty.clean();
       done();
     } catch {
       notify(
-        t(
-          "Não foi possível agendar. Verifique o horário.",
-          "Could not schedule. Check the time.",
-        ),
+        followup && firstCreated
+          ? t("O agendamento foi criado, mas não foi possível vincular o retorno. Salve novamente para tentar concluir o vínculo.", "The appointment was created, but the follow-up could not be linked. Save again to retry the link.")
+          : t("Não foi possível agendar. Verifique o horário.", "Could not schedule. Check the time."),
       );
     } finally {
       setBusy(false);
@@ -3578,10 +3607,11 @@ function TaskForm({ task, patient, close, done, notify }) {
   const t = useT(),
     dirty = useDirty(),
     [form, setForm] = useState(
-      task || {
-        patient_id: patient?.id || "",
-        title: "",
-        priority: "normal",
+    task || {
+      patient_id: patient?.id || "",
+      title: "",
+      category: "operacional",
+      priority: "normal",
         status: "pendente",
         assigned_to: "",
       },
@@ -3611,12 +3641,18 @@ function TaskForm({ task, patient, close, done, notify }) {
           e.preventDefault();
           setBusy(true);
           try {
+            const title = form.title.trim();
+            if (!title || !due) {
+              notify(t("Informe a tarefa e o prazo.", "Enter a task and due date."));
+              return;
+            }
             await save(
               "tasks",
               {
                 patient_id: form.patient_id || null,
                 assigned_to: form.assigned_to || null,
-                title: form.title,
+                title,
+                category: form.category || "operacional",
                 priority: form.priority,
                 status: form.status,
                 due_at: toISO(due),
@@ -3636,6 +3672,7 @@ function TaskForm({ task, patient, close, done, notify }) {
           title={t("Tarefa", "Task")}
           value={form.title}
           onChange={(v) => change("title", v)}
+          required
           maxLength={200}
         />
         <PatientPicker
@@ -3666,6 +3703,7 @@ function TaskForm({ task, patient, close, done, notify }) {
             ]}
           />
           {[
+            ["category", t("Categoria", "Category"), ["operacional", "clinico", "comunicacao"]],
             ["priority", t("Prioridade", "Priority"), ["normal", "alta"]],
             [
               "status",
@@ -3694,68 +3732,124 @@ function TaskForm({ task, patient, close, done, notify }) {
 function Tasks({ setModal, openPatient, version, writable, notify }) {
   const t = useT(), today = localDay(), now = new Date(),
     [status, setStatus] = useState("pendente"), [group, setGroup] = useState("all"),
+    [search, setSearch] = useState(""), [patientId, setPatientId] = useState(""),
+    [assignee, setAssignee] = useState(""), [dueFilter, setDueFilter] = useState("all"),
     [page, setPage] = useState(0), [creating, setCreating] = useState(false);
+  const staff = useLoad(() => checked(db.from("memberships").select("user_id,name,email").eq("status", "ativo").order("name")), []);
   const state = useLoad(async () => {
     // The database function is idempotent and keeps automation consistent for
     // every client opening the centre, including reception workstations.
     await db.rpc("generate_action_centre_tasks").catch(() => null);
-    // Keep the task list independent from the optional patient relationship.
-    // A stale PostgREST schema cache or a restricted patient relationship must
-    // not turn an otherwise valid task query into the generic load error.
-    const taskRows = await checked(
-      db.from("tasks").select("*").eq("organization_id", ORG).order("due_at").range(0, 119),
-    );
+    // Filter and page tasks in the database so old completed tasks cannot hide
+    // newly created work outside a fixed first-120-row window.
+    let taskQuery = db.from("tasks")
+      .select("*", { count: "exact" })
+      .eq("organization_id", ORG)
+      .eq("status", status)
+      .order("created_at", { ascending: false });
+    if (group === "clinical") taskQuery = taskQuery.eq("category", "clinico");
+    if (group === "operational") taskQuery = taskQuery.neq("category", "clinico");
+    if (search.trim()) taskQuery = taskQuery.ilike("title", `%${safeSearch(search)}%`);
+    if (patientId) taskQuery = taskQuery.eq("patient_id", patientId);
+    if (assignee) taskQuery = taskQuery.eq("assigned_to", assignee);
+    if (dueFilter === "overdue") taskQuery = taskQuery.lt("due_at", now.toISOString());
+    if (dueFilter === "today") taskQuery = taskQuery.gte("due_at", `${today}T00:00:00-03:00`).lt("due_at", `${shiftDay(today, 1)}T00:00:00-03:00`);
+    if (dueFilter === "upcoming") taskQuery = taskQuery.gte("due_at", `${shiftDay(today, 1)}T00:00:00-03:00`);
+    const taskResult = await taskQuery.range(page * 30, page * 30 + 29);
+    if (taskResult.error) throw taskResult.error;
+    const taskRows = taskResult.data || [];
+    const overdueTaskResult = await db.from("tasks").select("id", { count: "exact", head: true }).eq("organization_id", ORG).eq("status", "pendente").lt("due_at", now.toISOString());
     const patientIds = [...new Set(taskRows.map((task) => task.patient_id).filter(Boolean))];
     const patients = patientIds.length
       ? await checked(db.from("patients").select("id,full_name,preferred_name,phone,email").eq("organization_id", ORG).in("id", patientIds)).catch(() => [])
       : [];
     const patientById = new Map(patients.map((patient) => [patient.id, patient]));
     const tasksWithPatients = taskRows.map((task) => ({ ...task, patients: patientById.get(task.patient_id) || null }));
-    const [appointments, followups, adverse, clinicalProcedures] = await Promise.all([
+    const [appointments, followups, adverse, clinicalProcedures, existingSuggestionTasks] = await Promise.all([
       checked(db.from("appointments").select("id,patient_id,starts_at,ends_at,status,label,patients(*)").gte("starts_at", new Date(Date.now() - 45 * 86400000).toISOString()).order("starts_at").limit(120)).catch(() => []),
-      checked(db.from("follow_ups").select("id,patient_id,expected_on,status,notes,patients(*)").in("status", ["aguardando_agendamento", "vencido"]).order("expected_on").limit(60)).catch(() => []),
-      checked(db.from("adverse_events").select("id,patient_id,followup_deadline,status,description,patients(*)").eq("status", "em_acompanhamento").order("followup_deadline").limit(30)).catch(() => []),
-      checked(db.from("clinical_procedures").select("id,patient_id,performed_at,followup_due,status,patients(*),procedures(name)").eq("status", "finalizado").not("followup_due", "is", null).order("followup_due").limit(60)).catch(() => []),
+      checked(db.from("follow_ups").select("id,patient_id,expected_on,status,notes,professional_id,patients(id,full_name,preferred_name,phone,email)").in("status", ["aguardando_agendamento", "vencido"]).order("expected_on").limit(100)).catch(() => []),
+      checked(db.from("adverse_events").select("id,patient_id,responsible_user,followup_deadline,status,description,patients(id,full_name,preferred_name,phone,email)").eq("status", "em_acompanhamento").order("followup_deadline").limit(30)).catch(() => []),
+      checked(db.from("clinical_procedures").select("id,patient_id,professional_id,performed_at,followup_due,status,patients(id,full_name,preferred_name,phone,email),procedures(name)").eq("status", "finalizado").not("followup_due", "is", null).order("followup_due").limit(60)).catch(() => []),
+      checked(db.from("tasks").select("patient_id,title").eq("organization_id", ORG).eq("status", "pendente").range(0, 999)).catch(() => []),
     ]);
-    return { tasks: tasksWithPatients.filter((task) => task.status === status).slice(page * 30, page * 30 + 30), allTasks: tasksWithPatients, appointments, followups, adverse, clinicalProcedures };
-  }, [status, page, version]);
-  const data = state.data || { tasks: [], allTasks: [], appointments: [], followups: [], adverse: [], clinicalProcedures: [] };
-  const overdue = data.tasks.filter((r) => r.status === "pendente" && new Date(r.due_at) < now);
+    return { tasks: tasksWithPatients, taskCount: taskResult.count || 0, overdueTaskCount: overdueTaskResult.error ? 0 : overdueTaskResult.count || 0, allTasks: existingSuggestionTasks, appointments, followups, adverse, clinicalProcedures };
+  }, [status, group, search, patientId, assignee, dueFilter, page, version]);
+  const data = state.data || { tasks: [], taskCount: 0, overdueTaskCount: 0, allTasks: [], appointments: [], followups: [], adverse: [], clinicalProcedures: [] };
   const todayAppointments = data.appointments.filter((r) => validDateValue(r.starts_at) && localDay(new Date(r.starts_at)) === today && !["cancelado", "concluido"].includes(r.status));
-  const attention = [
-    ...data.tasks.map((task) => ({ ...task, kind: task.title?.toLowerCase().includes("retorno") ? "clinical" : "operational", source: "task", due: task.due_at })),
-    ...data.followups.map((item) => ({ ...item, kind: "clinical", source: "followup", due: item.expected_on, title: t("Retorno clínico pendente", "Pending clinical follow-up") })),
-    ...data.adverse.map((item) => ({ ...item, kind: "clinical", source: "adverse", due: item.followup_deadline, title: t("Acompanhar intercorrência", "Follow up adverse event") })),
-    ...data.clinicalProcedures.filter((item) => item.followup_due && new Date(`${item.followup_due}T23:59:59-03:00`) <= now).map((item) => ({ ...item, kind: "clinical", source: "procedure", due: item.followup_due, title: `${t("Retorno de procedimento", "Procedure follow-up")} · ${item.procedures?.name || t("avaliação", "review")}` })),
-  ].filter((item) => group === "all" || item.kind === group).sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0));
+  const matchesClinicalFilters = (item, searchable = "") => {
+    if (patientId && item.patient_id !== patientId) return false;
+    if (assignee && (item.professional_id || item.responsible_user) !== assignee) return false;
+    const searchValue = search.trim().toLocaleLowerCase("pt-BR");
+    if (searchValue && ![searchable, item.patients?.preferred_name, item.patients?.full_name, item.patients?.phone].some((value) => String(value || "").toLocaleLowerCase("pt-BR").includes(searchValue))) return false;
+    const due = item.expected_on || item.followup_deadline || item.followup_due;
+    if (dueFilter === "overdue" && (!due || due >= today)) return false;
+    if (dueFilter === "today" && due !== today) return false;
+    if (dueFilter === "upcoming" && (!due || due <= today)) return false;
+    return true;
+  };
+  const followsMatchingFilters = group === "operational" ? [] : data.followups.filter((item) => matchesClinicalFilters(item, item.notes));
+  const adverseMatchingFilters = data.adverse.filter((item) => matchesClinicalFilters(item, item.description));
+  const proceduresMatchingFilters = data.clinicalProcedures.filter((item) => matchesClinicalFilters(item, item.procedures?.name));
+  const overdue = data.overdueTaskCount;
+  const taskAttention = data.tasks
+    .map((task) => ({ ...task, kind: task.category === "clinico" ? "clinical" : "operational", source: "task", due: task.due_at }))
+    .filter((item) => (group === "all" || item.kind === group) && (dueFilter !== "overdue" || new Date(item.due) < now) && (dueFilter !== "today" || String(item.due).slice(0, 10) === today) && (dueFilter !== "upcoming" || String(item.due).slice(0, 10) > today))
+    .sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0));
+  const clinicalAttention = [
+    ...followsMatchingFilters.map((item) => ({ ...item, kind: "clinical", source: "followup", due: item.expected_on, title: t("Retorno clínico pendente", "Pending clinical follow-up") })),
+    ...adverseMatchingFilters.map((item) => ({ ...item, kind: "clinical", source: "adverse", due: item.followup_deadline, title: t("Acompanhar intercorrência", "Follow up adverse event") })),
+    ...proceduresMatchingFilters.filter((item) => item.followup_due && new Date(`${item.followup_due}T23:59:59-03:00`) <= now).map((item) => ({ ...item, kind: "clinical", source: "procedure", due: item.followup_due, title: `${t("Retorno de procedimento", "Procedure follow-up")} · ${item.procedures?.name || t("avaliação", "review")}` })),
+  ].filter((item) => (dueFilter !== "overdue" || (item.source === "task" ? new Date(item.due) < now : String(item.due).slice(0, 10) < today)) && (dueFilter !== "today" || String(item.due).slice(0, 10) === today) && (dueFilter !== "upcoming" || String(item.due).slice(0, 10) > today)).sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0));
   const suggestions = [...data.appointments.filter((a) => a.status === "concluido").map((a) => ({ ...a, suggestionTitle: `${t("Pós-atendimento", "Post-visit")} · ${a.label || t("verificar evolução", "check progress")}`, suggestionDue: new Date(new Date(a.starts_at).getTime() + 2 * 86400000) })), ...data.clinicalProcedures.filter((p) => p.followup_due).map((p) => ({ ...p, suggestionTitle: `${t("Retorno de procedimento", "Procedure follow-up")} · ${p.procedures?.name || t("avaliação", "review")}`, suggestionDue: new Date(`${p.followup_due}T09:00:00-03:00`) }))].filter((item) => !data.allTasks.some((task) => task.patient_id === item.patient_id && /pós-atendimento|retorno de procedimento/i.test(task.title || ""))).slice(0, 8);
   const createSuggestions = async () => {
     if (!suggestions.length) return notify(t("Nenhuma sugestão nova por enquanto.", "No new suggestions for now."));
     setCreating(true);
     try {
-      await checked(db.from("tasks").insert(suggestions.map((item) => ({ organization_id: ORG, patient_id: item.patient_id, title: item.suggestionTitle, priority: "normal", status: "pendente", due_at: item.suggestionDue.toISOString() }))));
+      await checked(db.from("tasks").insert(suggestions.map((item) => ({ organization_id: ORG, patient_id: item.patient_id, title: item.suggestionTitle, category: "clinico", priority: "normal", status: "pendente", due_at: item.suggestionDue.toISOString() }))));
+      setPage(0);
+      state.refresh();
       notify(t(`${suggestions.length} tarefa(s) criada(s) a partir da agenda.`, `${suggestions.length} task(s) created from the schedule.`));
     } catch { notify(t("Não foi possível criar as sugestões.", "Could not create suggestions.")); }
     finally { setCreating(false); }
   };
   const quickWhatsApp = (patient) => { const link = whatsappMessage(patient?.phone, patient?.preferred_name || patient?.full_name); if (link) window.open(link, "_blank", "noopener,noreferrer"); else notify(t("Telefone não disponível.", "Phone not available.")); };
   const complete = async (task) => { try { await save("tasks", { status: "concluida" }, task); state.refresh(); notify(t("Tarefa concluída.", "Task completed.")); } catch { notify(t("Não foi possível salvar.", "Could not save.")); } };
+  const completeFollowup = async (followup) => {
+    try {
+      const result = await db.rpc("set_follow_up_status", { p_follow_up_id: followup.id, p_status: "concluido", p_appointment_id: null });
+      if (result.error) throw result.error;
+      state.refresh();
+      notify(t("Retorno concluído.", "Follow-up completed."));
+    } catch { notify(t("Não foi possível concluir o retorno.", "Could not complete the follow-up.")); }
+  };
+  const scheduleFollowup = (followup) => setModal({ type: "appointment", patient: followup.patients, followup });
+  const renderActionCard = (item) => { const late = item.source === "task" ? new Date(item.due) < now : String(item.due || "").slice(0, 10) < today; const canComplete = writable && (item.source === "followup" || (item.source === "task" && item.status === "pendente")); return <ContextActions key={`${item.source}-${item.id}`} label={item.title || t("Tarefa", "Task")} actions={[item.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(item.patients) }, item.patients && { icon: MessageCircle, label: "WhatsApp", onClick: () => quickWhatsApp(item.patients) }, item.source === "followup" && writable && { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => scheduleFollowup(item) }, item.source === "task" && item.patients && writable && { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => setModal({ type: "appointment", patient: item.patients }) }, item.source === "task" && writable && { icon: Pencil, label: t("Editar tarefa", "Edit task"), onClick: () => setModal({ type: "task", task: item, patient: item.patients }) }, item.source === "task" && item.status === "pendente" && writable && { icon: Check, label: t("Concluir", "Complete"), onClick: () => complete(item) }, item.source === "followup" && writable && { icon: Check, label: t("Concluir retorno", "Complete follow-up"), onClick: () => completeFollowup(item) }]}><article className={`action-card action-card-${item.kind} ${late ? "is-overdue" : ""}`}><button type="button" className="action-check" disabled={!canComplete && item.source !== "adverse" && item.source !== "procedure"} onClick={() => item.source === "task" ? canComplete && complete(item) : item.source === "followup" ? canComplete && completeFollowup(item) : item.patients && openPatient(item.patients)} title={canComplete ? (item.source === "followup" ? t("Concluir retorno", "Complete follow-up") : t("Concluir", "Complete")) : t("Abrir paciente", "Open patient")}>{item.source === "task" || item.source === "followup" ? <Check size={16} /> : <ChevronRight size={16} />}</button><div className="action-main"><div><span className="action-kicker">{item.kind === "clinical" ? t("Cuidado clínico", "Clinical care") : t("Operação", "Operations")}</span><strong>{item.title || t("Tarefa", "Task")}</strong><small>{item.patients?.preferred_name || item.patients?.full_name || t("Clínica", "Clinic")}{item.due ? ` · ${date(item.due, item.source === "task")}` : ""}</small></div><Status value={item.source === "task" && item.status === "pendente" ? item.priority : item.status || item.priority} /></div><div className="action-tools">{item.patients && <><button type="button" onClick={() => openPatient(item.patients)} title={t("Paciente", "Patient")}><UserRound size={15} /></button><button type="button" onClick={() => quickWhatsApp(item.patients)} title="WhatsApp"><MessageCircle size={15} /></button>{writable && item.source === "followup" && <button type="button" onClick={() => scheduleFollowup(item)} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button>}{writable && item.source === "task" && <button type="button" onClick={() => setModal({ type: "appointment", patient: item.patients })} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button>}</>}{item.source === "task" && writable && <button type="button" onClick={() => setModal({ type: "task", task: item, patient: item.patients })} title={t("Editar", "Edit")}><Pencil size={15} /></button>}</div></article></ContextActions>; };
   const title = t("Tarefas e retornos", "Tasks & follow-ups");
   return <>
     <PageHead eyebrow={t("Central de ação clínica", "Clinical action centre")} title={title}>
-      <div className="task-head-actions"><Button icon={CalendarPlus} onClick={() => setModal({ type: "appointment" })}>{t("Agendar", "Schedule")}</Button>{writable && <Button icon={Plus} className="primary" onClick={() => setModal({ type: "task" })}>{t("Nova tarefa", "New task")}</Button>}</div>
+      <div className="task-head-actions"><Button icon={CalendarPlus} onClick={() => setModal({ type: "appointment" })}>{t("Agendar", "Schedule")}</Button>{writable && <Button icon={Plus} className="primary" onClick={() => { setPage(0); setModal({ type: "task" }); }}>{t("Nova tarefa", "New task")}</Button>}</div>
     </PageHead>
-    <section className="task-centre-hero"><div><p className="eyebrow">{t("Visão de hoje", "Today at a glance")}</p><h2>{overdue.length ? t(`${overdue.length} item(ns) pedem atenção agora`, `${overdue.length} item(s) need attention now`) : t("Tudo sob controle por aqui", "Everything is under control here")}</h2><p>{t("O centro reúne tarefas, retornos e sinais clínicos usando apenas os registros da clínica.", "This centre brings together tasks, follow-ups, and clinical signals using only clinic records.")}</p></div><div className="task-ring" style={{ "--ring": `${Math.min(100, Math.round((todayAppointments.length / Math.max(1, data.appointments.length)) * 100))}%` }}><strong>{todayAppointments.length}</strong><span>{t("hoje", "today")}</span></div></section>
-    <div className="task-metrics"><button className={group === "all" ? "active" : ""} onClick={() => setGroup("all")}><span className="metric-icon metric-icon-sage"><ListChecks size={17} /></span><b>{data.tasks.length}</b><small>{t("tarefas abertas", "open tasks")}</small></button><button className={group === "clinical" ? "active" : ""} onClick={() => setGroup("clinical")}><span className="metric-icon metric-icon-rose"><Stethoscope size={17} /></span><b>{data.followups.length + data.adverse.length}</b><small>{t("atenções clínicas", "clinical attention")}</small></button><button className="metric-action" onClick={createSuggestions} disabled={!writable || creating || !suggestions.length}><span className="metric-icon metric-icon-gold"><Sparkles size={17} /></span><b>{suggestions.length}</b><small>{creating ? t("criando...", "creating...") : t("sugestões da agenda", "schedule suggestions")}</small></button></div>
-    <div className="task-centre-toolbar"><div className="segmented">{[["all", t("Tudo", "All")], ["clinical", t("Clínico", "Clinical")], ["operational", t("Operacional", "Operational")]].map(([key, text]) => <button key={key} aria-pressed={group === key} onClick={() => setGroup(key)}>{text}</button>)}</div><div className="segmented">{["pendente", "concluida", "cancelado"].map((s) => <button key={s} aria-pressed={status === s} onClick={() => { setStatus(s); setPage(0); }}>{label(s, t)}</button>)}</div></div>
+    <section className="task-centre-hero"><div><p className="eyebrow">{t("Visão da clínica", "Clinic overview")}</p><h2>{overdue ? t(`${overdue} tarefa(s) vencida(s)`, `${overdue} overdue task(s)`) : t("Tudo sob controle por aqui", "Everything is under control here")}</h2><p>{t("Tarefas e retornos ficam em listas separadas, com filtros e ações diretas.", "Tasks and follow-ups have separate lists, filters, and direct actions.")}</p></div><div className="task-ring" style={{ "--ring": `${Math.min(100, Math.round((todayAppointments.length / Math.max(1, data.appointments.length)) * 100))}%` }}><strong>{todayAppointments.length}</strong><span>{t("hoje", "today")}</span></div></section>
+    <div className="task-metrics"><button className={group === "all" ? "active" : ""} onClick={() => { setGroup("all"); setPage(0); }}><span className="metric-icon metric-icon-sage"><ListChecks size={17} /></span><b>{data.taskCount}</b><small>{t("tarefas neste status", "tasks in this status")}</small></button><button className={group === "clinical" ? "active" : ""} onClick={() => { setGroup("clinical"); setPage(0); }}><span className="metric-icon metric-icon-rose"><Stethoscope size={17} /></span><b>{clinicalAttention.length}</b><small>{t("itens clínicos filtrados", "filtered clinical items")}</small></button><button className="metric-action" onClick={createSuggestions} disabled={!writable || creating || !suggestions.length}><span className="metric-icon metric-icon-gold"><Sparkles size={17} /></span><b>{suggestions.length}</b><small>{creating ? t("criando...", "creating...") : t("sugestões da agenda", "schedule suggestions")}</small></button></div>
+    <div className="task-centre-toolbar"><div className="segmented">{[["all", t("Tudo", "All")], ["clinical", t("Clínico", "Clinical")], ["operational", t("Operacional", "Operational")]].map(([key, text]) => <button key={key} aria-pressed={group === key} onClick={() => { setGroup(key); setPage(0); }}>{text}</button>)}</div><div className="segmented" role="group" aria-label={t("Status das tarefas", "Task status")}>{["pendente", "concluida", "cancelado"].map((s) => <button key={s} aria-pressed={status === s} onClick={() => { setStatus(s); setPage(0); }}>{label(s, t)}</button>)}</div></div>
+    <div className="task-filter-grid">
+      <Field title={t("Buscar tarefa ou retorno", "Search tasks or follow-ups")} value={search} onChange={(value) => { setSearch(value); setPage(0); }} placeholder={t("Digite um título", "Search task title")} />
+      <PatientPicker title={t("Paciente", "Patient")} value={patientId} onChange={(value) => { setPatientId(value); setPage(0); }} />
+      <Field title={t("Responsável", "Assigned to")} value={assignee} onChange={(value) => { setAssignee(value); setPage(0); }} options={[{ value: "", label: t("Toda a equipe", "All staff") }, ...(staff.data || []).map((person) => ({ value: person.user_id, label: person.name || person.email }))]} />
+      <Field title={t("Prazo", "Due date")} value={dueFilter} onChange={(value) => { setDueFilter(value); setPage(0); }} options={[["all", t("Qualquer data", "Any date")], ["overdue", t("Vencidas", "Overdue")], ["today", t("Hoje", "Today")], ["upcoming", t("Próximas", "Upcoming")]].map(([value, labelText]) => ({ value, label: labelText }))} />
+    </div>
     {todayAppointments.length > 0 && <section className="task-today-panel"><div className="section-heading"><div><p className="eyebrow">{t("Próximos atendimentos", "Next appointments")}</p><h2>{t("A agenda que move o dia", "The schedule moving your day")}</h2></div><span className="task-count-pill">{todayAppointments.length} {t("hoje", "today")}</span></div><div className="task-appointment-grid">{todayAppointments.slice(0, 4).map((a) => <ContextActions key={a.id} label={patientName(a, t)} actions={[a.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(a.patients) }, a.patients && { icon: MessageCircle, label: "WhatsApp", onClick: () => quickWhatsApp(a.patients) }, { icon: Pencil, label: t("Editar agenda", "Edit schedule"), onClick: () => setModal({ type: "appointment", appointment: a, patient: a.patients }) }]}><article className="task-appointment-card"><time>{timeLabel(a.starts_at)}</time><strong>{patientName(a, t)}</strong><small>{a.label || t("Atendimento", "Appointment")}</small><div><button onClick={() => a.patients && openPatient(a.patients)} title={t("Abrir paciente", "Open patient")}><UserRound size={15} /></button>{a.patients && <button onClick={() => quickWhatsApp(a.patients)} title="WhatsApp"><MessageCircle size={15} /></button>}<button onClick={() => setModal({ type: "appointment", appointment: a, patient: a.patients })} title={t("Editar agenda", "Edit schedule")}><Pencil size={15} /></button></div></article></ContextActions>)}</div></section>}
     <section className="task-list-centre">
-      <div className="section-heading"><div><p className="eyebrow">{t("Fila priorizada", "Prioritized queue")}</p><h2>{t("O que precisa acontecer", "What needs to happen")}</h2></div><span className="subtle">{attention.length} {t("itens", "items")}</span></div>
+      <div className="section-heading"><div><p className="eyebrow">{t("Tarefas", "Tasks")}</p><h2>{t("Fila de trabalho", "Work queue")}</h2></div><span className="subtle">{data.taskCount} {t("tarefas", "tasks")}</span></div>
       {state.loading && <p className="loading">{t("Carregando...", "Loading...")}</p>}
-      {state.error && <div className="notice error">{t("Não foi possível carregar.", "Could not load.")}</div>}
-      {!state.loading && !state.error && <div className="action-list">{attention.map((item) => <ContextActions key={`${item.source}-${item.id}`} label={item.title || t("Tarefa", "Task")} actions={[item.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(item.patients) }, item.patients && { icon: MessageCircle, label: "WhatsApp", onClick: () => quickWhatsApp(item.patients) }, item.patients && { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => setModal({ type: "appointment", patient: item.patients }) }, item.source === "task" && writable && { icon: Pencil, label: t("Editar tarefa", "Edit task"), onClick: () => setModal({ type: "task", task: item, patient: item.patients }) }, item.source === "task" && { icon: Check, label: t("Concluir", "Complete"), onClick: () => complete(item) }]}><article className={`action-card action-card-${item.kind} ${item.due && new Date(item.due) < now ? "is-overdue" : ""}`}><button className="action-check" onClick={() => item.source === "task" ? complete(item) : item.patients && openPatient(item.patients)} title={item.source === "task" ? t("Concluir", "Complete") : t("Abrir paciente", "Open patient")}>{item.source === "task" ? <Check size={16} /> : <ChevronRight size={16} />}</button><div className="action-main"><div><span className="action-kicker">{item.kind === "clinical" ? t("Cuidado clínico", "Clinical care") : t("Operação", "Operations")}</span><strong>{item.title || t("Tarefa", "Task")}</strong><small>{item.patients?.preferred_name || item.patients?.full_name || t("Clínica", "Clinic")}{item.due ? ` · ${date(item.due, item.source === "task")}` : ""}</small></div>{item.source === "task" && <Status value={item.priority} />}</div><div className="action-tools">{item.patients && <><button onClick={() => openPatient(item.patients)} title={t("Paciente", "Patient")}><UserRound size={15} /></button><button onClick={() => quickWhatsApp(item.patients)} title="WhatsApp"><MessageCircle size={15} /></button><button onClick={() => setModal({ type: "appointment", patient: item.patients })} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button></>}{item.source === "task" && writable && <button onClick={() => setModal({ type: "task", task: item, patient: item.patients })} title={t("Editar", "Edit")}><Pencil size={15} /></button>}</div></article></ContextActions>)}{!attention.length && <Empty icon={CheckCircle2}>{t("Nenhuma atenção nesta combinação de filtros.", "No attention items match these filters.")}</Empty>}</div>}
-      <Pager page={page} count={data.tasks.length} setPage={setPage} />
+      {state.error && <div className="notice error" role="alert">{t("Não foi possível carregar as tarefas.", "Could not load tasks.")} <Button type="button" icon={RefreshCw} onClick={state.refresh}>{t("Tentar novamente", "Retry")}</Button></div>}
+      {!state.loading && !state.error && <div className="action-list">{taskAttention.map(renderActionCard)}{!taskAttention.length && <Empty icon={CheckCircle2}>{t("Nenhuma tarefa nesta combinação de filtros.", "No tasks match these filters.")}</Empty>}</div>}
+      <Pager page={page} count={data.taskCount} setPage={setPage} exact pageSize={30} />
     </section>
+    {group !== "operational" && <section className="task-list-centre task-clinical-list">
+      <div className="section-heading"><div><p className="eyebrow">{t("Continuidade do cuidado", "Continuity of care")}</p><h2>{t("Retornos e atenções clínicas", "Follow-ups and clinical attention")}</h2></div><span className="subtle">{clinicalAttention.length} {t("itens", "items")}</span></div>
+      {state.loading ? <p className="loading">{t("Carregando...", "Loading...")}</p> : state.error ? <div className="notice error">{t("Não foi possível carregar os retornos.", "Could not load follow-ups.")}</div> : <div className="action-list">{clinicalAttention.map(renderActionCard)}{!clinicalAttention.length && <Empty icon={CheckCircle2}>{t("Nenhum retorno ou cuidado clínico pendente.", "No pending follow-ups or clinical attention.")}</Empty>}</div>}
+    </section>}
   </>;
 }
 

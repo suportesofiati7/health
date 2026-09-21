@@ -399,12 +399,10 @@ def main() -> int:
             if jump_links or targets:
                 errors.append(f"{scope} homepage/404 must not contain post-hero navigation")
         else:
-            if len(jump_links) != 1 or jump_links[0].get("href") != "#main-content":
-                errors.append(f"{scope} must contain one post-hero link to #main-content")
-            if len(targets) != 1:
-                errors.append(f"{scope} must contain one unique #main-content target")
-            if source.find('class="skip-past-hero"') > source.find('id="main-content"'):
-                errors.append(f"{scope} main-content target occurs before its post-hero link")
+            if jump_links:
+                errors.append(f"{scope} must not expose a post-hero Continue control")
+            if len(targets) > 1:
+                errors.append(f"{scope} must contain at most one unique #main-content target")
 
         for tag in soup.find_all(["a", "img", "script", "link"]):
             attribute = "href" if tag.name in {"a", "link"} else "src"

@@ -1,0 +1,274 @@
+@layer pages {
+/* Shared public form art direction: forest, ivory and gold, with one clear
+   full-width field column at every viewport. */
+  .sf-main > .sf-lead-strip,
+  .sf-main > .sf-quick-contact {
+    padding-block: clamp(2rem, 5vw, 4.5rem);
+    background: var(--ivory-50);
+  }
+
+  .sf-lead-strip .sf-lead-strip__inner,
+  .sf-quick-contact .sf-quick-contact__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    inline-size: min(100% - 2rem, 64rem);
+    margin-inline: auto;
+    border: 1px solid color-mix(in srgb, var(--gold-300) 52%, transparent);
+    background: linear-gradient(135deg, #3f5945, #718264);
+    padding: clamp(1.5rem, 5vw, 4rem);
+    color: var(--ivory-50);
+    box-shadow: 0 1.5rem 3.5rem rgb(36 49 41 / .14);
+  }
+
+  .sf-lead-strip__copy,
+  .sf-quick-contact__copy {
+    inline-size: 100%;
+    max-inline-size: 58rem;
+    margin: 0;
+  }
+
+  .sf-lead-strip__copy .sf-eyebrow,
+  .sf-quick-contact__copy .sf-eyebrow {
+    color: var(--gold-300);
+  }
+
+  .sf-lead-strip__copy h2,
+  .sf-quick-contact__copy h2 {
+    max-inline-size: 19ch;
+    margin-block: .35rem .7rem;
+    color: var(--ivory-50);
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 5.2vw, 4.25rem);
+    font-weight: 500;
+    letter-spacing: -.045em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .sf-lead-strip__copy p:not(.sf-eyebrow),
+  .sf-quick-contact__copy p:not(.sf-eyebrow) {
+    max-inline-size: 64ch;
+    color: rgb(255 253 248 / .9);
+    font-size: clamp(1rem, 1.4vw, 1.14rem);
+    line-height: 1.7;
+  }
+
+  .sf-page[data-page] .sf-main form.sf-form:not(.sf-cookie-settings):not(.sf-consent-form),
+  .sf-page[data-page] .sf-main form.sf-interest-form {
+    inline-size: 100%;
+    max-inline-size: 64rem;
+    min-inline-size: 0;
+    margin-inline: auto;
+    border: 1px solid color-mix(in srgb, var(--gold-300) 48%, transparent);
+    border-radius: .2rem;
+    background: linear-gradient(135deg, #3f5945, #718264);
+    padding: clamp(1.4rem, 4vw, 3rem);
+    color: var(--ivory-50);
+    box-shadow: 0 1.35rem 3rem rgb(20 35 25 / .16);
+  }
+
+  .sf-page[data-page] .sf-main .sf-lead-strip form.sf-lead-strip__form,
+  .sf-page[data-page] .sf-main .sf-quick-contact form.sf-quick-contact__form {
+    max-inline-size: none;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) :is(.sf-field label, .sf-interest-field label, .sf-consent-card > label),
+  .sf-main .sf-lead-strip__form label.sf-field,
+  .sf-main .sf-quick-contact__form label.sf-field {
+    color: var(--gold-300);
+    font-size: .72rem;
+    font-weight: 850;
+    letter-spacing: .1em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: 3rem;
+    border: 1px solid rgb(255 253 248 / .54);
+    border-radius: .18rem;
+    background: var(--ivory-50);
+    padding: .82rem .95rem;
+    color: #24352b;
+    box-shadow: none;
+    font: inherit;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) textarea {
+    min-block-size: 8rem;
+    resize: vertical;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) :is(input, select, textarea):focus-visible {
+    border-color: var(--gold-300);
+    outline: 3px solid color-mix(in srgb, var(--gold-300) 46%, transparent);
+    outline-offset: 2px;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) :is(.sf-form-grid, .sf-lead-strip__fields, .sf-interest-fields) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) :is(.sf-field, .sf-interest-field) {
+    grid-column: 1 / -1;
+    inline-size: 100%;
+    min-inline-size: 0;
+    gap: .4rem;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) .sf-field--checkbox {
+    display: block;
+    inline-size: 100%;
+    min-inline-size: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: .55rem 0;
+    color: rgb(255 253 248 / .92);
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) .sf-field--checkbox > label {
+    display: grid;
+    grid-template-columns: 1.35rem minmax(0, 1fr);
+    align-items: start;
+    gap: .8rem;
+    inline-size: 100%;
+    min-inline-size: 0;
+    color: rgb(255 253 248 / .92) !important;
+    font-size: .9rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.6;
+    text-transform: none;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) .sf-field--checkbox :is(span) {
+    min-inline-size: 0;
+    color: rgb(255 253 248 / .92);
+    font-size: .9rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.6;
+    text-transform: none;
+    overflow-wrap: anywhere;
+  }
+
+  .sf-page[data-page] .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) .sf-field--checkbox input[type="checkbox"] {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin: .18rem 0 0;
+    accent-color: var(--gold-300);
+  }
+
+  .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) :is(.sf-form-introduction, .sf-field-help, .sf-form-error) {
+    border-color: color-mix(in srgb, var(--gold-300) 36%, transparent);
+    background: rgb(255 253 248 / .08);
+    color: rgb(255 253 248 / .9);
+  }
+
+  .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) .sf-required,
+  .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) em { color: var(--gold-300); }
+
+  .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) > .sf-button,
+  .sf-main .sf-lead-strip__fields > .sf-button,
+  .sf-main .sf-quick-contact__form > .sf-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    inline-size: min(100%, 14rem);
+    min-block-size: 3.25rem;
+    margin-block-start: .3rem;
+    border: 1px solid var(--gold-300);
+    border-radius: .2rem;
+    background: var(--gold-300);
+    color: #24352b;
+    box-shadow: none;
+    font-size: .72rem;
+    font-weight: 850;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) > .sf-button:hover,
+  .sf-main .sf-lead-strip__fields > .sf-button:hover,
+  .sf-main .sf-quick-contact__form > .sf-button:hover {
+    background: var(--ivory-50);
+    color: #24352b;
+  }
+
+  .sf-main .sf-form-states { min-inline-size: 0; color: var(--ivory-50); }
+  .sf-main .sf-form-state { overflow-wrap: anywhere; }
+
+  .sf-page[data-page="contact"] #contact-form-section { background: #f4f1e9 !important; }
+  .sf-page[data-page="contact"] #contact-form {
+    inline-size: min(100%, 62rem);
+    max-inline-size: 62rem;
+    border-color: color-mix(in srgb, var(--gold-300) 48%, transparent) !important;
+    border-radius: .2rem !important;
+    background: linear-gradient(135deg, #3f5945, #718264) !important;
+    padding: clamp(1.4rem, 4vw, 3rem);
+    color: var(--ivory-50) !important;
+    box-shadow: 0 1.35rem 3rem rgb(20 35 25 / .16) !important;
+  }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction { border: 0 !important; background: transparent !important; padding: 0 !important; color: rgb(255 253 248 / .9) !important; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-introduction::after { color: rgb(255 253 248 / .9) !important; }
+  .sf-page[data-page="contact"] #contact-form .sf-field label { color: var(--gold-300) !important; }
+  .sf-page[data-page="contact"] #contact-form .sf-field--checkbox { background: transparent; }
+  .sf-page[data-page="contact"] #contact-form::before { color: var(--gold-300) !important; }
+  .sf-page[data-page="contact"] #contact-form > .sf-button { border: 1px solid var(--gold-300) !important; background: var(--gold-300) !important; color: #24352b !important; }
+  .sf-page[data-page="contact"] #contact-form .sf-form-submit .sf-button { border: 1px solid var(--gold-300) !important; background: var(--gold-300) !important; color: #24352b !important; }
+
+  .sf-page .sf-main > .sf-lead-strip .sf-lead-strip__copy h2,
+  .sf-page .sf-main > .sf-quick-contact .sf-quick-contact__copy h2 {
+    color: var(--ivory-50) !important;
+  }
+  .sf-page .sf-main > .sf-lead-strip .sf-lead-strip__copy .sf-eyebrow,
+  .sf-page .sf-main > .sf-quick-contact .sf-quick-contact__copy .sf-eyebrow {
+    color: var(--gold-300) !important;
+  }
+
+  .sf-page[data-page] .sf-main form.sf-interest-form .sf-interest-index { color: var(--gold-300) !important; }
+  .sf-page[data-page] .sf-main form.sf-interest-form .sf-interest-form-head h1 {
+    color: var(--ivory-50) !important;
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 5.2vw, 4.25rem);
+    font-weight: 500;
+    letter-spacing: -.045em;
+    line-height: 1.02;
+  }
+  .sf-page[data-page] .sf-main form.sf-interest-form .sf-interest-form-head p { color: rgb(255 253 248 / .9) !important; }
+
+  @media (max-width: 48rem) {
+    .sf-main .sf-lead-strip__inner,
+    .sf-main .sf-quick-contact__inner {
+      inline-size: min(100% - 1.25rem, 42rem);
+      padding: clamp(1.25rem, 6vw, 2.1rem);
+    }
+    .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) {
+      inline-size: 100%;
+      padding: clamp(1.15rem, 5vw, 1.8rem);
+    }
+    .sf-main .sf-lead-strip form.sf-lead-strip__form,
+    .sf-main .sf-quick-contact form.sf-quick-contact__form { padding: 0; }
+    .sf-main :is(form.sf-form, form.sf-interest-form):not(.sf-consent-form) > .sf-button,
+    .sf-main .sf-lead-strip__fields > .sf-button,
+    .sf-main .sf-quick-contact__form > .sf-button { inline-size: 100%; }
+  }
+}

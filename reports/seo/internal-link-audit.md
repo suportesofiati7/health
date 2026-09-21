@@ -3,10 +3,10 @@
 Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-internal-links.py` after changes.
 
 - Canonical indexable pages: 192
-- Crawlable internal links: 1250
+- Crawlable internal links: 1174
 - Broken internal links: 0
-- Orphan pages: 15
-- Underlinked pages (<2 internal links): 130
+- Orphan pages: 34
+- Underlinked pages (<2 internal links): 149
 
 ## Files
 
@@ -143,5 +143,24 @@ Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-i
 - `https://francielesofiati.com/formulario-interesse` (0 incoming links; depth None)
 - `https://francielesofiati.com/missao` (0 incoming links; depth None)
 - `https://francielesofiati.com/perguntas` (1 incoming links; depth 1)
+- `https://francielesofiati.com/servicos/laser-acupulse-co2` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/limpeza-de-pele-profunda` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/mesoterapia-capilar` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/microagulhamento` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/mmp-microinfusao-de-medicamentos-na-pele` (0 incoming links; depth None)
 - `https://francielesofiati.com/servicos/peeling-de-ata` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/peeling-de-cristal-microdermoabrasao` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/peeling-de-diamante` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/peeling-de-jessner` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/peeling-retinoico` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/peeling-ultrassonico` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/peim-tratamento-estetico-para-microvasos` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/plataforma-harmony-de-laser-e-luz` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/protocolo-profissional-de-despigmentacao` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/radiofrequencia` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/reducao-de-pelos-a-laser-com-lightsheer-duet` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/tecnologia-de-plasma` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/toxina-botulinica-platisma-e-terco-inferior` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/toxina-botulinica-terco-superior-da-face` (0 incoming links; depth None)
+- `https://francielesofiati.com/servicos/ultraformer-mpt` (0 incoming links; depth None)
 - `https://francielesofiati.com/valores` (0 incoming links; depth None)
