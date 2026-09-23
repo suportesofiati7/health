@@ -31,6 +31,9 @@ async function contextFor(width,height,role='proprietario'){
     if(path.includes('/rpc/convert_public_intake'))return json(patient.id);
     if(path.includes('/rpc/'))return json(null);
     const table=path.split('/').at(-1);let rows=structuredClone(fixtures[table]||[]);
+    // Exercise the loader's compatibility retry against a deployment where
+    // the optional action-centre migration has not reached PostgREST yet.
+    if(table==='tasks'&&req.method()==='GET'&&(url.searchParams.has('source_type')||url.searchParams.has('category')))return json({code:'PGRST204',message:'column not found in schema cache'},400);
     if(table==='memberships')rows=rows.map(m=>({...m,role}));
     if(req.method()==='HEAD')return route.fulfill({status:200,headers:{'content-range':`0-0/${rows.length}`},body:''});
     if(req.method()==='POST'||req.method()==='PATCH'){
@@ -62,7 +65,9 @@ try{
     await page.getByRole('button',{name:'Salvar rascunho',exact:true}).evaluate((button) => button.click());await page.locator('dialog').waitFor({state:'detached'});
     assert(posts.some(p=>p.table==='entries'&&p.body.content==='NOTA FICTÍCIA de teste'));
     await navigation(page,'Agenda');await page.getByRole('heading',{name:'Agenda',exact:true}).waitFor();await noOverflow(page);
-    await navigation(page,'Tarefas');await page.getByRole('heading',{name:'Tarefas e retornos'}).waitFor();await noOverflow(page);
+    await navigation(page,'Tarefas');await page.getByRole('heading',{name:'Tarefas e retornos'}).waitFor();await noOverflow(page);assert.equal(await page.locator('.clinic-topbar-meta a').count(),0);assert.equal(await page.locator('.clinic-topbar-meta img').count(),0);
+    await page.getByRole('button',{name:'Nova tarefa',exact:true}).click();const taskDialog=page.getByRole('dialog');await taskDialog.waitFor();await taskDialog.getByLabel('Tarefa',{exact:true}).fill('Tarefa fictícia de regressão');await taskDialog.getByRole('button',{name:'Salvar',exact:true}).evaluate((button) => button.click());await taskDialog.waitFor({state:'detached'});assert(posts.some(p=>p.table==='tasks'&&p.body.title==='Tarefa fictícia de regressão'));
+    await page.getByRole('button',{name:'Novo retorno',exact:true}).click();const followupDialog=page.getByRole('dialog');await followupDialog.waitFor();await followupDialog.getByLabel('Paciente',{exact:true}).fill('Ashlyn');await followupDialog.getByRole('option',{name:/Ashlyn/}).click();await followupDialog.getByLabel('Observações do retorno',{exact:true}).fill('Retorno fictício de regressão');await followupDialog.getByRole('button',{name:'Salvar',exact:true}).evaluate((button) => button.click());await followupDialog.waitFor({state:'detached'});assert(posts.some(p=>p.table==='follow_ups'&&p.body.patient_id===patient.id&&p.body.notes==='Retorno fictício de regressão'));
     await navigation(page,'Formulários');await page.getByRole('heading',{name:'Formulários',exact:true}).waitFor();await noOverflow(page);
     for (const statusName of ['Todos','Novo','Em análise','Contatado','Aguardando','Convertido','Arquivado']) { await page.getByRole('button',{name:statusName,exact:true}).click(); }
     await page.locator('button.patient-row').filter({hasText:'Contato Exemplo Fictício'}).click(); await page.getByRole('heading',{name:'Revisar formulário'}).waitFor();

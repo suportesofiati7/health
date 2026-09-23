@@ -26,6 +26,7 @@
       const emailResult = await emailResponse.json().catch(() => null);
       if (!emailResponse.ok || emailResult?.success === false) throw Error('email_submission');
       form.replaceChildren(); result.textContent = english ? 'Your enquiry has been received. Our team will be in touch.' : 'Recebemos seu interesse. Nossa equipe entrará em contato.';
+      window.location.assign(new URL(english ? 'en/thank-you.html' : 'obrigada.html', window.location.origin).href);
     } catch { result.textContent = english ? 'We could not send this yet. Please try again or contact us on WhatsApp.' : 'Não foi possível enviar. Tente novamente ou fale conosco pelo WhatsApp.'; token = ''; window.turnstile?.reset(); submit.disabled = false; }
   });
 })();

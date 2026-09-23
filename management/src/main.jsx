@@ -122,8 +122,6 @@ function ClinicTopbarMeta({ t }) {
   useEffect(() => { const timer = window.setInterval(() => setNow(new Date()), 30000); return () => window.clearInterval(timer); }, []);
   return <div className="clinic-topbar-meta">
     <time dateTime={now.toISOString()}><Clock size={14} />{new Intl.DateTimeFormat(t("pt-BR", "en-GB"), { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(now)}</time>
-    <a href="https://francielesofiati.com/" target="_blank" rel="noopener noreferrer" title={t("Abrir site", "Open website")}><img src={LOGO} alt="" /></a>
-    <a href="https://www.instagram.com/sofiati_biomedica/" target="_blank" rel="noopener noreferrer" title="Instagram"><span aria-hidden="true">◎</span><span>@sofiati_biomedica</span></a>
   </div>;
 }
 function Status({ value }) {
@@ -2726,20 +2724,26 @@ function ClinicalPhotosPanel({ patient, writable, notify }) {
 function WorkflowForm({ resource, patient, member, close, done, notify }) {
   const t = useT();
   const [busy, setBusy] = useState(false);
-  const [form, setForm] = useState({ status: resource === "adverse_event" ? "em_acompanhamento" : "aguardando_agendamento", expected_on: localDay(), template_version: "2026-09-14", kind: "procedimento", description: "", symptoms: "", actions: "", guidance: "", notes: "" });
+  const [form, setForm] = useState({ patient_id: patient?.id || "", status: resource === "adverse_event" ? "em_acompanhamento" : "aguardando_agendamento", expected_on: localDay(), template_version: "2026-09-14", kind: "procedimento", description: "", symptoms: "", actions: "", guidance: "", notes: "" });
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
   const title = resource === "followup" ? t("Novo retorno", "New follow-up") : t("Nova intercorrência", "New adverse event");
   const submit = async (event) => {
     event.preventDefault();
     setBusy(true);
     try {
+      if (!form.patient_id) {
+        notify(t("Selecione um paciente.", "Select a patient."));
+        return;
+      }
       const payload = resource === "followup"
-        ? { organization_id: ORG, patient_id: patient.id, expected_on: form.expected_on, notes: form.notes, status: form.status, created_by: member.user_id }
-        : { organization_id: ORG, patient_id: patient.id, description: form.description, symptoms: form.symptoms, actions: form.actions, guidance: form.guidance, status: form.status, created_by: member.user_id };
-      await checked(db.from(resource === "followup" ? "follow_ups" : "adverse_events").insert(payload));
+        ? { organization_id: ORG, patient_id: form.patient_id, expected_on: form.expected_on, notes: form.notes, status: form.status, created_by: member.user_id }
+        : { organization_id: ORG, patient_id: form.patient_id, description: form.description, symptoms: form.symptoms, actions: form.actions, guidance: form.guidance, status: form.status, created_by: member.user_id };
+      await checked(db.from(resource === "followup" ? "follow_ups" : "adverse_events").insert(payload).select().single());
       done();
     } catch (error) {
-      notify(t("Não foi possível salvar. Verifique se a migração clínica está aplicada.", "Could not save. Check that the clinical migration is applied."));
+      notify(error?.code === "42501"
+        ? t("Sua função não pode criar este registro.", "Your role cannot create this record.")
+        : t("Não foi possível salvar. Verifique os campos e a configuração clínica.", "Could not save. Check the fields and clinical configuration."));
     } finally {
       setBusy(false);
     }
@@ -2747,6 +2751,7 @@ function WorkflowForm({ resource, patient, member, close, done, notify }) {
   return (
     <Dialog title={title} close={() => !busy && close()} wide>
       <form onSubmit={submit}>
+        <PatientPicker initial={patient} value={form.patient_id} onChange={(value) => set("patient_id", value)} />
         {resource === "followup" ? (
           <>
             <Field title={t("Data esperada", "Expected date")} type="date" value={form.expected_on} onChange={(v) => set("expected_on", v)} required />
@@ -3646,19 +3651,24 @@ function TaskForm({ task, patient, close, done, notify }) {
               notify(t("Informe a tarefa e o prazo.", "Enter a task and due date."));
               return;
             }
-            await save(
-              "tasks",
-              {
-                patient_id: form.patient_id || null,
-                assigned_to: form.assigned_to || null,
-                title,
-                category: form.category || "operacional",
-                priority: form.priority,
-                status: form.status,
-                due_at: toISO(due),
-              },
-              task,
-            );
+            const values = {
+              patient_id: form.patient_id || null,
+              assigned_to: form.assigned_to || null,
+              title,
+              category: form.category || "operacional",
+              priority: form.priority,
+              status: form.status,
+              due_at: toISO(due),
+            };
+            try {
+              await save("tasks", values, task);
+            } catch (error) {
+              // The category column is optional until the action-centre
+              // migration is applied. Preserve the base task workflow.
+              if (!/(category|source_type|schema cache|column)/i.test(error?.message || "")) throw error;
+              const { category: _category, ...baseValues } = values;
+              await save("tasks", baseValues, task);
+            }
             dirty.clean();
             done();
           } catch {
@@ -3740,22 +3750,36 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
     // The database function is idempotent and keeps automation consistent for
     // every client opening the centre, including reception workstations.
     await db.rpc("generate_action_centre_tasks").catch(() => null);
-    // Filter and page tasks in the database so old completed tasks cannot hide
-    // newly created work outside a fixed first-120-row window.
-    let taskQuery = db.from("tasks")
-      .select("*", { count: "exact" })
-      .eq("organization_id", ORG)
-      .eq("status", status)
-      .order("created_at", { ascending: false });
-    if (group === "clinical") taskQuery = taskQuery.eq("category", "clinico");
-    if (group === "operational") taskQuery = taskQuery.neq("category", "clinico");
-    if (search.trim()) taskQuery = taskQuery.ilike("title", `%${safeSearch(search)}%`);
-    if (patientId) taskQuery = taskQuery.eq("patient_id", patientId);
-    if (assignee) taskQuery = taskQuery.eq("assigned_to", assignee);
-    if (dueFilter === "overdue") taskQuery = taskQuery.lt("due_at", now.toISOString());
-    if (dueFilter === "today") taskQuery = taskQuery.gte("due_at", `${today}T00:00:00-03:00`).lt("due_at", `${shiftDay(today, 1)}T00:00:00-03:00`);
-    if (dueFilter === "upcoming") taskQuery = taskQuery.gte("due_at", `${shiftDay(today, 1)}T00:00:00-03:00`);
-    const taskResult = await taskQuery.range(page * 30, page * 30 + 29);
+    // Action-centre columns were added after the base tasks table. Keep the
+    // centre usable while a deployment is still waiting for that migration.
+    // The first request uses the richer filters; on a schema-cache/column
+    // failure, retry using only columns guaranteed by the base table.
+    const buildTaskQuery = (withActionColumns) => {
+      let taskQuery = db.from("tasks")
+        .select("*", { count: "exact" })
+        .eq("organization_id", ORG)
+        .eq("status", status)
+        .order("created_at", { ascending: false });
+      if (withActionColumns) {
+        taskQuery = taskQuery
+          .neq("source_type", "follow_up")
+          .neq("source_type", "clinical_procedure")
+          .neq("source_type", "adverse_event");
+        if (group === "clinical") taskQuery = taskQuery.eq("category", "clinico");
+        if (group === "operational") taskQuery = taskQuery.neq("category", "clinico");
+      }
+      if (search.trim()) taskQuery = taskQuery.ilike("title", `%${safeSearch(search)}%`);
+      if (patientId) taskQuery = taskQuery.eq("patient_id", patientId);
+      if (assignee) taskQuery = taskQuery.eq("assigned_to", assignee);
+      if (dueFilter === "overdue") taskQuery = taskQuery.lt("due_at", now.toISOString());
+      if (dueFilter === "today") taskQuery = taskQuery.gte("due_at", `${today}T00:00:00-03:00`).lt("due_at", `${shiftDay(today, 1)}T00:00:00-03:00`);
+      if (dueFilter === "upcoming") taskQuery = taskQuery.gte("due_at", `${shiftDay(today, 1)}T00:00:00-03:00`);
+      return taskQuery;
+    };
+    let taskResult = await buildTaskQuery(true).range(page * 30, page * 30 + 29);
+    if (taskResult.error && /(source_type|category|schema cache|column)/i.test(taskResult.error.message || "")) {
+      taskResult = await buildTaskQuery(false).range(page * 30, page * 30 + 29);
+    }
     if (taskResult.error) throw taskResult.error;
     const taskRows = taskResult.data || [];
     const overdueTaskResult = await db.from("tasks").select("id", { count: "exact", head: true }).eq("organization_id", ORG).eq("status", "pendente").lt("due_at", now.toISOString());
@@ -3767,7 +3791,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
     const tasksWithPatients = taskRows.map((task) => ({ ...task, patients: patientById.get(task.patient_id) || null }));
     const [appointments, followups, adverse, clinicalProcedures, existingSuggestionTasks] = await Promise.all([
       checked(db.from("appointments").select("id,patient_id,starts_at,ends_at,status,label,patients(*)").gte("starts_at", new Date(Date.now() - 45 * 86400000).toISOString()).order("starts_at").limit(120)).catch(() => []),
-      checked(db.from("follow_ups").select("id,patient_id,expected_on,status,notes,professional_id,patients(id,full_name,preferred_name,phone,email)").in("status", ["aguardando_agendamento", "vencido"]).order("expected_on").limit(100)).catch(() => []),
+      checked(db.from("follow_ups").select("id,patient_id,expected_on,status,notes,professional_id,appointment_id,patients(id,full_name,preferred_name,phone,email)").in("status", ["aguardando_agendamento", "vencido", "agendado", "concluido"]).order("expected_on").limit(100)).catch(() => []),
       checked(db.from("adverse_events").select("id,patient_id,responsible_user,followup_deadline,status,description,patients(id,full_name,preferred_name,phone,email)").eq("status", "em_acompanhamento").order("followup_deadline").limit(30)).catch(() => []),
       checked(db.from("clinical_procedures").select("id,patient_id,professional_id,performed_at,followup_due,status,patients(id,full_name,preferred_name,phone,email),procedures(name)").eq("status", "finalizado").not("followup_due", "is", null).order("followup_due").limit(60)).catch(() => []),
       checked(db.from("tasks").select("patient_id,title").eq("organization_id", ORG).eq("status", "pendente").range(0, 999)).catch(() => []),
@@ -3787,19 +3811,21 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
     if (dueFilter === "upcoming" && (!due || due <= today)) return false;
     return true;
   };
-  const followsMatchingFilters = group === "operational" ? [] : data.followups.filter((item) => matchesClinicalFilters(item, item.notes));
+  const followupStatuses = status === "pendente" ? ["aguardando_agendamento", "vencido"] : status === "concluida" ? ["agendado", "concluido"] : [];
+  const followsMatchingFilters = group === "operational" ? [] : data.followups.filter((item) => followupStatuses.includes(item.status)).filter((item) => matchesClinicalFilters(item, item.notes));
   const adverseMatchingFilters = data.adverse.filter((item) => matchesClinicalFilters(item, item.description));
   const proceduresMatchingFilters = data.clinicalProcedures.filter((item) => matchesClinicalFilters(item, item.procedures?.name));
   const overdue = data.overdueTaskCount;
   const taskAttention = data.tasks
     .map((task) => ({ ...task, kind: task.category === "clinico" ? "clinical" : "operational", source: "task", due: task.due_at }))
+    .filter((item) => item.source_type !== "follow_up" && item.source_type !== "clinical_procedure" && item.source_type !== "adverse_event")
     .filter((item) => (group === "all" || item.kind === group) && (dueFilter !== "overdue" || new Date(item.due) < now) && (dueFilter !== "today" || String(item.due).slice(0, 10) === today) && (dueFilter !== "upcoming" || String(item.due).slice(0, 10) > today))
     .sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0));
-  const clinicalAttention = [
+  const clinicalAttention = status === "pendente" ? [
     ...followsMatchingFilters.map((item) => ({ ...item, kind: "clinical", source: "followup", due: item.expected_on, title: t("Retorno clínico pendente", "Pending clinical follow-up") })),
     ...adverseMatchingFilters.map((item) => ({ ...item, kind: "clinical", source: "adverse", due: item.followup_deadline, title: t("Acompanhar intercorrência", "Follow up adverse event") })),
     ...proceduresMatchingFilters.filter((item) => item.followup_due && new Date(`${item.followup_due}T23:59:59-03:00`) <= now).map((item) => ({ ...item, kind: "clinical", source: "procedure", due: item.followup_due, title: `${t("Retorno de procedimento", "Procedure follow-up")} · ${item.procedures?.name || t("avaliação", "review")}` })),
-  ].filter((item) => (dueFilter !== "overdue" || (item.source === "task" ? new Date(item.due) < now : String(item.due).slice(0, 10) < today)) && (dueFilter !== "today" || String(item.due).slice(0, 10) === today) && (dueFilter !== "upcoming" || String(item.due).slice(0, 10) > today)).sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0));
+  ].filter((item) => (dueFilter !== "overdue" || String(item.due || "").slice(0, 10) < today) && (dueFilter !== "today" || String(item.due || "").slice(0, 10) === today) && (dueFilter !== "upcoming" || String(item.due || "").slice(0, 10) > today)).sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0)) : followsMatchingFilters.map((item) => ({ ...item, kind: "clinical", source: "followup", due: item.expected_on, title: t("Retorno agendado ou concluído", "Scheduled or completed follow-up") }));
   const suggestions = [...data.appointments.filter((a) => a.status === "concluido").map((a) => ({ ...a, suggestionTitle: `${t("Pós-atendimento", "Post-visit")} · ${a.label || t("verificar evolução", "check progress")}`, suggestionDue: new Date(new Date(a.starts_at).getTime() + 2 * 86400000) })), ...data.clinicalProcedures.filter((p) => p.followup_due).map((p) => ({ ...p, suggestionTitle: `${t("Retorno de procedimento", "Procedure follow-up")} · ${p.procedures?.name || t("avaliação", "review")}`, suggestionDue: new Date(`${p.followup_due}T09:00:00-03:00`) }))].filter((item) => !data.allTasks.some((task) => task.patient_id === item.patient_id && /pós-atendimento|retorno de procedimento/i.test(task.title || ""))).slice(0, 8);
   const createSuggestions = async () => {
     if (!suggestions.length) return notify(t("Nenhuma sugestão nova por enquanto.", "No new suggestions for now."));
@@ -3827,7 +3853,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
   const title = t("Tarefas e retornos", "Tasks & follow-ups");
   return <>
     <PageHead eyebrow={t("Central de ação clínica", "Clinical action centre")} title={title}>
-      <div className="task-head-actions"><Button icon={CalendarPlus} onClick={() => setModal({ type: "appointment" })}>{t("Agendar", "Schedule")}</Button>{writable && <Button icon={Plus} className="primary" onClick={() => { setPage(0); setModal({ type: "task" }); }}>{t("Nova tarefa", "New task")}</Button>}</div>
+      <div className="task-head-actions"><Button icon={CalendarPlus} onClick={() => setModal({ type: "appointment" })}>{t("Agendar", "Schedule")}</Button>{writable && <><Button icon={Clock} onClick={() => setModal({ type: "workflow", resource: "followup" })}>{t("Novo retorno", "New follow-up")}</Button><Button icon={Plus} className="primary" onClick={() => { setPage(0); setModal({ type: "task" }); }}>{t("Nova tarefa", "New task")}</Button></>}</div>
     </PageHead>
     <section className="task-centre-hero"><div><p className="eyebrow">{t("Visão da clínica", "Clinic overview")}</p><h2>{overdue ? t(`${overdue} tarefa(s) vencida(s)`, `${overdue} overdue task(s)`) : t("Tudo sob controle por aqui", "Everything is under control here")}</h2><p>{t("Tarefas e retornos ficam em listas separadas, com filtros e ações diretas.", "Tasks and follow-ups have separate lists, filters, and direct actions.")}</p></div><div className="task-ring" style={{ "--ring": `${Math.min(100, Math.round((todayAppointments.length / Math.max(1, data.appointments.length)) * 100))}%` }}><strong>{todayAppointments.length}</strong><span>{t("hoje", "today")}</span></div></section>
     <div className="task-metrics"><button className={group === "all" ? "active" : ""} onClick={() => { setGroup("all"); setPage(0); }}><span className="metric-icon metric-icon-sage"><ListChecks size={17} /></span><b>{data.taskCount}</b><small>{t("tarefas neste status", "tasks in this status")}</small></button><button className={group === "clinical" ? "active" : ""} onClick={() => { setGroup("clinical"); setPage(0); }}><span className="metric-icon metric-icon-rose"><Stethoscope size={17} /></span><b>{clinicalAttention.length}</b><small>{t("itens clínicos filtrados", "filtered clinical items")}</small></button><button className="metric-action" onClick={createSuggestions} disabled={!writable || creating || !suggestions.length}><span className="metric-icon metric-icon-gold"><Sparkles size={17} /></span><b>{suggestions.length}</b><small>{creating ? t("criando...", "creating...") : t("sugestões da agenda", "schedule suggestions")}</small></button></div>

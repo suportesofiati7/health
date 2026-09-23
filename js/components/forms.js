@@ -163,17 +163,18 @@ function selectedText(form, names) {
 }
 
 function clinicFunnelPayload(payload, form) {
-  const fullName = payload.full_name || payload.name || '';
+  const fullName = payload.full_name || payload.name || payload.nome || '';
+  const phone = payload.phone || payload.phone_or_whatsapp || payload.whatsapp || payload.telefone || '';
   const privacy = Boolean(payload.privacy === 'on' || payload.privacy_acknowledgement || payload.privacy === 'agreed');
-  if (!fullName || (!payload.phone && !payload.email) || !privacy) return null;
+  if (!fullName || (!phone && !payload.email) || !privacy) return null;
   return {
     full_name: fullName,
-    phone: payload.phone || '',
+    phone,
     email: payload.email || '',
     cpf: payload.cpf || '',
-    preferred_contact: payload.preferred_contact || (payload.phone ? 'whatsapp' : 'email'),
+    preferred_contact: payload.preferred_contact || (phone ? 'whatsapp' : 'email'),
     reason: payload.reason || '',
-    message: payload.message || '',
+    message: payload.message || payload.mensagem || '',
     interest_note: payload.interest_note || '',
     language: document.documentElement.lang || 'pt-BR',
     form_type: form.dataset.formType || form.dataset.formName || 'site',
@@ -439,7 +440,30 @@ function endpointFor(form) {
   const key = formType(form);
   const name = formName(form);
   const endpoint = FORM_ENDPOINTS[key] || FORM_ENDPOINTS[name] || form.getAttribute('action') || '';
-  return endpoint === FORMSUBMIT_AJAX_ENDPOINT ? endpoint : '';
+  if (endpoint === FORMSUBMIT_AJAX_ENDPOINT || /formsubmit\.co\//i.test(endpoint)) return FORMSUBMIT_AJAX_ENDPOINT;
+  return '';
+}
+
+function isLeadForm(form) {
+  const type = form.dataset.formType || '';
+  const leadType = form.dataset.leadType || '';
+  if (['contact', 'consultation', 'quick_contact', 'quick_question'].includes(type)) return true;
+  if (['contact_enquiry', 'consultation_request', 'quick_question'].includes(leadType)) return true;
+  return Boolean(
+    form.matches('form[action*="formsubmit.co/"]') &&
+    qs('input[name="email"]', form) &&
+    qs('input[name="name"], input[name="nome"]', form) &&
+    qs('textarea[name="message"], textarea[name="mensagem"]', form)
+  );
+}
+
+function ensureLeadConsent(form) {
+  if (!isLeadForm(form) || qs('input[name="privacy_acknowledgement"], input[name="privacy"]', form)) return;
+  const label = document.createElement('label');
+  label.className = 'sf-field sf-field--checkbox sf-form-lead-consent';
+  label.innerHTML = `<input name="privacy_acknowledgement" required type="checkbox" value="agreed"><span>${isPortuguese() ? 'Concordo que meus dados sejam utilizados para que a equipe responda ao meu contato.' : 'I agree that my details may be used so the team can reply to my enquiry.'}</span>`;
+  const submit = qs('.sf-form-submit', form);
+  (submit || form.lastElementChild || form).before(label);
 }
 
 function privacyConsentGiven(form) {
@@ -500,7 +524,7 @@ function populateMetadata(form) {
 }
 
 export function initForms() {
-  qsa('form.sf-form, form[data-enhanced-form], form[data-consultation-form]').forEach((form, formIndex) => {
+  qsa('form.sf-form, form[data-enhanced-form], form[data-consultation-form], form[action*="formsubmit.co/"]').forEach((form, formIndex) => {
     if (form.dataset.publicIntake === 'true') return;
     if (form.dataset.sfFormReady === 'true') return;
     form.dataset.sfFormReady = 'true';
@@ -513,6 +537,7 @@ export function initForms() {
 
     const formId = form.id || `sf-form-${formIndex + 1}`;
     if (!form.id) form.id = formId;
+    ensureLeadConsent(form);
     setupConsentSpecificTerms(form);
     const stateNodes = qsa('[data-form-state]', form);
     const renderedStateCopy = Object.fromEntries(

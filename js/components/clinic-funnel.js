@@ -1,10 +1,18 @@
 const TURNSTILE_SITE_KEY = '0x4AAAAAAE0b8mFSgQqazkH8';
 
 function eligibleForms() {
-  return [...document.querySelectorAll('form[data-analytics-form]')].filter((form) => {
+  return [...document.querySelectorAll('form[data-analytics-form], form[action*="formsubmit.co/"]')].filter((form) => {
     const type = form.dataset.formType || '';
-    return ['contact', 'consultation', 'quick_contact', 'quick_question', 'newsletter'].includes(type)
-      && !form.querySelector('input[name="token"]');
+    const leadType = form.dataset.leadType || '';
+    const articleContact = form.matches('form[action*="formsubmit.co/"]')
+      && form.querySelector('input[name="email"]')
+      && form.querySelector('input[name="name"], input[name="nome"]')
+      && form.querySelector('textarea[name="message"], textarea[name="mensagem"]');
+    return (
+      ['contact', 'contact_form', 'consultation', 'consultation_request', 'quick_contact', 'quick_question'].includes(type)
+      || ['contact_enquiry', 'consultation_request', 'quick_question'].includes(leadType)
+      || articleContact
+    ) && !form.querySelector('input[name="token"]');
   });
 }
 

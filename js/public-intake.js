@@ -5,6 +5,7 @@
   document.querySelector(".skip-past-hero")?.remove();
   const form = document.querySelector("form[data-public-intake]");
   if (!form) return;
+  const thankYouPath = () => (document.documentElement.lang || "pt-BR").toLowerCase().startsWith("en") ? "en/thank-you.html" : "obrigada.html";
   const firstCard = form.querySelector(":scope > .sf-consent-card");
   const sectionBrand = document.createElement("div");
   sectionBrand.className = "sf-section-brand";
@@ -312,17 +313,17 @@
             credentials: "omit",
           });
           const emailBody = await emailResponse.json().catch(() => null);
-          if (!emailResponse.ok || emailBody?.success !== true) {
-            console.error("FORMULARIO_BROWSER_EMAIL_FAILED", emailResponse.status, emailBody);
-          }
+          if (!emailResponse.ok || emailBody?.success !== true) throw new Error(`email_${emailResponse.status}`);
         } catch (emailError) {
           console.error("FORMULARIO_BROWSER_EMAIL_EXCEPTION", emailError);
+          throw emailError;
         }
       }
       sessionStorage.removeItem(draftKey);
       form.reset();
       state("success");
       form.querySelector(".sf-consent-card--submit")?.scrollIntoView({ block: "start" });
+      window.location.assign(new URL(thankYouPath(), window.location.origin).href);
     } catch (error) {
       console.error("FORMULARIO_CAUGHT_ERROR", error);
       state("error");
