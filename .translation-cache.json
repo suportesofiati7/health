@@ -1,16 +1,16 @@
 {
   "version": "pt-br-argos-blocks-v3",
   "locale": "pt-BR",
-  "engine": "argos:en->pb:installed",
-  "updated_at": "2026-09-18T11:44:48.511101+00:00",
+  "engine": "argos:en->pt:installed",
+  "updated_at": "2026-10-14T13:56:17.974345+00:00",
   "pages": {
     "404.html": {
       "source_path": "404.html",
       "output_path": "pt/404.html",
       "source_hash": "b268073f0e4c953893df3c8b4a45d301b0325c7ac33fa5568c6bee3485d8d2dd",
       "output_hash": "b67a2807f6905a300c04daef9aedd38b6bf0ac7fa293a70771fa1b8be939269e",
-      "last_translated": "2026-09-18T11:43:32.498250+00:00",
-      "engine": "argos:en->pb:installed",
+      "last_translated": "2026-10-14T13:56:11.221314+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -3585,12 +3585,12 @@
     "blog.html": {
       "source_path": "blog.html",
       "output_path": "pt/blog.html",
-      "source_hash": "65f016df17cc2da502e610958eae0be7e9bde6a34a14d35aadbdf6ced6705b5f",
-      "output_hash": "9785f4fadd698f695f917c97e16981aab89fd77b2b2c07f2172c8a45a6ce36e8",
-      "last_translated": "2026-09-18T11:43:34.518417+00:00",
-      "engine": "argos:en->pb:installed",
-      "manual_override": false,
-      "manual_review_required": false,
+      "source_hash": "b84def815d962855263231713fcdad1b406b6bb95a35dbc15239121563fa8cc3",
+      "output_hash": "7625c28c800a62aae09bc860ab3942d711288483cfc146d2c5ab0be5e388fa7f",
+      "last_translated": "2026-10-14T13:56:11.328680+00:00",
+      "engine": "argos:en->pt:installed",
+      "manual_override": true,
+      "manual_review_required": true,
       "blocks": {
         "attr:meta[name=description]:content": {
           "kind": "attribute:content",
@@ -3790,26 +3790,15 @@
           "review_required": false,
           "origin": "argos"
         },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
-        },
         "attr:id:main/section[1]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Composição editorial sobre Botox em Londrina, toxina botulínica, consulta estética e naturalidade.",
-          "source_hash": "e5311fce0b37df1dfffb889b9d389f856c1b2b068eb916a6711fdb3bcf050697",
-          "generated_translation": "Composição editorial sobre Botox em Londrina, toxina botulínica, consulta estética e naturalidade.",
-          "generated_hash": "e5311fce0b37df1dfffb889b9d389f856c1b2b068eb916a6711fdb3bcf050697",
-          "current_translation": "Composição editorial sobre Botox em Londrina, toxina botulínica, consulta estética e naturalidade.",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Composição editorial para Botox em Londrina, com atmosfera botânica, naturalidade e consulta estética.",
+          "source_hash": "173d13f5b555dedeadb9d5c5fc7390499a264a446681d2edab688a7ba0e40b6a",
+          "generated_translation": "Composição editorial para Botox em Londrina, com atmosfera botânica, naturalidade e consulta estética.",
+          "generated_hash": "173d13f5b555dedeadb9d5c5fc7390499a264a446681d2edab688a7ba0e40b6a",
+          "current_translation": "Composição editorial para Botox em Londrina, com atmosfera botânica, naturalidade e consulta estética.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:main/section[1]/a[1]/figure[1]/figcaption[1]:0": {
@@ -3935,13 +3924,13 @@
         },
         "attr:id:consultation-care/div[1]/article[1]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Seleção consciente de poucos itens de cuidado em tons de marfim, sálvia e dourado.",
-          "source_hash": "bcbba0e707337ba5c35aff0a4a82c8bd9791765a9eaa95be4c8d82efb0ef5623",
-          "generated_translation": "Seleção consciente de poucos itens de cuidado em toneladas de marfim, sélvia e dourado.",
-          "generated_hash": "8cd1eec3fd14bb85fb4119a9644c943f371490238729f3e8266a5eea8a2d24cb",
-          "current_translation": "Seleção consciente de poucos itens de cuidado em toneladas de marfim, sélvia e dourado.",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Seleção consciente de poucos itens de cuidado sobre uma bancada em tons de marfim, sálvia e dourado.",
+          "source_hash": "f0900cba5af5da6fad6a045cffb337760c1daed58933c77d286c06f1199841a8",
+          "generated_translation": "Seleção consciente de poucos itens de cuidado sobre uma bancada em toneladas de marfim, sélvia e dourado.",
+          "generated_hash": "11b4ab02e4753d1fb36089f8084019dbb3be800341af9082f726b550b0403828",
+          "current_translation": "Seleção consciente de poucos itens de cuidado sobre uma bancada em tons de marfim, sálvia e dourado.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:consultation-care/div[1]/article[1]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -4023,13 +4012,13 @@
         },
         "attr:id:consultation-care/div[1]/article[2]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Consulta estética cuidadosa com Franciele Sofiati em Londrina.",
-          "source_hash": "9c26e2ab9962e134a5e633ba87c512169faa8c2c770349f751008cb337c509b0",
-          "generated_translation": "Consulta estética cuidada com Franciele Sofiati em Londrina.",
-          "generated_hash": "eef11a846cd1e64add2bf86933c59594cb342703ab734d4ece18c107c9833f2e",
-          "current_translation": "Consulta estética cuidada com Franciele Sofiati em Londrina.",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:consultation-care/div[1]/article[2]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -4100,14 +4089,14 @@
         },
         "attr:id:consultation-care/div[1]/article[3]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Barreira cutanea, peeling quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 2",
-          "source_hash": "39f2aca8fc222d8e6b5fbacd426897c983bd54bf3696a3da338a75c9723035f4",
-          "generated_translation": "Barreira cutanea, descascando quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 2",
-          "generated_hash": "54d58962ad24ab4a13633153700e054e6565eed64ce288f5ea42238f0055b153",
-          "current_translation": "Barreira cutanea, descascando quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 2",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:consultation-care/div[1]/article[3]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -4177,13 +4166,13 @@
         },
         "attr:id:consultation-care/div[1]/article[4]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Peeling quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 3",
-          "source_hash": "20e46afe7afd3a9bd088b974d8c7f5ae6e1934371b160f7303c3fb5e09bcfd7d",
-          "generated_translation": "Peeling quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 3",
-          "generated_hash": "20e46afe7afd3a9bd088b974d8c7f5ae6e1934371b160f7303c3fb5e09bcfd7d",
-          "current_translation": "Peeling quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 3",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "source_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "generated_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "generated_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "current_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:consultation-care/div[1]/article[4]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -4287,14 +4276,14 @@
         },
         "attr:id:skin-health/div[1]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Bioestimulador de colageno, colageno, consulta estetica com Franciele Sofiati em Londrina na blog, imagem 4",
-          "source_hash": "7763bd45249ce624fd5e91420053256b5a59fe62ff16106472a740e6e125bc1c",
-          "generated_translation": "Bioestimador de colageno, colageno, consulta estatica com Franciele Sofiati em Londrina na blog, imagem 4",
-          "generated_hash": "237a63bec9155f5fcb458fbdccb2e0ba15d79041ae8cb082a22998d4a8b99144",
-          "current_translation": "Bioestimador de colageno, colageno, consulta estatica com Franciele Sofiati em Londrina na blog, imagem 4",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:skin-health/div[1]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -4397,14 +4386,14 @@
         },
         "attr:id:main/section[4]/div[1]/article[1]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Acne e cicatrizes, cicatrizes de acne, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 5",
-          "source_hash": "de8e89b9510c188ad06c07b472566d82bf5590f1757dad5ce73ecd2e27f4f9b2",
-          "generated_translation": "Acne e cicatrizes, cicatrização de acne, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 5",
-          "generated_hash": "558bbce1b5b2450d22aff6aa4eaacb2924c168706e557894ec353ca2a5ac588b",
-          "current_translation": "Acne e cicatrizes, cicatrização de acne, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 5",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:main/section[4]/div[1]/article[1]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -4474,14 +4463,14 @@
         },
         "attr:id:main/section[4]/div[1]/article[2]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Peeling quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 6",
-          "source_hash": "3031e0e09a2edda857be876e13c4300552663ce5b2c381cd6dbd41afa6d6bcc8",
-          "generated_translation": "Peeling quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 6",
-          "generated_hash": "3031e0e09a2edda857be876e13c4300552663ce5b2c381cd6dbd41afa6d6bcc8",
-          "current_translation": "Peeling quimico, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 6",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:main/section[4]/div[1]/article[2]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -4584,13 +4573,13 @@
         },
         "attr:id:laser-technology/div[1]/div[1]/article[1]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Laser co2 fracionado, peeling quimico, clinica estetica com Franciele Sofiati em Londrina na blog, imagem 7",
-          "source_hash": "5c824e186371a3835d273276ae6418aa10624834d9d7768138feeda79f1e74c9",
-          "generated_translation": "Laser co2 fracionado, descascando quimico, clínica estatica com Franciele Sofiati em Londrina no blog, imagem 7",
-          "generated_hash": "adab896a4512bd0bb58b574e31d53698d4ecfa7841a6901851db3f8e11516c35",
-          "current_translation": "Laser co2 fracionado, descascando quimico, clínica estatica com Franciele Sofiati em Londrina no blog, imagem 7",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "source_hash": "e83ba44c02b6fef061be67e1b3a7551382117817161204ccc44016694e96b04f",
+          "generated_translation": "Aplicação de laser de CO2 em ambiente clínico.",
+          "generated_hash": "9e5ece2684c407ddad83d80a2ffcb251c65b2393a9ed44f3942512fb524ae161",
+          "current_translation": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:laser-technology/div[1]/div[1]/article[1]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -4661,13 +4650,13 @@
         },
         "attr:id:laser-technology/div[1]/div[1]/article[2]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Ultrassom microfocado, rejuvenescimento facial, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 8",
-          "source_hash": "135119e9c3f6a28b16b4b749be4bf2aca02ce9332ccb14672b9eb7680147af90",
-          "generated_translation": "Ultrassom microfocado, rejuvenescimento facial, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 8",
-          "generated_hash": "135119e9c3f6a28b16b4b749be4bf2aca02ce9332ccb14672b9eb7680147af90",
-          "current_translation": "Ultrassom microfocado, rejuvenescimento facial, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 8",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Tratamento estético com radiofrequência.",
+          "source_hash": "450f1fd009651ec53a76b9b6e88d48cb0c96f8092622a16fd980e39796871329",
+          "generated_translation": "Tratamento estatístico com radiofrequência.",
+          "generated_hash": "5ac140f4d9d103363b161c2a53d3655df30a4478e6ebf6de6a5875eeef2d8809",
+          "current_translation": "Tratamento estético com radiofrequência.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:laser-technology/div[1]/div[1]/article[2]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -4738,13 +4727,13 @@
         },
         "attr:id:laser-technology/div[1]/div[1]/article[3]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Laser estetico, bioestimulador de colageno, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 9",
-          "source_hash": "87d9d6863442ee0792707e565894e312daa28822176e72eb69d9c0f33a5104a1",
-          "generated_translation": "Laser estetico, bioestimulador de colageno, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 9",
-          "generated_hash": "87d9d6863442ee0792707e565894e312daa28822176e72eb69d9c0f33a5104a1",
-          "current_translation": "Laser estetico, bioestimulador de colageno, imagem editorial de blog com Franciele Sofiati em Londrina na blog, imagem 9",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Equipamento para depilação a laser em uma clínica estética.",
+          "source_hash": "0ba99a691bf8dc2982067336f9612f83735d03ef773d84d3541ccb32a1024239",
+          "generated_translation": "Equipamento para depilação a laser em uma clínica estética.",
+          "generated_hash": "0ba99a691bf8dc2982067336f9612f83735d03ef773d84d3541ccb32a1024239",
+          "current_translation": "Equipamento para depilação a laser em uma clínica estética.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:laser-technology/div[1]/div[1]/article[3]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -4914,35 +4903,35 @@
         },
         "attr:id:hair-scalp/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Couro cabeludo, vasinhos faciais, rosto natural com Franciele Sofiati em Londrina na blog, imagem 10",
-          "source_hash": "2b8f0ff31ccb94dcc8700b0b8b560949a3ba86195a4f54a1884a3552a656f0cf",
-          "generated_translation": "Couro cabeludo, vasinhos feitos, rosa natural com Franciele Sofiati em Londrina na blog, imagem 10",
-          "generated_hash": "6aba9ddb1d76158c5db123860ac2abd8cf6fbebf3bd5a2ee02f966fea9a56708",
-          "current_translation": "Couro cabeludo, vasinhos feitos, rosa natural com Franciele Sofiati em Londrina na blog, imagem 10",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "source_hash": "b84c2234440de94f21e8fa7da707baf136d4f91600e959c6ddd237242b4e55fc",
+          "generated_translation": "Cuidado profissional para o coro cabeludo e a saúde capilar.",
+          "generated_hash": "98952e761dad8003dd410790f504d1ace6da4e0855412dbf930a830904160c2f",
+          "current_translation": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/header[1]/div[1]/p[1]:0": {
           "kind": "text",
-          "source": "Continuação · artigos 11–60",
-          "source_hash": "bfaf94b36e04e0f2ad1f66728c918b65fca18e745d9915c32cc49161e8d621be",
-          "generated_translation": "Continuação · artigos 11–60",
-          "generated_hash": "bfaf94b36e04e0f2ad1f66728c918b65fca18e745d9915c32cc49161e8d621be",
-          "current_translation": "Continuação · artigos 11–60",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Mais artigos · 11–60",
+          "source_hash": "6041448c55dbf0dded4dcd59a093cc47e87293f5e95fd7b78cfa761d2914df31",
+          "generated_translation": "Mais artigos · 11–60",
+          "generated_hash": "6041448c55dbf0dded4dcd59a093cc47e87293f5e95fd7b78cfa761d2914df31",
+          "current_translation": "Mais artigos · 11–60",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library-title:0": {
           "kind": "text",
-          "source": "Continue o Journal, artigo por artigo.",
-          "source_hash": "e7d227256d139a73266b9cd834ecde86b6a9c5bf89593d9d02a972e594b6b95f",
-          "generated_translation": "Continue o diário, artigo por artigo.",
-          "generated_hash": "d9317e6f6be0ec28eb152578d0193b85acec57da0694aa68858933a87eb13ef1",
-          "current_translation": "Continue o diário, artigo por artigo.",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Mais artigos para explorar.",
+          "source_hash": "5f375f2688d6322d0ca7b4561ccf57b0fcbb0ea7d8cda2600d5c353a816130ea",
+          "generated_translation": "Mais artigos para explorar.",
+          "generated_hash": "5f375f2688d6322d0ca7b4561ccf57b0fcbb0ea7d8cda2600d5c353a816130ea",
+          "current_translation": "Mais artigos para explorar.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/header[1]/p[1]:0": {
@@ -4958,13 +4947,13 @@
         },
         "attr:id:journal-library/div[1]/article[1]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a protocolo profissional de despigmentacao",
-          "source_hash": "560e57e7bbb3f80e8d2257beaaa032b359df9a728877bb7bec588579c49784b0",
-          "generated_translation": "Imagem relacionada ao protocolo profissional de despigmentacao",
-          "generated_hash": "9c7f96b7075e02b45df2ac86e7cf39acba03f5ed73b7c2192efaf5f6b58590e6",
-          "current_translation": "Imagem relacionada ao protocolo profissional de despigmentacao",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "source_hash": "226715756faf1542764a0feabc6937fad412cae15c46d277fdea64ecf1a0be51",
+          "generated_translation": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "generated_hash": "226715756faf1542764a0feabc6937fad412cae15c46d277fdea64ecf1a0be51",
+          "current_translation": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[1]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5035,14 +5024,14 @@
         },
         "attr:id:journal-library/div[1]/article[2]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[2]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -5112,13 +5101,13 @@
         },
         "attr:id:journal-library/div[1]/article[3]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peeling de jessner",
-          "source_hash": "4ba224e0a3aab40b966a72aad3fc6a7062bdfdffd85e82c92e12335c9f7b0457",
-          "generated_translation": "Imagem relacionada a peeling de jessner",
-          "generated_hash": "4ba224e0a3aab40b966a72aad3fc6a7062bdfdffd85e82c92e12335c9f7b0457",
-          "current_translation": "Imagem relacionada a peeling de jessner",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Peeling de Jessner realizado em ambiente clínico.",
+          "source_hash": "b399753368dd7e553b09df24d95da5ca0aed2678d594778c3f74edd3f7f33421",
+          "generated_translation": "Peeling de Jessner realizado em ambiente clínico.",
+          "generated_hash": "b399753368dd7e553b09df24d95da5ca0aed2678d594778c3f74edd3f7f33421",
+          "current_translation": "Peeling de Jessner realizado em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[3]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5189,13 +5178,13 @@
         },
         "attr:id:journal-library/div[1]/article[4]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "source_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "generated_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "generated_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "current_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[4]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5266,13 +5255,13 @@
         },
         "attr:id:journal-library/div[1]/article[5]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "source_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "generated_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "generated_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "current_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[5]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5343,13 +5332,13 @@
         },
         "attr:id:journal-library/div[1]/article[6]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a microagulhamento",
-          "source_hash": "1aff4c0cd138f47ab60b30530b3b2b33d11fd0387ff740a43e782a0b652b5acf",
-          "generated_translation": "Imagem relacionada a microagulamento",
-          "generated_hash": "9e5b2f215548821f2745f5e4e9c1c53889f3ae29f0fa542a7c8d557e284544fc",
-          "current_translation": "Imagem relacionada a microagulamento",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "source_hash": "ba0c35d5bf76cd9f576639c34647c306ad104a4966c2c931d18f4d5cd2cdcb4f",
+          "generated_translation": "Procedimento de microagulamento realizado em ambiente clínico.",
+          "generated_hash": "d29b8476e88c7dd55df0804642c88e7e3bf5f2d2aff216f8078c077e8799faf7",
+          "current_translation": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[6]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5420,13 +5409,13 @@
         },
         "attr:id:journal-library/div[1]/article[7]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "source_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "generated_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "generated_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "current_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[7]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5497,13 +5486,13 @@
         },
         "attr:id:journal-library/div[1]/article[8]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a microagulhamento",
-          "source_hash": "1aff4c0cd138f47ab60b30530b3b2b33d11fd0387ff740a43e782a0b652b5acf",
-          "generated_translation": "Imagem relacionada a microagulamento",
-          "generated_hash": "9e5b2f215548821f2745f5e4e9c1c53889f3ae29f0fa542a7c8d557e284544fc",
-          "current_translation": "Imagem relacionada a microagulamento",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[8]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5574,13 +5563,13 @@
         },
         "attr:id:journal-library/div[1]/article[9]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a microagulhamento",
-          "source_hash": "1aff4c0cd138f47ab60b30530b3b2b33d11fd0387ff740a43e782a0b652b5acf",
-          "generated_translation": "Imagem relacionada a microagulamento",
-          "generated_hash": "9e5b2f215548821f2745f5e4e9c1c53889f3ae29f0fa542a7c8d557e284544fc",
-          "current_translation": "Imagem relacionada a microagulamento",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[9]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5651,13 +5640,13 @@
         },
         "attr:id:journal-library/div[1]/article[10]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a plataforma harmony de laser e luz",
-          "source_hash": "6b8ec953d5eb8ce6d92b4b070d3c15b2bcbd771e15aeccdfea76266c293f0ec6",
-          "generated_translation": "Imagem relacionada a plataforma harmonia de laser e luz",
-          "generated_hash": "8b2d2e384a252be5b5ff0f00d753de434126699f9547a07a9e4a557e68871767",
-          "current_translation": "Imagem relacionada a plataforma harmonia de laser e luz",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Tecnologia de laser e luz em uma clínica estética.",
+          "source_hash": "99933ad17f58bd89beeff75d5ee2843a73e8b88d576d258d7d5ca51757d3377d",
+          "generated_translation": "Tecnologia de laser e luz em uma clínica estética.",
+          "generated_hash": "99933ad17f58bd89beeff75d5ee2843a73e8b88d576d258d7d5ca51757d3377d",
+          "current_translation": "Tecnologia de laser e luz em uma clínica estética.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[10]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5728,13 +5717,13 @@
         },
         "attr:id:journal-library/div[1]/article[11]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a protocolo profissional de despigmentacao",
-          "source_hash": "560e57e7bbb3f80e8d2257beaaa032b359df9a728877bb7bec588579c49784b0",
-          "generated_translation": "Imagem relacionada ao protocolo profissional de despigmentacao",
-          "generated_hash": "9c7f96b7075e02b45df2ac86e7cf39acba03f5ed73b7c2192efaf5f6b58590e6",
-          "current_translation": "Imagem relacionada ao protocolo profissional de despigmentacao",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Tecnologia de laser e luz em uma clínica estética.",
+          "source_hash": "99933ad17f58bd89beeff75d5ee2843a73e8b88d576d258d7d5ca51757d3377d",
+          "generated_translation": "Tecnologia de laser e luz em uma clínica estética.",
+          "generated_hash": "99933ad17f58bd89beeff75d5ee2843a73e8b88d576d258d7d5ca51757d3377d",
+          "current_translation": "Tecnologia de laser e luz em uma clínica estética.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[11]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5805,13 +5794,13 @@
         },
         "attr:id:journal-library/div[1]/article[12]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a protocolo profissional de despigmentacao",
-          "source_hash": "560e57e7bbb3f80e8d2257beaaa032b359df9a728877bb7bec588579c49784b0",
-          "generated_translation": "Imagem relacionada ao protocolo profissional de despigmentacao",
-          "generated_hash": "9c7f96b7075e02b45df2ac86e7cf39acba03f5ed73b7c2192efaf5f6b58590e6",
-          "current_translation": "Imagem relacionada ao protocolo profissional de despigmentacao",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "source_hash": "226715756faf1542764a0feabc6937fad412cae15c46d277fdea64ecf1a0be51",
+          "generated_translation": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "generated_hash": "226715756faf1542764a0feabc6937fad412cae15c46d277fdea64ecf1a0be51",
+          "current_translation": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[12]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5882,13 +5871,13 @@
         },
         "attr:id:journal-library/div[1]/article[13]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "source_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "generated_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "generated_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "current_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[13]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -5959,13 +5948,13 @@
         },
         "attr:id:journal-library/div[1]/article[14]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peeling de jessner",
-          "source_hash": "4ba224e0a3aab40b966a72aad3fc6a7062bdfdffd85e82c92e12335c9f7b0457",
-          "generated_translation": "Imagem relacionada a peeling de jessner",
-          "generated_hash": "4ba224e0a3aab40b966a72aad3fc6a7062bdfdffd85e82c92e12335c9f7b0457",
-          "current_translation": "Imagem relacionada a peeling de jessner",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Peeling de Jessner realizado em ambiente clínico.",
+          "source_hash": "b399753368dd7e553b09df24d95da5ca0aed2678d594778c3f74edd3f7f33421",
+          "generated_translation": "Peeling de Jessner realizado em ambiente clínico.",
+          "generated_hash": "b399753368dd7e553b09df24d95da5ca0aed2678d594778c3f74edd3f7f33421",
+          "current_translation": "Peeling de Jessner realizado em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[14]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6036,14 +6025,14 @@
         },
         "attr:id:journal-library/div[1]/article[15]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peeling de diamante",
-          "source_hash": "2a713c68155c784b0c7e722462e2c105fe9d71a5eca34b9dc5ddf84ca07f334b",
-          "generated_translation": "Imagem relacionada a peeling de diamante",
-          "generated_hash": "2a713c68155c784b0c7e722462e2c105fe9d71a5eca34b9dc5ddf84ca07f334b",
-          "current_translation": "Imagem relacionada a peeling de diamante",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[15]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -6113,13 +6102,13 @@
         },
         "attr:id:journal-library/div[1]/article[16]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peeling de cristal microdermoabrasao",
-          "source_hash": "c5cec84c5f5a142cf62701dfc9ad50464f1e93e8b80e110e321e7e0c2d1ccc89",
-          "generated_translation": "Imagem relacionada a descascamento de cristal microdermoabrasao",
-          "generated_hash": "7af057690d970de88dad4c2a2b69ea5a2ddc53dbceb2e301916740bcaa1309ca",
-          "current_translation": "Imagem relacionada a descascamento de cristal microdermoabrasao",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Tratamento profissional de microdermoabrasão.",
+          "source_hash": "a586509763aaa966d61de6a3c80cfd523281ab0c33a19cd24db2ca3672a43814",
+          "generated_translation": "Tratamento profissional de microdermoabrasão.",
+          "generated_hash": "a586509763aaa966d61de6a3c80cfd523281ab0c33a19cd24db2ca3672a43814",
+          "current_translation": "Tratamento profissional de microdermoabrasão.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[16]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6190,14 +6179,14 @@
         },
         "attr:id:journal-library/div[1]/article[17]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peeling de diamante",
-          "source_hash": "2a713c68155c784b0c7e722462e2c105fe9d71a5eca34b9dc5ddf84ca07f334b",
-          "generated_translation": "Imagem relacionada a peeling de diamante",
-          "generated_hash": "2a713c68155c784b0c7e722462e2c105fe9d71a5eca34b9dc5ddf84ca07f334b",
-          "current_translation": "Imagem relacionada a peeling de diamante",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
+          "source": "Atendimento estético para peeling de diamante.",
+          "source_hash": "26acf31042ad37ebf8366f01b9e7c0bc350f8a7b4572f62203ca6768997c146f",
+          "generated_translation": "Atendimento estético para peeling de diamante.",
+          "generated_hash": "26acf31042ad37ebf8366f01b9e7c0bc350f8a7b4572f62203ca6768997c146f",
+          "current_translation": "Atendimento estético para peeling de diamante.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[17]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -6267,13 +6256,13 @@
         },
         "attr:id:journal-library/div[1]/article[18]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peeling ultrassonico",
-          "source_hash": "4e2cb193d548d94d70e2424e93dbe02826883a4055929c1f6685fa9826208bc7",
-          "generated_translation": "Imagem relacionada a um descascando ultrassonico",
-          "generated_hash": "2c986359a4d592f21df55ae57821b2af1aaca13e759212b2386a807af0c41ae9",
-          "current_translation": "Imagem relacionada a um descascando ultrassonico",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento estético com peeling ultrassônico.",
+          "source_hash": "1d10398fd67ad9cb15aecfd025dce8c8133e437b78bc78c7e2591dde5f4418ab",
+          "generated_translation": "Atendimento estético com descascamento ultrassônico.",
+          "generated_hash": "bb7806771e5943b26645f4b2df685787613999cf53514838c7005c4ade0c7d7d",
+          "current_translation": "Atendimento estético com peeling ultrassônico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[18]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6344,13 +6333,13 @@
         },
         "attr:id:journal-library/div[1]/article[19]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peeling retinoico",
-          "source_hash": "a18c4e40812fa8a0311f3f54d1bb988bfa234a687699d0f0c0498089cc7987d6",
-          "generated_translation": "Imagem relacionada a descascando retinoico",
-          "generated_hash": "9d39f6941a67bd2ecc74aa29f441af4cc34cf25b7e520a06b7d32d2a7448e51f",
-          "current_translation": "Imagem relacionada a descascando retinoico",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Cuidado profissional com peeling retinoico.",
+          "source_hash": "1ce9f70c6bd7fdb480c79ff5faf324227853e90e6c6497782cd89df9eb9ae7cf",
+          "generated_translation": "Cuidado profissional com peeling retinoico.",
+          "generated_hash": "1ce9f70c6bd7fdb480c79ff5faf324227853e90e6c6497782cd89df9eb9ae7cf",
+          "current_translation": "Cuidado profissional com peeling retinoico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[19]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6421,13 +6410,13 @@
         },
         "attr:id:journal-library/div[1]/article[20]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peeling de jessner",
-          "source_hash": "4ba224e0a3aab40b966a72aad3fc6a7062bdfdffd85e82c92e12335c9f7b0457",
-          "generated_translation": "Imagem relacionada a peeling de jessner",
-          "generated_hash": "4ba224e0a3aab40b966a72aad3fc6a7062bdfdffd85e82c92e12335c9f7b0457",
-          "current_translation": "Imagem relacionada a peeling de jessner",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Peeling de Jessner realizado em ambiente clínico.",
+          "source_hash": "b399753368dd7e553b09df24d95da5ca0aed2678d594778c3f74edd3f7f33421",
+          "generated_translation": "Peeling de Jessner realizado em ambiente clínico.",
+          "generated_hash": "b399753368dd7e553b09df24d95da5ca0aed2678d594778c3f74edd3f7f33421",
+          "current_translation": "Peeling de Jessner realizado em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[20]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6498,13 +6487,13 @@
         },
         "attr:id:journal-library/div[1]/article[21]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a plataforma harmony de laser e luz",
-          "source_hash": "6b8ec953d5eb8ce6d92b4b070d3c15b2bcbd771e15aeccdfea76266c293f0ec6",
-          "generated_translation": "Imagem relacionada a plataforma harmonia de laser e luz",
-          "generated_hash": "8b2d2e384a252be5b5ff0f00d753de434126699f9547a07a9e4a557e68871767",
-          "current_translation": "Imagem relacionada a plataforma harmonia de laser e luz",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Tecnologia de laser e luz em uma clínica estética.",
+          "source_hash": "99933ad17f58bd89beeff75d5ee2843a73e8b88d576d258d7d5ca51757d3377d",
+          "generated_translation": "Tecnologia de laser e luz em uma clínica estética.",
+          "generated_hash": "99933ad17f58bd89beeff75d5ee2843a73e8b88d576d258d7d5ca51757d3377d",
+          "current_translation": "Tecnologia de laser e luz em uma clínica estética.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[21]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6575,14 +6564,14 @@
         },
         "attr:id:journal-library/div[1]/article[22]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a reducao de pelos a laser com lightsheer duet",
-          "source_hash": "fd32dd5b4f1a5f4da2f939347359f4de8c3236f7642f8377a42ee26add5dc998",
-          "generated_translation": "Imagem relacionada a reducao de pelos a laser com dueto de luz",
-          "generated_hash": "5357d94be7ae50da070b49b3c5e69fa297c6bbeadb67c785ae91218ec7aea6da",
-          "current_translation": "Imagem relacionada a reducao de pelos a laser com dueto de luz",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Equipamento para depilação a laser em uma clínica estética.",
+          "source_hash": "0ba99a691bf8dc2982067336f9612f83735d03ef773d84d3541ccb32a1024239",
+          "generated_translation": "Equipamento para depilação a laser em uma clínica estética.",
+          "generated_hash": "0ba99a691bf8dc2982067336f9612f83735d03ef773d84d3541ccb32a1024239",
+          "current_translation": "Equipamento para depilação a laser em uma clínica estética.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[22]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -6652,13 +6641,13 @@
         },
         "attr:id:journal-library/div[1]/article[23]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a reducao de pelos a laser com lightsheer duet",
-          "source_hash": "fd32dd5b4f1a5f4da2f939347359f4de8c3236f7642f8377a42ee26add5dc998",
-          "generated_translation": "Imagem relacionada a reducao de pelos a laser com dueto de luz",
-          "generated_hash": "5357d94be7ae50da070b49b3c5e69fa297c6bbeadb67c785ae91218ec7aea6da",
-          "current_translation": "Imagem relacionada a reducao de pelos a laser com dueto de luz",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Equipamento para depilação a laser em uma clínica estética.",
+          "source_hash": "0ba99a691bf8dc2982067336f9612f83735d03ef773d84d3541ccb32a1024239",
+          "generated_translation": "Equipamento para depilação a laser em uma clínica estética.",
+          "generated_hash": "0ba99a691bf8dc2982067336f9612f83735d03ef773d84d3541ccb32a1024239",
+          "current_translation": "Equipamento para depilação a laser em uma clínica estética.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[23]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6729,14 +6718,14 @@
         },
         "attr:id:journal-library/div[1]/article[24]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a laser acupulse co2",
-          "source_hash": "fe8789b8c856b7074f05f47aaa2ac43b1fad6c42e5c8feeac754d68d065668b7",
-          "generated_translation": "Imagem relacionada a um laser acupulse co2",
-          "generated_hash": "2b41d2a5bf14f0e9a54073d0d0b2b0a6be88a7721270f103009d1bd17749308f",
-          "current_translation": "Imagem relacionada a um laser acupulse co2",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "source_hash": "e83ba44c02b6fef061be67e1b3a7551382117817161204ccc44016694e96b04f",
+          "generated_translation": "Aplicação de laser de CO2 em ambiente clínico.",
+          "generated_hash": "9e5ece2684c407ddad83d80a2ffcb251c65b2393a9ed44f3942512fb524ae161",
+          "current_translation": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[24]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -6806,13 +6795,13 @@
         },
         "attr:id:journal-library/div[1]/article[25]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a laser acupulse co2",
-          "source_hash": "fe8789b8c856b7074f05f47aaa2ac43b1fad6c42e5c8feeac754d68d065668b7",
-          "generated_translation": "Imagem relacionada a um laser acupulse co2",
-          "generated_hash": "2b41d2a5bf14f0e9a54073d0d0b2b0a6be88a7721270f103009d1bd17749308f",
-          "current_translation": "Imagem relacionada a um laser acupulse co2",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "source_hash": "e83ba44c02b6fef061be67e1b3a7551382117817161204ccc44016694e96b04f",
+          "generated_translation": "Aplicação de laser de CO2 em ambiente clínico.",
+          "generated_hash": "9e5ece2684c407ddad83d80a2ffcb251c65b2393a9ed44f3942512fb524ae161",
+          "current_translation": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[25]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6883,13 +6872,13 @@
         },
         "attr:id:journal-library/div[1]/article[26]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a laser acupulse co2",
-          "source_hash": "fe8789b8c856b7074f05f47aaa2ac43b1fad6c42e5c8feeac754d68d065668b7",
-          "generated_translation": "Imagem relacionada a um laser acupulse co2",
-          "generated_hash": "2b41d2a5bf14f0e9a54073d0d0b2b0a6be88a7721270f103009d1bd17749308f",
-          "current_translation": "Imagem relacionada a um laser acupulse co2",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "source_hash": "e83ba44c02b6fef061be67e1b3a7551382117817161204ccc44016694e96b04f",
+          "generated_translation": "Aplicação de laser de CO2 em ambiente clínico.",
+          "generated_hash": "9e5ece2684c407ddad83d80a2ffcb251c65b2393a9ed44f3942512fb524ae161",
+          "current_translation": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[26]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -6960,13 +6949,13 @@
         },
         "attr:id:journal-library/div[1]/article[27]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a plataforma harmony de laser e luz",
-          "source_hash": "6b8ec953d5eb8ce6d92b4b070d3c15b2bcbd771e15aeccdfea76266c293f0ec6",
-          "generated_translation": "Imagem relacionada a plataforma harmonia de laser e luz",
-          "generated_hash": "8b2d2e384a252be5b5ff0f00d753de434126699f9547a07a9e4a557e68871767",
-          "current_translation": "Imagem relacionada a plataforma harmonia de laser e luz",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Tecnologia de laser e luz em uma clínica estética.",
+          "source_hash": "99933ad17f58bd89beeff75d5ee2843a73e8b88d576d258d7d5ca51757d3377d",
+          "generated_translation": "Tecnologia de laser e luz em uma clínica estética.",
+          "generated_hash": "99933ad17f58bd89beeff75d5ee2843a73e8b88d576d258d7d5ca51757d3377d",
+          "current_translation": "Tecnologia de laser e luz em uma clínica estética.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[27]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7037,14 +7026,14 @@
         },
         "attr:id:journal-library/div[1]/article[28]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a radiofrequencia",
-          "source_hash": "442547cfa056c2f477638eee63eafdf5cbdeb8a6058be081350a8182f9485655",
-          "generated_translation": "Imagem relacionada a radiofrequencia",
-          "generated_hash": "442547cfa056c2f477638eee63eafdf5cbdeb8a6058be081350a8182f9485655",
-          "current_translation": "Imagem relacionada a radiofrequencia",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Tratamento estético com radiofrequência.",
+          "source_hash": "450f1fd009651ec53a76b9b6e88d48cb0c96f8092622a16fd980e39796871329",
+          "generated_translation": "Tratamento estatístico com radiofrequência.",
+          "generated_hash": "5ac140f4d9d103363b161c2a53d3655df30a4478e6ebf6de6a5875eeef2d8809",
+          "current_translation": "Tratamento estético com radiofrequência.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[28]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -7114,13 +7103,13 @@
         },
         "attr:id:journal-library/div[1]/article[29]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a ultraformer mpt",
-          "source_hash": "105b50c555a71c9972b685c10c0e9d783c98cb68e582785d10b8c7a127f938ec",
-          "generated_translation": "Imagem relacionada a um ultraformer mpt",
-          "generated_hash": "6f62cda0701ec94bf56fd3fbb244edd7e505b434a56a4420f11333c2a82d0b80",
-          "current_translation": "Imagem relacionada a um ultraformer mpt",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Tecnologia de ultrassom microfocado em uma clínica estética.",
+          "source_hash": "a1375e04d597f35f7613a72d6eb77e9ddf9c2938e0c5bada33fe305e6f7b6f97",
+          "generated_translation": "Tecnologia de ultrasom microfocado em uma clínica estética.",
+          "generated_hash": "e5bdae86a001b75c2f2b5a4228fd1cfe6759858ae8b42e13fdd6b7857e66afc9",
+          "current_translation": "Tecnologia de ultrassom microfocado em uma clínica estética.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[29]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7191,13 +7180,13 @@
         },
         "attr:id:journal-library/div[1]/article[30]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a tecnologia de plasma",
-          "source_hash": "7b8a29cbfb597538a206ed68f9ca7f5ef21f2397149d1ca82932071bb626f028",
-          "generated_translation": "Imagem relacionada a tecnologia de plasma",
-          "generated_hash": "7b8a29cbfb597538a206ed68f9ca7f5ef21f2397149d1ca82932071bb626f028",
-          "current_translation": "Imagem relacionada a tecnologia de plasma",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Tecnologia de plasma em ambiente clínico.",
+          "source_hash": "4c392aff6fbec8ec004bad9d7864b9de2364fad6e3fb97653c687d517875ebce",
+          "generated_translation": "Tecnologia de plasma em ambiente clínico.",
+          "generated_hash": "4c392aff6fbec8ec004bad9d7864b9de2364fad6e3fb97653c687d517875ebce",
+          "current_translation": "Tecnologia de plasma em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[30]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7268,13 +7257,13 @@
         },
         "attr:id:journal-library/div[1]/article[31]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peim tratamento estetico para microvasos",
-          "source_hash": "0c2525cbd36a672577cb145c73eede418560ffa7cb4ada6add71ec73d83e719d",
-          "generated_translation": "Imagem relacionada a peim tratamento estetico para microvasos",
-          "generated_hash": "0c2525cbd36a672577cb145c73eede418560ffa7cb4ada6add71ec73d83e719d",
-          "current_translation": "Imagem relacionada a peim tratamento estetico para microvasos",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Avaliação estética de microvasos em ambiente clínico.",
+          "source_hash": "7cd1360d67baf73ec1bf549728e1ba88c329bc34780670d59f178fe2deda129d",
+          "generated_translation": "Avaliação estética de microvasos em ambiente clínico.",
+          "generated_hash": "7cd1360d67baf73ec1bf549728e1ba88c329bc34780670d59f178fe2deda129d",
+          "current_translation": "Avaliação estética de microvasos em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[31]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7345,13 +7334,13 @@
         },
         "attr:id:journal-library/div[1]/article[32]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a peim tratamento estetico para microvasos",
-          "source_hash": "0c2525cbd36a672577cb145c73eede418560ffa7cb4ada6add71ec73d83e719d",
-          "generated_translation": "Imagem relacionada a peim tratamento estetico para microvasos",
-          "generated_hash": "0c2525cbd36a672577cb145c73eede418560ffa7cb4ada6add71ec73d83e719d",
-          "current_translation": "Imagem relacionada a peim tratamento estetico para microvasos",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Avaliação estética de microvasos em ambiente clínico.",
+          "source_hash": "7cd1360d67baf73ec1bf549728e1ba88c329bc34780670d59f178fe2deda129d",
+          "generated_translation": "Avaliação estética de microvasos em ambiente clínico.",
+          "generated_hash": "7cd1360d67baf73ec1bf549728e1ba88c329bc34780670d59f178fe2deda129d",
+          "current_translation": "Avaliação estética de microvasos em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[32]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7422,13 +7411,13 @@
         },
         "attr:id:journal-library/div[1]/article[33]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a toxina botulinica terco superior da face",
-          "source_hash": "44e7811406f09d057bce95624da4d84e5a0b97b7fda80570d8c26551bdb8c459",
-          "generated_translation": "Imagem relacionada a toxina botulínica terco superior da face",
-          "generated_hash": "371f1088c22954dd300e3e2056533530b4b85e8053671cd75cabc10a99383579",
-          "current_translation": "Imagem relacionada a toxina botulínica terco superior da face",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Avaliação estética da região superior do rosto.",
+          "source_hash": "3a056dbeb8429e57b6dbec9b1c6e5fb406c1386685493354f44d1d50557795cd",
+          "generated_translation": "Avaliação estética da região superior do rosto.",
+          "generated_hash": "3a056dbeb8429e57b6dbec9b1c6e5fb406c1386685493354f44d1d50557795cd",
+          "current_translation": "Avaliação estética da região superior do rosto.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[33]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7499,13 +7488,13 @@
         },
         "attr:id:journal-library/div[1]/article[34]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a toxina botulinica terco superior da face",
-          "source_hash": "44e7811406f09d057bce95624da4d84e5a0b97b7fda80570d8c26551bdb8c459",
-          "generated_translation": "Imagem relacionada a toxina botulínica terco superior da face",
-          "generated_hash": "371f1088c22954dd300e3e2056533530b4b85e8053671cd75cabc10a99383579",
-          "current_translation": "Imagem relacionada a toxina botulínica terco superior da face",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Avaliação estética da região superior do rosto.",
+          "source_hash": "3a056dbeb8429e57b6dbec9b1c6e5fb406c1386685493354f44d1d50557795cd",
+          "generated_translation": "Avaliação estética da região superior do rosto.",
+          "generated_hash": "3a056dbeb8429e57b6dbec9b1c6e5fb406c1386685493354f44d1d50557795cd",
+          "current_translation": "Avaliação estética da região superior do rosto.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[34]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7576,13 +7565,13 @@
         },
         "attr:id:journal-library/div[1]/article[35]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a toxina botulinica platisma e terco inferior",
-          "source_hash": "f877319e09048a97bc22396c9f21ab1db5826362b636c33e185a412d9e14f547",
-          "generated_translation": "Imagem relacionada a toxina botulínica platisma e terco inferior",
-          "generated_hash": "b36d48c84feaba4efb1f50122a472c75c29bcbbf3f9bfc184e197330ccfa8b17",
-          "current_translation": "Imagem relacionada a toxina botulínica platisma e terco inferior",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Avaliação estética da região inferior do rosto.",
+          "source_hash": "40a83fc518b737da3e53756dc3331a138d38a82e833da4785d0ac8f4b4b5138f",
+          "generated_translation": "Avaliação estatística da região inferior do rosto.",
+          "generated_hash": "27008486b5338ebb75d0c2b9371b160d14df2f8b1d3512c5843e448065f176ba",
+          "current_translation": "Avaliação estética da região inferior do rosto.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[35]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7653,13 +7642,13 @@
         },
         "attr:id:journal-library/div[1]/article[36]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a toxina botulinica terco superior da face",
-          "source_hash": "44e7811406f09d057bce95624da4d84e5a0b97b7fda80570d8c26551bdb8c459",
-          "generated_translation": "Imagem relacionada a toxina botulínica terco superior da face",
-          "generated_hash": "371f1088c22954dd300e3e2056533530b4b85e8053671cd75cabc10a99383579",
-          "current_translation": "Imagem relacionada a toxina botulínica terco superior da face",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[36]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7730,13 +7719,13 @@
         },
         "attr:id:journal-library/div[1]/article[37]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a microagulhamento",
-          "source_hash": "1aff4c0cd138f47ab60b30530b3b2b33d11fd0387ff740a43e782a0b652b5acf",
-          "generated_translation": "Imagem relacionada a microagulamento",
-          "generated_hash": "9e5b2f215548821f2745f5e4e9c1c53889f3ae29f0fa542a7c8d557e284544fc",
-          "current_translation": "Imagem relacionada a microagulamento",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "source_hash": "ba0c35d5bf76cd9f576639c34647c306ad104a4966c2c931d18f4d5cd2cdcb4f",
+          "generated_translation": "Procedimento de microagulamento realizado em ambiente clínico.",
+          "generated_hash": "d29b8476e88c7dd55df0804642c88e7e3bf5f2d2aff216f8078c077e8799faf7",
+          "current_translation": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[37]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7807,13 +7796,13 @@
         },
         "attr:id:journal-library/div[1]/article[38]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a microagulhamento",
-          "source_hash": "1aff4c0cd138f47ab60b30530b3b2b33d11fd0387ff740a43e782a0b652b5acf",
-          "generated_translation": "Imagem relacionada a microagulamento",
-          "generated_hash": "9e5b2f215548821f2745f5e4e9c1c53889f3ae29f0fa542a7c8d557e284544fc",
-          "current_translation": "Imagem relacionada a microagulamento",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "source_hash": "ba0c35d5bf76cd9f576639c34647c306ad104a4966c2c931d18f4d5cd2cdcb4f",
+          "generated_translation": "Procedimento de microagulamento realizado em ambiente clínico.",
+          "generated_hash": "d29b8476e88c7dd55df0804642c88e7e3bf5f2d2aff216f8078c077e8799faf7",
+          "current_translation": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[38]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -7884,14 +7873,14 @@
         },
         "attr:id:journal-library/div[1]/article[39]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a mesoterapia capilar",
-          "source_hash": "e2d1e07951d48a6834ee3954df59205ad66feb442f1b55bebdcfbef2681e2074",
-          "generated_translation": "Imagem relacionada a mesoterapia capilar",
-          "generated_hash": "e2d1e07951d48a6834ee3954df59205ad66feb442f1b55bebdcfbef2681e2074",
-          "current_translation": "Imagem relacionada a mesoterapia capilar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "source": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "source_hash": "b84c2234440de94f21e8fa7da707baf136d4f91600e959c6ddd237242b4e55fc",
+          "generated_translation": "Cuidado profissional para o coro cabeludo e a saúde capilar.",
+          "generated_hash": "98952e761dad8003dd410790f504d1ace6da4e0855412dbf930a830904160c2f",
+          "current_translation": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "manual_override": true,
+          "review_required": true,
+          "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[39]/a[1]/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -7961,13 +7950,13 @@
         },
         "attr:id:journal-library/div[1]/article[40]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a mesoterapia capilar",
-          "source_hash": "e2d1e07951d48a6834ee3954df59205ad66feb442f1b55bebdcfbef2681e2074",
-          "generated_translation": "Imagem relacionada a mesoterapia capilar",
-          "generated_hash": "e2d1e07951d48a6834ee3954df59205ad66feb442f1b55bebdcfbef2681e2074",
-          "current_translation": "Imagem relacionada a mesoterapia capilar",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "source_hash": "b84c2234440de94f21e8fa7da707baf136d4f91600e959c6ddd237242b4e55fc",
+          "generated_translation": "Cuidado profissional para o coro cabeludo e a saúde capilar.",
+          "generated_hash": "98952e761dad8003dd410790f504d1ace6da4e0855412dbf930a830904160c2f",
+          "current_translation": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[40]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8038,13 +8027,13 @@
         },
         "attr:id:journal-library/div[1]/article[41]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a mmp microinfusao de medicamentos na pele",
-          "source_hash": "2b890eb42b24cf420f9e9e6dd5c2544174c08d5dcac6b3cf5fae5d5f2e3505a0",
-          "generated_translation": "Imagem relacionada a mmp microinfusao de medicamentos na pele",
-          "generated_hash": "2b890eb42b24cf420f9e9e6dd5c2544174c08d5dcac6b3cf5fae5d5f2e3505a0",
-          "current_translation": "Imagem relacionada a mmp microinfusao de medicamentos na pele",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Cuidado capilar por microinfusão em ambiente profissional.",
+          "source_hash": "efa515e3793a2f076a5427f72727e9d0302acf7392962025130e25854f7830a4",
+          "generated_translation": "Cuidado capilar por microinfusão em ambiente profissional.",
+          "generated_hash": "efa515e3793a2f076a5427f72727e9d0302acf7392962025130e25854f7830a4",
+          "current_translation": "Cuidado capilar por microinfusão em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "argos"
         },
         "text:id:journal-library/div[1]/article[41]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8115,13 +8104,13 @@
         },
         "attr:id:journal-library/div[1]/article[42]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a mesoterapia capilar",
-          "source_hash": "e2d1e07951d48a6834ee3954df59205ad66feb442f1b55bebdcfbef2681e2074",
-          "generated_translation": "Imagem relacionada a mesoterapia capilar",
-          "generated_hash": "e2d1e07951d48a6834ee3954df59205ad66feb442f1b55bebdcfbef2681e2074",
-          "current_translation": "Imagem relacionada a mesoterapia capilar",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "source_hash": "b84c2234440de94f21e8fa7da707baf136d4f91600e959c6ddd237242b4e55fc",
+          "generated_translation": "Cuidado profissional para o coro cabeludo e a saúde capilar.",
+          "generated_hash": "98952e761dad8003dd410790f504d1ace6da4e0855412dbf930a830904160c2f",
+          "current_translation": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[42]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8192,13 +8181,13 @@
         },
         "attr:id:journal-library/div[1]/article[43]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[43]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8269,13 +8258,13 @@
         },
         "attr:id:journal-library/div[1]/article[44]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "source_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "generated_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "generated_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "current_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[44]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8346,13 +8335,13 @@
         },
         "attr:id:journal-library/div[1]/article[45]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a laser acupulse co2",
-          "source_hash": "fe8789b8c856b7074f05f47aaa2ac43b1fad6c42e5c8feeac754d68d065668b7",
-          "generated_translation": "Imagem relacionada a um laser acupulse co2",
-          "generated_hash": "2b41d2a5bf14f0e9a54073d0d0b2b0a6be88a7721270f103009d1bd17749308f",
-          "current_translation": "Imagem relacionada a um laser acupulse co2",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "source_hash": "e83ba44c02b6fef061be67e1b3a7551382117817161204ccc44016694e96b04f",
+          "generated_translation": "Aplicação de laser de CO2 em ambiente clínico.",
+          "generated_hash": "9e5ece2684c407ddad83d80a2ffcb251c65b2393a9ed44f3942512fb524ae161",
+          "current_translation": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[45]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8423,13 +8412,13 @@
         },
         "attr:id:journal-library/div[1]/article[46]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a protocolo profissional de despigmentacao",
-          "source_hash": "560e57e7bbb3f80e8d2257beaaa032b359df9a728877bb7bec588579c49784b0",
-          "generated_translation": "Imagem relacionada ao protocolo profissional de despigmentacao",
-          "generated_hash": "9c7f96b7075e02b45df2ac86e7cf39acba03f5ed73b7c2192efaf5f6b58590e6",
-          "current_translation": "Imagem relacionada ao protocolo profissional de despigmentacao",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[46]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8500,13 +8489,13 @@
         },
         "attr:id:journal-library/div[1]/article[47]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a microagulhamento",
-          "source_hash": "1aff4c0cd138f47ab60b30530b3b2b33d11fd0387ff740a43e782a0b652b5acf",
-          "generated_translation": "Imagem relacionada a microagulamento",
-          "generated_hash": "9e5b2f215548821f2745f5e4e9c1c53889f3ae29f0fa542a7c8d557e284544fc",
-          "current_translation": "Imagem relacionada a microagulamento",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "source_hash": "ba0c35d5bf76cd9f576639c34647c306ad104a4966c2c931d18f4d5cd2cdcb4f",
+          "generated_translation": "Procedimento de microagulamento realizado em ambiente clínico.",
+          "generated_hash": "d29b8476e88c7dd55df0804642c88e7e3bf5f2d2aff216f8078c077e8799faf7",
+          "current_translation": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[47]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8577,13 +8566,13 @@
         },
         "attr:id:journal-library/div[1]/article[48]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "source_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "generated_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "generated_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "current_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[48]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8654,13 +8643,13 @@
         },
         "attr:id:journal-library/div[1]/article[49]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a limpeza de pele profunda",
-          "source_hash": "12f4bc6a50058f0c7f052ed68e814d178fe3d5bb9cb2c8d19d0807d251bdbcf0",
-          "generated_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "generated_hash": "199ba1bd2d317a2921f304e1370106d6e1f62683c0b0e0fbe0ab6ea1a1188e1c",
-          "current_translation": "Imagem relacionada a limpeza de pele profundidade",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "source_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "generated_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "generated_hash": "6057bedf5d81216bdbb6e3dffaedb36572d27fb00af6ec2617888f0563a26f9a",
+          "current_translation": "Atendimento profissional de limpeza de pele em ambiente clínico.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[49]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8731,13 +8720,13 @@
         },
         "attr:id:journal-library/div[1]/article[50]/a[1]/figure[1]/img[1]:alt": {
           "kind": "attribute:alt",
-          "source": "Imagem relacionada a radiofrequencia",
-          "source_hash": "442547cfa056c2f477638eee63eafdf5cbdeb8a6058be081350a8182f9485655",
-          "generated_translation": "Imagem relacionada a radiofrequencia",
-          "generated_hash": "442547cfa056c2f477638eee63eafdf5cbdeb8a6058be081350a8182f9485655",
-          "current_translation": "Imagem relacionada a radiofrequencia",
-          "manual_override": false,
-          "review_required": false,
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": true,
+          "review_required": true,
           "origin": "memory"
         },
         "text:id:journal-library/div[1]/article[50]/a[1]/div[1]/p[1]/span[1]:0": {
@@ -8883,7 +8872,7 @@
           "review_required": false,
           "origin": "argos"
         },
-        "text:id:main/section[9]/div[1]/p[1]:0": {
+        "text:id:leitura-portugues/div[1]/p[1]:0": {
           "kind": "text",
           "source": "Leituras em português",
           "source_hash": "4b930bfd5f58b0de7a750e6da843a56a1e71510bbaf7131d9f2bcb433a7e7f37",
@@ -8892,7 +8881,7 @@
           "current_translation": "Leituras em português",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:leitura-portugues-title:0": {
           "kind": "text",
@@ -8905,7 +8894,18 @@
           "review_required": false,
           "origin": "argos"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[1]/p[1]:0": {
+        "attr:id:leitura-portugues/div[1]/div[1]/a[1]/figure[1]/img[1]:alt": {
+          "kind": "attribute:alt",
+          "source": "Equipamento para depilação a laser em uma clínica estética.",
+          "source_hash": "0ba99a691bf8dc2982067336f9612f83735d03ef773d84d3541ccb32a1024239",
+          "generated_translation": "Equipamento para depilação a laser em uma clínica estética.",
+          "generated_hash": "0ba99a691bf8dc2982067336f9612f83735d03ef773d84d3541ccb32a1024239",
+          "current_translation": "Equipamento para depilação a laser em uma clínica estética.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:leitura-portugues/div[1]/div[1]/a[1]/p[1]:0": {
           "kind": "text",
           "source": "Laser e tecnologia",
           "source_hash": "978f49e128797af9494ec6936316c77cca743b84a476b2d1a17ef8ed6a99a0d7",
@@ -8916,7 +8916,7 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[1]/h3[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[1]/h3[1]:0": {
           "kind": "text",
           "source": "Depilação a laser: preparo, ciclo do pelo e expectativas honestas",
           "source_hash": "3f598aed8981137c64b59685e03eac52dbcd53c4e8dd19853148ae41b4bea3d5",
@@ -8925,9 +8925,9 @@
           "current_translation": "Depilação a laser: preparo, ciclo do pelo e expectativas honestas",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[1]/span[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[1]/span[1]:0": {
           "kind": "text",
           "source": "Leia o guia →",
           "source_hash": "04e6d0fbf8e4743872354a517c4a1decfb6de4a370f3e1ed3aa06f630cbbf2ef",
@@ -8936,9 +8936,20 @@
           "current_translation": "Leia o guia →",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[2]/p[1]:0": {
+        "attr:id:leitura-portugues/div[1]/div[1]/a[2]/figure[1]/img[1]:alt": {
+          "kind": "attribute:alt",
+          "source": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "source_hash": "226715756faf1542764a0feabc6937fad412cae15c46d277fdea64ecf1a0be51",
+          "generated_translation": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "generated_hash": "226715756faf1542764a0feabc6937fad412cae15c46d277fdea64ecf1a0be51",
+          "current_translation": "Cuidado profissional voltado à uniformidade do tom da pele.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:leitura-portugues/div[1]/div[1]/a[2]/p[1]:0": {
           "kind": "text",
           "source": "Pigmentação",
           "source_hash": "f3501a8b1aa558e6f26805d0bc17e36e02353034d4eab90c5c562fabb69165f2",
@@ -8949,7 +8960,7 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[2]/h3[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[2]/h3[1]:0": {
           "kind": "text",
           "source": "Melasma e manchas: por que controlar é diferente de prometer apagar",
           "source_hash": "5825261b77816154a8162967beccc8a8643eba075198d593fb735b15deede48d",
@@ -8958,9 +8969,9 @@
           "current_translation": "Melasma e mangas: por controlar é diferente de prometer apagar",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[2]/span[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[2]/span[1]:0": {
           "kind": "text",
           "source": "Leia o guia →",
           "source_hash": "04e6d0fbf8e4743872354a517c4a1decfb6de4a370f3e1ed3aa06f630cbbf2ef",
@@ -8971,7 +8982,18 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[3]/p[1]:0": {
+        "attr:id:leitura-portugues/div[1]/div[1]/a[3]/figure[1]/img[1]:alt": {
+          "kind": "attribute:alt",
+          "source": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "source_hash": "ba0c35d5bf76cd9f576639c34647c306ad104a4966c2c931d18f4d5cd2cdcb4f",
+          "generated_translation": "Procedimento de microagulamento realizado em ambiente clínico.",
+          "generated_hash": "d29b8476e88c7dd55df0804642c88e7e3bf5f2d2aff216f8078c077e8799faf7",
+          "current_translation": "Procedimento de microagulamento realizado em ambiente clínico.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:leitura-portugues/div[1]/div[1]/a[3]/p[1]:0": {
           "kind": "text",
           "source": "Textura e cicatrizes",
           "source_hash": "04b9884edaf9fab69b28eeb23d144c5c2e2dc669d3202f8f3426657cbfb524e7",
@@ -8982,7 +9004,7 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[3]/h3[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[3]/h3[1]:0": {
           "kind": "text",
           "source": "Cicatrizes de acne: por que textura pede um plano",
           "source_hash": "cdec5c3c9627fd98fc6738c9939671ea773fc32bfdeb95f7ce044781dce5b40d",
@@ -8991,9 +9013,9 @@
           "current_translation": "Cicatrizes de acne: por que textura pede um plano",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[3]/span[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[3]/span[1]:0": {
           "kind": "text",
           "source": "Leia o guia →",
           "source_hash": "04e6d0fbf8e4743872354a517c4a1decfb6de4a370f3e1ed3aa06f630cbbf2ef",
@@ -9004,7 +9026,18 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[4]/p[1]:0": {
+        "attr:id:leitura-portugues/div[1]/div[1]/a[4]/figure[1]/img[1]:alt": {
+          "kind": "attribute:alt",
+          "source": "Aplicação de laser de CO₂ em ambiente clínico.",
+          "source_hash": "e83ba44c02b6fef061be67e1b3a7551382117817161204ccc44016694e96b04f",
+          "generated_translation": "Aplicação de laser de CO2 em ambiente clínico.",
+          "generated_hash": "9e5ece2684c407ddad83d80a2ffcb251c65b2393a9ed44f3942512fb524ae161",
+          "current_translation": "Aplicação de laser de CO2 em ambiente clínico.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:leitura-portugues/div[1]/div[1]/a[4]/p[1]:0": {
           "kind": "text",
           "source": "Laser e recuperação",
           "source_hash": "54b8ab21c8e706491271cec798b12615a03fc4acc6a945f63b57b8a59c019b0f",
@@ -9015,7 +9048,7 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[4]/h3[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[4]/h3[1]:0": {
           "kind": "text",
           "source": "Laser CO₂: recuperação, planejamento e cuidados",
           "source_hash": "8ce17cca3d9f00a0e6efb00c6deca9f9d948790b724f27045976d2d3255eb5d8",
@@ -9024,9 +9057,9 @@
           "current_translation": "Laser CO2: recuperação, planejamento e cuidados",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[4]/span[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[4]/span[1]:0": {
           "kind": "text",
           "source": "Leia o guia →",
           "source_hash": "04e6d0fbf8e4743872354a517c4a1decfb6de4a370f3e1ed3aa06f630cbbf2ef",
@@ -9037,7 +9070,18 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[5]/p[1]:0": {
+        "attr:id:leitura-portugues/div[1]/div[1]/a[5]/figure[1]/img[1]:alt": {
+          "kind": "attribute:alt",
+          "source": "Procedimento de microagulhamento realizado em ambiente clínico.",
+          "source_hash": "ba0c35d5bf76cd9f576639c34647c306ad104a4966c2c931d18f4d5cd2cdcb4f",
+          "generated_translation": "Procedimento de microagulamento realizado em ambiente clínico.",
+          "generated_hash": "d29b8476e88c7dd55df0804642c88e7e3bf5f2d2aff216f8078c077e8799faf7",
+          "current_translation": "Procedimento de microagulamento realizado em ambiente clínico.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:leitura-portugues/div[1]/div[1]/a[5]/p[1]:0": {
           "kind": "text",
           "source": "Tecnologia e cuidado",
           "source_hash": "e7c65346aab73119b2125bce0ef92d3b07de39cc14ecf58b81cf8a234d2e6032",
@@ -9046,9 +9090,9 @@
           "current_translation": "Tecnologia e cuidados",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[5]/h3[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[5]/h3[1]:0": {
           "kind": "text",
           "source": "Microagulhamento: o que precisa ser avaliado antes de decidir",
           "source_hash": "dcffa2f34f70b068dc2b23512274a456aab52a0235db7df9f40505526069a712",
@@ -9057,9 +9101,9 @@
           "current_translation": "Microagulamento: o que precisa ser avaliado antes de decidir",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[5]/span[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[5]/span[1]:0": {
           "kind": "text",
           "source": "Leia o guia →",
           "source_hash": "04e6d0fbf8e4743872354a517c4a1decfb6de4a370f3e1ed3aa06f630cbbf2ef",
@@ -9070,7 +9114,18 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[6]/p[1]:0": {
+        "attr:id:leitura-portugues/div[1]/div[1]/a[6]/figure[1]/img[1]:alt": {
+          "kind": "attribute:alt",
+          "source": "Cuidado profissional para o couro cabeludo e a saúde capilar.",
+          "source_hash": "b84c2234440de94f21e8fa7da707baf136d4f91600e959c6ddd237242b4e55fc",
+          "generated_translation": "Cuidado profissional para o coro cabeludo e a saúde capilar.",
+          "generated_hash": "98952e761dad8003dd410790f504d1ace6da4e0855412dbf930a830904160c2f",
+          "current_translation": "Cuidado profissional para o coro cabeludo e a saúde capilar.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:leitura-portugues/div[1]/div[1]/a[6]/p[1]:0": {
           "kind": "text",
           "source": "Couro cabeludo",
           "source_hash": "ea9339dc18c67a7a09b3e6843f594a6066408938b33ad282fc6fb20c2dad202b",
@@ -9079,9 +9134,9 @@
           "current_translation": "Couro cabeludo",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[6]/h3[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[6]/h3[1]:0": {
           "kind": "text",
           "source": "Afinamento capilar: quando investigar antes de escolher um procedimento",
           "source_hash": "d94e9887860ce5320be0f59075d167435dcbc6e5d4945e71f3f188fceeba8ebe",
@@ -9090,9 +9145,9 @@
           "current_translation": "Afinamento capilar: quando investigar antes de estudar um processo",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[6]/span[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[6]/span[1]:0": {
           "kind": "text",
           "source": "Leia o guia →",
           "source_hash": "04e6d0fbf8e4743872354a517c4a1decfb6de4a370f3e1ed3aa06f630cbbf2ef",
@@ -9103,7 +9158,18 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[7]/p[1]:0": {
+        "attr:id:leitura-portugues/div[1]/div[1]/a[7]/figure[1]/img[1]:alt": {
+          "kind": "attribute:alt",
+          "source": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "source_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "generated_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "generated_hash": "d684b20a445761465e7bfb508a28365c96027057c6e79c4549b69a1431bf1a6e",
+          "current_translation": "Imagem editorial de cuidado estético em ambiente profissional.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:leitura-portugues/div[1]/div[1]/a[7]/p[1]:0": {
           "kind": "text",
           "source": "Renovação da pele",
           "source_hash": "9094ae4997f4fe629a2b209fb898d76fcacffa493a66fc0bacb1e812fcaff391",
@@ -9114,7 +9180,7 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[7]/h3[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[7]/h3[1]:0": {
           "kind": "text",
           "source": "Peeling químico: recuperação, proteção e o que pode variar",
           "source_hash": "cb51cd1813f49a5d1e603b6193438360fdd5d63c4e0f526b94b514f1129b90e4",
@@ -9123,9 +9189,9 @@
           "current_translation": "Recuperação, proteção e o que pode variar",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[7]/span[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[7]/span[1]:0": {
           "kind": "text",
           "source": "Leia o guia →",
           "source_hash": "04e6d0fbf8e4743872354a517c4a1decfb6de4a370f3e1ed3aa06f630cbbf2ef",
@@ -9136,7 +9202,18 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[8]/p[1]:0": {
+        "attr:id:leitura-portugues/div[1]/div[1]/a[8]/figure[1]/img[1]:alt": {
+          "kind": "attribute:alt",
+          "source": "Avaliação estética da região superior do rosto.",
+          "source_hash": "3a056dbeb8429e57b6dbec9b1c6e5fb406c1386685493354f44d1d50557795cd",
+          "generated_translation": "Avaliação estética da região superior do rosto.",
+          "generated_hash": "3a056dbeb8429e57b6dbec9b1c6e5fb406c1386685493354f44d1d50557795cd",
+          "current_translation": "Avaliação estética da região superior do rosto.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:leitura-portugues/div[1]/div[1]/a[8]/p[1]:0": {
           "kind": "text",
           "source": "Planejamento facial",
           "source_hash": "646fccb9233b8acc2df5d0a90e74088c6463e067b5712148e12530485fa41e85",
@@ -9147,7 +9224,7 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[8]/h3[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[8]/h3[1]:0": {
           "kind": "text",
           "source": "Toxina botulínica: naturalidade começa com anatomia e conversa",
           "source_hash": "76fd469fd108ea6633cf5112cc116799ed5ae08878cc123672ba223c651e7b87",
@@ -9156,9 +9233,9 @@
           "current_translation": "Toxina botulínica: naturalidade começa com anatomia e conversa",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:main/section[9]/div[1]/div[1]/a[8]/span[1]:0": {
+        "text:id:leitura-portugues/div[1]/div[1]/a[8]/span[1]:0": {
           "kind": "text",
           "source": "Leia o guia →",
           "source_hash": "04e6d0fbf8e4743872354a517c4a1decfb6de4a370f3e1ed3aa06f630cbbf2ef",
@@ -14281,10 +14358,10 @@
     "cookies.html": {
       "source_path": "cookies.html",
       "output_path": "pt/cookies.html",
-      "source_hash": "e231c6f3a7ea4c28d08489fe11b7c301fbd66ac3866aabc70400ef6c6e903edc",
-      "output_hash": "b9fdfb6e6b73e70c0039af251456a0951e29501d0709595677b12a4eea31fd95",
-      "last_translated": "2026-09-18T11:43:51.285149+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "6dbc6dcdb62ae447e0b05b7efceb2af8b9f1077f1e90a1484c41af7bb16f8205",
+      "output_hash": "fea3c8805c0eb76615a5bc0ec2beab4616c7488c5e3cd5195d07a69d781389cd",
+      "last_translated": "2026-10-14T13:56:16.649728+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -14482,28 +14559,6 @@
           "generated_translation": "Leia em inglês.",
           "generated_hash": "8ffa0db9a986abc8d84228fd5786abbc795a8f1bc89d34b57cdce87403eb76d6",
           "current_translation": "Leia em inglês.",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Continuar para o conteúdo principal",
-          "source_hash": "b88bed038375b076d4a66de2f4eca2ac9e39686f8a3cddcd45573975163b356c",
-          "generated_translation": "Continuar para o contínuo diretor",
-          "generated_hash": "633705df422058dd8781cfd602f6274bd706c28497af1fcef4e76ed60ec79c7a",
-          "current_translation": "Continuar para o contínuo diretor",
           "manual_override": false,
           "review_required": false,
           "origin": "argos"
@@ -17660,10 +17715,10 @@
     "index.html": {
       "source_path": "index.html",
       "output_path": "pt/index.html",
-      "source_hash": "a630ca9623e6ef400d2ae6e402cab5dbb080fe22207de6fc7f01f452bc93cbac",
-      "output_hash": "5faa9ccd1b8ee516b0677175f75c5eda519d284a9dbb52d81a22e5be63e0c2f5",
-      "last_translated": "2026-09-18T11:44:04.907501+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "99b6e87dd3a2238007cf30f1ab5fa735521e6a30985cb5b32ad79a026ca9862c",
+      "output_hash": "a4af81a68de0e1a348dd3ebc9c92aa5fbe3d5f82fad85152c370017c1be50cb5",
+      "last_translated": "2026-10-14T13:56:17.427395+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -21809,10 +21864,10 @@
     "laser.html": {
       "source_path": "laser.html",
       "output_path": "pt/laser.html",
-      "source_hash": "57e708e1469413f010da22a84c16357bb35a86b5042fe1495385194d8e48707b",
-      "output_hash": "2cf28f51e0e2bf64b5c742145b42105d2b50eeb699ee13b8b672cfa414a450f4",
-      "last_translated": "2026-09-18T11:44:11.414508+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "c803aebb71942a0aaa98a5195fdaaae07fe836eaec3a2adc6a0a2a4b50e18dbf",
+      "output_hash": "551b7e82ba613d15dc4f3b6254373f23a3538a5d99ba166b657405ce0c2b621a",
+      "last_translated": "2026-10-14T13:56:17.476991+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -22010,28 +22065,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -39256,8 +39289,8 @@
       "output_path": "partials/pt-BR/cookie-banner.html",
       "source_hash": "f2f27a32e68cb5c4deee9a9277b1d544231476adfc388d408fb826092df164f9",
       "output_hash": "09c558605aa26f3ce26982f8ae323bd16a5abd36ef8143e3ff36e7f7f26fcaf1",
-      "last_translated": "2026-09-18T11:44:47.116777+00:00",
-      "engine": "argos:en->pb:installed",
+      "last_translated": "2026-10-14T13:56:17.816137+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -39292,7 +39325,7 @@
           "current_translation": "Usamos cookies para gerenciar o site e melhorar a experiência.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[2]/label[1]/span[1]/strong[1]:0": {
           "kind": "text",
@@ -39303,7 +39336,7 @@
           "current_translation": "Essencial.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[2]/label[1]/span[1]/small[1]:0": {
           "kind": "text",
@@ -39314,7 +39347,7 @@
           "current_translation": "Sempre ativo para funções básicas do site e segurança.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[2]/label[2]/span[1]/strong[1]:0": {
           "kind": "text",
@@ -39325,7 +39358,7 @@
           "current_translation": "Preferências",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[2]/label[2]/span[1]/small[1]:0": {
           "kind": "text",
@@ -39336,7 +39369,7 @@
           "current_translation": "Lembra-se da linguagem selecionada ou das opções de exibição.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[2]/label[3]/span[1]/strong[1]:0": {
           "kind": "text",
@@ -39347,7 +39380,7 @@
           "current_translation": "Análise",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[2]/label[3]/span[1]/small[1]:0": {
           "kind": "text",
@@ -39358,7 +39391,7 @@
           "current_translation": "Nos ajuda a entender o uso da página e melhorar o site.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[2]/label[4]/span[1]/strong[1]:0": {
           "kind": "text",
@@ -39369,7 +39402,7 @@
           "current_translation": "Mídia externa",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[2]/label[4]/span[1]/small[1]:0": {
           "kind": "text",
@@ -39380,7 +39413,7 @@
           "current_translation": "Permite que conteúdo incorporado ou recursos de terceiros sejam carregados.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[3]/button[1]:0": {
           "kind": "text",
@@ -39391,7 +39424,7 @@
           "current_translation": "Aceite.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[3]/button[2]:0": {
           "kind": "text",
@@ -39402,7 +39435,7 @@
           "current_translation": "Rejeitar",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[3]/button[3]:0": {
           "kind": "text",
@@ -39413,7 +39446,7 @@
           "current_translation": "Configurações",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[3]/button[4]:0": {
           "kind": "text",
@@ -39424,7 +39457,7 @@
           "current_translation": "Salve minhas escolhas.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-cookie-inline/div[1]/div[3]/button[5]:0": {
           "kind": "text",
@@ -39444,8 +39477,8 @@
       "output_path": "partials/pt-BR/floating-widgets.html",
       "source_hash": "e542d9eadfa35026d95361746c62831c95cc838a3e981e22f960fc95fc632e3d",
       "output_hash": "4c44866206a9f9f9b644b49a7ece2bbe48c62add108d44a1c8c09d4c7f1ca5a1",
-      "last_translated": "2026-09-18T11:44:47.364489+00:00",
-      "engine": "argos:en->pb:installed",
+      "last_translated": "2026-10-14T13:56:17.820753+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -39458,7 +39491,7 @@
           "current_translation": "Ações rápidas.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-floating-inline/a[1]:aria-label": {
           "kind": "attribute:aria-label",
@@ -39469,7 +39502,7 @@
           "current_translation": "Mensagem em WhatsApp",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-floating-inline/a[1]:data-tooltip": {
           "kind": "attribute:data-tooltip",
@@ -39502,7 +39535,7 @@
           "current_translation": "De volta ao topo",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-floating-inline/button[1]:data-tooltip": {
           "kind": "attribute:data-tooltip",
@@ -39533,8 +39566,8 @@
       "output_path": "partials/pt-BR/footer.html",
       "source_hash": "cfc897aa429d627b9bbf8bcfc0aeec10ef63cf3e1550379d420e7911349a0cb8",
       "output_hash": "0317b8dd0fbec49400e956684927c87f9d222740e53c48912eda919f9f67a8aa",
-      "last_translated": "2026-09-18T11:44:47.430401+00:00",
-      "engine": "argos:en->pb:installed",
+      "last_translated": "2026-10-14T13:56:17.832055+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -39547,7 +39580,7 @@
           "current_translation": "Biomédica, esteticista e cosmologia Franciele Sofiati em Londrina",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-footer-inline/div[1]/div[1]/div[1]/p[1]:0": {
           "kind": "text",
@@ -39558,7 +39591,7 @@
           "current_translation": "Estética avançada em Londrina, com cuidados personalizados para pele, rosto, corpo e couro cabeludo, combinando tecnologia, experiência e resultados naturais.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-footer-inline/div[1]/div[1]/div[1]/a[1]/span[2]:0": {
           "kind": "text",
@@ -39569,7 +39602,7 @@
           "current_translation": "Consultar",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-footer-inline/div[1]/div[1]/div[2]/nav[1]:aria-label": {
           "kind": "attribute:aria-label",
@@ -39734,7 +39767,7 @@
           "current_translation": "Suporte",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-footer-inline/div[1]/div[1]/div[2]/nav[3]/span[1]:0": {
           "kind": "text",
@@ -39789,7 +39822,7 @@
           "current_translation": "Forma",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-footer-inline/div[1]/div[1]/div[2]/nav[3]/div[1]/a[5]/span[2]:0": {
           "kind": "text",
@@ -39855,7 +39888,7 @@
           "current_translation": "Londrina, Paraná",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-footer-inline/div[1]/div[1]/div[2]/div[1]/div[1]/a[4]/span[2]:0": {
           "kind": "text",
@@ -39866,7 +39899,7 @@
           "current_translation": "Google Comentários",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-footer-inline/div[1]/div[2]/p[1]:0": {
           "kind": "text",
@@ -39877,7 +39910,7 @@
           "current_translation": "© 2026 Franciele Sofiati - biomédica, esteticista e cosmetologista",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-footer-inline/div[1]/div[2]/div[1]/a[1]:0": {
           "kind": "text",
@@ -39888,17 +39921,17 @@
           "current_translation": "Mapa do Site",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         }
       }
     },
     "partials/header.html": {
       "source_path": "partials/header.html",
       "output_path": "partials/pt-BR/header.html",
-      "source_hash": "2ec3f7e72ee92f46bb846e47dd0e7acd8d4c1c6b22d14864bb8d8d99713fef39",
-      "output_hash": "b890d42f466e51965682da0b9e4de066483464d531e82153963606ac15f3bd73",
-      "last_translated": "2026-09-18T11:44:47.724730+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "ea749c1b1aec7fe24eb08164ad7977ef900eb4e2509e1f5651259a6bf9b2863a",
+      "output_hash": "5bea8dab4d61823b0e882be392c24c5e6d84dd4b1e8fec4cfb132aead1c08add",
+      "last_translated": "2026-10-14T13:56:17.841132+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -39911,9 +39944,9 @@
           "current_translation": "Franciele Sofiati casa",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
-        "text:id:sf-header-inline/div[1]/a[1]/span[2]/span[1]:0": {
+        "text:id:sf-header-inline/div[1]/a[1]/span[1]/span[1]:0": {
           "kind": "text",
           "source": "Franciele Sofiati",
           "source_hash": "3faf94ec731025ebf889f334efe9484900a2ad3afc7abd3c2b06c5a44ebf42b2",
@@ -39924,7 +39957,7 @@
           "review_required": false,
           "origin": "memory"
         },
-        "text:id:sf-header-inline/div[1]/a[1]/span[2]/span[2]:0": {
+        "text:id:sf-header-inline/div[1]/a[1]/span[1]/span[2]:0": {
           "kind": "text",
           "source": "Biomedic | Esthetician | Cosmetologist",
           "source_hash": "81c114af7a1c2a323d548d4f38430957c101ee23763e55cf57924b8db7517834",
@@ -39933,7 +39966,7 @@
           "current_translation": "Biomédico Esteticista Cosmetologista",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-header-inline/div[1]/nav[1]:aria-label": {
           "kind": "attribute:aria-label",
@@ -39944,7 +39977,7 @@
           "current_translation": "Navegação primária",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-header-inline/div[1]/nav[1]/a[1]:0": {
           "kind": "text",
@@ -40021,7 +40054,7 @@
           "current_translation": "Abrir menu",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-header-inline/div[1]/div[1]/button[1]:data-label-close": {
           "kind": "attribute:data-label-close",
@@ -40032,7 +40065,7 @@
           "current_translation": "Feche o menu.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-header-inline/div[1]/div[1]/button[1]:data-label-open": {
           "kind": "attribute:data-label-open",
@@ -40050,10 +40083,10 @@
     "partials/mobile-menu.html": {
       "source_path": "partials/mobile-menu.html",
       "output_path": "partials/pt-BR/mobile-menu.html",
-      "source_hash": "d5098d8afa7b64af49f4d7504e967d790fd2af0d6766013264a1835207e37ee8",
-      "output_hash": "f660bf6fb66d72cdf33bf8418d711bd18a1c0a02d5c26eb4c5bd3bdcde0c38e8",
-      "last_translated": "2026-09-18T11:44:47.823086+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "bffff2c5d2e60f45591700658fb46c3a4426e9693ed8750cea2b659519d18eb1",
+      "output_hash": "3e227af875c2d0a1708918f0b0342708c6747ce8237e003b5a6f8b5020b03742",
+      "last_translated": "2026-10-14T13:56:17.846861+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -40077,7 +40110,7 @@
           "current_translation": "Navegação móvel",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-mobile-menu-inline/aside[1]/div[1]/a[1]:aria-label": {
           "kind": "attribute:aria-label",
@@ -40121,7 +40154,7 @@
           "current_translation": "×",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-mobile-menu-inline/aside[1]/div[1]/button[1]:aria-label": {
           "kind": "attribute:aria-label",
@@ -40143,7 +40176,7 @@
           "current_translation": "Páginas móveis",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-mobile-menu-inline/aside[1]/nav[1]/a[1]:0": {
           "kind": "text",
@@ -40286,7 +40319,7 @@
           "current_translation": "Links de apoio",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-mobile-menu-inline/aside[1]/div[3]/a[1]:0": {
           "kind": "text",
@@ -40309,19 +40342,107 @@
           "manual_override": false,
           "review_required": false,
           "origin": "glossary"
+        },
+        "text:id:sf-mobile-menu-inline/aside[1]/div[3]/a[3]:0": {
+          "kind": "text",
+          "source": "Patient Area",
+          "source_hash": "661f147ddab04a9af4610c8be3381fcfbc821dfd9fc872245899be52a1d0a8c7",
+          "generated_translation": "Área do Paciente",
+          "generated_hash": "2fc3fd6286784ff63100e417bea7e09b820fc45350cf0b4361c31eec9d7ca582",
+          "current_translation": "Área do Paciente",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:sf-mobile-menu-inline/aside[1]/div[3]/a[4]:0": {
+          "kind": "text",
+          "source": "Professional Area",
+          "source_hash": "ca27faa7fff5b84aa0a763f88b0061eb81b8556f5845b3e942f44047f88a5269",
+          "generated_translation": "Área Profissional",
+          "generated_hash": "09afc5fe7f20960140f570f4c5b0bb7910c37c696d15c826a8cee1cefe0df1a7",
+          "current_translation": "Área Profissional",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
         }
       }
     },
     "partials/top-bar.html": {
       "source_path": "partials/top-bar.html",
       "output_path": "partials/pt-BR/top-bar.html",
-      "source_hash": "e7e9dc54ca064eaafc4897b736244b15e680b791fdd37a0f7c48a0eb0115cf9b",
-      "output_hash": "b1601b8811611ad2fecf5246b9a865bb977af9e6ecb4178c0fe98b363def6596",
-      "last_translated": "2026-09-18T11:44:48.313285+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "800fc6fc77a3da8d37711f959462ef5e526c73237951f730535c925e16e6061b",
+      "output_hash": "3a24aa73ba02a41121a4e6633953140f11116e26cfab8b5a64b1f772505e156c",
+      "last_translated": "2026-10-14T13:56:17.955678+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
+        "attr:id:sf-language-strip-inline:aria-label": {
+          "kind": "attribute:aria-label",
+          "source": "Language switcher",
+          "source_hash": "fd376e3c4fab636d3a722a87d67615c877fbb0d30d03add73b63f4060ec9edba",
+          "generated_translation": "Interruptor de linguagem.",
+          "generated_hash": "e592ed5b57c7640ce4f9f4d6335c5193748cab10bce8879d88aab7e3d6bd7384",
+          "current_translation": "Interruptor de linguagem.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "attr:id:sf-language-strip-inline/nav[1]:aria-label": {
+          "kind": "attribute:aria-label",
+          "source": "Language switcher",
+          "source_hash": "fd376e3c4fab636d3a722a87d67615c877fbb0d30d03add73b63f4060ec9edba",
+          "generated_translation": "Interruptor de linguagem.",
+          "generated_hash": "e592ed5b57c7640ce4f9f4d6335c5193748cab10bce8879d88aab7e3d6bd7384",
+          "current_translation": "Interruptor de linguagem.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:sf-language-strip-inline/nav[1]/a[1]:0": {
+          "kind": "text",
+          "source": "EN",
+          "source_hash": "69374b09b1681162ba2d6bba92d6a167ea5ca5921eb172eb173e999e3be5d8ba",
+          "generated_translation": "EN",
+          "generated_hash": "69374b09b1681162ba2d6bba92d6a167ea5ca5921eb172eb173e999e3be5d8ba",
+          "current_translation": "EN",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "attr:id:sf-language-strip-inline/nav[1]/a[1]:aria-label": {
+          "kind": "attribute:aria-label",
+          "source": "English",
+          "source_hash": "ba118bf7fc9c1aedc1edb28a0aa86e0b43b681f222af6616e13c43be87815b06",
+          "generated_translation": "Inglês",
+          "generated_hash": "85a560bc1af92af86f01dc698af554663e55ca407971d8bd053a1fe27be0f040",
+          "current_translation": "Inglês",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:sf-language-strip-inline/nav[1]/a[2]:0": {
+          "kind": "text",
+          "source": "PT",
+          "source_hash": "169b032adf2ab80f3bdffbdf14358d9d72565fad7708f65c65cb4d7918a4ffb2",
+          "generated_translation": "PT",
+          "generated_hash": "169b032adf2ab80f3bdffbdf14358d9d72565fad7708f65c65cb4d7918a4ffb2",
+          "current_translation": "PT",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "attr:id:sf-language-strip-inline/nav[1]/a[2]:aria-label": {
+          "kind": "attribute:aria-label",
+          "source": "Português",
+          "source_hash": "d4ada8ec276411a1d73428117ea0d7d8ea48789e9f07ce6bb6908cb851b52441",
+          "generated_translation": "Português",
+          "generated_hash": "d4ada8ec276411a1d73428117ea0d7d8ea48789e9f07ce6bb6908cb851b52441",
+          "current_translation": "Português",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
         "attr:id:sf-topbar-inline:aria-label": {
           "kind": "attribute:aria-label",
           "source": "Site information",
@@ -40331,40 +40452,7 @@
           "current_translation": "Informação do site",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
-        },
-        "attr:id:sf-topbar-inline/nav[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Access areas",
-          "source_hash": "835c53ada9ed4b7f5320bd69d3f2d63c6f10abd4ffef6f3061754b912b9ca06b",
-          "generated_translation": "Áreas de acesso",
-          "generated_hash": "b217c7645619ff1e5acb41e45535b7d1a3e872b75f289be46cf9c4cdbb50cbc6",
-          "current_translation": "Áreas de acesso",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
-        },
-        "text:id:sf-topbar-inline/nav[1]/a[1]:0": {
-          "kind": "text",
-          "source": "Patient Area",
-          "source_hash": "661f147ddab04a9af4610c8be3381fcfbc821dfd9fc872245899be52a1d0a8c7",
-          "generated_translation": "Área do Paciente",
-          "generated_hash": "2fc3fd6286784ff63100e417bea7e09b820fc45350cf0b4361c31eec9d7ca582",
-          "current_translation": "Área do Paciente",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
-        },
-        "text:id:sf-topbar-inline/nav[1]/a[2]:0": {
-          "kind": "text",
-          "source": "Professional Area",
-          "source_hash": "ca27faa7fff5b84aa0a763f88b0061eb81b8556f5845b3e942f44047f88a5269",
-          "generated_translation": "Área Profissional",
-          "generated_hash": "09afc5fe7f20960140f570f4c5b0bb7910c37c696d15c826a8cee1cefe0df1a7",
-          "current_translation": "Área Profissional",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-topbar-inline/div[1]/p[1]/span[1]:0": {
           "kind": "text",
@@ -40375,7 +40463,7 @@
           "current_translation": "Cuidado. Compromisso. Confiança.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-topbar-inline/div[1]/div[1]/a[1]:aria-label": {
           "kind": "attribute:aria-label",
@@ -40386,7 +40474,7 @@
           "current_translation": "Instagram: sofiati biomedica",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-topbar-inline/div[1]/div[1]/a[1]/span[1]:0": {
           "kind": "text",
@@ -40408,62 +40496,40 @@
           "current_translation": "Londrina, Paraná",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:sf-topbar-inline/div[1]/div[1]/nav[1]:aria-label": {
           "kind": "attribute:aria-label",
-          "source": "Language switcher",
-          "source_hash": "fd376e3c4fab636d3a722a87d67615c877fbb0d30d03add73b63f4060ec9edba",
-          "generated_translation": "Interruptor de linguagem.",
-          "generated_hash": "e592ed5b57c7640ce4f9f4d6335c5193748cab10bce8879d88aab7e3d6bd7384",
-          "current_translation": "Interruptor de linguagem.",
+          "source": "Access areas",
+          "source_hash": "835c53ada9ed4b7f5320bd69d3f2d63c6f10abd4ffef6f3061754b912b9ca06b",
+          "generated_translation": "Áreas de acesso",
+          "generated_hash": "b217c7645619ff1e5acb41e45535b7d1a3e872b75f289be46cf9c4cdbb50cbc6",
+          "current_translation": "Áreas de acesso",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-topbar-inline/div[1]/div[1]/nav[1]/a[1]:0": {
           "kind": "text",
-          "source": "EN",
-          "source_hash": "69374b09b1681162ba2d6bba92d6a167ea5ca5921eb172eb173e999e3be5d8ba",
-          "generated_translation": "EN",
-          "generated_hash": "69374b09b1681162ba2d6bba92d6a167ea5ca5921eb172eb173e999e3be5d8ba",
-          "current_translation": "EN",
+          "source": "Patient Area",
+          "source_hash": "661f147ddab04a9af4610c8be3381fcfbc821dfd9fc872245899be52a1d0a8c7",
+          "generated_translation": "Área do Paciente",
+          "generated_hash": "2fc3fd6286784ff63100e417bea7e09b820fc45350cf0b4361c31eec9d7ca582",
+          "current_translation": "Área do Paciente",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
-        },
-        "attr:id:sf-topbar-inline/div[1]/div[1]/nav[1]/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "English",
-          "source_hash": "ba118bf7fc9c1aedc1edb28a0aa86e0b43b681f222af6616e13c43be87815b06",
-          "generated_translation": "Inglês",
-          "generated_hash": "85a560bc1af92af86f01dc698af554663e55ca407971d8bd053a1fe27be0f040",
-          "current_translation": "Inglês",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-topbar-inline/div[1]/div[1]/nav[1]/a[2]:0": {
           "kind": "text",
-          "source": "PT",
-          "source_hash": "169b032adf2ab80f3bdffbdf14358d9d72565fad7708f65c65cb4d7918a4ffb2",
-          "generated_translation": "PT",
-          "generated_hash": "169b032adf2ab80f3bdffbdf14358d9d72565fad7708f65c65cb4d7918a4ffb2",
-          "current_translation": "PT",
+          "source": "Professional Area",
+          "source_hash": "ca27faa7fff5b84aa0a763f88b0061eb81b8556f5845b3e942f44047f88a5269",
+          "generated_translation": "Área Profissional",
+          "generated_hash": "09afc5fe7f20960140f570f4c5b0bb7910c37c696d15c826a8cee1cefe0df1a7",
+          "current_translation": "Área Profissional",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
-        },
-        "attr:id:sf-topbar-inline/div[1]/div[1]/nav[1]/a[2]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Português",
-          "source_hash": "d4ada8ec276411a1d73428117ea0d7d8ea48789e9f07ce6bb6908cb851b52441",
-          "generated_translation": "Português",
-          "generated_hash": "d4ada8ec276411a1d73428117ea0d7d8ea48789e9f07ce6bb6908cb851b52441",
-          "current_translation": "Português",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         }
       }
     },
@@ -40548,10 +40614,10 @@
     "consulta.html": {
       "source_path": "consulta.html",
       "output_path": "pt/consulta.html",
-      "source_hash": "47645a7d22f2d89916b7df6013e5566f20b609d276d32b7c360068d5b8fc0338",
-      "output_hash": "55fb4003fe32acbc8a72fab43442c7ae3ceffe9e4300adb6d3fa20a4601536d5",
-      "last_translated": "2026-09-18T11:43:46.594438+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "ecced00fdf64ae1b97e8195cf43aa2a2aed34d32e01d4c311d69852837d7af04",
+      "output_hash": "f26635d848d03ea7ef8ecc519909276f659d14f97cc51a42ee9991c01c985fb8",
+      "last_translated": "2026-10-14T13:56:16.542148+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -40749,28 +40815,6 @@
           "generated_translation": "Como funciona?",
           "generated_hash": "0cca698beb04034add61315baa991293827b27350491a3c4131dcf28ad45a43f",
           "current_translation": "Como funciona?",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "argos"
@@ -42067,10 +42111,10 @@
     "contato.html": {
       "source_path": "contato.html",
       "output_path": "pt/contato.html",
-      "source_hash": "40736fbdb578b08225218c5abdd08d91b2480c90ba278fc39fe636223424fd51",
-      "output_hash": "db8aff30be70549223f59782df93c1bef3f8d210fa0300cde2267a2cf3a80d93",
-      "last_translated": "2026-09-18T11:43:49.823624+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "01175e15ace0081a66168f11dc094f93dfea0142117c06b7a1e59183169ace50",
+      "output_hash": "cdff87f73e5c3188cfb8c0327b27c7d0c5dad49854d1fe90f91996872b9fd5a4",
+      "last_translated": "2026-10-14T13:56:16.568866+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -42162,82 +42206,16 @@
           "review_required": false,
           "origin": "argos"
         },
-        "attr:id:main/nav[1]:aria-label": {
+        "attr:id:contact-form-section:aria-label": {
           "kind": "attribute:aria-label",
-          "source": "Trilha de navegação",
-          "source_hash": "686857f2fd1d71d22064211991869e61c6f8eab579daeb8efa94436d6adca371",
-          "generated_translation": "Trilha de navegação",
-          "generated_hash": "686857f2fd1d71d22064211991869e61c6f8eab579daeb8efa94436d6adca371",
-          "current_translation": "Trilha de navegação",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/nav[1]/ol[1]/li[1]/a[1]:0": {
-          "kind": "text",
-          "source": "Início",
-          "source_hash": "325dfc37c9ba0aaa454e4142b4bfe68797cb61d2a8e0debe5def2bf33f0ed8ef",
-          "generated_translation": "Início",
-          "generated_hash": "325dfc37c9ba0aaa454e4142b4bfe68797cb61d2a8e0debe5def2bf33f0ed8ef",
-          "current_translation": "Início",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/nav[1]/ol[1]/li[2]/span[1]:0": {
-          "kind": "text",
-          "source": "Contato",
-          "source_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
-          "generated_translation": "Contato",
-          "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
-          "current_translation": "Contato",
+          "source": "Formulário de contato",
+          "source_hash": "100c7fa0ad2a0c41a5fa87c0fbb55ad302214fb362199a3729e399a9cd57db30",
+          "generated_translation": "Formulário de contato",
+          "generated_hash": "100c7fa0ad2a0c41a5fa87c0fbb55ad302214fb362199a3729e399a9cd57db30",
+          "current_translation": "Formulário de contato",
           "manual_override": false,
           "review_required": false,
           "origin": "argos"
-        },
-        "text:id:contact-form-section/div[1]/header[1]/p[1]:0": {
-          "kind": "text",
-          "source": "CONTATO",
-          "source_hash": "5f1008a127a27178c5cd388d241f6e439d20190aca02464d8112b55f4a5d399f",
-          "generated_translation": "CONTATO",
-          "generated_hash": "5f1008a127a27178c5cd388d241f6e439d20190aca02464d8112b55f4a5d399f",
-          "current_translation": "CONTATO",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
-        },
-        "text:id:contact-page-title:0": {
-          "kind": "text",
-          "source": "Entre em contato",
-          "source_hash": "e2b53d1722d420d553738979c88b4c4eb2c6454a56a0ff94e78c03b26bc5a98d",
-          "generated_translation": "Entre em contato",
-          "generated_hash": "e2b53d1722d420d553738979c88b4c4eb2c6454a56a0ff94e78c03b26bc5a98d",
-          "current_translation": "Entre em contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "argos"
-        },
-        "text:id:contact-form-section/div[1]/header[1]/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:contact-form-section/div[1]/header[1]/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
         },
         "text:id:contact-form/div[1]/label[1]:0": {
           "kind": "text",
@@ -42252,11 +42230,11 @@
         },
         "text:id:contact-form-introduction:0": {
           "kind": "text",
-          "source": "Envie sua mensagem e entraremos em contato em breve.",
-          "source_hash": "7ad1ddb1ce3fbf8e1188617e7f2de9840aee930f6e4929da3a51976a687f6a91",
-          "generated_translation": "Envie sua mensagem e entraremos em contato em breve.",
-          "generated_hash": "7ad1ddb1ce3fbf8e1188617e7f2de9840aee930f6e4929da3a51976a687f6a91",
-          "current_translation": "Envie sua mensagem e entraremos em contato em breve.",
+          "source": "Envie sua mensagem",
+          "source_hash": "dc6383b35ae706cf35c2c0e19d16156a34bd046c86c42bc0fc754b482c3447d1",
+          "generated_translation": "Envie sua mensagem",
+          "generated_hash": "dc6383b35ae706cf35c2c0e19d16156a34bd046c86c42bc0fc754b482c3447d1",
+          "current_translation": "Envie sua mensagem",
           "manual_override": false,
           "review_required": false,
           "origin": "argos"
@@ -43003,10 +42981,10 @@
     "cuidados.html": {
       "source_path": "cuidados.html",
       "output_path": "pt/cuidados.html",
-      "source_hash": "54ca96acc5eda20a055eadfe8986f2ddc40916024b5fd997c0f75986faf4f295",
-      "output_hash": "9470225cbfb31eb85cb0037050fd4d14caa4887a2ecba03f9ef6d2c18fb543be",
-      "last_translated": "2026-09-18T11:43:57.070688+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "802e5a3e443efe49695d79f2b909de023d231d3130973c4f5f2498c8ae78e7e2",
+      "output_hash": "cc29dc27a84a40d5939951147943e7961282ed71c775bd1807bf54bf431f7b43",
+      "last_translated": "2026-10-14T13:56:16.698540+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -43204,28 +43182,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -44687,10 +44643,10 @@
     "depoimentos.html": {
       "source_path": "depoimentos.html",
       "output_path": "pt/depoimentos.html",
-      "source_hash": "71c5dc4b722d3db92dc14c0a65c9dfdd331f7c1ecb672de769064d6a490650fe",
-      "output_hash": "8ec9675c883ddd1decabee98cff939ff9fe48ce4a213b42a3ed939406a1ac68d",
-      "last_translated": "2026-09-18T11:44:01.957306+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "0c25b7555a56c020a87f2ad0e05774779b8fff253500bd77e490a2886368e04e",
+      "output_hash": "7128a8687beb6122b356e3a8fc133eabb4ace74eee248de7ec65fb2b12c1ca34",
+      "last_translated": "2026-10-14T13:56:16.736772+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -44888,17 +44844,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -45843,10 +45788,10 @@
     "formulario.html": {
       "source_path": "formulario.html",
       "output_path": "pt/formulario.html",
-      "source_hash": "2336a003db6c4615ac6a18f70c4d822606717b0fa49b23dd1499db76b896eb92",
-      "output_hash": "5ed05ec3f437459e956c379ac9c55c33ebb829db0a4956c53cde6d7b508dda1a",
-      "last_translated": "2026-09-18T11:44:04.653094+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "e135d3554e839b839626fa83907d0f896c9f93a5e425cfd475bd249646eb6d6c",
+      "output_hash": "b9ec0a4cf289f2364b4f3ab30524baf3197192c21e3243a0c0bda4acce9a9541",
+      "last_translated": "2026-10-14T13:56:17.377299+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -46064,10 +46009,10 @@
     "missao.html": {
       "source_path": "missao.html",
       "output_path": "pt/missao.html",
-      "source_hash": "de3f0ef7d279d0b22259531e30f62dec6e074cde8e89e5d8e36d6a3fe5e4e143",
-      "output_hash": "52e62eb31c5d87fc17c14757f82ea0623011e38728670379368555e995c19bf5",
-      "last_translated": "2026-09-18T11:44:16.653455+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "b57e7c9a61fb9afa68d8a98581f9a97d68100c30d42b2986aca2d618a2d2eebd",
+      "output_hash": "bd62283eb995b9ee68afe68eeba126576e09a8c7d31e4a0a8522140588a9d908",
+      "last_translated": "2026-10-14T13:56:17.522779+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -46265,28 +46210,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -47607,8 +47530,8 @@
       "output_path": "pt/obrigada.html",
       "source_hash": "a17845d75748577e8dc8e00e60ae8ba1fd653c39d1c385fd82d684f41e7caf42",
       "output_hash": "a428566f694f6bb5bb478b44f465b50f39c26e792590daca52d0cdefc7e56e10",
-      "last_translated": "2026-09-18T11:44:20.329282+00:00",
-      "engine": "argos:en->pb:installed",
+      "last_translated": "2026-10-14T13:56:17.546014+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -47859,10 +47782,10 @@
     "pele.html": {
       "source_path": "pele.html",
       "output_path": "pt/pele.html",
-      "source_hash": "69c99d83e6ec28cce27412b9ec589358bea09f7248e4cb3f7b6f1320cb2e5455",
-      "output_hash": "af939e1ff31abfae922ab6ca90afa8cf78a1afaca8dfa86176f10d583498be56",
-      "last_translated": "2026-09-18T11:44:20.933027+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "64a6111c04ac987798d0cb304da0ebfdb825f34467b5f8d9517154ddf374d7f3",
+      "output_hash": "b8d99a948edee4f2bd2574ab0f3ac014fa9e2d74ffcb630a69da9deb6785847c",
+      "last_translated": "2026-10-14T13:56:17.586811+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -48060,28 +47983,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -49950,10 +49851,10 @@
     "perguntas.html": {
       "source_path": "perguntas.html",
       "output_path": "pt/perguntas.html",
-      "source_hash": "491dc1059eec9368fce53f572fd468ac02d7dba96d674b3193a569fd58ba5099",
-      "output_hash": "c886a20e88e9524a22dfb62c5ce143e3b3e732a86573f465683dc66a582e01e9",
-      "last_translated": "2026-09-18T11:44:26.186177+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "e1ce470f7e968ff96326587ce9446e20a7e97cfa75d5f968674a127bb494a2c8",
+      "output_hash": "4638343d8b9035c4e1591ba0befe24274be4d34ac1f4340da9db252e553936f0",
+      "last_translated": "2026-10-14T13:56:17.627763+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -50140,17 +50041,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -51546,10 +51436,10 @@
     "resultados.html": {
       "source_path": "resultados.html",
       "output_path": "pt/resultados.html",
-      "source_hash": "033757e8e121dec24d0969968e9f9433dd48af77e1fcd5941ff271a307c50914",
-      "output_hash": "31feeab9ce08c00bcb8113ec55c61b3f7fd58b2b6e316a7171ac6926e4932aac",
-      "last_translated": "2026-09-18T11:44:29.791528+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "b40f6eb231a5229cee22230ed3461894dfcafba9dad6818796c5a3822e3461f2",
+      "output_hash": "de5e4cefa355a6623dc90ff3350352d7e15026598e2cd5c450ff915d4a1748bc",
+      "last_translated": "2026-10-14T13:56:17.663332+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -51747,28 +51637,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -53098,10 +52966,10 @@
     "sobre.html": {
       "source_path": "sobre.html",
       "output_path": "pt/sobre.html",
-      "source_hash": "bddd6ea223add3a311a6f102e00293ef4a01659f8747613ff6da477d9eadc0ae",
-      "output_hash": "e1264652d4a6d00b644fa34137206d24fbae9b2df2d57528adcd5c246cc309d9",
-      "last_translated": "2026-09-18T11:44:33.358757+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "48796c199f239388987a7c72f906c3b38508a8c0da5870ee18c651834db1e585",
+      "output_hash": "1e4a258712888e18eef3ba2979b87c77fc7d7a4116492b4d0d08001c4ed77cf1",
+      "last_translated": "2026-10-14T13:56:17.702907+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -53299,17 +53167,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -54815,10 +54672,10 @@
     "tratamentos.html": {
       "source_path": "tratamentos.html",
       "output_path": "pt/tratamentos.html",
-      "source_hash": "5a8fb4f33ccc396e30f12703d63ed1e25fba6727bb3504f690cbf2bb574072bb",
-      "output_hash": "cd98b25da82685102936a6299e57f7145183c8c84f7ebf3e83c3ccf24386e2fc",
-      "last_translated": "2026-09-18T11:44:37.602608+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "eb5781d26739ecf8e0a0c93b44584a9b352d09aa1665e14b39110742fa801638",
+      "output_hash": "15fd9d367f6dcf95c4a841fc21afbe29b16e243cdff9f4df6966b829a4946754",
+      "last_translated": "2026-10-14T13:56:17.726668+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -55005,17 +54862,6 @@
           "generated_translation": "Agendar consulta.",
           "generated_hash": "6def646e7da451dbd180b75b07955047295844a91a3a9ec92065ad801842d8d0",
           "current_translation": "Agendar consulta.",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "text:id:main/a[1]:0": {
-          "kind": "text",
-          "source": "Continuar",
-          "source_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "generated_translation": "Continuar",
-          "generated_hash": "63e2bbaf1c924391bad24220f9b09f898e1dd6e96af1899449193886c642e496",
-          "current_translation": "Continuar",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -55379,8 +55225,8 @@
       "output_path": "pt/typography-plan.html",
       "source_hash": "ea24762f76da011e4768ab96d3365964055e8338df8ccaae8dc0273c685a155c",
       "output_hash": "c9f450ed24669d0cdc7814a80ffb1ef29aea04d2d4b0e3f1d57320f1cf5c8193",
-      "last_translated": "2026-09-18T11:44:38.208388+00:00",
-      "engine": "argos:en->pb:installed",
+      "last_translated": "2026-10-14T13:56:17.759243+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -57413,10 +57259,10 @@
     "valores.html": {
       "source_path": "valores.html",
       "output_path": "pt/valores.html",
-      "source_hash": "80487a8db5f0a247392453ae7222e5d71c5d4b36b962a109c5fc73d7dd53d274",
-      "output_hash": "1a42c4450caa5b1e1991e5903a5c2c8cdb97f17290506be13681a12c6f1705a7",
-      "last_translated": "2026-09-18T11:44:43.131963+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "b7b5032988303b31847bd11ffba465e778d9a375adbe170636b1a5336e8a2032",
+      "output_hash": "bac17f6272eda3a57b44e348ceba95d662072c805e4e33241682a0f89385e3c7",
+      "last_translated": "2026-10-14T13:56:17.798670+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -57614,17 +57460,6 @@
           "generated_translation": "Contato",
           "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
           "current_translation": "Contato",
-          "manual_override": false,
-          "review_required": false,
-          "origin": "memory"
-        },
-        "attr:id:main/a[1]:aria-label": {
-          "kind": "attribute:aria-label",
-          "source": "Esqueça o herói e continue com o conteúdo principal.",
-          "source_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "generated_translation": "Esqueça o herói e continue com o conteúdo principal.",
-          "generated_hash": "1d17edbdf70a3dc1dbbef40607fe417c6eb6f5a92efe3da28f36cf6ec537e47a",
-          "current_translation": "Esqueça o herói e continue com o conteúdo principal.",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"
@@ -58877,10 +58712,10 @@
     "partials/newsletter-strip.html": {
       "source_path": "partials/newsletter-strip.html",
       "output_path": "partials/pt-BR/newsletter-strip.html",
-      "source_hash": "b8fc2a620693f31dd1068c84f29563950bc8ce97e77d78dbd51bb3091bd9a690",
-      "output_hash": "6c62343c64bc23513e02bfaf342eeaeb95d334935d6464b558b83a7a0660e2f7",
-      "last_translated": "2026-09-18T11:44:47.882022+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "f9f039a55940827f0d761aa85846ce17bbf8e40ab3760be19a270fe0477d0736",
+      "output_hash": "dce00c01d0c36d4c8ecc34800ed8dd93504fe2c4694cda40b31bbf0ea7e70c2d",
+      "last_translated": "2026-10-14T13:56:17.854468+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -58893,7 +58728,7 @@
           "current_translation": "Notas de cuidado",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-newsletter-strip-title:0": {
           "kind": "text",
@@ -58904,7 +58739,7 @@
           "current_translation": "Notas breves para cuidar de seu pele com mais clareza.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/header[1]/p[2]:0": {
           "kind": "text",
@@ -58915,7 +58750,7 @@
           "current_translation": "Receba orientações ocasionais sobre preparação, recuperação, laser e escolhas estéticas responsáveis.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[1]/label[1]:0": {
           "kind": "text",
@@ -58937,7 +58772,7 @@
           "current_translation": "Nome",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[2]/div[1]/label[1]/span[2]:0": {
           "kind": "text",
@@ -58948,7 +58783,7 @@
           "current_translation": "requerido",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "attr:id:newsletter-strip-name:placeholder": {
           "kind": "attribute:placeholder",
@@ -58959,7 +58794,7 @@
           "current_translation": "Seu nome.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[2]/div[2]/label[1]:0": {
           "kind": "text",
@@ -58992,6 +58827,17 @@
           "current_translation": "you@example.com",
           "manual_override": false,
           "review_required": false,
+          "origin": "memory"
+        },
+        "text:section[1]/div[1]/form[1]/div[2]/label[1]/span[1]:0": {
+          "kind": "text",
+          "source": "I agree that these details may be used for clinic content and communications.",
+          "source_hash": "4ff8e5f126c1e925012a876e6280197fbeacdfe75763a22f19ced8e228003289",
+          "generated_translation": "Concordo que esses detalhes podem ser usados para conteúdo clínico e comunicações.",
+          "generated_hash": "a7838db5616bdfa4e9cf962f623735bde975e193411fb562ffcdfe0b3b341434",
+          "current_translation": "Concordo que esses detalhes podem ser usados para conteúdo clínico e comunicações.",
+          "manual_override": false,
+          "review_required": false,
           "origin": "argos"
         },
         "text:section[1]/div[1]/form[1]/div[2]/button[1]:0": {
@@ -59003,7 +58849,7 @@
           "current_translation": "Assine.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[3]/p[1]:0": {
           "kind": "text",
@@ -59014,7 +58860,7 @@
           "current_translation": "Enviando sua assinatura...",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[3]/p[2]:0": {
           "kind": "text",
@@ -59025,7 +58871,7 @@
           "current_translation": "Assinatura recebida. Você será redirecionado em breve.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[3]/p[3]:0": {
           "kind": "text",
@@ -59036,17 +58882,17 @@
           "current_translation": "Incapaz de enviar agora. Por favor, tente novamente em breve.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         }
       }
     },
     "partials/quick-contact.html": {
       "source_path": "partials/quick-contact.html",
       "output_path": "partials/pt-BR/quick-contact.html",
-      "source_hash": "ad2beaac45043853862b1f84eb76c7934f74b71e722040079f2dfda336ec5d78",
-      "output_hash": "53d3fed4b2d3b47ed549140addd00e5e8c464622b4806b20f4fe84eb29433192",
-      "last_translated": "2026-09-18T11:44:48.126709+00:00",
-      "engine": "argos:en->pb:installed",
+      "source_hash": "860df255c7c0f1ed2bd202b624c5bccffc40d88fb97500f456b3e266aa950eca",
+      "output_hash": "a02a136ac13c61dc9dac9f046d6aa583cb9df93d2add542fd4f5edd5b60da99e",
+      "last_translated": "2026-10-14T13:56:17.906602+00:00",
+      "engine": "argos:en->pt:installed",
       "manual_override": false,
       "manual_review_required": false,
       "blocks": {
@@ -59059,7 +58905,7 @@
           "current_translation": "Pergunta rápida.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:id:sf-quick-contact-title:0": {
           "kind": "text",
@@ -59070,7 +58916,7 @@
           "current_translation": "Gostaria de saber se sua preocupação pode ser avaliada em consulta?",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/header[1]/p[2]:0": {
           "kind": "text",
@@ -59081,7 +58927,7 @@
           "current_translation": "Envie uma breve nota sobre o que notou. A resposta pode definir o ponto de partida mais útil.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[1]/label[1]:0": {
           "kind": "text",
@@ -59169,7 +59015,7 @@
           "current_translation": "Mensagem",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[3]/label[1]/span[2]:0": {
           "kind": "text",
@@ -59191,6 +59037,17 @@
           "current_translation": "Diga-me o que gostaria de entender.",
           "manual_override": false,
           "review_required": false,
+          "origin": "memory"
+        },
+        "text:section[1]/div[1]/form[1]/label[1]/span[1]:0": {
+          "kind": "text",
+          "source": "I agree that these details may be used to respond to my enquiry.",
+          "source_hash": "8393c95f5654d749b4532d6af5a30251ed35210e901680d2ac7016a9d0eb03c0",
+          "generated_translation": "Concordo que estes detalhes podem ser usados para responder ao meu inquérito.",
+          "generated_hash": "655dfbadac538720cf4973048fd51b3ffa5420a72d3ba1669aea101d6ffe4c68",
+          "current_translation": "Concordo que estes detalhes podem ser usados para responder ao meu inquérito.",
+          "manual_override": false,
+          "review_required": false,
           "origin": "argos"
         },
         "text:section[1]/div[1]/form[1]/button[1]:0": {
@@ -59202,7 +59059,7 @@
           "current_translation": "Enviar mensagem",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[4]/p[1]:0": {
           "kind": "text",
@@ -59213,7 +59070,7 @@
           "current_translation": "Enviando sua mensagem...",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[4]/p[2]:0": {
           "kind": "text",
@@ -59224,7 +59081,7 @@
           "current_translation": "Mensagem recebida. Você será redirecionado em breve.",
           "manual_override": false,
           "review_required": false,
-          "origin": "argos"
+          "origin": "memory"
         },
         "text:section[1]/div[1]/form[1]/div[4]/p[3]:0": {
           "kind": "text",
@@ -59233,6 +59090,337 @@
           "generated_translation": "Incapaz de enviar agora. Por favor, tente novamente em breve.",
           "generated_hash": "a51e8f9891e27756f284680246c964748d5c530f198e343e10e968f1222aec1f",
           "current_translation": "Incapaz de enviar agora. Por favor, tente novamente em breve.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        }
+      }
+    },
+    "formulario-interesse.html": {
+      "source_path": "formulario-interesse.html",
+      "output_path": "pt/formulario-interesse.html",
+      "source_hash": "9af107495e588307054f86fc870de00761fc59f6ff6928887b33263526355af6",
+      "output_hash": "618fc542734341a89a52a90d68d76fd63834052a96306e0e74d6a15142eb8597",
+      "last_translated": "2026-10-14T13:56:16.752050+00:00",
+      "engine": "argos:en->pt:installed",
+      "manual_override": false,
+      "manual_review_required": false,
+      "blocks": {
+        "attr:meta[name=description]:content": {
+          "kind": "attribute:content",
+          "source": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "source_hash": "48a2a755b856a432e63bcaec6ccc2d20bb77b187f7bb1394751f7eecf8df708d",
+          "generated_translation": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "generated_hash": "48a2a755b856a432e63bcaec6ccc2d20bb77b187f7bb1394751f7eecf8df708d",
+          "current_translation": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:html[1]/head[1]/title[1]:0": {
+          "kind": "text",
+          "source": "Fale com a clínica | Estética avançada em Londrina | Franciele Sofiati",
+          "source_hash": "bf1b782a9bbd5fcfb64ee46004b31905ef0e427cd448c3c9e7bb7ad25252a30a",
+          "generated_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "generated_hash": "372696365d3943db22de5decde76cc561d650b7c9fad458ac4f03a08fda0f04c",
+          "current_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "attr:meta[property=og:title]:content": {
+          "kind": "attribute:content",
+          "source": "Fale com a clínica | Estética avançada em Londrina | Franciele Sofiati",
+          "source_hash": "bf1b782a9bbd5fcfb64ee46004b31905ef0e427cd448c3c9e7bb7ad25252a30a",
+          "generated_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "generated_hash": "372696365d3943db22de5decde76cc561d650b7c9fad458ac4f03a08fda0f04c",
+          "current_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "attr:meta[property=og:description]:content": {
+          "kind": "attribute:content",
+          "source": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "source_hash": "48a2a755b856a432e63bcaec6ccc2d20bb77b187f7bb1394751f7eecf8df708d",
+          "generated_translation": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "generated_hash": "48a2a755b856a432e63bcaec6ccc2d20bb77b187f7bb1394751f7eecf8df708d",
+          "current_translation": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "attr:meta[name=twitter:title]:content": {
+          "kind": "attribute:content",
+          "source": "Fale com a clínica | Estética avançada em Londrina | Franciele Sofiati",
+          "source_hash": "bf1b782a9bbd5fcfb64ee46004b31905ef0e427cd448c3c9e7bb7ad25252a30a",
+          "generated_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "generated_hash": "372696365d3943db22de5decde76cc561d650b7c9fad458ac4f03a08fda0f04c",
+          "current_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "attr:meta[name=twitter:description]:content": {
+          "kind": "attribute:content",
+          "source": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "source_hash": "48a2a755b856a432e63bcaec6ccc2d20bb77b187f7bb1394751f7eecf8df708d",
+          "generated_translation": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "generated_hash": "48a2a755b856a432e63bcaec6ccc2d20bb77b187f7bb1394751f7eecf8df708d",
+          "current_translation": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:html[1]/body[1]/a[1]:0": {
+          "kind": "text",
+          "source": "Ir para o conteúdo principal",
+          "source_hash": "b5c80bcff537604ce20774d87f59f130b66134c7852ead0a800397452ca3166f",
+          "generated_translation": "Ir para o conteúdo principal",
+          "generated_hash": "b5c80bcff537604ce20774d87f59f130b66134c7852ead0a800397452ca3166f",
+          "current_translation": "Ir para o conteúdo principal",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:interest-form/div[1]/span[1]:0": {
+          "kind": "text",
+          "source": "01 / contato",
+          "source_hash": "f147af31c8355925129e76e926d3f356a44200f0aa8afd92c838ff6582abb2e1",
+          "generated_translation": "01 / contato",
+          "generated_hash": "f147af31c8355925129e76e926d3f356a44200f0aa8afd92c838ff6582abb2e1",
+          "current_translation": "01 / contato",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:id:interest-title:0": {
+          "kind": "text",
+          "source": "Fale com a clínica",
+          "source_hash": "82510cb3fef4e2b9a84231a0b41bff44d6e46e64792a25bdd38cac1abd46055a",
+          "generated_translation": "Fale com a clínica",
+          "generated_hash": "82510cb3fef4e2b9a84231a0b41bff44d6e46e64792a25bdd38cac1abd46055a",
+          "current_translation": "Fale com a clínica",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:id:interest-form/div[1]/p[1]:0": {
+          "kind": "text",
+          "source": "Conte o que você procura. A equipe retorna com clareza sobre o próximo passo.",
+          "source_hash": "ed4e91022c602c879d1e602c7fecfdb6c07662a6bd556d213179a7b35041d1ec",
+          "generated_translation": "Conte o que você procura. A equipe retorna com clareza sobre o próximo passo.",
+          "generated_hash": "ed4e91022c602c879d1e602c7fecfdb6c07662a6bd556d213179a7b35041d1ec",
+          "current_translation": "Conte o que você procura. A equipe retorna com clareza sobre o próximo passo.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:id:interest-form/div[2]/div[1]/label[1]:0": {
+          "kind": "text",
+          "source": "Nome completo",
+          "source_hash": "52015b04c01add60c5237067fc02d3e5e4abdc4bdc05a295bd0d1923f073ac7f",
+          "generated_translation": "Nome completo",
+          "generated_hash": "52015b04c01add60c5237067fc02d3e5e4abdc4bdc05a295bd0d1923f073ac7f",
+          "current_translation": "Nome completo",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:interest-form/div[2]/div[2]/label[1]:0": {
+          "kind": "text",
+          "source": "E-mail",
+          "source_hash": "2550d962e536e7c0889f563a957c5389c97aa7507881efe2b754769b814d8256",
+          "generated_translation": "E-mail",
+          "generated_hash": "2550d962e536e7c0889f563a957c5389c97aa7507881efe2b754769b814d8256",
+          "current_translation": "E-mail",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "text:id:interest-form/div[2]/div[3]/label[1]:0": {
+          "kind": "text",
+          "source": "Telefone / WhatsApp",
+          "source_hash": "5af049d4046c6f41be73ce6b0ef7d5356429717c4cbdbea7b26664f05449d7a2",
+          "generated_translation": "Telefone / WhatsApp",
+          "generated_hash": "5af049d4046c6f41be73ce6b0ef7d5356429717c4cbdbea7b26664f05449d7a2",
+          "current_translation": "Telefone / WhatsApp",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:id:interest-form/div[2]/div[4]/label[1]:0": {
+          "kind": "text",
+          "source": "CPF",
+          "source_hash": "30d436c2782cb5492c516d6625f0af2f769edcd5b90a8387e8c08ea4af8d6077",
+          "generated_translation": "CPF",
+          "generated_hash": "30d436c2782cb5492c516d6625f0af2f769edcd5b90a8387e8c08ea4af8d6077",
+          "current_translation": "CPF",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:id:interest-form/div[2]/div[4]/label[1]/span[1]:0": {
+          "kind": "text",
+          "source": "opcional",
+          "source_hash": "80621acfc2e1ad03f113af3d2ea9e303140ed1c7317289142dd88b2ed73982bb",
+          "generated_translation": "oindicado",
+          "generated_hash": "5afc020f85600a4cf7a872133795d285dd6ae1f01fd295524eee8983d2cd90eb",
+          "current_translation": "oindicado",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:id:interest-form/div[2]/div[5]/label[1]:0": {
+          "kind": "text",
+          "source": "O que despertou seu interesse?",
+          "source_hash": "9224ffc1ed3960be6005654be159caa7e0d7ecacfa96bc17ff597b7d81bca5c9",
+          "generated_translation": "O que você quer?",
+          "generated_hash": "c56a3c397790ac001730adab25c3bf1a50aba05003831fb2a6fd2300c15005f1",
+          "current_translation": "O que você quer?",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "attr:id:interest_note:placeholder": {
+          "kind": "attribute:placeholder",
+          "source": "Pode ser um serviço, uma região, uma dúvida ou o resultado que você gostaria de conversar.",
+          "source_hash": "d655f4e6cae75bb958a3ed8970549e7947d854e22d02eba4f0a580f615a82914",
+          "generated_translation": "Pode ser um serviço, uma região, uma dupla ou o resultado que você gosta de conversar.",
+          "generated_hash": "dee43b8f487f8632262bee979464529f888abbe81a73eb01f026313b24328c67",
+          "current_translation": "Pode ser um serviço, uma região, uma dupla ou o resultado que você gosta de conversar.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:id:interest-form/label[1]/span[1]:0": {
+          "kind": "text",
+          "source": "Autorizo o uso destes dados para que a equipe entre em contato sobre este interesse.",
+          "source_hash": "a76170b6ba7e9a14e712cf4a4e65858a7f5555b4d4a50eb62c759afd5d682bb1",
+          "generated_translation": "Autorizo o uso destina dados para que a equipa entre em contato sobre este interesse.",
+          "generated_hash": "e9917216a44b43e114543433b0773f79a146073659b4907f57e67323133076fa",
+          "current_translation": "Autorizo o uso destina dados para que a equipa entre em contato sobre este interesse.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "text:id:interest-submit:0": {
+          "kind": "text",
+          "source": "Enviar interesse",
+          "source_hash": "982353716297ec1749a2e2eb4dd6b569fbe3e3336f61d95bc4f83a036ae49530",
+          "generated_translation": "Enviar interesse",
+          "generated_hash": "982353716297ec1749a2e2eb4dd6b569fbe3e3336f61d95bc4f83a036ae49530",
+          "current_translation": "Enviar interesse",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "argos"
+        },
+        "jsonld:0:@graph/0/name": {
+          "kind": "jsonld:name",
+          "source": "Franciele Sofiati",
+          "source_hash": "3faf94ec731025ebf889f334efe9484900a2ad3afc7abd3c2b06c5a44ebf42b2",
+          "generated_translation": "Franciele Sofiati",
+          "generated_hash": "3faf94ec731025ebf889f334efe9484900a2ad3afc7abd3c2b06c5a44ebf42b2",
+          "current_translation": "Franciele Sofiati",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/1/name": {
+          "kind": "jsonld:name",
+          "source": "Franciele Sofiati",
+          "source_hash": "3faf94ec731025ebf889f334efe9484900a2ad3afc7abd3c2b06c5a44ebf42b2",
+          "generated_translation": "Franciele Sofiati",
+          "generated_hash": "3faf94ec731025ebf889f334efe9484900a2ad3afc7abd3c2b06c5a44ebf42b2",
+          "current_translation": "Franciele Sofiati",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/1/jobTitle": {
+          "kind": "jsonld:jobTitle",
+          "source": "Biomédica | Esteticista | Cosmetóloga",
+          "source_hash": "91ceb23a332e7138e968515ab80d6eb37c134e9015e50dd1e76a4a364189300f",
+          "generated_translation": "Biomédica Esteticista Cosmetológica",
+          "generated_hash": "5093408d920a512580f85308481858cce17882442328047060171233216d53b5",
+          "current_translation": "Biomédica Esteticista Cosmetológica",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/2/name": {
+          "kind": "jsonld:name",
+          "source": "Franciele Sofiati",
+          "source_hash": "3faf94ec731025ebf889f334efe9484900a2ad3afc7abd3c2b06c5a44ebf42b2",
+          "generated_translation": "Franciele Sofiati",
+          "generated_hash": "3faf94ec731025ebf889f334efe9484900a2ad3afc7abd3c2b06c5a44ebf42b2",
+          "current_translation": "Franciele Sofiati",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/2/areaServed/name": {
+          "kind": "jsonld:name",
+          "source": "Londrina",
+          "source_hash": "180a0f5f763cd86d5db624c1d59a1973f64c424dfdf2b1747eab82f82967659b",
+          "generated_translation": "Londrina.",
+          "generated_hash": "dc1269f2730fef01a44168a04c6f2b352904d2edfca08cedefa3caabc2593f0a",
+          "current_translation": "Londrina.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/3/name": {
+          "kind": "jsonld:name",
+          "source": "Fale com a clínica | Estética avançada em Londrina | Franciele Sofiati",
+          "source_hash": "bf1b782a9bbd5fcfb64ee46004b31905ef0e427cd448c3c9e7bb7ad25252a30a",
+          "generated_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "generated_hash": "372696365d3943db22de5decde76cc561d650b7c9fad458ac4f03a08fda0f04c",
+          "current_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/3/description": {
+          "kind": "jsonld:description",
+          "source": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "source_hash": "48a2a755b856a432e63bcaec6ccc2d20bb77b187f7bb1394751f7eecf8df708d",
+          "generated_translation": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "generated_hash": "48a2a755b856a432e63bcaec6ccc2d20bb77b187f7bb1394751f7eecf8df708d",
+          "current_translation": "Fale com a clínica Franciele Sofiati em Londrina. Envie seu interesse em estética avançada, pele, rosto, corpo, laser ou couro cabeludo e receba orientação personalizada.",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/4/name": {
+          "kind": "jsonld:name",
+          "source": "Fale com a clínica | Estética avançada em Londrina | Franciele Sofiati",
+          "source_hash": "bf1b782a9bbd5fcfb64ee46004b31905ef0e427cd448c3c9e7bb7ad25252a30a",
+          "generated_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "generated_hash": "372696365d3943db22de5decde76cc561d650b7c9fad458ac4f03a08fda0f04c",
+          "current_translation": "Fale com a clínica Estatísticas atualizadas em Londrina",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/6/itemListElement/0/name": {
+          "kind": "jsonld:name",
+          "source": "Início",
+          "source_hash": "325dfc37c9ba0aaa454e4142b4bfe68797cb61d2a8e0debe5def2bf33f0ed8ef",
+          "generated_translation": "Início",
+          "generated_hash": "325dfc37c9ba0aaa454e4142b4bfe68797cb61d2a8e0debe5def2bf33f0ed8ef",
+          "current_translation": "Início",
+          "manual_override": false,
+          "review_required": false,
+          "origin": "memory"
+        },
+        "jsonld:0:@graph/6/itemListElement/1/name": {
+          "kind": "jsonld:name",
+          "source": "Contato",
+          "source_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
+          "generated_translation": "Contato",
+          "generated_hash": "28594e2a878cd7674d9ed1eefd2dca04aa6a01c31e34ddcf6a9dd791400308cc",
+          "current_translation": "Contato",
           "manual_override": false,
           "review_required": false,
           "origin": "memory"

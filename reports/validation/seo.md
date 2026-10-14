@@ -225,13 +225,13 @@
 
 ## Remaining placeholders
 
-- `GOOGLE_SITE_VERIFICATION_REPLACE_ME` on the English homepage, intentionally retained for HTML-tag verification.
+- None.
 
 ## Client confirmation still required
 
-- Exact street address, opening hours and prices remain omitted because they are not confirmed in repository data.
+- Exact prices remain omitted; the published address and opening hours are sourced from the maintained business-location data and visible contact page.
 - No ratings, review totals or awards are represented in structured data.
-- Confirm a real Google Search Console token only if HTML-tag verification is chosen; DNS Domain verification needs no token.
+- Google Search Console verification still requires an account-side DNS or confirmed HTML-token action.
 
 ## Deployment actions
 

@@ -1353,15 +1353,25 @@
     --color-text-primary: var(--forest-900);
     --color-text-secondary: var(--ink-700);
     --color-text-muted: var(--olive-600);
+  --color-text-placeholder: var(--olive-600);
     --color-text-inverse: var(--ivory-50);
-    --color-action-primary: var(--olive-700);
+  --color-action-primary: var(--forest-800);
     --color-action-accent: var(--rose-gold-700);
+  --color-action-hover: var(--forest-900);
+  --color-accent-text: var(--rose-gold-700);
+  --color-accent-soft: var(--blush-100);
+  --color-on-accent: var(--ivory-50);
     --color-border-subtle: color-mix(in srgb, var(--olive-700) 30%, transparent);
+  --color-border-strong: #8b6b38;
     --color-border-warm: color-mix(in srgb, var(--gold-500) 54%, transparent);
     --color-border-rose: color-mix(in srgb, var(--rose-gold-600) 48%, transparent);
-    --color-focus: var(--gold-700);
+  --color-divider: color-mix(in srgb, var(--forest-800) 22%, transparent);
+  --color-focus: #6a451d;
+  --color-focus-on-dark: #f2d493;
     --color-error: #913c38;
     --color-success: #356244;
+  --color-disabled: #6f786f;
+  --color-overlay: rgb(18 31 23 / .72);
 
     /* Editorial type system: high-contrast serif, quiet humanist sans. The
        stacks remain local/privacy-safe and deliberately share no remote dependency. */
@@ -13552,6 +13562,7 @@
 .sf-journal-index .sj-main .sj-lead__copy { grid-row:2; padding:clamp(1.25rem,3.8vw,3rem); }
 .sf-journal-index .sj-main .sj-lead__image img { inline-size:100%; block-size:100%; object-fit:cover; }
 @media (max-width:40rem) { .sf-journal-index .sj-main :is(.sj-support__grid,.sj-rows__list,.sj-overlays__grid) { inline-size:calc(100% - 1.25rem); gap:1rem; } .sf-journal-index .sj-main :is(.sj-support-story,.sj-row-story,.sj-overlay-story) { border-radius:.8rem; } .sf-journal-index .sj-main :is(.sj-story__copy,.sj-full-feature__copy,.sj-quiet-feature__copy) { padding:1.15rem; } .sf-journal-index .sj-main :is(.sj-story__title,.sj-full-feature h3,.sj-quiet-feature h3) { font-size:clamp(1.35rem,7vw,1.8rem); } .sf-journal-index .sj-main .sj-lead__link { inline-size:calc(100% - 1.25rem); } .sf-journal-index .sj-main .sj-lead__copy { padding:1.25rem; } }
+
 .sf-journal-index #leitura-portugues .sf-content-card-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(1.25rem,2.4vw,2rem); inline-size:min(100% - 2rem,74rem); margin-inline:auto; }
 .sf-journal-index #leitura-portugues .sf-content-card { display:grid; grid-template-columns:minmax(0,1fr); gap:0; overflow:clip; padding:0; border:1px solid var(--color-border-subtle); border-radius:1rem; background:var(--white); box-shadow:0 .6rem 2rem rgb(34 48 39 / .07); }
 .sf-journal-index #leitura-portugues .sf-content-card .sj-story__image { position:relative; grid-row:1; inline-size:100%; min-block-size:0; aspect-ratio:16 / 9; overflow:hidden; }
@@ -13559,3 +13570,13 @@
 .sf-journal-index #leitura-portugues .sf-content-card > :not(.sj-story__image) { margin-inline:clamp(1.15rem,3vw,2rem); }
 .sf-journal-index #leitura-portugues .sf-content-card > p:first-of-type { margin-block-start:1.5rem; }
 .sf-journal-index #leitura-portugues .sf-content-card > span { margin-block-end:1.5rem; }
+
+/* Keep the audited interaction rules last in the deployed bundle. */
+@layer utilities {
+  a:hover { color: var(--color-action-hover); }
+  :is(input, select, textarea)::placeholder { color: var(--color-text-placeholder); opacity: 1; }
+  :is(input, select, textarea):disabled { border-color: var(--color-divider); background: var(--color-bg-soft); color: var(--color-disabled); opacity: 1; }
+  .sf-button:disabled, .sffo-button:disabled, .sfm-primary:disabled, .sfm-secondary:disabled, .sfc-button:disabled { border-color: var(--color-divider); background: var(--color-bg-soft); color: var(--color-disabled); opacity: 1; box-shadow: none; }
+  :is(.sf-button, .sffo-button, .sfm-primary, .sfm-secondary, .sfc-button, .sfi-contact, .sfm-link, .sfm-close, .sfi-menu-button, .sf-icon-button, .sf-slider-controls button):focus-visible { outline: .15rem solid var(--color-focus); outline-offset: .16rem; box-shadow: none; }
+  :is(.sfm-panel, [data-tone="forest"], .sf-footer, .sf-composition-final-cta) :is(.sf-button, .sffo-button, .sfm-primary, .sfm-secondary, .sfc-button, .sfm-link, .sfm-close):focus-visible { outline-color: var(--color-focus-on-dark); }
+}

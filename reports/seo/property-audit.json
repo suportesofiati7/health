@@ -1,0 +1,30 @@
+{
+  "generated": "2026-10-14",
+  "coverage": {
+    "publicHtmlPages": 199,
+    "canonicalIndexableSitemapUrls": 192,
+    "languagePairs": 89,
+    "languagePairRoutes": 178,
+    "imagesAudited": 1721,
+    "socialPreviewPages": 223
+  },
+  "validation": {
+    "seoImplementationErrors": 0,
+    "analyticsErrors": 0,
+    "internalLinkAudit": "pass",
+    "socialPreviewAudit": "pass",
+    "canonicalAndHreflang": "pass",
+    "sitemapAndRobots": "pass"
+  },
+  "requiresConfirmation": [
+    "Google Search Console HTML verification token",
+    "Authoritative map URL, address and opening hours if business records change",
+    "CRBM 6277 authoritative confirmation if professional records change",
+    "Portuguese/English legacy translation drift"
+  ],
+  "limitations": [
+    "No Google Search Console access used",
+    "No live indexing or ranking claim",
+    "No Rich Results Test submission"
+  ]
+}
