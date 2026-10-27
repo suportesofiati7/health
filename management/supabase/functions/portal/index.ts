@@ -20,7 +20,8 @@ async function session(req: Request) {
   const token = clean(req.headers.get("x-portal-token"), 256);
   if (!token) throw Error("auth");
   const db = admin(), hash = await sha256(encoder.encode(token));
-  const { data } = await db.from("patient_portal_sessions").select("*,patient_portal_accounts(*,patients(id,full_name,preferred_name,email,phone))").eq("token_hash", hash).is("revoked_at", null).gt("expires_at", new Date().toISOString()).maybeSingle();
+  const { data, error } = await db.from("patient_portal_sessions").select("*,patient_portal_accounts(*,patients(id,full_name,preferred_name,email,phone))").eq("token_hash", hash).is("revoked_at", null).gt("expires_at", new Date().toISOString()).maybeSingle();
+  if (error) throw Error("portal_unavailable");
   if (!data?.patient_portal_accounts || data.patient_portal_accounts.status !== "ativo") throw Error("auth");
   await db.from("patient_portal_sessions").update({ last_seen_at: new Date().toISOString() }).eq("id", data.id);
   return { db, row: data, account: data.patient_portal_accounts, patient: data.patient_portal_accounts.patients };
@@ -61,13 +62,15 @@ Deno.serve(endpoint(async (req) => {
     if (cpf.length !== 11 || password.length < 1) throw Error("credentials");
     const cpfKey = await cpfHash(cpf);
     await limit(db, `portal:cpf:${cpfKey}`, 8, 900);
-    const { data: account } = await db.from("patient_portal_accounts").select("*,patients(id,full_name,preferred_name,email,phone)").eq("organization_id", ORG).eq("cpf_hash", cpfKey).maybeSingle();
+    const { data: account, error: accountError } = await db.from("patient_portal_accounts").select("*,patients(id,full_name,preferred_name,email,phone)").eq("organization_id", ORG).eq("cpf_hash", cpfKey).maybeSingle();
+    if (accountError) throw Error("portal_unavailable");
     const salt = account?.password_salt ? fromB64(account.password_salt) : crypto.getRandomValues(new Uint8Array(16));
     const candidate = await passwordHash(password, salt);
     const valid = !!account && account.status === "ativo" && (!account.locked_until || new Date(account.locked_until) < new Date()) && equal(candidate, fromB64(account.password_hash));
     if (!valid) { if (account) await db.from("patient_portal_accounts").update({ failed_attempts: Math.min(10, account.failed_attempts + 1), locked_until: account.failed_attempts >= 5 ? new Date(Date.now() + 15 * 60 * 1000).toISOString() : null }).eq("id", account.id); throw Error("credentials"); }
     const raw = random(32), tokenHash = await sha256(encoder.encode(raw)), expires = new Date(Date.now() + 30 * 60 * 1000).toISOString();
-    await db.from("patient_portal_sessions").insert({ organization_id: ORG, account_id: account.id, token_hash: tokenHash, expires_at: expires });
+    const { error: sessionError } = await db.from("patient_portal_sessions").insert({ organization_id: ORG, account_id: account.id, token_hash: tokenHash, expires_at: expires });
+    if (sessionError) throw Error("portal_unavailable");
     await db.from("patient_portal_accounts").update({ failed_attempts: 0, locked_until: null, last_login_at: new Date().toISOString() }).eq("id", account.id);
     return reply(req, { token: raw, expires_at: expires, must_change_password: account.must_change_password, patient: account.patients, resources: await resources(db, account.patient_id) });
   }

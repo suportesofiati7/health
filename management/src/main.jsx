@@ -96,6 +96,7 @@ import {
 } from "./lib";
 import { encryptPackets, decryptPackets, fileBase64, download } from "./crypto";
 import { Language, useT, label } from "./i18n";
+import { normalizeEmail, authErrorMessage, authCallback, acceptAuthCallback } from "./auth";
 import "./style.css";
 import "./responsive-overhaul.css";
 const FinanceiroRebuilt = lazy(() => import("./FinanceiroRebuilt"));
@@ -479,7 +480,7 @@ function PatientPortal({ languageControl, themeControl }) {
   const tokenKey = "sofiati-patient-portal-token";
   const apply = (data, token) => { if (token) sessionStorage.setItem(tokenKey, token); setSession({ ...data, token: token || session?.token }); };
   useEffect(() => { const token = sessionStorage.getItem(tokenKey); if (token) portalRequest({ action: "refresh" }, token).then((data) => apply(data, token)).catch(() => sessionStorage.removeItem(tokenKey)); }, []);
-  const login = async (event) => { event.preventDefault(); setBusy(true); setError(""); try { const data = await portalRequest({ action: "login", cpf, password }); apply(data, data.token); setPassword(""); } catch { setError(t("Não foi possível entrar. Verifique CPF e senha.", "Could not sign in. Check CPF and password.")); } finally { setBusy(false); } };
+  const login = async (event) => { event.preventDefault(); setBusy(true); setError(""); try { const data = await portalRequest({ action: "login", cpf, password }); apply(data, data.token); setPassword(""); } catch (error) { setError(authErrorMessage(error, t, true)); } finally { setBusy(false); } };
   const changePassword = async (event) => { event.preventDefault(); if (newPassword.length < 12) { setError(t("Use pelo menos 12 caracteres.", "Use at least 12 characters.")); return; } setBusy(true); try { await portalRequest({ action: "change_password", password: newPassword }, session.token); const data = await portalRequest({ action: "refresh" }, session.token); apply(data); setNewPassword(""); } catch { setError(t("Não foi possível alterar a senha.", "Could not change password.")); } finally { setBusy(false); } };
   const logout = async () => { try { if (session?.token) await portalRequest({ action: "logout" }, session.token); } catch {} sessionStorage.removeItem(tokenKey); setSession(null); };
   const requestAction = async (resource, actionType) => { setBusy(true); try { const body = { action: "portal_action", action_type: actionType, ...(resource.type === "appointment" ? { appointment_id: resource.id } : { clinical_procedure_id: resource.id }) }; await portalRequest(body, session.token); setError(t("Solicitação enviada à clínica.", "Request sent to the clinic.")); } catch { setError(t("Não foi possível enviar a solicitação.", "Could not send the request.")); } finally { setBusy(false); } };
@@ -575,64 +576,36 @@ function Clinic({ language, setLanguage }) {
     localStorage.setItem("sofiati-theme", theme);
   }, [theme]);
   const loadMember = async () => {
-    const {
-      data: { user },
-    } = await db.auth.getUser();
-    if (!user) {
+    const { data: { user }, error: authError } = await db.auth.getUser();
+    if (authError) throw authError;
+    if (!user) { setMember(null); return; }
+    const { data, error } = await db.from("memberships").select("*")
+      .eq("user_id", user.id).eq("organization_id", ORG).maybeSingle();
+    if (error) { setMember(null); throw { code: "membership_unavailable" }; }
+    if (!data || data.status !== "ativo") {
       setMember(null);
-      return;
+      throw { code: data?.status === "convidado" ? "membership_invited" : "membership_required" };
     }
-    const { data } = await db
-      .from("memberships")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("organization_id", ORG)
-      .single();
-    setMember(data || null);
-    if (!data)
-      notify(
-        t(
-          "Acesso não autorizado ou conta inativa.",
-          "Access not authorized or account inactive.",
-        ),
-      );
+    setMember(data);
   };
   useEffect(() => {
     document.documentElement.lang = language === "pt" ? "pt-BR" : "en";
   }, [language]);
   useEffect(() => {
     const start = async () => {
-      const fragment = new URLSearchParams(location.hash.slice(1));
-      if (fragment.has("token_hash")) {
-        history.replaceState(null, "", location.pathname);
-        const type = fragment.get("type");
-        if (!["invite", "recovery"].includes(type)) throw Error("token");
-        const { error } = await db.auth.verifyOtp({
-          token_hash: fragment.get("token_hash"),
-          type,
-        });
-        if (error) throw error;
-        setActivation(true);
-      } else if (fragment.has("access_token") && fragment.has("refresh_token")) {
-        history.replaceState(null, "", location.pathname);
-        if (!["invite", "recovery"].includes(fragment.get("type"))) throw Error("token");
-        const { error } = await db.auth.setSession({
-          access_token: fragment.get("access_token"),
-          refresh_token: fragment.get("refresh_token"),
-        });
-        if (error) throw error;
-        setActivation(true);
-      } else await loadMember();
+      const callback = authCallback(location.href);
+      if (callback.token_hash || callback.access_token || callback.refresh_token || callback.code || callback.error) {
+        history.replaceState(null, "", callback.cleanUrl);
+      }
+      const mode = await acceptAuthCallback(db.auth, callback);
+      if (mode) setActivation(mode);
+      else {
+        const { data: { session } } = await db.auth.getSession();
+        if (session) await loadMember();
+      }
     };
     start()
-      .catch(() =>
-        notify(
-          t(
-            "Link inválido ou expirado. Solicite um novo acesso.",
-            "Invalid or expired link. Request a new link.",
-          ),
-        ),
-      )
+      .catch((error) => notify(authErrorMessage(error, t)))
       .finally(() => setChecking(false));
     const {
       data: { subscription },
@@ -1040,13 +1013,20 @@ function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
     [confirmPassword, setConfirm] = useState(""),
     [busy, setBusy] = useState(false),
     [recovery, setRecovery] = useState(false);
+  useEffect(() => {
+    if (activation) db.auth.getUser().then(({ data }) => {
+      if (data.user?.email) setEmail(data.user.email);
+    }).catch(() => {});
+  }, [activation]);
   const submit = async (e) => {
     e.preventDefault();
+    if (busy) return;
+    const loginEmail = normalizeEmail(email);
     setBusy(true);
     try {
       if (activation) {
         const current = await checked(db.auth.getUser());
-        if (current.user?.email?.toLowerCase() !== email.trim().toLowerCase()) {
+        if (normalizeEmail(current.user?.email) !== loginEmail) {
           notify(t("O email informado não corresponde ao convite.", "The email does not match the invitation."));
           return;
         }
@@ -1060,12 +1040,12 @@ function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
           return;
         }
         await checked(db.auth.updateUser({ password }));
-        await invoke("staff", { action: "activate", email });
+        if (activation !== "recovery") await invoke("staff", { action: "activate", email: loginEmail });
         await onLogin();
       } else if (recovery) {
-        await db.auth.resetPasswordForEmail(email, {
-          redirectTo: location.origin,
-        });
+        await checked(db.auth.resetPasswordForEmail(loginEmail, {
+          redirectTo: `${location.origin}/`,
+        }));
         notify(
           t(
             "Solicitação recebida. Verifique seu email ou peça um link ao proprietário.",
@@ -1073,16 +1053,11 @@ function Auth({ activation, onLogin, languageControl, themeControl, notify }) {
           ),
         );
       } else {
-        await checked(db.auth.signInWithPassword({ email, password }));
+        await checked(db.auth.signInWithPassword({ email: loginEmail, password }));
         await onLogin();
       }
-    } catch {
-      notify(
-        t(
-          "Não foi possível entrar. Verifique os dados ou solicite um novo link.",
-          "Could not sign in. Check your details or request a new link.",
-        ),
-      );
+    } catch (error) {
+      notify(authErrorMessage(error, t));
     } finally {
       setBusy(false);
       setPassword("");

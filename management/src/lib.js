@@ -173,9 +173,13 @@ export async function portalRequest(body, token = "") {
     },
     body: JSON.stringify(body),
     cache: "no-store",
+    credentials: "omit",
+    signal: AbortSignal.timeout(20000),
   });
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok || data?.error) throw { code: data?.error || "request_failed" };
+  const data = await response.json().catch(() => null);
+  if (!response.ok || !data || data.error) throw { code: data?.error || "portal_unavailable", status: response.status };
+  if (body.action === "login" && (!data.token || !data.patient)) throw { code: "portal_unavailable" };
+  if (body.action === "refresh" && !data.patient) throw { code: "portal_unavailable" };
   return data;
 }
 export async function allRows(table, patient) {

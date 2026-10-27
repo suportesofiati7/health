@@ -28,7 +28,7 @@ DEFAULT_PROJECT_REF = "naypgbhwnlbyqqqfftgn"
 
 # These functions are public HTTP entry points in the existing deployment
 # contract. The remaining functions require an authenticated staff JWT.
-PUBLIC_FUNCTIONS = {"intake", "formulario", "staff", "files", "email-backup"}
+PUBLIC_FUNCTIONS = {"intake", "formulario", "staff", "files", "email-backup", "portal"}
 
 
 def log(message: str) -> None:

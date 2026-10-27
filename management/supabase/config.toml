@@ -42,3 +42,7 @@ verify_jwt = false
 
 [functions.email-backup]
 verify_jwt = false
+
+# CPF/password login and x-portal-token sessions are verified inside the handler.
+[functions.portal]
+verify_jwt = false
