@@ -240,35 +240,10 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
 
   const submitCard = form.querySelector(".sf-consent-card--submit");
   const primarySubmitButton = submitCard?.querySelector('button[type="submit"]');
-  // These are deliberately two entry points to one delivery transaction, not
-  // two independent submissions. Either choice saves to the app first and
-  // then sends the FormSubmit copy, preventing one channel from cancelling
-  // the other or creating duplicate patients.
-  if (primarySubmitButton && !submitCard.querySelector("[data-delivery-trigger]")) {
-    primarySubmitButton.dataset.deliveryTrigger = "system";
-    primarySubmitButton.replaceChildren(
-      document.createTextNode(english ? "Send to the system " : "Enviar para o sistema "),
-      Object.assign(document.createElement("small"), { textContent: english ? "includes an email copy" : "inclui a cópia por e-mail" }),
-    );
-    const note = document.createElement("p");
-    note.className = "sf-delivery-note";
-    note.textContent = english
-      ? "Both buttons use the same secure delivery: the form is saved in the system first, then an email copy is sent. Use either button once."
-      : "Os dois botões fazem o mesmo envio seguro: primeiro salvam no sistema e, em seguida, enviam a cópia por e-mail. Use apenas um deles.";
-    const actions = document.createElement("div");
-    actions.className = "sf-delivery-actions";
-    primarySubmitButton.before(note);
-    primarySubmitButton.before(actions);
-    actions.append(primarySubmitButton);
-    const emailButton = document.createElement("button");
-    emailButton.type = "submit";
-    emailButton.className = "sf-button sf-button--outline";
-    emailButton.dataset.deliveryTrigger = "email";
-    emailButton.append(
-      document.createTextNode(english ? "Send email copy " : "Enviar cópia por e-mail "),
-      Object.assign(document.createElement("small"), { textContent: english ? "also saves in the system" : "também salva no sistema" }),
-    );
-    actions.append(emailButton);
+  if (primarySubmitButton) {
+    primarySubmitButton.textContent = english ? "Submit now" : "Enviar agora";
+    submitCard?.querySelector(".sf-delivery-note")?.remove();
+    submitCard?.querySelector(".sf-delivery-actions")?.remove();
   }
   const submitButtons = [...form.querySelectorAll('button[type="submit"]')];
   const setSubmitDisabled = (disabled) => submitButtons.forEach((button) => { button.disabled = disabled; });
@@ -331,7 +306,12 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       let appError = null;
       try {
         appResult = await deliver("app", async () => {
-          body.set("payload", JSON.stringify({ ...values, email_already_sent: deliver.has("email") }));
+          body.set("payload", JSON.stringify({
+            ...values,
+            // If a previous app save was confirmed, only retry the email.
+            // On the first attempt let the server send it after saving.
+            email_already_sent: deliver.has("app")
+          }));
           const response = await fetchWithTimeout(endpoint, {
             method: "POST",
             body,
