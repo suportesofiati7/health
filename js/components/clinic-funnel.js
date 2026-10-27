@@ -32,6 +32,8 @@ function loadTurnstile() {
     script.defer = true;
     script.dataset.sofiatiTurnstile = 'true';
     script.addEventListener('load', done, { once: true });
+    script.addEventListener('error', () => resolve(null), { once: true });
+    window.setTimeout(() => resolve(null), 10000);
     document.head.append(script);
   });
   return window.__sofiatiTurnstilePromise;
@@ -60,7 +62,7 @@ export function initClinicFunnel() {
         'expired-callback': () => { token.value = ''; },
         'error-callback': () => { token.value = ''; }
       });
-      form.dataset.funnelWidget = String(widgetId || '');
+      form.dataset.funnelWidget = String(widgetId ?? '');
     }).catch(() => {});
     form.dataset.funnelReady = String(index);
   });
@@ -72,11 +74,11 @@ window.SofiatiFunnelToken = async (form) => {
   const widgetId = form?.dataset.funnelWidget;
   if (!widgetId || !window.turnstile?.execute) return '';
   await new Promise((resolve) => {
-    const previous = input?.value || '';
-    const check = () => input?.value && input.value !== previous ? resolve() : window.setTimeout(check, 50);
-    window.turnstile.execute(widgetId);
-    check();
-    window.setTimeout(resolve, 10000);
+    let timer;
+    const finish = () => { window.clearTimeout(timer); window.clearTimeout(deadline); resolve(); };
+    const check = () => input?.value ? finish() : (timer = window.setTimeout(check, 50));
+    const deadline = window.setTimeout(finish, 10000);
+    try { window.turnstile.execute(widgetId); check(); } catch { finish(); }
   });
   return input?.value || '';
 };

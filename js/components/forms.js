@@ -1,5 +1,6 @@
 import { qs, qsa } from '../core/dom.js';
 import { currentPage } from '../core/page.js';
+import { deliveryTracker, formSignature, sendEmail } from '../core/form-delivery.js';
 
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/suportesofiati@gmail.com';
 const FORMSUBMIT_AJAX_ENDPOINT = 'https://formsubmit.co/ajax/suportesofiati@gmail.com';
@@ -191,10 +192,12 @@ async function sendToClinicFunnel(payload, form) {
   const response = await fetch(CLINIC_INTAKE_ENDPOINT, {
     method: 'POST',
     headers: { Accept: 'application/json', 'Content-Type': 'application/json', apikey: CLINIC_INTAKE_KEY },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(20000)
   });
-  if (!response.ok) throw new Error(`Clinic intake failed (${response.status})`);
-  return response;
+  const result = await response.json().catch(() => null);
+  if (!response.ok || result?.received !== true) throw new Error(`Clinic intake failed (${response.status})`);
+  return result;
 }
 
 function pageCategory() {
@@ -667,6 +670,7 @@ export function initForms() {
       });
     };
 
+    const trackDelivery = deliveryTracker();
     const configureEndpoint = () => {
       const endpoint = endpointFor(form);
       return endpoint === FORMSUBMIT_AJAX_ENDPOINT ? endpoint : '';
@@ -674,7 +678,7 @@ export function initForms() {
     configureEndpoint();
 
     form.addEventListener('submit', async (event) => {
-      if (form.dataset.formState === 'loading') return;
+      if (form.dataset.formState === 'loading') { event.preventDefault(); return; }
       const { firstInvalid, errorCount } = validate();
       if (firstInvalid) {
         event.preventDefault();
@@ -726,19 +730,26 @@ export function initForms() {
       }
       try {
         const funnel = clinicFunnelPayload(payload, form);
-        const [response] = await Promise.all([
-          fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-          }),
-          funnel ? sendToClinicFunnel(funnel, form) : Promise.resolve(null)
+        const deliver = trackDelivery(formSignature(form));
+        const emailPayload = Object.fromEntries(Object.entries(payload).filter(([key]) =>
+          !['token', 'cf-turnstile-response'].includes(key)
+        ));
+        const [emailResult, appResult] = await Promise.allSettled([
+          deliver('email', () => sendEmail(emailPayload)),
+          funnel ? deliver('app', () => sendToClinicFunnel(funnel, form)) : Promise.resolve(null)
         ]);
-        const result = await response.json().catch(() => null);
-        if (!response.ok || result?.success === false) throw new Error(`Form submission failed (${response.status})`);
+        if (emailResult.status === 'rejected' && (!funnel || appResult.status === 'rejected')) {
+          throw new Error('all_delivery_failed');
+        }
+        if (emailResult.status === 'rejected' || appResult.status === 'rejected') {
+          const message = emailResult.status === 'rejected'
+            ? (isPortuguese() ? 'Salvo no aplicativo. O e-mail está pendente. Tente novamente; o cadastro salvo não será duplicado.' : 'Saved in the app. Email delivery is pending. Please retry; your saved enquiry will not be duplicated.')
+            : (isPortuguese() ? 'Enviado por e-mail. O aplicativo está indisponível. Tente novamente para salvar também no aplicativo.' : 'Sent by email. The app is unavailable. Please retry to also save in the app.');
+          const node = setState('error', message, 'alert');
+          if (node) node.textContent = message;
+          node?.focus({ preventScroll: true });
+          return;
+        }
         form.reset();
         fields.forEach(clearFieldError);
         setState('success', copy.success)?.focus({ preventScroll: true });

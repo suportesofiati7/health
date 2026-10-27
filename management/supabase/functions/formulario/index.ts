@@ -33,6 +33,8 @@ Deno.serve(endpoint(async (req) => {
   if (attachmentFields.length !== attachments.length) throw Error("file");
   const rawPayload = clean(form.get("payload"), 500000);
   const payload = JSON.parse(rawPayload);
+  const emailAlreadySent = payload.email_already_sent === true;
+  delete payload.email_already_sent;
   const required = ["cpf", "form_version"];
   if (required.some((key) => !clean(payload[key], 300))) throw Error("required");
   const cpf = clean(payload.cpf, 30).replace(/\D/g, "");
@@ -63,14 +65,19 @@ Deno.serve(endpoint(async (req) => {
     await db.from("public_intakes").delete().eq("id", intake.id);
     throw error;
   }
-  // Email is only a notification. Supabase remains authoritative and the
-  // intake is never discarded when the free mail relay is unavailable.
-  let emailStatus = "not_sent";
-  try {
+  // Keep the saved intake even if the email relay is unavailable. The browser
+  // can retry email delivery without creating another intake.
+  let emailStatus = emailAlreadySent ? "sent" : "not_sent";
+  if (!emailAlreadySent) try {
     const notification = "suportesofiati@gmail.com";
     const message = new FormData();
     message.set("_subject", "Novo formulário recebido - Franciele Sofiati");
-    message.set("message", [
+    message.set("_template", "table");
+    for (const [key, value] of Object.entries(payload)) {
+      if (key.startsWith("_") || ["token", "cf-turnstile-response", "website"].includes(key)) continue;
+      message.set(key, Array.isArray(value) ? value.join(", ") : String(value ?? ""));
+    }
+    message.set("resumo_envio", [
       "Novo pré-cadastro recebido no sistema.",
       `Nome: ${clean(payload.full_name, 200) || "Não informado"}`,
       `Email: ${clean(payload.email, 254) || "Não informado"}`,
@@ -97,7 +104,7 @@ Deno.serve(endpoint(async (req) => {
     );
 
     const emailBody = await emailResponse.text();
-    let emailResult: { success?: boolean } | null = null;
+    let emailResult: { success?: boolean | string } | null = null;
     try {
       emailResult = JSON.parse(emailBody);
     } catch {
@@ -105,7 +112,7 @@ Deno.serve(endpoint(async (req) => {
       // provider incorrectly returns HTTP 200.
     }
 
-    if (!emailResponse.ok || emailResult?.success !== true) {
+    if (!emailResponse.ok || (emailResult?.success !== true && emailResult?.success !== "true")) {
       emailStatus = "error";
       console.error(
         "FORMULARIO_EMAIL_FAILED",

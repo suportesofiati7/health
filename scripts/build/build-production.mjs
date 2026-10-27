@@ -500,6 +500,12 @@ async function copySupportFiles() {
   for (const file of ['_redirects', 'robots.txt', 'sitemap.xml', 'sitemap-images.xml', 'sitemap-index.xml', 'llms.txt', 'e7555acad3a644ab84a3f76774ab4ede.txt', 'site.webmanifest', 'favicon.ico']) {
     await copyFile(resolve(ROOT, file), resolve(DIST, file));
   }
+  // These page controllers are loaded outside the main bundle and share a module.
+  for (const file of ['js/public-intake.js', 'interest-intake.js', 'js/core/form-delivery.js']) {
+    const destination = resolve(DIST, file);
+    await mkdir(dirname(destination), { recursive: true });
+    await copyFile(resolve(ROOT, file), destination);
+  }
   await mkdir(resolve(DIST, 'data'), { recursive: true });
   for (const file of ['page-pairs.json', 'shared-site.json', 'forms.json']) {
     try {

@@ -1,5 +1,7 @@
-/* Public intake controller. It is deliberately separate from the generic
- * contact-form handler: no sensitive field is sent to a mail provider. */
+import { deliveryTracker, formSignature, sendEmail } from './core/form-delivery.js';
+
+/* Public intake writes the app first, with email delivery independent of app
+ * availability. Attachments remain in the private application storage. */
 (() => {
   document.querySelector("#consent-form-introduction")?.remove();
   document.querySelector(".skip-past-hero")?.remove();
@@ -18,6 +20,7 @@
   let procedureDetails = [...form.querySelectorAll("details[data-consent-term-for]")];
   let step = 0;
   let submitting = false;
+  const trackDelivery = deliveryTracker();
   const draftKey = "sofiati-public-intake-draft-v2026-09-14";
 
   // The approved form already contains the long terms. These additional
@@ -150,7 +153,7 @@
     form.querySelectorAll("input,select,textarea").forEach((field) => {
       if (field.type === "file" || field.name === "token" || !field.name) return;
       if (field.type === "checkbox" || field.type === "radio") {
-        if (field.checked) draft[field.name] = field.value;
+        if (field.checked) draft[field.name] = [].concat(draft[field.name] || [], field.value);
       } else draft[field.name] = field.value;
     });
     try { sessionStorage.setItem(draftKey, JSON.stringify(draft)); } catch {}
@@ -161,7 +164,7 @@
       if (!draft) return;
       Object.entries(draft).forEach(([name, value]) => {
         form.querySelectorAll(`[name="${CSS.escape(name)}"]`).forEach((field) => {
-          if (field.type === "checkbox" || field.type === "radio") field.checked = field.value === value;
+          if (field.type === "checkbox" || field.type === "radio") field.checked = [].concat(value).includes(field.value);
           else field.value = value;
         });
       });
@@ -256,49 +259,70 @@
       body.append("attachments", file, file.name);
       body.append("attachment_field", input.name);
     });
+    const deliver = trackDelivery(formSignature(form));
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        body,
-        credentials: "omit",
-        cache: "no-store"
-      });
-
-      const responseText = await response.text();
-      let responseData = null;
-
+      let appResult = null;
+      let appError = null;
       try {
-        responseData = responseText ? JSON.parse(responseText) : null;
-      } catch {
-        responseData = { raw: responseText };
-      }
+        appResult = await deliver("app", async () => {
+          body.set("payload", JSON.stringify({ ...values, email_already_sent: deliver.has("email") }));
+          const response = await fetch(endpoint, {
+            method: "POST",
+            body,
+            credentials: "omit",
+            cache: "no-store",
+            signal: AbortSignal.timeout(30000)
+          });
 
-      console.log("FORMULARIO_RESPONSE", {
-        status: response.status,
-        ok: response.ok,
-        body: responseData
-      });
+          const responseText = await response.text();
+          let responseData = null;
 
-      if (!response.ok) {
-        console.error("FORMULARIO_SUBMIT_FAILED", {
-          status: response.status,
-          body: responseData
+          try {
+            responseData = responseText ? JSON.parse(responseText) : null;
+          } catch {
+            responseData = { raw: responseText };
+          }
+
+          if (!response.ok || responseData?.received !== true) {
+            throw new Error("app_delivery_failed");
+          }
+          return responseData;
         });
-
-        const errorCode =
-          responseData?.error ||
-          responseData?.message ||
-          responseData?.code ||
-          `HTTP_${response.status}`;
-
-        throw new Error(String(errorCode));
+      } catch (error) {
+        appError = error;
       }
-      // The Edge Function writes to `public_intakes` before attempting the
-      // optional email notification. Once it returns 202, the management
-      // handoff succeeded; a mail-relay problem must not make the visitor
-      // retry and create a duplicate intake.
-      if (responseData?.email_status && responseData.email_status !== "sent") {
-        console.warn("FORMULARIO_EMAIL_NOTIFICATION_FAILED", responseData.email_status);
+      // The server normally sends the email. If it failed (or the app is
+      // unreachable), deliver the completed answers directly through FormSubmit.
+      // Never forward security tokens or file contents in the email payload.
+      let emailError = null;
+      try {
+        await deliver("email", async () => {
+          if (appResult?.email_status === "sent") return;
+          const email = Object.fromEntries(Object.entries(values).filter(([key]) =>
+            !key.startsWith("_") && !["token", "cf-turnstile-response", "website"].includes(key)
+          ).map(([key, value]) => [key, Array.isArray(value) ? value.join(", ") : value]));
+          await sendEmail({ ...email,
+            _subject: "Novo formulário recebido - Franciele Sofiati",
+            _template: "table",
+            pagina: window.location.href,
+            arquivos: files.map(({ file }) => file.name).join(", "),
+            armazenamento_app: appError ? "Pendente: falha no aplicativo" : "Salvo no aplicativo"
+          });
+        });
+      } catch (error) {
+        emailError = error;
+      }
+      if (appError || emailError) {
+        const english = (document.documentElement.lang || "").startsWith("en");
+        const message = appError && emailError
+          ? (english ? "Delivery failed. Your answers are still here. Please try again." : "O envio falhou. Suas respostas continuam aqui. Tente novamente.")
+          : appError
+            ? (english ? "Your answers were sent by email, but could not be saved in the app. Keep this page open and retry to save your answers and attachments." : "Suas respostas foram enviadas por e-mail, mas não foram salvas no aplicativo. Mantenha esta página aberta e tente novamente para salvar as respostas e os anexos.")
+            : (english ? "Saved in the app. Email delivery is pending. Please retry; your saved form will not be duplicated." : "Salvo no aplicativo. O envio por e-mail está pendente. Tente novamente; o cadastro salvo não será duplicado.");
+        state("error", message);
+        submitting = false;
+        submitButton.disabled = false;
+        return;
       }
       sessionStorage.removeItem(draftKey);
       form.reset();
