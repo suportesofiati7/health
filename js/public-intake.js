@@ -7,6 +7,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   document.querySelector(".skip-past-hero")?.remove();
   const form = document.querySelector("form[data-public-intake]");
   if (!form) return;
+  const english = (document.documentElement.lang || "").startsWith("en");
   const thankYouPath = () => (document.documentElement.lang || "pt-BR").toLowerCase().startsWith("en") ? "en/thank-you.html" : "obrigada.html";
   const firstCard = form.querySelector(":scope > .sf-consent-card");
   const sectionBrand = document.createElement("div");
@@ -94,11 +95,32 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
     status.title = files.map((file) => file.name).join(", ");
   });
   const marketingCard = cards.find((card) => card.querySelector("h2")?.textContent.includes("Registro fotográfico"));
-  if (marketingCard && !form.elements.marketing_authorization_files) {
+  if (marketingCard && !form.elements.supporting_attachments) {
     const uploads = document.createElement("div");
     uploads.className = "sf-consent-grid sf-public-upload-grid";
-    uploads.innerHTML = '<div class="sf-consent-field"><label for="marketing_authorization_files">Arquivo da autorização de uso de imagem</label><input class="sf-consent-file-input" data-analytics-ignore="" data-analytics-sensitive="" id="marketing_authorization_files" name="marketing_authorization_files" multiple type="file"><div class="sf-file-control"><label class="sf-file-button" for="marketing_authorization_files">Selecionar arquivos</label><span class="sf-file-status">Nenhum arquivo selecionado</span></div><p>Opcional. Aceitamos qualquer tipo de arquivo, até 10 MB por arquivo.</p></div><div class="sf-consent-field"><label for="supporting_attachments">Documentos ou informações adicionais</label><input class="sf-consent-file-input" data-analytics-ignore="" data-analytics-sensitive="" id="supporting_attachments" name="supporting_attachments" multiple type="file"><div class="sf-file-control"><label class="sf-file-button" for="supporting_attachments">Selecionar arquivos</label><span class="sf-file-status">Nenhum arquivo selecionado</span></div><p>Opcional. Aceitamos documentos, imagens e outros formatos, até 10 MB por arquivo.</p></div>';
+    uploads.innerHTML = '<div class="sf-consent-field"><label for="supporting_attachments">Documentos ou informações adicionais</label><input class="sf-consent-file-input" data-analytics-ignore="" data-analytics-sensitive="" id="supporting_attachments" name="supporting_attachments" multiple type="file"><div class="sf-file-control"><label class="sf-file-button" for="supporting_attachments">Selecionar arquivos</label><span class="sf-file-status">Nenhum arquivo selecionado</span></div><p>Opcional. Aceitamos documentos, imagens e outros formatos, até 10 MB por arquivo.</p></div>';
     marketingCard.append(uploads);
+  }
+
+  const privacyCard = cards.find((card) => /privacidade|privacy/i.test(card.querySelector("h2")?.textContent || ""));
+  if (privacyCard && !privacyCard.querySelector(".sf-document-links")) {
+    const links = document.createElement("p");
+    links.className = "sf-document-links";
+    const policyHref = english ? "/en/cookies.html" : "/cookies.html";
+    const formHref = english ? "/en/form.html?read=terms" : "/formulario.html?read=terms";
+    links.append(
+      document.createTextNode(english ? "Want to read more? " : "Quer ler mais? "),
+      Object.assign(document.createElement("a"), {
+        href: policyHref, target: "_blank", rel: "noopener noreferrer",
+        textContent: english ? "Open the Cookies, Privacy and LGPD policy" : "Abrir política de Cookies, Privacidade e LGPD",
+      }),
+      document.createTextNode(" · "),
+      Object.assign(document.createElement("a"), {
+        href: formHref, target: "_blank", rel: "noopener noreferrer",
+        textContent: english ? "Open the complete consent terms" : "Abrir todos os termos de consentimento",
+      }),
+    );
+    privacyCard.append(links);
   }
 
   const addressField = form.querySelector("#address")?.closest(".sf-consent-field");
@@ -216,7 +238,6 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   form.addEventListener("input", saveDraft);
   form.addEventListener("change", saveDraft);
 
-  const english = (document.documentElement.lang || "").startsWith("en");
   const submitCard = form.querySelector(".sf-consent-card--submit");
   const primarySubmitButton = submitCard?.querySelector('button[type="submit"]');
   // These are deliberately two entry points to one delivery transaction, not

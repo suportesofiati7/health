@@ -28,6 +28,8 @@ try {
       await route.fulfill({ contentType: 'application/json', body: JSON.stringify({ success: emailCalls === 1 ? 'false' : 'true' }) });
     });
     await page.goto(`${origin}/${scenario === 'english' ? 'en/form.html' : 'formulario.html'}`);
+    assert.equal(await page.locator('#marketing_authorization_files').count(), 0, 'image-authorisation upload must not be offered');
+    assert.equal(await page.locator('.sf-document-links a[target="_blank"]').count(), 2, 'privacy and complete terms must be readable in a new tab');
     await page.locator('[name="cpf"]').fill('00000000000');
     await page.locator('[name="full_name"]').fill('Fictional intake fixture');
     await page.locator('[name="selected_procedures"]').first().check();
