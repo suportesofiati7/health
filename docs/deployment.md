@@ -54,3 +54,44 @@ management app or change the management app's separate build/deployment project.
 - Configure the `www` host as a Cloudflare Bulk Redirect to `https://francielesofiati.com` with status `308`, **Subpath matching** and **Preserve path suffix** enabled. Enable Cloudflare's **Always Use HTTPS** setting (or an equivalent origin rule) for HTTP requests. Cloudflare Pages `_redirects` rules cannot redirect by hostname.
 
 After deployment, verify the home page, one PT-BR page, contact form destination, consent banner, canonical domain redirect, `robots.txt`, `sitemap.xml` and `llms.txt` on the live domain.
+
+
+## Prevent old versions after publishing
+
+The public site deploys the source directory directly. `_headers` tells browsers
+that **every URL must revalidate before reusing a cached response**, including
+extensionless pages, JavaScript modules, CSS, images and shared partials. ETags
+can still avoid downloading unchanged files. Do not add a long browser TTL to
+stable filenames. The optional build copies this same `_headers` file so its
+policy cannot drift from the source deployment. Shared partial and route-map
+fetches also bypass the browser HTTP cache.
+
+For each release:
+
+1. Confirm Workers & Pages → the **public health project** → production deployment
+   shows the intended Git commit and a successful deployment. A local commit or
+   a preview deployment does not update the custom production domain. Keep the
+   management app in its separate project.
+2. In the `francielesofiati.com` zone, remove conflicting Cache Rules, old Page
+   Rules or Workers that force “Cache Everything”, override the origin/browser
+   TTL, or cache HTML and stable script URLs. Set Browser Cache TTL to **Respect
+   Existing Headers**. Do not rely on Development Mode as the permanent fix.
+3. After deploying, use Caching → Configuration → **Purge Everything** once if
+   the custom domain still serves the previous release. Purging Cloudflare does
+   not erase copies already stored in visitors' browsers.
+4. Verify both `/formulario` and `/js/public-intake.js` return the current content
+   and `Cache-Control: no-cache, max-age=0, must-revalidate`. Confirm
+   `/js/core/form-delivery.js` returns 200 and the Portuguese footer reads
+   “Formulário”. Compare the custom domain with the successful production
+   deployment URL when diagnosing a mismatch.
+
+An already-open tab continues running the JavaScript it loaded. Visitors need
+one reload or a new navigation to load a new release; never force-reload an
+in-progress clinical form because that can discard attachments and answers.
+An old response stored with an earlier long TTL may require a one-time hard
+refresh; new headers only take effect after the browser requests the resource
+again. The site does not register a service worker.
+
+References: [Cloudflare Pages serving and cache behavior](https://developers.cloudflare.com/pages/configuration/serving-pages/),
+[Pages headers](https://developers.cloudflare.com/pages/configuration/headers/),
+and [Browser Cache TTL](https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/).

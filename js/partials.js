@@ -31,7 +31,7 @@ function pagePairsUrl() {
 async function fetchText(name, url) {
   let response;
   try {
-    response = await fetch(url, { cache: 'no-cache' });
+    response = await fetch(url, { cache: 'no-store' });
   } catch (cause) {
     throw new Error(`Unable to load partial "${name}" from ${url.href}: network request failed.`, { cause });
   }
@@ -47,7 +47,7 @@ async function fetchPagePairs() {
   const url = pagePairsUrl();
   let response;
   try {
-    response = await fetch(url, { cache: 'no-cache' });
+    response = await fetch(url, { cache: 'no-store' });
   } catch (cause) {
     throw new Error(`Unable to load page-pair mapping from ${url.href}: network request failed.`, { cause });
   }

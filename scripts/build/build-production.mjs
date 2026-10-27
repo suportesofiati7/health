@@ -514,39 +514,8 @@ async function copySupportFiles() {
       // Only copy data files that exist in this repository.
     }
   }
-  const headers = [
-    '/*',
-    '  Cache-Control: public, max-age=0, must-revalidate',
-    '  X-Content-Type-Options: nosniff',
-    '  Referrer-Policy: strict-origin-when-cross-origin',
-    '  Link: <https://francielesofiati.com/llms.txt>; rel="describedby"',
-    '',
-    '/*.txt',
-    '  Content-Type: text/plain; charset=UTF-8',
-    '',
-    '/assets/build/*',
-    '  Cache-Control: public, max-age=31536000, immutable',
-    '',
-    '/assets/generated/*',
-    '  Cache-Control: public, max-age=31536000, immutable',
-    '',
-    '/assets/favicons/*',
-    '  Cache-Control: public, max-age=604800, stale-while-revalidate=86400',
-    '',
-    '/assets/shared/social/*',
-    '  Cache-Control: public, max-age=604800, stale-while-revalidate=86400',
-    '',
-    '/data/*',
-    '  Cache-Control: public, max-age=0, must-revalidate',
-    '',
-    '/thank-you.html',
-    '  Cache-Control: private, no-store',
-    '',
-    '/pt/thank-you.html',
-    '  Cache-Control: private, no-store',
-    ''
-  ].join('\n');
-  await writeFile(resolve(DIST, '_headers'), headers);
+  // Use the same cache policy for source deployments and optional builds.
+  await copyFile(resolve(ROOT, '_headers'), resolve(DIST, '_headers'));
 }
 
 async function main() {
