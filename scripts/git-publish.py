@@ -4,7 +4,7 @@
 Examples:
     python3 scripts/git-publish.py
     python3 scripts/git-publish.py "Update patient workflow"
-    python3 scripts/git-publish.py --allow-empty
+    python3 scripts/git-publish.py --no-allow-empty
     python3 scripts/git-publish.py --no-push
 """
 
@@ -27,7 +27,19 @@ def git(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Git add, commit and push with today's date.")
     parser.add_argument("message", nargs="?", default="Website and management updates")
-    parser.add_argument("--allow-empty", action="store_true", help="Create a commit even when there are no changes.")
+    parser.add_argument(
+        "--allow-empty",
+        dest="allow_empty",
+        action="store_true",
+        default=True,
+        help="Create a commit even when there are no changes (default).",
+    )
+    parser.add_argument(
+        "--no-allow-empty",
+        dest="allow_empty",
+        action="store_false",
+        help="Skip commit creation when there are no changes.",
+    )
     parser.add_argument("--no-push", action="store_true", help="Create the commit without pushing it.")
     args = parser.parse_args(argv)
 
