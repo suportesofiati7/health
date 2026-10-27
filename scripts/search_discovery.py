@@ -259,7 +259,7 @@ def render_image_sitemap(site_origin: str, pages: list[Page]) -> str:
             continue
         lines = ["  <url>", f"    <loc>{escape(page.canonical)}</loc>"]
         for value in sorted(set(local)):
-            image_url = urljoin(page.canonical + "/", value)
+            image_url = urljoin(page.canonical, value)
             if urlparse(image_url).netloc != urlparse(site_origin).netloc:
                 continue
             lines.extend(["    <image:image>", f"      <image:loc>{escape(image_url)}</image:loc>", "    </image:image>"])

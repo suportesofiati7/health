@@ -1,0 +1,56 @@
+the Imprimir / salvar PDF
+
+button is not working when i gerar documents e..g relatorios Resumo profissional
+Registro completo / integral etc. i want to beable to print.
+
+when i try to click a patient it is sating no patient clicked Preencha destinatário e mensagem on messages an dnot openeing the whatsapp prepereparee dmessages
+
+The Tarefas
+
+Fila de trabalho
+0 tarefas
+Não foi possível carregar as tarefas.Tentar novamente
+Página 1
+
+
+Continuidade do cuidado
+
+Retornos e atenções clínicas
+0 itens
+Não foi possível carregar os retornos. section on tarifs is not actually loading th etarrifs i put in it.
+
+i dont want to emit nota fiscais from anywhere on this app delete all 
+
+/home/code/Pictures/Screenshots/Screenshot From 2026-10-27 16-01-44.png
+here the images should be of ther thumbnail o fmy catalogue of treaments images not htis yellow pinky one. it should be the same images that showupin the proceduamentos  images each one different.
+
+all the form submits i want to add two emails that receive suportesofiati@gmail.com but also 
+
+change data month year for the site
+
+change the system to be just  authorise no autohorise for the aggrememnt
+s
+
+term of enzemes put on the formulario page
+
+do mobile version perfect, for tablet, layout, dekstop. 
+
+CHANGE FOR NUMBERS TO BE LETTERS TOO
+ SEPERATE FIELD FOR EMISOR/NUM/LETTER
+ 
+ EDITAR CATALOGO BOTOX BUG
+ 
+ check aceitamentos das contrators
+ 
+ when doing an update do it the next time, 
+ 
+ 
+ simplifiy - 1 thing for 1 place
+ 
+ deletye all the tests que faz no passadpo
+ 
+ histoy of the patient expandable field
+ 
+ nota fiscals take away
+ 
+ take the tests awayfrom the finance

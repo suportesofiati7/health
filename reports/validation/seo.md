@@ -4,11 +4,11 @@
 
 ## Coverage
 
-- Public HTML pages parsed: 199
-- Canonical, indexable URLs in sitemap: 192
-- Images audited: 1721
-- Decorative images with empty alt text: 1170
-- Post-hero navigation targets: 195
+- Public HTML pages parsed: 207
+- Canonical, indexable URLs in sitemap: 200
+- Images audited: 1785
+- Decorative images with empty alt text: 1218
+- Post-hero navigation targets: 203
 
 ## Validation summary
 
@@ -31,7 +31,7 @@
 | `blog/afinamento-capilar-e-fotografias.html` | 86 chars | 88 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/barreira-cutanea-sinais-de-sobrecarga.html` | 79 chars | 87 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/botox-londrina-guia-completo.html` | 52 chars | 121 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `blog/cicatrizes-de-acne-textura-e-plano.html` | 68 chars | 134 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/cicatrizes-de-acne-textura-e-plano.html` | 68 chars | 160 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/consulta-estetica-como-se-preparar.html` | 81 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/couros-cabeludo-e-queda-sinais-de-alerta.html` | 62 chars | 133 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/cravos-e-extracao-segura.html` | 61 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -47,12 +47,14 @@
 | `blog/hair-thinning-causes-and-scalp-care.html` | 58 chars | 108 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-co2-e-eventos-importantes.html` | 80 chars | 87 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-co2-e-fotoprotecao-pos.html` | 77 chars | 154 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/laser-co2-fracionado-e-ablativo-diferencas.html` | 57 chars | 126 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-co2-recuperacao-e-cuidados.html` | 85 chars | 91 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-e-cicatrizes-de-acne.html` | 80 chars | 82 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-e-pele-bronzeada.html` | 73 chars | 153 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/laser-e-pelos-tons-de-pele-e-pelos.html` | 69 chars | 122 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/laser-hair-removal-process-and-maintenance.html` | 60 chars | 117 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/limpeza-de-pele-e-barreira.html` | 62 chars | 142 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `blog/luz-intensa-pulsada-e-avaliacao.html` | 67 chars | 144 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/luz-intensa-pulsada-e-avaliacao.html` | 62 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/mancha-pos-inflamatoria-o-que-muda.html` | 73 chars | 154 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/maquiagem-e-pele-sensivel.html` | 76 chars | 81 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/marcas-pos-acne-e-cicatrizes.html` | 80 chars | 84 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -62,13 +64,14 @@
 | `blog/microagulhamento-e-acne-inflamada.html` | 78 chars | 91 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/microagulhamento-e-manchas.html` | 73 chars | 157 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/microagulhamento-o-que-avaliar.html` | 61 chars | 119 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `blog/microdermoabrasao-objetivos-realistas.html` | 69 chars | 144 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/microdermoabrasao-objetivos-realistas.html` | 69 chars | 157 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/microvasos-queixas-e-avaliacao.html` | 73 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/mmp-couro-cabeludo-perguntas.html` | 57 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/naturalidade-e-planejamento-facial.html` | 79 chars | 91 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/peeling-caseiro-risco-e-contexto.html` | 74 chars | 147 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/peeling-de-diamante-o-que-avaliar.html` | 66 chars | 143 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/peeling-de-jessner-cautela-e-indicacao.html` | 66 chars | 142 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/peeling-quimico-ou-microdermoabrasao.html` | 50 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/peeling-quimico-recuperacao-seguranca.html` | 66 chars | 121 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/peeling-retinoico-recuperacao-planejada.html` | 66 chars | 141 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/peeling-ultrassonico-em-uma-rotina.html` | 67 chars | 145 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -88,6 +91,7 @@
 | `blog/tecnologia-de-plasma-antes-de-decidir.html` | 75 chars | 153 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/terco-inferior-da-face-conversa-cuidadosa.html` | 73 chars | 153 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/toxina-botulinica-e-assimetrias.html` | 74 chars | 87 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `blog/toxina-botulinica-e-preenchimento-diferencas.html` | 57 chars | 148 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/toxina-botulinica-naturalidade-e-planejamento.html` | 62 chars | 125 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/toxina-botulinica-primeira-consulta.html` | 74 chars | 96 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `blog/ultraformer-mpt-e-objetivos.html` | 66 chars | 139 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -106,12 +110,12 @@
 | `en/blog.html` | 31 chars | 135 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Blog, ItemList |
 | `en/blog/a-considered-guide-to-aesthetic-care.html` | 56 chars | 104 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/a-considered-guide-to-facial-planning.html` | 57 chars | 106 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `en/blog/a-considered-guide-to-laser-and-recovery.html` | 60 chars | 112 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `en/blog/a-considered-guide-to-laser-and-technology.html` | 62 chars | 116 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `en/blog/a-considered-guide-to-pigmentation.html` | 54 chars | 100 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `en/blog/a-considered-guide-to-skin-renewal.html` | 54 chars | 100 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/a-considered-guide-to-laser-and-recovery.html` | 62 chars | 135 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/a-considered-guide-to-laser-and-technology.html` | 75 chars | 129 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/a-considered-guide-to-pigmentation.html` | 75 chars | 143 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/a-considered-guide-to-skin-renewal.html` | 69 chars | 154 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/a-considered-guide-to-technology-and-care.html` | 61 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `en/blog/a-considered-guide-to-texture-and-scars.html` | 59 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/a-considered-guide-to-texture-and-scars.html` | 59 chars | 142 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/a-first-botulinum-toxin-consultation-movement-priorities-and-limits.html` | 69 chars | 99 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/a-minimal-routine-for-overwhelmed-skin-why-simplifying-can-be-progress.html` | 71 chars | 101 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/acids-in-a-skincare-routine-order-tolerance-and-care.html` | 54 chars | 140 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -125,6 +129,9 @@
 | `en/blog/blackheads-and-extraction-when-persistence-at-home-can-harm-the-skin.html` | 69 chars | 99 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/botox-in-londrina-complete-guide.html` | 53 chars | 126 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/botulinum-toxin-and-asymmetry-observation-is-not-a-promise-of-perfection.html` | 73 chars | 103 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/botulinum-toxin-and-dermal-fillers-different-goals.html` | 51 chars | 159 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/chemical-peel-or-microdermabrasion.html` | 51 chars | 128 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/co2-fractional-and-full-field-resurfacing.html` | 54 chars | 122 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/co2-laser-and-important-events-planning-without-someone-elses-calendar.html` | 72 chars | 102 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/collagen-remodeling.html` | 39 chars | 142 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/consultation-first.html` | 38 chars | 151 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -138,11 +145,12 @@
 | `en/blog/hair-thinning-and-photographs-documenting-change-without-rushing-to-conclusions.html` | 80 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/hair-thinning.html` | 33 chars | 106 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/how-to-prepare-for-an-aesthetic-consultation-without-deciding-everything-first.html` | 78 chars | 108 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
-| `en/blog/intense-pulsed-light-why-skin-goals-and-season-all-matter.html` | 59 chars | 150 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/intense-pulsed-light-why-skin-goals-and-season-all-matter.html` | 48 chars | 130 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/jessner-peels-indication-and-caution-before-chasing-peeling.html` | 60 chars | 152 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/laser-and-acne-scars-why-a-technology-name-does-not-decide-suitability.html` | 71 chars | 101 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/laser-and-tanned-skin-why-waiting-can-be-the-safer-choice.html` | 58 chars | 148 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/laser-hair-removal-intervals-what-the-hair-cycle-explains.html` | 58 chars | 148 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
+| `en/blog/laser-hair-removal-skin-and-hair-factors.html` | 63 chars | 123 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/laser-hair-removal.html` | 38 chars | 128 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/make-up-and-sensitive-skin-what-to-notice-without-blaming-products.html` | 67 chars | 97 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
 | `en/blog/melasma-heat-and-light-looking-beyond-direct-sun-exposure.html` | 59 chars | 150 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, BlogPosting |
@@ -199,26 +207,26 @@
 | `pele.html` | 50 chars | 126 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, MedicalWebPage, Service |
 | `perguntas.html` | 50 chars | 126 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | FAQPage |
 | `resultados.html` | 54 chars | 130 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage |
-| `servicos/laser-acupulse-co2.html` | 59 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/limpeza-de-pele-profunda.html` | 65 chars | 143 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/mesoterapia-capilar.html` | 60 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/microagulhamento.html` | 57 chars | 135 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/mmp-microinfusao-de-medicamentos-na-pele.html` | 62 chars | 161 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/peeling-de-ata.html` | 55 chars | 133 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/peeling-de-cristal-microdermoabrasao.html` | 61 chars | 157 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/peeling-de-diamante.html` | 60 chars | 138 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/peeling-de-jessner.html` | 59 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/peeling-retinoico.html` | 58 chars | 136 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/peeling-ultrassonico.html` | 61 chars | 139 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/peim-tratamento-estetico-para-microvasos.html` | 72 chars | 161 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/plataforma-harmony-de-laser-e-luz.html` | 70 chars | 152 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/protocolo-profissional-de-despigmentacao.html` | 66 chars | 159 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/radiofrequencia.html` | 56 chars | 134 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html` | 69 chars | 163 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/tecnologia-de-plasma.html` | 61 chars | 139 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/toxina-botulinica-platisma-e-terco-inferior.html` | 71 chars | 164 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/toxina-botulinica-terco-superior-da-face.html` | 66 chars | 161 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
-| `servicos/ultraformer-mpt.html` | 56 chars | 134 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/laser-acupulse-co2.html` | 50 chars | 113 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/limpeza-de-pele-profunda.html` | 56 chars | 119 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/mesoterapia-capilar.html` | 51 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/microagulhamento.html` | 48 chars | 111 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/mmp-microinfusao-de-medicamentos-na-pele.html` | 31 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-de-ata.html` | 46 chars | 109 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-de-cristal-microdermoabrasao.html` | 48 chars | 133 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-de-diamante.html` | 51 chars | 114 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-de-jessner.html` | 50 chars | 113 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-retinoico.html` | 49 chars | 112 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peeling-ultrassonico.html` | 52 chars | 115 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/peim-tratamento-estetico-para-microvasos.html` | 40 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/plataforma-harmony-de-laser-e-luz.html` | 38 chars | 128 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/protocolo-profissional-de-despigmentacao.html` | 47 chars | 135 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/radiofrequencia.html` | 47 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html` | 41 chars | 139 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/tecnologia-de-plasma.html` | 52 chars | 115 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/toxina-botulinica-platisma-e-terco-inferior.html` | 53 chars | 140 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/toxina-botulinica-terco-superior-da-face.html` | 53 chars | 137 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
+| `servicos/ultraformer-mpt.html` | 47 chars | 110 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | WebPage, Service |
 | `sobre.html` | 47 chars | 123 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage, ProfilePage |
 | `tratamentos.html` | 52 chars | 128 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | CollectionPage, Service, ItemList |
 | `valores.html` | 27 chars | 122 chars | `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` | AboutPage |
@@ -300,12 +308,9 @@
 - [en/about.html] title is 73 characters
 - [en/blog/a-considered-guide-to-aesthetic-care.html] description is 104 characters
 - [en/blog/a-considered-guide-to-facial-planning.html] description is 106 characters
-- [en/blog/a-considered-guide-to-laser-and-recovery.html] description is 112 characters
-- [en/blog/a-considered-guide-to-laser-and-technology.html] description is 116 characters
-- [en/blog/a-considered-guide-to-pigmentation.html] description is 100 characters
-- [en/blog/a-considered-guide-to-skin-renewal.html] description is 100 characters
+- [en/blog/a-considered-guide-to-laser-and-technology.html] title is 75 characters
+- [en/blog/a-considered-guide-to-pigmentation.html] title is 75 characters
 - [en/blog/a-considered-guide-to-technology-and-care.html] description is 114 characters
-- [en/blog/a-considered-guide-to-texture-and-scars.html] description is 110 characters
 - [en/blog/a-first-botulinum-toxin-consultation-movement-priorities-and-limits.html] description is 99 characters
 - [en/blog/a-minimal-routine-for-overwhelmed-skin-why-simplifying-can-be-progress.html] title is 71 characters
 - [en/blog/a-minimal-routine-for-overwhelmed-skin-why-simplifying-can-be-progress.html] description is 101 characters
@@ -354,8 +359,18 @@
 - [en/interest.html] title is 72 characters
 - [en/testimonials.html] title is 83 characters
 - [missao.html] description is 116 characters
-- [servicos/peim-tratamento-estetico-para-microvasos.html] title is 72 characters
-- [servicos/toxina-botulinica-platisma-e-terco-inferior.html] title is 71 characters
+- [servicos/laser-acupulse-co2.html] description is 113 characters
+- [servicos/limpeza-de-pele-profunda.html] description is 119 characters
+- [servicos/mesoterapia-capilar.html] description is 114 characters
+- [servicos/microagulhamento.html] description is 111 characters
+- [servicos/peeling-de-ata.html] description is 109 characters
+- [servicos/peeling-de-diamante.html] description is 114 characters
+- [servicos/peeling-de-jessner.html] description is 113 characters
+- [servicos/peeling-retinoico.html] description is 112 characters
+- [servicos/peeling-ultrassonico.html] description is 115 characters
+- [servicos/radiofrequencia.html] description is 110 characters
+- [servicos/tecnologia-de-plasma.html] description is 115 characters
+- [servicos/ultraformer-mpt.html] description is 110 characters
 
 ## Errors
 
