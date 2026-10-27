@@ -1,7 +1,7 @@
-import { deliveryTracker, formSignature, sendEmail } from './core/form-delivery.js';
+import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErrorMessage } from './core/form-delivery.js';
 
-/* Public intake writes the app first, with email delivery independent of app
- * availability. Attachments remain in the private application storage. */
+/* Confirm the complete intake in the app before sending its email copy.
+ * Attachments remain in the private application storage. */
 (() => {
   document.querySelector("#consent-form-introduction")?.remove();
   document.querySelector(".skip-past-hero")?.remove();
@@ -217,13 +217,24 @@ import { deliveryTracker, formSignature, sendEmail } from './core/form-delivery.
   form.addEventListener("change", saveDraft);
 
   const submitButton = form.querySelector('button[type="submit"]');
-  const state = (name, text) => {
+  const state = (name, text, title) => {
     form.querySelectorAll("[data-form-state]").forEach((node) => { node.hidden = node.dataset.formState !== name; });
+    const heading = form.querySelector(`[data-form-state="${name}"] strong`);
+    if (heading) {
+      heading.dataset.defaultText ||= heading.textContent;
+      heading.textContent = title || heading.dataset.defaultText;
+    }
     if (text) form.querySelector(`[data-form-state="${name}"]`)?.querySelector("span")?.replaceChildren(document.createTextNode(text));
   };
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (submitting || !form.checkValidity()) { form.reportValidity(); return; }
+    const cpfField = form.elements.cpf;
+    if (String(cpfField?.value || '').replace(/\D/g, '').length !== 11) {
+      state("error", intakeErrorMessage({ code: "cpf" }, (document.documentElement.lang || "").startsWith("en")));
+      cpfField?.focus();
+      return;
+    }
     if (!selectedProcedures().length) {
       const firstProcedure = allProcedureInputs[0];
       firstProcedure?.setCustomValidity("Selecione pelo menos um procedimento.");
@@ -266,13 +277,12 @@ import { deliveryTracker, formSignature, sendEmail } from './core/form-delivery.
       try {
         appResult = await deliver("app", async () => {
           body.set("payload", JSON.stringify({ ...values, email_already_sent: deliver.has("email") }));
-          const response = await fetch(endpoint, {
+          const response = await fetchWithTimeout(endpoint, {
             method: "POST",
             body,
             credentials: "omit",
-            cache: "no-store",
-            signal: AbortSignal.timeout(30000)
-          });
+            cache: "no-store"
+          }, files.length ? 120000 : 45000);
 
           const responseText = await response.text();
           let responseData = null;
@@ -284,15 +294,21 @@ import { deliveryTracker, formSignature, sendEmail } from './core/form-delivery.
           }
 
           if (!response.ok || responseData?.received !== true) {
-            throw new Error("app_delivery_failed");
+            throw Object.assign(new Error("app_delivery_failed"), { code: responseData?.error || "request_failed" });
           }
           return responseData;
         });
       } catch (error) {
         appError = error;
       }
-      // The server normally sends the email. If it failed (or the app is
-      // unreachable), deliver the completed answers directly through FormSubmit.
+      if (appError) {
+        state("error", intakeErrorMessage(appError, (document.documentElement.lang || "").startsWith("en")));
+        submitting = false;
+        submitButton.disabled = false;
+        return;
+      }
+      // The server normally sends the email after saving. If that email failed,
+      // retry just the email copy after the app has confirmed receipt.
       // Never forward security tokens or file contents in the email payload.
       let emailError = null;
       try {
@@ -306,20 +322,17 @@ import { deliveryTracker, formSignature, sendEmail } from './core/form-delivery.
             _template: "table",
             pagina: window.location.href,
             arquivos: files.map(({ file }) => file.name).join(", "),
-            armazenamento_app: appError ? "Pendente: falha no aplicativo" : "Salvo no aplicativo"
+            armazenamento_app: "Salvo no aplicativo"
           });
         });
       } catch (error) {
         emailError = error;
       }
-      if (appError || emailError) {
+      if (emailError) {
         const english = (document.documentElement.lang || "").startsWith("en");
-        const message = appError && emailError
-          ? (english ? "Delivery failed. Your answers are still here. Please try again." : "O envio falhou. Suas respostas continuam aqui. Tente novamente.")
-          : appError
-            ? (english ? "Your answers were sent by email, but could not be saved in the app. Keep this page open and retry to save your answers and attachments." : "Suas respostas foram enviadas por e-mail, mas não foram salvas no aplicativo. Mantenha esta página aberta e tente novamente para salvar as respostas e os anexos.")
-            : (english ? "Saved in the app. Email delivery is pending. Please retry; your saved form will not be duplicated." : "Salvo no aplicativo. O envio por e-mail está pendente. Tente novamente; o cadastro salvo não será duplicado.");
-        state("error", message);
+        state("error",
+          english ? "Your complete form is saved in the app. The email copy is pending. Retry to send only the email copy." : "Seu formulário completo está salvo no aplicativo. A cópia por e-mail está pendente. Tente novamente para enviar apenas a cópia por e-mail.",
+          english ? "Saved in the app" : "Salvo no aplicativo");
         submitting = false;
         submitButton.disabled = false;
         return;

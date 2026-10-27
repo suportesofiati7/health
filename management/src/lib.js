@@ -164,18 +164,25 @@ export async function invoke(name, body) {
   return data;
 }
 export async function portalRequest(body, token = "") {
-  const response = await fetch(`${config.url}/functions/v1/portal`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: config.key,
-      ...(token ? { "x-portal-token": token } : {}),
-    },
-    body: JSON.stringify(body),
-    cache: "no-store",
-    credentials: "omit",
-    signal: AbortSignal.timeout(20000),
-  });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 20000);
+  let response;
+  try {
+    response = await fetch(`${config.url}/functions/v1/portal`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: config.key,
+        ...(token ? { "x-portal-token": token } : {}),
+      },
+      body: JSON.stringify(body),
+      cache: "no-store",
+      credentials: "omit",
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timer);
+  }
   const data = await response.json().catch(() => null);
   if (!response.ok || !data || data.error) throw { code: data?.error || "portal_unavailable", status: response.status };
   if (body.action === "login" && (!data.token || !data.patient)) throw { code: "portal_unavailable" };

@@ -3907,6 +3907,22 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
     return checked(q.range(page * 20, page * 20 + 19));
   };
   const state = useLoad(loadRows, [page, status, search, version]);
+  const refreshForms = useRef(state.refresh);
+  refreshForms.current = state.refresh;
+  useEffect(() => {
+    const refresh = () => {
+      if (!document.hidden && !selected && !busy) refreshForms.current();
+    };
+    const timer = window.setInterval(refresh, 20000);
+    window.addEventListener("focus", refresh);
+    document.addEventListener("visibilitychange", refresh);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("focus", refresh);
+      document.removeEventListener("visibilitychange", refresh);
+    };
+  }, [selected?.id, busy]);
+
   const saveIntake = async (values) => {
     const row = await checked(
       db
@@ -4017,6 +4033,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
         title={t("Formulários", "Forms")}
         eyebrow={t("Primeiro contato", "First contact")}
       >
+        <Button type="button" icon={RefreshCw} onClick={state.refresh}>{t("Atualizar", "Refresh")}</Button>
         <a
           className="button primary forms-launch-button"
           href="https://francielesofiati.com/formulario"

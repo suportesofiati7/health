@@ -7,7 +7,7 @@ import { transform } from 'esbuild';
 const source = (await readFile(new URL('../supabase/functions/_shared/core.ts', import.meta.url), 'utf8'))
   .replace(/^import .*?;\n/, 'const createClient = () => {};\n');
 const { code } = await transform(source, { loader: 'ts', format: 'esm' });
-const { endpoint } = await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`);
+const { endpoint, headers } = await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`);
 
 test('Edge HTTP errors preserve actionable Error.message codes without leaking details', async () => {
   const previous = globalThis.Deno;
@@ -24,5 +24,26 @@ test('Edge HTTP errors preserve actionable Error.message codes without leaking d
       assert.equal(response.status, 400);
       assert.deepEqual(await response.json(), { error: expected });
     }
+  } finally { globalThis.Deno = previous; }
+});
+
+
+test('preview access is restricted to the configured public project and clinical intake', () => {
+  const previous = globalThis.Deno;
+  globalThis.Deno = { env: { get: key => key === 'PUBLIC_PAGES_HOST' ? 'health-95k.pages.dev' : undefined } };
+  try {
+    for (const path of ['/formulario', '/functions/v1/formulario']) {
+      const request = new Request(`https://api.invalid${path}`, { headers: { Origin: 'https://df2b7ffd.health-95k.pages.dev' } });
+      assert.equal(headers(request)['Access-Control-Allow-Origin'], 'https://df2b7ffd.health-95k.pages.dev');
+    }
+    for (const [path, origin] of [
+      ['/staff', 'https://df2b7ffd.health-95k.pages.dev'],
+      ['/staff/formulario', 'https://df2b7ffd.health-95k.pages.dev'],
+      ['/portal', 'https://df2b7ffd.health-95k.pages.dev'],
+      ['/formulario', 'https://unrelated.pages.dev'],
+      ['/formulario', 'https://df2b7ffd.health-95k.pages.dev.attacker.invalid'],
+      ['/formulario', 'http://df2b7ffd.health-95k.pages.dev'],
+      ['/formulario', 'https://df2b7ffd.health-95k.pages.dev:8443']
+    ]) assert.equal(headers(new Request(`https://api.invalid${path}`, { headers: { Origin: origin } }))['Access-Control-Allow-Origin'], 'null');
   } finally { globalThis.Deno = previous; }
 });

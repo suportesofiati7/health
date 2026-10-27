@@ -7,6 +7,23 @@ export const admin = () =>
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     { auth: { persistSession: false, autoRefreshToken: false } },
   );
+// Only the clinical intake accepts previews of the configured public Pages
+// project. Never extend preview CORS to authenticated clinic endpoints.
+function publicFormPreview(req: Request, origin: string) {
+  const host = Deno.env.get("PUBLIC_PAGES_HOST") || "";
+  if (!/^[a-z0-9-]+\.pages\.dev$/.test(host)) return false;
+  const segments = new URL(req.url).pathname.split("/").filter(Boolean);
+  const name = segments[0] === "functions" && segments[1] === "v1" ? segments[2] : segments[0];
+  if (name !== "formulario") return false;
+  try {
+    const url = new URL(origin);
+    if (url.protocol !== "https:" || url.port || url.origin !== origin) return false;
+    if (url.hostname === host) return true;
+    const suffix = `.${host}`;
+    return url.hostname.endsWith(suffix) && /^[a-z0-9-]+$/.test(url.hostname.slice(0, -suffix.length));
+  } catch { return false; }
+}
+
 export function headers(req: Request) {
   const origin = req.headers.get("origin") || "";
   const allowed = [
@@ -18,7 +35,7 @@ export function headers(req: Request) {
     "Cache-Control": "private, no-store, max-age=0",
     "CDN-Cache-Control": "no-store",
     Vary: "Origin",
-    "Access-Control-Allow-Origin": allowed.includes(origin) ? origin : "null",
+    "Access-Control-Allow-Origin": (allowed.includes(origin) || publicFormPreview(req, origin)) ? origin : "null",
     "Access-Control-Allow-Headers":
       "authorization, apikey, content-type, x-client-info, x-portal-token",
     "Access-Control-Allow-Methods": "POST, OPTIONS",

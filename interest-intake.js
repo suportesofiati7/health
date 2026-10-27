@@ -1,4 +1,4 @@
-import { deliveryTracker, formSignature, sendEmail } from './js/core/form-delivery.js';
+import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout } from './js/core/form-delivery.js';
 
 (() => {
   const form = document.querySelector('#interest-form');
@@ -35,11 +35,10 @@ import { deliveryTracker, formSignature, sendEmail } from './js/core/form-delive
       const [app, email] = await Promise.allSettled([
         deliver('app', async () => {
           if (!token) throw Error('challenge');
-          const response = await fetch('https://naypgbhwnlbyqqqfftgn.supabase.co/functions/v1/intake', {
+          const response = await fetchWithTimeout('https://naypgbhwnlbyqqqfftgn.supabase.co/functions/v1/intake', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', apikey: 'sb_publishable_jH3gQ7-Tx8_-B191w3Gr1A_GkGHG9Hf' },
-            body: JSON.stringify({ ...values, token }),
-            signal: AbortSignal.timeout(20000)
+            body: JSON.stringify({ ...values, token })
           });
           const data = await response.json().catch(() => null);
           if (!response.ok || data?.received !== true) throw Error('app_delivery_failed');

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { deliveryTracker, emailAccepted, sendEmail } from '../js/core/form-delivery.js';
+import { deliveryTracker, emailAccepted, sendEmail, fetchWithTimeout, intakeErrorMessage } from '../js/core/form-delivery.js';
 
 test('only explicit FormSubmit confirmation counts as delivery', () => {
   for (const success of [true, 'true']) assert.equal(emailAccepted({ success }), true);
@@ -34,4 +34,28 @@ test('HTTP 200 with HTML or a provider error is not a successful email', async (
     globalThis.fetch = async () => Response.json({ success: 'true' });
     await sendEmail({ message: 'diagnostic' });
   } finally { globalThis.fetch = originalFetch; }
+});
+
+
+test('delivery works without AbortSignal.timeout and aborts slow requests', async () => {
+  const originalFetch = globalThis.fetch;
+  const timeout = AbortSignal.timeout;
+  try {
+    AbortSignal.timeout = undefined;
+    globalThis.fetch = async (_url, options) => {
+      assert.equal(options.signal instanceof AbortSignal, true);
+      return Response.json({ success: 'true' });
+    };
+    await sendEmail({ message: 'fixture' });
+    globalThis.fetch = (_url, { signal }) => new Promise((_resolve, reject) => {
+      signal.addEventListener('abort', () => reject(Object.assign(new Error('timeout'), { name: 'AbortError' })));
+    });
+    await assert.rejects(fetchWithTimeout('https://fixture.invalid', {}, 5), { name: 'AbortError' });
+  } finally { globalThis.fetch = originalFetch; AbortSignal.timeout = timeout; }
+});
+
+test('validation errors remain actionable in both languages', () => {
+  assert.match(intakeErrorMessage({ code: 'cpf' }), /11 dígitos/);
+  assert.match(intakeErrorMessage({ code: 'cpf' }, true), /11 digits/);
+  assert.match(intakeErrorMessage({ code: 'rate_limit' }), /Aguarde/);
 });

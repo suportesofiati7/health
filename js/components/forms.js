@@ -1,6 +1,6 @@
 import { qs, qsa } from '../core/dom.js';
 import { currentPage } from '../core/page.js';
-import { deliveryTracker, formSignature, sendEmail } from '../core/form-delivery.js';
+import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout } from '../core/form-delivery.js';
 
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/suportesofiati@gmail.com';
 const FORMSUBMIT_AJAX_ENDPOINT = 'https://formsubmit.co/ajax/suportesofiati@gmail.com';
@@ -189,11 +189,10 @@ function clinicFunnelPayload(payload, form) {
 async function sendToClinicFunnel(payload, form) {
   if (!payload.token) payload.token = await window.SofiatiFunnelToken?.(form) || '';
   if (!payload.token) throw new Error('Clinic funnel security token unavailable');
-  const response = await fetch(CLINIC_INTAKE_ENDPOINT, {
+  const response = await fetchWithTimeout(CLINIC_INTAKE_ENDPOINT, {
     method: 'POST',
     headers: { Accept: 'application/json', 'Content-Type': 'application/json', apikey: CLINIC_INTAKE_KEY },
-    body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(20000)
+    body: JSON.stringify(payload)
   });
   const result = await response.json().catch(() => null);
   if (!response.ok || result?.received !== true) throw new Error(`Clinic intake failed (${response.status})`);
