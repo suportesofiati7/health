@@ -216,7 +216,41 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   form.addEventListener("input", saveDraft);
   form.addEventListener("change", saveDraft);
 
-  const submitButton = form.querySelector('button[type="submit"]');
+  const english = (document.documentElement.lang || "").startsWith("en");
+  const submitCard = form.querySelector(".sf-consent-card--submit");
+  const primarySubmitButton = submitCard?.querySelector('button[type="submit"]');
+  // These are deliberately two entry points to one delivery transaction, not
+  // two independent submissions. Either choice saves to the app first and
+  // then sends the FormSubmit copy, preventing one channel from cancelling
+  // the other or creating duplicate patients.
+  if (primarySubmitButton && !submitCard.querySelector("[data-delivery-trigger]")) {
+    primarySubmitButton.dataset.deliveryTrigger = "system";
+    primarySubmitButton.replaceChildren(
+      document.createTextNode(english ? "Send to the system " : "Enviar para o sistema "),
+      Object.assign(document.createElement("small"), { textContent: english ? "includes an email copy" : "inclui a cópia por e-mail" }),
+    );
+    const note = document.createElement("p");
+    note.className = "sf-delivery-note";
+    note.textContent = english
+      ? "Both buttons use the same secure delivery: the form is saved in the system first, then an email copy is sent. Use either button once."
+      : "Os dois botões fazem o mesmo envio seguro: primeiro salvam no sistema e, em seguida, enviam a cópia por e-mail. Use apenas um deles.";
+    const actions = document.createElement("div");
+    actions.className = "sf-delivery-actions";
+    primarySubmitButton.before(note);
+    primarySubmitButton.before(actions);
+    actions.append(primarySubmitButton);
+    const emailButton = document.createElement("button");
+    emailButton.type = "submit";
+    emailButton.className = "sf-button sf-button--outline";
+    emailButton.dataset.deliveryTrigger = "email";
+    emailButton.append(
+      document.createTextNode(english ? "Send email copy " : "Enviar cópia por e-mail "),
+      Object.assign(document.createElement("small"), { textContent: english ? "also saves in the system" : "também salva no sistema" }),
+    );
+    actions.append(emailButton);
+  }
+  const submitButtons = [...form.querySelectorAll('button[type="submit"]')];
+  const setSubmitDisabled = (disabled) => submitButtons.forEach((button) => { button.disabled = disabled; });
   const state = (name, text, title) => {
     form.querySelectorAll("[data-form-state]").forEach((node) => { node.hidden = node.dataset.formState !== name; });
     const heading = form.querySelector(`[data-form-state="${name}"] strong`);
@@ -243,7 +277,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       return;
     }
     submitting = true;
-    submitButton.disabled = true;
+    setSubmitDisabled(true);
     state("loading");
     const values = {};
     for (const [key, value] of new FormData(form).entries()) {
@@ -263,7 +297,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
     if (files.length > 10 || files.some(({ file }) => file.size < 1 || file.size > 10 * 1024 * 1024) || files.reduce((sum, { file }) => sum + file.size, 0) > 50 * 1024 * 1024) {
       state("error", "Cada arquivo pode ter até 10 MB e o envio pode conter até 10 arquivos (50 MB no total).");
       submitting = false;
-      submitButton.disabled = false;
+      setSubmitDisabled(false);
       return;
     }
     files.forEach(({ input, file }) => {
@@ -304,7 +338,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       if (appError) {
         state("error", intakeErrorMessage(appError, (document.documentElement.lang || "").startsWith("en")));
         submitting = false;
-        submitButton.disabled = false;
+        setSubmitDisabled(false);
         return;
       }
       // The server normally sends the email after saving. If that email failed,
@@ -334,7 +368,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
           english ? "Your complete form is saved in the app. The email copy is pending. Retry to send only the email copy." : "Seu formulário completo está salvo no aplicativo. A cópia por e-mail está pendente. Tente novamente para enviar apenas a cópia por e-mail.",
           english ? "Saved in the app" : "Salvo no aplicativo");
         submitting = false;
-        submitButton.disabled = false;
+        setSubmitDisabled(false);
         return;
       }
       sessionStorage.removeItem(draftKey);
@@ -346,7 +380,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       console.error("FORMULARIO_CAUGHT_ERROR", error);
       state("error");
       submitting = false;
-      submitButton.disabled = false;
+      setSubmitDisabled(false);
     }
   });
 })();

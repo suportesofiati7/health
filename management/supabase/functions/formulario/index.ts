@@ -4,6 +4,106 @@ const MAX_FILE = 10 * 1024 * 1024;
 const MAX_FILES = 10;
 const MAX_TOTAL_FILE_SIZE = 50 * 1024 * 1024;
 
+function dateValue(value: unknown) {
+  const text = clean(value, 10);
+  // Date-only inputs arrive as YYYY-MM-DD. Checking the round trip avoids
+  // accepting dates such as 2026-02-31, which PostgreSQL normalizes.
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return null;
+  const date = new Date(`${text}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) || date.toISOString().slice(0, 10) !== text
+    ? null
+    : text;
+}
+
+async function createOrLinkPatient(
+  db: ReturnType<typeof admin>,
+  intake: { id: string },
+  cpf: string,
+  payload: Record<string, unknown>,
+) {
+  const existingResult = await db.from("patients")
+    .select("id")
+    .eq("organization_id", ORG)
+    .eq("cpf", cpf)
+    .maybeSingle();
+  if (existingResult.error) throw Error("patient_lookup");
+
+  let patientId = existingResult.data?.id;
+  let status = patientId ? "linked" : "created";
+  let actorId: string | null = null;
+
+  if (!patientId) {
+    // Patient and clinical-entry records require an accountable staff author.
+    // The public request is anonymous, so use the clinic owner rather than
+    // pretending that the visitor is an authenticated staff user.
+    const owner = await db.from("memberships")
+      .select("user_id")
+      .eq("organization_id", ORG)
+      .eq("role", "proprietario")
+      .limit(1)
+      .maybeSingle();
+    if (owner.error || !owner.data?.user_id) throw Error("patient_author");
+    actorId = owner.data.user_id;
+
+    const phone = clean(payload.phone, 30).replace(/\D/g, "");
+    const inserted = await db.from("patients").insert({
+      organization_id: ORG,
+      full_name: clean(payload.full_name, 200) || "Cadastro sem nome",
+      preferred_name: clean(payload.preferred_name, 200),
+      birth_date: dateValue(payload.birth_date),
+      cpf,
+      rg: clean(payload.identity_document, 200),
+      phone: phone.length >= 10 && phone.length <= 13 ? phone : "",
+      email: clean(payload.email, 254).toLowerCase(),
+      address: { raw: clean(payload.address, 2000), postal_code: clean(payload.postal_code, 20) },
+      guardian: { raw: clean(payload.guardian_details, 2000) },
+      status: "ativo",
+      created_by: actorId,
+    }).select("id").single();
+
+    if (inserted.error?.code === "23505") {
+      // A simultaneous submission with the same CPF won the race. Link to it
+      // instead of creating a second patient or failing the completed form.
+      const concurrent = await db.from("patients").select("id")
+        .eq("organization_id", ORG).eq("cpf", cpf).maybeSingle();
+      if (concurrent.error || !concurrent.data?.id) throw Error("patient_save");
+      patientId = concurrent.data.id;
+      status = "linked";
+    } else if (inserted.error || !inserted.data?.id) {
+      throw Error("patient_save");
+    } else {
+      patientId = inserted.data.id;
+    }
+  }
+
+  const linked = await db.from("public_intakes").update({
+    patient_id: patientId,
+    status: "convertido",
+    converted_by: actorId,
+    converted_at: new Date().toISOString(),
+    reviewed_by: actorId,
+    reviewed_at: new Date().toISOString(),
+  }).eq("id", intake.id).eq("organization_id", ORG);
+  if (linked.error) throw Error("patient_link");
+
+  // Keep a compact, immutable timeline marker. The complete, potentially
+  // large form stays in the protected intake record and its file bucket.
+  if (actorId) {
+    const entry = await db.from("entries").insert({
+      organization_id: ORG,
+      patient_id: patientId,
+      kind: "consentimento",
+      title: `Formulário público ${clean(payload.form_version, 40)}`,
+      content: "Formulário público recebido e associado automaticamente ao paciente.",
+      data: { intake_id: intake.id, form_version: clean(payload.form_version, 40), language: clean(payload.language, 20) || "pt-BR" },
+      status: "finalizado",
+      created_by: actorId,
+    });
+    if (entry.error) console.error("FORMULARIO_PATIENT_ENTRY_FAILED", intake.id);
+  }
+  return { patientId, status };
+}
+
 function ext(name: string, type: string) {
   const original = name.toLowerCase().match(/\.([a-z0-9]{1,12})$/)?.[1];
   if (original) return original;
@@ -64,6 +164,19 @@ Deno.serve(endpoint(async (req) => {
     await Promise.all(uploaded.map((path) => db.storage.from("intake-private").remove([path])));
     await db.from("public_intakes").delete().eq("id", intake.id);
     throw error;
+  }
+  // The form first becomes a protected application record, then creates (or
+  // links) the patient. A conversion problem must never discard the completed
+  // intake: staff can still see and resolve it in the Forms queue.
+  let patientStatus = "pending";
+  let patientId: string | null = null;
+  try {
+    const patient = await createOrLinkPatient(db, intake, cpf, payload);
+    patientStatus = patient.status;
+    patientId = patient.patientId;
+  } catch (error) {
+    console.error("FORMULARIO_PATIENT_CONVERSION_FAILED", intake.id,
+      error instanceof Error ? error.message : "unknown");
   }
   // Keep the saved intake even if the email relay is unavailable. The browser
   // can retry email delivery without creating another intake.
@@ -138,6 +251,8 @@ Deno.serve(endpoint(async (req) => {
   return reply(req, {
     received: true,
     intake_id: intake.id,
+    patient_id: patientId,
+    patient_status: patientStatus,
     attachments: attachments.length,
     email_status: emailStatus,
   }, 202);

@@ -32,7 +32,9 @@ try {
     await page.locator('[name="full_name"]').fill('Fictional intake fixture');
     await page.locator('[name="selected_procedures"]').first().check();
     if (scenario === 'attachments') await page.locator('input[type="file"]').first().setInputFiles({ name: 'fixture.txt', mimeType: 'text/plain', buffer: Buffer.from('fixture attachment content') });
-    await page.locator('form[data-public-intake] button[type="submit"]').click();
+    const submitButtons = page.locator('form[data-public-intake] button[type="submit"]');
+    assert.equal(await submitButtons.count(), 2, 'both delivery choices must be shown');
+    await page.locator('[data-delivery-trigger="system"]').click();
     if (scenario === 'app-failure') {
       await page.getByText('Informe o CPF completo com 11 dígitos.', { exact: true }).waitFor();
       assert.equal(appCalls, 1);
@@ -41,7 +43,7 @@ try {
     } else {
       if (scenario === 'email-retry') {
         await page.getByText('Salvo no aplicativo', { exact: true }).waitFor();
-        await page.locator('form[data-public-intake] button[type="submit"]').click();
+        await page.locator('[data-delivery-trigger="email"]').click();
       }
       await page.waitForURL(scenario === 'english' ? '**/en/thank-you.html' : '**/obrigada.html');
       assert.equal(appCalls, 1, 'email retry must not resave the intake');
