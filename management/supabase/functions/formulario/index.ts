@@ -1,3 +1,4 @@
+import { notifySupport } from "../_shared/support-notification.ts";
 import { admin, ORG, endpoint, reply, clean, sha256, limit } from "../_shared/core.ts";
 
 const MAX_FILE = 10 * 1024 * 1024;
@@ -189,74 +190,17 @@ Deno.serve(endpoint(async (req) => {
   }
   // Keep the saved intake even if the email relay is unavailable. The browser
   // can retry email delivery without creating another intake.
-  let emailStatus = "not_sent";
-  try {
-    const notification = "suportesofiati@gmail.com";
-    const message = new FormData();
-    message.set("_subject", "Novo formulário recebido - Franciele Sofiati");
-    message.set("_template", "table");
-    message.set("_cc", Deno.env.get("SUPPORT_SECONDARY_EMAIL") || "sofiatimendonca@gmail.com");
-    for (const [key, value] of Object.entries(payload)) {
-      if (key.startsWith("_") || ["token", "cf-turnstile-response", "website"].includes(key)) continue;
-      message.set(key, Array.isArray(value) ? value.join(", ") : String(value ?? ""));
-    }
-    message.set("resumo_envio", [
-      "Novo pré-cadastro recebido no sistema.",
-      `Nome: ${clean(payload.full_name, 200) || "Não informado"}`,
-      `Email: ${clean(payload.email, 254) || "Não informado"}`,
-      `Telefone: ${clean(payload.phone, 30) || "Não informado"}`,
-      `Procedimentos: ${clean(payload.selected_procedure, 120) || "Não informado"}`,
-      `Arquivos anexados: ${attachments.length}`,
-      `ID interno: ${intake.id}`,
-      "Abra o aplicativo de gestão para revisar os dados completos com autenticação.",
-    ].join("\n"));
-    const emailResponse = await fetch(
-      `https://formsubmit.co/ajax/${encodeURIComponent(notification)}`,
-      {
-        method: "POST",
-        body: message,
-        headers: {
-          Accept: "application/json",
-          Origin: "https://francielesofiati.com",
-          Referer: "https://francielesofiati.com/formulario",
-          "X-Requested-With": "XMLHttpRequest",
-          "User-Agent": "Mozilla/5.0 (Sofiati public intake)",
-        },
-        signal: AbortSignal.timeout(10000),
-      },
-    );
-
-    const emailBody = await emailResponse.text();
-    let emailResult: { success?: boolean | string } | null = null;
-    try {
-      emailResult = JSON.parse(emailBody);
-    } catch {
-      // Treat a non-JSON response as a failed notification even when the
-      // provider incorrectly returns HTTP 200.
-    }
-
-    if (!emailResponse.ok || (emailResult?.success !== true && emailResult?.success !== "true")) {
-      emailStatus = "error";
-      console.error(
-        "FORMULARIO_EMAIL_FAILED",
-        emailResponse.status,
-        emailBody.slice(0, 500),
-      );
-    } else {
-      emailStatus = "sent";
-      console.log(
-        "FORMULARIO_EMAIL_SENT",
-        intake.id,
-        emailResponse.status,
-      );
-    }
-  } catch (error) {
-    emailStatus = "error";
-    console.error(
-      "FORMULARIO_EMAIL_EXCEPTION",
-      error instanceof Error ? error.message : "unknown",
-    );
-  }
+  const notified = await notifySupport({
+    nome: clean(payload.full_name, 200),
+    email: clean(payload.email, 254),
+    telefone: clean(payload.phone, 30),
+    procedimentos: clean(payload.selected_procedure, 120),
+    arquivos_anexados: attachments.length,
+    id_interno: intake.id,
+    mensagem: "Novo formulário salvo. Revise os dados completos no aplicativo autenticado.",
+  });
+  const emailStatus = notified ? "sent" : "error";
+  if (!notified) console.error("FORMULARIO_EMAIL_FAILED", intake.id);
 
   return reply(req, {
     received: true,

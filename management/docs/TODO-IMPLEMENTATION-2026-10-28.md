@@ -52,3 +52,19 @@ built-in confirmed secondary recipient.
 The live cleanup was verified: two active patients, no financial records or payments, three reported treatment-history records, reported consent status, and Monique’s contrast allergy. Three obsolete storage objects were removed. Patient-specific SQL and the local recovery snapshot were kept outside the Git repository. No dates, signatures, doses or performing professionals were invented.
 
 Final checks: management unit tests, database security/consent/catalogue tests, desktop/tablet/mobile browser workflows, targeted CSP/PDF/date/form checks, public email tests, local asset validation, and public analytics validation passed. Public production build completed (556 pages, 1529 optimized image files). The full release gate remains failing on public bilingual/SEO findings; this is not a claim that every public-site validation passed.
+
+## Follow-up verification
+
+The earlier GitHub push did not update the management frontend: its live asset
+hashes were still from an older build. On 28/10/2026 the current management build
+was deployed directly to the existing Cloudflare `app` production project.
+The desktop/tablet/mobile browser workflow suite passed against
+`https://app.francielesofiati.com`, with fictional network fixtures (no real
+patient mutations). The production HTML now references the new bundle.
+
+The follow-up also consolidates both public intake routes onto the shared
+support notification sender, replaces a CSP-blocked inline theme script with
+`/theme.js`, and makes report new-patient date filtering use São Paulo dates.
+Seventeen management unit tests pass, including recipient and relay-failure
+checks. Live diagnostics of the shared sender on Supabase returned `relay_accepted=false`, with `Signal timed out` after 20 seconds. A direct request from this machine also timed out. The temporary diagnostic function was removed after testing. These diagnostics do not confirm email acceptance;
+this remains open and is not represented as successful inbox delivery.
