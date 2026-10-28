@@ -28,7 +28,8 @@
     "perf:desktop": "node scripts/run-lighthouse-regression.mjs desktop",
     "perf:all": "npm run perf:mobile && npm run perf:desktop",
     "test:public-browser": "node scripts/test-public-interactions.mjs",
-    "test:public-layout": "node scripts/test-public-layout.mjs"
+    "test:public-layout": "node scripts/test-public-layout.mjs",
+    "test:public-heroes": "node scripts/test-public-heroes.mjs"
   },
   "engines": {
     "node": ">=22.19"
