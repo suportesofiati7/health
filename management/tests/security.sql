@@ -44,6 +44,32 @@ select pg_temp.assert((select count(*)=1 from public.procedures where name='Proc
 select pg_temp.assert((select count(*)=1 from public.follow_ups),'owner can create a fictional follow-up');
 select pg_temp.denied($q$insert into public.procedures(organization_id,name) values('a783bd4c-f253-4a94-9365-75c6f1000002','Other clinic procedure')$q$,'cross-organization procedure');
 
+-- Catalogue edits commit the history with the price and preserve structured data.
+update public.procedures set price_cents=12345, commercial_config='{"unit":"area"}'::jsonb
+where name='Procedimento fictício E2E';
+select pg_temp.assert((select count(*)=2 from public.procedure_versions v join public.procedures p on p.id=v.procedure_id where p.name='Procedimento fictício E2E'),'catalogue insert and edit each create one version');
+select pg_temp.assert((select v.snapshot->>'price_cents'='12345' from public.procedure_versions v join public.procedures p on p.id=v.procedure_id where p.name='Procedimento fictício E2E' and v.version=2),'catalogue version contains saved price');
+
+insert into public.clinical_procedures(id,organization_id,patient_id,procedure_id,professional_id,performed_at,history_only,status,consent_status,created_by)
+select 'b2000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001',id,null,null,true,'finalizado','aceito','10000000-0000-4000-8000-000000000001'
+from public.procedures where name='Procedimento fictício E2E';
+select pg_temp.assert((select count(*)=0 from public.follow_ups where clinical_procedure_id='b2000000-0000-4000-8000-000000000001'),'reported history does not create an invented follow-up');
+reset role;
+select pg_temp.denied($q$update public.clinical_procedures set history_only=false where id='b2000000-0000-4000-8000-000000000001'$q$,'ordinary treatment requires date and professional');
+set local role authenticated;
+
+-- The edge function writes as service role. Exercise its database projection
+-- without making any network requests or accepting an unchecked term.
+reset role;
+insert into public.public_intakes(id,organization_id,patient_id,full_name,form_version,payload)
+values('b1000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001','Fictional intake','2026-10-28',
+'{"selected_procedures":["toxina"],"accepted_term_toxina":"yes","accepted_term_plasma":"yes","lgpd_personal_data_consent":"yes","technical_image_authorisation":"no","marketing_image_authorisation":"partial_approval"}'::jsonb);
+update public.public_intakes set patient_id=patient_id where id='b1000000-0000-4000-8000-000000000001';
+set local role authenticated;
+select pg_temp.assert((select count(*)=4 from public.consents where source_intake_id='b1000000-0000-4000-8000-000000000001'),'intake consent projection is idempotent and excludes unselected procedure');
+select pg_temp.assert((select status='recusado' and accepted_at is null from public.consents where source_intake_id='b1000000-0000-4000-8000-000000000001' and source_field='technical_image_authorisation'),'explicit photo refusal is preserved');
+select pg_temp.assert((select authorization_choice='partial_approval' and patient_answers->>'choice'='partial_approval' from public.consents where source_intake_id='b1000000-0000-4000-8000-000000000001' and source_field='marketing_image_authorisation'),'conditional marketing choice and evidence are preserved');
+
 -- Internal communication: team messages, direct-chat isolation, reactions,
 -- read state, notification fan-out, edit and soft-delete behavior.
 insert into public.communication_conversations(id,organization_id,title,kind,created_by)

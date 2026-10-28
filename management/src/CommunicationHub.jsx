@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Archive, Bell, BellOff, Check, ClipboardCheck, Copy, Edit3, FileText, MessageCircle, Paperclip, Pin, Plus, Reply, Search, Send, Smile, Trash2, UserCheck, UserRound, X } from "lucide-react";
-import { db, ORG, checked, date, digits } from "./lib";
+import { db, ORG, checked, date, digits, whatsappWeb } from "./lib";
 import { useT, label } from "./i18n";
 import { emailSubject, missingPlaceholders, renderTemplate, sendFormSubmitEmail, valuesForPatient } from "./communicationTemplates";
 import { SmartTextControl, currentSuggestions } from "./autocomplete";
@@ -21,11 +21,11 @@ const communicationCategories = [
   ["marketing", "Marketing"],
   ["administrativo", "Administrativo"],
 ];
-const wa = (phone, body) => `https://web.whatsapp.com/send?phone=${encodeURIComponent(digits(phone))}&text=${encodeURIComponent(body)}`;
+const wa = (phone, body) => `${whatsappWeb(phone)}&text=${encodeURIComponent(body)}`;
 const cn = (value = "") => `button ${value}`.trim();
 
 function Button({ icon: Icon, className = "", children, ...props }) { return <button className={cn(className)} {...props}>{Icon && <Icon size={17} aria-hidden="true" />}{children}</button>; }
-function Field({ title, value, onChange, options, placeholder = "", required = false }) { if (options && /paciente|patient/i.test(String(title || ""))) return <PatientPicker title={title} value={value} onChange={onChange} initial={options.find((option) => option.value === value) ? { id: value, full_name: options.find((option) => option.value === value)?.label } : null} />; return <label className="field"><span>{title}</span>{options ? <select value={value || ""} onChange={(e) => onChange(e.target.value)} required={required}>{options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>)}</select> : <SmartTextControl value={value || ""} onChange={onChange} suggestions={currentSuggestions()} placeholder={placeholder} required={required} />}</label>; }
+function Field({ title, value, onChange, options, placeholder = "", required = false }) { return <label className="field"><span>{title}</span>{options ? <select value={value || ""} onChange={(e) => onChange(e.target.value)} required={required}>{options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>)}</select> : <SmartTextControl value={value || ""} onChange={onChange} suggestions={currentSuggestions()} placeholder={placeholder} required={required} />}</label>; }
 function Dialog({ title, close, children }) { return <div className="modal-backdrop"><section className="modal" role="dialog" aria-modal="true" aria-label={title}><header><h2>{title}</h2><Button className="icon" icon={X} onClick={close} aria-label="Close" /></header>{children}</section></div>; }
 
 function ExternalMessage({ patients, appointments, initialPatient, member, close, notify, refresh }) {
@@ -40,7 +40,8 @@ function ExternalMessage({ patients, appointments, initialPatient, member, close
   const [templates, setTemplates] = useState([]);
   const [templateId, setTemplateId] = useState("");
   const [busy, setBusy] = useState(false);
-  const patient = patients.find((row) => row.id === patientId);
+  const [selectedPatient, setSelectedPatient] = useState(initialPatient || null);
+  const patient = selectedPatient?.id === patientId ? selectedPatient : patients.find((row) => row.id === patientId);
   const appointment = (appointments || [])
     .filter((row) => row.patient_id === patient?.id && !["cancelado", "reagendado"].includes(row.status))
     .sort((a, b) => new Date(a.starts_at || 0) - new Date(b.starts_at || 0))[0];
@@ -71,7 +72,11 @@ function ExternalMessage({ patients, appointments, initialPatient, member, close
   };
   const submit = async (event) => {
     event.preventDefault();
-    if (!patient || !recipient || !body.trim() || missing.length) return notify(t("Preencha destinatário e mensagem.", "Complete recipient and message."));
+    if (!patient) return notify(t("Selecione um paciente.", "Select a patient."));
+    if (!recipient) return notify(t("O paciente precisa de telefone ou email para este canal.", "This patient needs a phone number or email for this channel."));
+    if (!body.trim()) return notify(t("Preencha a mensagem.", "Enter a message."));
+    if (missing.length) return notify(`${t("Complete os campos do modelo", "Complete the template fields")}: ${missing.join(", ")}`);
+    if (channel === "whatsapp" && !whatsappWeb(recipient)) return notify(t("Confira o telefone com DDD do paciente.", "Check the patient's phone number and area code."));
     const finalSubject = channel === "email" ? emailSubject(subject, selected?.name) : subject;
     const target = channel === "whatsapp" ? wa(recipient, body) : null;
     const popup = target ? window.open(target, "_blank", "noopener,noreferrer") : null;
@@ -85,7 +90,7 @@ function ExternalMessage({ patients, appointments, initialPatient, member, close
     } catch { popup?.close(); notify(t("Não foi possível registrar a comunicação.", "Could not record communication.")); }
     finally { setBusy(false); }
   };
-  return <Dialog title={t("Mensagem para paciente", "Patient message")} close={close}><form className="form-grid" onSubmit={submit}><PatientPicker value={patientId} onChange={setPatientId} initial={patients.find((row) => row.id === patientId)} /><Field title={t("Canal", "Channel")} value={channel} onChange={(value) => { setChannel(value); setTemplateId(""); }} options={[{ value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "Email" }]} /><Field title={t("Categoria da mensagem", "Message category")} value={category} onChange={(value) => { setCategory(value); setTemplateId(""); }} options={communicationCategories.map(([value, labelText]) => ({ value, label: t(labelText, labelText) }))} /><TemplatePicker title={t("Modelo", "Template")} templates={[{ id: "__free__", name: t("Mensagem livre", "Free message"), body: "", channel, category } , ...templates.filter((row) => row.channel === channel)]} channel={channel} value={templateId} onChange={(value) => { setTemplateId(value); const row = templates.find((item) => item.id === value); if (row?.category) setCategory(row.category); if (value === "__free__") { setBody(""); setSubject(""); } }} />{channel === "email" && <Field title={t("Assunto", "Subject")} value={subject} onChange={setSubject} required />}<label className="field wide"><span>{t("Mensagem", "Message")}</span><textarea value={body} onChange={(e) => setBody(e.target.value)} rows="8" required />{missing.length > 0 && <small className="notice error">{missing.join(", ")}</small>}</label><footer className="form-footer"><Button type="button" onClick={() => saveTemplate(false)} icon={Send} disabled={!selected}>{t("Salvar modelo atual", "Save current template")}</Button><Button type="button" onClick={() => saveTemplate(true)} icon={Copy}>{t("Salvar como novo", "Save as new")}</Button><Button type="button" onClick={renameTemplate} icon={Edit3} disabled={!selected}>{t("Renomear", "Rename")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className={channel === "whatsapp" ? "whatsapp-action" : "primary"} icon={Send} disabled={busy}>{t(channel === "email" ? "Enviar email" : "Abrir WhatsApp", channel === "email" ? "Send email" : "Open WhatsApp")}</Button></footer></form></Dialog>;
+  return <Dialog title={t("Mensagem para paciente", "Patient message")} close={close}><form className="form-grid" onSubmit={submit}><PatientPicker value={patientId} onChange={(id, row) => { setPatientId(id); setSelectedPatient(row || null); }} initial={patient} /><Field title={t("Canal", "Channel")} value={channel} onChange={(value) => { setChannel(value); setTemplateId(""); }} options={[{ value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "Email" }]} /><Field title={t("Categoria da mensagem", "Message category")} value={category} onChange={(value) => { setCategory(value); setTemplateId(""); }} options={communicationCategories.map(([value, labelText]) => ({ value, label: t(labelText, labelText) }))} /><TemplatePicker title={t("Modelo", "Template")} templates={[{ id: "__free__", name: t("Mensagem livre", "Free message"), body: "", channel, category } , ...templates.filter((row) => row.channel === channel)]} channel={channel} value={templateId} onChange={(value) => { setTemplateId(value); const row = templates.find((item) => item.id === value); if (row?.category) setCategory(row.category); if (value === "__free__") { setBody(""); setSubject(""); } }} />{channel === "email" && <Field title={t("Assunto", "Subject")} value={subject} onChange={setSubject} required />}<label className="field wide"><span>{t("Mensagem", "Message")}</span><textarea value={body} onChange={(e) => setBody(e.target.value)} rows="8" required />{missing.length > 0 && <small className="notice error">{missing.join(", ")}</small>}</label><footer className="form-footer"><Button type="button" onClick={() => saveTemplate(false)} icon={Send} disabled={!selected}>{t("Salvar modelo atual", "Save current template")}</Button><Button type="button" onClick={() => saveTemplate(true)} icon={Copy}>{t("Salvar como novo", "Save as new")}</Button><Button type="button" onClick={renameTemplate} icon={Edit3} disabled={!selected}>{t("Renomear", "Rename")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className={channel === "whatsapp" ? "whatsapp-action" : "primary"} icon={Send} disabled={busy}>{t(channel === "email" ? "Enviar email" : "Abrir WhatsApp", channel === "email" ? "Send email" : "Open WhatsApp")}</Button></footer></form></Dialog>;
 }
 
 function MessageCard({ row, messages, member, staff, onReply, onEdit, onDelete, onReact, onCopy, onTask, onFile, t }) {

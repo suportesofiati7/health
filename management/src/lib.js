@@ -55,26 +55,33 @@ export const whatsappWeb = (phone) => {
   const international = n.length <= 11 ? `55${n}` : n;
   return `https://web.whatsapp.com/send?phone=${international}`;
 };
-export const date = (value, time = false) =>
-  value
-    ? new Intl.DateTimeFormat("pt-BR", {
-        timeZone: "America/Sao_Paulo",
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        ...(time ? { hour: "2-digit", minute: "2-digit", hour12: false } : {}),
-      }).format(
-        new Date(value.length === 10 ? `${value}T12:00:00-03:00` : value),
-      )
-    : "";
+export const date = (value, time = false) => {
+  if (!value) return "";
+  const instant = new Date(typeof value === "string" && value.length === 10 ? `${value}T12:00:00-03:00` : value);
+  if (Number.isNaN(instant.getTime())) return "";
+  return new Intl.DateTimeFormat("pt-BR", {
+    timeZone: "America/Sao_Paulo", day: "2-digit", month: "2-digit", year: "numeric",
+    ...(time ? { hour: "2-digit", minute: "2-digit", hour12: false } : {}),
+  }).format(instant);
+};
 
 const DATE_INPUT_RE = /^(\d{2})\/(\d{2})\/(\d{4})$/;
 const DATETIME_INPUT_RE = /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/;
 
 export function formatDateInput(value, time = false) {
   if (!value) return "";
-  const match = String(value).match(time ? /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/ : /^(\d{4})-(\d{2})-(\d{2})/);
-  return match ? `${match[3]}/${match[2]}/${match[1]}${time ? ` ${match[4]}:${match[5]}` : ""}` : String(value);
+  let source = String(value);
+  if (/(?:Z|[+-]\d{2}:\d{2})$/i.test(source)) {
+    const instant = new Date(source);
+    if (Number.isNaN(instant.getTime())) return "";
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "America/Sao_Paulo", year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", hour12: false,
+    }).formatToParts(instant).reduce((result, part) => { result[part.type] = part.value; return result; }, {});
+    source = `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+  }
+  const match = source.match(time ? /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/ : /^(\d{4})-(\d{2})-(\d{2})/);
+  return match ? `${match[3]}/${match[2]}/${match[1]}${time ? ` ${match[4]}:${match[5]}` : ""}` : source;
 }
 
 export function parseDateInput(value, time = false) {
@@ -83,7 +90,7 @@ export function parseDateInput(value, time = false) {
   const [, day, month, year, hour = "00", minute = "00"] = match;
   if (Number(hour) > 23 || Number(minute) > 59) return "";
   const candidate = new Date(`${year}-${month}-${day}T${hour}:${minute}:00-03:00`);
-  if (Number.isNaN(candidate.getTime()) || candidate.getDate() !== Number(day) || candidate.getMonth() + 1 !== Number(month)) return "";
+  if (Number.isNaN(candidate.getTime()) || localDay(candidate) !== `${year}-${month}-${day}`) return "";
   return time ? `${year}-${month}-${day}T${hour}:${minute}` : `${year}-${month}-${day}`;
 }
 export const localDay = (value = new Date()) => {

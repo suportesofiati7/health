@@ -64,7 +64,8 @@ class BlockTarget:
 
 def _segment(tag: Tag) -> str:
     siblings = [item for item in tag.parent.find_all(tag.name, recursive=False)] if isinstance(tag.parent, Tag) else [tag]
-    return f"{tag.name}[{siblings.index(tag) + 1}]"
+    index = next(index for index, sibling in enumerate(siblings, 1) if sibling is tag)
+    return f"{tag.name}[{index}]"
 
 
 def element_locator(tag: Tag) -> str:

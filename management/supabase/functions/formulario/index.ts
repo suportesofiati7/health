@@ -52,7 +52,7 @@ async function createOrLinkPatient(
       preferred_name: clean(payload.preferred_name, 200),
       birth_date: dateValue(payload.birth_date),
       cpf,
-      rg: clean(payload.identity_document, 200),
+      rg: [clean(payload.identity_document, 100), clean(payload.identity_issuer, 60), clean(payload.identity_letter, 30)].filter(Boolean).join(" · "),
       phone: phone.length >= 10 && phone.length <= 13 ? phone : "",
       email: clean(payload.email, 254).toLowerCase(),
       address: { raw: clean(payload.address, 2000), postal_code: clean(payload.postal_code, 20) },
@@ -133,9 +133,18 @@ Deno.serve(endpoint(async (req) => {
   if (attachmentFields.length !== attachments.length) throw Error("file");
   const rawPayload = clean(form.get("payload"), 500000);
   const payload = JSON.parse(rawPayload);
-  const emailAlreadySent = payload.email_already_sent === true;
   delete payload.email_already_sent;
-  const required = ["cpf", "form_version"];
+  const required = ["cpf", "form_version", "full_name", "email", "birth_date"];
+  const approvals = ["initial_acknowledgement", "booking_fee_acknowledgement", "general_risk_acknowledgement", "truth_declaration", "lgpd_personal_data_consent", "lgpd_sensitive_data_consent", "final_acceptance"];
+  if (approvals.some((key) => payload[key] !== "yes")) throw Error("consent_required");
+  const selected = payload.selected_procedures;
+  const allowed = ["harmony", "lightsheer", "toxina", "co2", "ultraformer", "radiofrequencia", "plasma", "mmp_capilar", "mmp_pele", "peim", "peeling_mecanico", "peeling_quimico", "peeling_ultrassonico", "peeling_cristal", "peeling_diamante", "enzimas", "limpeza_pele"];
+  if (!Array.isArray(selected) || !selected.length || selected.some((key) => !allowed.includes(key) || payload[`accepted_term_${key}`] !== "yes")) throw Error("consent_required");
+  for (const key of ["technical_image_authorisation", "promotional_communication"]) {
+    if (!["yes", "no"].includes(payload[key])) throw Error("consent_required");
+  }
+  if (!["non_identifiable", "partial_approval", "full_approval", "no"].includes(payload.marketing_image_authorisation)) throw Error("consent_required");
+  if (!dateValue(payload.birth_date)) throw Error("date");
   if (required.some((key) => !clean(payload[key], 300))) throw Error("required");
   const cpf = clean(payload.cpf, 30).replace(/\D/g, "");
   if (!/^\d{11}$/.test(cpf)) throw Error("cpf");
@@ -180,12 +189,13 @@ Deno.serve(endpoint(async (req) => {
   }
   // Keep the saved intake even if the email relay is unavailable. The browser
   // can retry email delivery without creating another intake.
-  let emailStatus = emailAlreadySent ? "sent" : "not_sent";
-  if (!emailAlreadySent) try {
+  let emailStatus = "not_sent";
+  try {
     const notification = "suportesofiati@gmail.com";
     const message = new FormData();
     message.set("_subject", "Novo formulário recebido - Franciele Sofiati");
     message.set("_template", "table");
+    message.set("_cc", Deno.env.get("SUPPORT_SECONDARY_EMAIL") || "sofiatimendonca@gmail.com");
     for (const [key, value] of Object.entries(payload)) {
       if (key.startsWith("_") || ["token", "cf-turnstile-response", "website"].includes(key)) continue;
       message.set(key, Array.isArray(value) ? value.join(", ") : String(value ?? ""));

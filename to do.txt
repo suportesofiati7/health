@@ -1,56 +1,42 @@
-the Imprimir / salvar PDF
+Imprimir / salvar PDF is not working for generated documents such as Resumo profissional and Registro completo / integral. I need to be able to actually print or save these documents as PDF.
 
-button is not working when i gerar documents e..g relatorios Resumo profissional
-Registro completo / integral etc. i want to beable to print.
+Patient selection is broken — clicking a patient sometimes still results in “no patient selected.”
 
-when i try to click a patient it is sating no patient clicked Preencha destinatário e mensagem on messages an dnot openeing the whatsapp prepereparee dmessages
+Prepared WhatsApp messages are broken — after selecting a patient, the system still says “Preencha destinatário e mensagem” instead of opening the prepared WhatsApp message with the patient's information.
 
-The Tarefas
+Tarefas → Fila de trabalho is not loading and shows “Não foi possível carregar as tarefas.”
 
-Fila de trabalho
-0 tarefas
-Não foi possível carregar as tarefas.Tentar novamente
-Página 1
+Continuidade do cuidado → Retornos e atenções clínicas is not loading and shows “Não foi possível carregar os retornos.”
 
+Tarifas are not loading correctly. The tariffs I entered are not appearing in the Tarifas section.
 
-Continuidade do cuidado
+Remove all Nota Fiscal functionality from the application. I do not want to issue notas fiscais anywhere.
 
-Retornos e atenções clínicas
-0 itens
-Não foi possível carregar os retornos. section on tarifs is not actually loading th etarrifs i put in it.
+In the fiannce part, the images are wrong. Instead of the yellow/pink generic image, each treatment should show its own treatment producedyue catalogue thumbnail, using the same images already shown under Procedimentos.
+Also the thumbnail of th eprofile page should be the thumbnail of th patient not the acronymn intiial letters but hte image savedo on the patient profile
 
-i dont want to emit nota fiscais from anywhere on this app delete all 
+All form submissions should send support notifications to suportesofiati@gmail.com plus the second support email.
 
-/home/code/Pictures/Screenshots/Screenshot From 2026-10-27 16-01-44.png
-here the images should be of ther thumbnail o fmy catalogue of treaments images not htis yellow pinky one. it should be the same images that showupin the proceduamentos  images each one different.
+Fix the site's date/month/year handling so dates are consistent throughout the application.
 
-all the form submits i want to add two emails that receive suportesofiati@gmail.com but also 
+Change the agreement system so it requires explicit authorization. There should be no automatic authorization/acceptance.
 
-change data month year for the site
+Put the Termos de Enzimas on the Formulário page.
 
-change the system to be just  authorise no autohorise for the aggrememnt
-s
+Fields that are currently unnecessarily restricted to numbers should allow letters as well where appropriate.
 
-term of enzemes put on the formulario page
+Separate Emissor / Número / Letra into separate fields instead of treating them as one field on the formulario/form
 
-do mobile version perfect, for tablet, layout, dekstop. 
+Editar Catálogo → Botox has a bug and needs to be fixed. Also make sure the general catalogue editing system works correctly, not just Botox. Actually all of them are not working propoerly. i cant edit them easily.
 
-CHANGE FOR NUMBERS TO BE LETTERS TOO
- SEPERATE FIELD FOR EMISOR/NUM/LETTER
- 
- EDITAR CATALOGO BOTOX BUG
- 
- check aceitamentos das contrators
- 
- when doing an update do it the next time, 
- 
- 
- simplifiy - 1 thing for 1 place
- 
- deletye all the tests que faz no passadpo
- 
- histoy of the patient expandable field
- 
- nota fiscals take away
- 
- take the tests awayfrom the finance
+Check the entire Aceitamentos dos contratos workflow and make sure contract acceptance/authorization works correctly from the form, if they accept on the forumalro it should be accepted on the new patient as they accepts.
+
+When making updates, properly replace the old implementation rather than leaving conflicting old and new versions running together.
+
+Delete/remove the old tests that is no longer wanted. The onmly real patient on the platform should be Ashlyn and Monique with no finance saved. Ashlyn got a tattoo removal and botox on face and accepted all agreements. MONIQUE GOT BOTOX and accepted all consentimentos. she has an alleegy to iodo contrast.
+
+Remove Nota Fiscal functionality from everywhere, including related menus, buttons, workflows, etc.
+
+Remove Tests from Finance. Tests should not appear or be managed through the Finance section.
+
+Overall, simplify the application: one thing → one place → one source of truth. Remove duplicated, conflicting, obsolete, and legacy functionality.

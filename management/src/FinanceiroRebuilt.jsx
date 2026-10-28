@@ -1,12 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Avatar, ProcedureImage } from "./Images";
+import { useEffect, useMemo, useState } from "react";
 import {
   AlertCircle,
   Check,
-  Download,
-  ExternalLink,
-  FileText,
   Plus,
-  Printer,
   Receipt,
   RotateCcw,
   Save,
@@ -27,7 +24,6 @@ import {
 } from "./lib";
 import { useT, label } from "./i18n";
 import { openDocument, receiptDocumentHTML } from "./documentSystem";
-import { PatientPicker } from "./PatientPicker";
 import ContextActions from "./ContextActions";
 
 const paymentMethods = [
@@ -66,34 +62,6 @@ const derivedStatus = (record) => {
   return "pendente";
 };
 
-function FinanceFilePicker({ name, accept }) {
-  const t = useT();
-  const input = useRef(null);
-  const [fileName, setFileName] = useState("");
-  return (
-    <span className="file-picker">
-      <input
-        ref={input}
-        className="file-picker-input"
-        name={name}
-        type="file"
-        accept={accept}
-        onChange={(event) => setFileName(event.target.files[0]?.name || "")}
-      />
-      <button
-        type="button"
-        className="file-picker-button"
-        onClick={() => input.current?.click()}
-      >
-        {t("Escolher arquivo", "Choose file")}
-      </button>
-      <span className="file-picker-name">
-        {fileName || t("Nenhum arquivo escolhido", "No file chosen")}
-      </span>
-    </span>
-  );
-}
-
 function Field({
   label: title,
   value,
@@ -111,7 +79,7 @@ function Field({
   useEffect(() => {
     if (dateField) setDateText(formatDateInput(value, dateTimeField));
   }, [dateField, dateTimeField, value]);
-  if (options && /paciente|patient/i.test(String(title || ""))) return <PatientPicker title={title} value={value} onChange={onChange} initial={options.find(([id]) => id === value) ? { id: value, full_name: options.find(([id]) => id === value)?.[1] } : null} />;
+
   const password = type === "password";
   return (
     <label className="finance-field">
@@ -220,80 +188,10 @@ function Modal({ title, close, children }) {
   );
 }
 
-function receiptHTML(record, patient, payments, t) {
-  const received = receivedCents(payments),
-    total = Number(record.total_cents || 0),
-    balance = Math.max(0, total - received);
-  const rows = activePayments(payments)
-    .map(
-      (p) =>
-        `<tr><td>${date(p.paid_on)}</td><td>${paymentMethodLabel(p.method, t)}</td><td>${money(Number(p.amount_cents || 0) / 100)}</td></tr>`,
-    )
-    .join("");
-  const escape = (value) =>
-    String(value ?? "—").replace(
-      /[&<>"']/g,
-      (c) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;",
-        })[c],
-    );
-  return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Recibo ${escape(record.receipt_number || record.id.slice(0, 8))}</title><style>
-@page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;background:#d8d0c1;color:#24372d;font:12px/1.55 Arial,sans-serif}.sheet{width:210mm;min-height:297mm;margin:0 auto;padding:22mm 20mm;background:#fbf6eb;position:relative;overflow:hidden}.sheet:before,.sheet:after{content:"";position:absolute;border:1px solid #cfae77;border-radius:50%;opacity:.35}.sheet:before{width:90mm;height:90mm;right:-52mm;top:-48mm}.sheet:after{width:70mm;height:70mm;left:-44mm;bottom:-35mm}.brand{border-bottom:2px solid #52674d;padding-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end}.monogram{width:58px;height:58px;border:1px solid #b58a4b;border-radius:50%;display:grid;place-items:center;color:#52674d;font:30px Georgia,serif}.brand-name{font:24px Georgia,serif;color:#24372d}.brand-sub{color:#8b554a;font-size:9px;letter-spacing:.18em;text-transform:uppercase}.eyebrow{color:#8b554a;font-size:10px;letter-spacing:.14em;text-transform:uppercase}.title{text-align:center;margin:30mm 0 20mm}.title h1{font:400 25px Georgia,serif;letter-spacing:.12em;margin:0 0 8px}.title p{color:#687960;margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 30px;border-top:1px solid #d8cdbb;border-bottom:1px solid #d8cdbb;padding:18px 0}.label{display:block;color:#687960;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.value{display:block;font-size:15px;margin-top:3px}.payments{width:100%;border-collapse:collapse;margin-top:25px}.payments th{text-align:left;color:#687960;font-size:10px;text-transform:uppercase;border-bottom:1px solid #d8cdbb;padding:8px 4px}.payments td{padding:11px 4px;border-bottom:1px solid #e7dfd2}.payments th:last-child,.payments td:last-child{text-align:right}.summary{margin-top:24px;margin-left:auto;width:72%;border-left:3px solid #b58a4b;padding:14px 18px;background:#edf1e8}.summary div{display:flex;justify-content:space-between;padding:5px 0}.summary .balance{color:#8b554a;font-size:16px;font-weight:bold}.wording{margin:24px 0;padding:14px;background:#f5e2da;color:#70463f}.signature{margin:38mm auto 0;text-align:center;width:65%;border-top:1px solid #788d72;padding-top:8px}.footer{position:absolute;bottom:16mm;left:20mm;right:20mm;border-top:1px solid #d8cdbb;padding-top:10px;text-align:center;color:#687960;font-size:10px}@media print{body{background:#fbf6eb}.sheet{margin:0;box-shadow:none}button{display:none}}
-</style></head><body><button id="print">${escape(t("Imprimir / salvar PDF", "Print / save PDF"))}</button><main class="sheet"><header class="brand"><div><div class="brand-name">Franciele Sofiati</div><div class="brand-sub">Biomédica · Estética avançada</div></div><div class="monogram">FS</div></header><div class="title"><p class="eyebrow">${escape(t("Recibo de pagamento", "Payment receipt"))}</p><h1>RECIBO DE PAGAMENTO</h1><p>${escape(t("Documento de reconhecimento de pagamento · não é Nota Fiscal", "Payment acknowledgment · not a fiscal invoice"))}</p></div><section class="grid"><div><span class="label">Recebemos de</span><span class="value">${escape(patient?.preferred_name || patient?.full_name)}</span></div><div><span class="label">Recibo nº</span><span class="value">${escape(record.receipt_number || record.id.slice(0, 8).toUpperCase())}</span></div><div><span class="label">CPF</span><span class="value">${escape(patient?.cpf || "Não informado")}</span></div><div><span class="label">Serviço / procedimento</span><span class="value">${escape(record.procedure_name)}</span></div></section><table class="payments"><thead><tr><th>Data</th><th>Forma de pagamento</th><th>Valor recebido</th></tr></thead><tbody>${rows || `<tr><td colspan="3">${escape(t("Nenhum pagamento registrado", "No payment recorded"))}</td></tr>`}</tbody></table><section class="summary"><div><span>Total do tratamento</span><strong>${money(total / 100)}</strong></div><div><span>Total recebido</span><strong>${money(received / 100)}</strong></div><div class="balance"><span>Saldo atual</span><strong>${money(balance / 100)}</strong></div></section><p class="wording">${escape(balance ? t("Pagamento parcial recebido. O saldo permanece em aberto.", "Partial payment received. The balance remains outstanding.") : t("Pagamento integral recebido. Não há saldo pendente.", "Payment in full received. No balance remains."))}</p><div class="signature">Franciele Sofiati<br><strong>Biomédica Esteta · CRBM 6277 PR</strong><br>Londrina, Paraná</div><footer class="footer">AUTOCUIDADO TAMBÉM É INVESTIMENTO. · Franciele Sofiati · Londrina–Paraná</footer></main><script>document.getElementById('print').onclick=()=>window.print();</script></body></html>`;
-}
-
-function receiptHTMLPremiumBase(record, patient, payments, t) {
-  const received = receivedCents(payments),
-    total = Number(record.total_cents || 0),
-    balance = Math.max(0, total - received);
-  const esc = (value) =>
-    String(value ?? "—").replace(
-      /[&<>\"']/g,
-      (c) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;",
-        })[c],
-    );
-  const rows = activePayments(payments)
-    .map(
-      (p) =>
-        `<tr><td>${date(p.paid_on)}</td><td>${esc(paymentMethodLabel(p.method, t))}</td><td>${money(Number(p.amount_cents || 0) / 100)}</td></tr>`,
-    )
-    .join("");
-  return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Recibo ${esc(record.receipt_number || record.id.slice(0, 8))}</title><style>
-@page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;background:#24352c;color:#24352c;font:12px/1.55 Arial,sans-serif}.sheet{width:210mm;min-height:297mm;margin:0 auto;padding:17mm 20mm 24mm;background:#fbf8ef;position:relative;overflow:hidden}.sheet:before{content:"";position:absolute;inset:8mm;border:1px solid #d3bd86;pointer-events:none}.sheet:after{content:"";position:absolute;width:85mm;height:85mm;right:-48mm;bottom:-32mm;border:1px solid #809178;border-radius:50%;opacity:.42}.topbar{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;padding:0 0 14px;border-bottom:5px solid #52694e}.identity{display:flex;align-items:center;gap:13px}.logo{width:54px;height:54px;object-fit:contain}.brand-name{font:500 23px Georgia,serif;color:#304936;letter-spacing:.01em}.brand-sub{margin-top:3px;color:#8b604d;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.header-meta{text-align:right;color:#6c7e6b;font-size:10px;line-height:1.7}.title{position:relative;z-index:1;padding:24mm 8mm 16mm}.eyebrow{margin:0 0 9px;color:#a46e55;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}.title h1{margin:0;color:#304936;font:500 29px/1.08 Georgia,serif;letter-spacing:.1em}.receipt-no{margin:10px 0 0;color:#788674;font-size:11px;letter-spacing:.06em}.rule{height:1px;background:#d5c596}.details{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:0 38px;padding:17px 0;border-bottom:1px solid #c9d2c3}.detail{padding:3px 0 15px}.label{display:block;color:#70816e;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.value{display:block;margin-top:5px;color:#263a2d;font:500 15px Georgia,serif}.payments{position:relative;z-index:1;width:100%;border-collapse:collapse;margin-top:25px}.payments caption{margin-bottom:10px;color:#304936;font:500 17px Georgia,serif;text-align:left}.payments th{padding:8px 10px;color:#70816e;background:#e5ede1;border-bottom:2px solid #809178;font-size:9px;text-align:left;letter-spacing:.12em;text-transform:uppercase}.payments td{padding:13px 10px;border-bottom:1px solid #d9e0d5;color:#34483a}.payments th:last-child,.payments td:last-child{text-align:right}.summary{position:relative;z-index:1;width:74%;margin:25px 0 0 auto;border:1px solid #b5c7ad;border-radius:2px;background:#e9f0e5}.summary-head{padding:10px 16px;background:#52694e;color:#fff9ed;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.summary-body{padding:12px 17px}.summary div{display:flex;justify-content:space-between;gap:20px;padding:7px 0;border-bottom:1px solid #cbd8c5}.summary div:last-child{border-bottom:0}.summary span{color:#526653}.summary strong{color:#263a2d;font-size:14px}.summary .received{padding-top:11px;color:#304936;font-size:17px;font-weight:800}.summary .received strong{color:#304936;font-size:20px}.summary .balance{color:#985a4b;font-weight:700}.summary .balance strong{color:#985a4b;font-size:16px}.wording{position:relative;z-index:1;margin:20px 0 0;padding:13px 16px;border-left:4px solid #b58a4b;background:#f3ead7;color:#536352}.signature{position:relative;z-index:1;margin:34mm auto 0;width:62%;padding-top:12px;border-top:1px solid #52694e;text-align:center;color:#52694e}.signature-name{font:italic 25px Georgia,serif;color:#304936}.signature small{display:block;margin-top:4px;color:#6e7b6b;font-size:10px}.footer{position:absolute;z-index:1;bottom:0;left:0;right:0;padding:13px 20mm;background:#304936;color:#ead9a7;text-align:center;font-size:9px;letter-spacing:.08em}.footer em{color:#d89178;font-style:normal}@media print{body{background:#fbf8ef}.sheet{margin:0;box-shadow:none}#print{display:none}}#print{position:fixed;z-index:4;top:14px;right:18px;padding:10px 14px;border:0;border-radius:4px;background:#52694e;color:#fff9ed;font-weight:700;cursor:pointer}</style></head><body><button id="print">${esc(t("Imprimir / salvar PDF", "Print / save PDF"))}</button><main class="sheet"><header class="topbar"><div class="identity"><img class="logo" src="/brand.png" alt="Franciele Sofiati"><div><div class="brand-name">Franciele Sofiati</div><div class="brand-sub">Biomédica · Estética avançada</div></div></div><div class="header-meta">CRBM 6277 PR<br>Londrina · Paraná</div></header><section class="title"><p class="eyebrow">${esc(t("Documento financeiro", "Financial document"))}</p><h1>RECIBO DE PAGAMENTO</h1><p class="receipt-no">${esc(t("Recibo nº", "Receipt no."))} ${esc(record.receipt_number || record.id.slice(0, 8).toUpperCase())}</p></section><section class="details"><div class="detail"><span class="label">${esc(t("Recebemos de", "Received from"))}</span><span class="value">${esc(patient?.preferred_name || patient?.full_name)}</span></div><div class="detail"><span class="label">${esc(t("Data do pagamento", "Payment date"))}</span><span class="value">${esc(activePayments(payments)[0] ? date(activePayments(payments)[0].paid_on) : "—")}</span></div><div class="detail"><span class="label">CPF</span><span class="value">${esc(patient?.cpf || t("Não informado", "Not provided"))}</span></div><div class="detail"><span class="label">${esc(t("Serviço / procedimento", "Service / treatment"))}</span><span class="value">${esc(record.procedure_name)}</span></div></section><table class="payments"><caption>${esc(t("Resumo dos pagamentos", "Payment summary"))}</caption><thead><tr><th>${esc(t("Data", "Date"))}</th><th>${esc(t("Forma de pagamento", "Payment method"))}</th><th>${esc(t("Valor recebido", "Amount received"))}</th></tr></thead><tbody>${rows || `<tr><td colspan="3">${esc(t("Nenhum pagamento registrado", "No payment recorded"))}</td></tr>`}</tbody></table><section class="summary"><div class="summary-head">${esc(t("Resumo financeiro", "Financial summary"))}</div><div class="summary-body"><div><span>${esc(t("Total do tratamento", "Treatment total"))}</span><strong>${money(total / 100)}</strong></div><div class="received"><span>${esc(t("Valor recebido", "Amount received"))}</span><strong>${money(received / 100)}</strong></div><div class="balance"><span>${esc(t("Saldo atual", "Current balance"))}</span><strong>${money(balance / 100)}</strong></div></div></section><p class="wording">${esc(balance ? t("Pagamento parcial recebido. O saldo permanece em aberto.", "Partial payment received. The balance remains outstanding.") : t("Pagamento integral recebido. Não há saldo pendente.", "Payment in full received. No balance remains."))}</p><div class="signature"><div class="signature-name">Franciele Sofiati</div><small>Biomédica Esteta · CRBM 6277 PR · Londrina, Paraná</small></div><footer class="footer"><em>Autocuidado também é investimento.</em> · Franciele Sofiati · Londrina–Paraná</footer></main><script>document.getElementById('print').onclick=()=>window.print();</script></body></html>`;
-}
-
-function receiptHTMLPremiumStyled(record, patient, payments, t) {
-  return receiptHTMLPremiumBase(record, patient, payments, t).replace(
-    "</style>",
-    `.sheet{padding-top:13mm}.sheet:before{inset:6mm;border-color:#b5c6ad}.topbar{min-height:74px;box-shadow:0 8px 0 #e5ede1}.topbar .identity{gap:16px}.topbar .logo{width:60px;height:60px}.topbar .brand-name{font-size:25px;letter-spacing:.015em}.topbar .brand-sub{font-size:8px;letter-spacing:.2em}.header-meta{font-size:9px;letter-spacing:.08em}.title{padding-top:22mm;padding-bottom:14mm}.title h1{max-width:12ch;line-height:.98}.details{padding-top:20px;padding-bottom:6px}.detail{padding-bottom:18px}.value{font-size:16px}.payments{margin-top:31px;border:1px solid #b9cbb3;border-radius:3px;border-spacing:0;background:#fffdf7;overflow:hidden;box-shadow:0 10px 24px rgba(48,73,54,.07)}.payments caption{padding:0 0 12px;font-size:18px;letter-spacing:-.01em}.payments thead th{padding:12px 14px;background:#52694e;color:#fffdf7;border-bottom:0;font-size:9px;letter-spacing:.15em}.payments tbody td{padding:14px;color:#415342;border-bottom:1px solid #d9e3d5;font-size:12px}.payments tbody tr:last-child td{border-bottom:0}.payments tbody tr:nth-child(even){background:#f3f7ef}.payments tbody td:last-child{color:#304936;font:700 15px Arial,sans-serif;letter-spacing:.01em}.payments tbody td:last-child:before{content:'R$ ';font-size:10px;font-weight:500;color:#809178}.summary{margin-top:29px;border-color:#9fb79a;box-shadow:0 12px 26px rgba(48,73,54,.08)}.summary-head{padding:11px 17px;background:#304936}.summary-body{padding:13px 18px}.summary .received{border-top:1px solid #a7bca2;margin-top:4px}.wording{max-width:none;background:#eef3e9;border-left-color:#b58a4b;color:#465948}.signature{margin-top:31mm}.footer{padding-top:15px;padding-bottom:15px}</style>`,
-  );
-}
-
-function receiptHTMLPremium(record, patient, payments, t) {
-  const logo =
-    "https://francielesofiati.com/assets/shared/brand/logotipo-franciele-sofiati-expertise-estetica-estetica-avancada-londrina-centro.png";
-  return receiptHTMLPremiumStyled(record, patient, payments, t).replace(
-    "</style>",
-    `.topbar .identity{flex:1;min-width:0}.topbar .logo{content:url('${logo}');width:118mm;max-width:72%;height:auto;max-height:23mm;object-fit:contain;object-position:left center}.topbar .identity>div{display:none}.payments{table-layout:fixed;width:100%}.payments th:nth-child(1),.payments td:nth-child(1){width:24%}.payments th:nth-child(2),.payments td:nth-child(2){width:43%}.payments th:nth-child(3),.payments td:nth-child(3){width:33%}.payments th,.payments td{overflow-wrap:anywhere}.payments tbody td:last-child{white-space:nowrap}.footer{min-height:25mm;padding:12px 20mm;font-size:0;background-color:#304936;background-image:url('${logo}');background-position:center;background-repeat:no-repeat;background-size:min(118mm,72%);border-top:0}</style>`,
-  );
-}
-
 export default function Financeiro({ notify, version }) {
   const t = useT();
   const [expanded, setExpanded] = useState(null),
     [showCharge, setShowCharge] = useState(false),
-    [nfRecord, setNfRecord] = useState(null),
     [refund, setRefund] = useState(null),
     [refundReason, setRefundReason] = useState(""),
     [busy, setBusy] = useState(false);
@@ -315,13 +213,6 @@ export default function Financeiro({ notify, version }) {
     method: "pix",
     notes: "",
   });
-  const [nf, setNf] = useState({
-    status: "pendente",
-    nf_number: "",
-    nf_issued_on: "",
-    nf_amount: "",
-    nota_fiscal_url: "",
-  });
   useEffect(() => {
     if (refund) setRefundReason("");
   }, [refund]);
@@ -330,7 +221,7 @@ export default function Financeiro({ notify, version }) {
       checked(
         db
           .from("patients")
-          .select("id,full_name,preferred_name,cpf")
+          .select("id,full_name,preferred_name,cpf,avatar_path")
           .eq("status", "ativo")
           .order("full_name"),
       ),
@@ -342,7 +233,7 @@ export default function Financeiro({ notify, version }) {
         db
           .from("procedures")
           .select(
-            "id,name,category,default_duration,followup_days,price_cents,description,benefits,before_after_care,recovery,expected_results",
+            "*",
           )
           .eq("active", true)
           .order("name"),
@@ -353,7 +244,7 @@ export default function Financeiro({ notify, version }) {
     const records = await checked(
       db
         .from("financial_records")
-        .select("*,patients(id,full_name,preferred_name,cpf)")
+        .select("*,patients(id,full_name,preferred_name,cpf,avatar_path)")
         .order("created_at", { ascending: false }),
     );
     const payments = records.length
@@ -386,10 +277,9 @@ export default function Financeiro({ notify, version }) {
             ? 0
             : balance;
           a.overdue += status === "vencido" ? balance : 0;
-          a.nf += !r.nota_fiscal_issued ? 1 : 0;
           return a;
         },
-        { received: 0, balance: 0, overdue: 0, nf: 0 },
+        { received: 0, balance: 0, overdue: 0 },
       ),
     [records],
   );
@@ -564,92 +454,6 @@ export default function Financeiro({ notify, version }) {
       );
     }
   };
-  const saveNF = async (e) => {
-    e.preventDefault();
-    setBusy(true);
-    try {
-      const file = e.currentTarget.nf_file.files[0];
-      let path = nfRecord.nota_fiscal_path || "";
-      if (file) {
-        const allowed =
-          [
-            "application/pdf",
-            "image/jpeg",
-            "image/png",
-            "application/xml",
-            "text/xml",
-          ].includes(file.type) || /\.(pdf|jpe?g|png|xml)$/i.test(file.name);
-        if (!allowed || file.size > 8388608) throw Error("invalid_file");
-        path = `${ORG}/${nfRecord.id}/nf-${crypto.randomUUID()}-${file.name.replace(/[^\w.-]/g, "_")}`;
-        await checked(
-          db.storage
-            .from("finance-private")
-            .upload(path, file, {
-              upsert: false,
-              contentType: file.type || "application/octet-stream",
-            }),
-        );
-      }
-      await checked(
-        db
-          .from("financial_records")
-          .update({
-            nota_fiscal_issued: nf.status === "emitida",
-            nf_number: nf.nf_number.trim(),
-            nf_issued_on: nf.nf_issued_on || null,
-            nf_amount_cents: nf.nf_amount ? cents(nf.nf_amount) : null,
-            nota_fiscal_url: nf.nota_fiscal_url.trim(),
-            nota_fiscal_path: path,
-          })
-          .eq("id", nfRecord.id),
-      );
-      setNfRecord(null);
-      state.refresh();
-      notify(t("Nota Fiscal atualizada.", "Invoice updated."));
-    } catch (error) {
-      notify(
-        error?.message === "invalid_file"
-          ? t(
-              "Arquivo inválido. Use PDF, XML, JPG ou PNG de até 8 MB.",
-              "Invalid file. Use PDF, XML, JPG or PNG up to 8 MB.",
-            )
-          : t(
-              "Não foi possível salvar a Nota Fiscal.",
-              "Could not save the invoice.",
-            ),
-      );
-    } finally {
-      setBusy(false);
-    }
-  };
-  const openNF = (record) => {
-    setNfRecord(record);
-    setNf({
-      status: record.nota_fiscal_issued ? "emitida" : "pendente",
-      nf_number: record.nf_number || "",
-      nf_issued_on: record.nf_issued_on || "",
-      nf_amount: record.nf_amount_cents
-        ? (record.nf_amount_cents / 100).toFixed(2)
-        : "",
-      nota_fiscal_url: record.nota_fiscal_url || "",
-    });
-  };
-  const openNFFile = async (record) => {
-    try {
-      const { data, error } = await db.storage
-        .from("finance-private")
-        .createSignedUrl(record.nota_fiscal_path, 300);
-      if (error || !data?.signedUrl) throw error || Error("signed_url");
-      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
-    } catch {
-      notify(
-        t(
-          "Não foi possível abrir o arquivo da Nota Fiscal.",
-          "Could not open the invoice file.",
-        ),
-      );
-    }
-  };
   const refundPayment = async (e) => {
     e.preventDefault();
     if (!refundReason.trim())
@@ -734,11 +538,7 @@ export default function Financeiro({ notify, version }) {
           value={money(totals.overdue / 100)}
           tone="overdue"
         />
-        <Metric
-          label={t("NF pendente", "Pending invoice")}
-          value={String(totals.nf)}
-          tone="invoice"
-        />
+
       </section>
       <section className="finance-ledger">
         <div className="finance-section-heading">
@@ -781,7 +581,7 @@ export default function Financeiro({ notify, version }) {
                 return (
                   <tr key={record.id} className={open ? "is-expanded" : ""}>
                     <td>
-                      <span className="finance-patient-thumb" aria-hidden="true">{(record.patients?.preferred_name || record.patients?.full_name || "P").slice(0, 1).toUpperCase()}</span>
+                      <Avatar person={record.patients} className="finance-patient-thumb" size={40} />
                       <strong>
                         {record.patients?.preferred_name ||
                           record.patients?.full_name ||
@@ -792,7 +592,7 @@ export default function Financeiro({ notify, version }) {
                           t("CPF não informado", "CPF not provided")}
                       </small>
                     </td>
-                    <td><span className="finance-service-thumb" aria-hidden="true" />{record.procedure_name || "—"}</td>
+                    <td><ProcedureImage className="finance-service-thumb" procedure={(procedures.data || []).find((row) => row.id === record.procedure_id) || { ...record.procedure_snapshot, name: record.procedure_name }} />{record.procedure_name || "—"}</td>
                     <td>{money(record.total_cents / 100)}</td>
                     <td className="finance-received">
                       {money(receivedCents(record.payments) / 100)}
@@ -819,7 +619,6 @@ export default function Financeiro({ notify, version }) {
                         label={`${record.patients?.preferred_name || record.patients?.full_name || t("Paciente", "Patient")} · ${record.procedure_name || t("Cobrança", "Charge")}`}
                         actions={[
                           recordBalance(record) > 0 && { icon: WalletCards, label: t("Registrar pagamento", "Record payment"), onClick: () => setExpanded(record.id) },
-                          { icon: FileText, label: t("Atualizar Nota Fiscal", "Update invoice"), onClick: () => openNF(record) },
                           { icon: Receipt, label: t("Abrir recibo / PDF", "Open receipt / PDF"), onClick: () => openReceipt(record) },
                         ]}
                         actionLabel={t("Ações rápidas", "Quick actions")}
@@ -828,7 +627,6 @@ export default function Financeiro({ notify, version }) {
                         <div className="finance-row-actions">
                           {recordBalance(record) > 0 && <button type="button" className="finance-detail-button finance-quick-payment" onClick={() => setExpanded(record.id)}>{t("Registrar pagamento", "Record payment")}</button>}
                           <button type="button" className="finance-detail-button" onClick={() => setExpanded(open ? null : record.id)}>{open ? t("Fechar", "Close") : t("Detalhes", "Details")}</button>
-                          <button type="button" className="finance-detail-button" onClick={() => openNF(record)}>{record.nota_fiscal_issued ? t("Ver NF", "View invoice") : t("Emitir NF", "Add invoice")}</button>
                         </div>
                       </ContextActions>
                     </td>
@@ -862,8 +660,6 @@ export default function Financeiro({ notify, version }) {
                 setPayment={setPayment}
                 onPayment={() => addPayment(record)}
                 onReceipt={() => openReceipt(record)}
-                onNF={() => openNF(record)}
-                onOpenNF={() => openNFFile(record)}
                 onRefund={setRefund}
               />
             ),
@@ -978,81 +774,6 @@ export default function Financeiro({ notify, version }) {
           </form>
         </Modal>
       )}
-      {nfRecord && (
-        <Modal
-          title={t("Nota Fiscal", "Invoice")}
-          close={() => !busy && setNfRecord(null)}
-        >
-          <form className="finance-form" onSubmit={saveNF}>
-            <p className="finance-separation">
-              <FileText size={18} />{" "}
-              {t(
-                "Nota Fiscal é independente do recibo de pagamento.",
-                "The invoice is independent from the payment receipt.",
-              )}
-            </p>
-            <Field
-              label={t("Status", "Status")}
-              value={nf.status}
-              onChange={(v) => setNf({ ...nf, status: v })}
-              options={[
-                ["pendente", t("Pendente", "Pending")],
-                ["emitida", t("Emitida", "Issued")],
-              ]}
-            />
-            <Field
-              label={t("Número da NF", "Invoice number")}
-              value={nf.nf_number}
-              onChange={(v) => setNf({ ...nf, nf_number: v })}
-            />
-            <Field
-              label={t("Data de emissão", "Issue date")}
-              type="date"
-              value={nf.nf_issued_on}
-              onChange={(v) => setNf({ ...nf, nf_issued_on: v })}
-            />
-            <Field
-              label={t("Valor da NF (R$)", "Invoice amount (BRL)")}
-              type="number"
-              min="0"
-              step="0.01"
-              value={nf.nf_amount}
-              onChange={(v) => setNf({ ...nf, nf_amount: v })}
-            />
-            <Field
-              label={t("Link oficial", "Official link")}
-              type="url"
-              value={nf.nota_fiscal_url}
-              onChange={(v) => setNf({ ...nf, nota_fiscal_url: v })}
-            />
-            <label className="finance-field">
-              <span>
-                {t("PDF / XML / imagem segura", "PDF / XML / secure image")}
-              </span>
-              <input
-                name="nf_file"
-                type="file"
-                accept="application/pdf,application/xml,text/xml,image/jpeg,image/png"
-              />
-            </label>
-            <div className="finance-modal-actions">
-              <button
-                type="button"
-                className="finance-secondary"
-                onClick={() => setNfRecord(null)}
-              >
-                {t("Cancelar", "Cancel")}
-              </button>
-              <button className="finance-primary" disabled={busy}>
-                <Save size={17} />{" "}
-                {busy
-                  ? t("Salvando…", "Saving…")
-                  : t("Salvar Nota Fiscal", "Save invoice")}
-              </button>
-            </div>
-          </form>
-        </Modal>
-      )}
       {refund && (
         <Modal
           title={t(
@@ -1119,8 +840,6 @@ function ChargeDetails({
   setPayment,
   onPayment,
   onReceipt,
-  onNF,
-  onOpenNF,
   onRefund,
 }) {
   const active = activePayments(record.payments);
@@ -1165,19 +884,6 @@ function ChargeDetails({
           <Receipt size={17} />{" "}
           {t("Gerar recibo / PDF", "Generate receipt / PDF")}
         </button>
-        <button type="button" className="finance-secondary" onClick={onNF}>
-          <FileText size={17} /> {t("Nota Fiscal", "Invoice")}
-        </button>
-        {record.nota_fiscal_path && (
-          <button
-            type="button"
-            className="finance-secondary"
-            onClick={onOpenNF}
-          >
-            <ExternalLink size={17} />{" "}
-            {t("Abrir arquivo NF", "Open invoice file")}
-          </button>
-        )}
         <button
           type="button"
           className="finance-secondary"

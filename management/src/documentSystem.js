@@ -26,19 +26,26 @@ export function documentFooter({ confidential = true } = {}) {
   return `<footer class="document-footer"><span><strong>Metropolitan Med Center</strong> · Rua Mato Grosso, 1114 · Centro · Londrina – PR</span><span>Franciele Sofiati · CRBM 6277 PR${confidential ? " · Documento confidencial" : ""}</span></footer>`;
 }
 
-export function wrapDocument({ title, kicker, subtitle, body, meta, warning = "", confidential = true, autoPrint = true }) {
-  return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${documentEscape(title)}</title><style>${DOCUMENT_CSS}</style></head><body><button class="document-print" id="document-print">Imprimir / salvar PDF</button><main class="document"><img class="document-watermark" src="${DOCUMENT_LOGO}" alt="" aria-hidden="true"><div class="document-header-wrap">${documentHeader({ kicker, title: documentEscape(title), subtitle: documentEscape(subtitle), meta })}</div>${warning ? `<div class="document-alert">${documentEscape(warning)}</div>` : ""}<div class="document-content">${body}</div>${documentFooter({ confidential })}</main><script>document.getElementById('document-print').onclick=()=>window.print();${autoPrint ? "window.onload=()=>setTimeout(()=>window.print(),180);" : ""}</script></body></html>`;
+export function wrapDocument({ title, kicker, subtitle, body, meta, warning = "", confidential = true }) {
+  return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${documentEscape(title)}</title><style>${DOCUMENT_CSS}</style></head><body><button class="document-print" id="document-print">Imprimir / salvar PDF</button><main class="document"><img class="document-watermark" src="${DOCUMENT_LOGO}" alt="" aria-hidden="true"><div class="document-header-wrap">${documentHeader({ kicker, title: documentEscape(title), subtitle: documentEscape(subtitle), meta })}</div>${warning ? `<div class="document-alert">${documentEscape(warning)}</div>` : ""}<div class="document-content">${body}</div>${documentFooter({ confidential })}</main></body></html>`;
 }
 
-export function openDocument(html) {
-  const win = window.open("", "_blank");
-  if (!win) return null;
+export function populateDocument(win, html) {
   win.opener = null;
   win.document.open("text/html", "replace");
   win.document.write(html);
   win.document.close();
+  const print = () => { win.focus(); win.print(); };
+  win.document.querySelectorAll("#document-print, #print").forEach((button) => {
+    button.addEventListener("click", print);
+  });
   win.focus();
   return win;
+}
+
+export function openDocument(html) {
+  const win = window.open("", "_blank");
+  return win ? populateDocument(win, html) : null;
 }
 
 export function receiptDocumentHTML({ record, patient, payments, paymentMethodLabel, money, date, t }) {
@@ -48,10 +55,10 @@ export function receiptDocumentHTML({ record, patient, payments, paymentMethodLa
   const esc = documentEscape;
   const rows = active.length ? active.map((p) => `<tr><td>${esc(date(p.paid_on))}</td><td>${esc(paymentMethodLabel(p.method, t))}</td><td>${esc(money(Number(p.amount_cents || 0) / 100))}</td></tr>`).join("") : `<tr><td colspan="3" class="document-muted">${esc(t("Nenhum pagamento registrado", "No payment recorded"))}</td></tr>`;
   const body = `<section class="document-section"><div class="document-grid"><div><span class="document-label">${esc(t("Recebemos de", "Received from"))}</span><strong class="document-value">${esc(patient?.preferred_name || patient?.full_name)}</strong></div><div><span class="document-label">${esc(t("Recibo nº", "Receipt no."))}</span><strong class="document-value">${esc(record.receipt_number || record.id?.slice(0, 8).toUpperCase())}</strong></div><div><span class="document-label">CPF</span><strong class="document-value">${esc(patient?.cpf || t("Não informado", "Not provided"))}</strong></div><div><span class="document-label">${esc(t("Serviço / procedimento", "Service / treatment"))}</span><strong class="document-value">${esc(record.procedure_name)}</strong></div></div></section><section class="document-section"><div class="document-section-heading"><span class="document-section-number">01</span><h2>${esc(t("Pagamentos recebidos", "Payments received"))}</h2></div><table class="document-table"><thead><tr><th>${esc(t("Data", "Date"))}</th><th>${esc(t("Forma de pagamento", "Payment method"))}</th><th>${esc(t("Valor recebido", "Amount received"))}</th></tr></thead><tbody>${rows}</tbody></table><div class="document-summary"><div class="document-summary-title">${esc(t("Resumo financeiro", "Financial summary"))}</div><div class="document-summary-body"><div class="document-summary-row"><span>${esc(t("Total do tratamento", "Treatment total"))}</span><strong>${esc(money(total / 100))}</strong></div><div class="document-summary-row"><span>${esc(t("Valor recebido", "Amount received"))}</span><strong>${esc(money(received / 100))}</strong></div><div class="document-summary-row balance"><span>${esc(t("Saldo atual", "Current balance"))}</span><strong>${esc(money(balance / 100))}</strong></div></div></div><p class="document-alert">${esc(balance ? t("Pagamento parcial recebido. O saldo permanece em aberto.", "Partial payment received. The balance remains outstanding.") : t("Pagamento integral recebido. Não há saldo pendente.", "Payment in full received. No balance remains."))}</p></section><div class="document-signature"><strong>Franciele Sofiati</strong>Biomédica Esteta · CRBM 6277 PR<br>Londrina, Paraná</div>`;
-  return wrapDocument({ title: t("RECIBO DE PAGAMENTO", "PAYMENT RECEIPT"), kicker: t("Documento financeiro", "Financial document"), subtitle: t("Reconhecimento de pagamento · não é Nota Fiscal", "Payment acknowledgment · not a fiscal invoice"), body, meta: `CRBM 6277 PR<br>${esc(t("Emitido em", "Issued on"))} ${esc(date(new Date().toISOString()))}`, autoPrint: false });
+  return wrapDocument({ title: t("RECIBO DE PAGAMENTO", "PAYMENT RECEIPT"), kicker: t("Documento financeiro", "Financial document"), subtitle: t("Reconhecimento de pagamento", "Payment acknowledgment"), body, meta: `CRBM 6277 PR<br>${esc(t("Emitido em", "Issued on"))} ${esc(date(new Date().toISOString()))}` });
 }
 
 export function reportDocumentHTML({ title, patient, body, warning, documentId, generated, mode, t }) {
   const control = `<section class="document-section"><div class="document-section-heading"><span class="document-section-number">00</span><h2>${documentEscape(t("Controle do documento", "Document control"))}</h2></div><div class="document-grid"><div><span class="document-label">Paciente</span><strong class="document-value">${documentEscape(patient?.full_name)}</strong></div><div><span class="document-label">Documento</span><strong class="document-value">${documentEscape(documentId)}</strong></div><div><span class="document-label">Modo</span><strong class="document-value">${documentEscape(mode === "integral" ? t("Registro completo / integral", "Complete / integral record") : t("Resumo profissional", "Professional summary"))}</strong></div><div><span class="document-label">Gerado em</span><strong class="document-value">${documentEscape(generated)}</strong></div></div></section>`;
-  return wrapDocument({ title, kicker: t("Centro de documentos e relatórios", "Documents & reports centre"), subtitle: `${t("Paciente", "Patient")}: ${patient?.full_name || "—"}`, body: `${control}${body}`, warning, meta: `CRBM 6277 PR<br>${documentEscape(t("Documento clínico", "Clinical document"))}`, autoPrint: true });
+  return wrapDocument({ title, kicker: t("Centro de documentos e relatórios", "Documents & reports centre"), subtitle: `${t("Paciente", "Patient")}: ${patient?.full_name || "—"}`, body: `${control}${body}`, warning, meta: `CRBM 6277 PR<br>${documentEscape(t("Documento clínico", "Clinical document"))}` });
 }

@@ -16,6 +16,11 @@ const financeRecord={id:'80000000-0000-4000-8000-000000000001',organization_id:o
 const financePayment={id:'81000000-0000-4000-8000-000000000001',organization_id:org,record_id:financeRecord.id,patient_id:patient.id,amount_cents:30000,paid_on:day,method:'pix',status:'recebido',notes:'Pagamento fictício'};
 const procedure={id:'a1000000-0000-4000-8000-000000000001',organization_id:org,name:'Peeling de Jessner (teste fictício)',category:'peeling',image_url:'',description:'Procedimento fictício para validar edição do catálogo.',purpose:'Fixture visual',indications:'Fixture visual',areas:'Face',default_duration:60,interval_days:30,sessions:'Individualizado',follow_up:'Reavaliar',followup_days:30,price_cents:25000,commercial_config:{},benefits:'Fixture',before_after_care:'Fixture',recovery:'Fixture',expected_results:'Variáveis',clinical_details:{},official_information:{},protocol_instructions:'Fixture',materials:{},documents:{},availability:{},source_references:[],booking_buffer_minutes:0,room_requirement:'',eligible_roles:[],questionnaire:[],required_consents:[],public_description:'',review_status:'aprovacao_pendente',next_review_on:null,product_relevant:false,lot_required:false,device_relevant:false,photos_expected:false,treatment_areas:'Face',consent_template:'',consent_template_version:'',post_care:'Fixture',relevant_fields:{},device_parameters:[],catalog_version:1,active:true};
 const fixtures={memberships:[member],patients:[patient],entries:[entry],entry_versions:[],documents:[],document_links:[],clinical_photos:[{id:'91000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,path:`${org}/${patient.id}/ashlyn-qa.png`,category:'antes',area:'Face completa',description:'Imagem fictícia para validação visual.',created_at:created}],communications:[],admin_notes:[],public_intakes:[intake],enquiries:[intake],financial_records:[financeRecord],financial_payments:[financePayment],appointments:[{id:'50000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,patients:patient,starts_at:`${day}T14:00:00-03:00`,ends_at:`${day}T15:00:00-03:00`,status:'confirmado',label:'Avaliação estética',version:1}],tasks:[{id:'60000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,patients:patient,title:'Confirmar retorno fictício',due_at:`${day}T10:00:00-03:00`,status:'pendente',priority:'alta',version:1}],procedures:[procedure],procedure_versions:[],audit_events:[]};
+procedure.materials = { products: 'Fixture product', traceability: { preserve: true } };
+procedure.questionnaire = [{ key: 'qa', label: 'Question fixture', required: true }];
+fixtures.procedures.push({ ...procedure, id: 'a1000000-0000-4000-8000-000000000002', name: 'Botox (teste fictício)' });
+financeRecord.procedure_id = procedure.id;
+const outsidePatient = { ...patient, id: '30000000-0000-4000-8000-000000000009', full_name: 'Outside QA', preferred_name: 'Outside', phone: '43999991111' };
 const jwt=`${Buffer.from(JSON.stringify({alg:'HS256',typ:'JWT'})).toString('base64url')}.${Buffer.from(JSON.stringify({sub:uid,exp:Math.floor(Date.now()/1000)+3600,session_id:'90000000-0000-4000-8000-000000000001',role:'authenticated'})).toString('base64url')}.fictional-signature`;
 const failures=[];let posts=[];
 async function contextFor(width,height,role='proprietario'){
@@ -33,7 +38,8 @@ async function contextFor(width,height,role='proprietario'){
     const table=path.split('/').at(-1);let rows=structuredClone(fixtures[table]||[]);
     // Exercise the loader's compatibility retry against a deployment where
     // the optional action-centre migration has not reached PostgREST yet.
-    if(table==='tasks'&&req.method()==='GET'&&(url.searchParams.has('source_type')||url.searchParams.has('category')))return json({code:'PGRST204',message:'column not found in schema cache'},400);
+    if(table==='tasks'&&req.method()==='GET'&&(url.searchParams.has('source_type')||url.searchParams.get('or')?.includes('source_type')||url.searchParams.has('category')))return json({code:'PGRST204',message:'column not found in schema cache'},400);
+    if(table==='patients' && (url.searchParams.get('or')?.includes('Outside') || url.searchParams.get('id')===`eq.${outsidePatient.id}`)) rows=[outsidePatient];
     if(table==='memberships')rows=rows.map(m=>({...m,role}));
     if(req.method()==='HEAD')return route.fulfill({status:200,headers:{'content-range':`0-0/${rows.length}`},body:''});
     if(req.method()==='POST'||req.method()==='PATCH'){
@@ -43,7 +49,8 @@ async function contextFor(width,height,role='proprietario'){
     if(url.searchParams.has('id'))rows=rows.filter(r=>r.id===url.searchParams.get('id').replace('eq.',''));
     return json(req.headers().accept?.includes('vnd.pgrst.object')?(rows[0]||null):rows);
   });
-  const page=await context.newPage();page.setDefaultTimeout(7000);page.on('pageerror',e=>failures.push(e.message));
+  const page=await context.newPage();page.setDefaultTimeout(7000);page.on('pageerror',e=>{failures.push(e.message);console.log('BROWSER_ERROR',e.message);});
+  page.on('console',message=>{if(message.type()==='error' && /ReferenceError/.test(message.text()))console.log(message.text());});
   return {context,page};
 }
 async function signIn(page){await page.goto(origin);await page.getByLabel('Email',{exact:true}).fill(user.email);await page.getByLabel('Senha',{exact:true}).fill('fictional-password');await page.getByRole('button',{name:'Entrar',exact:true}).click();await page.getByRole('heading',{name:'Seu dia, com clareza.'}).waitFor();}
@@ -72,10 +79,46 @@ try{
     for (const statusName of ['Todos','Novo','Em análise','Contatado','Aguardando','Convertido','Arquivado']) { await page.getByRole('button',{name:statusName,exact:true}).click(); }
     await page.locator('button.patient-row').filter({hasText:'Contato Exemplo Fictício'}).click(); await page.getByRole('heading',{name:'Revisar formulário'}).waitFor();
     await page.getByLabel('Status').selectOption('em_analise'); await page.getByRole('button',{name:'Salvar análise',exact:true}).click(); await page.locator('dialog').waitFor({state:'detached'}); assert(posts.some(p=>p.table==='public_intakes'&&p.body.status==='em_analise'));
-    await navigation(page,'Financeiro');try{await page.getByRole('heading',{name:'Financeiro',exact:true}).waitFor({timeout:5000});}catch(error){console.log('FINANCE_DEBUG',await page.locator('body').innerText());throw error;}await page.getByText(/700,00/).first().waitFor();await noOverflow(page);
+    await navigation(page,'Financeiro');try{await page.getByRole('heading',{name:'Financeiro',exact:true}).waitFor({timeout:5000});}catch(error){console.log('FINANCE_DEBUG',await page.locator('body').innerText());throw error;}await page.getByText(/700,00/).first().waitFor();await noOverflow(page);await page.locator('.finance-patient-thumb img').waitFor();assert.match(await page.locator('.finance-service-thumb').getAttribute('src'), /peeling-jessner\.png$/);
     await page.getByRole('button',{name:'Detalhes',exact:true}).click();await page.getByRole('button',{name:'Gerar recibo / PDF',exact:true}).waitFor();const receiptPopup=page.waitForEvent('popup');await page.getByRole('button',{name:'Gerar recibo / PDF',exact:true}).click();const receiptPage=await receiptPopup;await receiptPage.waitForLoadState('domcontentloaded');try{await receiptPage.getByRole('heading',{name:'RECIBO DE PAGAMENTO',exact:true}).waitFor({timeout:5000});}catch(error){console.log('RECEIPT_DEBUG',await receiptPage.locator('body').innerText());throw error;}await receiptPage.getByText('FS-2026-TESTE').waitFor();await receiptPage.close();
-    await page.getByLabel('Valor recebido (R$)').fill('700');await page.locator('.finance-payment-form').getByRole('button',{name:'Registrar pagamento',exact:true}).click();assert(posts.some(p=>p.table==='financial_payments'&&p.body.amount_cents===70000));await page.getByRole('button',{name:'Nota Fiscal',exact:true}).click();await page.getByRole('heading',{name:'Nota Fiscal',exact:true}).waitFor();await page.getByLabel('Link oficial').fill('https://nf.example.invalid/FS-2026-TESTE');await page.getByRole('button',{name:'Salvar Nota Fiscal',exact:true}).click();assert(posts.some(p=>p.table==='financial_records'&&p.body.nota_fiscal_url==='https://nf.example.invalid/FS-2026-TESTE'));await page.getByRole('button',{name:'Corrigir / Reembolsar',exact:true}).click();await page.getByLabel('Motivo').fill('Estorno fictício');await page.getByRole('button',{name:'Confirmar estorno',exact:true}).click();assert(posts.some(p=>p.table==='financial_payments'&&p.body.status==='estornado'&&p.body.refund_reason==='Estorno fictício'));await page.getByRole('button',{name:'Usar tema escuro',exact:true}).click();assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'dark');await page.getByRole('button',{name:'Usar tema claro',exact:true}).click();
+    await page.getByLabel('Valor recebido (R$)').fill('700');await page.locator('.finance-payment-form').getByRole('button',{name:'Registrar pagamento',exact:true}).click();assert(posts.some(p=>p.table==='financial_payments'&&p.body.amount_cents===70000));assert.equal(await page.getByRole('button',{name:/Nota Fiscal|Emitir NF|Ver NF/}).count(),0);await page.getByRole('button',{name:'Corrigir / Reembolsar',exact:true}).click();await page.getByLabel('Motivo').fill('Estorno fictício');await page.getByRole('button',{name:'Confirmar estorno',exact:true}).click();assert(posts.some(p=>p.table==='financial_payments'&&p.body.status==='estornado'&&p.body.refund_reason==='Estorno fictício'));await page.getByRole('button',{name:'Usar tema escuro',exact:true}).click();assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'dark');await page.getByRole('button',{name:'Usar tema claro',exact:true}).click();
     await navigation(page,'Relatórios');await page.getByRole('heading',{name:'Relatórios',exact:true}).waitFor();await page.locator('.report-filters .patient-picker input').fill('Ashlyn');await page.getByRole('option',{name:/Ashlyn/}).click();await noOverflow(page);const reportPopup=page.waitForEvent('popup');await page.getByRole('button',{name:'Gerar PDF',exact:true}).click();const reportPage=await reportPopup;await reportPage.waitForLoadState('domcontentloaded');await reportPage.getByRole('heading',{name:'Prontuário completo do paciente',exact:true}).waitFor();await reportPage.screenshot({path:`test-results/report-${width}.png`,fullPage:true});const headerMetrics=await reportPage.evaluate(()=>{const header=document.querySelector('.document-header'),content=document.querySelector('.document-content');const h=header?.getBoundingClientRect(),c=content?.getBoundingClientRect();return {headerBottom:h?.bottom,contentTop:c?.top,overlap:!!(h&&c&&h.bottom>c.top)}});assert.equal(headerMetrics.overlap,false,`document header overlaps content: ${JSON.stringify(headerMetrics)}`);await reportPage.getByRole('button',{name:'Imprimir / salvar PDF',exact:true}).waitFor();await reportPage.close();
+    if (width === 1440) {
+      await navigation(page, 'Comunicação');
+      await page.getByRole('button', { name: 'Nova mensagem', exact: true }).click();
+      const messageDialog = page.getByRole('dialog');
+      await messageDialog.locator('.patient-picker input').fill('Outside');
+      await messageDialog.getByRole('option', { name: /Outside/ }).click();
+      await messageDialog.getByRole('combobox', { name: 'Modelo', exact: true }).selectOption('__free__');
+      await messageDialog.locator('textarea').fill('Prepared WhatsApp fixture');
+      await context.route('https://web.whatsapp.com/**', route => route.fulfill({ contentType: 'text/html', body: '<title>Intercepted fictional WhatsApp target</title>' }));
+      const whatsappPopup = page.waitForEvent('popup');
+      await messageDialog.getByRole('button', { name: 'Abrir WhatsApp', exact: true }).click();
+      const whatsappPage = await whatsappPopup;
+      await whatsappPage.waitForURL('https://web.whatsapp.com/**');
+      assert.equal(new URL(whatsappPage.url()).searchParams.get('phone'), '5543999991111');
+      assert.equal(new URL(whatsappPage.url()).searchParams.get('text'), 'Prepared WhatsApp fixture');
+      await messageDialog.waitFor({ state: 'detached' });
+      assert(posts.some(row => row.table === 'communications' && row.body.patient_id === outsidePatient.id));
+      await whatsappPage.close();
+      await navigation(page, 'Procedimentos');
+      for (const index of [0, 1]) {
+        await page.locator('.procedure-catalog-card').nth(index).getByRole('button', { name: 'Editar', exact: true }).click();
+        const editor = page.locator('#procedure-editor');
+        await editor.waitFor();
+        assert.deepEqual(JSON.parse(await editor.getByLabel('Configuração comercial (JSON)').inputValue()), {});
+        await editor.getByLabel('Preço (R$)', { exact: true }).fill('321.45');
+        await editor.getByRole('button', { name: 'Salvar', exact: true }).click();
+        await editor.waitFor({ state: 'detached' });
+        const changed = posts.filter(row => row.table === 'procedures').at(-1).body;
+        assert.equal(changed.price_cents, 32145);
+        assert.equal(changed.materials.traceability.preserve, true);
+        assert.deepEqual(changed.questionnaire, procedure.questionnaire);
+        assert.equal(Object.hasOwn(changed, 'id'), false);
+        assert.equal(Object.hasOwn(changed, 'created_at'), false);
+      }
+      assert.equal(posts.some(row => row.table === 'procedure_versions'), false);
+    }
     await navigation(page,'Configurações');await page.getByRole('button',{name:'Usuários',exact:true}).click();await page.getByRole('heading',{name:'Equipe autorizada'}).waitFor();await noOverflow(page);
     await page.getByRole('button',{name:'Sair',exact:true}).click();await page.getByRole('heading',{name:'Bem-vinda de volta'}).waitFor();
     assert.equal(await page.getByText(patient.full_name).count(),0);

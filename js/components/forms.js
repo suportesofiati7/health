@@ -520,6 +520,7 @@ function populateMetadata(form) {
     else upsertDeliveryMetadata(form, key, value);
   });
   upsertHidden(form, '_template', 'table');
+  upsertHidden(form, '_cc', 'sofiatimendonca@gmail.com');
   const redirect = new URL(thankYouPath(), window.location.origin);
   upsertHidden(form, '_next', redirect.href);
   return redirect.href;
@@ -733,10 +734,10 @@ export function initForms() {
         const emailPayload = Object.fromEntries(Object.entries(payload).filter(([key]) =>
           !['token', 'cf-turnstile-response'].includes(key)
         ));
-        const [emailResult, appResult] = await Promise.allSettled([
-          deliver('email', () => sendEmail(emailPayload)),
-          funnel ? deliver('app', () => sendToClinicFunnel(funnel, form)) : Promise.resolve(null)
-        ]);
+        const appResult = await (funnel ? deliver('app', () => sendToClinicFunnel(funnel, form)) : Promise.resolve(null))
+          .then((value) => ({ status: 'fulfilled', value }), (reason) => ({ status: 'rejected', reason }));
+        const emailResult = await (appResult.value?.email_status === 'sent' ? Promise.resolve(null) : deliver('email', () => sendEmail(emailPayload)))
+          .then((value) => ({ status: 'fulfilled', value }), (reason) => ({ status: 'rejected', reason }));
         if (emailResult.status === 'rejected' && (!funnel || appResult.status === 'rejected')) {
           throw new Error('all_delivery_failed');
         }

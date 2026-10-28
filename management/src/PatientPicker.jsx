@@ -6,17 +6,18 @@ import { useT } from "./i18n";
 const nameOf = (row) => row?.preferred_name || row?.full_name || "Paciente sem nome";
 const normalize = (value) => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-export function PatientPicker({ value, onChange, initial, title }) {
+export function PatientPicker({ value, onChange, initial, title, choices }) {
   const t = useT();
   const [term, setTerm] = useState(initial ? nameOf(initial) : "");
   const [rows, setRows] = useState(initial ? [initial] : []);
   const [open, setOpen] = useState(false);
-  const selected = rows.find((row) => row.id === value) || (initial?.id === value ? initial : null);
+  const selected = choices?.find((row) => row.id === value) || rows.find((row) => row.id === value) || (initial?.id === value ? initial : null);
   useEffect(() => {
     if (initial?.id && !rows.some((row) => row.id === initial.id)) setRows((current) => [initial, ...current]);
     if (initial?.id && value === initial.id && !term) setTerm(nameOf(initial));
   }, [initial?.id, value]);
   useEffect(() => {
+    if (choices) return;
     let live = true;
     const timer = setTimeout(async () => {
       const query = safeSearch(term);
@@ -30,11 +31,19 @@ export function PatientPicker({ value, onChange, initial, title }) {
     }, 180);
     return () => { live = false; clearTimeout(timer); };
   }, [term, value]);
+  useEffect(() => {
+    if (choices) { const row = choices.find((row) => row.id === value); setTerm(row ? nameOf(row) : ""); return; }
+    if (!value) { setTerm(""); return; }
+    let live = true;
+    checked(db.from("patients").select("id,full_name,preferred_name,phone,email,cpf,status,avatar_path").eq("organization_id", ORG).eq("id", value).single())
+      .then((row) => { if (live) { setRows((current) => [row, ...current.filter((item) => item.id !== row.id)]); setTerm(nameOf(row)); } }).catch(() => {});
+    return () => { live = false; };
+  }, [value, choices]);
   const visible = useMemo(() => {
     const q = normalize(term);
-    return rows.filter((row) => !q || [row.full_name, row.preferred_name, row.cpf, row.email, row.phone].some((field) => normalize(field).includes(q))).slice(0, 20);
-  }, [rows, term]);
-  const choose = (row) => { onChange(row.id); setTerm(nameOf(row)); setOpen(false); };
+    return (choices || rows).filter((row) => !q || [row.full_name, row.preferred_name, row.cpf, row.email, row.phone].some((field) => normalize(field).includes(q))).slice(0, 20);
+  }, [rows, term, choices]);
+  const choose = (row) => { setRows((current) => [row, ...current.filter((item) => item.id !== row.id)]); onChange(row.id, row); setTerm(nameOf(row)); setOpen(false); };
   const clear = () => { onChange(""); setTerm(""); setOpen(true); };
   return <div className="patient-picker searchable-picker">
     <label className="field"><span>{title || t("Paciente", "Patient")}</span><div className="searchable-picker-input"><Search size={16} aria-hidden="true" /><input value={term} onChange={(event) => { setTerm(event.target.value); setOpen(true); if (value) onChange(""); }} onFocus={() => setOpen(true)} onBlur={() => setTimeout(() => setOpen(false), 150)} placeholder={t("Digite nome, CPF, email ou telefone", "Type name, CPF, email or phone")} autoComplete="off" /><button type="button" className="icon" onMouseDown={(event) => event.preventDefault()} onClick={clear} aria-label={t("Limpar paciente", "Clear patient")}><X size={15} /></button></div>{open && <div className="searchable-picker-menu" role="listbox">{visible.map((row) => <button type="button" role="option" key={row.id} onMouseDown={(event) => event.preventDefault()} onClick={() => choose(row)} className={row.id === value ? "selected" : ""}><span><strong>{nameOf(row)}</strong><small>{[row.cpf, row.email, row.phone].filter(Boolean).join(" · ") || t("Sem contato adicional", "No additional contact")}</small></span>{row.id === value && <Check size={15} />}</button>)}{!visible.length && <p>{t("Nenhum paciente encontrado.", "No patient found.")}</p>}</div>}</label>

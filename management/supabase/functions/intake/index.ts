@@ -1,3 +1,4 @@
+import { notifySupport } from "../_shared/support-notification.ts";
 import {
   admin,
   ORG,
@@ -96,7 +97,9 @@ Deno.serve(
         payload,
       });
     if (error) throw Error("save");
+    const notified = await notifySupport({ nome: full_name, email, telefone: phone, assunto: clean(b.reason, 300), mensagem: clean(b.message, 1200) });
+    if (!notified) console.error("INTAKE_SUPPORT_NOTIFICATION_FAILED");
     // Never return a record, identifier, duplicate signal or account information.
-    return reply(req, { received: true }, 202);
+    return reply(req, { received: true, email_status: notified ? "sent" : "error" }, 202);
   }),
 );

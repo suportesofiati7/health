@@ -12,14 +12,13 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   const firstCard = form.querySelector(":scope > .sf-consent-card");
   const sectionBrand = document.createElement("div");
   sectionBrand.className = "sf-section-brand";
-  sectionBrand.innerHTML = '<div class="sf-section-brand__row"><img src="assets/shared/brand/hero-marks/logotipo-franciele-sofiati-acolhimento-clinico-estetica-avancada-londrina-centro.webp" alt="Franciele Sofiati" width="72" height="72"><div><p class="sf-section-brand__name">Franciele Sofiati</p><p class="sf-eyebrow">Cadastro clínico · atendimento estético</p></div></div><div class="sf-section-brand__row sf-section-brand__row--copy"><div><h1>Formulário de cadastro e consentimentos</h1><p class="sf-section-brand__lede">Um registro claro para preparar seu atendimento com cuidado, segurança e orientação individual.</p><p class="sf-section-brand__meta">Franciele Sofiati · Biomédica, Esteticista e Cosmetóloga · CRBM 6277</p></div></div>';
+  sectionBrand.innerHTML = '<div class="sf-section-brand__row"><img src="/assets/shared/brand/hero-marks/logotipo-franciele-sofiati-acolhimento-clinico-estetica-avancada-londrina-centro.webp" alt="Franciele Sofiati" width="72" height="72"><div><p class="sf-section-brand__name">Franciele Sofiati</p><p class="sf-eyebrow">Cadastro clínico · atendimento estético</p></div></div><div class="sf-section-brand__row sf-section-brand__row--copy"><div><h1>Formulário de cadastro e consentimentos</h1><p class="sf-section-brand__lede">Um registro claro para preparar seu atendimento com cuidado, segurança e orientação individual.</p><p class="sf-section-brand__meta">Franciele Sofiati · Biomédica, Esteticista e Cosmetóloga · CRBM 6277</p></div></div>';
   firstCard?.prepend(sectionBrand);
-  form.querySelectorAll("[required]").forEach((field) => { field.required = field.name === "cpf"; });
+
   const endpoint = form.action;
   const cards = [...form.querySelectorAll(":scope > .sf-consent-card")];
   const procedureInputs = [...form.querySelectorAll('input[name="selected_procedures"]')];
   let procedureDetails = [...form.querySelectorAll("details[data-consent-term-for]")];
-  let step = 0;
   let submitting = false;
   const trackDelivery = deliveryTracker();
   const draftKey = "sofiati-public-intake-draft-v2026-09-14";
@@ -38,6 +37,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   const template = procedureList?.querySelector(".sf-consent-procedure:last-child");
   if (procedureList && template) {
     extra.forEach(([value, title, description]) => {
+      if (procedureList.querySelector(`input[name="selected_procedures"][value="${value}"]`)) return;
       const article = template.cloneNode(true);
       const input = article.querySelector('input[name="selected_procedures"]');
       const heading = article.querySelector("strong");
@@ -45,14 +45,21 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       const details = article.querySelector("details");
       const acceptance = article.querySelector('input[name^="accepted_term_"]');
       input.value = value;
+      input.checked = false;
+      acceptance.checked = false;
       input.required = false;
       heading.textContent = title;
       small.textContent = description;
       details.dataset.consentTermFor = value;
-      details.querySelector("h4").textContent = `Termo específico: ${title}`;
+      details.querySelector("h4").textContent = value === "enzimas" ? "Termos de Enzimas" : `Termo específico: ${title}`;
       details.querySelectorAll("p").forEach((p) => {
         p.textContent = `Declaro compreender a finalidade, benefícios possíveis, limitações, riscos, contraindicações, cuidados antes e depois, necessidade de reavaliação e ausência de garantia de resultado do procedimento ${title}. Fui orientado(a) a informar condições de saúde, medicamentos, alergias, gestação, exposição solar e qualquer circunstância relevante. A profissional poderá adaptar, adiar, interromper ou contraindicar o procedimento por segurança.`;
       });
+      if (value === "enzimas") {
+        const note = document.createElement("p");
+        note.textContent = "Enzimas não designa uma substância única. A substância, via, indicação e segurança dependem do produto regularizado identificado no atendimento. Este aceite registra a ciência prévia; a autorização do produto e do procedimento deve ser confirmada com a profissional após avaliação individual e esclarecimento de dúvidas.";
+        details.append(note);
+      }
       acceptance.name = `accepted_term_${value}`;
       article.querySelector("span").textContent = "Li e compreendi o termo específico completo deste procedimento.";
       procedureList.append(article);
@@ -141,34 +148,12 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   const syncGuardian = () => {
     if (!guardianField) return;
     const relevant = adultField?.value && adultField.value !== "adult";
-    guardianField.required = false;
+    guardianField.required = Boolean(relevant);
     guardianField.closest(".sf-consent-field")?.toggleAttribute("hidden", !relevant);
     if (!relevant) guardianField.value = "Não se aplica";
   };
   adultField?.addEventListener("change", syncGuardian);
   syncGuardian();
-
-  const progress = document.createElement("div");
-  progress.className = "sf-intake-progress";
-  progress.setAttribute("aria-label", "Progresso do formulário");
-  form.before(progress);
-  const nav = document.createElement("div");
-  nav.className = "sf-intake-nav";
-  const back = document.createElement("button");
-  back.type = "button";
-  back.className = "sf-button sf-button--outline";
-  back.textContent = "Voltar";
-  const next = document.createElement("button");
-  next.type = "button";
-  next.className = "sf-button sf-button--primary";
-  next.textContent = "Continuar";
-  nav.append(back, next);
-  form.append(nav);
-  // Keep the complete approved form visible; the content is not hidden behind
-  // step-by-step “Continuar” clicks.
-  cards.forEach((card) => { card.hidden = false; });
-  progress.remove();
-  nav.remove();
 
   const saveDraft = () => {
     const draft = {};
@@ -186,7 +171,8 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       if (!draft) return;
       Object.entries(draft).forEach(([name, value]) => {
         form.querySelectorAll(`[name="${CSS.escape(name)}"]`).forEach((field) => {
-          if (field.type === "checkbox" || field.type === "radio") field.checked = [].concat(value).includes(field.value);
+          if (field.type === "checkbox" || field.type === "radio") field.checked = field.name === "selected_procedures" && [].concat(value).includes(field.value);
+          else if (/authorisation|communication/.test(field.name)) field.value = "";
           else field.value = value;
         });
       });
@@ -209,7 +195,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       const acceptance = detail.querySelector('input[name^="accepted_term_"]');
       if (acceptance) {
         acceptance.disabled = !active;
-        acceptance.required = false;
+        acceptance.required = active;
         if (!active) acceptance.checked = false;
       }
     });
@@ -218,23 +204,6 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   allProcedureInputs.forEach((input) => input.addEventListener("change", () => { syncProcedure(); saveDraft(); }));
   syncProcedure();
 
-  function setStep(nextStep) {
-    step = Math.max(0, Math.min(cards.length - 1, nextStep));
-    cards.forEach((card, index) => { card.hidden = index !== step; });
-    progress.innerHTML = cards.map((card, index) => `<span class="${index === step ? "is-current" : index < step ? "is-done" : ""}"><b>${index + 1}</b><em>${card.querySelector("h2")?.textContent || "Etapa"}</em></span>`).join("");
-    back.hidden = step === 0;
-    next.hidden = step === cards.length - 1;
-    next.textContent = "Continuar";
-    cards[step]?.scrollIntoView({ block: "start", behavior: "smooth" });
-  }
-  function validateCurrent() {
-    const fields = [...cards[step].querySelectorAll("input,select,textarea")].filter((field) => !field.disabled && field.type !== "hidden");
-    const invalid = fields.find((field) => !field.checkValidity());
-    if (invalid) { invalid.reportValidity(); invalid.focus(); return false; }
-    return true;
-  }
-  back.addEventListener("click", () => setStep(step - 1));
-  next.addEventListener("click", () => { if (validateCurrent()) { saveDraft(); setStep(step + 1); } });
   form.addEventListener("input", saveDraft);
   form.addEventListener("change", saveDraft);
 
@@ -306,12 +275,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       let appError = null;
       try {
         appResult = await deliver("app", async () => {
-          body.set("payload", JSON.stringify({
-            ...values,
-            // If a previous app save was confirmed, only retry the email.
-            // On the first attempt let the server send it after saving.
-            email_already_sent: deliver.has("app")
-          }));
+          body.set("payload", JSON.stringify(values));
           const response = await fetchWithTimeout(endpoint, {
             method: "POST",
             body,
