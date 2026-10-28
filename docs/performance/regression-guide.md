@@ -9,36 +9,17 @@ npm ci
 npm run build
 ```
 
-Run the final five-run Lighthouse matrix:
+Run the final three-run Lighthouse matrix:
 
 ```bash
 npm run perf:all
-npm run perf:budget
 ```
 
 Run one profile or a selected route while developing:
 
 ```bash
-PERF_ROUTES=index.html,treatments.html PERF_RUNS=3 npm run perf:mobile
-PERF_ROUTES=contact.html PERF_RUNS=3 npm run perf:desktop
-```
-
-Capture Chrome DevTools-compatible traces, network data and CSS/JavaScript coverage:
-
-```bash
-node scripts/performance/performance-trace.mjs --source dist --label final
-```
-
-Recreate the image inventory:
-
-```bash
-npm run perf:images
-```
-
-Compare source and production screenshots at the maintained viewport matrix:
-
-```bash
-npm run perf:visual
+PERF_ROUTES=/,tratamentos.html PERF_RUNS=3 npm run perf:mobile
+PERF_ROUTES=contato.html PERF_RUNS=3 npm run perf:desktop
 ```
 
 Run functional, responsive, SEO and analytics checks:
@@ -73,7 +54,7 @@ When a budget cannot be met, record the exact resource, its compressed bytes, wh
 3. Do not manually add generated files to `assets/generated`; the build owns them.
 4. Run `npm run build` and inspect the generated AVIF/WebP `srcset`.
 5. Confirm the image remains sharp at 320, 390, 768, 1440 and 1920 px viewports.
-6. Run `npm run perf:images` and the visual comparison.
+6. Run `npm run build`, inspect generated responsive `srcset` values, and compare screenshots using `python3 scripts/screenshot_manager.py` when its browser setup is available.
 
 The single above-the-fold hero scene is preloaded. Do not preload card, journal, footer or quotation images.
 
@@ -85,7 +66,7 @@ The single above-the-fold hero scene is preloaded. Do not preload card, journal,
 - Use observers for visibility and `requestIdleCallback` only for genuinely optional work.
 - Preserve the consent gate: GTM loads only after analytics consent in basic mode.
 - Never add a direct GA4 `gtag.js` installation.
-- Re-run the trace script and inspect long tasks and unused coverage across more than one template.
+- Use Chrome DevTools Performance and Coverage panels to inspect long tasks and unused code across more than one template.
 
 ## Adding CSS
 
@@ -108,16 +89,18 @@ The single above-the-fold hero scene is preloaded. Do not preload card, journal,
 8. Check accepted-analytics and denied-analytics states.
 9. Correct the cause, then repeat the same test matrix.
 
-## Lighthouse CI
+## Lighthouse regression checks
 
-The GitHub Actions workflow builds once, runs five mobile and five desktop Lighthouse CI collections, and uploads the reports. The filesystem reports are build artifacts; no Lighthouse server token is required.
+The GitHub Actions workflow builds the site once, runs three mobile and three desktop Lighthouse collections over the current Portuguese routes, and uploads the JSON reports and summaries. The checks use the repository's current Lighthouse CLI directly; no remote report service or token is required. `config/performance/budget.json` supplies the performance score and Core Web Vitals limits.
 
 Local equivalents:
 
 ```bash
-npx lhci autorun --config=config/performance/lighthouserc.mobile.cjs
-npx lhci autorun --config=config/performance/lighthouserc.desktop.cjs
+npm run perf:mobile
+npm run perf:desktop
 ```
+
+Use `PERF_ROUTES=/,sobre.html PERF_RUNS=1 npm run perf:mobile` to check a smaller route set while working on a local production server. Set `PERF_BASE_URL` to that server's origin when it is not `http://127.0.0.1:4173`.
 
 ## Production field monitoring
 

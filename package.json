@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "python3 scripts/index-site.py --rebuild --no-notify",
     "build": "node scripts/build/build-production.mjs",
-    "serve": "node scripts/build/serve-production.mjs .",
+    "serve": "node scripts/build/serve-production.mjs",
     "check:assets": "python3 scripts/check-local-assets.py",
     "check:pt": "python3 scripts/check-portuguese-site.py --strict-warnings",
     "check:seo": "python3 scripts/seo.py --no-external",
@@ -23,16 +23,20 @@
     "maintain": "python3 scripts/maintenance.py",
     "validate": "npm run check:assets && npm run check:pt && npm run check:seo && npm run check:analytics",
     "release:check": "npm run validate && npm run build",
-    "rebuild:sync": "python3 scripts/rebuild-and-sync.py"
+    "rebuild:sync": "python3 scripts/rebuild-and-sync.py",
+    "perf:mobile": "node scripts/run-lighthouse-regression.mjs mobile",
+    "perf:desktop": "node scripts/run-lighthouse-regression.mjs desktop",
+    "perf:all": "npm run perf:mobile && npm run perf:desktop",
+    "test:public-browser": "node scripts/test-public-interactions.mjs",
+    "test:public-layout": "node scripts/test-public-layout.mjs"
   },
   "engines": {
     "node": ">=22.19"
   },
   "devDependencies": {
-    "@lhci/cli": "0.15.1",
     "esbuild": "0.28.1",
     "html-minifier-terser": "7.2.0",
-    "lighthouse": "13.4.0",
+    "lighthouse": "^13.6.0",
     "playwright-core": "1.61.1",
     "sharp": "0.35.5",
     "supabase": "^2.117.0"

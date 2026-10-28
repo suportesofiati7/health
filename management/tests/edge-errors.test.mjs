@@ -47,3 +47,27 @@ test('preview access is restricted to the configured public project and clinical
     ]) assert.equal(headers(new Request(`https://api.invalid${path}`, { headers: { Origin: origin } }))['Access-Control-Allow-Origin'], 'null');
   } finally { globalThis.Deno = previous; }
 });
+
+test('public intake accepts the public www alias only when the apex public origin is configured', () => {
+  const previous = globalThis.Deno;
+  globalThis.Deno = { env: { get: key => key === 'PUBLIC_ORIGIN' ? 'https://francielesofiati.com' : undefined } };
+  try {
+    for (const [path, origin] of [
+      ['/functions/v1/formulario', 'https://francielesofiati.com'],
+      ['/functions/v1/formulario', 'https://www.francielesofiati.com'],
+      ['/formulario', 'https://www.francielesofiati.com']
+    ]) {
+      const request = new Request(`https://api.invalid${path}`, { method: 'OPTIONS', headers: { Origin: origin } });
+      assert.equal(headers(request)['Access-Control-Allow-Origin'], origin);
+    }
+    for (const [path, origin] of [
+      ['/functions/v1/formulario', 'https://evilfrancielesofiati.com'],
+      ['/functions/v1/formulario', 'https://francielesofiati.com.attacker.invalid'],
+      ['/functions/v1/formulario', 'http://www.francielesofiati.com'],
+      ['/functions/v1/intake', 'https://www.francielesofiati.com']
+    ]) {
+      const request = new Request(`https://api.invalid${path}`, { method: 'OPTIONS', headers: { Origin: origin } });
+      assert.equal(headers(request)['Access-Control-Allow-Origin'], 'null');
+    }
+  } finally { globalThis.Deno = previous; }
+});

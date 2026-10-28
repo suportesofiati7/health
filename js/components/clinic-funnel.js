@@ -52,18 +52,28 @@ export function initClinicFunnel() {
     challenge.className = 'sf-funnel-challenge';
     challenge.dataset.funnelChallenge = 'true';
     form.querySelector('.sf-form-submit')?.before(challenge);
-    loadTurnstile().then((turnstile) => {
-      if (!turnstile?.render) return;
-      const widgetId = turnstile.render(challenge, {
-        sitekey: TURNSTILE_SITE_KEY,
-        action: 'preregister',
-        size: 'compact',
-        callback: (value) => { token.value = value; },
-        'expired-callback': () => { token.value = ''; },
-        'error-callback': () => { token.value = ''; }
-      });
-      form.dataset.funnelWidget = String(widgetId ?? '');
-    }).catch(() => {});
+    let widgetPromise;
+    const ensureWidget = () => {
+      if (form.dataset.funnelWidget) return Promise.resolve(window.turnstile || null);
+      if (widgetPromise) return widgetPromise;
+      widgetPromise = loadTurnstile().then((turnstile) => {
+        if (!turnstile?.render) return null;
+        const widgetId = turnstile.render(challenge, {
+          sitekey: TURNSTILE_SITE_KEY,
+          action: 'preregister',
+          size: 'compact',
+          callback: (value) => { token.value = value; },
+          'expired-callback': () => { token.value = ''; },
+          'error-callback': () => { token.value = ''; }
+        });
+        form.dataset.funnelWidget = String(widgetId ?? '');
+        return turnstile;
+      }).catch(() => null);
+      return widgetPromise;
+    };
+    form.__sofiatiEnsureTurnstile = ensureWidget;
+    form.addEventListener('focusin', ensureWidget, { once: true });
+    form.addEventListener('pointerdown', ensureWidget, { once: true });
     form.dataset.funnelReady = String(index);
   });
 }
@@ -71,14 +81,15 @@ export function initClinicFunnel() {
 window.SofiatiFunnelToken = async (form) => {
   const input = form?.querySelector('input[name="token"]');
   if (input?.value) return input.value;
+  const turnstile = await form?.__sofiatiEnsureTurnstile?.();
   const widgetId = form?.dataset.funnelWidget;
-  if (!widgetId || !window.turnstile?.execute) return '';
+  if (!widgetId || !turnstile?.execute) return '';
   await new Promise((resolve) => {
     let timer;
     const finish = () => { window.clearTimeout(timer); window.clearTimeout(deadline); resolve(); };
     const check = () => input?.value ? finish() : (timer = window.setTimeout(check, 50));
     const deadline = window.setTimeout(finish, 10000);
-    try { window.turnstile.execute(widgetId); check(); } catch { finish(); }
+    try { turnstile.execute(widgetId); check(); } catch { finish(); }
   });
   return input?.value || '';
 };

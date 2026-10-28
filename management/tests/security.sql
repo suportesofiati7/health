@@ -58,6 +58,19 @@ select public.save_treatment_plan(
   jsonb_build_object('id',(select id from public.treatment_plans where title='Atomic plan QA'),'organization_id','a783bd4c-f253-4a94-9365-75c6f1000001','patient_id','30000000-0000-4000-8000-000000000001','title','Atomic plan QA updated','objectives','Corrected objective','status','em_andamento'), null
 );
 select pg_temp.assert((select title='Atomic plan QA updated' and status='em_andamento' from public.treatment_plans where title='Atomic plan QA updated'),'existing treatment plan updates through role-checked RPC');
+select public.save_treatment_plan(
+  jsonb_build_object('id',(select id from public.treatment_plans where title='Atomic plan QA updated'),'organization_id','a783bd4c-f253-4a94-9365-75c6f1000001','patient_id','30000000-0000-4000-8000-000000000001','title','Atomic plan QA updated','objectives','Corrected objective','status','em_andamento'),
+  jsonb_build_object('id',(select i.id from public.treatment_plan_items i join public.treatment_plans p on p.id=i.plan_id where p.title='Atomic plan QA updated'),'procedure_id',(select id from public.procedures where name='Procedimento fictício E2E'),'sequence_no',2,'sessions',4,'area','Corrected fictional area','notes','Updated fixture')
+);
+select pg_temp.assert((select i.sequence_no=2 and i.sessions=4 and i.area='Corrected fictional area' and i.notes='Updated fixture' from public.treatment_plan_items i join public.treatment_plans p on p.id=i.plan_id where p.title='Atomic plan QA updated'),'treatment plan item updates atomically and preserves its identity');
+select public.set_treatment_plan_item_archived((select i.id from public.treatment_plan_items i join public.treatment_plans p on p.id=i.plan_id where p.title='Atomic plan QA updated'),true);
+select pg_temp.assert((select archived_at is not null from public.treatment_plan_items i join public.treatment_plans p on p.id=i.plan_id where p.title='Atomic plan QA updated'),'treatment plan item archives without deletion');
+select pg_temp.assert(public.schedule_treatment_plan((select id from public.treatment_plans where title='Atomic plan QA updated'))=0,'scheduler skips archived treatment plan items');
+select public.set_treatment_plan_item_archived((select i.id from public.treatment_plan_items i join public.treatment_plans p on p.id=i.plan_id where p.title='Atomic plan QA updated'),false);
+select pg_temp.assert((select archived_at is null from public.treatment_plan_items i join public.treatment_plans p on p.id=i.plan_id where p.title='Atomic plan QA updated'),'authorized user can restore an archived treatment plan item');
+select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000003','session_id','20000000-0000-4000-8000-000000000003','exp',extract(epoch from now()+interval '1 hour'))::text,true);
+select pg_temp.denied($q$select public.set_treatment_plan_item_archived((select i.id from public.treatment_plan_items i join public.treatment_plans p on p.id=i.plan_id where p.title='Atomic plan QA updated'),true)$q$,'treatment plan item archive requires edit permission');
+select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
 
 -- Clinical procedure and inventory consumption are committed atomically.
 insert into public.products(id,organization_id,name,unit,created_by)

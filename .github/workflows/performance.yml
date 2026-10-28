@@ -17,13 +17,15 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - name: Build the current Portuguese site
+        run: npm run build
       - name: Mobile Lighthouse CI
-        run: npx lhci autorun --config=lighthouserc.mobile.cjs
+        run: npm run perf:mobile
       - name: Desktop Lighthouse CI
-        run: npx lhci autorun --config=lighthouserc.desktop.cjs
+        run: npm run perf:desktop
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: lighthouse-reports
-          path: performance-reports/lhci
+          path: performance-reports/lighthouse
           retention-days: 14

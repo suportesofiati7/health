@@ -1,7 +1,41 @@
 import { chromium } from 'playwright-core';
 import assert from 'node:assert/strict';
-const origin = process.env.MANAGEMENT_TEST_URL || 'http://127.0.0.1:5173';
-const publicOrigin = process.env.PUBLIC_TEST_URL || 'http://127.0.0.1:4173';
+import { startStaticServer } from '../../scripts/lib/static-server.mjs';
+import { spawn } from 'node:child_process';
+import { once } from 'node:events';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = fileURLToPath(new URL('../../', import.meta.url));
+const managementRoot = fileURLToPath(new URL('../', import.meta.url));
+
+let managementServer;
+let ownedManagementServer = false;
+let viteProcess;
+if (process.env.MANAGEMENT_TEST_URL) {
+  managementServer = process.env.MANAGEMENT_TEST_URL;
+} else {
+  viteProcess = spawn(process.execPath, [resolve(managementRoot, 'node_modules/vite/bin/vite.js'), '--host', '127.0.0.1', '--port', '5175'], {
+    cwd: managementRoot, stdio: ['ignore', 'pipe', 'pipe']
+  });
+  let output = '';
+  const ready = new Promise((resolveReady, reject) => {
+    const timer = setTimeout(() => reject(new Error(`Vite did not start: ${output}`)), 15000);
+    const onData = chunk => {
+      output += chunk.toString();
+      if (/VITE v/.test(output)) { clearTimeout(timer); resolveReady('http://127.0.0.1:5175'); }
+    };
+    viteProcess.stdout.on('data', onData);
+    viteProcess.stderr.on('data', onData);
+    viteProcess.once('error', error => { clearTimeout(timer); reject(error); });
+    viteProcess.once('exit', code => { clearTimeout(timer); reject(new Error(`Vite exited (${code}): ${output}`)); });
+  });
+  managementServer = await ready;
+  ownedManagementServer = true;
+}
+const origin = managementServer;
+const publicServer = await startStaticServer(repoRoot);
+const publicOrigin = process.env.PUBLIC_TEST_URL || publicServer.baseUrl;
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox'] });
 try {
   for (const timezoneId of ['UTC', 'Asia/Tokyo', 'America/Los_Angeles']) {
@@ -37,8 +71,9 @@ try {
   await context.route('https://**', route => route.abort());
   const page = await context.newPage();
   await page.goto(`${publicOrigin}/formulario.html`);
-  await page.locator('input[name="selected_procedures"][value="enzimas"]').check();
-  const accept = page.locator('input[name="accepted_term_enzimas"]');
+  const selectedProcedure = page.locator('input[name="selected_procedures"][value="harmony"]');
+  await selectedProcedure.check();
+  const accept = page.locator('input[name="accepted_term_harmony"]');
   assert.equal(await accept.isChecked(), false);
   assert.equal(await accept.getAttribute('required'), '');
   assert.equal(await page.locator('#identity-document').getAttribute('type'), 'text');
@@ -52,4 +87,11 @@ try {
   assert.equal(await page.locator('input[name="final_acceptance"]').isChecked(), false);
   await context.close();
   console.log('CSP printing/PDF, dates in three timezones, separate identity fields, and explicit consent checks passed.');
-} finally { await browser.close(); }
+} finally {
+  await browser.close();
+  await publicServer.close();
+  if (ownedManagementServer && viteProcess && viteProcess.exitCode === null) {
+    viteProcess.kill('SIGTERM');
+    await Promise.race([once(viteProcess, 'exit'), new Promise(resolve => setTimeout(resolve, 3000))]);
+  }
+}

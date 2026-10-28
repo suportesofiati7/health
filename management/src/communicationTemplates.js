@@ -1,3 +1,5 @@
+import { invoke } from './lib.js';
+
 export const STANDARD_PLACEHOLDERS = [
   ['nome', 'Primeiro nome do cliente', 'Cliente'], ['nome_completo', 'Nome completo', 'Cliente'],
   ['telefone', 'Telefone', 'Cliente'], ['email', 'E-mail', 'Cliente'], ['cpf', 'CPF', 'Cliente'],
@@ -118,7 +120,6 @@ export function emailSubject(subject, templateName = 'Mensagem') {
 }
 
 export async function sendFormSubmitEmail({ recipient, subject, body, patient, sender }) {
-  const { invoke } = await import('./lib');
   const result = await invoke('communication-email', {
     recipient,
     subject,

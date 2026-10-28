@@ -363,13 +363,10 @@ async function optimizeCssImages(css) {
     );
   }
   output += `\n@layer performance{`
-    + `.sf-main>.sf-section[data-track-section]:not([data-pattern="hero"]){`
-    + `content-visibility:auto;contain-intrinsic-block-size:auto 52rem}`
     + `@media(max-width:47.999rem){${mobileRules.join('')}`
     + `.sf-page[data-page="home"] :is(#decision-flow,#treatment-pathways,#responsible-pauses,#meet-franciele)::before,`
     + `.sf-page[data-page="home"] :is(#decision-flow,#treatment-pathways,#responsible-pauses,#meet-franciele)::after{`
     + `background-image:none!important}}`
-    + `@media print{.sf-main>.sf-section{content-visibility:visible!important;contain:none!important}}`
     + `}`;
   return output;
 }
@@ -471,7 +468,7 @@ async function minifyPage(html) {
 }
 
 async function copyReferencedAssets() {
-  const files = await walk(DIST, (file) => ['.html', '.css', '.json', '.webmanifest'].includes(extname(file).toLowerCase()));
+  const files = await walk(DIST, (file) => ['.html', '.css', '.js', '.json', '.webmanifest'].includes(extname(file).toLowerCase()));
   const references = new Set();
   for (const file of files) {
     const content = await readFile(file, 'utf8');

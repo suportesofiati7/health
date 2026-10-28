@@ -30,6 +30,19 @@ export function headers(req: Request) {
     Deno.env.get("MANAGEMENT_ORIGIN"),
     Deno.env.get("PUBLIC_ORIGIN"),
   ].filter(Boolean);
+  const publicOrigin = Deno.env.get("PUBLIC_ORIGIN");
+  const path = new URL(req.url).pathname.split("/").filter(Boolean);
+  const endpointName = path[0] === "functions" && path[1] === "v1" ? path[2] : path[0];
+  const isPublicForm = endpointName === "formulario";
+  if (publicOrigin && isPublicForm) {
+    try {
+      const url = new URL(publicOrigin);
+      if (url.protocol === "https:" && !url.username && !url.password && !url.port) {
+        const hostname = url.hostname.startsWith("www.") ? url.hostname.slice(4) : `www.${url.hostname}`;
+        allowed.push(`https://${hostname}`);
+      }
+    } catch { /* Invalid origins stay disallowed. */ }
+  }
   return {
     "Content-Type": "application/json",
     "Cache-Control": "private, no-store, max-age=0",

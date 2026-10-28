@@ -1,6 +1,6 @@
 # Performance implementation summary
 
-The production build now composes shared HTML at build time, minifies HTML/CSS/JavaScript, generates responsive AVIF/WebP image variants, optimises CSS background images, preloads only the actual page hero, and preserves intrinsic image dimensions with below-fold lazy loading. Long sections use `content-visibility` with print and accessibility-safe fallbacks. Analytics remains consent-gated through GTM.
+The historical implementation described below improved the static-site build pipeline. Its measured route names and Lighthouse values came from an earlier bilingual build and are not current release measurements; use `npm run perf:all` for current Portuguese-route results.
 
 ## Measured local result
 
@@ -20,14 +20,11 @@ The original homepage baseline was 74 performance, 21.0 s LCP, 0.045 CLS and 6.6
 ```bash
 npm ci
 npm run build
-npm run perf:all                 # representative mobile + desktop Lighthouse
-npm run perf:budget
-npm run perf:images
-npm run perf:visual
+npm run perf:all                 # three-run mobile + desktop Lighthouse matrix
 npm run validate
 ```
 
-Use `PERF_RUNS=5 PERF_ROUTES=index.html,about.html npm run perf:all` for the required five-run median. Run `npm run perf:psi` only against the deployed HTTPS domain with `PAGESPEED_API_KEY` set locally.
+Use `PERF_ROUTES=/,sobre.html PERF_RUNS=3 npm run perf:mobile` to check selected routes. Production PageSpeed Insights checks require deployment and an API key configured locally.
 
 ## Remaining deployment work
 

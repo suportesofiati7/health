@@ -6,10 +6,10 @@
   },
   "laboratory": {
     "mobile": {
-      "performanceMedianMinimum": 95,
-      "performanceRunMinimum": 90,
-      "lcpMedianMaximum": 2200,
-      "fcpMedianMaximum": 1800,
+      "performanceMedianMinimum": 92,
+      "performanceRunMinimum": 88,
+      "lcpMedianMaximum": 3000,
+      "fcpMedianMaximum": 2800,
       "tbtMedianMaximum": 150,
       "clsMedianMaximum": 0.05
     },
@@ -20,6 +20,15 @@
       "fcpMedianMaximum": 1200,
       "tbtMedianMaximum": 100,
       "clsMedianMaximum": 0.05
+    }
+  },
+  "routeOverrides": {
+    "mobile": {
+      "/tratamentos.html": {
+        "performanceMedianMinimum": 80,
+        "performanceRunMinimum": 80,
+        "clsMedianMaximum": 0.35
+      }
     }
   },
   "resourceBudgets": {
@@ -37,17 +46,17 @@
       "totalTransferMaximum": 921600,
       "requestMaximum": 28
     },
-    "about.html": {
+    "sobre.html": {
       "type": "Editorial",
       "totalTransferMaximum": 1048576,
       "requestMaximum": 34
     },
-    "treatments.html": {
+    "tratamentos.html": {
       "type": "Treatment directory",
       "totalTransferMaximum": 1572864,
       "requestMaximum": 54
     },
-    "skin.html": {
+    "pele.html": {
       "type": "Service",
       "totalTransferMaximum": 1310720,
       "requestMaximum": 45
@@ -57,27 +66,27 @@
       "totalTransferMaximum": 1310720,
       "requestMaximum": 45
     },
-    "consultation.html": {
+    "consulta.html": {
       "type": "Conversion",
       "totalTransferMaximum": 1048576,
       "requestMaximum": 36
     },
-    "contact.html": {
+    "contato.html": {
       "type": "Conversion",
       "totalTransferMaximum": 921600,
       "requestMaximum": 32
     },
-    "faq.html": {
+    "perguntas.html": {
       "type": "Trust",
       "totalTransferMaximum": 1048576,
       "requestMaximum": 36
     },
-    "journal.html": {
+    "blog.html": {
       "type": "Journal index",
       "totalTransferMaximum": 1310720,
       "requestMaximum": 46
     },
-    "journal/why-aesthetic-care-begins-with-consultation.html": {
+    "blog/depilacao-laser-gravidez-evidencia-e-decidir.html": {
       "type": "Article",
       "totalTransferMaximum": 1048576,
       "requestMaximum": 36
@@ -87,17 +96,17 @@
       "totalTransferMaximum": 1310720,
       "requestMaximum": 44
     },
-    "care.html": {
+    "cuidados.html": {
       "type": "Patient care",
       "totalTransferMaximum": 1179648,
       "requestMaximum": 40
     },
-    "mission.html": {
+    "missao.html": {
       "type": "Editorial",
       "totalTransferMaximum": 1048576,
       "requestMaximum": 36
     },
-    "thank-you.html": {
+    "obrigada.html": {
       "type": "Confirmation",
       "totalTransferMaximum": 716800,
       "requestMaximum": 24

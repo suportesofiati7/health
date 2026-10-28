@@ -1,11 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
 export const ORG = "a783bd4c-f253-4a94-9365-75c6f1000001";
+const buildEnvironment = import.meta.env || {};
 export const config = {
   url:
-    import.meta.env.VITE_SUPABASE_URL ||
+    buildEnvironment.VITE_SUPABASE_URL ||
     "https://naypgbhwnlbyqqqfftgn.supabase.co",
   key:
-    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    buildEnvironment.VITE_SUPABASE_PUBLISHABLE_KEY ||
     "sb_publishable_jH3gQ7-Tx8_-B191w3Gr1A_GkGHG9Hf",
 };
 export const db = createClient(config.url, config.key, {
