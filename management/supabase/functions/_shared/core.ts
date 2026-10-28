@@ -77,7 +77,7 @@ export function endpoint(handler: (req: Request) => Promise<Response>) {
         : [String(error || "")];
       const raw = values.find((value) => /(?:patient_has_payment|retention_hold|not_authorized|patient_not_found|intake_not_found|storage_|function|pgrst|23503|23505)/i.test(value)) || values.find(Boolean) || "request_failed";
       const known = raw.match(/patient_has_payment|retention_hold|not_authorized|patient_not_found|intake_not_found|storage_[a-z_]+/i)?.[0];
-      const code = known || (/^PGRST\d+$/i.test(raw) || /^23\d{3}$/.test(raw) ? "database_constraint" : /^[a-z][a-z0-9_:-]{1,79}$/i.test(raw) ? raw : "request_failed");
+      const code = known || (/^PGRST\d+$/i.test(raw) || /^[0-9A-Z]{5}$/i.test(raw) ? "database_constraint" : /^[a-z][a-z0-9_:-]{1,79}$/i.test(raw) ? raw : "request_failed");
       console.error("EDGE_REQUEST_FAILED", code);
       return reply(req, { error: code }, 400);
     }

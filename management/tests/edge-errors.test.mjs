@@ -18,6 +18,8 @@ test('Edge HTTP errors preserve actionable Error.message codes without leaking d
       [Error('portal_unavailable'), 'portal_unavailable'],
       [Error('rate_limit'), 'rate_limit'],
       [{ code: '23505', message: 'sensitive database details' }, 'database_constraint'],
+      [{ code: 'P0001', message: 'unexpected_trigger_failure' }, 'database_constraint'],
+      [{ code: 'P0001', message: 'patient_has_payment' }, 'patient_has_payment'],
       [Error('SQL failed with private data'), 'request_failed']
     ]) {
       const response = await endpoint(async () => { throw error; })(new Request('https://api.invalid/', { method: 'POST', headers: { Origin: 'https://clinic.invalid' } }));

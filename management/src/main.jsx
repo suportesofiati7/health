@@ -3880,6 +3880,8 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
           ? t("Sua função não pode excluir este formulário. Use uma conta proprietária.", "Your role cannot delete this form. Use an owner account.")
           : reason.includes("storage")
             ? t("Os anexos privados não puderam ser removidos com segurança. Nada foi apagado.", "Private attachments could not be safely removed. Nothing was deleted.")
+          : reason.includes("database_constraint")
+            ? t("O banco de dados bloqueou a exclusão por uma regra ou vínculo. O formulário e os anexos foram preservados.", "The database blocked deletion because of a rule or relationship. The form and attachments were preserved.")
         : reason.includes("function") || reason.includes("pgrst202")
           ? t("A exclusão de formulários ainda não está ativa no servidor. Aplique a migração e publique novamente.", "Form deletion is not active on the server yet. Apply the migration and publish again.")
           : t("Não foi possível excluir o formulário. Verifique sua permissão e tente novamente.", "Could not delete the form. Check your permission and try again."));
