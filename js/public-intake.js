@@ -7,6 +7,9 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   document.querySelector(".skip-past-hero")?.remove();
   const form = document.querySelector("form[data-public-intake]");
   if (!form) return;
+  form.querySelectorAll("[required]").forEach((field) => {
+    if (field.type !== "checkbox" && !["full_name", "cpf"].includes(field.name)) field.required = false;
+  });
   const english = (document.documentElement.lang || "").startsWith("en");
   const thankYouPath = () => (document.documentElement.lang || "pt-BR").toLowerCase().startsWith("en") ? "en/thank-you.html" : "obrigada.html";
   const firstCard = form.querySelector(":scope > .sf-consent-card");
@@ -162,7 +165,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   const syncGuardian = () => {
     if (!guardianField) return;
     const relevant = adultField?.value && adultField.value !== "adult";
-    guardianField.required = Boolean(relevant);
+    guardianField.required = false;
     guardianField.closest(".sf-consent-field")?.toggleAttribute("hidden", !relevant);
     if (!relevant) guardianField.value = "Não se aplica";
   };
@@ -248,13 +251,6 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       cpfField?.focus();
       return;
     }
-    if (!selectedProcedures().length) {
-      const firstProcedure = allProcedureInputs[0];
-      firstProcedure?.setCustomValidity("Selecione pelo menos um procedimento.");
-      firstProcedure?.reportValidity();
-      firstProcedure?.setCustomValidity("");
-      return;
-    }
     submitting = true;
     setSubmitDisabled(true);
     state("loading");
@@ -268,10 +264,11 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
     }
     values.selected_procedure = selectedProcedure();
     values.selected_procedures = selectedProcedures();
+    for (const key of ["technical_image_authorisation", "marketing_image_authorisation", "promotional_communication"]) {
+      if (!values[key]) values[key] = "no";
+    }
     values.form_version = form.dataset.formVersion;
     values.language = document.documentElement.lang || "pt-BR";
-    const body = new FormData();
-    body.set("payload", JSON.stringify(values));
     const files = [...form.querySelectorAll('input[type="file"]')].flatMap((input) => [...input.files].map((file) => ({ input, file })));
     if (files.length > 10 || files.some(({ file }) => file.size < 1 || file.size > 10 * 1024 * 1024) || files.reduce((sum, { file }) => sum + file.size, 0) > 50 * 1024 * 1024) {
       state("error", "Cada arquivo pode ter até 10 MB e o envio pode conter até 10 arquivos (50 MB no total).");
@@ -279,37 +276,46 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       setSubmitDisabled(false);
       return;
     }
-    files.forEach(({ input, file }) => {
-      body.append("attachments", file, file.name);
-      body.append("attachment_field", input.name);
-    });
-    const deliver = trackDelivery(formSignature(form));
+    const signature = formSignature(form);
+    const deliver = trackDelivery(signature);
+    let pendingSession = null;
+    const postJson = async (body) => {
+      const response = await fetchWithTimeout(endpoint, {
+        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(body), credentials: "omit", cache: "no-store",
+      }, 45000);
+      const data = await response.json().catch(() => null);
+      if (!response.ok) throw Object.assign(new Error("app_delivery_failed"), { code: data?.error || (response.status === 413 ? "request_too_large" : "request_failed") });
+      return data;
+    };
     try {
       let appResult = null;
       let appError = null;
       try {
         appResult = await deliver("app", async () => {
-          body.set("payload", JSON.stringify(values));
-          const response = await fetchWithTimeout(endpoint, {
-            method: "POST",
-            body,
-            credentials: "omit",
-            cache: "no-store"
-          }, files.length ? 120000 : 45000);
-
-          const responseText = await response.text();
-          let responseData = null;
-
-          try {
-            responseData = responseText ? JSON.parse(responseText) : null;
-          } catch {
-            responseData = { raw: responseText };
+          pendingSession = await deliver("app-prepare", async () => {
+            const result = await postJson({
+              action: "prepare", payload: values,
+              attachments: files.map(({ input, file }) => ({ field_name: input.name, name: file.name, size: file.size, type: file.type })),
+            });
+            if (result?.prepared !== true || !result.session || !Array.isArray(result.files)) throw Object.assign(new Error("app_delivery_failed"), { code: "request_failed" });
+            return result;
+          });
+          for (const [index, item] of pendingSession.files.entries()) {
+            await deliver(`app-upload-${index}`, async () => {
+              const file = files[index]?.file;
+              if (!file || !item.upload_url) throw Object.assign(new Error("app_delivery_failed"), { code: "upload_session" });
+              const response = await fetchWithTimeout(item.upload_url, {
+                method: "POST", headers: { "Content-Type": file.type || "application/octet-stream" },
+                body: file, credentials: "omit", cache: "no-store",
+              }, 120000);
+              if (!response.ok) throw Object.assign(new Error("app_delivery_failed"), { code: "upload" });
+              return true;
+            });
           }
-
-          if (!response.ok || responseData?.received !== true) {
-            throw Object.assign(new Error("app_delivery_failed"), { code: responseData?.error || "request_failed" });
-          }
-          return responseData;
+          const completed = await postJson({ action: "complete", session: pendingSession.session });
+          if (completed?.received !== true) throw Object.assign(new Error("app_delivery_failed"), { code: completed?.error || "request_failed" });
+          return completed;
         });
       } catch (error) {
         appError = error;
@@ -350,6 +356,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
         setSubmitDisabled(false);
         return;
       }
+      pendingSession = null;
       sessionStorage.removeItem(draftKey);
       form.reset();
       state("success");

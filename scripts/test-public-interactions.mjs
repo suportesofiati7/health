@@ -25,9 +25,32 @@ try {
     });
   });
   let intakeRequest = null;
+  await context.route('https://naypgbhwnlbyqqqfftgn.supabase.co/storage/v1/object/upload/sign/**', async (route) => {
+    if (route.request().method() === 'OPTIONS') {
+      await route.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'content-type' } });
+      return;
+    }
+    assert.equal(route.request().method(), 'POST', 'each attachment uploads directly to private storage');
+    assert.ok(route.request().postDataBuffer()?.length > 0, 'attachment bytes are sent to storage');
+    await route.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*' }, contentType: 'application/json', body: JSON.stringify({ Key: 'intake-private/qa/file' }) });
+  });
   await context.route('**/functions/v1/formulario', async (route) => {
-    intakeRequest = route.request();
-    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ received: true, email_status: 'sent' }) });
+    const request = route.request();
+    if (request.method() === 'OPTIONS') {
+      await route.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'content-type' } });
+      return;
+    }
+    const body = request.postDataJSON();
+    if (body.action === 'prepare') {
+      intakeRequest ||= request;
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
+        prepared: true, intake_id: 'qa-intake', session: 'qa-session',
+        files: body.attachments.map((file, index) => ({ ...file, upload_url: `https://naypgbhwnlbyqqqfftgn.supabase.co/storage/v1/object/upload/sign/intake-private/qa/${index}?token=qa` })),
+      }), headers: { 'Access-Control-Allow-Origin': '*' } });
+      return;
+    }
+    assert.equal(body.action, 'complete', 'the form finalizes the saved intake after uploads');
+    await route.fulfill({ status: 202, headers: { 'Access-Control-Allow-Origin': '*' }, contentType: 'application/json', body: JSON.stringify({ received: true, email_status: 'sent' }) });
   });
   const page = await context.newPage();
   page.on('pageerror', (error) => { throw error; });
@@ -56,9 +79,6 @@ try {
   await page.goto(`${publicOrigin}/${process.env.PUBLIC_TEST_URL ? 'formulario' : 'formulario.html'}`, { waitUntil: 'domcontentloaded' });
   const intakeForm = page.locator('form[data-public-intake]');
   await intakeForm.waitFor({ state: 'attached' });
-  for (const [name, fileName] of [['identity_upload', 'fictional-id.txt'], ['booking_payment_receipt', 'fictional-receipt.txt']]) {
-    await intakeForm.locator(`input[name="${name}"]`).setInputFiles({ name: fileName, mimeType: 'text/plain', buffer: Buffer.from('Fictional QA attachment only.') });
-  }
   await intakeForm.evaluate((form) => {
     const set = (field, value) => { field.value = value; field.dispatchEvent(new Event('input', { bubbles: true })); field.dispatchEvent(new Event('change', { bubbles: true })); };
     for (const field of form.querySelectorAll('[required]')) {
@@ -80,26 +100,21 @@ try {
       else if (field.type === 'textarea') set(field, 'Não');
       else set(field, 'Fictional QA');
     }
-    const selected = form.querySelector('[name=selected_procedures][value="harmony"]');
-    if (selected) { selected.checked = true; selected.dispatchEvent(new Event('change', { bubbles: true })); }
     for (const field of form.querySelectorAll('[required][type=checkbox]')) field.checked = true;
-    const dateFields = form.querySelectorAll('input[name=birth_date],input[name=appointment_date]');
-    for (const field of dateFields) set(field, '01/01/2000');
     const cpf = form.querySelector('[name=cpf]'); if (cpf) set(cpf, '52998224725');
-    const email = form.querySelector('[name=email]'); if (email) set(email, 'qa@example.invalid');
     const fullName = form.querySelector('[name=full_name]'); if (fullName) set(fullName, 'Fictional QA Patient');
-    const phone = form.querySelector('[name=phone]'); if (phone) set(phone, '43991043536');
-    for (const field of form.querySelectorAll('textarea[required]')) if (!field.value) set(field, 'Não');
     const valid = form.checkValidity();
     const invalid = [...form.querySelectorAll(':invalid')].slice(0, 12).map((item) => item.name || item.id || item.tagName);
     return { valid, invalid };
-  }).then((result) => { assert.deepEqual(result, { valid: true, invalid: [] }, 'fictional complete intake fixture satisfies client validation'); });
+  }).then((result) => { assert.deepEqual(result, { valid: true, invalid: [] }, 'only name, CPF, and consent checkboxes are required'); });
   await intakeForm.locator('button[type=submit]').click();
   await page.waitForURL('**/obrigada*');
   assert.ok(intakeRequest, 'completed intake submits to the configured Supabase function');
-  const multipart = intakeRequest.postDataBuffer()?.toString('latin1') || '';
-  assert.match(multipart, /Fictional QA Patient/);
-  assert.match(multipart, /52998224725/);
+  const submitted = intakeRequest.postDataJSON();
+  assert.equal(submitted.payload.full_name, 'Fictional QA Patient');
+  assert.equal(submitted.payload.cpf, '52998224725');
+  assert.equal(submitted.attachments.length, 0, 'attachments are optional');
+  assert.ok(intakeRequest.postDataBuffer().length < 100_000, 'the intake request does not carry attachment bytes');
   await context.close();
   console.log(process.env.PUBLIC_TEST_URL
     ? 'Published full-intake page passed with a fictional request intercepted before reaching Supabase.'
