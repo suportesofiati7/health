@@ -46,7 +46,7 @@ try {
         if (url) { image.src = url; await image.decode(); }
         return {
           top: rect.top, barBottom: bar.bottom, headerTop: header.top, headerBottom: header.bottom,
-          copyTop: copy.top, photoHeight: parseFloat(photo.height), photoWidth: parseFloat(photo.width), imageWidth: image.naturalWidth, heroWidth: rect.width,
+          copyTop: copy.top, copyWidth: copy.width, photoHeight: parseFloat(photo.height), photoWidth: parseFloat(photo.width), imageWidth: image.naturalWidth, heroWidth: rect.width,
           overflow: document.documentElement.scrollWidth > innerWidth,
         };
       });
@@ -56,7 +56,7 @@ try {
       assert.ok(state.imageWidth > 0, `${context}: portrait loads`);
       assert.ok(!state.overflow, `${context}: no horizontal overflow`);
       if (width < 1024) {
-        assert.ok(state.copyTop >= state.top + state.photoHeight, `${context}: text stays below portrait`);
+        assert.ok(state.copyWidth <= state.heroWidth * .6, `${context}: text remains on the left of the portrait`);
         assert.ok(Math.abs(state.photoWidth - state.heroWidth) < 1, `${context}: portrait fills the hero width`);
       }
       if (screenshots && [390, 1440].includes(width)) await page.screenshot({ path: resolve(screenshots, `${route}-${width}.png`) });

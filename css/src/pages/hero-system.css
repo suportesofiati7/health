@@ -268,12 +268,11 @@
 .sf-hero-underlay[data-page="faq"] { --hero-photo-x: 68%; }
 @media (max-width: 63.999rem) {
   .sf-page.sf-hero-underlay .sf-main > [data-pattern="hero"] {
-    /* Keep portrait and copy in separate vertical areas on small screens. */
-    --hero-photo-height: max(32rem, calc(var(--hero-menu-space) * 6));
+    /* Keep the copy on the left and the portrait visible on the right. */
     position: relative;
     isolation: isolate;
-    min-block-size: 0;
-    padding-block: calc(var(--hero-photo-height) + 1.75rem) 2.5rem;
+    min-block-size: 36rem;
+    padding-block: calc(var(--hero-menu-space) + 1.5rem) 2rem;
     background: var(--ivory-50) !important;
   }
   .sf-hero-underlay .sf-main > [data-pattern="hero"]::before {
@@ -284,10 +283,11 @@
     inset: 0 0 auto;
     inline-size: 100%;
     max-inline-size: none;
-    block-size: var(--hero-photo-height);
+    block-size: 100%;
     border: 0;
     transform: none;
-    background: var(--hero-scene-image) var(--hero-photo-x, 68%) top / cover no-repeat;
+    background: linear-gradient(90deg, rgb(255 253 249 / .96), rgb(255 253 249 / .84) 40%, rgb(255 253 249 / .12) 65%, transparent 80%),
+      var(--hero-scene-image) var(--hero-photo-x, 68%) top / cover no-repeat;
     border-radius: 0;
     opacity: 1;
     pointer-events: none;
@@ -298,7 +298,8 @@
   }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy {
     grid-column: 1;
-    max-inline-size: 42rem;
+    inline-size: 56%;
+    max-inline-size: 24rem;
     padding-block-end: 0;
   }
 }
@@ -327,3 +328,35 @@
   hyphens: none;
 }
 .sf-hero-underlay[data-page="cookies"] { --hero-photo-x: 74%; }
+
+@media (max-width: 63.999rem) {
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy h1 {
+    font-size: clamp(1.65rem, 4.5vw, 3rem);
+    line-height: 1.04;
+    letter-spacing: -.035em;
+    text-wrap: balance;
+  }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-logo { inline-size: 2.5rem; block-size: auto; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy :is(.sf-lede, p:not(.sf-eyebrow)) {
+    font-size: clamp(.8125rem, 1.8vw, 1rem);
+    line-height: 1.5;
+  }
+  .sf-hero-underlay [data-pattern="hero"] .sf-eyebrow { font-size: .625rem; letter-spacing: .04em; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy > * + * { margin-block-start: .75rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-block-start: 1rem !important;
+  }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button {
+    inline-size: auto;
+    max-inline-size: 100%;
+    min-block-size: 2.5rem;
+    padding: .65rem .7rem;
+    font-size: .625rem;
+    letter-spacing: .05em;
+    white-space: normal;
+    text-align: center;
+  }
+}
