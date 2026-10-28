@@ -27,6 +27,7 @@ const BUILD_ASSETS = resolve(DIST, 'assets/build');
 const GENERATED_ASSETS = resolve(DIST, 'assets/generated');
 const RASTER_EXTENSIONS = new Set(['.jpeg', '.jpg', '.png', '.webp']);
 const PARTIAL_FILENAMES = Object.freeze({
+  'utility-bar': 'utility-bar.html',
   topbar: 'top-bar.html',
   header: 'header.html',
   'mobile-menu': 'mobile-menu.html',

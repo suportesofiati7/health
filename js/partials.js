@@ -1,6 +1,7 @@
 import { assetPrefix } from './core/page.js';
 
 const PARTIAL_FILENAMES = Object.freeze({
+  'utility-bar': 'utility-bar.html',
   topbar: 'top-bar.html',
   header: 'header.html',
   'mobile-menu': 'mobile-menu.html',

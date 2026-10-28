@@ -16,6 +16,7 @@ PAIR_MANIFEST = ROOT / "data" / "page-pairs.json"
 PARTIAL_ROOT = ROOT / "partials"
 INTERFACE_COPY = json.loads((ROOT / "data" / "interface-copy.json").read_text(encoding="utf-8"))
 PARTIALS = (
+    "utility-bar",
     "topbar",
     "header",
     "mobile-menu",
