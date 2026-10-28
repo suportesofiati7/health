@@ -429,8 +429,8 @@
 }
 
 /* Responsive shared chrome: content stays visible and participates in layout. */
-#sf-accessbar-inline { display:flex; align-items:center; justify-content:flex-end; flex-wrap:wrap; gap:1rem; min-block-size:2rem; padding:0 var(--page-gutter); font-size:.6875rem; }
-#sf-accessbar-inline a { display:inline-flex; align-items:center; min-block-size:2rem; padding:.25rem 0; font-size:inherit; transform:none; }
+#sf-accessbar-inline { display:flex; align-items:center; justify-content:flex-end; flex-wrap:wrap; gap:1rem; min-block-size:2rem; padding:0 var(--page-gutter); font-size:.6875rem; background:#fffaf1; color:var(--forest-800); }
+#sf-accessbar-inline a { display:inline-flex; align-items:center; min-block-size:2rem; padding:.25rem 0; font-size:inherit; color:inherit; transform:none; }
 #sf-accessbar-inline a + a { border:0; padding-inline-start:0; }
 .sf-page[data-page] #sf-header-inline { position:relative; inset-block-start:auto; margin-block:.65rem 0; }
 #sf-topbar-inline .sft-inner { flex-wrap:wrap; gap:.35rem 1rem; padding-block:.4rem; }
@@ -460,6 +460,6 @@
  #sf-header-inline .sfi-brand-name { white-space:normal; font-size:clamp(1.15rem,5vw,1.5rem); line-height:1.15; }
  #sf-header-inline .sfi-brand-role { display:block; white-space:normal; font-size:.5rem; letter-spacing:.08em; line-height:1.5; }
  #sf-header-inline .sfi-menu-button { flex-shrink:0; }
- #sf-accessbar-inline { justify-content:center; padding-inline:.75rem; }
+ #sf-accessbar-inline { justify-content:flex-end; padding-inline:.75rem; }
  #sf-footer-inline .sffo-menu-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr)); }
 }
