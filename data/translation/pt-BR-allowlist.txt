@@ -42,3 +42,15 @@ Monique
 Michele
 Kayla
 Franciele Sofiati Biomédica
+
+# Proper terms shared by the bilingual clinical articles.
+Frugal Chic
+PEIM
+Botox
+MMP
+NCBI Bookshelf
+acne
+Vascular
+Alopecia areata
+melasma
+MELASMA

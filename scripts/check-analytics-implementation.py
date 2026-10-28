@@ -68,16 +68,11 @@ FORM_MAP = {
 
 
 def public_pages() -> list[Path]:
-    page_data = json.loads((ROOT / "data" / "page-pairs.json").read_text(encoding="utf-8"))
-    route_names = {
-        item[language]
-        for item in page_data.get("pages", [])
-        if isinstance(item, dict)
-        for language in ("en", "pt-BR")
-        if isinstance(item.get(language), str)
-    }
-    pages = [ROOT / route for route in route_names]
-    return sorted({path for path in pages if path.exists()}, key=lambda path: path.relative_to(ROOT).as_posix())
+    pages = [
+        path for path in [*ROOT.glob("*.html"), *(ROOT / "blog").glob("*.html"), *(ROOT / "servicos").glob("*.html")]
+        if path.name != "typography-plan.html"
+    ]
+    return sorted(set(pages), key=lambda path: path.relative_to(ROOT).as_posix())
 
 
 def rel(path: Path) -> str:
@@ -746,10 +741,7 @@ def main() -> int:
         "Sitemap: https://francielesofiati.com/sitemap.xml"
         in (ROOT / "robots.txt").read_text(encoding="utf-8")
     )
-    thank_noindex = all(
-        "noindex, follow" in (ROOT / route).read_text(encoding="utf-8")
-        for route in ("en/thank-you.html", "obrigada.html")
-    )
+    thank_noindex = "noindex, follow" in (ROOT / "obrigada.html").read_text(encoding="utf-8")
     if not sitemap_ok:
         errors.append("Thank-you route appears in sitemap.xml")
     if not robots_ok:

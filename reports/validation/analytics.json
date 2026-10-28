@@ -1,7 +1,7 @@
 {
   "status": "PASS",
-  "generatedAt": "2026-10-14T14:02:35.746831+00:00",
-  "pagesChecked": 178,
+  "generatedAt": "2026-10-28T11:54:07.723502+00:00",
+  "pagesChecked": 287,
   "scriptsPresent": {
     "required": [
       "analytics-config.js",
@@ -52,6 +52,56 @@
       },
       {
         "page": "blog/afinamento-capilar-e-fotografias.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/apos-peeling-retomar-ativos-quando-perguntar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ata-cross-cicatrizes-acne-diferenca-peeling.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ata-ou-jessner-como-comparar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/bandas-pescoco-toxina-ultrassom-radiofrequencia-lifting.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/barreira-cutanea-e-procedimentos-quando-esperar.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -121,7 +171,57 @@
         "correctOrder": true
       },
       {
+        "page": "blog/cravos-ou-milium-extracao-avaliacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/crostas-plasma-exeresis-cuidados.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/depilacao-a-laser-preparo-e-expectativas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depilacao-laser-aumento-paradoxal-pelos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depilacao-laser-cera-lamina-comparacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depilacao-laser-gravidez-evidencia-e-decidir.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -141,7 +241,107 @@
         "correctOrder": true
       },
       {
+        "page": "blog/depilacao-laser-medicamentos-o-que-informar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depilacao-laser-ou-eletrolise-pelos-claros.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depilacao-laser-pelos-claros-resposta.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depilacao-laser-pelos-encravados-irritacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depilacao-laser-pintas-nevos-e-avaliacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/depilacao-laser-rosto-e-hormonios.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depilacao-laser-tatuagem-e-pigmento.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/depois-tratar-microvasos-manchas-ou-vasinhos-novos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/dermaroller-em-casa-e-microagulhamento-profissional.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/despigmentacao-cosmetico-regularizacao-alegacoes-anvisa.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/duplex-ultrassom-varizes-avaliacao.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -162,6 +362,26 @@
       },
       {
         "page": "blog/expectativa-e-tempo-biologico.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/falhas-arredondadas-couro-cabeludo-avaliar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/fotografias-manchas-acompanhamento-consentimento.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -221,6 +441,86 @@
         "correctOrder": true
       },
       {
+        "page": "blog/harmony-ipl-laser-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/harmony-pele-bronzeada-o-que-relatar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/harmony-tons-de-pele-avaliacao-luz.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/hidroquinona-manchas-escurecem-reavaliar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/historico-queloide-cicatriz-elevada-procedimento.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ipl-caseira-ou-laser-profissional-depilacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/isotretinoina-limpeza-profunda-extracao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-co2-cicatrizes-acne-tipo-cicatriz.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/laser-co2-e-eventos-importantes.html",
         "scripts": [
           "../js/analytics-config.js",
@@ -241,7 +541,87 @@
         "correctOrder": true
       },
       {
+        "page": "blog/laser-co2-fracionado-areas-do-corpo-nao-generalizar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-co2-fracionado-e-ablativo-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-co2-historico-herpes-o-que-informar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-co2-manchas-pos-inflamatorias-evidencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-co2-ou-microagulhamento-cicatrizes-acne.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/laser-co2-recuperacao-e-cuidados.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-co2-sinais-contato-equipe.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-co2-tons-de-pele-historico-pigmentacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-depilacao-pseudofoliculite-barbae-evidencia.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -271,7 +651,47 @@
         "correctOrder": true
       },
       {
+        "page": "blog/laser-e-pelos-tons-de-pele-e-pelos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/laser-hair-removal-process-and-maintenance.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/laser-luz-ou-peim-microvasos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/lightsheer-duet-duas-ponteiras-planejamento.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/limpeza-de-pele-antes-de-evento-importante.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -291,6 +711,66 @@
         "correctOrder": true
       },
       {
+        "page": "blog/limpeza-profissional-e-rotina-em-casa-papeis.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/limpeza-profissional-frequencia-como-decidir.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/limpeza-profissional-nao-substitui-tratamento-acne.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/limpeza-profunda-filamentos-sebaceos-ou-cravos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/limpeza-profunda-pele-ardendo-o-que-informar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/limpeza-profunda-quando-extracao-nao-e-apropriada.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/luz-intensa-pulsada-e-avaliacao.html",
         "scripts": [
           "../js/analytics-config.js",
@@ -301,7 +781,37 @@
         "correctOrder": true
       },
       {
+        "page": "blog/luz-para-pigmento-ou-vasos-avaliacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mancha-pos-acne-ou-cicatriz-como-diferenciar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/mancha-pos-inflamatoria-o-que-muda.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mancha-que-mudou-avaliacao-antes-despigmentar.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -331,6 +841,16 @@
         "correctOrder": true
       },
       {
+        "page": "blog/medicamento-novo-entre-sessoes-laser-ipl-o-que-fazer.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/melasma-calor-luz-e-rotina.html",
         "scripts": [
           "../js/analytics-config.js",
@@ -351,7 +871,127 @@
         "correctOrder": true
       },
       {
+        "page": "blog/melasma-na-gravidez-quando-adiar-tratamento.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/melasma-ou-hiperpigmentacao-pos-inflamatoria.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/melasma-procedimentos-topicos-como-comparar-papeis.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/melasma-recorrente-plano-manutencao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-acompanhamento-medidas-evidencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-e-mmp-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/mesoterapia-capilar-e-plano.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-evidencia-ingredientes.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-minoxidil-evidencia-via.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-perguntas-riscos-alternativas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-produto-injetavel-anvisa.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microagulhamento-cicatrizes-rolling-subcisao-estudo.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microagulhamento-diferentes-tons-de-pele-evidencia.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -381,7 +1021,97 @@
         "correctOrder": true
       },
       {
+        "page": "blog/microagulhamento-e-mmp-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microagulhamento-infeccao-herpes-higiene-perguntas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microagulhamento-medicamentos-historico-saude.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/microagulhamento-o-que-avaliar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microagulhamento-pos-procedimento-o-que-esperar-relatar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microagulhamento-produtos-via-regularizacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microdermoabrasao-acne-ativa-o-que-avaliar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microdermoabrasao-cicatrizes-acne-limites.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microdermoabrasao-e-poros-o-que-esperar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microdermoabrasao-historico-manchas-escuras.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -401,7 +1131,77 @@
         "correctOrder": true
       },
       {
+        "page": "blog/microdermoabrasao-ou-dermabrasao-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microdermoabrasao-pos-procedimento-quando-relatar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microdermoabrasao-preparo-isotretinoina-cicatrizacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microvasos-inchaco-repentino-um-lado-alerta.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/microvasos-queixas-e-avaliacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/microvasos-visiveis-sintomas-avaliacao-vascular.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mmp-absorcao-sistemica-medicamento-o-que-saber.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mmp-confirmar-produto-via-indicacao.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -421,7 +1221,77 @@
         "correctOrder": true
       },
       {
+        "page": "blog/mmp-couro-cabeludo-reacoes-quando-avaliar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mmp-materiais-esterilidade-rastreabilidade.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mmp-queda-capilar-o-que-estudos-avaliaram.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/mmp-riscos-alternativas-consentimento.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/naturalidade-e-planejamento-facial.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ata-estudo-melasma-mulheres-latino-americanas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ata-pigmentacao-risco-historico-perguntas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ata-profundidade-o-que-significa.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -441,7 +1311,27 @@
         "correctOrder": true
       },
       {
+        "page": "blog/peeling-de-cristal-ou-diamante-comparacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/peeling-de-diamante-o-que-avaliar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-de-diamante-ou-limpeza-profunda.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -461,7 +1351,127 @@
         "correctOrder": true
       },
       {
+        "page": "blog/peeling-diamante-ponteira-intensidade.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-jessner-acne-evidencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-jessner-camadas-nao-sao-meta.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-jessner-melasma-estudos-limites.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-jessner-ou-retinoico-comparacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-quimico-ou-laser-co2-comparacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-quimico-ou-microdermoabrasao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/peeling-quimico-recuperacao-seguranca.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-quimico-tons-de-pele-pigmentacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-retinoico-acne-melasma-estudos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-retinoico-e-retinol-em-casa.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-retinoico-ensaio-melasma-brasileiro.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-retinoico-exposicao-solar-planejamento.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -481,6 +1491,36 @@
         "correctOrder": true
       },
       {
+        "page": "blog/peeling-ultrassonico-acne-manchas-cicatrizes.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-e-escova-sonica.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-e-extracao-de-cravos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/peeling-ultrassonico-em-uma-rotina.html",
         "scripts": [
           "../js/analytics-config.js",
@@ -491,7 +1531,177 @@
         "correctOrder": true
       },
       {
+        "page": "blog/peeling-ultrassonico-espatula-absorve-seruns.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-espatula-o-que-perguntar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-higiene-espatula.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-na-gravidez-o-que-se-sabe.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-ou-limpeza-profunda-comparar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-ou-microdermoabrasao-comparar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-ou-quimico-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-pele-sensibilizada-o-que-relatar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peeling-ultrassonico-retinoides-o-que-perguntar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peim-anticoagulantes-o-que-informar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peim-compressao-pos-procedimento-evidencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peim-cuidados-e-acompanhamento-o-que-combinar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peim-e-escleroterapia-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peim-gestacao-microvasos-o-que-perguntar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peim-microvasos-podem-voltar-recurrencia-evidencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peim-microvasos-sem-sintomas-duplex-rotina.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/peim-o-que-informar-antes.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/peim-vasinhos-vermelhos-azulados-telangiectasias-reticulares.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -522,6 +1732,116 @@
       },
       {
         "page": "blog/persistent-facial-redness-and-vessels.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-e-manchas-tons-de-pele-evidencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-estetica-aparelho-ou-prp.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-estetico-como-conferir-aparelho-regularizacao-finalidade.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-estetico-ou-laser-co2.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-exeresis-manchas-pigmentacao-estudos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-exeresis-ou-blefaroplastia-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-exeresis-ou-crioterapia-queratose-seborreica.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-exeresis-queloide-estudo-piloto-limites.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-frio-ou-plasma-exerese.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plasma-lesao-pele-avaliacao-antes-tratar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/plataforma-harmony-modelo-aplicador.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -571,7 +1891,77 @@
         "correctOrder": true
       },
       {
+        "page": "blog/protecao-ocular-laser-ipl-perguntas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/queda-capilar-investigacao-medica-quando-pedir-exames.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/queda-capilar-quando-investigar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/queda-pos-parto-efluvio-telogeno-mesoterapia-avaliacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-como-avaliar-mudancas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-convencional-ou-microagulhada.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-de-uso-domestico-ou-profissional.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-desconforto-perguntas-sessao.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -591,7 +1981,107 @@
         "correctOrder": true
       },
       {
+        "page": "blog/radiofrequencia-e-dispositivos-implantados.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-evidencia-firmeza-como-interpretar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-gestacao-amamentacao-o-que-saber.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-historico-pigmentacao-o-que-estudos-dizem.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-implantes-metalicos-o-que-confirmar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-monopolar-bipolar-o-que-significa.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-preenchimento-hialuronico-o-que-perguntar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/radiofrequencia-volume-facial-perda-gordura-o-que-saber.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/rebuilding-an-overwhelmed-skin-barrier.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/rosacea-luz-vasos-vermelhidao-evidencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/rosacea-microdermoabrasao-pele-reativa-avaliacao.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -621,7 +2111,27 @@
         "correctOrder": true
       },
       {
+        "page": "blog/tatuagem-micropigmentacao-laser-ipl-informar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/tecnologia-de-plasma-antes-de-decidir.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/tecnologia-plasma-quanto-dura-recuperacao.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -641,7 +2151,77 @@
         "correctOrder": true
       },
       {
+        "page": "blog/toxina-botulinica-assimetria-o-que-relatar-no-retorno.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/toxina-botulinica-e-assimetrias.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-botulinica-e-preenchimento-diferencas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-botulinica-enxaqueca-estetica-indicacoes-diferentes.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-botulinica-gestacao-amamentacao-evidencia-produto.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-botulinica-historico-medicamentos-avaliacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-botulinica-inicio-duracao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-botulinica-movimento-testa-glabela-avaliacao.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -661,6 +2241,16 @@
         "correctOrder": true
       },
       {
+        "page": "blog/toxina-botulinica-palpebra-caida-como-avaliar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/toxina-botulinica-primeira-consulta.html",
         "scripts": [
           "../js/analytics-config.js",
@@ -671,7 +2261,197 @@
         "correctOrder": true
       },
       {
+        "page": "blog/toxina-botulinica-repetir-o-que-informar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-botulinica-sinais-botulismo-emergencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-platisma-degluticao-fala-perguntas.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-platisma-estudo-musculo-ou-contorno.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-platisma-movimentos-avaliacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/toxina-terco-inferior-sorriso-funcao-boca.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-apos-preenchimento-acido-hialuronico.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-desconforto-recuperacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-dormencia-fraqueza-facial.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "blog/ultraformer-mpt-e-objetivos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-estudo-3d-medidas-milimetros.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-flacidez-volume-contorno.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-gordura-submentoniana-estudo.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-implantes-dentarios-o-que-informar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-o-que-significa-hifu.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-ou-lifting-cirurgico.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-perto-dos-olhos-evidencia-protecao-ocular.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-quando-avaliar-resultado.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-volume-facial-evidencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "blog/ultraformer-radiofrequencia-comparacao.html",
         "scripts": [
           "../js/analytics-config.js",
           "../js/consent-manager.js",
@@ -781,896 +2561,6 @@
         "correctOrder": true
       },
       {
-        "page": "en/404.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/about.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-aesthetic-care.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-facial-planning.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-laser-and-recovery.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-laser-and-technology.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-pigmentation.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-skin-renewal.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-technology-and-care.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-texture-and-scars.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-first-botulinum-toxin-consultation-movement-priorities-and-limits.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/a-minimal-routine-for-overwhelmed-skin-why-simplifying-can-be-progress.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/acids-in-a-skincare-routine-order-tolerance-and-care.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/acne-scars.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/active-acne-before-texture-why-the-order-of-care-matters.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/after-a-procedure-signs-that-call-for-contact-not-online-remedies.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/after-co2-laser-sun-protection-is-recovery-not-an-afterthought.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/at-home-peels-why-concentration-without-context-can-be-costly.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/before-and-after-photographs-curiosity-without-turning-an-image-into-a-promise.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/biological-time-and-expectations-aesthetic-care-is-not-express-delivery.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/blackheads-and-extraction-when-persistence-at-home-can-harm-the-skin.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/botox-in-londrina-complete-guide.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/botulinum-toxin-and-asymmetry-observation-is-not-a-promise-of-perfection.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/co2-laser-and-important-events-planning-without-someone-elses-calendar.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/collagen-remodeling.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/consultation-first.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/daily-cleansing-removing-what-is-needed-preserving-what-matters.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/diamond-tip-exfoliation-what-to-assess-before-seeking-instant-effects.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/facial-laser-hair-removal-why-hormonal-context-belongs-in-the-conversation.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/facial-redness.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/fractional-co2-laser.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/frugal-chic-intentional-aesthetic-care.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/hair-shedding-warning-signs-before-choosing-a-protocol.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/hair-thinning-and-photographs-documenting-change-without-rushing-to-conclusions.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/hair-thinning.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/how-to-prepare-for-an-aesthetic-consultation-without-deciding-everything-first.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/intense-pulsed-light-why-skin-goals-and-season-all-matter.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/jessner-peels-indication-and-caution-before-chasing-peeling.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/laser-and-acne-scars-why-a-technology-name-does-not-decide-suitability.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/laser-and-tanned-skin-why-waiting-can-be-the-safer-choice.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/laser-hair-removal-intervals-what-the-hair-cycle-explains.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/laser-hair-removal.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/make-up-and-sensitive-skin-what-to-notice-without-blaming-products.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/melasma-heat-and-light-looking-beyond-direct-sun-exposure.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/microdermabrasion-realistic-goals-for-surface-renewal.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/microneedling-and-pigmentation-why-risk-changes-the-indication.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/microneedling-with-inflamed-acne-why-a-pause-may-be-part-of-care.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/mmp-for-the-scalp-questions-that-come-before-the-technique.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/natural-looking-facial-planning-proportion-not-trend.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/peim-information-that-matters-before-treating-small-vessels.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/persistent-redness-when-to-observe-and-when-to-investigate.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/physical-exfoliation-when-feeling-the-grains-stops-being-renewal.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/plasma-technology-why-assessment-and-aftercare-cannot-be-shortcuts.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/pores-and-texture-why-there-is-no-permanent-closing-solution.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/post-acne-marks-and-scars-two-different-skin-stories.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/post-inflammatory-pigmentation-why-the-cause-belongs-in-the-plan.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/privacy-in-aesthetic-care-why-consent-remains-central.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/radiofrequency-and-collagen-why-time-belongs-in-the-expectation.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/retinoic-peels-recovery-planning-starts-before-application.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/scalp-mesotherapy-why-a-protocol-is-not-a-universal-treatment.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/skin-barrier.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/skin-cleansing.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/skin-during-pregnancy-safer-questions-before-changing-a-routine.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/sun-exposure-and-skin-recovery-why-recent-exposure-changes-more-than-a-tan.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/sun-protection-that-fits-real-life.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/the-lower-face-a-careful-conversation-about-movement-and-contour.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/ultraformer-mpt-clear-goals-before-talking-about-lifting.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/ultrasonic-exfoliation-where-it-can-fit-within-thoughtful-care.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/uneven-tone.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/useful-questions-to-ask-before-an-aesthetic-procedure.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/visible-small-vessels-appearance-symptoms-and-assessment-are-not-the-same.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/blog/when-an-overworked-skin-barrier-needs-a-pause.html",
-        "scripts": [
-          "../../js/analytics-config.js",
-          "../../js/consent-manager.js",
-          "../../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/care.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/consultation.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/contact.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/cookies.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/faq.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/form.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/index.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/interest.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/laser.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/mission.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/results.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/skin.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/testimonials.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/thank-you.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/treatments.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
-        "page": "en/values.html",
-        "scripts": [
-          "../js/analytics-config.js",
-          "../js/consent-manager.js",
-          "../js/analytics.js"
-        ],
-        "count": 3,
-        "correctOrder": true
-      },
-      {
         "page": "formulario-interesse.html",
         "scripts": [
           "js/analytics-config.js",
@@ -1761,6 +2651,206 @@
         "correctOrder": true
       },
       {
+        "page": "servicos/laser-acupulse-co2.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/limpeza-de-pele-profunda.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/mesoterapia-capilar.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/microagulhamento.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/mmp-microinfusao-de-medicamentos-na-pele.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/peeling-de-ata.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/peeling-de-cristal-microdermoabrasao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/peeling-de-diamante.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/peeling-de-jessner.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/peeling-retinoico.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/peeling-ultrassonico.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/peim-tratamento-estetico-para-microvasos.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/plataforma-harmony-de-laser-e-luz.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/protocolo-profissional-de-despigmentacao.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/radiofrequencia.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/tecnologia-de-plasma.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/toxina-botulinica-platisma-e-terco-inferior.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/toxina-botulinica-terco-superior-da-face.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
+        "page": "servicos/ultraformer-mpt.html",
+        "scripts": [
+          "../js/analytics-config.js",
+          "../js/consent-manager.js",
+          "../js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "sobre.html",
         "scripts": [
           "js/analytics-config.js",
@@ -1804,9 +2894,9 @@
     "gtmLoaderGuardImplemented": true
   },
   "formsChecked": {
-    "count": 149,
-    "trackedCount": 4,
-    "ignoredCount": 145,
+    "count": 117,
+    "trackedCount": 2,
+    "ignoredCount": 115,
     "records": [
       {
         "page": "consulta.html",
@@ -1821,28 +2911,6 @@
       },
       {
         "page": "contato.html",
-        "id": "contact-form",
-        "formName": "contact_form",
-        "formType": "contact",
-        "leadType": "contact_enquiry",
-        "fields": 14,
-        "sensitiveFieldsProtected": 14,
-        "gtmAutoFormDisabled": true,
-        "passed": true
-      },
-      {
-        "page": "en/consultation.html",
-        "id": "consultation-request-form",
-        "formName": "consultation_request",
-        "formType": "consultation",
-        "leadType": "consultation_request",
-        "fields": 11,
-        "sensitiveFieldsProtected": 11,
-        "gtmAutoFormDisabled": true,
-        "passed": true
-      },
-      {
-        "page": "en/contact.html",
         "id": "contact-form",
         "formName": "contact_form",
         "formType": "contact",
@@ -1867,7 +2935,7 @@
         "intentionallyIgnored": true
       },
       {
-        "page": "blog/afinamento-capilar-e-fotografias.html",
+        "page": "blog/barreira-cutanea-e-procedimentos-quando-esperar.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -1909,19 +2977,61 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/cravos-ou-milium-extracao-avaliacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/depilacao-a-laser-preparo-e-expectativas.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
       },
       {
-        "page": "blog/depilacao-laser-intervalos-e-ciclo.html",
+        "page": "blog/depilacao-laser-aumento-paradoxal-pelos.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/depilacao-laser-cera-lamina-comparacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/depilacao-laser-pelos-claros-resposta.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/depilacao-laser-pelos-encravados-irritacao.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
       },
       {
         "page": "blog/depilacao-laser-rosto-e-hormonios.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/depilacao-laser-tatuagem-e-pigmento.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/dermaroller-em-casa-e-microagulhamento-profissional.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/duplex-ultrassom-varizes-avaliacao.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -1963,6 +3073,12 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/ipl-caseira-ou-laser-profissional-depilacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/laser-co2-e-eventos-importantes.html",
         "id": null,
         "fields": 6,
@@ -1975,7 +3091,25 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/laser-co2-fracionado-e-ablativo-diferencas.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/laser-co2-manchas-pos-inflamatorias-evidencia.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/laser-co2-recuperacao-e-cuidados.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/laser-co2-tons-de-pele-historico-pigmentacao.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -1993,7 +3127,7 @@
         "intentionallyIgnored": true
       },
       {
-        "page": "blog/laser-hair-removal-process-and-maintenance.html",
+        "page": "blog/laser-e-pelos-tons-de-pele-e-pelos.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2005,7 +3139,19 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/limpeza-profissional-nao-substitui-tratamento-acne.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/luz-intensa-pulsada-e-avaliacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/mancha-pos-acne-ou-cicatriz-como-diferenciar.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2041,7 +3187,31 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/melasma-ou-hiperpigmentacao-pos-inflamatoria.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-e-mmp-diferencas.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/mesoterapia-capilar-e-plano.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-evidencia-ingredientes.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/mesoterapia-capilar-produto-injetavel-anvisa.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2059,7 +3229,19 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/microagulhamento-e-mmp-diferencas.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/microagulhamento-o-que-avaliar.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/microdermoabrasao-cicatrizes-acne-limites.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2071,7 +3253,19 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/microdermoabrasao-preparo-isotretinoina-cicatrizacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/microvasos-queixas-e-avaliacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/microvasos-visiveis-sintomas-avaliacao-vascular.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2095,7 +3289,19 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/peeling-de-cristal-ou-diamante-comparacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/peeling-de-diamante-o-que-avaliar.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/peeling-de-diamante-ou-limpeza-profunda.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2107,7 +3313,37 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/peeling-jessner-ou-retinoico-comparacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/peeling-quimico-ou-laser-co2-comparacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/peeling-quimico-ou-microdermoabrasao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/peeling-quimico-recuperacao-seguranca.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/peeling-quimico-tons-de-pele-pigmentacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/peeling-retinoico-e-retinol-em-casa.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2119,7 +3355,19 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/peeling-ultrassonico-e-escova-sonica.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/peeling-ultrassonico-em-uma-rotina.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/peim-microvasos-sem-sintomas-duplex-rotina.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2144,6 +3392,24 @@
       },
       {
         "page": "blog/persistent-facial-redness-and-vessels.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/plasma-estetica-aparelho-ou-prp.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/plasma-frio-ou-plasma-exerese.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/plataforma-harmony-modelo-aplicador.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2179,7 +3445,19 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/radiofrequencia-convencional-ou-microagulhada.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/radiofrequencia-e-colageno-tempo.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/radiofrequencia-monopolar-bipolar-o-que-significa.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2221,6 +3499,12 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/toxina-botulinica-e-preenchimento-diferencas.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/toxina-botulinica-naturalidade-e-planejamento.html",
         "id": null,
         "fields": 6,
@@ -2233,7 +3517,49 @@
         "intentionallyIgnored": true
       },
       {
+        "page": "blog/toxina-botulinica-sinais-botulismo-emergencia.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-desconforto-recuperacao.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
         "page": "blog/ultraformer-mpt-e-objetivos.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-gordura-submentoniana-estudo.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-o-que-significa-hifu.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-ou-lifting-cirurgico.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/ultraformer-mpt-volume-facial-evidencia.html",
+        "id": null,
+        "fields": 6,
+        "intentionallyIgnored": true
+      },
+      {
+        "page": "blog/ultraformer-radiofrequencia-comparacao.html",
         "id": null,
         "fields": 6,
         "intentionallyIgnored": true
@@ -2275,444 +3601,6 @@
         "intentionallyIgnored": true
       },
       {
-        "page": "en/blog/a-considered-guide-to-aesthetic-care.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-facial-planning.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-laser-and-recovery.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-laser-and-technology.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-pigmentation.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-skin-renewal.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-technology-and-care.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-considered-guide-to-texture-and-scars.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-first-botulinum-toxin-consultation-movement-priorities-and-limits.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/a-minimal-routine-for-overwhelmed-skin-why-simplifying-can-be-progress.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/acids-in-a-skincare-routine-order-tolerance-and-care.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/acne-scars.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/active-acne-before-texture-why-the-order-of-care-matters.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/after-a-procedure-signs-that-call-for-contact-not-online-remedies.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/after-co2-laser-sun-protection-is-recovery-not-an-afterthought.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/at-home-peels-why-concentration-without-context-can-be-costly.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/before-and-after-photographs-curiosity-without-turning-an-image-into-a-promise.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/biological-time-and-expectations-aesthetic-care-is-not-express-delivery.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/blackheads-and-extraction-when-persistence-at-home-can-harm-the-skin.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/botox-in-londrina-complete-guide.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/botulinum-toxin-and-asymmetry-observation-is-not-a-promise-of-perfection.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/co2-laser-and-important-events-planning-without-someone-elses-calendar.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/collagen-remodeling.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/consultation-first.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/daily-cleansing-removing-what-is-needed-preserving-what-matters.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/diamond-tip-exfoliation-what-to-assess-before-seeking-instant-effects.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/facial-laser-hair-removal-why-hormonal-context-belongs-in-the-conversation.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/facial-redness.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/fractional-co2-laser.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/frugal-chic-intentional-aesthetic-care.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/hair-shedding-warning-signs-before-choosing-a-protocol.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/hair-thinning-and-photographs-documenting-change-without-rushing-to-conclusions.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/hair-thinning.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/how-to-prepare-for-an-aesthetic-consultation-without-deciding-everything-first.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/intense-pulsed-light-why-skin-goals-and-season-all-matter.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/jessner-peels-indication-and-caution-before-chasing-peeling.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/laser-and-acne-scars-why-a-technology-name-does-not-decide-suitability.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/laser-and-tanned-skin-why-waiting-can-be-the-safer-choice.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/laser-hair-removal-intervals-what-the-hair-cycle-explains.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/laser-hair-removal.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/make-up-and-sensitive-skin-what-to-notice-without-blaming-products.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/melasma-heat-and-light-looking-beyond-direct-sun-exposure.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/microdermabrasion-realistic-goals-for-surface-renewal.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/microneedling-and-pigmentation-why-risk-changes-the-indication.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/microneedling-with-inflamed-acne-why-a-pause-may-be-part-of-care.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/mmp-for-the-scalp-questions-that-come-before-the-technique.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/natural-looking-facial-planning-proportion-not-trend.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/peim-information-that-matters-before-treating-small-vessels.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/persistent-redness-when-to-observe-and-when-to-investigate.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/physical-exfoliation-when-feeling-the-grains-stops-being-renewal.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/plasma-technology-why-assessment-and-aftercare-cannot-be-shortcuts.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/pores-and-texture-why-there-is-no-permanent-closing-solution.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/post-acne-marks-and-scars-two-different-skin-stories.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/post-inflammatory-pigmentation-why-the-cause-belongs-in-the-plan.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/privacy-in-aesthetic-care-why-consent-remains-central.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/radiofrequency-and-collagen-why-time-belongs-in-the-expectation.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/retinoic-peels-recovery-planning-starts-before-application.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/scalp-mesotherapy-why-a-protocol-is-not-a-universal-treatment.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/skin-barrier.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/skin-cleansing.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/skin-during-pregnancy-safer-questions-before-changing-a-routine.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/sun-exposure-and-skin-recovery-why-recent-exposure-changes-more-than-a-tan.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/sun-protection-that-fits-real-life.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/the-lower-face-a-careful-conversation-about-movement-and-contour.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/ultraformer-mpt-clear-goals-before-talking-about-lifting.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/ultrasonic-exfoliation-where-it-can-fit-within-thoughtful-care.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/uneven-tone.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/useful-questions-to-ask-before-an-aesthetic-procedure.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/visible-small-vessels-appearance-symptoms-and-assessment-are-not-the-same.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/blog/when-an-overworked-skin-barrier-needs-a-pause.html",
-        "id": null,
-        "fields": 6,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/cookies.html",
-        "id": "preferences",
-        "fields": 4,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/form.html",
-        "id": "consent-authorisation-form",
-        "fields": 55,
-        "intentionallyIgnored": true
-      },
-      {
-        "page": "en/interest.html",
-        "id": "interest-form",
-        "fields": 7,
-        "intentionallyIgnored": true
-      },
-      {
         "page": "formulario-interesse.html",
         "id": "interest-form",
         "fields": 7,
@@ -2721,15 +3609,15 @@
       {
         "page": "formulario.html",
         "id": "consent-authorisation-form",
-        "fields": 53,
+        "fields": 57,
         "intentionallyIgnored": true
       }
     ],
     "sensitiveFieldProtectionPassed": true
   },
   "trackingAttributes": {
-    "meaningfulSections": 232,
-    "faqItems": 289,
+    "meaningfulSections": 108,
+    "faqItems": 135,
     "installerIdempotent": true
   },
   "eventsImplemented": [
@@ -2768,7 +3656,7 @@
           "name": "all_pages_load_without_javascript_errors",
           "passed": true,
           "detail": {
-            "pages": 178,
+            "pages": 287,
             "errors": []
           }
         },

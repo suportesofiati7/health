@@ -438,23 +438,12 @@ class AppErrorBoundary extends React.Component {
   }
 }
 function App() {
-  const [lang, setLang] = useState(
-    localStorage.getItem("sofiati-language") || "pt",
-  );
   useEffect(() => {
-    document.documentElement.lang = lang === "en" ? "en" : "pt-BR";
+    document.documentElement.lang = "pt-BR";
     document.documentElement.dir = "ltr";
-  }, [lang]);
+  }, []);
   return (
-    <Language.Provider value={lang}>
-      <Clinic
-        language={lang}
-        setLanguage={(value) => {
-          localStorage.setItem("sofiati-language", value);
-          setLang(value);
-        }}
-      />
-    </Language.Provider>
+    <Language.Provider value="pt"><Clinic /></Language.Provider>
   );
 }
 function PublicIntakeRoute({ languageControl }) {
@@ -474,7 +463,7 @@ function PublicIntakeRoute({ languageControl }) {
     </div>
   );
 }
-function Clinic({ language, setLanguage }) {
+function Clinic() {
   const t = useT();
   const [theme, setTheme] = useState(
     localStorage.getItem("sofiati-theme") ||
@@ -525,9 +514,6 @@ function Clinic({ language, setLanguage }) {
     }
     setMember(data);
   };
-  useEffect(() => {
-    document.documentElement.lang = language === "pt" ? "pt-BR" : "en";
-  }, [language]);
   useEffect(() => {
     const start = async () => {
       const callback = authCallback(location.href);
@@ -625,19 +611,7 @@ function Clinic({ language, setLanguage }) {
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [menu]);
-  const languageControl = (
-    <div className="languages" aria-label={t("Idioma", "Language")}>
-      {["pt", "en"].map((l) => (
-        <button
-          key={l}
-          aria-pressed={language === l}
-          onClick={() => setLanguage(l)}
-        >
-          {l.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
+  const languageControl = null;
   const themeControl = (
     <Button
       icon={theme === "dark" ? Sun : Moon}
@@ -2608,7 +2582,7 @@ function HealthHistoryPanel({ patient, member, writable, notify }) {
   const t = useT(); const blank = { allergies: "", medications: "", conditions: "", surgeries: "", aesthetic_history: "", dermatological_history: "", healing_history: "", active_infection: "", pregnancy_breastfeeding: "", habits: "", other_notes: "" }; const [form, setForm] = useState(blank), [busy, setBusy] = useState(false); const state = useLoad(() => checked(db.from("patient_health_history").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false }).limit(20)), [patient.id]); const set = (key, value) => setForm((current) => ({ ...current, [key]: value })); const saveHistory = async (e) => { e.preventDefault(); setBusy(true); try { await checked(db.from("patient_health_history").insert({ organization_id: ORG, patient_id: patient.id, ...form, created_by: member.user_id })); setForm(blank); state.refresh(); notify(t("Histórico de saúde salvo como nova versão", "Health history saved as a new version")); } catch { notify(t("Não foi possível salvar o histórico.", "Could not save health history.")); } finally { setBusy(false); } }; return <section className="detail-section"><h2>{t("Histórico de saúde", "Health history")}</h2>{writable && <form className="form-grid" onSubmit={saveHistory}>{Object.entries({ allergies: ["Alergias", "Allergies"], medications: ["Medicamentos", "Medications"], conditions: ["Condições relevantes", "Relevant conditions"], surgeries: ["Cirurgias", "Surgeries"], aesthetic_history: ["Procedimentos estéticos anteriores", "Previous aesthetic procedures"], dermatological_history: ["Histórico dermatológico", "Dermatological history"], healing_history: ["Cicatrização/queloide", "Healing/keloid history"], active_infection: ["Infecção/lesão ativa", "Active infection/lesion"], pregnancy_breastfeeding: ["Gestação/amamentação", "Pregnancy/breastfeeding"], habits: ["Hábitos/lifestyle", "Habits/lifestyle"], other_notes: ["Outras informações", "Other information"] }).map(([key, titles]) => <Field key={key} title={t(...titles)} type="textarea" value={form[key]} onChange={(v) => set(key, v)} />)}<Button className="primary" icon={Save} disabled={busy}>{t("Salvar versão", "Save version")}</Button></form>}<LoadState state={state}>{(rows) => rows.map((row) => <details key={row.id}><summary>{date(row.created_at, true)}</summary><p className="preserve">{Object.entries(row).filter(([key, value]) => value && !["id", "organization_id", "patient_id", "created_by", "created_at"].includes(key)).map(([key, value]) => `${key}: ${value}`).join("\n")}</p></details>)}</LoadState></section>;
 }
 
-function ConsentPanel({ patient, member, writable, notify }) { const t = useT(); const [form, setForm] = useState({ kind: "procedimento", procedure_id: "", template_version: "2026-09-14", language: "pt-BR", status: "pendente", method: "presencial", source: "management" }); const state = useLoad(() => checked(db.from("consents").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const procedures = useLoad(() => checked(db.from("procedures").select("id,name,catalog_version,required_consents,consent_template,consent_template_version").eq("active", true).order("name")), []); const set = (key, value) => setForm((c) => ({ ...c, [key]: value })); const submit = async (e) => { e.preventDefault(); try { const procedure = (procedures.data || []).find((row) => row.id === form.procedure_id); await checked(db.from("consents").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: procedure?.id || null, procedure_snapshot: procedure ? { ...procedure, selected_at: new Date().toISOString() } : {}, ...form, accepted_at: form.status === "aceito" ? new Date().toISOString() : null, created_by: member.user_id })); state.refresh(); notify(t("Consentimento salvo", "Consent saved")); } catch { notify(t("Não foi possível salvar o consentimento.", "Could not save consent.")); } }; return <section className="detail-section"><h2>{t("Consentimentos estruturados", "Structured consents")}</h2>{writable && <form className="form-grid" onSubmit={submit}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => { const procedure = (procedures.data || []).find((row) => row.id === v); set("procedure_id", v); if (procedure?.consent_template_version) set("template_version", procedure.consent_template_version); }} options={[{ value: "", label: t("Consentimento geral", "General consent") }, ...(procedures.data || []).map((p) => ({ value: p.id, label: `${p.name} · v${p.catalog_version || 1}` }))]} /><Field title={t("Tipo", "Type")} value={form.kind} onChange={(v) => set("kind", v)} options={["procedimento", "privacidade", "fotografia_clinica", "publicacao_marketing", "comunicacao", "reserva"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Versão do termo", "Template version")} value={form.template_version} onChange={(v) => set("template_version", v)} /><Field title={t("Idioma", "Language")} value={form.language} onChange={(v) => set("language", v)} options={["pt-BR", "en"].map((v) => ({ value: v, label: v }))} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["pendente", "aceito", "recusado", "revogado"].map((v) => ({ value: v, label: v }))} /><Field title={t("Método", "Method")} value={form.method} onChange={(v) => set("method", v)} /><Button className="primary" icon={Save}>{t("Salvar consentimento", "Save consent")}</Button></form>}<LoadState state={state}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.kind, t)}</strong><small>{row.procedure_snapshot?.name ? `${row.procedure_snapshot.name} · ` : ""}{row.template_version} · {row.language} · {date(row.created_at, true)}{row.authorization_choice ? ` · ${row.source_field}: ${row.authorization_choice}` : ""}</small></span><Status value={row.status} /></div>)}</LoadState></section>; }
+function ConsentPanel({ patient, member, writable, notify }) { const t = useT(); const [form, setForm] = useState({ kind: "procedimento", procedure_id: "", template_version: "2026-09-14", language: "pt-BR", status: "pendente", method: "presencial", source: "management" }); const state = useLoad(() => checked(db.from("consents").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const procedures = useLoad(() => checked(db.from("procedures").select("id,name,catalog_version,required_consents,consent_template,consent_template_version").eq("active", true).order("name")), []); const set = (key, value) => setForm((c) => ({ ...c, [key]: value })); const submit = async (e) => { e.preventDefault(); try { const procedure = (procedures.data || []).find((row) => row.id === form.procedure_id); await checked(db.from("consents").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: procedure?.id || null, procedure_snapshot: procedure ? { ...procedure, selected_at: new Date().toISOString() } : {}, ...form, accepted_at: form.status === "aceito" ? new Date().toISOString() : null, created_by: member.user_id })); state.refresh(); notify(t("Consentimento salvo", "Consent saved")); } catch { notify(t("Não foi possível salvar o consentimento.", "Could not save consent.")); } }; return <section className="detail-section"><h2>{t("Consentimentos estruturados", "Structured consents")}</h2>{writable && <form className="form-grid" onSubmit={submit}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => { const procedure = (procedures.data || []).find((row) => row.id === v); set("procedure_id", v); if (procedure?.consent_template_version) set("template_version", procedure.consent_template_version); }} options={[{ value: "", label: t("Consentimento geral", "General consent") }, ...(procedures.data || []).map((p) => ({ value: p.id, label: `${p.name} · v${p.catalog_version || 1}` }))]} /><Field title={t("Tipo", "Type")} value={form.kind} onChange={(v) => set("kind", v)} options={["procedimento", "privacidade", "fotografia_clinica", "publicacao_marketing", "comunicacao", "reserva"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Versão do termo", "Template version")} value={form.template_version} onChange={(v) => set("template_version", v)} /><Field title="Idioma" value={form.language} onChange={(v) => set("language", v)} options={[{ value: "pt-BR", label: "Português (Brasil)" }]} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["pendente", "aceito", "recusado", "revogado"].map((v) => ({ value: v, label: v }))} /><Field title={t("Método", "Method")} value={form.method} onChange={(v) => set("method", v)} /><Button className="primary" icon={Save}>{t("Salvar consentimento", "Save consent")}</Button></form>}<LoadState state={state}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.kind, t)}</strong><small>{row.procedure_snapshot?.name ? `${row.procedure_snapshot.name} · ` : ""}{row.template_version} · {row.language} · {date(row.created_at, true)}{row.authorization_choice ? ` · ${row.source_field}: ${row.authorization_choice}` : ""}</small></span><Status value={row.status} /></div>)}</LoadState></section>; }
 
 function PatientPortalAccess({ patient, member, notify }) {
   const t = useT();
