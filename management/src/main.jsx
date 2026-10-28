@@ -3212,15 +3212,8 @@ function AppointmentForm({ appointment, patient, initialStart, followup, close, 
             onChange={(v) => { const procedure = (procedures.data || []).find((row) => row.id === v); change("procedure_id", v); if (procedure && !appointment) { dirty.touch(); setDuration(Number(procedure.default_duration) || 60); if (!form.label) setForm((current) => ({ ...current, label: procedure.name })); } }}
             options={[{ value: "", label: t("Atendimento personalizado", "Custom appointment") }, ...(procedures.data || []).map((procedure) => ({ value: procedure.id, label: `${procedure.name} · ${procedure.default_duration} min` }))]}
           />
-          <Field
-            title={t("Data e hora", "Date and time")}
-            type="datetime-local"
-            value={start}
-            onChange={(v) => {
-              dirty.touch();
-              setStart(v);
-            }}
-          />
+          <Field title="Data" type="date" value={start.slice(0, 10)} onChange={(day) => { dirty.touch(); setStart(day ? `${day}T${start.slice(11, 16) || "09:00"}` : ""); }} required />
+          <Field title="Horário" type="time" value={start.slice(11, 16)} onChange={(time) => { dirty.touch(); setStart(`${start.slice(0, 10) || localDay()}T${time}`); }} required />
           <Field
             title={t("Duração (minutos)", "Duration (minutes)")}
             type="number"

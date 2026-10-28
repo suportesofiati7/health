@@ -67,6 +67,20 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
   }
   const allProcedureInputs = [...form.querySelectorAll('input[name="selected_procedures"]')];
   procedureDetails = [...form.querySelectorAll("details[data-consent-term-for]")];
+  const brazilianDate = (value) => {
+    const match = String(value || "").match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (!match) return "";
+    const [, day, month, year] = match;
+    const parsed = new Date(`${year}-${month}-${day}T12:00:00-03:00`);
+    return Number.isNaN(parsed.getTime()) || parsed.getDate() !== Number(day) ? "" : `${year}-${month}-${day}`;
+  };
+  form.querySelectorAll('input[name="birth_date"], input[name="appointment_date"]').forEach((input) => {
+    input.addEventListener("input", () => {
+      const digits = input.value.replace(/\D/g, "").slice(0, 8);
+      input.value = digits.replace(/(\d{2})(\d)/, "$1/$2").replace(/(\d{2}\/\d{2})(\d)/, "$1/$2");
+      input.setCustomValidity(input.value && !brazilianDate(input.value) ? "Use o formato dd/mm/aaaa." : "");
+    });
+  });
 
   // The public intake accepts supporting documents in any file format. They
   // are sent only to the private intake bucket; the server still enforces the
@@ -250,7 +264,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       if (key === "selected_procedures" || key.startsWith("accepted_term_")) {
         if (key === "selected_procedures") values[key] = values[key] ? [].concat(values[key], value) : [value];
         else values[key] = value;
-      } else values[key] = value;
+      } else values[key] = key === "birth_date" || key === "appointment_date" ? brazilianDate(value) : value;
     }
     values.selected_procedure = selectedProcedure();
     values.selected_procedures = selectedProcedures();
