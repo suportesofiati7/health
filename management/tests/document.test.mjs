@@ -5,7 +5,7 @@ import { documentHeader, reportDocumentHTML } from "../src/documentSystem.js";
 const t = (pt) => pt;
 
 test("shared documents reserve a flow-based header for long and optional values", () => {
-  const longPatient = "Ashlyn Ann Merrigan with a deliberately long fictional surname for QA";
+  const longPatient = "QA Patient Example with a deliberately long fictional surname for QA";
   const html = reportDocumentHTML({
     title: "Prontuário completo do paciente com título deliberadamente longo para QA",
     patient: { full_name: longPatient },

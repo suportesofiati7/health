@@ -65,7 +65,10 @@ def public_pages() -> list[Path]:
         if isinstance(item.get(language), str)
     }
     pages = [ROOT / route for route in route_names]
-    pages.extend(path for path in ROOT.glob("*.html") if "noindex" in path.read_text(encoding="utf-8", errors="ignore").lower())
+    # The current public site is Portuguese-only (`pages` is intentionally
+    # empty). Include every current root page instead of relying on the old
+    # language-pair map to discover indexable routes.
+    pages.extend(ROOT.glob("*.html"))
     pages.extend(path for path in (ROOT / "journal").glob("*.html") if "noindex" in path.read_text(encoding="utf-8", errors="ignore").lower())
     pages.extend(path for path in (ROOT / "en").glob("*.html") if path.name != "botox-londrina.html")
     pages.extend(path for path in (ROOT / "en" / "blog").glob("*.html"))
@@ -300,10 +303,10 @@ def main() -> int:
                 "pt-BR": canonical(portuguese_route),
                 "x-default": canonical(portuguese_route),
             }
-        elif rel.startswith(("blog/", "servicos/")):
-            expected_alternates = {"pt-BR": expected_canonical, "x-default": expected_canonical}
         else:
-            expected_alternates = {"en": expected_canonical, "x-default": expected_canonical}
+            # No alternate is required for a route without a published
+            # translation. If a translation is added, add its route pair first.
+            expected_alternates = {}
         if alternates != expected_alternates:
             errors.append(f"{scope} hreflang set is not reciprocal or points to a missing route")
         for value in alternates.values():

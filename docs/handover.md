@@ -17,7 +17,7 @@ The shipped site has no runtime npm dependencies. `npm audit --omit=dev` is clea
 | Need | Command or location |
 | --- | --- |
 | Edit Portuguese page copy | Edit the corresponding root HTML page; Portuguese is the default language. |
-| Update the English pair | Edit the mapped `en/` page in `data/page-pairs.json`, then run `npm run check:pt`. |
+| Review language routing | The public site is Portuguese-only. Keep `data/page-pairs.json` empty until a translated page is published and verified. |
 | Check everything and build | `npm run release:check` |
 | Refresh robots/sitemap and audit SEO | `npm run site:index` then `npm run seo` |
 | Update edited translations | `npm run site:translate` |
@@ -46,6 +46,6 @@ The shipped site has no runtime npm dependencies. `npm audit --omit=dev` is clea
 ## Troubleshooting
 
 - Missing headers/footer in a source preview: use HTTP, not `file://`.
-- A language switcher link is wrong: update `data/page-pairs.json`; Portuguese and English slugs are allowed to differ.
+- A legacy English URL is wrong: update `_redirects` to the closest current Portuguese route and verify the target exists.
 - Sitemap check says stale: run `npm run site:index`, then rerun `npm run seo`.
 - Build error after updating dependencies: delete only `node_modules/`, run `npm ci`, then rerun the release gate. Do not delete the lockfile to solve an install problem.

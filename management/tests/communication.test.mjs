@@ -4,13 +4,13 @@ import fs from 'node:fs';
 import { CLINIC, emailSubject, normalizeMessageText, renderTemplate, valuesForPatient } from '../src/communicationTemplates.js';
 
 const patient = {
-  full_name: 'Ashlyn Ann Merrigan', preferred_name: 'Ashlyn', phone: '554399614069', email: 'team.ashtra.ai@gmail.com',
-  address: { street: 'Rua das Acácias', number: '120', neighborhood: 'Centro', city: 'Londrina', state: 'PR' },
+  full_name: 'QA Patient Example', preferred_name: 'QA Patient', phone: '00000000000', email: 'qa-patient@example.invalid',
+  address: { street: 'Rua de QA', number: '0', neighborhood: 'Teste', city: 'Cidade de teste', state: 'PR' },
 };
-const member = { name: 'Franciele Sofiati', email: 'suportesofiati@gmail.com' };
+const member = { name: 'Profissional QA', email: 'qa-owner@example.invalid' };
 const appointment = { starts_at: '2026-09-25T15:00:00-03:00', label: 'Revisão de manutenção' };
 
-test('all seeded communication placeholders render for a complete Ashlyn fixture', () => {
+test('all seeded communication placeholders render for a complete QA Patient fixture', () => {
   const source = [
     '202609150110_communication_system.sql',
     '202609150200_external_communication_templates.sql',
@@ -20,8 +20,8 @@ test('all seeded communication placeholders render for a complete Ashlyn fixture
   assert.deepEqual(keys.filter((key) => values[key] === undefined), []);
   const rendered = renderTemplate(source, values);
   assert.doesNotMatch(rendered, /\{\{?[a-zA-Z0-9_]+\}?\}/);
-  assert.match(rendered, /Ashlyn/);
-  assert.match(rendered, /Franciele Sofiati/);
+  assert.match(rendered, /QA Patient/);
+  assert.match(rendered, /Profissional QA/);
   assert.match(rendered, /\n\n/);
 });
 
@@ -31,8 +31,8 @@ test('email subject keeps the Franciele Sofiati brand and a short human teaser',
 });
 
 test('escaped SQL line breaks become real WhatsApp line breaks', () => {
-  const rendered = renderTemplate('Olá, {{nome}}.\\n\\nTudo bem?', { nome: 'Ashlyn' });
-  assert.equal(rendered, 'Olá, Ashlyn.\n\nTudo bem?');
+  const rendered = renderTemplate('Olá, {{nome}}.\\n\\nTudo bem?', { nome: 'QA Patient' });
+  assert.equal(rendered, 'Olá, QA Patient.\n\nTudo bem?');
   assert.equal(normalizeMessageText('a\\nb\\tc'), 'a\nb\tc');
 });
 
@@ -45,7 +45,7 @@ test('appointment and clinic placeholders use the complete operational context',
     '{{nome_completo}} · CPF {{cpf}} · {{telefone}}\n{{tipo_servico}} · {{data_hora}} · {{status_agendamento}}\n{{nome_clinica}} · {{endereco_clinica}} · {{link_mapa}} · {{numero_cliente}} · {{id_agendamento}}',
     values,
   );
-  assert.match(rendered, /Ashlyn Ann Merrigan/);
+  assert.match(rendered, /QA Patient Example/);
   assert.match(rendered, /529\.982\.247-25/);
   assert.match(rendered, /Consulta de revisão/);
   assert.match(rendered, /25\/09\/2026 às 15:00/);

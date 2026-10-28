@@ -12,10 +12,10 @@ try {
     }, body: '<!doctype html><title>CSP regression</title>' }));
     await page.goto(`${origin}/csp-test`);
     const dates = await page.evaluate(async () => {
-      const { parseDateInput, localDay, date, formatDateInput } = await import('/src/lib.js');
-      return [parseDateInput('28/10/2026'), parseDateInput('29/02/2024'), parseDateInput('31/02/2026'), localDay('2026-10-29T01:00:00Z'), date('2026-10-28'), formatDateInput('2026-10-28'), formatDateInput('2026-10-29T01:30:00Z', true), date('invalid')];
+      const { parseDateInput, localDay, date, formatDateInput, toISO } = await import('/src/lib.js');
+      return [parseDateInput('28/10/2026'), parseDateInput('29/02/2024'), parseDateInput('31/02/2026'), localDay('2026-10-29T01:00:00Z'), date('2026-10-28'), formatDateInput('2026-10-28'), formatDateInput('2026-10-29T01:30:00Z', true), date('invalid'), toISO('2026-10-28T12:30'), toISO('2026-10-28T15:30:00.000Z'), toISO('2026-10-28')];
     });
-    assert.deepEqual(dates, ['2026-10-28', '2024-02-29', '', '2026-10-28', '28/10/2026', '28/10/2026', '28/10/2026 22:30', '']);
+    assert.deepEqual(dates, ['2026-10-28', '2024-02-29', '', '2026-10-28', '28/10/2026', '28/10/2026', '28/10/2026 22:30', '', '2026-10-28T15:30:00.000Z', '2026-10-28T15:30:00.000Z', '2026-10-28T03:00:00.000Z']);
     for (const mode of ['summary', 'integral']) {
       const popupPromise = page.waitForEvent('popup');
       await page.evaluate(async mode => {

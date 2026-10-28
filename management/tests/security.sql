@@ -49,6 +49,50 @@ update public.procedures set price_cents=12345, commercial_config='{"unit":"area
 where name='Procedimento fictício E2E';
 select pg_temp.assert((select count(*)=2 from public.procedure_versions v join public.procedures p on p.id=v.procedure_id where p.name='Procedimento fictício E2E'),'catalogue insert and edit each create one version');
 select pg_temp.assert((select v.snapshot->>'price_cents'='12345' from public.procedure_versions v join public.procedures p on p.id=v.procedure_id where p.name='Procedimento fictício E2E' and v.version=2),'catalogue version contains saved price');
+select public.save_treatment_plan(
+  jsonb_build_object('organization_id','a783bd4c-f253-4a94-9365-75c6f1000001','patient_id','30000000-0000-4000-8000-000000000001','title','Atomic plan QA','objectives','Fictional objective','status','planejado'),
+  jsonb_build_object('procedure_id',(select id from public.procedures where name='Procedimento fictício E2E'),'sequence_no',1,'sessions',3,'area','Fictional area','notes','Fixture')
+);
+select pg_temp.assert((select count(*)=1 from public.treatment_plans p join public.treatment_plan_items i on i.plan_id=p.id where p.title='Atomic plan QA' and i.sessions=3),'treatment plan and first item save atomically');
+select public.save_treatment_plan(
+  jsonb_build_object('id',(select id from public.treatment_plans where title='Atomic plan QA'),'organization_id','a783bd4c-f253-4a94-9365-75c6f1000001','patient_id','30000000-0000-4000-8000-000000000001','title','Atomic plan QA updated','objectives','Corrected objective','status','em_andamento'), null
+);
+select pg_temp.assert((select title='Atomic plan QA updated' and status='em_andamento' from public.treatment_plans where title='Atomic plan QA updated'),'existing treatment plan updates through role-checked RPC');
+
+-- Clinical procedure and inventory consumption are committed atomically.
+insert into public.products(id,organization_id,name,unit,created_by)
+values('b3000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Fictional test serum','ml','10000000-0000-4000-8000-000000000001');
+insert into public.product_lots(id,organization_id,product_id,lot,expires_on,quantity,unit,created_by)
+values('b4000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','b3000000-0000-4000-8000-000000000001','EXPIRED-QA',current_date - 1,10,'ml','10000000-0000-4000-8000-000000000001'),
+('b4000000-0000-4000-8000-000000000002','a783bd4c-f253-4a94-9365-75c6f1000001','b3000000-0000-4000-8000-000000000001','VALID-QA',current_date + 30,10,'ml','10000000-0000-4000-8000-000000000001');
+select pg_temp.denied($q$
+  select public.record_clinical_procedure(
+    jsonb_build_object('organization_id','a783bd4c-f253-4a94-9365-75c6f1000001','patient_id','30000000-0000-4000-8000-000000000001','procedure_id',(select id from public.procedures where name='Procedimento fictício E2E'),'professional_id','10000000-0000-4000-8000-000000000001','indication','expired lot must not finalize'),
+    jsonb_build_object('lot_id','b4000000-0000-4000-8000-000000000001','quantity',1,'unit','ml')
+  )
+$q$,'expired lot prevents clinical finalization');
+select pg_temp.assert((select count(*)=0 from public.clinical_procedures where indication='expired lot must not finalize'),'expired lot failure leaves no finalized clinical record');
+select public.record_clinical_procedure(
+  jsonb_build_object('organization_id','a783bd4c-f253-4a94-9365-75c6f1000001','patient_id','30000000-0000-4000-8000-000000000001','procedure_id',(select id from public.procedures where name='Procedimento fictício E2E'),'professional_id','10000000-0000-4000-8000-000000000001','performed_at',now(),'area','Fictional QA','indication','atomic inventory test','technique','Fixture only','parameters','{}'::jsonb,'consent_status','nao_aplicavel'),
+  jsonb_build_object('lot_id','b4000000-0000-4000-8000-000000000002','quantity',1,'unit','ml')
+);
+select pg_temp.assert((select count(*)=1 from public.clinical_procedures where indication='atomic inventory test' and status='finalizado' and finalized_at is not null),'clinical procedure finalizes through atomic RPC');
+select pg_temp.assert((select count(*)=1 from public.product_usages u join public.clinical_procedures p on p.id=u.clinical_procedure_id where p.indication='atomic inventory test' and u.lot_id='b4000000-0000-4000-8000-000000000002'),'atomic procedure records product usage');
+select pg_temp.assert((select count(*)=1 from public.inventory_movements m join public.clinical_procedures p on p.id=m.clinical_procedure_id where p.indication='atomic inventory test' and m.movement_type='consumo'),'product usage records inventory consumption');
+insert into public.clinical_procedures(id,organization_id,patient_id,procedure_id,professional_id,performed_at,area,status,created_by)
+select 'b5000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001',id,'10000000-0000-4000-8000-000000000001',now(),'Draft fixture','rascunho','10000000-0000-4000-8000-000000000001'
+from public.procedures where name='Procedimento fictício E2E';
+select public.record_clinical_procedure(
+  jsonb_build_object('id','b5000000-0000-4000-8000-000000000001','organization_id','a783bd4c-f253-4a94-9365-75c6f1000001','patient_id','30000000-0000-4000-8000-000000000001','procedure_id',(select id from public.procedures where name='Procedimento fictício E2E'),'professional_id','10000000-0000-4000-8000-000000000001','performed_at',now(),'indication','resumed draft','technique','completed by owner','parameters','{}'::jsonb,'consent_status','nao_aplicavel'), null
+);
+select pg_temp.assert((select status='finalizado' and indication='resumed draft' and technique='completed by owner' and finalized_at is not null from public.clinical_procedures where id='b5000000-0000-4000-8000-000000000001'),'existing clinical draft can be edited and finalized');
+select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000003','session_id','20000000-0000-4000-8000-000000000003','exp',extract(epoch from now()+interval '1 hour'))::text,true);
+select pg_temp.denied($q$
+  select public.record_clinical_procedure(
+    jsonb_build_object('organization_id','a783bd4c-f253-4a94-9365-75c6f1000001','patient_id','30000000-0000-4000-8000-000000000001','procedure_id',(select id from public.procedures where name='Procedimento fictício E2E'),'professional_id','10000000-0000-4000-8000-000000000003'), null
+  )
+$q$,'reception cannot finalize clinical procedure through RPC');
+select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
 
 insert into public.clinical_procedures(id,organization_id,patient_id,procedure_id,professional_id,performed_at,history_only,status,consent_status,created_by)
 select 'b2000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001',id,null,null,true,'finalizado','aceito','10000000-0000-4000-8000-000000000001'

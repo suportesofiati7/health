@@ -223,27 +223,34 @@ def validate_page_pair(
     return issues
 
 
-def validate_partial(root: Path, filename: str, allowlist: set[str]) -> list[ValidationIssue]:
+def validate_partial(
+    root: Path,
+    filename: str,
+    allowlist: set[str],
+    *,
+    compare_english: bool = True,
+) -> list[ValidationIssue]:
     key = f"partials/{filename}"
     source = root / "partials" / filename
     output = root / "partials" / "pt-BR" / filename
     if not output.exists():
         return [ValidationIssue(key, "error", "localized shared partial is missing")]
-    en_text = source.read_text(encoding="utf-8")
     pt_text = output.read_text(encoding="utf-8")
-    en_inventory = structural_inventory(en_text)
-    pt_inventory = structural_inventory(pt_text)
     issues: list[ValidationIssue] = []
-    if en_inventory != pt_inventory:
-        issues.append(ValidationIssue(key, "error", "localized partial structure/classes/IDs differ"))
-    en_blocks = extract_blocks(en_text)
-    pt_blocks = extract_blocks(pt_text)
-    for block_key, source_block in en_blocks.items():
-        translated = pt_blocks.get(block_key)
-        if translated is None:
-            issues.append(ValidationIssue(key, "error", f"missing translated block {block_key}"))
-        elif normalized(source_block.source) == normalized(translated.source) and not _allowed(source_block.source, allowlist):
-            issues.append(ValidationIssue(key, "error", f"untranslated block {block_key}: {source_block.source[:100]}"))
+    if compare_english:
+        en_text = source.read_text(encoding="utf-8")
+        en_inventory = structural_inventory(en_text)
+        pt_inventory = structural_inventory(pt_text)
+        if en_inventory != pt_inventory:
+            issues.append(ValidationIssue(key, "error", "localized partial structure/classes/IDs differ"))
+        en_blocks = extract_blocks(en_text)
+        pt_blocks = extract_blocks(pt_text)
+        for block_key, source_block in en_blocks.items():
+            translated = pt_blocks.get(block_key)
+            if translated is None:
+                issues.append(ValidationIssue(key, "error", f"missing translated block {block_key}"))
+            elif normalized(source_block.source) == normalized(translated.source) and not _allowed(source_block.source, allowlist):
+                issues.append(ValidationIssue(key, "error", f"untranslated block {block_key}: {source_block.source[:100]}"))
     runtime_page = root / "index.html"
     for message in _internal_link_failures(root, runtime_page, BeautifulSoup(pt_text, "html.parser")):
         issues.append(ValidationIssue(key, "error", message))
@@ -287,7 +294,13 @@ def validate_site(root: Path, pages: list[str] | None = None) -> ValidationSumma
                 require_structural_parity=Path(english_page).name not in EXTERNALLY_AUTHORED_ENGLISH_PAGES,
             )
         )
+    # Empty route pairs mean the public product is intentionally Portuguese-only.
+    # The English partials are retained for translation work but are not a
+    # runtime contract until English routes are brought back into the map.
+    compare_partials = bool(page_data.get("pages"))
     for partial in sorted((root / "partials").glob("*.html")):
         summary.checked += 1
-        summary.issues.extend(validate_partial(root, partial.name, allowlist))
+        summary.issues.extend(
+            validate_partial(root, partial.name, allowlist, compare_english=compare_partials)
+        )
     return summary

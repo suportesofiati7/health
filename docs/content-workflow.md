@@ -2,8 +2,8 @@
 
 ## Standard page change
 
-1. Edit the relevant root Portuguese HTML page. Portuguese is the public default and the canonical editorial language (`lang="pt-BR"`). Keep its title, canonical URL, structured data, section IDs and `data-*` attributes unless the change intentionally requires updating them.
-2. Make the equivalent English change in the paired `en/` page. The pair is defined in `data/page-pairs.json`; do not infer a pair from similar filenames because Portuguese slugs are intentionally localized.
+1. Edit the relevant root, `blog/` or `servicos/` Portuguese HTML page. Brazilian Portuguese (`lang="pt-BR"`) is the only published public language. Keep its title, canonical URL, structured data, section IDs and `data-*` attributes unless the change intentionally requires updating them.
+2. Do not add English links or alternate-language metadata unless a translated page has actually been published and added to `data/page-pairs.json`.
 3. Refresh search-discovery files after a route, canonical-origin or indexability change:
 
    ```bash
@@ -15,15 +15,15 @@
 
 ## Language generation and QA
 
-The deployed language system is Portuguese-first: root pages and `partials/pt-BR/` are loaded by default, while English pages and `partials/` are selected only after the visitor uses the language switcher. `pt-BR` is the correct browser/search locale for Brazilian Portuguese; it does not imply a `/pt/` URL.
+The deployed public site is Portuguese-only: root pages and `partials/pt-BR/` are the active routes and shared UI. The English partial templates and translation memory are retained as non-published localization inputs. `pt-BR` is the browser/search locale; it does not imply a `/pt/` URL.
 
-Run `npm run check:pt` after changing either side of a pair. It validates the route map, reciprocal `hreflang` values, `lang` attributes, links and translation hooks. The legacy Argos generator and `/pt/` output model are retained only as historical tooling and must not be used to publish or move the current root Portuguese routes.
+Run `npm run check:pt` after page or shared-navigation changes. With no published language pairs, it checks the active Portuguese partials and their local references without requiring parity with inactive English templates. The Argos generator and `/pt/` output model are legacy tooling and must not be used to publish or move current routes.
 
 Use `data/translation/pt-BR-glossary.json` for recurring Brazilian Portuguese terminology. Do not add `/pt/` pages or duplicate routes.
 
 ## Shared interface, styles and behaviour
 
-- Edit shared navigation/footer/cookie text in `partials/`; mirror intentional copy changes in `partials/pt-BR/` or the translation inputs.
+- Edit active shared navigation/footer/cookie text in `partials/pt-BR/`. Keep inactive English templates out of the public route graph.
 - Edit `css/site.css` directly and verify the affected routes locally. The production build performs CSS minification and fingerprinting.
 - Add browser behaviour through the owning module under `js/`; use semantic `data-*` hooks, keep initializers idempotent and add them to `js/main.js`.
 

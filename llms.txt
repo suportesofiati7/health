@@ -1,6 +1,6 @@
 # Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist
 
-> Official bilingual website for Franciele Sofiati, a Biomédica, Esteticista and Cosmetóloga (CRBM 6277) providing consultation-led aesthetic care and educational information in Londrina, Paraná, Brazil.
+> Official Brazilian Portuguese website for Franciele Sofiati, a Biomédica, Esteticista and Cosmetóloga (CRBM 6277) providing consultation-led aesthetic care and educational information in Londrina, Paraná, Brazil.
 
 ## Primary pages
 
@@ -21,6 +21,10 @@
 - [Depoimentos | Franciele Sofiati](https://francielesofiati.com/depoimentos): Experiências e depoimentos sobre o cuidado estético conduzido por Franciele Sofiati em Londrina.
 - [Missão | Franciele Sofiati](https://francielesofiati.com/missao): A missão de Franciele Sofiati: cuidado estético responsável, natural e orientado por consulta, contexto e segurança.
 - [Valores | Franciele Sofiati](https://francielesofiati.com/valores): Os valores que orientam o cuidado estético de Franciele Sofiati: clareza, responsabilidade, naturalidade e acompanhamento.
+- [Toxina botulínica: terço superior | Franciele Sofiati](https://francielesofiati.com/servicos/toxina-botulinica-terco-superior-da-face): Avaliação individual para Toxina botulínica — terço superior da face em Londrina. Entenda objetivos, limites e cuidados antes de decidir.
+- [Microagulhamento em Londrina | Franciele Sofiati](https://francielesofiati.com/servicos/microagulhamento): Avaliação individual para Microagulhamento em Londrina. Entenda objetivos, limites e cuidados antes de decidir.
+- [Laser AcuPulse CO₂ em Londrina | Franciele Sofiati](https://francielesofiati.com/servicos/laser-acupulse-co2): Avaliação individual para Laser AcuPulse CO₂ em Londrina. Entenda objetivos, limites e cuidados antes de decidir.
+- [Ultraformer MPT em Londrina | Franciele Sofiati](https://francielesofiati.com/servicos/ultraformer-mpt): Avaliação individual para Ultraformer MPT em Londrina. Entenda objetivos, limites e cuidados antes de decidir.
 
 ## Journal
 

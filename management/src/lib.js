@@ -110,10 +110,21 @@ export const localDay = (value = new Date()) => {
 };
 export const localDateTime = () =>
   `${localDay()}T${new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date())}`;
-export const toISO = (value) =>
-  value
-    ? new Date(value + ":00-03:00").toISOString()
-    : new Date().toISOString();
+export const toISO = (value) => {
+  if (!value) return new Date().toISOString();
+  const source = String(value).trim();
+  let normalized = source;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(source)) {
+    normalized = `${source}T00:00:00-03:00`;
+  } else if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(source)) {
+    normalized = `${source}:00-03:00`;
+  } else if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?$/.test(source)) {
+    normalized = `${source}-03:00`;
+  }
+  const instant = new Date(normalized);
+  if (Number.isNaN(instant.getTime())) throw new TypeError("invalid_date");
+  return instant.toISOString();
+};
 export const money = (value) =>
   new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
     Number(value || 0),

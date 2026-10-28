@@ -1,6 +1,6 @@
 # Franciele Sofiati website
 
-Production source for Franciele Sofiati Biomédica’s bilingual static website. Brazilian Portuguese is served at the root; English is served under `/en/`. The site is framework-free: semantic HTML, CSS and native JavaScript modules are compiled into a clean production artifact.
+Production source for Franciele Sofiati Biomédica’s Brazilian Portuguese static website. The public site is framework-free: semantic HTML, CSS and native JavaScript modules are compiled into a clean production artifact. The separate private management app is in `management/`.
 
 - Canonical origin: `https://francielesofiati.com`
 - Node.js: 22.19+ (exact development dependencies are locked in `package-lock.json`)
@@ -23,8 +23,8 @@ Read the [engineering handover](docs/handover.md) for the everyday workflow, [ar
 | Concern | Authoritative location |
 | --- | --- |
 | Brazilian Portuguese page content | Root `*.html` pages |
-| English page content | `en/*.html` pages and `en/blog/*.html` articles |
-| Shared interface | `partials/` and `partials/pt-BR/` |
+| Public page content | Root `*.html`, `blog/*.html` and `servicos/*.html` pages (Brazilian Portuguese) |
+| Shared interface | `partials/pt-BR/`; `partials/` is retained for legacy translation work and has no published English route |
 | Styles | `css/site.css` |
 | Browser behaviour | `js/main.js` and modules under `js/` |
 | Canonical site identity | `data/seo.json` |
@@ -39,7 +39,7 @@ npm run validate              # assets, PT-BR, SEO and analytics checks
 npm run build                 # recreate dist/
 npm run release:check         # validate, then build
 npm run site:index             # update robots/sitemap/llms and notify IndexNow
-npm run site:translate         # update edited bilingual pages
+npm run site:translate         # legacy localization tooling; do not use for public releases
 npm run seo                    # complete SEO/link/schema/image audit
 npm run screenshots            # interactive screenshot manager
 npm run git:publish            # dated git add/commit/push
