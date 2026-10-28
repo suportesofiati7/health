@@ -210,3 +210,13 @@
   @media (max-width: 24.5rem) { .sfi-brand-role { display: none; } .sfi-brand-name { font-size: 1.16rem; } }
   @media (prefers-reduced-motion: reduce) { .sfi-header-shell, .sfi-header-shell * { transition: none; } }
 }
+
+/* The supplied monogram is already transparent; place it beside the brand text. */
+#sf-header-inline .sfi-brand { gap: clamp(.5rem, 1vw, .8rem); }
+#sf-header-inline .sfi-brand-monogram {
+  display: block;
+  inline-size: clamp(2rem, 3.5vw, 3.25rem);
+  block-size: auto;
+  flex: 0 0 auto;
+  object-fit: contain;
+}

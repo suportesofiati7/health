@@ -13741,7 +13741,7 @@
   }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy {
     grid-column: 1;
-    inline-size: 56%;
+    inline-size: 60%;
     max-inline-size: 24rem;
     padding-block-end: 0;
   }
@@ -13774,17 +13774,17 @@
 
 @media (max-width: 63.999rem) {
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy h1 {
-    font-size: clamp(1.65rem, 4.5vw, 3rem);
+    font-size: clamp(1.875rem, 8vw, 3.25rem);
     line-height: 1.04;
     letter-spacing: -.035em;
     text-wrap: balance;
   }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-logo { inline-size: 2.5rem; block-size: auto; }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy :is(.sf-lede, p:not(.sf-eyebrow)) {
-    font-size: clamp(.8125rem, 1.8vw, 1rem);
+    font-size: clamp(.9375rem, 2.2vw, 1.125rem);
     line-height: 1.5;
   }
-  .sf-hero-underlay [data-pattern="hero"] .sf-eyebrow { font-size: .625rem; letter-spacing: .04em; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-eyebrow { font-size: .75rem; letter-spacing: .04em; }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy > * + * { margin-block-start: .75rem; }
   .sf-hero-underlay [data-pattern="hero"] .sf-button-row {
     display: flex;
@@ -13795,11 +13795,21 @@
   .sf-hero-underlay [data-pattern="hero"] .sf-button {
     inline-size: auto;
     max-inline-size: 100%;
-    min-block-size: 2.5rem;
-    padding: .65rem .7rem;
-    font-size: .625rem;
+    min-block-size: 2.75rem;
+    padding: .7rem .75rem;
+    font-size: .75rem;
     letter-spacing: .05em;
     white-space: normal;
     text-align: center;
   }
+}
+
+/* The supplied monogram is already transparent; place it beside the brand text. */
+#sf-header-inline .sfi-brand { gap: clamp(.5rem, 1vw, .8rem); }
+#sf-header-inline .sfi-brand-monogram {
+  display: block;
+  inline-size: clamp(2rem, 3.5vw, 3.25rem);
+  block-size: auto;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
