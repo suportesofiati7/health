@@ -1,42 +1,97 @@
-Imprimir / salvar PDF is not working for generated documents such as Resumo profissional and Registro completo / integral. I need to be able to actually print or save these documents as PDF.
+## Website & Application Improvement Goals
 
-Patient selection is broken — clicking a patient sometimes still results in “no patient selected.”
+### Goal 1 — Improve Website Colours
 
-Prepared WhatsApp messages are broken — after selecting a patient, the system still says “Preencha destinatário e mensagem” instead of opening the prepared WhatsApp message with the patient's information.
+Audit the entire website's colour palette. Make pink, yellow, gold, green, and accent colours clearer, more vibrant, and easier to read while preserving the existing brand identity.
 
-Tarefas → Fila de trabalho is not loading and shows “Não foi possível carregar as tarefas.”
+### Goal 2 — Fix Mobile Menu Alignment
 
-Continuidade do cuidado → Retornos e atenções clínicas is not loading and shows “Não foi possível carregar os retornos.”
+On mobile, align the following text to the left:
 
-Tarifas are not loading correctly. The tariffs I entered are not appearing in the Tarifas section.
+- Cuidado. Compromisso. Confiança.
+- @sofiati biomedica
+- Londrina, Paraná
 
-Remove all Nota Fiscal functionality from the application. I do not want to issue notas fiscais anywhere.
+### Goal 3 — Replace All Browser Dialog Boxes
 
-In the fiannce part, the images are wrong. Instead of the yellow/pink generic image, each treatment should show its own treatment producedyue catalogue thumbnail, using the same images already shown under Procedimentos.
-Also the thumbnail of th eprofile page should be the thumbnail of th patient not the acronymn intiial letters but hte image savedo on the patient profile
+Remove native browser alerts, confirmations, and prompts. Replace them with attractive, consistent dialogs matching the website's frontend design. Ensure confirmation, cancellation, success, failure, deletion, and archiving actions work correctly.
 
-All form submissions should send support notifications to suportesofiati@gmail.com plus the second support email.
+### Goal 4 — Fix Patient Registration Submission
 
-Fix the site's date/month/year handling so dates are consistent throughout the application.
+When a patient submits a form, automatically save the registration in the application and redirect to the Obrigado page. Remove the confusing message about pending email copies.
 
-Change the agreement system so it requires explicit authorization. There should be no automatic authorization/acceptance.
+### Goal 5 — Fix Consent Terms
 
-Put the Termos de Enzimas on the Formulário page.
+Correct the consent terms link to `https://francielesofiati.com/termos`. onthe formulario page rather than https://francielesofiati.com/formulario?read=terms
 
-Fields that are currently unnecessarily restricted to numbers should allow letters as well where appropriate.
+Ensure every treatment consent displays its treatment name and description before the patient agrees, including Peeling Ultrassônico, Peeling de Cristal, Peeling de Diamante, and Limpeza de Pele.
 
-Separate Emissor / Número / Letra into separate fields instead of treating them as one field on the formulario/form
+### Goal 6 — Fix Patient and Form Management
 
-Editar Catálogo → Botox has a bug and needs to be fixed. Also make sure the general catalogue editing system works correctly, not just Botox. Actually all of them are not working propoerly. i cant edit them easily.
+Fix the Vincular functionality, it doesnt do anything when i try to vilcualte it with anothe rpatients. Fix form deletion errors and ensure that converting a registration into a patient moves it from Formulários to Pacientes, without leaving duplicate active records.
 
-Check the entire Aceitamentos dos contratos workflow and make sure contract acceptance/authorization works correctly from the form, if they accept on the forumalro it should be accepted on the new patient as they accepts.
+### Goal 7 — Fix Visibility and Interface Problems
 
-When making updates, properly replace the old implementation rather than leaving conflicting old and new versions running together.
+Audit the entire application for washed-out text, invisible buttons, overlapping elements, transparency problems, clipping, and broken layering. Remove conflicting legacy CSS and ensure all pages work properly on desktop and mobile.
 
-Delete/remove the old tests that is no longer wanted. The onmly real patient on the platform should be Ashlyn and Monique with no finance saved. Ashlyn got a tattoo removal and botox on face and accepted all agreements. MONIQUE GOT BOTOX and accepted all consentimentos. she has an alleegy to iodo contrast.
+### Goal 8 — Make Email Buttons Work
 
-Remove Nota Fiscal functionality from everywhere, including related menus, buttons, workflows, etc.
+Fix every Enviar email button. Each should open a properly prepared email in Gmail or send an email directly through formsubmit from suportesofiati@gmail.com . Ensure the action always works and gives clear feedback. if it cant work for free easily to send email, just delete all the send email function and only have abrir whatsapp instead
 
-Remove Tests from Finance. Tests should not appear or be managed through the Finance section.
+### Goal 9 — Fix Tasks, Alerts, and Pending Actions
 
-Overall, simplify the application: one thing → one place → one source of truth. Remove duplicated, conflicting, obsolete, and legacy functionality.
+Make all pending tasks and notifications functional. Professionals should be able to complete, dismiss, or delete them. Completed catalogue items and patient records should no longer display outdated warnings.
+
+### Goal 10 — Simplify the Procedure Catalogue
+
+Redesign the catalogue editing experience so it is simple, readable, and practical.
+
+Remove visible JSON, technical placeholders, `[object Object]`, unnecessary configuration fields, and confusing completion buttons. Allow straightforward editing of descriptions, prices, durations, instructions, and relevant clinical information without exposing technical data. You can write the information like a human clinic would so its easy to understand
+
+### Goal 11 — Simplify Patient Records and Clinical Documents
+
+Make prontuários, treatment records, documents, and clinical information easy for a normal user to understand. Replace technical terminology and raw data structures with clearly labelled fields and natural Portuguese, while retaining necessary clinical and consent information.
+
+### Goal 12 — Fix Catalogue Editing and Saving
+
+Resolve errors such as Não foi possível salvar. Ensure procedures can be created, edited, saved, and deleted reliably, with changes reflected immediately throughout the application.
+
+### Goal 13 — Regenerate Sitemaps and Improve Indexing
+
+Audit the website's SEO and indexability. Regenerate accurate XML sitemaps reflecting the current website, verify canonical URLs and indexing rules, and prepare updated sitemaps for Google Search Console and Bing Webmaster Tools. Resubmit
+
+### Goal 14 — Improve Mobile Performance
+
+Improve the current mobile PageSpeed score of approximately 67. Optimise images, JavaScript, CSS, caching, loading speed, layout stability, and unnecessary network requests. Aim for 90+ mobile performance without compromising functionality or design.
+
+### Goal 15 — Final Application Audit and Testing
+
+After implementing all improvements, perform a complete application audit. Test every page, button, form, dialog, patient workflow, catalogue operation, and administrative action.
+
+Run linting, type checks, automated tests, and visual checks. Remove obsolete code and ensure all existing features continue working correctly.
+
+Overall objective: Make the entire website and application beautiful, fast, reliable, consistent, easy to understand, and fully functional, without unnecessary complexity or exposed technical details.
+
+Goal 16 — Complete Production Architecture Audit & Establish One Source of Truth
+Audit, clean up, and standardise the application's entire production architecture, including Git, builds, Cloudflare Pages/Workers, Wrangler, hosting, DNS, caching, environment variables, and Supabase.
+- Identify conflicts: Find duplicate deployments, outdated builds, legacy configurations, competing hosting methods, and incorrect database connections.
+- Establish one architecture: Define a single authoritative workflow: Source → Build → Deploy → Host → Domain → Database.
+- Remove legacy systems: Safely eliminate obsolete scripts, configurations, deployments, and conflicting code after verifying dependencies.
+- Verify production: Perform a clean build and deployment, confirm the live domain serves the latest version, and test authentication, database operations, editing, deletion, and caching.
+- Prevent future conflicts: Standardise development, deployment, and updates so new changes reliably reach production.
+- Document everything: Clearly identify the official repository, build/deployment commands, Cloudflare project/account, Supabase project, production domain, and future update procedure.
+Final objective: One clean, reliable, fully verified production architecture with no competing deployment systems, outdated builds, or confusing configurations. Audit first, fix safely, and preserve all existing functionality and data.
+
+### Goal 17 — NEW articles
+Audit and improve every new blog page, including all newly added articles, to create a beautiful, premium, mobile-first digital journal experience consistent with the website's existing design.
+- Design: Professional editorial layouts, beautiful typography, images, spacing, and consistent styling across all articles.
+- Mobile responsiveness: Every page must look exceptional and function perfectly on mobile, tablet, and desktop.
+- Clear hierarchy: Strong titles, engaging introductions, logical headings, readable sections, and intuitive navigation.
+- Storytelling: Structure each article to capture attention, build interest, establish trust, and naturally guide readers towards taking action.
+- Conversion: Every article must have a compelling, relevant call to action (CTA) at the end, encouraging readers to contact the professional, ask questions, or book an appointment.
+- Strategic CTAs: Use attractive, consistent contact sections with clear buttons, relevant messaging, and easy access to WhatsApp or the contact page.
+- SEO: Optimise titles, descriptions, headings, internal links, structured data, image alt text, and indexability.
+- Content integrity: Preserve all newly added Portuguese articles and ensure deleted English pages are not restored or referenced.
+- Performance: Optimise images, page speed, accessibility, and Core Web Vitals.
+- Quality assurance: Visually inspect and test every article across different screen sizes, fixing all design and functionality problems.
+Final objective: Transform every blog page into a visually outstanding, professional journal article that combines excellent storytelling, clear information hierarchy, strong SEO, and persuasive calls to action — turning readers into potential clients who contact the professional.

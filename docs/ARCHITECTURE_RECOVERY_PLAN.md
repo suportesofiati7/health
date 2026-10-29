@@ -1,3 +1,5 @@
+> Historical audit. Current production configuration and release instructions are in [deployment.md](deployment.md) and [config/production.json](../config/production.json).
+
 # Architecture recovery plan
 
 ## Target state

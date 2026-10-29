@@ -8,7 +8,7 @@ This is a framework-free static website. The repository is the authoring source;
 | Root `*.html`, `blog/`, `servicos/` | Published Brazilian Portuguese pages | These directories are the current public route source. The site has no published English routes. |
 | `partials/pt-BR/` | Active shared interface | Header, navigation, footer, cookie banner and floating controls. They load at runtime in source previews and are inlined during production builds. |
 | `partials/` | Legacy English interface templates | Retained for possible future localization work; no current public route selects them. Keep links out of published Portuguese pages. |
-| `css/site.css` | Public stylesheet | The production build minifies and fingerprints it. There is no separate CSS compilation command in this checkout. |
+| `css/site.css` | Public stylesheet | The production build minifies and fingerprints it. The build compiles this file directly; `css/src/` contains historical extracts and is not another active stylesheet source. |
 | `js/` | Browser behaviour | `js/main.js` is the module entry point. Consent/analytics scripts remain separate so consent defaults load first. |
 | `data/` | Shared runtime and editorial data | `seo.json` owns the canonical origin; `page-pairs.json` is intentionally empty until paired translations are published; `translation/` retains localization terminology and overrides. |
 | `assets/` | Public media | Paths are public contracts. Do not rename an asset without checking all consumers. |
@@ -26,3 +26,10 @@ Only deploy `dist/`. Never edit it: every build replaces it.
 The canonical production origin is set once in `data/seo.json`. When the final domain changes, update that value and every page's canonical metadata, then regenerate discovery files and run `npm run release:check`. The build does not automatically rewrite page metadata.
 
 The site currently publishes Portuguese only. If a translated route is reintroduced, publish both pages, add the pair to `data/page-pairs.json`, update its alternate-language links and redirects, then regenerate discovery files and run the full release check. Do not treat retained English templates or research briefs as published routes.
+
+## Provider source of truth
+
+See [production configuration](../config/production.json) and [deployment](deployment.md).
+Source (`main`) → the two locked builds → Cloudflare Pages `health`/`app` → their
+custom domains → Supabase `naypgbhwnlbyqqqfftgn`. The public project publishes
+`dist/`, never raw repository files. The management project publishes `management/dist/`.

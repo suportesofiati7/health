@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the regular site, translation, SEO, build and optional backend routine.
+"""Run Portuguese-site indexing, SEO, builds and optional backend maintenance.
 
 Safe default:
     python3 scripts/maintenance.py
@@ -8,9 +8,9 @@ Remote Supabase migrations and Edge Function deployment are explicit:
     python3 scripts/maintenance.py --backend
 
 Useful options:
-    --dry-run              preview indexing and translation changes
+    --dry-run              preview indexing changes
     --notify-indexnow      submit changed URLs to IndexNow
-    --skip-translate       skip the local Argos translation phase
+    --skip-translate       compatibility option; translations are always skipped
 """
 
 from __future__ import annotations
@@ -48,9 +48,9 @@ def run_phase(name: str, command: list[str], cwd: Path = ROOT) -> Result:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run regular public-site and management maintenance.")
     parser.add_argument("--backend", action="store_true", help="Apply linked Supabase migrations and deploy all Edge Functions.")
-    parser.add_argument("--dry-run", action="store_true", help="Preview indexing and translation changes without writing those files.")
+    parser.add_argument("--dry-run", action="store_true", help="Preview indexing changes without writing those files.")
     parser.add_argument("--notify-indexnow", action="store_true", help="Submit changed URLs to IndexNow after indexing.")
-    parser.add_argument("--skip-translate", action="store_true", help="Skip the local translation synchronization phase.")
+    parser.add_argument("--skip-translate", action="store_true", help="Compatibility option; production maintenance never recreates English pages.")
     args = parser.parse_args(argv)
 
     results: list[Result] = []
@@ -60,13 +60,9 @@ def main(argv: list[str] | None = None) -> int:
         index_args.append("--no-notify")
     results.append(run_phase("Discovery files and IndexNow", index_args))
 
-    if not args.skip_translate:
-        translate_args = [sys.executable, str(ROOT / "scripts/translate-site.py")]
-        if args.dry_run:
-            translate_args.append("--dry-run")
-        results.append(run_phase("Bilingual page synchronization", translate_args))
-    else:
-        print("\n======== Bilingual page synchronization ========\nRESULT: skipped by --skip-translate")
+    # Production publishes Portuguese only. Legacy translation tooling must
+    # never recreate deleted English routes during routine maintenance.
+    print("Portuguese-only maintenance: legacy translation is not run.")
 
     results.append(run_phase("Complete SEO and link audit", [sys.executable, str(ROOT / "scripts/seo.py"), "--no-external"]))
     results.append(run_phase("Public production build", ["npm", "run", "build"]))

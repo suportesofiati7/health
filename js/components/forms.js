@@ -738,17 +738,8 @@ export function initForms() {
           .then((value) => ({ status: 'fulfilled', value }), (reason) => ({ status: 'rejected', reason }));
         const emailResult = await (appResult.value?.email_status === 'sent' ? Promise.resolve(null) : deliver('email', () => sendEmail(emailPayload)))
           .then((value) => ({ status: 'fulfilled', value }), (reason) => ({ status: 'rejected', reason }));
-        if (emailResult.status === 'rejected' && (!funnel || appResult.status === 'rejected')) {
-          throw new Error('all_delivery_failed');
-        }
-        if (emailResult.status === 'rejected' || appResult.status === 'rejected') {
-          const message = emailResult.status === 'rejected'
-            ? (isPortuguese() ? 'Salvo no aplicativo. O e-mail está pendente. Tente novamente; o cadastro salvo não será duplicado.' : 'Saved in the app. Email delivery is pending. Please retry; your saved enquiry will not be duplicated.')
-            : (isPortuguese() ? 'Enviado por e-mail. O aplicativo está indisponível. Tente novamente para salvar também no aplicativo.' : 'Sent by email. The app is unavailable. Please retry to also save in the app.');
-          const node = setState('error', message, 'alert');
-          if (node) node.textContent = message;
-          node?.focus({ preventScroll: true });
-          return;
+        if ((funnel && appResult.status === 'rejected') || (!funnel && emailResult.status === 'rejected')) {
+          throw new Error('delivery_failed');
         }
         form.reset();
         fields.forEach(clearFieldError);

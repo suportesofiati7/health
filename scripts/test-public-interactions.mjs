@@ -50,7 +50,7 @@ try {
       return;
     }
     assert.equal(body.action, 'complete', 'the form finalizes the saved intake after uploads');
-    await route.fulfill({ status: 202, headers: { 'Access-Control-Allow-Origin': '*' }, contentType: 'application/json', body: JSON.stringify({ received: true, email_status: 'sent' }) });
+    await route.fulfill({ status: 202, headers: { 'Access-Control-Allow-Origin': '*' }, contentType: 'application/json', body: JSON.stringify({ received: true, email_status: 'failed' }) });
   });
   const page = await context.newPage();
   page.on('pageerror', (error) => { throw error; });

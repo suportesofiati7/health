@@ -1,97 +1,64 @@
-# Deployment
+# Production deployment
 
-## Requirements
+The production contract is [config/production.json](../config/production.json).
+Both Cloudflare Pages projects use `suportesofiati7/health`, branch `main`.
 
-- Node.js 22.19 or later and npm 9 or later.
-- Python 3. The validators require the Python packages already used by this checkout.
+| Site | Pages project | Root directory | Build | Published directory | Domain |
+| --- | --- | --- | --- | --- | --- |
+| Public | `health` | repository root | `npm run build` | `dist` | `francielesofiati.com` |
+| Professional | `app` | `management` | `npm run build` | `dist` | `app.francielesofiati.com` |
 
-Install the locked JavaScript dependencies with:
+Cloudflare account: `f849b654ca8cd73d78e19c7a1a85c36c` (suportesofiati@gmail.com).
+Database and Edge Functions: Supabase `naypgbhwnlbyqqqfftgn`, configured in
+`management/supabase`. No second database or Worker hosts these applications.
+The empty root-level `supabase/` directory is not a deployment source.
 
-```bash
-npm ci
-```
+## One release workflow
 
-## Preview
+1. Install locked dependencies with `npm ci` and `npm ci --prefix management` using Node 22.19+.
+2. Edit public HTML, `css/site.css`, `js/`, shared partials or `management/src/`.
+3. Run `npm run validate`, `npm test --prefix management`, `npm run test:db --prefix management`,
+   `npm run test:regressions --prefix management`, `npm run test:public-browser`,
+   and `npm run test:workflows`. Run the management browser suite against its local Vite preview.
+4. Build with `npm run build` and `npm run build --prefix management`. Preview the public
+   artifact with `npm run serve`. Never edit or publish repository source as static output.
+5. For a database change, inspect `npx supabase db push --dry-run` from `management`, then
+   apply the reviewed migrations with `npx supabase db push --yes`. Deploy only changed
+   Edge Functions with the existing authenticated/public JWT configuration.
+6. Commit the intended source changes and push `main`. Cloudflare builds both projects
+   from that commit. Do not switch either project to a different repository or publish source.
+7. Verify deployment status and commit for both projects. Compare the public
+   `/.performance-build.json` source commit, current asset fingerprint and live UI.
+8. Run the live public interaction test with `PUBLIC_TEST_URL=https://francielesofiati.com`.
+   It intercepts fictional submissions before they reach production storage.
+9. Regenerate and notify discovery with `python3 scripts/index-site.py --rebuild` after
+   the new routes are live. The sitemap index is `https://francielesofiati.com/sitemap-index.xml`.
 
-For editable source pages, use an HTTP server because partials are fetched at runtime:
+For a controlled recovery, the same built artifacts can be uploaded with
+`npx wrangler pages deploy dist --project-name health --branch main` and
+`npx wrangler pages deploy management/dist --project-name app --branch main`.
+This is an alternative transport for the same artifact, not a second source or hosting system.
+A direct upload should identify its Git commit; the next Git deployment must use the same source.
 
-```bash
-python3 -m http.server 4173
-```
+## Caching and DNS
 
-Open `http://127.0.0.1:4173/`.
+HTML, stable filenames and shared partials revalidate. Only content-fingerprinted
+`/assets/build/*` and `/assets/generated/*` are cached for one year. Never cache
+management responses: its headers retain `private, no-store` and `noindex`.
+Do not apply a zone-wide Cache Everything rule. Keep Browser Cache TTL at Respect Existing Headers.
 
-The live public site is the separate no-build Cloudflare Pages project for this
-`health` directory. The repository also has an optional `dist/` build for local
-and CI verification; it does not replace the current Cloudflare deployment.
+The public custom domains belong to `health`; the app domain belongs to `app`.
+Do not replace these domain associations with Workers or another Pages project.
+DNS record mutation requires an appropriately scoped Cloudflare token. The available
+Wrangler OAuth session can manage Pages but does not grant DNS record reads/writes;
+do not guess or overwrite DNS records to work around that boundary.
 
-## Release gate
+## Content and credentials
 
-Run this from the repository root before every deployment:
+The site publishes Portuguese only. `npm run maintain` never translates or restores
+retired English routes. Legacy translation commands are not part of production releases.
+Keep credentials in provider configuration or ignored local files. Public Supabase keys
+are publishable identifiers; service-role keys and provider tokens must never enter either build.
 
-```bash
-npm run release:check
-git diff --check
-```
-
-`release:check` runs asset, PT-BR, SEO/discovery and analytics validation, then builds the deployable artifact. It does not publish anything.
-
-`npm run build` runs the unified `scripts/index-site.py --rebuild --no-notify`
-pre-build hook, so the committed public discovery files stay synchronized with
-the actual HTML route set. The deployment helper additionally runs the same
-command with IndexNow notifications enabled; its private state file is ignored
-by Git and blocked by `_redirects` on the public project.
-
-Keep the public `health` site and the management application as two separate
-Cloudflare projects. The public `health` project uses no build command and
-publishes its configured repository directory directly. Do not point it at the
-management app or change the management app's separate build/deployment project.
-
-## Hosting requirements
-
-- Leave the public `health` project's build command blank and publish its configured repository directory directly.
-- Preserve `_headers` and `_redirects`. The redirect file permanently redirects the legacy English and `/pt/` URL families to their current canonical pages on Cloudflare Pages.
-- Configure the `www` host as a Cloudflare Bulk Redirect to `https://francielesofiati.com` with status `308`, **Subpath matching** and **Preserve path suffix** enabled. Enable Cloudflare's **Always Use HTTPS** setting (or an equivalent origin rule) for HTTP requests. Cloudflare Pages `_redirects` rules cannot redirect by hostname.
-
-After deployment, verify the home page, one PT-BR page, contact form destination, consent banner, canonical domain redirect, `robots.txt`, `sitemap.xml` and `llms.txt` on the live domain.
-
-
-## Prevent old versions after publishing
-
-The public site deploys the source directory directly. `_headers` tells browsers
-that **every URL must revalidate before reusing a cached response**, including
-extensionless pages, JavaScript modules, CSS, images and shared partials. ETags
-can still avoid downloading unchanged files. Do not add a long browser TTL to
-stable filenames. The optional build copies this same `_headers` file so its
-policy cannot drift from the source deployment. Shared partial and route-map
-fetches also bypass the browser HTTP cache.
-
-For each release:
-
-1. Confirm Workers & Pages → the **public health project** → production deployment
-   shows the intended Git commit and a successful deployment. A local commit or
-   a preview deployment does not update the custom production domain. Keep the
-   management app in its separate project.
-2. In the `francielesofiati.com` zone, remove conflicting Cache Rules, old Page
-   Rules or Workers that force “Cache Everything”, override the origin/browser
-   TTL, or cache HTML and stable script URLs. Set Browser Cache TTL to **Respect
-   Existing Headers**. Do not rely on Development Mode as the permanent fix.
-3. After deploying, use Caching → Configuration → **Purge Everything** once if
-   the custom domain still serves the previous release. Purging Cloudflare does
-   not erase copies already stored in visitors' browsers.
-4. Verify both `/formulario` and `/js/public-intake.js` return the current content
-   and `Cache-Control: no-cache, max-age=0, must-revalidate`. Confirm
-   `/js/core/form-delivery.js` returns 200 and the Portuguese footer reads
-   “Formulário”. Compare the custom domain with the successful production
-   deployment URL when diagnosing a mismatch.
-
-An already-open tab continues running the JavaScript it loaded. Visitors need
-one reload or a new navigation to load a new release; never force-reload an
-in-progress clinical form because that can discard attachments and answers.
-An old response stored with an earlier long TTL may require a one-time hard
-refresh; new headers only take effect after the browser requests the resource
-again. The site does not register a service worker.
-
-References: [Cloudflare Pages serving and cache behavior](https://developers.cloudflare.com/pages/configuration/serving-pages/),
-[Pages headers](https://developers.cloudflare.com/pages/configuration/headers/),
-and [Browser Cache TTL](https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/).
+Gmail buttons prepare a draft under `suportesofiati@gmail.com`; the professional reviews
+and sends it in Gmail. History records preparation, never a claim of successful delivery.

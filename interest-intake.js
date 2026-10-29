@@ -1,4 +1,4 @@
-import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout } from './js/core/form-delivery.js';
+import { deliveryTracker, formSignature, fetchWithTimeout } from './js/core/form-delivery.js';
 
 (() => {
   const form = document.querySelector('#interest-form');
@@ -32,8 +32,8 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout } from './j
     result.textContent = english ? 'Sending…' : 'Enviando…';
     const deliver = trackDelivery(formSignature(form));
     try {
-      const [app, email] = await Promise.allSettled([
-        deliver('app', async () => {
+      try {
+        await deliver('app', async () => {
           if (!token) throw Error('challenge');
           const response = await fetchWithTimeout('https://naypgbhwnlbyqqqfftgn.supabase.co/functions/v1/intake', {
             method: 'POST',
@@ -42,19 +42,11 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout } from './j
           });
           const data = await response.json().catch(() => null);
           if (!response.ok || data?.received !== true) throw Error('app_delivery_failed');
-        }),
-        deliver('email', () => sendEmail({ ...values,
-          _subject: english ? 'New website enquiry — Franciele Sofiati' : 'Novo interesse pelo site — Franciele Sofiati',
-          _template: 'table', pagina: window.location.href
-        }))
-      ]);
-      if (app.status === 'rejected' || email.status === 'rejected') {
-        result.textContent = app.status === 'rejected' && email.status === 'rejected'
-          ? (english ? 'Delivery failed. Please try again.' : 'O envio falhou. Tente novamente.')
-          : app.status === 'rejected'
-            ? (english ? 'Sent by email. The app could not save it. Please retry to also save in the app.' : 'Enviado por e-mail. Não foi possível salvar no aplicativo. Tente novamente para salvar também no aplicativo.')
-            : (english ? 'Saved in the app. Email is pending. Please retry; the saved enquiry will not be duplicated.' : 'Salvo no aplicativo. O e-mail está pendente. Tente novamente; o cadastro salvo não será duplicado.');
-        if (app.status === 'rejected') { token = ''; window.turnstile?.reset(); }
+
+        });
+      } catch {
+        result.textContent = english ? 'Could not save your enquiry. Please try again.' : 'Não foi possível salvar seu cadastro. Tente novamente.';
+        token = ''; window.turnstile?.reset();
         return;
       }
       form.reset();

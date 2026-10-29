@@ -1,0 +1,21 @@
+{
+  "repository": "suportesofiati7/health",
+  "branch": "main",
+  "cloudflareAccountId": "f849b654ca8cd73d78e19c7a1a85c36c",
+  "public": {
+    "project": "health",
+    "rootDirectory": "",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "domain": "https://francielesofiati.com"
+  },
+  "management": {
+    "project": "app",
+    "rootDirectory": "management",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "domain": "https://app.francielesofiati.com"
+  },
+  "supabaseProjectRef": "naypgbhwnlbyqqqfftgn",
+  "supabaseDirectory": "management/supabase"
+}

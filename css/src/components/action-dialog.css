@@ -1,0 +1,12 @@
+
+/* Shared public / professional action dialogs. Native top-layer focus trapping. */
+.sf-action-dialog { width: min(30rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow: auto; margin: auto; padding: 1.5rem; border: 1px solid #936421; border-radius: 1rem; background: #fffdf7; color: #1d3026; box-shadow: 0 24px 80px #14231a66; font: 1rem/1.6 system-ui, sans-serif; }
+.sf-action-dialog::backdrop { background: #14231ab8; }
+.sf-action-dialog form { display: grid; gap: 1rem; }
+.sf-action-dialog h2, .sf-action-dialog p { margin: 0; }
+.sf-action-dialog h2 { font: 1.6rem/1.2 Georgia, serif; }
+.sf-action-dialog input { width: 100%; padding: .75rem; border: 1px solid #526548; border-radius: .5rem; background: #fff; color: #1d3026; font: inherit; }
+.sf-action-dialog__actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: .75rem; }
+.sf-action-dialog button { min-height: 44px; padding: .65rem 1.1rem; border: 1px solid #526548; border-radius: .5rem; background: #fffdf7; color: #1d3026; font: inherit; cursor: pointer; }
+.sf-action-dialog button.primary { background: #526548; color: #fffdf7; }
+.sf-action-dialog :focus-visible { outline: 3px solid #936421; outline-offset: 3px; }

@@ -1,3 +1,5 @@
+> Historical audit. Current production configuration and release instructions are in [deployment.md](deployment.md) and [config/production.json](../config/production.json).
+
 # Application audit
 
 Audit baseline: 2026-10-28, starting at `758e12f48` on `main`. Recovery work is on `codex/application-audit-recovery`.

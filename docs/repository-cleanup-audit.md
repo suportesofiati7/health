@@ -1,3 +1,5 @@
+> Historical audit. Current production configuration and release instructions are in [deployment.md](deployment.md) and [config/production.json](../config/production.json).
+
 # Repository cleanup audit
 
 > Historical baseline record, not an operating guide. Commands and file paths in this document describe the checkout at the time of the audit; use [the current handover guide](handover.md) for maintenance and release work.

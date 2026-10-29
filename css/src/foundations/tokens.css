@@ -13,8 +13,8 @@
     /* The menu is the colour reference for every viewport-wide green surface.
        Bands and the footer use the translucent derivative so the shared page
        panorama can remain faintly visible beneath the same green. */
-    --menu-green: #66745F;
-    --menu-green-overlay: color-mix(in srgb, var(--menu-green) 92%, transparent);
+    --menu-green: #526548;
+    --menu-green-overlay: color-mix(in srgb, var(--menu-green) 97%, transparent);
     --olive-700: var(--menu-green);
     --forest-700: #334734;
     --forest-800: #293b30;
@@ -23,16 +23,18 @@
     --blush-50: #fff4ef;
     --blush-100: #f8e0d8;
     --blush-200: #edc7bd;
-    --pink-gold-300: #d39183;
-    --rose-gold-500: #b96b5d;
-    --rose-gold-600: #9b584d;
-    --rose-gold-700: #7c453e;
+    --pink-gold-300: #dc978a;
+    --rose-gold-500: #ad554b;
+    --rose-gold-600: #93473e;
+    --rose-gold-700: #783b35;
 
     --champagne-100: #f3e1c4;
+    --gold-100: #fff0c7;
+    --gold-600: #80561f;
     --gold-200: #e8cd9c;
-    --gold-300: #d2ad69;
-    --gold-500: #ab7a38;
-    --gold-700: #735024;
+    --gold-300: #e5bc67;
+    --gold-500: #936421;
+    --gold-700: #704a1b;
 
     --ink-700: #46554c;
 

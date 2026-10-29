@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import {
   copyFile,
   mkdir,
@@ -14,6 +15,7 @@ import { basename, dirname, extname, relative, resolve } from 'node:path';
 import { build as esbuild, transform } from 'esbuild';
 import { minify as minifyHtml } from 'html-minifier-terser';
 import sharp from 'sharp';
+import { cssForPage } from './css-scope.mjs';
 
 // A production build can create hundreds of responsive derivatives. Keep the
 // native image pipeline within a predictable memory/CPU envelope so it is
@@ -68,7 +70,7 @@ const generatedManifest = [];
 async function walk(directory, predicate = () => true) {
   const files = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
-    if (['.git', 'dist', 'node_modules', 'performance-reports', 'test-results', 'validation-artifacts'].includes(entry.name)) {
+    if (['.git', '.cache', 'dist', 'node_modules', 'performance-reports', 'test-results', 'validation-artifacts'].includes(entry.name)) {
       continue;
     }
     const absolute = resolve(directory, entry.name);
@@ -227,15 +229,23 @@ async function generateImage(source, requestedWidth, format, quality) {
   const outputRelative = `assets/generated/${stem}-${width}-${hash}.${format}`;
   const output = resolve(DIST, outputRelative);
   await mkdir(dirname(output), { recursive: true });
-  let pipeline = sharp(source, { animated: false })
-    .rotate()
-    .resize({ width, withoutEnlargement: true, fit: 'inside' });
-  if (format === 'avif') {
-    pipeline = pipeline.avif({ quality, effort: 4, chromaSubsampling: '4:2:0' });
-  } else {
-    pipeline = pipeline.webp({ quality, effort: 4, smartSubsample: true });
+  // Content-addressed local cache survives clean dist builds; it is never published.
+  const cachePath = resolve(ROOT, '.cache/production-images', basename(output));
+  let cached = false;
+  try { await copyFile(cachePath, output); cached = true; } catch (error) { if (error.code !== 'ENOENT') throw error; }
+  if (!cached) {
+    let pipeline = sharp(source, { animated: false })
+      .rotate()
+      .resize({ width, withoutEnlargement: true, fit: 'inside' });
+    if (format === 'avif') {
+      pipeline = pipeline.avif({ quality, effort: 4, chromaSubsampling: '4:2:0' });
+    } else {
+      pipeline = pipeline.webp({ quality, effort: 4, smartSubsample: true });
+    }
+    await pipeline.toFile(output);
+    await mkdir(dirname(cachePath), { recursive: true });
+    await copyFile(output, cachePath);
   }
-  await pipeline.toFile(output);
   const outputStat = await stat(output);
   const result = {
     relative: outputRelative,
@@ -375,15 +385,22 @@ async function optimizeCssImages(css) {
 async function buildCss() {
   const source = await readFile(resolve(ROOT, 'css/site.css'), 'utf8');
   const optimized = await optimizeCssImages(source);
-  const result = await transform(optimized, {
-    loader: 'css',
-    minify: true,
-    target: 'chrome100'
-  });
-  const hash = shortHash(result.code);
-  const relativePath = `assets/build/site.${hash}.css`;
-  await writeFile(resolve(DIST, relativePath), result.code);
-  return relativePath;
+  const publish = async (css, name) => {
+    const result = await transform(css, { loader: 'css', minify: true, target: 'chrome100' });
+    const relativePath = `assets/build/${name}.${shortHash(result.code)}.css`;
+    await writeFile(resolve(DIST, relativePath), result.code);
+    return relativePath;
+  };
+  const fallback = await publish(optimized, 'site');
+  const pageIds = new Set();
+  for (const path of await publicHtmlFiles()) {
+    const html = await readFile(path, 'utf8');
+    const id = attrs(html.match(/<body\b[^>]*>/i)?.[0] || '')['data-page'];
+    if (id) pageIds.add(id);
+  }
+  const pages = {};
+  for (const page of pageIds) pages[page] = await publish(cssForPage(optimized, page), `site-${page}`);
+  return { fallback, pages };
 }
 
 async function buildJavascript() {
@@ -419,7 +436,8 @@ async function buildJavascript() {
 }
 
 function replaceBuiltResources(html, relativePage, resources) {
-  const cssHref = pageRelativeAsset(relativePage, resources.css);
+  const page = attrs(html.match(/<body\b[^>]*>/i)?.[0] || '')['data-page'];
+  const cssHref = pageRelativeAsset(relativePage, resources.css.pages[page] || resources.css.fallback);
   const mainSrc = pageRelativeAsset(relativePage, resources.main);
   const measurementSrc = pageRelativeAsset(relativePage, resources.measurement);
   let output = html.replace(
@@ -512,7 +530,7 @@ async function copySupportFiles() {
       // Only copy data files that exist in this repository.
     }
   }
-  // Use the same cache policy for source deployments and optional builds.
+  // Stable source URLs revalidate; fingerprinted build assets are immutable.
   await copyFile(resolve(ROOT, '_headers'), resolve(DIST, '_headers'));
 }
 
@@ -554,7 +572,7 @@ async function main() {
     resources,
     generatedImages: generatedManifest.length,
     generatedImageBytes: generatedManifest.reduce((sum, image) => sum + image.bytes, 0),
-    sourceCommit: process.env.GITHUB_SHA || null,
+    sourceCommit: process.env.CF_PAGES_COMMIT_SHA || process.env.GITHUB_SHA || (() => { try { return execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(); } catch { return null; } })(),
     notes: [
       'Shared partials are composed into HTML at build time.',
       'GA4 remains delivered only through consent-gated GTM.',

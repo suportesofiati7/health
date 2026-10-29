@@ -1,7 +1,7 @@
 {
   "status": "PASS",
-  "generatedAt": "2026-10-28T12:07:24.331033+00:00",
-  "pagesChecked": 287,
+  "generatedAt": "2026-10-28T23:53:24.862785+00:00",
+  "pagesChecked": 288,
   "scriptsPresent": {
     "required": [
       "analytics-config.js",
@@ -2861,6 +2861,16 @@
         "correctOrder": true
       },
       {
+        "page": "termos.html",
+        "scripts": [
+          "js/analytics-config.js",
+          "js/consent-manager.js",
+          "js/analytics.js"
+        ],
+        "count": 3,
+        "correctOrder": true
+      },
+      {
         "page": "tratamentos.html",
         "scripts": [
           "js/analytics-config.js",
@@ -3617,7 +3627,7 @@
   },
   "trackingAttributes": {
     "meaningfulSections": 108,
-    "faqItems": 135,
+    "faqItems": 148,
     "installerIdempotent": true
   },
   "eventsImplemented": [
@@ -3656,7 +3666,7 @@
           "name": "all_pages_load_without_javascript_errors",
           "passed": true,
           "detail": {
-            "pages": 287,
+            "pages": 288,
             "errors": []
           }
         },

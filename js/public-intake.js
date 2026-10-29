@@ -1,4 +1,4 @@
-import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErrorMessage } from './core/form-delivery.js';
+import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } from './core/form-delivery.js';
 
 /* Confirm the complete intake in the app before sending its email copy.
  * Attachments remain in the private application storage. */
@@ -54,6 +54,8 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
       heading.textContent = title;
       small.textContent = description;
       details.dataset.consentTermFor = value;
+      details.querySelector("summary").textContent = `Ler termo: ${title}`;
+      details.dataset.faqQuestion = `Termo: ${title}`;
       details.querySelector("h4").textContent = value === "enzimas" ? "Termos de Enzimas" : `Termo específico: ${title}`;
       details.querySelectorAll("p").forEach((p) => {
         p.textContent = `Declaro compreender a finalidade, benefícios possíveis, limitações, riscos, contraindicações, cuidados antes e depois, necessidade de reavaliação e ausência de garantia de resultado do procedimento ${title}. Fui orientado(a) a informar condições de saúde, medicamentos, alergias, gestação, exposição solar e qualquer circunstância relevante. A profissional poderá adaptar, adiar, interromper ou contraindicar o procedimento por segurança.`;
@@ -64,7 +66,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
         details.append(note);
       }
       acceptance.name = `accepted_term_${value}`;
-      article.querySelector("span").textContent = "Li e compreendi o termo específico completo deste procedimento.";
+      acceptance.nextElementSibling.textContent = "Li e compreendi o termo específico completo deste procedimento.";
       procedureList.append(article);
     });
   }
@@ -131,7 +133,7 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
     const links = document.createElement("p");
     links.className = "sf-document-links";
     const policyHref = english ? "/en/cookies.html" : "/cookies.html";
-    const formHref = english ? "/en/form.html?read=terms" : "/formulario.html?read=terms";
+    const formHref = "https://francielesofiati.com/termos";
     links.append(
       document.createTextNode(english ? "Want to read more? " : "Quer ler mais? "),
       Object.assign(document.createElement("a"), {
@@ -326,36 +328,8 @@ import { deliveryTracker, formSignature, sendEmail, fetchWithTimeout, intakeErro
         setSubmitDisabled(false);
         return;
       }
-      // The server normally sends the email after saving. If that email failed,
-      // retry just the email copy after the app has confirmed receipt.
-      // Never forward security tokens or file contents in the email payload.
-      let emailError = null;
-      try {
-        await deliver("email", async () => {
-          if (appResult?.email_status === "sent") return;
-          const email = Object.fromEntries(Object.entries(values).filter(([key]) =>
-            !key.startsWith("_") && !["token", "cf-turnstile-response", "website"].includes(key)
-          ).map(([key, value]) => [key, Array.isArray(value) ? value.join(", ") : value]));
-          await sendEmail({ ...email,
-            _subject: "Novo formulário recebido - Franciele Sofiati",
-            _template: "table",
-            pagina: window.location.href,
-            arquivos: files.map(({ file }) => file.name).join(", "),
-            armazenamento_app: "Salvo no aplicativo"
-          });
-        });
-      } catch (error) {
-        emailError = error;
-      }
-      if (emailError) {
-        const english = (document.documentElement.lang || "").startsWith("en");
-        state("error",
-          english ? "Your complete form is saved in the app. The email copy is pending. Retry to send only the email copy." : "Seu formulário completo está salvo no aplicativo. A cópia por e-mail está pendente. Tente novamente para enviar apenas a cópia por e-mail.",
-          english ? "Saved in the app" : "Salvo no aplicativo");
-        submitting = false;
-        setSubmitDisabled(false);
-        return;
-      }
+      // Receipt in the private application is the successful submission.
+      // Server-side notifications must never make a patient resubmit saved data.
       pendingSession = null;
       sessionStorage.removeItem(draftKey);
       form.reset();

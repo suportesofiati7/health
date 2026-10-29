@@ -1,0 +1,26 @@
+{
+  "profile": "mobile",
+  "runs": 3,
+  "baseUrl": "http://127.0.0.1:4178",
+  "summary": [
+    {
+      "route": "/",
+      "performanceMedian": 93,
+      "performanceMinimum": 92,
+      "lcpMedian": 2575.484,
+      "fcpMedian": 2575.484,
+      "tbtMedian": 66.67300000000023,
+      "clsMedian": 0.004618225784555489
+    },
+    {
+      "route": "/blog/depilacao-laser-gravidez-evidencia-e-decidir.html",
+      "performanceMedian": 97,
+      "performanceMinimum": 97,
+      "lcpMedian": 2140.845,
+      "fcpMedian": 2140.845,
+      "tbtMedian": 0,
+      "clsMedian": 0.004618225784555489
+    }
+  ],
+  "failures": []
+}

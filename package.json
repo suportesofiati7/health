@@ -29,7 +29,9 @@
     "perf:all": "npm run perf:mobile && npm run perf:desktop",
     "test:public-browser": "node scripts/test-public-interactions.mjs",
     "test:public-layout": "node scripts/test-public-layout.mjs",
-    "test:public-heroes": "node scripts/test-public-heroes.mjs"
+    "test:public-heroes": "node scripts/test-public-heroes.mjs",
+    "test:workflows": "node scripts/test-goal-workflows.mjs",
+    "test:public-all-layouts": "node scripts/audit-public-layouts.mjs"
   },
   "engines": {
     "node": ">=22.19"
@@ -39,6 +41,7 @@
     "html-minifier-terser": "7.2.0",
     "lighthouse": "^13.6.0",
     "playwright-core": "1.61.1",
+    "postcss": "8.5.32",
     "sharp": "0.35.5",
     "supabase": "^2.117.0"
   }

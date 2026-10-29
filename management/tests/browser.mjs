@@ -33,7 +33,7 @@ async function contextFor(width,height,role='proprietario'){
     if(path.endsWith('/auth/v1/user'))return json(user);
     if(path.endsWith('/auth/v1/logout'))return json({});
     if(path.includes('/rpc/storage_usage'))return json({bytes:10485760,files:5,limit:800000000,database_bytes:5000000});
-    if(path.includes('/rpc/convert_public_intake'))return json(patient.id);
+    if(path.includes('/rpc/convert_public_intake')){posts.push({table:'rpc:convert_public_intake',body:req.postDataJSON()});return json(patient.id);}
     if(path.endsWith('/rpc/record_clinical_procedure')){posts.push({table:'rpc:record_clinical_procedure',body:req.postDataJSON()});return json('b5000000-0000-4000-8000-000000000001');}
     if(path.endsWith('/rpc/save_treatment_plan')){const body=req.postDataJSON();posts.push({table:'rpc:save_treatment_plan',body});Object.assign(fixtures.treatment_plans[0],body.plan_payload);if(body.item_payload){const items=fixtures.treatment_plans[0].treatment_plan_items,existing=items.find(item=>item.id===body.item_payload.id);if(existing)Object.assign(existing,body.item_payload);else items.push({...body.item_payload,id:'b7100000-0000-4000-8000-000000000002',organization_id:org,plan_id:fixtures.treatment_plans[0].id,archived_at:null,procedures:{name:fixtures.procedures.find(item=>item.id===body.item_payload.procedure_id)?.name}});}return json('b7000000-0000-4000-8000-000000000001');}
     if(path.endsWith('/rpc/set_treatment_plan_item_archived')){const body=req.postDataJSON();posts.push({table:'rpc:set_treatment_plan_item_archived',body});const item=fixtures.treatment_plans[0].treatment_plan_items.find(row=>row.id===body.p_item);if(item)item.archived_at=body.p_archived?created:null;return json(null);}
@@ -129,6 +129,19 @@ try{
     for (const statusName of ['Todos','Novo','Em análise','Contatado','Aguardando','Convertido','Arquivado']) { await page.getByRole('button',{name:statusName,exact:true}).click(); }
     await page.locator('button.patient-row').filter({hasText:'Contato Exemplo Fictício'}).click(); await page.getByRole('heading',{name:'Revisar formulário'}).waitFor();
     await page.getByLabel('Status').selectOption('em_analise'); await page.getByRole('button',{name:'Salvar análise',exact:true}).click(); await page.locator('dialog').waitFor({state:'detached'}); assert(posts.some(p=>p.table==='public_intakes'&&p.body.status==='em_analise'));
+    if (width === 1440) {
+      await page.locator('button.patient-row').filter({hasText:'Contato Exemplo Fictício'}).click();
+      const reviewDialog = page.getByRole('dialog', { name: 'Revisar formulário' });
+      await reviewDialog.locator('.patient-picker input').fill('QA Patient');
+      await reviewDialog.getByRole('option', { name: /QA Patient/ }).click();
+      await reviewDialog.getByRole('button', { name: 'Vincular ao paciente selecionado', exact: true }).click();
+      await page.getByRole('button', { name: 'Cancelar', exact: true }).last().click();
+      assert.equal(posts.filter(row => row.table === 'rpc:convert_public_intake').length, 0, 'cancelling never links a form');
+      await reviewDialog.getByRole('button', { name: 'Vincular ao paciente selecionado', exact: true }).click();
+      await page.getByRole('button', { name: 'Confirmar', exact: true }).click();
+      await page.getByRole('heading', { name: patient.preferred_name, exact: true }).waitFor();
+      assert.deepEqual(posts.find(row => row.table === 'rpc:convert_public_intake').body, { enquiry: intake.id, existing_patient: patient.id });
+    }
     await navigation(page,'Financeiro');try{await page.getByRole('heading',{name:'Financeiro',exact:true}).waitFor({timeout:5000});}catch(error){console.log('FINANCE_DEBUG',await page.locator('body').innerText());throw error;}await page.getByText(/700,00/).first().waitFor();await noOverflow(page);await page.locator('.finance-patient-thumb img').waitFor();assert.match(await page.locator('.finance-service-thumb').getAttribute('src'), /peeling-jessner\.png$/);
     await page.getByRole('button',{name:'Detalhes',exact:true}).click();await page.getByRole('button',{name:'Gerar recibo / PDF',exact:true}).waitFor();const receiptPopup=page.waitForEvent('popup');await page.getByRole('button',{name:'Gerar recibo / PDF',exact:true}).click();const receiptPage=await receiptPopup;await receiptPage.waitForLoadState('domcontentloaded');try{await receiptPage.getByRole('heading',{name:'RECIBO DE PAGAMENTO',exact:true}).waitFor({timeout:5000});}catch(error){console.log('RECEIPT_DEBUG',await receiptPage.locator('body').innerText());throw error;}await receiptPage.getByText('FS-2026-TESTE').waitFor();await receiptPage.close();
     await page.getByLabel('Valor recebido (R$)').fill('700');await page.locator('.finance-payment-form').getByRole('button',{name:'Registrar pagamento',exact:true}).click();assert(posts.some(p=>p.table==='financial_payments'&&p.body.amount_cents===70000));assert.equal(await page.getByRole('button',{name:/Nota Fiscal|Emitir NF|Ver NF/}).count(),0);await page.getByRole('button',{name:'Corrigir / Reembolsar',exact:true}).click();await page.getByLabel('Motivo').fill('Estorno fictício');await page.getByRole('button',{name:'Confirmar estorno',exact:true}).click();assert(posts.some(p=>p.table==='financial_payments'&&p.body.status==='estornado'&&p.body.refund_reason==='Estorno fictício'));await page.getByRole('button',{name:'Usar tema escuro',exact:true}).click();assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'dark');await page.getByRole('button',{name:'Usar tema claro',exact:true}).click();
@@ -151,12 +164,32 @@ try{
       await messageDialog.waitFor({ state: 'detached' });
       assert(posts.some(row => row.table === 'communications' && row.body.patient_id === outsidePatient.id));
       await whatsappPage.close();
+      await page.getByRole('button', { name: 'Nova mensagem', exact: true }).click();
+      const emailDialog = page.getByRole('dialog');
+      await emailDialog.locator('.patient-picker input').fill('Outside');
+      await emailDialog.getByRole('option', { name: /Outside/ }).click();
+      await emailDialog.locator('select').first().selectOption('email');
+      await emailDialog.getByRole('combobox', { name: 'Modelo', exact: true }).selectOption('__free__');
+      await emailDialog.getByLabel('Assunto', { exact: true }).fill('Consulta fictícia');
+      await emailDialog.locator('textarea').fill('Mensagem fictícia preparada');
+      await context.route('https://mail.google.com/**', route => route.fulfill({ contentType: 'text/html', body: '<title>Fictional Gmail draft</title>' }));
+      const emailPopupPromise = page.waitForEvent('popup');
+      await emailDialog.getByRole('button', { name: 'Abrir Gmail', exact: true }).click();
+      const emailPopup = await emailPopupPromise;
+      await emailPopup.waitForURL('https://mail.google.com/**');
+      const gmail = new URL(emailPopup.url());
+      assert.equal(gmail.searchParams.get('authuser'), 'suportesofiati@gmail.com');
+      assert.equal(gmail.searchParams.get('to'), outsidePatient.email);
+      assert.equal(gmail.searchParams.get('body'), 'Mensagem fictícia preparada');
+      await emailDialog.waitFor({ state: 'detached' });
+      assert.equal(posts.some(row => row.table === 'communications' && row.body.status === 'enviado'), false, 'opening Gmail must never claim the email was sent');
+      await emailPopup.close();
       await navigation(page, 'Procedimentos');
       for (const index of [0, 1]) {
         await page.locator('.procedure-catalog-card').nth(index).getByRole('button', { name: 'Editar', exact: true }).click();
         const editor = page.locator('#procedure-editor');
         await editor.waitFor();
-        assert.deepEqual(JSON.parse(await editor.getByLabel('Configuração comercial (JSON)').inputValue()), {});
+        assert.equal(await editor.getByText(/JSON|\[object Object\]/).count(), 0, 'catalogue exposes readable fields only');
         await editor.getByLabel('Preço (R$)', { exact: true }).fill('321.45');
         await editor.getByRole('button', { name: 'Salvar', exact: true }).click();
         await editor.waitFor({ state: 'detached' });

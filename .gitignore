@@ -29,3 +29,6 @@ dist/
 *.webm
 *.avi
 *.mkv
+
+# Disposable content-addressed build cache
+.cache/

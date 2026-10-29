@@ -20,7 +20,7 @@ The shipped site has no runtime npm dependencies. `npm audit --omit=dev` is clea
 | Review language routing | The public site is Portuguese-only. Keep `data/page-pairs.json` empty until a translated page is published and verified. |
 | Check everything and build | `npm run release:check` |
 | Refresh robots/sitemap and audit SEO | `npm run site:index` then `npm run seo` |
-| Update edited translations | `npm run site:translate` |
+| Retired translations | Not part of production maintenance; preserve Portuguese-only routes. |
 | Commit and push with today's date | `npm run git:publish` |
 | Check a broken asset path | `npm run check:assets` |
 | Check consent and analytics hooks | `npm run check:analytics` |
@@ -40,8 +40,7 @@ The shipped site has no runtime npm dependencies. `npm audit --omit=dev` is clea
 1. Confirm the final domain in `data/seo.json` and the page-level canonical tags.
 2. Run `npm run release:check` and `git diff --check` with no errors.
 3. Inspect the `dist/` preview on desktop and mobile.
-4. Deploy the public `health` project using its existing no-build Cloudflare
-   configuration, then complete the live checks in [Deployment](deployment.md).
+4. Push the reviewed commit to `main`; both Pages projects build their respective `dist/` artifacts. Complete the live checks in [Deployment](deployment.md).
 
 ## Troubleshooting
 

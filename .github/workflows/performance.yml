@@ -17,6 +17,11 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - uses: actions/cache@v4
+        with:
+          path: .cache/production-images
+          key: ${{ runner.os }}-production-images-${{ hashFiles('package-lock.json', 'assets/**') }}
+          restore-keys: ${{ runner.os }}-production-images-
       - name: Build the current Portuguese site
         run: npm run build
       - name: Mobile Lighthouse CI

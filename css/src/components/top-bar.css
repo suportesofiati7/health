@@ -86,3 +86,15 @@
   }
   @media (max-width: 26.875rem) { .sf-accessbar { display: none; } }
 }
+
+/* Keep all three clinic details readable and aligned on small screens. */
+  @media (max-width: 47.999rem) {
+    #sf-topbar-inline .sft-inner { display: grid; grid-template-columns: 1fr; gap: .35rem; padding-block: .65rem; text-align: left; }
+    #sf-topbar-inline .sft-motto { display: flex; justify-content: flex-start; font-size: .75rem; letter-spacing: 0; }
+    #sf-topbar-inline .sft-motto span { white-space: normal; overflow: visible; }
+    #sf-topbar-inline .sft-actions { display: grid; grid-template-columns: 1fr; justify-items: start; gap: .15rem; }
+    #sf-topbar-inline .sft-link, #sf-topbar-inline .sft-location { display: flex; justify-content: flex-start; border: 0; padding-inline: 0; font-size: .75rem; }
+    #sf-topbar-inline .sft-link-text { display: inline; }
+  }
+  .sfm-role { color: var(--gold-200); white-space: normal; }
+

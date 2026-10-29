@@ -4,7 +4,7 @@ Production source for Franciele Sofiati Biomédica’s Brazilian Portuguese stat
 
 - Canonical origin: `https://francielesofiati.com`
 - Node.js: 22.19+ (exact development dependencies are locked in `package-lock.json`)
-- Cloudflare Pages deployment: this `health` project is the no-build public static site; keep the management app in its separate Cloudflare project
+- Cloudflare Pages deployment: `health` builds the public `dist/`; `app` builds `management/dist/` from the same repository
 
 ## Start here
 
@@ -43,11 +43,11 @@ npm run site:translate         # legacy localization tooling; do not use for pub
 npm run seo                    # complete SEO/link/schema/image audit
 npm run screenshots            # interactive screenshot manager
 npm run git:publish            # dated git add/commit/push
-npm run maintain              # regular indexing, translation, SEO, and build checks
+npm run maintain              # regular Portuguese indexing, SEO, and build checks
 npm run maintain -- --backend # same routine plus Supabase migrations and Edge Functions
 ```
 
-The build composes partials, fingerprints CSS/JS, creates responsive AVIF/WebP variants and writes `dist/_headers` for local/CI verification. It does not change Cloudflare settings; the live public site remains the separate no-build `health` project.
+The production build composes partials, fingerprints CSS/JS, creates responsive AVIF/WebP variants and writes `dist/_headers`. Cloudflare publishes only this artifact. See `config/production.json` and `docs/deployment.md` for the authoritative deployment contract.
 
 ## Editorial and privacy boundary
 

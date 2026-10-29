@@ -1,3 +1,5 @@
+import { humanText, fieldLabel, parameterNotes } from "./clinicalText.js";
+import { confirmAction, promptAction } from "../../js/core/dialog.js";
 import { Avatar, ProcedureImage, usePrivateImage } from "./Images";
 import React, { Suspense, lazy, useState, useEffect, useRef, useCallback } from "react";
 import { createRoot } from "react-dom/client";
@@ -104,7 +106,7 @@ const FinanceiroRebuilt = lazy(() => import("./FinanceiroRebuilt"));
 const CommunicationHub = lazy(() => import("./CommunicationHub"));
 import { documentEscape, openDocument, populateDocument, reportDocumentHTML } from "./documentSystem";
 import ContextActions from "./ContextActions";
-import { emailSubject, missingPlaceholders, normalizeMessageText, renderTemplate, sendFormSubmitEmail, valuesForPatient } from "./communicationTemplates";
+import { emailSubject, missingPlaceholders, normalizeMessageText, renderTemplate, gmailComposeUrl, valuesForPatient } from "./communicationTemplates";
 import { setProcedureCatalog, SmartTextControl } from "./autocomplete";
 import { PatientPicker, TemplatePicker } from "./PatientPicker";
 // App chrome and generated documents share the same clinic brand source.
@@ -137,7 +139,7 @@ function displayValue(value, key = "") {
   }
   if (typeof value === "object") {
     try {
-      return JSON.stringify(value, null, 2);
+      return humanText(value);
     } catch {
       return String(value);
     }
@@ -329,6 +331,7 @@ function Dialog({ title, close, children, wide = false }) {
   return (
     <dialog
       ref={ref}
+      aria-label={title}
       className={wide ? "dialog-wide" : ""}
       onCancel={(e) => {
         e.preventDefault();
@@ -404,9 +407,9 @@ function useDirty() {
     dirty,
     touch: () => setDirty(true),
     clean: () => setDirty(false),
-    canClose: () =>
+    canClose: async () =>
       !dirty ||
-      confirm(
+      await confirmAction(
         t("Descartar alterações não salvas?", "Discard unsaved changes?"),
       ),
   };
@@ -1216,7 +1219,7 @@ function HomeView({
             ...masterIntakes.map((item) => ({ id: `master-${item.id}`, tone: "intake", title: t("Intake incompleto", "Incomplete intake"), detail: item.patients?.preferred_name || item.patients?.full_name, due: item.updated_at, action: () => item.patients && openPatient(item.patients) })),
             ...followups.map((item) => ({ id: `follow-${item.id}`, tone: "clinical", title: t("Retorno clínico pendente", "Pending clinical follow-up"), detail: item.patients?.preferred_name || item.patients?.full_name, due: item.expected_on, action: () => item.patients && openPatient(item.patients) })),
             ...adverseEvents.map((item) => ({ id: `adverse-${item.id}`, tone: "urgent", title: t("Intercorrência em acompanhamento", "Adverse event under follow-up"), detail: item.patients?.preferred_name || item.patients?.full_name, due: item.followup_deadline, action: () => item.patients && openPatient(item.patients) })),
-            ...qualityPatients.filter((item) => !item.phone || !item.email || !item.cpf || !item.birth_date).slice(0, 8).map((item) => ({ id: `quality-patient-${item.id}`, tone: "intake", title: t("Cadastro de paciente incompleto", "Incomplete patient registration"), detail: item.preferred_name || item.full_name, due: today, action: () => openPatient(item) })),
+            ...qualityPatients.filter((item) => !item.phone || !item.cpf || !item.birth_date).slice(0, 8).map((item) => ({ id: `quality-patient-${item.id}`, tone: "intake", title: t("Cadastro de paciente incompleto", "Incomplete patient registration"), detail: item.preferred_name || item.full_name, due: today, action: () => openPatient(item) })),
             ...qualityClinical.filter((item) => !item.procedure_id || !item.indication || !item.technique || !item.post_care || !item.area).slice(0, 8).map((item) => ({ id: `quality-clinical-${item.id}`, tone: "clinical", title: t("Registro clínico incompleto", "Incomplete clinical record"), detail: item.patients?.preferred_name || item.patients?.full_name, due: today, action: () => item.patients && openPatient(item.patients) })),
           ].sort((a, b) => new Date(a.due || 0) - new Date(b.due || 0)).slice(0, 8);
           const journey = [
@@ -1444,7 +1447,7 @@ function PatientLifecycleDialog({ patient, close, done, notify }) {
     finally { setBusy(false); }
   };
   const permanentlyDelete = async () => {
-    if (!confirm(t("Excluir este paciente permanentemente? Todos os registros e arquivos serão removidos.", "Permanently delete this patient? All records and files will be removed."))) return;
+    if (!await confirmAction(t("Excluir este paciente permanentemente? Todos os registros e arquivos serão removidos.", "Permanently delete this patient? All records and files will be removed."))) return;
     setBusy(true);
     try {
       await invoke("files", { action: "delete_patient", patient_id: patient.id });
@@ -1483,6 +1486,7 @@ function PatientForm({ patient, close, done, notify }) {
     [removePhoto, setRemovePhoto] = useState(false),
     [busy, setBusy] = useState(false),
     [duplicates, setDuplicates] = useState([]),
+    [linkPatientId, setLinkPatientId] = useState(""),
     dirty = useDirty();
   const change = (key, value) => {
     dirty.touch();
@@ -1576,7 +1580,7 @@ function PatientForm({ patient, close, done, notify }) {
           ? t("Editar paciente", "Edit patient")
           : t("Novo paciente", "New patient")
       }
-      close={() => dirty.canClose() && close()}
+      close={async () => (await dirty.canClose()) && close()}
       wide
     >
       <form onSubmit={submit}>
@@ -1671,7 +1675,7 @@ function PatientForm({ patient, close, done, notify }) {
         <FormFooter
           busy={busy}
           dirty={dirty.dirty}
-          close={() => dirty.canClose() && close()}
+          close={async () => (await dirty.canClose()) && close()}
         />
       </form>
     </Dialog>
@@ -2573,7 +2577,7 @@ function TreatmentPlans({ patient, member, writable, clinical, notify, setModal 
 
 function ClinicalProcedurePanel({ patient, member, writable, notify }) {
   const t = useT();
-  const [form, setForm] = useState({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", area: "", indication: "", technique: "", parameters: "{}", post_care: "", consent_status: "pendente", performed_at: localDateTime() }), [busy, setBusy] = useState(false), [usage, setUsage] = useState({ lot_id: "", quantity: "", unit: "" }), [editingDraftId, setEditingDraftId] = useState("");
+  const [form, setForm] = useState({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", area: "", indication: "", technique: "", parameters: "", post_care: "", consent_status: "pendente", performed_at: localDateTime() }), [busy, setBusy] = useState(false), [usage, setUsage] = useState({ lot_id: "", quantity: "", unit: "" }), [editingDraftId, setEditingDraftId] = useState("");
   const state = useLoad(async () => Promise.all([checked(db.from("procedures").select("*").eq("active", true).order("name")), checked(db.from("treatment_plans").select("id,title").eq("patient_id", patient.id).in("status", ["planejado", "em_andamento"])), checked(db.from("product_lots").select("*,products(name,unit,active)").order("expires_on"),), checked(db.from("devices").select("*").eq("active", true).order("name"))]), [patient.id]);
   const history = useLoad(() => checked(db.from("clinical_procedures").select("*,procedures(name)").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]);
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
@@ -2596,7 +2600,7 @@ function ClinicalProcedurePanel({ patient, member, writable, notify }) {
         treatment_area: form.area,
         indication: form.indication,
         technique: form.technique,
-        parameters: JSON.parse(form.parameters || "{}"),
+        parameters: { ...(form.originalParameters || {}), notes: form.parameters || "" },
         post_care: form.post_care,
         consent_status: form.consent_status,
         device_id: form.device_id || null,
@@ -2611,7 +2615,7 @@ function ClinicalProcedurePanel({ patient, member, writable, notify }) {
       history.refresh();
       notify(t("Procedimento registrado", "Procedure recorded"));
       setEditingDraftId("");
-      setForm((current) => ({ ...current, procedure_id: "", indication: "", technique: "", parameters: "{}", post_care: "", device_id: "" }));
+      setForm((current) => ({ ...current, procedure_id: "", indication: "", technique: "", parameters: "", post_care: "", device_id: "" }));
       setUsage({ lot_id: "", quantity: "", unit: "" });
     } catch (error) {
       const expired = /inventory_lot_expired|expired/i.test(error?.message || "");
@@ -2632,7 +2636,8 @@ function ClinicalProcedurePanel({ patient, member, writable, notify }) {
       area: row.area || row.treatment_area || "",
       indication: row.indication || "",
       technique: row.technique || "",
-      parameters: JSON.stringify(row.parameters || {}, null, 2),
+      parameters: parameterNotes(row.parameters),
+      originalParameters: row.parameters || {},
       post_care: row.post_care || "",
       consent_status: row.consent_status || "pendente",
       performed_at: row.performed_at || localDateTime(),
@@ -2640,7 +2645,7 @@ function ClinicalProcedurePanel({ patient, member, writable, notify }) {
     });
     setUsage({ lot_id: "", quantity: "", unit: "" });
   };
-  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Parâmetros do equipamento (JSON)", "Device parameters (JSON)")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide />{selected?.device_relevant && <Field title={t("Equipamento", "Device")} value={form.device_id || ""} onChange={(v) => set("device_id", v)} options={[{ value: "", label: t("Selecionar equipamento", "Select device") }, ...(state.data?.[3] || []).map((d) => ({ value: d.id, label: `${d.name} ${d.equipment_model || ""}` }))]} />}{(selected?.product_relevant || selected?.lot_required) && <><Field title={t("Produto/lote", "Product/lot")} value={usage.lot_id} onChange={(v) => setUsage((u) => ({ ...u, lot_id: v }))} options={[{ value: "", label: t("Selecionar lote", "Select lot") }, ...(state.data?.[2] || []).map((lot) => ({ value: lot.id, label: `${lot.products?.name || "Product"} · ${lot.lot} · ${lot.expires_on ? date(lot.expires_on) : t("sem validade", "no expiry")}` }))]} required={!!selected?.lot_required} /><Field title={t("Quantidade", "Quantity")} type="number" min="0" step="0.01" value={usage.quantity} onChange={(v) => setUsage((u) => ({ ...u, quantity: v }))} /><Field title={t("Unidade", "Unit")} value={usage.unit} onChange={(v) => setUsage((u) => ({ ...u, unit: v }))} /></>}<Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : editingDraftId ? t("Finalizar rascunho", "Finalize draft") : t("Finalizar procedimento", "Finalize procedure")}</Button>{editingDraftId && <Button type="button" disabled={busy} onClick={() => { setEditingDraftId(""); setForm((current) => ({ ...current, procedure_id: "", indication: "", technique: "", parameters: "{}", post_care: "", device_id: "" })); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form>}<LoadState state={history}>{(rows) => <div className="rows">{rows.map((row) => <article className="entry" key={row.id}><div className="entry-head"><strong>{row.procedures?.name}</strong><Status value={row.status} /></div><small>{row.history_only && !row.performed_at ? t("Histórico informado · data não informada", "Reported history · date not provided") : date(row.performed_at, true)}{row.area ? ` · ${row.area}` : ""}</small><p className="preserve">{row.observations}</p>{row.status === "rascunho" && writable && <Button type="button" icon={Pencil} disabled={busy} onClick={() => resumeDraft(row)}>{t("Completar rascunho", "Complete draft")}</Button>}</article>)}{!rows.length && <Empty icon={Syringe}>{t("Nenhum procedimento registrado.", "No treatments recorded.")}</Empty>}</div>}</LoadState></section>;
+  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide />{selected?.device_relevant && <Field title={t("Equipamento", "Device")} value={form.device_id || ""} onChange={(v) => set("device_id", v)} options={[{ value: "", label: t("Selecionar equipamento", "Select device") }, ...(state.data?.[3] || []).map((d) => ({ value: d.id, label: `${d.name} ${d.equipment_model || ""}` }))]} />}{(selected?.product_relevant || selected?.lot_required) && <><Field title={t("Produto/lote", "Product/lot")} value={usage.lot_id} onChange={(v) => setUsage((u) => ({ ...u, lot_id: v }))} options={[{ value: "", label: t("Selecionar lote", "Select lot") }, ...(state.data?.[2] || []).map((lot) => ({ value: lot.id, label: `${lot.products?.name || "Product"} · ${lot.lot} · ${lot.expires_on ? date(lot.expires_on) : t("sem validade", "no expiry")}` }))]} required={!!selected?.lot_required} /><Field title={t("Quantidade", "Quantity")} type="number" min="0" step="0.01" value={usage.quantity} onChange={(v) => setUsage((u) => ({ ...u, quantity: v }))} /><Field title={t("Unidade", "Unit")} value={usage.unit} onChange={(v) => setUsage((u) => ({ ...u, unit: v }))} /></>}<Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : editingDraftId ? t("Finalizar rascunho", "Finalize draft") : t("Finalizar procedimento", "Finalize procedure")}</Button>{editingDraftId && <Button type="button" disabled={busy} onClick={() => { setEditingDraftId(""); setForm((current) => ({ ...current, procedure_id: "", indication: "", technique: "", parameters: "", post_care: "", device_id: "" })); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form>}<LoadState state={history}>{(rows) => <div className="rows">{rows.map((row) => <article className="entry" key={row.id}><div className="entry-head"><strong>{row.procedures?.name}</strong><Status value={row.status} /></div><small>{row.history_only && !row.performed_at ? t("Histórico informado · data não informada", "Reported history · date not provided") : date(row.performed_at, true)}{row.area ? ` · ${row.area}` : ""}</small><p className="preserve">{row.observations}</p>{row.status === "rascunho" && writable && <Button type="button" icon={Pencil} disabled={busy} onClick={() => resumeDraft(row)}>{t("Completar rascunho", "Complete draft")}</Button>}</article>)}{!rows.length && <Empty icon={Syringe}>{t("Nenhum procedimento registrado.", "No treatments recorded.")}</Empty>}</div>}</LoadState></section>;
 }
 
 function HealthHistoryPanel({ patient, member, writable, notify }) {
@@ -2702,7 +2707,7 @@ function ClinicalPhotosPanel({ patient, writable, notify }) {
   const chooseEdit = (row) => { setEditing(row); setFile(null); setForm({ category: row.category, area: row.area || "", description: row.description || "" }); };
   const upload = async (e) => { e.preventDefault(); if (!file) return; setBusy(true); try { const body = new FormData(); body.set("file", file); body.set("patient_id", patient.id); body.set("kind", editing ? "photo_replace" : "photo"); if (editing) body.set("photo_id", editing.id); body.set("category", form.category); body.set("area", form.area); body.set("description", form.description); const result = await invoke("files", body); if (!result?.photo) throw Error("upload"); setFile(null); setEditing(null); state.refresh(); notify(editing ? t("Foto clínica substituída.", "Clinical photo replaced.") : t("Foto clínica salva.", "Clinical photo saved.")); } catch { notify(t("Não foi possível salvar a foto.", "Could not save the photo.")); } finally { setBusy(false); } };
   const photo = async (row) => { try { await openPrivateImage("clinical-photos", row.path); } catch { notify(t("Não foi possível abrir a foto. Permita pop-ups e verifique seu acesso.", "Could not open the photo. Allow pop-ups and verify your access.")); } };
-  const removePhoto = async (row) => { if (!window.confirm(t("Remover esta fotografia clínica?", "Remove this clinical photograph?"))) return; setBusy(true); try { const body = new FormData(); body.set("patient_id", patient.id); body.set("photo_id", row.id); body.set("kind", "photo_delete"); await invoke("files", body); state.refresh(); notify(t("Foto clínica removida.", "Clinical photo removed.")); } catch { notify(t("Não foi possível remover a foto.", "Could not remove the photo.")); } finally { setBusy(false); } };
+  const removePhoto = async (row) => { if (!await confirmAction(t("Remover esta fotografia clínica?", "Remove this clinical photograph?"))) return; setBusy(true); try { const body = new FormData(); body.set("patient_id", patient.id); body.set("photo_id", row.id); body.set("kind", "photo_delete"); await invoke("files", body); state.refresh(); notify(t("Foto clínica removida.", "Clinical photo removed.")); } catch { notify(t("Não foi possível remover a foto.", "Could not remove the photo.")); } finally { setBusy(false); } };
   return <section className="detail-section"><div className="section-heading"><h2>{t("Fotografia clínica", "Clinical photography")}</h2></div>{writable && <form className="form-grid" onSubmit={upload}><Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} options={["antes", "durante", "depois", "evolucao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Observação", "Note")} value={form.description} onChange={(v) => set("description", v)} /><PhotoPicker title={t("Foto clínica", "Clinical photo")} value={file} onChange={setFile} /><Button className="primary" icon={editing ? RefreshCw : Paperclip} disabled={busy || !file}>{editing ? t("Substituir foto", "Replace photo") : t("Enviar foto privada", "Upload private photo")}</Button>{editing && <Button type="button" disabled={busy} onClick={() => { setEditing(null); setFile(null); setForm({ category: "antes", area: "", description: "" }); }}>{t("Cancelar substituição", "Cancel replacement")}</Button>}</form>}<LoadState state={state}>{(rows) => <div className="document-list">{rows.map((row) => <div className="document-row" key={row.id}><ClinicalPhotoThumb row={row} onOpen={() => photo(row)} /><span><strong>{label(row.category, t)}</strong><small>{row.area} · {date(row.created_at, true)} · {row.description}</small></span><Button icon={Eye} onClick={() => photo(row)}>{t("Visualizar", "View")}</Button>{writable && <><Button icon={RefreshCw} onClick={() => chooseEdit(row)}>{t("Substituir", "Replace")}</Button><Button icon={Trash2} disabled={busy} onClick={() => removePhoto(row)}>{t("Remover", "Remove")}</Button></>}</div>)}{!rows.length && <Empty icon={Eye}>{t("Nenhuma foto clínica", "No clinical photos")}</Empty>}</div>}</LoadState></section>;
 }
 
@@ -2798,7 +2803,7 @@ function MasterIntake({ patient: initialPatient, sourceIntake, member, close, no
   });
   useEffect(() => { let live = true; (async () => { try { const current = await checked(db.from("master_intakes").select("*").eq("patient_id", initialPatient.id).maybeSingle()); if (!live) return; if (current) { setForm({ ...base(initialPatient), ...(current.data || {}) }); setProvenance(current.provenance || {}); setStatus(current.status); setMissing(current.missing_fields || []); } else { const initial = base(initialPatient); setForm(initial); const p = {}; Object.entries(initial).forEach(([section, fields]) => Object.entries(fields || {}).forEach(([key, value]) => { if (value) p[`${section}.${key}`] = "patient"; })); setProvenance(p); } } catch { if (live) setForm(base(initialPatient)); } finally { if (live) { setPatient(initialPatient); setLoaded(true); } } })(); return () => { live = false; }; }, [initialPatient.id]);
   const update = (section, key, value) => { setForm((f) => ({ ...f, [section]: { ...(f?.[section] || {}), [key]: value } })); setProvenance((p) => ({ ...p, [`${section}.${key}`]: member.role === "recepcao" ? "reception" : "professional" })); };
-  const saveIntake = useCallback(async (nextStatus = status, silent = false) => { if (!form || busy) return; setBusy(true); try { const required = ["identity.full_name", "identity.birth_date", "identity.cpf", "contact.phone", "contact.email"].filter((key) => !String(key.split(".").reduce((o, k) => o?.[k], form) || "").trim()); const payload = { ...(clinical ? form : { identity: form.identity, contact: form.contact, visit: form.visit }), status: nextStatus }; const id = await checked(db.rpc("save_master_intake", { p_patient_id: patient.id, p_source_intake_id: sourceIntake?.id || null, p_status: nextStatus, p_data: payload, p_provenance: provenance, p_missing_fields: required })); setMissing(required); setStatus(nextStatus); setSavedAt(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })); if (!silent) { notify(t("Intake salvo e seções sincronizadas.", "Intake saved and sections synchronized.")); done?.(); } return id; } catch (e) { notify(e?.message?.includes("clinical_permission") ? t("A recepção não pode alterar informações clínicas.", "Reception cannot alter clinical information.") : t("Não foi possível salvar o intake.", "Could not save intake.")); } finally { setBusy(false); } }, [form, busy, status, clinical, patient?.id, sourceIntake?.id, provenance]);
+  const saveIntake = useCallback(async (nextStatus = status, silent = false) => { if (!form || busy) return; setBusy(true); try { const required = ["identity.full_name", "identity.birth_date", "identity.cpf", "contact.phone"].filter((key) => !String(key.split(".").reduce((o, k) => o?.[k], form) || "").trim()); const payload = { ...(clinical ? form : { identity: form.identity, contact: form.contact, visit: form.visit }), status: nextStatus }; const id = await checked(db.rpc("save_master_intake", { p_patient_id: patient.id, p_source_intake_id: sourceIntake?.id || null, p_status: nextStatus, p_data: payload, p_provenance: provenance, p_missing_fields: required })); setMissing(required); setStatus(nextStatus); setSavedAt(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })); if (!silent) { notify(t("Avaliação inicial salva e informações atualizadas.", "Initial assessment saved and information updated.")); done?.(); } return id; } catch (e) { notify(e?.message?.includes("clinical_permission") ? t("A recepção não pode alterar informações clínicas.", "Reception cannot alter clinical information.") : t("Não foi possível salvar a avaliação inicial.", "Could not save the initial assessment.")); } finally { setBusy(false); } }, [form, busy, status, clinical, patient?.id, sourceIntake?.id, provenance]);
   useEffect(() => { if (!loaded || !form) return; const id = setTimeout(() => saveIntake(status, true), 1400); return () => clearTimeout(id); }, [form, provenance]);
   if (!form) return <Dialog title={t("Consulta inicial completa", "Master Intake")} close={close}><p role="status">{t("Carregando dados do paciente...", "Loading patient data...")}</p></Dialog>;
   return <Dialog title={t("Consulta inicial completa", "Master Intake")} close={() => !busy && close()} wide>
@@ -2806,7 +2811,7 @@ function MasterIntake({ patient: initialPatient, sourceIntake, member, close, no
     <div className="provenance-legend"><Provenance value="patient" /><Provenance value="reception" /><Provenance value="professional" /></div>
     <div className="master-intake-grid">{masterSections.filter(([section]) => clinical || !["health", "clinical", "consents"].includes(section)).map(([section, title, fields]) => <section className={`master-section ${missing.some((m) => m.startsWith(`${section}.`)) ? "has-missing" : ""}`} key={section}><div className="section-heading"><h3>{title}</h3>{missing.some((m) => m.startsWith(`${section}.`)) && <span className="missing-badge"><AlertCircle size={14} /> {t("Completar", "Complete")}</span>}</div><div className="form-grid">{fields.map(([key, labelText]) => <div className="master-field" key={key}><Field title={t(labelText, labelText)} type={key.includes("notes") || ["address", "emergency_contact", "allergies", "medications", "conditions", "pregnancy_breastfeeding", "other_notes", "concern", "assessment", "plan", "recommendations"].includes(key) ? "textarea" : key === "birth_date" ? "date" : "text"} value={form[section]?.[key] || ""} onChange={(v) => update(section, key, v)} disabled={!clinical && ["health", "clinical", "consents"].includes(section)} wide={key.includes("notes") || ["address", "emergency_contact", "allergies", "medications", "conditions", "pregnancy_breastfeeding", "other_notes", "concern", "assessment", "plan", "recommendations"].includes(key)} />{form[section]?.[key] && <Provenance value={provenance[`${section}.${key}`]} />}</div>)}</div></section>)}</div>
     <div className="master-sync"><CheckCheck size={18} /><strong>{t("Ao salvar, estas áreas são sincronizadas", "Saving synchronizes these areas")}</strong><span>{t("Resumo · Dados · Prontuário · Documentos e fotos · Fotografia clínica · Planos · Procedimentos · Saúde · Consentimentos · Privacidade/portal · Agenda e retornos · Administrativo", "Summary · Details · Clinical record · Documents & photos · Clinical photography · Plans · Procedures · Health · Consents · Privacy/portal · Schedule & follow-ups · Administrative")}</span></div>
-    <footer className="form-footer"><span className="save-state">{savedAt ? `${t("Salvo automaticamente às", "Autosaved at")} ${savedAt}` : t("Rascunho não salvo", "Unsaved draft")}</span><Button type="button" onClick={close}>{t("Fechar", "Close")}</Button><Button type="button" onClick={() => saveIntake("rascunho")} disabled={busy}>{t("Salvar rascunho", "Save draft")}</Button><Button type="button" onClick={() => saveIntake("em_revisao")} disabled={busy}>{t("Enviar para revisão", "Send for review")}</Button>{clinical && <Button type="button" icon={CheckCircle2} className="primary" onClick={() => saveIntake("finalizado")} disabled={busy}>{t("Finalizar intake", "Finalize intake")}</Button>}</footer>
+    <footer className="form-footer"><span className="save-state">{savedAt ? `${t("Salvo automaticamente às", "Autosaved at")} ${savedAt}` : t("Rascunho não salvo", "Unsaved draft")}</span><Button type="button" onClick={close}>{t("Fechar", "Close")}</Button><Button type="button" onClick={() => saveIntake("rascunho")} disabled={busy}>{t("Salvar rascunho", "Save draft")}</Button><Button type="button" onClick={() => saveIntake("em_revisao")} disabled={busy}>{t("Enviar para revisão", "Send for review")}</Button>{clinical && <Button type="button" icon={CheckCircle2} className="primary" onClick={() => saveIntake("finalizado")} disabled={busy}>{t("Finalizar avaliação inicial", "Finalize initial assessment")}</Button>}</footer>
   </Dialog>;
 }
 function Entry({ entry: e, author, member, onEdit, onAmend }) {
@@ -2988,7 +2993,7 @@ function EntryForm({
     <Dialog
       wide
       title={`${amends ? t("Adendo: ", "Amendment: ") : ""}${label(kind, t)}`}
-      close={() => dirty.canClose() && close()}
+      close={async () => (await dirty.canClose()) && close()}
     >
       <div className="context-line">
         <Avatar person={patient} className="avatar small" size={34} />
@@ -3088,9 +3093,9 @@ function EntryForm({
             type="button"
             icon={Check}
             disabled={busy}
-            onClick={() => {
+            onClick={async () => {
               if (
-                confirm(
+                await confirmAction(
                   t(
                     "Finalizar este registro? Correções futuras serão feitas por adendo.",
                     "Finalize this record? Future corrections will be added as amendments.",
@@ -3262,7 +3267,7 @@ function AppointmentForm({ appointment, patient, initialStart, followup, close, 
   return (
     <Dialog
       title={t("Agendamento", "Appointment")}
-      close={() => dirty.canClose() && close()}
+      close={async () => (await dirty.canClose()) && close()}
     >
       <form onSubmit={submit}>
         <PatientPicker
@@ -3329,7 +3334,7 @@ function AppointmentForm({ appointment, patient, initialStart, followup, close, 
         <FormFooter
           busy={busy}
           dirty={dirty.dirty}
-          close={() => dirty.canClose() && close()}
+          close={async () => (await dirty.canClose()) && close()}
         />
       </form>
     </Dialog>
@@ -3380,7 +3385,7 @@ function WhatsappComposer({ appointment, patient, member, close, notify }) {
   useEffect(() => { if (selected) setMessage(renderCommunication(selected.body, { ...patient, appointment }, { name: "Franciele Sofiati", role: "proprietario" })); }, [selected?.id, patient?.id, appointment?.id]);
   const saveTemplate = async (asNew = false) => {
     if (!selected || !message.trim()) return;
-    const name = asNew ? window.prompt(t("Nome do novo modelo", "Name for the new template"), selected.name) : selected.name;
+    const name = asNew ? await promptAction(t("Nome do novo modelo", "Name for the new template"), selected.name) : selected.name;
     if (!name?.trim()) return;
     try {
       const renderedBody = renderCommunication(selected.body, { ...patient, appointment }, { name: "Franciele Sofiati", role: "proprietario" });
@@ -3392,7 +3397,7 @@ function WhatsappComposer({ appointment, patient, member, close, notify }) {
   };
   const renameTemplate = async () => {
     if (!selected || !templatesState.data?.length) return;
-    const name = window.prompt(t("Novo nome do modelo", "New template name"), selected.name);
+    const name = await promptAction(t("Novo nome do modelo", "New template name"), selected.name);
     if (!name?.trim() || name.trim() === selected.name) return;
     try { await checked(db.from("communication_templates").update({ name: name.trim() }).eq("id", selected.id)); templatesState.refresh(); notify(t("Modelo renomeado.", "Template renamed.")); } catch { notify(t("Não foi possível renomear o modelo.", "Could not rename the template.")); }
   };
@@ -3420,10 +3425,10 @@ function CommunicationComposer({ patient: initialPatient, appointment, template:
   const selected = (templates.data || []).find((x) => x.id === templateId);
   useEffect(() => { if (templateId === "__free__") return; const item = selected || (templates.data || []).find((x) => x.channel === channel); if (item) { setTemplateId(item.id); setSourceSubject(normalizeMessageText(item.subject)); setSourceBody(normalizeMessageText(item.body)); setSubject(renderCommunication(item.subject, { ...patient, appointment }, member)); setSignature(senderSignature(member)); setBody(renderCommunication(item.body, { ...patient, appointment }, member)); } }, [templates.data, templateId, channel, patient?.id, appointment?.id, member?.user_id]);
   const recipient = channel === "email" ? patient?.email : patient?.phone;
-  const saveTemplate = async (asNew = false) => { if (!body.trim()) return; const name = asNew || !selected ? window.prompt(t("Nome do novo modelo", "Name for the new template"), selected?.name || t("Novo modelo", "New template")) : selected.name; if (!name?.trim()) return; try { const renderedSourceBody = renderCommunication(sourceBody, { ...patient, appointment }, member); const renderedSourceSubject = renderCommunication(sourceSubject, { ...patient, appointment }, member); const payload = { name: name.trim(), category: selected?.category || "administrativo", channel, variant: selected?.variant || "standard", subject: normalizeMessageText(subject === renderedSourceSubject ? sourceSubject : subject), body: normalizeMessageText(body === renderedSourceBody ? sourceBody : body), sender_mode: selected?.sender_mode || "sender", sensitive: Boolean(selected?.sensitive), created_by: member.user_id }; if (asNew || !selected) await checked(db.from("communication_templates").insert({ organization_id: ORG, ...payload })); else await checked(db.from("communication_templates").update(payload).eq("id", selected.id)); templates.refresh(); notify(t(asNew ? "Modelo salvo para uso futuro." : "Modelo atual substituído.", asNew ? "Template saved for future use." : "Current template updated.")); } catch { notify(t("Não foi possível salvar o modelo.", "Could not save the template.")); } };
-  const renameTemplate = async () => { if (!selected) return; const name = window.prompt(t("Novo nome do modelo", "New template name"), selected.name); if (!name?.trim() || name.trim() === selected.name) return; try { await checked(db.from("communication_templates").update({ name: name.trim() }).eq("id", selected.id)); templates.refresh(); notify(t("Modelo renomeado.", "Template renamed.")); } catch { notify(t("Não foi possível renomear o modelo.", "Could not rename the template.")); } };
-  const submit = async (e) => { e.preventDefault(); if (preference?.do_not_contact) return notify(t("Este paciente pediu para não ser contatado. Revise as preferências antes de continuar.", "This patient requested no contact. Review preferences before continuing.")); if (!patient || !recipient) return notify(t("Selecione um contato com telefone ou email válido.", "Select a contact with a valid phone or email.")); const finalSubject = channel === "email" ? emailSubject(subject, selected?.name) : subject; const target = channel === "whatsapp" ? `${whatsappWeb(recipient)}&text=${encodeURIComponent(body)}` : null; const popup = target ? window.open(target, "_blank", "noopener,noreferrer") : null; setBusy(true); try { if (channel === "email") await sendFormSubmitEmail({ recipient, subject: finalSubject, body, patient, sender: member.email || member.name }); const row = await checked(db.from("communications").insert({ organization_id: ORG, patient_id: patient.id, appointment_id: appointment?.id || null, channel, direction: "outbound", visibility: "external", category: selected?.category || "administrativo", subject: finalSubject, body, rendered_signature: signature, recipient_name: patient.full_name || patient.preferred_name || "", recipient_address: recipient, template_id: templateId === "__free__" ? null : (templateId || null), status: "rascunho", packet_sha256: "", created_by: member.user_id }).select().single()); if (!popup && target) window.open(target, "_blank", "noopener,noreferrer"); await checked(db.from("communications").update({ status: channel === "email" ? "enviado" : "nao_confirmado", sent_at: new Date().toISOString() }).eq("id", row.id)); notify(t(channel === "email" ? "Email aceito pelo provedor e registrado no histórico." : "Contato preparado e registrado no histórico.", channel === "email" ? "Email accepted by provider and recorded in history." : "Contact prepared and recorded in history.")); close(); } catch (error) { popup?.close(); notify(t(error?.code === "email_provider_unconfigured" ? "Email não configurado: defina o provedor antes de enviar." : channel === "email" ? "Não foi possível enviar o email." : "Não foi possível registrar a comunicação.", error?.code === "email_provider_unconfigured" ? "Email is not configured: set up the provider before sending." : channel === "email" ? "Could not send the email." : "Could not record the communication.")); } finally { setBusy(false); } };
-  return <Dialog title={t("Preparar comunicação", "Prepare communication")} close={close} wide><form className="communication-composer" onSubmit={submit}><div className="communication-recipient"><strong>{patient?.preferred_name || patient?.full_name || t("Nenhum destinatário", "No recipient")}</strong><span>{recipient || t("Sem contato neste canal", "No contact for this channel")}</span></div>{preference?.do_not_contact && <p className="notice error">{t("Não contatar: preferência registrada no cadastro.", "Do not contact: preference recorded in the patient record.")}</p>}<div className="form-grid"><Field title={t("Canal", "Channel")} value={channel} onChange={setChannel} options={[{ value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "Email" }]} /><ContextActions className="template-field-actions" label={selected?.name || t("Modelo", "Template")} actions={[{ icon: Save, label: t("Salvar modelo atual", "Save current template"), onClick: () => saveTemplate(false) }, { icon: Save, label: t("Salvar como novo modelo", "Save as new template"), onClick: () => saveTemplate(true) }, selected && { icon: Pencil, label: t("Renomear modelo", "Rename template"), onClick: renameTemplate }]}><TemplatePicker title={t("Modelo", "Template")} templates={templates.data || []} channel={channel} value={templateId} onChange={setTemplateId} /></ContextActions></div>{channel === "email" && <Field title={t("Assunto", "Subject")} value={subject} onChange={setSubject} />}<Field title={t("Assinatura", "Signature")} value={signature} onChange={(v) => { setSignature(v); setBody((current) => current.replace(/(Com carinho,\n)?(Recepção da Franciele Sofiati|Franciele Sofiati)$/, `$1${v}`)); }} /><Field title={t("Mensagem editável", "Editable message")} type="textarea" value={body} onChange={setBody} required /><p className="consent-note"><ShieldCheck size={15} /> {t("Revise a mensagem personalizada antes de enviar. A confirmação exibida informa a aceitação pelo provedor, não a entrega final.", "Review the personalized message before sending. Confirmation means provider acceptance, not final delivery.")}</p><footer className="form-footer"><Button type="button" onClick={() => saveTemplate(false)} icon={Save} disabled={!selected}>{t("Salvar modelo atual", "Save current template")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Send} disabled={busy || !body || preference?.do_not_contact}>{t(channel === "email" ? "Enviar email" : "Abrir WhatsApp", channel === "email" ? "Send email" : "Open WhatsApp")}</Button></footer></form></Dialog>;
+  const saveTemplate = async (asNew = false) => { if (!body.trim()) return; const name = asNew || !selected ? await promptAction(t("Nome do novo modelo", "Name for the new template"), selected?.name || t("Novo modelo", "New template")) : selected.name; if (!name?.trim()) return; try { const renderedSourceBody = renderCommunication(sourceBody, { ...patient, appointment }, member); const renderedSourceSubject = renderCommunication(sourceSubject, { ...patient, appointment }, member); const payload = { name: name.trim(), category: selected?.category || "administrativo", channel, variant: selected?.variant || "standard", subject: normalizeMessageText(subject === renderedSourceSubject ? sourceSubject : subject), body: normalizeMessageText(body === renderedSourceBody ? sourceBody : body), sender_mode: selected?.sender_mode || "sender", sensitive: Boolean(selected?.sensitive), created_by: member.user_id }; if (asNew || !selected) await checked(db.from("communication_templates").insert({ organization_id: ORG, ...payload })); else await checked(db.from("communication_templates").update(payload).eq("id", selected.id)); templates.refresh(); notify(t(asNew ? "Modelo salvo para uso futuro." : "Modelo atual substituído.", asNew ? "Template saved for future use." : "Current template updated.")); } catch { notify(t("Não foi possível salvar o modelo.", "Could not save the template.")); } };
+  const renameTemplate = async () => { if (!selected) return; const name = await promptAction(t("Novo nome do modelo", "New template name"), selected.name); if (!name?.trim() || name.trim() === selected.name) return; try { await checked(db.from("communication_templates").update({ name: name.trim() }).eq("id", selected.id)); templates.refresh(); notify(t("Modelo renomeado.", "Template renamed.")); } catch { notify(t("Não foi possível renomear o modelo.", "Could not rename the template.")); } };
+  const submit = async (e) => { e.preventDefault(); if (preference?.do_not_contact) return notify(t("Este paciente pediu para não ser contatado. Revise as preferências antes de continuar.", "This patient requested no contact. Review preferences before continuing.")); if (!patient || !recipient) return notify(t("Selecione um contato com telefone ou email válido.", "Select a contact with a valid phone or email.")); const finalSubject = channel === "email" ? emailSubject(subject, selected?.name) : subject; const target = channel === "whatsapp" ? `${whatsappWeb(recipient)}&text=${encodeURIComponent(body)}` : gmailComposeUrl({ recipient, subject: finalSubject, body }); const popup = target ? window.open(target, "_blank", "noopener,noreferrer") : null; setBusy(true); try {  const row = await checked(db.from("communications").insert({ organization_id: ORG, patient_id: patient.id, appointment_id: appointment?.id || null, channel, direction: "outbound", visibility: "external", category: selected?.category || "administrativo", subject: finalSubject, body, rendered_signature: signature, recipient_name: patient.full_name || patient.preferred_name || "", recipient_address: recipient, template_id: templateId === "__free__" ? null : (templateId || null), status: "rascunho", packet_sha256: "", created_by: member.user_id }).select().single()); await checked(db.from("communications").update({ status: "nao_confirmado", sent_at: null }).eq("id", row.id)); notify(t(channel === "email" ? "Email preparado no Gmail. Revise e clique em Enviar para concluir." : "Contato preparado e registrado no histórico.", channel === "email" ? "Email prepared in Gmail. Review and click Send to finish." : "Contact prepared and recorded in history.")); close(); } catch (error) { popup?.close(); notify(t(error?.code === "email_provider_unconfigured" ? "Email não configurado: defina o provedor antes de enviar." : channel === "email" ? "Não foi possível enviar o email." : "Não foi possível registrar a comunicação.", error?.code === "email_provider_unconfigured" ? "Email is not configured: set up the provider before sending." : channel === "email" ? "Could not send the email." : "Could not record the communication.")); } finally { setBusy(false); } };
+  return <Dialog title={t("Preparar comunicação", "Prepare communication")} close={close} wide><form className="communication-composer" onSubmit={submit}><div className="communication-recipient"><strong>{patient?.preferred_name || patient?.full_name || t("Nenhum destinatário", "No recipient")}</strong><span>{recipient || t("Sem contato neste canal", "No contact for this channel")}</span></div>{preference?.do_not_contact && <p className="notice error">{t("Não contatar: preferência registrada no cadastro.", "Do not contact: preference recorded in the patient record.")}</p>}<div className="form-grid"><Field title={t("Canal", "Channel")} value={channel} onChange={setChannel} options={[{ value: "whatsapp", label: "WhatsApp" }, { value: "email", label: "Email" }]} /><ContextActions className="template-field-actions" label={selected?.name || t("Modelo", "Template")} actions={[{ icon: Save, label: t("Salvar modelo atual", "Save current template"), onClick: () => saveTemplate(false) }, { icon: Save, label: t("Salvar como novo modelo", "Save as new template"), onClick: () => saveTemplate(true) }, selected && { icon: Pencil, label: t("Renomear modelo", "Rename template"), onClick: renameTemplate }]}><TemplatePicker title={t("Modelo", "Template")} templates={templates.data || []} channel={channel} value={templateId} onChange={setTemplateId} /></ContextActions></div>{channel === "email" && <Field title={t("Assunto", "Subject")} value={subject} onChange={setSubject} />}<Field title={t("Assinatura", "Signature")} value={signature} onChange={(v) => { setSignature(v); setBody((current) => current.replace(/(Com carinho,\n)?(Recepção da Franciele Sofiati|Franciele Sofiati)$/, `$1${v}`)); }} /><Field title={t("Mensagem editável", "Editable message")} type="textarea" value={body} onChange={setBody} required /><p className="consent-note"><ShieldCheck size={15} /> {t("Revise a mensagem personalizada antes de enviar. O Gmail ou WhatsApp será aberto para você confirmar o envio.", "Review the personalized message before sending. Gmail or WhatsApp opens for you to confirm sending.")}</p><footer className="form-footer"><Button type="button" onClick={() => saveTemplate(false)} icon={Save} disabled={!selected}>{t("Salvar modelo atual", "Save current template")}</Button><Button type="button" onClick={close}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Send} disabled={busy || !body || preference?.do_not_contact}>{t(channel === "email" ? "Abrir Gmail" : "Abrir WhatsApp", channel === "email" ? "Open Gmail" : "Open WhatsApp")}</Button></footer></form></Dialog>;
 }
 const agendaDay = (value) => validDateValue(value) ? localDay(value) : "";
 const agendaTime = (value) => validDateValue(value)
@@ -3577,7 +3582,7 @@ function TaskForm({ task, patient, close, done, notify }) {
   return (
     <Dialog
       title={t("Tarefa / retorno", "Task / follow-up")}
-      close={() => dirty.canClose() && close()}
+      close={async () => (await dirty.canClose()) && close()}
     >
       <form
         onSubmit={async (e) => {
@@ -3671,7 +3676,7 @@ function TaskForm({ task, patient, close, done, notify }) {
         <FormFooter
           busy={busy}
           dirty={dirty.dirty}
-          close={() => dirty.canClose() && close()}
+          close={async () => (await dirty.canClose()) && close()}
         />
       </form>
     </Dialog>
@@ -3730,7 +3735,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
       checked(db.from("follow_ups").select("id,patient_id,expected_on,status,notes,professional_id,appointment_id,patients(id,full_name,preferred_name,phone,email)").in("status", ["aguardando_agendamento", "vencido", "agendado", "concluido"]).order("expected_on").limit(100)).catch(() => []),
       checked(db.from("adverse_events").select("id,patient_id,responsible_user,followup_deadline,status,description,patients(id,full_name,preferred_name,phone,email)").eq("status", "em_acompanhamento").order("followup_deadline").limit(30)).catch(() => []),
       checked(db.from("clinical_procedures").select("id,patient_id,professional_id,performed_at,followup_due,status,patients(id,full_name,preferred_name,phone,email),procedures(name)").eq("status", "finalizado").not("followup_due", "is", null).order("followup_due").limit(60)).catch(() => []),
-      checked(db.from("tasks").select("patient_id,title").eq("organization_id", ORG).eq("status", "pendente").range(0, 999)).catch(() => []),
+      checked(db.from("tasks").select("id,patient_id,title,status,source_type,source_id").eq("organization_id", ORG).range(0, 999)).catch(() => []),
     ]);
     return { tasks: tasksWithPatients, taskCount: taskResult.count || 0, overdueTaskCount: overdueTaskResult.error ? 0 : overdueTaskResult.count || 0, allTasks: existingSuggestionTasks, appointments, followups, adverse, clinicalProcedures };
   }, [status, group, search, patientId, assignee, dueFilter, page, version]);
@@ -3748,9 +3753,10 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
     return true;
   };
   const followupStatuses = status === "pendente" ? ["aguardando_agendamento", "vencido"] : status === "concluida" ? ["agendado", "concluido"] : [];
-  const followsMatchingFilters = group === "operational" ? [] : data.followups.filter((item) => followupStatuses.includes(item.status)).filter((item) => matchesClinicalFilters(item, item.notes));
-  const adverseMatchingFilters = data.adverse.filter((item) => matchesClinicalFilters(item, item.description));
-  const proceduresMatchingFilters = data.clinicalProcedures.filter((item) => matchesClinicalFilters(item, item.procedures?.name));
+  const followsMatchingFilters = group === "operational" ? [] : data.followups.filter((item) => !data.allTasks.some(task => task.source_type === "follow_up" && task.source_id === item.id && task.status !== "pendente")).filter((item) => followupStatuses.includes(item.status)).filter((item) => matchesClinicalFilters(item, item.notes));
+  const attentionResolved = (type, id) => data.allTasks.some(task => task.source_type === type && task.source_id === id && task.status !== "pendente");
+  const adverseMatchingFilters = data.adverse.filter(item => !attentionResolved("adverse_event", item.id)).filter((item) => matchesClinicalFilters(item, item.description));
+  const proceduresMatchingFilters = data.clinicalProcedures.filter(item => !attentionResolved("clinical_procedure", item.id)).filter((item) => matchesClinicalFilters(item, item.procedures?.name));
   const overdue = data.overdueTaskCount;
   const taskAttention = data.tasks
     .map((task) => ({ ...task, kind: task.category === "clinico" ? "clinical" : "operational", source: "task", due: task.due_at }))
@@ -3775,6 +3781,19 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
     finally { setCreating(false); }
   };
   const quickWhatsApp = (patient) => { const link = whatsappMessage(patient?.phone, patient?.preferred_name || patient?.full_name); if (link) window.open(link, "_blank", "noopener,noreferrer"); else notify(t("Telefone não disponível.", "Phone not available.")); };
+  const resolveAttention = async (item, result = "concluida") => {
+    if (!await confirmAction(result === "cancelado" ? "Dispensar esta tarefa? O histórico clínico será preservado." : "Marcar este acompanhamento como concluído?")) return;
+    try {
+      if (item.source === "task") await save("tasks", { status: result }, item);
+      else {
+        const source_type = item.source === "procedure" ? "clinical_procedure" : item.source === "adverse" ? "adverse_event" : "follow_up";
+        const existing = await checked(db.from("tasks").select("id").eq("organization_id", ORG).eq("source_type", source_type).eq("source_id", item.id).maybeSingle());
+        if (existing) await save("tasks", { status: result }, existing);
+        else await checked(db.from("tasks").insert({ organization_id: ORG, patient_id: item.patient_id, title: item.title, due_at: new Date().toISOString(), status: result, priority: "normal", category: "clinico", source_type, source_id: item.id }));
+      }
+      state.refresh(); notify(t("Tarefa atualizada. Histórico preservado.", "Task updated. History preserved."));
+    } catch { notify(t("Não foi possível atualizar a tarefa.", "Could not update the task.")); }
+  };
   const complete = async (task) => { try { await save("tasks", { status: "concluida" }, task); state.refresh(); notify(t("Tarefa concluída.", "Task completed.")); } catch { notify(t("Não foi possível salvar.", "Could not save.")); } };
   const completeFollowup = async (followup) => {
     try {
@@ -3785,7 +3804,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
     } catch { notify(t("Não foi possível concluir o retorno.", "Could not complete the follow-up.")); }
   };
   const scheduleFollowup = (followup) => setModal({ type: "appointment", patient: followup.patients, followup });
-  const renderActionCard = (item) => { const late = item.source === "task" ? new Date(item.due) < now : String(item.due || "").slice(0, 10) < today; const canComplete = writable && (item.source === "followup" || (item.source === "task" && item.status === "pendente")); return <ContextActions key={`${item.source}-${item.id}`} label={item.title || t("Tarefa", "Task")} actions={[item.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(item.patients) }, item.patients && { icon: MessageCircle, label: "WhatsApp", onClick: () => quickWhatsApp(item.patients) }, item.source === "followup" && writable && { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => scheduleFollowup(item) }, item.source === "task" && item.patients && writable && { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => setModal({ type: "appointment", patient: item.patients }) }, item.source === "task" && writable && { icon: Pencil, label: t("Editar tarefa", "Edit task"), onClick: () => setModal({ type: "task", task: item, patient: item.patients }) }, item.source === "task" && item.status === "pendente" && writable && { icon: Check, label: t("Concluir", "Complete"), onClick: () => complete(item) }, item.source === "followup" && writable && { icon: Check, label: t("Concluir retorno", "Complete follow-up"), onClick: () => completeFollowup(item) }]}><article className={`action-card action-card-${item.kind} ${late ? "is-overdue" : ""}`}><button type="button" className="action-check" disabled={!canComplete && item.source !== "adverse" && item.source !== "procedure"} onClick={() => item.source === "task" ? canComplete && complete(item) : item.source === "followup" ? canComplete && completeFollowup(item) : item.patients && openPatient(item.patients)} title={canComplete ? (item.source === "followup" ? t("Concluir retorno", "Complete follow-up") : t("Concluir", "Complete")) : t("Abrir paciente", "Open patient")}>{item.source === "task" || item.source === "followup" ? <Check size={16} /> : <ChevronRight size={16} />}</button><div className="action-main"><div><span className="action-kicker">{item.kind === "clinical" ? t("Cuidado clínico", "Clinical care") : t("Operação", "Operations")}</span><strong>{item.title || t("Tarefa", "Task")}</strong><small>{item.patients?.preferred_name || item.patients?.full_name || t("Clínica", "Clinic")}{item.due ? ` · ${date(item.due, item.source === "task")}` : ""}</small></div><Status value={item.source === "task" && item.status === "pendente" ? item.priority : item.status || item.priority} /></div><div className="action-tools">{item.patients && <><button type="button" onClick={() => openPatient(item.patients)} title={t("Paciente", "Patient")}><UserRound size={15} /></button><button type="button" onClick={() => quickWhatsApp(item.patients)} title="WhatsApp"><MessageCircle size={15} /></button>{writable && item.source === "followup" && <button type="button" onClick={() => scheduleFollowup(item)} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button>}{writable && item.source === "task" && <button type="button" onClick={() => setModal({ type: "appointment", patient: item.patients })} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button>}</>}{item.source === "task" && writable && <button type="button" onClick={() => setModal({ type: "task", task: item, patient: item.patients })} title={t("Editar", "Edit")}><Pencil size={15} /></button>}</div></article></ContextActions>; };
+  const renderActionCard = (item) => { const late = item.source === "task" ? new Date(item.due) < now : String(item.due || "").slice(0, 10) < today; const canComplete = writable && (item.source === "followup" || (item.source === "task" && item.status === "pendente")); return <ContextActions key={`${item.source}-${item.id}`} label={item.title || t("Tarefa", "Task")} actions={[writable && item.status !== "concluida" && item.status !== "cancelado" && { icon: X, label: t("Dispensar tarefa", "Dismiss task"), onClick: () => resolveAttention(item, "cancelado") }, writable && ["adverse", "procedure"].includes(item.source) && { icon: Check, label: t("Concluir acompanhamento", "Complete follow-up"), onClick: () => resolveAttention(item) }, item.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(item.patients) }, item.patients && { icon: MessageCircle, label: "WhatsApp", onClick: () => quickWhatsApp(item.patients) }, item.source === "followup" && writable && { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => scheduleFollowup(item) }, item.source === "task" && item.patients && writable && { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => setModal({ type: "appointment", patient: item.patients }) }, item.source === "task" && writable && { icon: Pencil, label: t("Editar tarefa", "Edit task"), onClick: () => setModal({ type: "task", task: item, patient: item.patients }) }, item.source === "task" && item.status === "pendente" && writable && { icon: Check, label: t("Concluir", "Complete"), onClick: () => complete(item) }, item.source === "followup" && writable && { icon: Check, label: t("Concluir retorno", "Complete follow-up"), onClick: () => completeFollowup(item) }]}><article className={`action-card action-card-${item.kind} ${late ? "is-overdue" : ""}`}><button type="button" className="action-check" disabled={!canComplete && item.source !== "adverse" && item.source !== "procedure"} onClick={() => item.source === "task" ? canComplete && complete(item) : item.source === "followup" ? canComplete && completeFollowup(item) : item.patients && openPatient(item.patients)} title={canComplete ? (item.source === "followup" ? t("Concluir retorno", "Complete follow-up") : t("Concluir", "Complete")) : t("Abrir paciente", "Open patient")}>{item.source === "task" || item.source === "followup" ? <Check size={16} /> : <ChevronRight size={16} />}</button><div className="action-main"><div><span className="action-kicker">{item.kind === "clinical" ? t("Cuidado clínico", "Clinical care") : t("Operação", "Operations")}</span><strong>{item.title || t("Tarefa", "Task")}</strong><small>{item.patients?.preferred_name || item.patients?.full_name || t("Clínica", "Clinic")}{item.due ? ` · ${date(item.due, item.source === "task")}` : ""}</small></div><Status value={item.source === "task" && item.status === "pendente" ? item.priority : item.status || item.priority} /></div><div className="action-tools">{item.patients && <><button type="button" onClick={() => openPatient(item.patients)} title={t("Paciente", "Patient")}><UserRound size={15} /></button><button type="button" onClick={() => quickWhatsApp(item.patients)} title="WhatsApp"><MessageCircle size={15} /></button>{writable && item.source === "followup" && <button type="button" onClick={() => scheduleFollowup(item)} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button>}{writable && item.source === "task" && <button type="button" onClick={() => setModal({ type: "appointment", patient: item.patients })} title={t("Agendar retorno", "Schedule follow-up")}><CalendarPlus size={15} /></button>}</>}{item.source === "task" && writable && <button type="button" onClick={() => setModal({ type: "task", task: item, patient: item.patients })} title={t("Editar", "Edit")}><Pencil size={15} /></button>}</div></article></ContextActions>; };
   const title = t("Tarefas e retornos", "Tasks & follow-ups");
   return <>
     <PageHead eyebrow={t("Central de ação clínica", "Clinical action centre")} title={title}>
@@ -3815,7 +3834,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
   </>;
 }
 
-function Enquiries({ openPatient, version, writable, notify, member }) {
+function Enquiries({ openPatient, version, writable, notify, member, setModal }) {
   const t = useT(),
     [page, setPage] = useState(0),
     [search, setSearch] = useState(""),
@@ -3823,11 +3842,13 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
     [selected, setSelected] = useState(null),
     [notes, setNotes] = useState(""),
     [duplicates, setDuplicates] = useState([]),
+    [linkPatientId, setLinkPatientId] = useState(""),
     [files, setFiles] = useState([]),
     [busy, setBusy] = useState(false);
   const loadRows = async () => {
     let q = db.from("public_intakes").select("*").order("submitted_at", { ascending: false });
     if (status !== "all") q = q.eq("status", status);
+    else q = q.neq("status", "convertido").is("patient_id", null);
     if (search.trim()) {
       const term = safeSearch(search);
       q = q.or(`full_name.ilike.%${term}%,email.ilike.%${term}%,phone.ilike.%${term}%,cpf.ilike.%${digits(term)}%`);
@@ -3865,7 +3886,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
   };
   const deleteIntake = async (target = selected) => {
     if (!target?.id) return;
-    if (!confirm(t("Excluir este formulário permanentemente? Os arquivos enviados também serão removidos.", "Permanently delete this form? Uploaded files will also be removed."))) return;
+    if (!await confirmAction(t("Excluir este formulário permanentemente? Os arquivos enviados também serão removidos.", "Permanently delete this form? Uploaded files will also be removed."))) return;
     setBusy(true);
     try {
       await invoke("files", { action: "delete_intake", intake_id: target.id });
@@ -3891,6 +3912,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
     setSelected(row);
     setNotes(row.internal_notes);
     setDuplicates([]);
+    setLinkPatientId("");
     setFiles([]);
     checked(db.from("public_intake_files").select("id,kind,path,original_name,field_name").eq("intake_id", row.id))
       .then(setFiles).catch(() => setFiles([]));
@@ -3911,7 +3933,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
   };
   const convert = async (existing) => {
     if (
-      !confirm(
+      !await confirmAction(
         existing
           ? t(
               "Vincular este pré-cadastro ao paciente selecionado?",
@@ -3942,7 +3964,8 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
       const p = await checked(
         db.from("patients").select("*").eq("id", id).single(),
       );
-      notify(t("Formulário convertido em paciente.", "Form converted to patient."));
+      state.refresh();
+      notify(t(existing ? "Formulário vinculado ao paciente." : "Formulário convertido em paciente.", existing ? "Form linked to patient." : "Form converted to patient."));
       setSelected(null);
       openPatient(p);
     } catch (error) {
@@ -3991,7 +4014,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
                 { icon: Eye, label: t("Revisar formulário", "Review form"), onClick: () => review(row) },
                 row.patient_id && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: async () => { const patient = await checked(db.from("patients").select("*").eq("id", row.patient_id).single()); openPatient(patient); } },
                 row.phone && { icon: Phone, label: t("Ligar", "Call"), onClick: () => { window.location.href = `tel:${digits(row.phone)}`; } },
-                row.email && { icon: Mail, label: t("Enviar email", "Send email"), onClick: () => { window.location.href = `mailto:${row.email}`; } },
+                row.email && { icon: Mail, label: t("Abrir Gmail", "Open Gmail"), onClick: () => window.open(gmailComposeUrl({ recipient: row.email, subject: "Franciele Sofiati · Seu cadastro" }), "_blank", "noopener,noreferrer") },
                 writable && { icon: Trash2, label: t("Excluir formulário", "Delete form"), danger: true, onClick: () => deleteIntake(row) },
               ]}>
               <button
@@ -4048,7 +4071,7 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
           {(selected.payload?.interest_note || selected.payload?.message || selected.payload?.reason) && <div className="intake-message-preview"><span>{t("Mensagem recebida", "Message received")}</span><p>{selected.payload.interest_note || selected.payload.message || selected.payload.reason}</p></div>}
           <div className="actions wrap">
             {selected.phone && <a className="button" href={`tel:${digits(selected.phone)}`}>{t("Ligar", "Call")}</a>}
-            {selected.email && <a className="button" href={`mailto:${selected.email}`}>{t("Email", "Email")}</a>}
+            {selected.email && <a className="button" href={gmailComposeUrl({ recipient: selected.email, subject: "Franciele Sofiati · Seu cadastro" })} target="_blank" rel="noopener noreferrer">{t("Email", "Email")}</a>}
             {selected.patient_id && (
               <Button
                 icon={ClipboardCheck}
@@ -4112,9 +4135,14 @@ function Enquiries({ openPatient, version, writable, notify, member }) {
             disabled={!writable}
           />
           {writable && <div className="form-grid">
-            <Field title={t("Status", "Status")} value={selected.status} onChange={(value) => setSelected((current) => ({ ...current, status: value }))} options={["novo", "em_analise", "contatado", "aguardando", "convertido", "arquivado"].map((value) => ({ value, label: label(value, t) }))} />
+            <Field title={t("Status", "Status")} value={selected.status} onChange={(value) => setSelected((current) => ({ ...current, status: value }))} options={["novo", "em_analise", "contatado", "aguardando", ...(selected.patient_id ? ["convertido"] : []), "arquivado"].map((value) => ({ value, label: label(value, t) }))} />
             <label className="field"><span>{t("Retenção legal", "Legal hold")}</span><input type="checkbox" checked={selected.retention_hold === true} onChange={(event) => setSelected((current) => ({ ...current, retention_hold: event.target.checked }))} /><small>{t("Impede a limpeza automática de 60 dias.", "Prevents automatic 60-day cleanup.")}</small></label>
           </div>}
+          {writable && selected.status !== "convertido" && <section className="detail-section">
+            <h3>{t("Vincular a um paciente existente", "Link to an existing patient")}</h3>
+            <PatientPicker value={linkPatientId} onChange={setLinkPatientId} />
+            <Button type="button" disabled={busy || !linkPatientId} onClick={() => convert(linkPatientId)}>{t("Vincular ao paciente selecionado", "Link to selected patient")}</Button>
+          </section>}
           {duplicates.length > 0 && (
             <div className="notice">
               <div>
@@ -4813,9 +4841,9 @@ function DataQualityDashboardComplete({ notify, openPatient, onNavigate }) {
   return <section className="detail-section">
     <div className="toolbar"><div><p className="eyebrow">{t("Governança clínica", "Clinical governance")}</p><h2>{t("Qualidade dos dados", "Data quality")}</h2><p className="subtle">{t("Fila objetiva para corrigir cadastro, catálogo, consentimentos, prontuário e portal.", "An objective queue for patient, catalogue, consent, clinical-record and portal quality.")}</p></div><Button icon={RefreshCw} onClick={state.refresh}>{t("Atualizar fila", "Refresh queue")}</Button></div>
     <LoadState state={state}>{([catalogue, patients, consents, clinical, plans, portalActions]) => {
-      const patientMissing = patients.filter((p) => !p.phone || !p.email || !p.cpf || !p.birth_date);
-      const catalogueMissing = catalogue.filter((p) => p.missing_fields?.length);
-      const overdue = catalogue.filter((p) => p.next_review_on && p.next_review_on < localDay());
+      const patientMissing = patients.filter((p) => !p.phone || !p.cpf || !p.birth_date);
+      const catalogueMissing = catalogue.filter((p) => p.active && p.review_status !== "arquivado" && p.missing_fields?.length);
+      const overdue = catalogue.filter((p) => p.active && p.review_status !== "arquivado" && p.next_review_on && p.next_review_on < localDay());
       const consentMissing = clinical.filter((p) => p.consent_status !== "aceito" && p.consent_status !== "nao_aplicavel").filter((p) => !consents.some((c) => c.clinical_procedure_id === p.id && c.kind === "procedimento" && c.status === "aceito"));
       const clinicalMissing = clinical.filter((p) => p.status === "finalizado" && (!p.procedure_id || !p.indication || !p.technique || !p.post_care || !p.area));
       const planMissing = plans.filter((p) => !p.objectives || !p.status);
@@ -4823,8 +4851,8 @@ function DataQualityDashboardComplete({ notify, openPatient, onNavigate }) {
       const patientFor = (row) => patients.find((patient) => patient.id === row?.patient_id);
       const cards = [[t("Pacientes incompletos", "Incomplete patients"), patientMissing.length, t("Contato, CPF ou nascimento ausente", "Missing contact, tax ID or birth date")], [t("Catálogo incompleto", "Incomplete catalogue"), catalogueMissing.length, t("Preço, conteúdo ou fonte ausente", "Missing price, content or source")], [t("Consentimentos pendentes", "Missing consents"), consentMissing.length, t("Atendimentos sem aceite compatível", "Care without matching acceptance")], [t("Registros clínicos incompletos", "Incomplete clinical records"), clinicalMissing.length, t("Campos essenciais ausentes", "Required fields missing")], [t("Planos incompletos", "Incomplete treatment plans"), planMissing.length, t("Objetivos ou status ausente", "Missing objectives or status")], [t("Revisões vencidas", "Overdue reviews"), overdue.length, t("Procedimentos que precisam de revisão", "Procedures due for review")], [t("Ações do portal", "Portal actions"), portalPending.length, t("Solicitações aguardando equipe", "Requests awaiting staff")]];
       const rows = [
-        ...catalogueMissing.map((row) => ({ key: `catalogue-${row.id}`, title: row.name, detail: `${t("Campos", "Fields")}: ${(row.missing_fields || []).join(", ")}`, status: "aprovacao_pendente", action: goCatalogue, actionLabel: t("Completar catálogo", "Complete catalogue"), menu: [{ icon: ArrowRight, label: t("Abrir catálogo", "Open catalogue"), onClick: goCatalogue }] })),
-        ...patientMissing.slice(0, 20).map((row) => ({ key: `patient-${row.id}`, title: patientName(row), detail: t("Cadastro incompleto: telefone, e-mail, CPF ou nascimento.", "Incomplete record: phone, email, tax ID or birth date."), status: "pendente", action: () => goPatient(row), actionLabel: t("Abrir cadastro", "Open record"), menu: [{ icon: UserRound, label: t("Corrigir cadastro", "Fix patient record"), onClick: () => goPatient(row) }] })),
+        ...catalogueMissing.map((row) => ({ key: `catalogue-${row.id}`, title: row.name, detail: `${t("Campos", "Fields")}: ${(row.missing_fields || []).map(fieldLabel).join(", ")}`, status: "aprovacao_pendente", action: goCatalogue, actionLabel: t("Completar catálogo", "Complete catalogue"), menu: [{ icon: ArrowRight, label: t("Abrir catálogo", "Open catalogue"), onClick: goCatalogue }] })),
+        ...patientMissing.slice(0, 20).map((row) => ({ key: `patient-${row.id}`, title: patientName(row), detail: t("Cadastro incompleto: telefone, CPF ou nascimento.", "Incomplete record: phone, tax ID or birth date."), status: "pendente", action: () => goPatient(row), actionLabel: t("Abrir cadastro", "Open record"), menu: [{ icon: UserRound, label: t("Corrigir cadastro", "Fix patient record"), onClick: () => goPatient(row) }] })),
         ...consentMissing.map((row) => ({ key: `consent-${row.id}`, title: patientName(patientFor(row)), detail: t("Consentimento do procedimento ainda não foi aceito.", "Procedure consent has not been accepted."), status: "pendente", action: () => goPatient(patientFor(row)), actionLabel: t("Abrir prontuário", "Open record"), menu: [{ icon: ArrowRight, label: t("Revisar consentimento", "Review consent"), onClick: () => goPatient(patientFor(row)) }] })),
         ...clinicalMissing.map((row) => ({ key: `clinical-${row.id}`, title: patientName(patientFor(row)), detail: t("Registro finalizado com campos clínicos essenciais ausentes.", "Finalized record is missing essential clinical fields."), status: "pendente", action: () => goPatient(patientFor(row)), actionLabel: t("Completar prontuário", "Complete record"), menu: [{ icon: ArrowRight, label: t("Completar prontuário", "Complete record"), onClick: () => goPatient(patientFor(row)) }] })),
         ...planMissing.map((row) => ({ key: `plan-${row.id}`, title: patientName(patientFor(row)), detail: t("Plano sem objetivo ou status definido.", "Plan has no objective or status."), status: "pendente", action: () => goPatient(patientFor(row)), actionLabel: t("Revisar plano", "Review plan"), menu: [{ icon: ArrowRight, label: t("Revisar plano", "Review plan"), onClick: () => goPatient(patientFor(row)) }] })),
@@ -4854,23 +4882,44 @@ function ProcedureCatalog({ notify }) {
     ["depilacao", "Depilação"],
     ["outro", "Outro"],
   ];
-  const blank = { name: "", category: "outro", image_url: "", description: "", purpose: "", indications: "", areas: "", default_duration: 60, interval_days: 30, sessions: "", follow_up: "", followup_days: 30, price: "", commercial_config: "{}", benefits: "", before_after_care: "", recovery: "", expected_results: "", clinical_details: "{}", official_information: "{}", protocol_instructions: "", materials: "{}", documents: "{}", availability: "{}", source_references: "[]", booking_buffer_minutes: 0, room_requirement: "", eligible_roles: "[]", questionnaire: "[]", required_consents: "[]", public_description: "", review_status: "aprovacao_pendente", next_review_on: "", product_relevant: false, lot_required: false, device_relevant: false, photos_expected: false, treatment_areas: "", consent_template: "", consent_template_version: "", post_care: "", relevant_fields: "{}", device_parameters: "[]", contraindications: "", risks: "", precautions: "", products: "", equipment: "", consumables: "", consent_requirements: "", photo_requirements: "", availability_notes: "", assessment_questions: "" };
+  const blank = { name: "", category: "outro", image_url: "", description: "", purpose: "", indications: "", areas: "", default_duration: 60, interval_days: 30, sessions: "", follow_up: "", followup_days: 30, price: "", commercial_config: {}, benefits: "", before_after_care: "", recovery: "", expected_results: "", clinical_details: {}, official_information: {}, protocol_instructions: "", materials: {}, documents: {}, availability: {}, source_references: [], booking_buffer_minutes: 0, room_requirement: "", eligible_roles: [], questionnaire: [], required_consents: ["procedimento"], public_description: "", review_status: "aprovacao_pendente", next_review_on: "", product_relevant: false, lot_required: false, device_relevant: false, photos_expected: false, treatment_areas: "", consent_template: "", consent_template_version: "", post_care: "", relevant_fields: {}, device_parameters: [], contraindications: "", risks: "", precautions: "", products: "", equipment: "", consumables: "", consent_requirements: "", photo_requirements: "", availability_notes: "", assessment_questions: "" };
   const [form, setForm] = useState(blank), [editing, setEditing] = useState(null), [busy, setBusy] = useState(false);
-  const state = useLoad(() => checked(db.from("procedures").select("*").not("name", "ilike", "TESTE — %").order("active", { ascending: false }).order("name")), [editing]);
+  const state = useLoad(() => checked(db.from("procedures").select("*").not("name", "ilike", "TESTE — %").neq("review_status", "arquivado").order("active", { ascending: false }).order("name")), [editing]);
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
-  const objectText = (value, key) => String(value?.[key] || "");
-  const editForm = (row) => { const clinical = row.clinical_details || {}, materials = row.materials || {}, documents = row.documents || {}, availability = row.availability || {}; return { ...blank, ...row, ...Object.fromEntries(["commercial_config", "official_information", "source_references", "eligible_roles", "required_consents", "relevant_fields", "device_parameters"].map((key) => [key, JSON.stringify(row[key] ?? JSON.parse(blank[key]), null, 2)])), price: row.price_cents == null ? "" : (Number(row.price_cents) / 100).toFixed(2), contraindications: objectText(clinical, "contraindications"), risks: objectText(clinical, "risks"), precautions: objectText(clinical, "precautions"), products: objectText(materials, "products"), equipment: objectText(materials, "equipment"), consumables: objectText(materials, "consumables"), consent_requirements: objectText(documents, "consent"), photo_requirements: objectText(documents, "photos"), availability_notes: objectText(availability, "professionals"), assessment_questions: Array.isArray(row.questionnaire) ? row.questionnaire.map((item) => typeof item === "string" ? item : item.question || item.label || JSON.stringify(item)).join("\n") : String(row.questionnaire || "") }; };
+  const objectText = (value, key) => humanText(value?.[key]);
+  const editForm = (row) => { const clinical = row.clinical_details || {}, materials = row.materials || {}, documents = row.documents || {}, availability = row.availability || {}; return { ...blank, ...row, price: row.price_cents == null ? "" : (Number(row.price_cents) / 100).toFixed(2), contraindications: objectText(clinical, "contraindications"), risks: objectText(clinical, "risks"), precautions: objectText(clinical, "precautions"), products: objectText(materials, "products"), equipment: objectText(materials, "equipment"), consumables: objectText(materials, "consumables"), consent_requirements: objectText(documents, "consent"), photo_requirements: objectText(documents, "photos"), availability_notes: objectText(availability, "professionals"), assessment_questions: Array.isArray(row.questionnaire) ? row.questionnaire.map((item) => typeof item === "string" ? item : item.question || item.label || humanText(item)).join("\n") : humanText(row.questionnaire) }; };
   const saveProcedure = async (event) => {
-    event.preventDefault(); setBusy(true);
+    event.preventDefault(); if (busy) return; setBusy(true);
     try {
       const values = { ...Object.fromEntries(Object.keys(blank).map((key) => [key, form[key]])), price_cents: form.price === "" ? null : Math.round(Number(String(form.price).replace(",", ".")) * 100), default_duration: Number(form.default_duration), interval_days: form.interval_days === "" ? null : Number(form.interval_days), followup_days: form.followup_days === "" ? null : Number(form.followup_days), booking_buffer_minutes: Number(form.booking_buffer_minutes || 0), next_review_on: form.next_review_on || null, clinical_details: { ...(editing?.clinical_details || {}), contraindications: form.contraindications, risks: form.risks, precautions: form.precautions }, materials: { ...(editing?.materials || {}), products: form.products, equipment: form.equipment, consumables: form.consumables }, documents: { ...(editing?.documents || {}), consent: form.consent_requirements, photos: form.photo_requirements }, availability: { ...(editing?.availability || {}), professionals: form.availability_notes }, questionnaire: form.assessment_questions.split(/\n+/).map((item) => item.trim()).filter(Boolean) };
       ["price", "contraindications", "risks", "precautions", "products", "equipment", "consumables", "consent_requirements", "photo_requirements", "availability_notes", "assessment_questions"].forEach((key) => delete values[key]);
-      ["commercial_config", "official_information", "availability", "source_references", "eligible_roles", "required_consents", "relevant_fields", "device_parameters"].forEach((key) => { if (typeof values[key] === "string") values[key] = JSON.parse(values[key] || (key === "source_references" || key === "eligible_roles" || key === "required_consents" || key === "device_parameters" ? "[]" : "{}")); });
+
       if (editing?.id && form.assessment_questions === editForm(editing).assessment_questions) values.questionnaire = editing.questionnaire;
-      values.catalog_version = editing?.id ? Number(editing.catalog_version || 1) + 1 : 1;
+      if (!form.name.trim() || !Number.isFinite(values.default_duration) || values.default_duration < 5 || (values.price_cents !== null && (!Number.isFinite(values.price_cents) || values.price_cents < 0))) throw new Error("invalid_fields");
+      values.name = form.name.trim();
+      // The database trigger owns version increments and immutable snapshots.
       const result = editing?.id ? await checked(db.from("procedures").update(values).eq("id", editing.id).eq("catalog_version", editing.catalog_version || 1).select().single()) : await checked(db.from("procedures").insert({ organization_id: ORG, ...values }).select().single());
       setForm(blank); setEditing(null); state.refresh(); notify(t("Procedimento salvo", "Procedure saved")); return result;
-    } catch { notify(t("Não foi possível salvar. Verifique os campos e os blocos JSON.", "Could not save. Check the fields and JSON blocks.")); } finally { setBusy(false); }
+    } catch (error) { notify(error?.code === "PGRST116" ? t("Este procedimento mudou em outra sessão. Reabra-o antes de salvar.", "This procedure changed in another session. Reopen it before saving.") : error?.code === "42501" ? t("Sua conta não tem permissão para editar o catálogo.", "Your account cannot edit the catalogue.") : t("Não foi possível salvar. Confira nome, preço e duração e tente novamente.", "Could not save. Check name, price and duration and try again.")); } finally { setBusy(false); }
+  };
+  const toggleProcedure = async (procedure) => {
+    if (busy) return;
+    setBusy(true);
+    try {
+      await checked(db.from("procedures").update({ active: !procedure.active }).eq("id", procedure.id).select("id").single());
+      state.refresh(); notify(t(procedure.active ? "Procedimento desativado." : "Procedimento reativado.", procedure.active ? "Procedure deactivated." : "Procedure reactivated."));
+    } catch { notify(t("Não foi possível alterar o procedimento. Verifique sua permissão.", "Could not update the procedure. Check your permission.")); }
+    finally { setBusy(false); }
+  };
+  const removeProcedure = async (procedure) => {
+    if (!await confirmAction(`Excluir ${procedure.name} do catálogo? Os atendimentos já registrados serão preservados.`)) return;
+    setBusy(true);
+    try {
+      await checked(db.from("procedures").update({ active: false, review_status: "arquivado" }).eq("id", procedure.id).select("id").single());
+      if (editing?.id === procedure.id) { setEditing(null); setForm(blank); }
+      state.refresh(); notify(t("Procedimento removido do catálogo. Histórico preservado.", "Procedure removed from catalogue. History preserved."));
+    } catch { notify(t("Não foi possível excluir o procedimento. Verifique sua permissão.", "Could not remove the procedure. Check your permission.")); }
+    finally { setBusy(false); }
   };
   const uploadProcedureImage = async (file) => {
     if (!file) return;
@@ -4892,7 +4941,7 @@ function ProcedureCatalog({ notify }) {
     } finally { setBusy(false); }
   };
   const edit = (row) => { setEditing(row); setForm(editForm(row)); requestAnimationFrame(() => document.getElementById("procedure-editor")?.scrollIntoView({ block: "start", behavior: "smooth" })); };
-  const draftFill = (row) => edit({ ...row, description: row.description || "Procedimento estético individualizado após avaliação profissional.", purpose: row.purpose || "Apoiar a queixa estética definida na avaliação, sem promessa de resultado.", indications: row.indications || "Indicação confirmada após consulta, anamnese e avaliação da área.", areas: row.areas || row.treatment_areas || "Definida na avaliação", sessions: row.sessions || "Individualizado conforme resposta e objetivo.", follow_up: row.follow_up || "Reavaliar conforme intervalo do protocolo e evolução.", benefits: row.benefits || "Possível melhora da queixa-alvo dentro dos limites do método e da resposta individual.", before_after_care: row.before_after_care || "Informar condições de saúde, medicamentos, alergias, exposição solar e procedimentos recentes. Depois, seguir a orientação entregue e não manipular a área.", recovery: row.recovery || "Sensibilidade, vermelhidão, edema ou desconforto podem ocorrer; duração varia.", expected_results: row.expected_results || "Resultados variam; não há garantia de resultado.", clinical_details: row.clinical_details || { contraindications: "Infecção/lesão ativa, alergia aos componentes, condição descompensada ou outra incompatibilidade devem ser avaliadas.", risks: "Irritação, dor, edema, hematoma, pigmentação alterada, infecção, queimadura, cicatriz ou resultado irregular.", precautions: "Confirmar anamnese, fototipo, exposição solar, medicamentos, procedimentos recentes e consentimento." }, protocol_instructions: row.protocol_instructions || "Executar apenas por profissional habilitado conforme protocolo aprovado, parâmetros do equipamento e registro do atendimento.", materials: row.materials || { products: "Definidos pelo protocolo; registrar lote quando aplicável.", equipment: "Selecionar equipamento cadastrado correspondente.", consumables: "EPIs, assepsia e descartáveis compatíveis." }, documents: row.documents || { consent: "Consentimento específico quando aplicável.", photos: "Registro técnico antes/depois somente com autorização.", signatures: "Preservar assinatura e versão do termo." }, availability: row.availability || { status: row.active ? "ativo" : "inativo", professionals: "Conforme habilitação", booking_visible: !!row.active, public_visible: false } });
+
   return <section className="detail-section">
     <div className="toolbar"><div><p className="eyebrow">{t("Biblioteca clínica e comercial", "Clinical & commercial library")}</p><h2>{t("Catálogo de procedimentos", "Procedure catalogue")}</h2><p className="subtle">{t("Cadastre cada serviço com uma descrição clara, preço, duração e orientações que a equipe consiga entender e revisar.", "Keep each service clear: description, price, duration and guidance that the team can understand and review.")}</p></div><Button icon={Plus} className="primary" onClick={() => { setEditing({}); setForm(blank); }}>{t("Novo procedimento", "New procedure")}</Button></div>
     {!!editing && <form id="procedure-editor" className="form-grid" onSubmit={saveProcedure}>
@@ -4912,7 +4961,6 @@ function ProcedureCatalog({ notify }) {
       <Field title={t("Retorno após (dias)", "Follow-up after (days)")} type="number" min="0" max="3650" value={form.followup_days ?? ""} onChange={(v) => set("followup_days", v)} />
       <Field title={t("Orientação de retorno", "Follow-up guidance")} type="textarea" value={form.follow_up} onChange={(v) => set("follow_up", v)} />
       <Field title={t("Preço (R$)", "Price (BRL)")} type="number" min="0" step="0.01" value={form.price} onChange={(v) => set("price", v)} />
-      <Field title={t("Configuração comercial (JSON)", "Commercial configuration (JSON)")} type="textarea" value={form.commercial_config} onChange={(v) => set("commercial_config", v)} />
       <h3 className="form-section-title wide">{t("Paciente", "Patient")}</h3>
       <Field title={t("Benefícios", "Benefits")} type="textarea" value={form.benefits} onChange={(v) => set("benefits", v)} />
       <Field title={t("Cuidados antes/depois", "Before/after care")} type="textarea" value={form.before_after_care} onChange={(v) => set("before_after_care", v)} />
@@ -4922,7 +4970,6 @@ function ProcedureCatalog({ notify }) {
       <Field title={t("Quando não fazer", "When not to perform")} type="textarea" value={form.contraindications} onChange={(v) => set("contraindications", v)} wide />
       <Field title={t("Possíveis riscos", "Possible risks")} type="textarea" value={form.risks} onChange={(v) => set("risks", v)} wide />
       <Field title={t("Cuidados e precauções", "Precautions") } type="textarea" value={form.precautions} onChange={(v) => set("precautions", v)} wide />
-      <Field title={t("Informação oficial da fonte (JSON)", "Official source information (JSON)")} type="textarea" value={form.official_information} onChange={(v) => set("official_information", v)} wide />
       <Field title={t("Instruções profissionais do protocolo", "Professional protocol instructions")} type="textarea" value={form.protocol_instructions} onChange={(v) => set("protocol_instructions", v)} wide />
       <h3 className="form-section-title wide">{t("Materiais, documentos e disponibilidade", "Materials, documents & availability")}</h3>
       <Field title={t("Produtos usados", "Products used")} type="textarea" value={form.products} onChange={(v) => set("products", v)} />
@@ -4930,20 +4977,19 @@ function ProcedureCatalog({ notify }) {
       <Field title={t("Consentimento e fotos", "Consent and photos")} type="textarea" value={`${form.consent_requirements}${form.photo_requirements ? `\n${form.photo_requirements}` : ""}`} onChange={(v) => { set("consent_requirements", v); set("photo_requirements", ""); }} />
       <Field title={t("Quem pode realizar e onde aparece", "Who can perform it and visibility")} type="textarea" value={form.availability_notes} onChange={(v) => set("availability_notes", v)} />
       <Field title={t("Perguntas antes do atendimento", "Questions before treatment")} type="textarea" value={form.assessment_questions} onChange={(v) => set("assessment_questions", v)} wide />
-      <Field title={t("Consentimentos obrigatórios (JSON)", "Required consents (JSON)")} type="textarea" value={form.required_consents} onChange={(v) => set("required_consents", v)} />
+      <fieldset className="wide"><legend>{t("Consentimentos necessários", "Required consent")}</legend>{[["procedimento", "Consentimento do procedimento"], ["fotografia_clinica", "Autorização para fotografia clínica"]].map(([value, title]) => <label className="permission-cell" key={value}><input type="checkbox" checked={(form.required_consents || []).includes(value)} onChange={(event) => set("required_consents", event.target.checked ? [...(form.required_consents || []), value] : form.required_consents.filter(item => item !== value))} />{title}</label>)}</fieldset>
+      <Field title={t("Fontes consultadas (um endereço por linha)", "References (one URL per line)")} type="textarea" value={(form.source_references || []).map(item => typeof item === "string" ? item : item.url || item.href || "").filter(Boolean).join("\n")} onChange={(value) => set("source_references", value.split(/\n/).map(item => item.trim()).filter(Boolean))} wide />
       <Field title={t("Sala / ambiente", "Room / setting")} value={form.room_requirement} onChange={(v) => set("room_requirement", v)} />
       <Field title={t("Buffer de agenda (minutos)", "Schedule buffer (minutes)")} type="number" min="0" max="240" value={form.booking_buffer_minutes} onChange={(v) => set("booking_buffer_minutes", v)} />
       <Field title={t("Próxima revisão", "Next review")} type="date" value={form.next_review_on} onChange={(v) => set("next_review_on", v)} />
-      <Field title={t("Fontes oficiais (JSON)", "Official sources (JSON)")} type="textarea" value={form.source_references} onChange={(v) => set("source_references", v)} wide />
       {[['product_relevant', t("Usa produto", "Product relevant")], ['lot_required', t("Exige lote", "Lot required")], ['device_relevant', t("Usa equipamento", "Device relevant")], ['photos_expected', t("Espera fotos", "Photos expected")]].map(([key, title]) => <label className="field" key={key}><span>{title}</span><input type="checkbox" checked={!!form[key]} onChange={(e) => set(key, e.target.checked)} /></label>)}
       <Field title={t("Versão do consentimento", "Consent template version")} value={form.consent_template_version} onChange={(v) => set("consent_template_version", v)} />
       <Field title={t("Template de consentimento", "Consent template")} type="textarea" value={form.consent_template} onChange={(v) => set("consent_template", v)} wide />
       <Field title={t("Orientações pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care} onChange={(v) => set("post_care", v)} wide />
-      <Field title={t("Campos relevantes (JSON)", "Relevant fields (JSON)")} type="textarea" value={form.relevant_fields} onChange={(v) => set("relevant_fields", v)} />
-      <Field title={t("Parâmetros do equipamento (JSON)", "Device parameters (JSON)")} type="textarea" value={form.device_parameters} onChange={(v) => set("device_parameters", v)} />
+      <Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.device_parameters} onChange={(v) => set("device_parameters", v)} />
       <footer className="form-footer"><Button type="button" onClick={() => { setEditing(null); setForm(blank); }}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Save} disabled={busy}>{busy ? t("Salvando...", "Saving...") : t("Salvar", "Save")}</Button></footer>
     </form>}
-      <LoadState state={state}>{(rows) => <div className="procedure-catalog-grid">{rows.map((procedure) => <ContextActions key={procedure.id} label={procedure.name} actions={[{ icon: Pencil, label: t("Editar serviço e catálogo", "Edit service and catalogue"), onClick: () => edit(procedure) }, { icon: Image, label: t("Alterar imagem", "Change image"), onClick: () => edit(procedure) }, { icon: FileText, label: t("Completar texto", "Complete text"), onClick: () => draftFill(procedure) }, { icon: procedure.active ? EyeOff : Eye, label: procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate"), onClick: async () => { await checked(db.from("procedures").update({ active: !procedure.active }).eq("id", procedure.id)); state.refresh(); } }]} className="procedure-catalog-context"><article className="procedure-catalog-card"><ProcedureImage procedure={procedure} className="procedure-catalog-image" /><div className="procedure-catalog-card-content"><span><strong>{procedure.name}</strong><small>{label(procedure.category, t)} · {procedure.price_cents == null ? t("preço não definido", "price not set") : `R$ ${(Number(procedure.price_cents) / 100).toFixed(2).replace(".", ",")} `} · {procedure.default_duration} min</small></span><Status value={procedure.active ? "ativo" : "inativo"} /><p>{procedure.description || t("Descrição pendente no catálogo.", "Catalogue description pending.")}</p><div className="procedure-catalog-card-actions"><Button onClick={() => edit(procedure)}>{t("Editar", "Edit")}</Button><Button onClick={() => draftFill(procedure)}>{t("Completar texto", "Complete text")}</Button><Button onClick={async () => { await checked(db.from("procedures").update({ active: !procedure.active }).eq("id", procedure.id)); state.refresh(); }}>{procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate")}</Button></div></div></article></ContextActions>)}{!rows.length && <Empty icon={ClipboardList}>{t("Nenhum procedimento configurado.", "No procedures configured.")}</Empty>}</div>}</LoadState>
+      <LoadState state={state}>{(rows) => <div className="procedure-catalog-grid">{rows.map((procedure) => <ContextActions key={procedure.id} label={procedure.name} actions={[{ icon: Trash2, label: t("Excluir do catálogo", "Remove from catalogue"), onClick: () => removeProcedure(procedure) }, { icon: Pencil, label: t("Editar serviço e catálogo", "Edit service and catalogue"), onClick: () => edit(procedure) }, { icon: Image, label: t("Alterar imagem", "Change image"), onClick: () => edit(procedure) }, { icon: procedure.active ? EyeOff : Eye, label: procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate"), onClick: () => toggleProcedure(procedure) }]} className="procedure-catalog-context"><article className="procedure-catalog-card"><ProcedureImage procedure={procedure} className="procedure-catalog-image" /><div className="procedure-catalog-card-content"><span><strong>{procedure.name}</strong><small>{label(procedure.category, t)} · {procedure.price_cents == null ? t("preço não definido", "price not set") : `R$ ${(Number(procedure.price_cents) / 100).toFixed(2).replace(".", ",")} `} · {procedure.default_duration} min</small></span><Status value={procedure.active ? "ativo" : "inativo"} /><p>{procedure.description || t("Descrição pendente no catálogo.", "Catalogue description pending.")}</p><div className="procedure-catalog-card-actions"><Button type="button" disabled={busy} onClick={() => removeProcedure(procedure)}>{t("Excluir", "Remove")}</Button><Button onClick={() => edit(procedure)}>{t("Editar", "Edit")}</Button><Button disabled={busy} onClick={() => toggleProcedure(procedure)}>{procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate")}</Button></div></div></article></ContextActions>)}{!rows.length && <Empty icon={ClipboardList}>{t("Nenhum procedimento configurado.", "No procedures configured.")}</Empty>}</div>}</LoadState>
   </section>;
 }
 function TraceabilityCatalog({ notify }) {
@@ -5168,7 +5214,7 @@ function SettingsView({ member, updateMember, notify }) {
                           className="danger"
                           disabled={busy}
                           onClick={async () => {
-                            if (!window.confirm(t(`Excluir definitivamente ${user.name || user.email}?`, `Permanently delete ${user.name || user.email}?`))) return;
+                            if (!await confirmAction(t(`Excluir definitivamente ${user.name || user.email}?`, `Permanently delete ${user.name || user.email}?`))) return;
                             setBusy(true);
                             try {
                               await invoke("staff", { action: "delete", user_id: user.user_id });

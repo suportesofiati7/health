@@ -127,6 +127,20 @@ select pg_temp.assert((select count(*)=4 from public.consents where source_intak
 select pg_temp.assert((select status='recusado' and accepted_at is null from public.consents where source_intake_id='b1000000-0000-4000-8000-000000000001' and source_field='technical_image_authorisation'),'explicit photo refusal is preserved');
 select pg_temp.assert((select authorization_choice='partial_approval' and patient_answers->>'choice'='partial_approval' from public.consents where source_intake_id='b1000000-0000-4000-8000-000000000001' and source_field='marketing_image_authorisation'),'conditional marketing choice and evidence are preserved');
 
+-- Linking is repeatable and never creates a duplicate patient or clinical entry.
+select pg_temp.assert(public.convert_public_intake('b1000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000001')='30000000-0000-4000-8000-000000000001','repeated linking returns the already-linked patient');
+reset role;
+insert into public.public_intakes(id,organization_id,full_name,form_version,payload)
+values('b1000000-0000-4000-8000-000000000002','a783bd4c-f253-4a94-9365-75c6f1000001','Fictional link test','2026-10-28','{}');
+set local role authenticated;
+select public.convert_public_intake('b1000000-0000-4000-8000-000000000002','30000000-0000-4000-8000-000000000001');
+select public.convert_public_intake('b1000000-0000-4000-8000-000000000002','30000000-0000-4000-8000-000000000001');
+select pg_temp.assert((select status='convertido' and patient_id='30000000-0000-4000-8000-000000000001' from public.public_intakes where id='b1000000-0000-4000-8000-000000000002'),'linking moves registration out of active forms');
+select pg_temp.assert((select count(*)=1 from public.entries where data->>'intake_id'='b1000000-0000-4000-8000-000000000002'),'repeated linking retains one clinical evidence entry');
+select public.delete_public_intake('b1000000-0000-4000-8000-000000000001');
+select pg_temp.assert((select count(*)=0 from public.public_intakes where id='b1000000-0000-4000-8000-000000000001'),'linked form can be deleted');
+select pg_temp.assert((select count(*)=4 from public.consents where patient_answers->>'intake_id'='b1000000-0000-4000-8000-000000000001' and source_intake_id is null),'deleting source form retains consent evidence');
+
 -- Internal communication: team messages, direct-chat isolation, reactions,
 -- read state, notification fan-out, edit and soft-delete behavior.
 insert into public.communication_conversations(id,organization_id,title,kind,created_by)
@@ -156,7 +170,7 @@ select pg_temp.assert((select count(*)=0 from public.communication_messages wher
 select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
 insert into public.entries(id,organization_id,patient_id,kind,content) values('40000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','30000000-0000-4000-8000-000000000001','atendimento','Fictional clinical content');
 update public.entries set content='Updated fictional draft' where id='40000000-0000-4000-8000-000000000001';
-select pg_temp.assert((select count(*)=2 from public.entry_versions),'draft history preserved');
+select pg_temp.assert((select count(*)=2 from public.entry_versions where entry_id='40000000-0000-4000-8000-000000000001'),'draft history preserved');
 update public.entries set status='finalizado' where id='40000000-0000-4000-8000-000000000001';
 with changed as (update public.entries set content='erase history' where id='40000000-0000-4000-8000-000000000001' returning id)
 select pg_temp.assert((select count(*)=0 from changed),'finalized entry update denied by RLS');

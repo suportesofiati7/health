@@ -1,4 +1,3 @@
-import { invoke } from './lib.js';
 
 export const STANDARD_PLACEHOLDERS = [
   ['nome', 'Primeiro nome do cliente', 'Cliente'], ['nome_completo', 'Nome completo', 'Cliente'],
@@ -119,16 +118,12 @@ export function emailSubject(subject, templateName = 'Mensagem') {
   return `Franciele Sofiati · ${taste}`;
 }
 
-export async function sendFormSubmitEmail({ recipient, subject, body, patient, sender }) {
-  const result = await invoke('communication-email', {
-    recipient,
-    subject,
-    body: normalizeMessageText(body).trim(),
-    patient_name: patient?.full_name || patient?.preferred_name || '',
-    sender,
-  });
-  if (result?.error || result?.status !== 'sent') throw new Error(result?.error || 'email_not_confirmed');
-  return result;
+// A compose link is free and requires the clinic to review and send in Gmail.
+// Opening a draft never constitutes proof of sending or delivery.
+export function gmailComposeUrl({ recipient, subject = '', body = '' }) {
+  recipient = String(recipient || '').replace(/[\r\n]/g, '').trim();
+  const query = new URLSearchParams({ view: 'cm', fs: '1', authuser: 'suportesofiati@gmail.com', to: recipient.trim(), su: subject, body: normalizeMessageText(body).trim() });
+  return `https://mail.google.com/mail/?${query}`;
 }
 
 export function missingPlaceholders(text, values) {
