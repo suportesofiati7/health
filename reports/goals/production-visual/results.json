@@ -7,57 +7,10 @@
     1440
   ],
   "checked": 864,
-  "defects": [
-    {
-      "route": "blog/frugal-chic-escolhas-conscientes.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [
-        "../assets/journal/articles/frugal-chic-window-ritual.webp"
-      ],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/frugal-chic-escolhas-conscientes.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [
-        "../assets/journal/articles/frugal-chic-window-ritual.webp"
-      ],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/frugal-chic-escolhas-conscientes.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [
-        "../assets/journal/articles/frugal-chic-window-ritual.webp",
-        "../assets/journal/articles/frugal-chic-peony-amber.webp"
-      ],
-      "errors": [],
-      "ctaClipped": false
-    }
-  ],
+  "defects": [],
   "results": [
     {
       "route": "404.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "404.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -67,7 +20,25 @@
     },
     {
       "route": "404.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "404.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "blog.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -84,7 +55,7 @@
       "errors": []
     },
     {
-      "route": "blog.html",
+      "route": "consulta.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -111,52 +82,25 @@
       "errors": []
     },
     {
+      "route": "contato.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "contato.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
       "route": "consulta.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "consulta.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "contato.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "contato.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "contato.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "cookies.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -183,7 +127,7 @@
       "errors": []
     },
     {
-      "route": "cuidados.html",
+      "route": "contato.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -194,6 +138,15 @@
     {
       "route": "cuidados.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "cookies.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -220,6 +173,15 @@
     },
     {
       "route": "depoimentos.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "cuidados.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -229,7 +191,16 @@
     },
     {
       "route": "depoimentos.html",
-      "width": 390,
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "formulario-interesse.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -255,7 +226,7 @@
       "errors": []
     },
     {
-      "route": "formulario-interesse.html",
+      "route": "formulario.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -282,17 +253,8 @@
       "errors": []
     },
     {
-      "route": "formulario.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
       "route": "index.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -302,15 +264,6 @@
     {
       "route": "index.html",
       "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "index.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -328,7 +281,34 @@
     },
     {
       "route": "laser.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "index.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "missao.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "missao.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -337,34 +317,7 @@
     },
     {
       "route": "laser.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "missao.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "missao.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "missao.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -382,7 +335,25 @@
     },
     {
       "route": "obrigada.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "missao.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "pele.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -391,16 +362,7 @@
     },
     {
       "route": "obrigada.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "pele.html",
-      "width": 390,
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -410,24 +372,6 @@
     {
       "route": "pele.html",
       "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "pele.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "perguntas.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -444,17 +388,8 @@
       "errors": []
     },
     {
-      "route": "resultados.html",
+      "route": "pele.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "perguntas.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -471,7 +406,7 @@
       "errors": []
     },
     {
-      "route": "sobre.html",
+      "route": "perguntas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -489,8 +424,17 @@
       "errors": []
     },
     {
-      "route": "resultados.html",
+      "route": "perguntas.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "resultados.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -499,6 +443,24 @@
     },
     {
       "route": "termos.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "resultados.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "sobre.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -517,7 +479,7 @@
     },
     {
       "route": "termos.html",
-      "width": 390,
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -535,7 +497,7 @@
     },
     {
       "route": "tratamentos.html",
-      "width": 1440,
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -544,7 +506,7 @@
     },
     {
       "route": "valores.html",
-      "width": 1440,
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -553,6 +515,33 @@
     },
     {
       "route": "servicos/laser-acupulse-co2.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/limpeza-de-pele-profunda.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/mesoterapia-capilar.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "tratamentos.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -562,24 +551,6 @@
     },
     {
       "route": "tratamentos.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/limpeza-de-pele-profunda.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "tratamentos.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -588,7 +559,7 @@
       "errors": []
     },
     {
-      "route": "valores.html",
+      "route": "servicos/microagulhamento.html",
       "width": 390,
       "overflow": false,
       "h1": 1,
@@ -597,8 +568,17 @@
       "errors": []
     },
     {
-      "route": "servicos/mesoterapia-capilar.html",
+      "route": "valores.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/mmp-microinfusao-de-medicamentos-na-pele.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -616,7 +596,7 @@
     },
     {
       "route": "servicos/laser-acupulse-co2.html",
-      "width": 390,
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -624,8 +604,8 @@
       "errors": []
     },
     {
-      "route": "servicos/microagulhamento.html",
-      "width": 1440,
+      "route": "servicos/peeling-de-ata.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -643,7 +623,7 @@
     },
     {
       "route": "servicos/limpeza-de-pele-profunda.html",
-      "width": 390,
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -651,8 +631,8 @@
       "errors": []
     },
     {
-      "route": "servicos/mmp-microinfusao-de-medicamentos-na-pele.html",
-      "width": 1440,
+      "route": "servicos/peeling-de-cristal-microdermoabrasao.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -670,15 +650,6 @@
     },
     {
       "route": "servicos/mesoterapia-capilar.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/peeling-de-ata.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -696,17 +667,8 @@
       "errors": []
     },
     {
-      "route": "servicos/microagulhamento.html",
+      "route": "servicos/peeling-de-diamante.html",
       "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/peeling-de-cristal-microdermoabrasao.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -715,7 +677,25 @@
     },
     {
       "route": "servicos/microagulhamento.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/microagulhamento.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/peeling-de-jessner.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -724,15 +704,6 @@
     },
     {
       "route": "servicos/mmp-microinfusao-de-medicamentos-na-pele.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/peeling-de-diamante.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -750,17 +721,8 @@
       "errors": []
     },
     {
-      "route": "servicos/peeling-de-ata.html",
+      "route": "servicos/peeling-retinoico.html",
       "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/peeling-de-jessner.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -769,24 +731,6 @@
     },
     {
       "route": "servicos/peeling-de-ata.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/peeling-de-cristal-microdermoabrasao.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/peeling-retinoico.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -795,17 +739,8 @@
       "errors": []
     },
     {
-      "route": "servicos/peeling-de-cristal-microdermoabrasao.html",
+      "route": "servicos/peeling-de-ata.html",
       "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/peeling-de-diamante.html",
-      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -814,6 +749,15 @@
     },
     {
       "route": "servicos/peeling-ultrassonico.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/peeling-de-cristal-microdermoabrasao.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -822,7 +766,7 @@
       "errors": []
     },
     {
-      "route": "servicos/peeling-de-diamante.html",
+      "route": "servicos/peeling-de-cristal-microdermoabrasao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -832,6 +776,42 @@
     },
     {
       "route": "servicos/peim-tratamento-estetico-para-microvasos.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/peeling-de-diamante.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/peeling-de-diamante.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/plataforma-harmony-de-laser-e-luz.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/peeling-de-jessner.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -841,15 +821,6 @@
     },
     {
       "route": "servicos/peeling-de-jessner.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/peeling-de-jessner.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -858,7 +829,7 @@
       "errors": []
     },
     {
-      "route": "servicos/peeling-retinoico.html",
+      "route": "servicos/protocolo-profissional-de-despigmentacao.html",
       "width": 390,
       "overflow": false,
       "h1": 1,
@@ -867,7 +838,7 @@
       "errors": []
     },
     {
-      "route": "servicos/plataforma-harmony-de-laser-e-luz.html",
+      "route": "servicos/peeling-retinoico.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -886,7 +857,7 @@
     },
     {
       "route": "servicos/peeling-ultrassonico.html",
-      "width": 390,
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -894,8 +865,8 @@
       "errors": []
     },
     {
-      "route": "servicos/protocolo-profissional-de-despigmentacao.html",
-      "width": 1440,
+      "route": "servicos/radiofrequencia.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -912,17 +883,8 @@
       "errors": []
     },
     {
-      "route": "servicos/peim-tratamento-estetico-para-microvasos.html",
+      "route": "servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html",
       "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/radiofrequencia.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -931,7 +893,25 @@
     },
     {
       "route": "servicos/peim-tratamento-estetico-para-microvasos.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/peim-tratamento-estetico-para-microvasos.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/tecnologia-de-plasma.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -940,15 +920,6 @@
     },
     {
       "route": "servicos/plataforma-harmony-de-laser-e-luz.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -966,17 +937,8 @@
       "errors": []
     },
     {
-      "route": "servicos/protocolo-profissional-de-despigmentacao.html",
+      "route": "servicos/toxina-botulinica-platisma-e-terco-inferior.html",
       "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/tecnologia-de-plasma.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -985,7 +947,25 @@
     },
     {
       "route": "servicos/protocolo-profissional-de-despigmentacao.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/protocolo-profissional-de-despigmentacao.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/toxina-botulinica-terco-superior-da-face.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -994,15 +974,6 @@
     },
     {
       "route": "servicos/radiofrequencia.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/toxina-botulinica-platisma-e-terco-inferior.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1020,17 +991,8 @@
       "errors": []
     },
     {
-      "route": "servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html",
+      "route": "servicos/ultraformer-mpt.html",
       "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/toxina-botulinica-terco-superior-da-face.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1039,24 +1001,6 @@
     },
     {
       "route": "servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/tecnologia-de-plasma.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/ultraformer-mpt.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1065,71 +1009,7 @@
       "errors": []
     },
     {
-      "route": "servicos/tecnologia-de-plasma.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/toxina-botulinica-platisma-e-terco-inferior.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "blog/acidos-na-rotina-ordem-e-cautela.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "servicos/toxina-botulinica-platisma-e-terco-inferior.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/toxina-botulinica-terco-superior-da-face.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/toxina-botulinica-terco-superior-da-face.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/ultraformer-mpt.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": []
-    },
-    {
-      "route": "servicos/ultraformer-mpt.html",
+      "route": "servicos/reducao-de-pelos-a-laser-com-lightsheer-duet.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -1148,24 +1028,58 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/acidos-na-rotina-ordem-e-cautela.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/acne-ativa-prioridade-antes-da-textura.html",
+      "route": "servicos/tecnologia-de-plasma.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
       "broken": [],
-      "errors": [],
-      "ctaClipped": false
+      "errors": []
+    },
+    {
+      "route": "servicos/tecnologia-de-plasma.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/toxina-botulinica-platisma-e-terco-inferior.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/toxina-botulinica-platisma-e-terco-inferior.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/toxina-botulinica-terco-superior-da-face.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/toxina-botulinica-terco-superior-da-face.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
     },
     {
       "route": "blog/acne-ativa-prioridade-antes-da-textura.html",
@@ -1178,7 +1092,25 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/acne-ativa-prioridade-antes-da-textura.html",
+      "route": "servicos/ultraformer-mpt.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "servicos/ultraformer-mpt.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": []
+    },
+    {
+      "route": "blog/acidos-na-rotina-ordem-e-cautela.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -1188,7 +1120,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/afinamento-capilar-e-fotografias.html",
+      "route": "blog/acidos-na-rotina-ordem-e-cautela.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1208,6 +1140,56 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/apos-peeling-retomar-ativos-quando-perguntar.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/acne-ativa-prioridade-antes-da-textura.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/acne-ativa-prioridade-antes-da-textura.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ata-cross-cicatrizes-acne-diferenca-peeling.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/afinamento-capilar-e-fotografias.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/afinamento-capilar-e-fotografias.html",
       "width": 768,
       "overflow": false,
@@ -1218,17 +1200,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/apos-peeling-retomar-ativos-quando-perguntar.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/apos-peeling-retomar-ativos-quando-perguntar.html",
+      "route": "blog/ata-ou-jessner-como-comparar.html",
       "width": 390,
       "overflow": false,
       "h1": 1,
@@ -1248,67 +1220,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ata-cross-cicatrizes-acne-diferenca-peeling.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ata-cross-cicatrizes-acne-diferenca-peeling.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ata-cross-cicatrizes-acne-diferenca-peeling.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ata-ou-jessner-como-comparar.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ata-ou-jessner-como-comparar.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ata-ou-jessner-como-comparar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/bandas-pescoco-toxina-ultrassom-radiofrequencia-lifting.html",
+      "route": "blog/apos-peeling-retomar-ativos-quando-perguntar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1328,6 +1240,66 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/ata-cross-cicatrizes-acne-diferenca-peeling.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ata-cross-cicatrizes-acne-diferenca-peeling.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/barreira-cutanea-e-procedimentos-quando-esperar.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ata-ou-jessner-como-comparar.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ata-ou-jessner-como-comparar.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/barreira-cutanea-sinais-de-sobrecarga.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/bandas-pescoco-toxina-ultrassom-radiofrequencia-lifting.html",
       "width": 768,
       "overflow": false,
@@ -1338,27 +1310,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/barreira-cutanea-e-procedimentos-quando-esperar.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/barreira-cutanea-e-procedimentos-quando-esperar.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/barreira-cutanea-sinais-de-sobrecarga.html",
+      "route": "blog/bandas-pescoco-toxina-ultrassom-radiofrequencia-lifting.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1378,18 +1330,38 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/botox-londrina-guia-completo.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/barreira-cutanea-e-procedimentos-quando-esperar.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/cicatrizes-de-acne-textura-e-plano.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/barreira-cutanea-sinais-de-sobrecarga.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/botox-londrina-guia-completo.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1399,6 +1371,26 @@
     },
     {
       "route": "blog/barreira-cutanea-sinais-de-sobrecarga.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/consulta-estetica-como-se-preparar.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/botox-londrina-guia-completo.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -1409,86 +1401,6 @@
     },
     {
       "route": "blog/botox-londrina-guia-completo.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/botox-londrina-guia-completo.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/cicatrizes-de-acne-textura-e-plano.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/cicatrizes-de-acne-textura-e-plano.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/cicatrizes-de-acne-textura-e-plano.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/consulta-estetica-como-se-preparar.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/consulta-estetica-como-se-preparar.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/consulta-estetica-como-se-preparar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/couros-cabeludo-e-queda-sinais-de-alerta.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1508,7 +1420,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/couros-cabeludo-e-queda-sinais-de-alerta.html",
+      "route": "blog/cicatrizes-de-acne-textura-e-plano.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -1518,7 +1430,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/cravos-e-extracao-segura.html",
+      "route": "blog/cicatrizes-de-acne-textura-e-plano.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1538,7 +1450,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/cravos-e-extracao-segura.html",
+      "route": "blog/consulta-estetica-como-se-preparar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -1549,6 +1461,96 @@
     },
     {
       "route": "blog/cravos-ou-milium-extracao-avaliacao.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/consulta-estetica-como-se-preparar.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/couros-cabeludo-e-queda-sinais-de-alerta.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/crostas-plasma-exeresis-cuidados.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/cravos-e-extracao-segura.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/couros-cabeludo-e-queda-sinais-de-alerta.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/depilacao-a-laser-preparo-e-expectativas.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/cravos-e-extracao-segura.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/cravos-ou-milium-extracao-avaliacao.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/depilacao-laser-aumento-paradoxal-pelos.html",
       "width": 390,
       "overflow": false,
       "h1": 1,
@@ -1569,7 +1571,7 @@
     },
     {
       "route": "blog/crostas-plasma-exeresis-cuidados.html",
-      "width": 390,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1578,8 +1580,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/cravos-ou-milium-extracao-avaliacao.html",
-      "width": 768,
+      "route": "blog/depilacao-laser-cera-lamina-comparacao.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1598,7 +1600,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/crostas-plasma-exeresis-cuidados.html",
+      "route": "blog/depilacao-a-laser-preparo-e-expectativas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -1608,7 +1610,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-a-laser-preparo-e-expectativas.html",
+      "route": "blog/depilacao-laser-gravidez-evidencia-e-decidir.html",
       "width": 390,
       "overflow": false,
       "h1": 1,
@@ -1629,7 +1631,7 @@
     },
     {
       "route": "blog/depilacao-laser-aumento-paradoxal-pelos.html",
-      "width": 390,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1638,8 +1640,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-a-laser-preparo-e-expectativas.html",
-      "width": 768,
+      "route": "blog/depilacao-laser-intervalos-e-ciclo.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1659,7 +1661,7 @@
     },
     {
       "route": "blog/depilacao-laser-cera-lamina-comparacao.html",
-      "width": 390,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1668,8 +1670,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-laser-aumento-paradoxal-pelos.html",
-      "width": 768,
+      "route": "blog/depilacao-laser-medicamentos-o-que-informar.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1689,6 +1691,16 @@
     },
     {
       "route": "blog/depilacao-laser-gravidez-evidencia-e-decidir.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/depilacao-laser-ou-eletrolise-pelos-claros.html",
       "width": 390,
       "overflow": false,
       "h1": 1,
@@ -1708,58 +1720,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-laser-cera-lamina-comparacao.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-intervalos-e-ciclo.html",
+      "route": "blog/depilacao-laser-pelos-claros-resposta.html",
       "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-intervalos-e-ciclo.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-gravidez-evidencia-e-decidir.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-medicamentos-o-que-informar.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-medicamentos-o-que-informar.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1778,17 +1740,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-laser-ou-eletrolise-pelos-claros.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-ou-eletrolise-pelos-claros.html",
+      "route": "blog/depilacao-laser-intervalos-e-ciclo.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1808,7 +1760,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-laser-pelos-claros-resposta.html",
+      "route": "blog/depilacao-laser-pelos-encravados-irritacao.html",
       "width": 390,
       "overflow": false,
       "h1": 1,
@@ -1818,8 +1770,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-laser-pelos-claros-resposta.html",
+      "route": "blog/depilacao-laser-medicamentos-o-que-informar.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/depilacao-laser-pintas-nevos-e-avaliacao.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1838,17 +1800,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-laser-pelos-encravados-irritacao.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-pelos-encravados-irritacao.html",
+      "route": "blog/depilacao-laser-ou-eletrolise-pelos-claros.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1868,6 +1820,26 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/depilacao-laser-rosto-e-hormonios.html",
+      "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/depilacao-laser-pelos-claros-resposta.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/depilacao-laser-pelos-encravados-irritacao.html",
       "width": 768,
       "overflow": false,
@@ -1878,27 +1850,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-laser-pintas-nevos-e-avaliacao.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-pintas-nevos-e-avaliacao.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-rosto-e-hormonios.html",
+      "route": "blog/depilacao-laser-tatuagem-e-pigmento.html",
       "width": 390,
       "overflow": false,
       "h1": 1,
@@ -1918,48 +1870,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depilacao-laser-rosto-e-hormonios.html",
+      "route": "blog/depilacao-laser-pelos-encravados-irritacao.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-rosto-e-hormonios.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-tatuagem-e-pigmento.html",
-      "width": 390,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-tatuagem-e-pigmento.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/depilacao-laser-tatuagem-e-pigmento.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -1978,7 +1890,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depois-tratar-microvasos-manchas-ou-vasinhos-novos.html",
+      "route": "blog/depilacao-laser-rosto-e-hormonios.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/depilacao-laser-pintas-nevos-e-avaliacao.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -1998,18 +1920,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/depois-tratar-microvasos-manchas-ou-vasinhos-novos.html",
+      "route": "blog/depilacao-laser-tatuagem-e-pigmento.html",
       "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/dermaroller-em-casa-e-microagulhamento-profissional.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2028,18 +1940,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/despigmentacao-cosmetico-regularizacao-alegacoes-anvisa.html",
+      "route": "blog/depilacao-laser-rosto-e-hormonios.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/dermaroller-em-casa-e-microagulhamento-profissional.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2058,7 +1960,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/despigmentacao-cosmetico-regularizacao-alegacoes-anvisa.html",
+      "route": "blog/depois-tratar-microvasos-manchas-ou-vasinhos-novos.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2068,7 +1970,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/duplex-ultrassom-varizes-avaliacao.html",
+      "route": "blog/depilacao-laser-tatuagem-e-pigmento.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/depois-tratar-microvasos-manchas-ou-vasinhos-novos.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2088,18 +2000,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/duplex-ultrassom-varizes-avaliacao.html",
+      "route": "blog/dermaroller-em-casa-e-microagulhamento-profissional.html",
       "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/esfoliacao-fisica-quando-menos-ajuda.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2118,8 +2020,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/esfoliacao-fisica-quando-menos-ajuda.html",
+      "route": "blog/despigmentacao-cosmetico-regularizacao-alegacoes-anvisa.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/dermaroller-em-casa-e-microagulhamento-profissional.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2138,7 +2050,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/expectativa-e-tempo-biologico.html",
+      "route": "blog/despigmentacao-cosmetico-regularizacao-alegacoes-anvisa.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2148,7 +2060,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/expectativa-e-tempo-biologico.html",
+      "route": "blog/duplex-ultrassom-varizes-avaliacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2168,8 +2080,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/falhas-arredondadas-couro-cabeludo-avaliar.html",
-      "width": 1440,
+      "route": "blog/esfoliacao-fisica-quando-menos-ajuda.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2178,8 +2090,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/falhas-arredondadas-couro-cabeludo-avaliar.html",
-      "width": 768,
+      "route": "blog/duplex-ultrassom-varizes-avaliacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2198,8 +2110,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/fotografias-manchas-acompanhamento-consentimento.html",
-      "width": 1440,
+      "route": "blog/expectativa-e-tempo-biologico.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2208,8 +2120,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/fotografias-manchas-acompanhamento-consentimento.html",
-      "width": 768,
+      "route": "blog/esfoliacao-fisica-quando-menos-ajuda.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2228,7 +2140,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/fotoprotecao-que-cabe-na-rotina.html",
+      "route": "blog/falhas-arredondadas-couro-cabeludo-avaliar.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/expectativa-e-tempo-biologico.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2248,7 +2170,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/fotoprotecao-que-cabe-na-rotina.html",
+      "route": "blog/fotografias-manchas-acompanhamento-consentimento.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2258,8 +2180,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/fotos-antes-depois-leitura-critica.html",
+      "route": "blog/falhas-arredondadas-couro-cabeludo-avaliar.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/fotoprotecao-que-cabe-na-rotina.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2273,15 +2205,13 @@
       "overflow": false,
       "h1": 1,
       "cta": true,
-      "broken": [
-        "../assets/journal/articles/frugal-chic-window-ritual.webp"
-      ],
+      "broken": [],
       "errors": [],
       "ctaClipped": false
     },
     {
-      "route": "blog/fotos-antes-depois-leitura-critica.html",
-      "width": 768,
+      "route": "blog/fotografias-manchas-acompanhamento-consentimento.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2290,8 +2220,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/fractional-co2-laser-recovery-and-aftercare.html",
-      "width": 1440,
+      "route": "blog/fotos-antes-depois-leitura-critica.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2310,8 +2240,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/fractional-co2-laser-recovery-and-aftercare.html",
-      "width": 768,
+      "route": "blog/fotoprotecao-que-cabe-na-rotina.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2320,27 +2250,12 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/frugal-chic-escolhas-conscientes.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [
-        "../assets/journal/articles/frugal-chic-window-ritual.webp"
-      ],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/frugal-chic-escolhas-conscientes.html",
+      "route": "blog/fractional-co2-laser-recovery-and-aftercare.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
-      "broken": [
-        "../assets/journal/articles/frugal-chic-window-ritual.webp",
-        "../assets/journal/articles/frugal-chic-peony-amber.webp"
-      ],
+      "broken": [],
       "errors": [],
       "ctaClipped": false
     },
@@ -2355,7 +2270,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/hair-thinning-causes-and-scalp-care.html",
+      "route": "blog/fotos-antes-depois-leitura-critica.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2375,7 +2290,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/hair-thinning-causes-and-scalp-care.html",
+      "route": "blog/frugal-chic-escolhas-conscientes.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2385,18 +2300,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/harmony-ipl-laser-diferencas.html",
+      "route": "blog/fractional-co2-laser-recovery-and-aftercare.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/harmony-ipl-laser-diferencas.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2415,8 +2320,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/harmony-pele-bronzeada-o-que-relatar.html",
-      "width": 1440,
+      "route": "blog/hair-thinning-causes-and-scalp-care.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2425,8 +2330,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/harmony-pele-bronzeada-o-que-relatar.html",
-      "width": 768,
+      "route": "blog/frugal-chic-escolhas-conscientes.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2445,17 +2350,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/harmony-tons-de-pele-avaliacao-luz.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/harmony-tons-de-pele-avaliacao-luz.html",
+      "route": "blog/harmony-ipl-laser-diferencas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2475,7 +2370,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/hidroquinona-manchas-escurecem-reavaliar.html",
+      "route": "blog/hair-thinning-causes-and-scalp-care.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2485,7 +2380,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/hidroquinona-manchas-escurecem-reavaliar.html",
+      "route": "blog/harmony-pele-bronzeada-o-que-relatar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2505,8 +2400,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/historico-queloide-cicatriz-elevada-procedimento.html",
+      "route": "blog/harmony-ipl-laser-diferencas.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/harmony-tons-de-pele-avaliacao-luz.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2525,7 +2430,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/historico-queloide-cicatriz-elevada-procedimento.html",
+      "route": "blog/harmony-pele-bronzeada-o-que-relatar.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/hidroquinona-manchas-escurecem-reavaliar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2545,7 +2460,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ipl-caseira-ou-laser-profissional-depilacao.html",
+      "route": "blog/harmony-tons-de-pele-avaliacao-luz.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2555,7 +2470,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ipl-caseira-ou-laser-profissional-depilacao.html",
+      "route": "blog/historico-queloide-cicatriz-elevada-procedimento.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2575,7 +2490,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/isotretinoina-limpeza-profunda-extracao.html",
+      "route": "blog/hidroquinona-manchas-escurecem-reavaliar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2585,7 +2500,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/isotretinoina-limpeza-profunda-extracao.html",
+      "route": "blog/ipl-caseira-ou-laser-profissional-depilacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2605,7 +2520,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-cicatrizes-acne-tipo-cicatriz.html",
+      "route": "blog/historico-queloide-cicatriz-elevada-procedimento.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2615,7 +2530,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-cicatrizes-acne-tipo-cicatriz.html",
+      "route": "blog/isotretinoina-limpeza-profunda-extracao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2635,7 +2550,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-e-eventos-importantes.html",
+      "route": "blog/laser-co2-cicatrizes-acne-tipo-cicatriz.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2645,7 +2560,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-e-eventos-importantes.html",
+      "route": "blog/ipl-caseira-ou-laser-profissional-depilacao.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2665,8 +2580,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-e-fotoprotecao-pos.html",
-      "width": 1440,
+      "route": "blog/laser-co2-e-eventos-importantes.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2675,8 +2590,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-e-fotoprotecao-pos.html",
-      "width": 768,
+      "route": "blog/isotretinoina-limpeza-profunda-extracao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2695,8 +2610,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-fracionado-areas-do-corpo-nao-generalizar.html",
-      "width": 1440,
+      "route": "blog/laser-co2-e-fotoprotecao-pos.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2705,8 +2620,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-fracionado-areas-do-corpo-nao-generalizar.html",
-      "width": 768,
+      "route": "blog/laser-co2-cicatrizes-acne-tipo-cicatriz.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2725,8 +2640,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-fracionado-e-ablativo-diferencas.html",
-      "width": 1440,
+      "route": "blog/laser-co2-fracionado-areas-do-corpo-nao-generalizar.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2745,28 +2660,18 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/laser-co2-e-eventos-importantes.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/laser-co2-fracionado-e-ablativo-diferencas.html",
       "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/laser-co2-historico-herpes-o-que-informar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/laser-co2-historico-herpes-o-que-informar.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2785,7 +2690,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-manchas-pos-inflamatorias-evidencia.html",
+      "route": "blog/laser-co2-e-fotoprotecao-pos.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/laser-co2-historico-herpes-o-que-informar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2805,27 +2720,17 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/laser-co2-fracionado-areas-do-corpo-nao-generalizar.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/laser-co2-manchas-pos-inflamatorias-evidencia.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/laser-co2-ou-microagulhamento-cicatrizes-acne.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/laser-co2-ou-microagulhamento-cicatrizes-acne.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2845,7 +2750,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-recuperacao-e-cuidados.html",
+      "route": "blog/laser-co2-fracionado-e-ablativo-diferencas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2855,7 +2760,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-recuperacao-e-cuidados.html",
+      "route": "blog/laser-co2-ou-microagulhamento-cicatrizes-acne.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2875,17 +2780,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-sinais-contato-equipe.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/laser-co2-sinais-contato-equipe.html",
+      "route": "blog/laser-co2-historico-herpes-o-que-informar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2905,6 +2800,26 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/laser-co2-recuperacao-e-cuidados.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/laser-co2-manchas-pos-inflamatorias-evidencia.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/laser-e-pele-bronzeada.html",
       "width": 390,
       "overflow": false,
@@ -2915,7 +2830,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-tons-de-pele-historico-pigmentacao.html",
+      "route": "blog/laser-co2-sinais-contato-equipe.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2925,7 +2840,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-co2-tons-de-pele-historico-pigmentacao.html",
+      "route": "blog/laser-co2-ou-microagulhamento-cicatrizes-acne.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -2935,7 +2850,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-depilacao-pseudofoliculite-barbae-evidencia.html",
+      "route": "blog/laser-co2-tons-de-pele-historico-pigmentacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -2955,26 +2870,6 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-depilacao-pseudofoliculite-barbae-evidencia.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/laser-e-cicatrizes-de-acne.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
       "route": "blog/laser-hair-removal-process-and-maintenance.html",
       "width": 390,
       "overflow": false,
@@ -2985,8 +2880,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-e-cicatrizes-de-acne.html",
-      "width": 1440,
+      "route": "blog/laser-depilacao-pseudofoliculite-barbae-evidencia.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -2995,7 +2890,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-e-pele-bronzeada.html",
+      "route": "blog/laser-co2-recuperacao-e-cuidados.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3015,8 +2910,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-e-pele-bronzeada.html",
-      "width": 768,
+      "route": "blog/laser-co2-sinais-contato-equipe.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3025,8 +2920,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-e-pelos-tons-de-pele-e-pelos.html",
-      "width": 1440,
+      "route": "blog/laser-e-cicatrizes-de-acne.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3045,8 +2940,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-e-pelos-tons-de-pele-e-pelos.html",
-      "width": 768,
+      "route": "blog/laser-co2-tons-de-pele-historico-pigmentacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3055,8 +2950,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-hair-removal-process-and-maintenance.html",
-      "width": 1440,
+      "route": "blog/laser-e-pele-bronzeada.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3067,6 +2962,26 @@
     {
       "route": "blog/limpeza-de-pele-antes-de-evento-importante.html",
       "width": 390,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/laser-e-pelos-tons-de-pele-e-pelos.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/laser-depilacao-pseudofoliculite-barbae-evidencia.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3095,28 +3010,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/laser-luz-ou-peim-microvasos.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/laser-luz-ou-peim-microvasos.html",
+      "route": "blog/laser-e-cicatrizes-de-acne.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/lightsheer-duet-duas-ponteiras-planejamento.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3135,8 +3030,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/lightsheer-duet-duas-ponteiras-planejamento.html",
-      "width": 1440,
+      "route": "blog/laser-luz-ou-peim-microvasos.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3145,8 +3040,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-de-pele-antes-de-evento-importante.html",
-      "width": 768,
+      "route": "blog/laser-e-pele-bronzeada.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3165,7 +3060,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-de-pele-antes-de-evento-importante.html",
+      "route": "blog/lightsheer-duet-duas-ponteiras-planejamento.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/laser-e-pelos-tons-de-pele-e-pelos.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3185,7 +3090,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-de-pele-e-barreira.html",
+      "route": "blog/limpeza-de-pele-antes-de-evento-importante.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3195,7 +3100,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-de-pele-e-barreira.html",
+      "route": "blog/laser-hair-removal-process-and-maintenance.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3215,18 +3120,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profissional-e-rotina-em-casa-papeis.html",
+      "route": "blog/limpeza-de-pele-e-barreira.html",
       "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/limpeza-profissional-e-rotina-em-casa-papeis.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3245,8 +3140,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profissional-frequencia-como-decidir.html",
-      "width": 768,
+      "route": "blog/laser-luz-ou-peim-microvasos.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3255,8 +3150,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profissional-frequencia-como-decidir.html",
-      "width": 1440,
+      "route": "blog/limpeza-profissional-e-rotina-em-casa-papeis.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3275,17 +3170,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profissional-nao-substitui-tratamento-acne.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/limpeza-profissional-nao-substitui-tratamento-acne.html",
+      "route": "blog/lightsheer-duet-duas-ponteiras-planejamento.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3295,7 +3180,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profunda-filamentos-sebaceos-ou-cravos.html",
+      "route": "blog/limpeza-profissional-frequencia-como-decidir.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3315,8 +3200,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profunda-filamentos-sebaceos-ou-cravos.html",
+      "route": "blog/limpeza-de-pele-antes-de-evento-importante.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/limpeza-profissional-nao-substitui-tratamento-acne.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3335,8 +3230,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profunda-pele-ardendo-o-que-informar.html",
-      "width": 768,
+      "route": "blog/limpeza-de-pele-e-barreira.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3345,8 +3240,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profunda-pele-ardendo-o-que-informar.html",
-      "width": 1440,
+      "route": "blog/limpeza-profunda-filamentos-sebaceos-ou-cravos.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3365,17 +3260,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/limpeza-profunda-quando-extracao-nao-e-apropriada.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/limpeza-profunda-quando-extracao-nao-e-apropriada.html",
+      "route": "blog/limpeza-profissional-e-rotina-em-casa-papeis.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3385,7 +3270,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/luz-intensa-pulsada-e-avaliacao.html",
+      "route": "blog/limpeza-profunda-pele-ardendo-o-que-informar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3405,8 +3290,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/luz-intensa-pulsada-e-avaliacao.html",
+      "route": "blog/limpeza-profissional-frequencia-como-decidir.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/limpeza-profunda-quando-extracao-nao-e-apropriada.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3425,8 +3320,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/luz-para-pigmento-ou-vasos-avaliacao.html",
-      "width": 768,
+      "route": "blog/limpeza-profissional-nao-substitui-tratamento-acne.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3435,8 +3330,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/luz-para-pigmento-ou-vasos-avaliacao.html",
-      "width": 1440,
+      "route": "blog/luz-intensa-pulsada-e-avaliacao.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3455,17 +3350,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mancha-pos-acne-ou-cicatriz-como-diferenciar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/mancha-pos-acne-ou-cicatriz-como-diferenciar.html",
+      "route": "blog/limpeza-profunda-filamentos-sebaceos-ou-cravos.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3475,7 +3360,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mancha-pos-inflamatoria-o-que-muda.html",
+      "route": "blog/luz-para-pigmento-ou-vasos-avaliacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3495,7 +3380,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mancha-pos-inflamatoria-o-que-muda.html",
+      "route": "blog/limpeza-profunda-pele-ardendo-o-que-informar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3505,7 +3390,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mancha-que-mudou-avaliacao-antes-despigmentar.html",
+      "route": "blog/mancha-pos-acne-ou-cicatriz-como-diferenciar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3525,7 +3410,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mancha-que-mudou-avaliacao-antes-despigmentar.html",
+      "route": "blog/limpeza-profunda-quando-extracao-nao-e-apropriada.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3535,7 +3420,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/maquiagem-e-pele-sensivel.html",
+      "route": "blog/mancha-pos-inflamatoria-o-que-muda.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3555,18 +3440,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/maquiagem-e-pele-sensivel.html",
+      "route": "blog/luz-intensa-pulsada-e-avaliacao.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/marcas-pos-acne-e-cicatrizes.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3585,8 +3460,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/marcas-pos-acne-e-cicatrizes.html",
-      "width": 1440,
+      "route": "blog/mancha-que-mudou-avaliacao-antes-despigmentar.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3595,8 +3470,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/medicamento-novo-entre-sessoes-laser-ipl-o-que-fazer.html",
-      "width": 768,
+      "route": "blog/luz-para-pigmento-ou-vasos-avaliacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3615,8 +3490,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/medicamento-novo-entre-sessoes-laser-ipl-o-que-fazer.html",
-      "width": 1440,
+      "route": "blog/maquiagem-e-pele-sensivel.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3625,7 +3500,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-calor-luz-e-rotina.html",
+      "route": "blog/marcas-pos-acne-e-cicatrizes.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3645,18 +3520,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-calor-luz-e-rotina.html",
+      "route": "blog/mancha-pos-acne-ou-cicatriz-como-diferenciar.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/melasma-manchas-e-fotoprotecao.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3675,8 +3540,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-na-gravidez-quando-adiar-tratamento.html",
-      "width": 768,
+      "route": "blog/mancha-pos-inflamatoria-o-que-muda.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3685,8 +3550,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-manchas-e-fotoprotecao.html",
-      "width": 1440,
+      "route": "blog/medicamento-novo-entre-sessoes-laser-ipl-o-que-fazer.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3705,8 +3570,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-ou-hiperpigmentacao-pos-inflamatoria.html",
-      "width": 768,
+      "route": "blog/mancha-que-mudou-avaliacao-antes-despigmentar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3715,8 +3580,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-na-gravidez-quando-adiar-tratamento.html",
-      "width": 1440,
+      "route": "blog/melasma-calor-luz-e-rotina.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3735,7 +3600,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-procedimentos-topicos-como-comparar-papeis.html",
+      "route": "blog/melasma-manchas-e-fotoprotecao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3745,7 +3610,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-ou-hiperpigmentacao-pos-inflamatoria.html",
+      "route": "blog/maquiagem-e-pele-sensivel.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3765,7 +3630,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-recorrente-plano-manutencao.html",
+      "route": "blog/melasma-na-gravidez-quando-adiar-tratamento.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3775,7 +3640,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-procedimentos-topicos-como-comparar-papeis.html",
+      "route": "blog/marcas-pos-acne-e-cicatrizes.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3795,7 +3660,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-acompanhamento-medidas-evidencia.html",
+      "route": "blog/melasma-ou-hiperpigmentacao-pos-inflamatoria.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3805,7 +3670,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/melasma-recorrente-plano-manutencao.html",
+      "route": "blog/medicamento-novo-entre-sessoes-laser-ipl-o-que-fazer.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3825,7 +3690,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-e-mmp-diferencas.html",
+      "route": "blog/melasma-procedimentos-topicos-como-comparar-papeis.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3835,7 +3700,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-acompanhamento-medidas-evidencia.html",
+      "route": "blog/melasma-calor-luz-e-rotina.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3855,7 +3720,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-e-plano.html",
+      "route": "blog/melasma-recorrente-plano-manutencao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3865,7 +3730,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-e-mmp-diferencas.html",
+      "route": "blog/melasma-manchas-e-fotoprotecao.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3885,7 +3750,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-evidencia-ingredientes.html",
+      "route": "blog/melasma-na-gravidez-quando-adiar-tratamento.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/mesoterapia-capilar-acompanhamento-medidas-evidencia.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3905,8 +3780,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-e-plano.html",
-      "width": 1440,
+      "route": "blog/mesoterapia-capilar-e-mmp-diferencas.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3915,8 +3790,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-minoxidil-evidencia-via.html",
-      "width": 768,
+      "route": "blog/melasma-ou-hiperpigmentacao-pos-inflamatoria.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3935,7 +3810,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-evidencia-ingredientes.html",
+      "route": "blog/melasma-procedimentos-topicos-como-comparar-papeis.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -3945,7 +3820,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-perguntas-riscos-alternativas.html",
+      "route": "blog/mesoterapia-capilar-e-plano.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -3965,18 +3840,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-minoxidil-evidencia-via.html",
+      "route": "blog/melasma-recorrente-plano-manutencao.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/mesoterapia-capilar-produto-injetavel-anvisa.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -3995,27 +3860,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-cicatrizes-rolling-subcisao-estudo.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/mesoterapia-capilar-perguntas-riscos-alternativas.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/microagulhamento-diferentes-tons-de-pele-evidencia.html",
+      "route": "blog/mesoterapia-capilar-evidencia-ingredientes.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4035,7 +3880,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mesoterapia-capilar-produto-injetavel-anvisa.html",
+      "route": "blog/mesoterapia-capilar-minoxidil-evidencia-via.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/mesoterapia-capilar-acompanhamento-medidas-evidencia.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4055,7 +3910,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-e-acne-inflamada.html",
+      "route": "blog/mesoterapia-capilar-perguntas-riscos-alternativas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4065,7 +3920,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-cicatrizes-rolling-subcisao-estudo.html",
+      "route": "blog/mesoterapia-capilar-e-mmp-diferencas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4085,7 +3940,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-e-manchas.html",
+      "route": "blog/mesoterapia-capilar-produto-injetavel-anvisa.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4095,7 +3950,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-diferentes-tons-de-pele-evidencia.html",
+      "route": "blog/mesoterapia-capilar-e-plano.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4115,7 +3970,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-e-mmp-diferencas.html",
+      "route": "blog/microagulhamento-cicatrizes-rolling-subcisao-estudo.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4125,18 +3980,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-e-acne-inflamada.html",
+      "route": "blog/mesoterapia-capilar-evidencia-ingredientes.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/microagulhamento-infeccao-herpes-higiene-perguntas.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4155,8 +4000,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-e-manchas.html",
-      "width": 1440,
+      "route": "blog/microagulhamento-diferentes-tons-de-pele-evidencia.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4165,8 +4010,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-medicamentos-historico-saude.html",
-      "width": 768,
+      "route": "blog/mesoterapia-capilar-minoxidil-evidencia-via.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4185,7 +4030,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-e-mmp-diferencas.html",
+      "route": "blog/microagulhamento-e-acne-inflamada.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/mesoterapia-capilar-perguntas-riscos-alternativas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4205,8 +4060,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-o-que-avaliar.html",
+      "route": "blog/microagulhamento-e-manchas.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/mesoterapia-capilar-produto-injetavel-anvisa.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4225,8 +4090,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-infeccao-herpes-higiene-perguntas.html",
-      "width": 1440,
+      "route": "blog/microagulhamento-e-mmp-diferencas.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4235,8 +4100,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-pos-procedimento-o-que-esperar-relatar.html",
-      "width": 768,
+      "route": "blog/microagulhamento-cicatrizes-rolling-subcisao-estudo.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4255,7 +4120,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-produtos-via-regularizacao.html",
+      "route": "blog/microagulhamento-infeccao-herpes-higiene-perguntas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4265,18 +4130,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-medicamentos-historico-saude.html",
+      "route": "blog/microagulhamento-diferentes-tons-de-pele-evidencia.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/microdermoabrasao-acne-ativa-o-que-avaliar.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4295,8 +4150,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-o-que-avaliar.html",
-      "width": 1440,
+      "route": "blog/microagulhamento-medicamentos-historico-saude.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4305,7 +4160,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microagulhamento-pos-procedimento-o-que-esperar-relatar.html",
+      "route": "blog/microagulhamento-e-acne-inflamada.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4325,17 +4180,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-cicatrizes-acne-limites.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/microagulhamento-produtos-via-regularizacao.html",
+      "route": "blog/microagulhamento-e-manchas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4345,7 +4190,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-e-poros-o-que-esperar.html",
+      "route": "blog/microagulhamento-o-que-avaliar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4365,7 +4210,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-acne-ativa-o-que-avaliar.html",
+      "route": "blog/microagulhamento-e-mmp-diferencas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4385,8 +4230,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-historico-manchas-escuras.html",
+      "route": "blog/microagulhamento-pos-procedimento-o-que-esperar-relatar.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/microagulhamento-infeccao-herpes-higiene-perguntas.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4405,7 +4260,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-objetivos-realistas.html",
+      "route": "blog/microagulhamento-produtos-via-regularizacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4415,7 +4270,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-cicatrizes-acne-limites.html",
+      "route": "blog/microagulhamento-medicamentos-historico-saude.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4435,27 +4290,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-ou-dermabrasao-diferencas.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/microdermoabrasao-e-poros-o-que-esperar.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/microdermoabrasao-pos-procedimento-quando-relatar.html",
+      "route": "blog/microdermoabrasao-acne-ativa-o-que-avaliar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4475,8 +4310,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-historico-manchas-escuras.html",
+      "route": "blog/microagulhamento-o-que-avaliar.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/microdermoabrasao-cicatrizes-acne-limites.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4495,17 +4340,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-preparo-isotretinoina-cicatrizacao.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/microdermoabrasao-objetivos-realistas.html",
+      "route": "blog/microagulhamento-pos-procedimento-o-que-esperar-relatar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4515,8 +4350,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microvasos-inchaco-repentino-um-lado-alerta.html",
+      "route": "blog/microdermoabrasao-e-poros-o-que-esperar.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/microagulhamento-produtos-via-regularizacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4535,8 +4380,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-ou-dermabrasao-diferencas.html",
-      "width": 1440,
+      "route": "blog/microdermoabrasao-historico-manchas-escuras.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4555,8 +4400,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microvasos-queixas-e-avaliacao.html",
-      "width": 768,
+      "route": "blog/microdermoabrasao-acne-ativa-o-que-avaliar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4565,8 +4410,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-pos-procedimento-quando-relatar.html",
-      "width": 1440,
+      "route": "blog/microdermoabrasao-objetivos-realistas.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4585,8 +4430,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microvasos-visiveis-sintomas-avaliacao-vascular.html",
-      "width": 768,
+      "route": "blog/microdermoabrasao-cicatrizes-acne-limites.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4595,8 +4440,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microdermoabrasao-preparo-isotretinoina-cicatrizacao.html",
-      "width": 1440,
+      "route": "blog/microdermoabrasao-ou-dermabrasao-diferencas.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4615,7 +4460,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-absorcao-sistemica-medicamento-o-que-saber.html",
+      "route": "blog/microdermoabrasao-pos-procedimento-quando-relatar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4625,27 +4470,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microvasos-inchaco-repentino-um-lado-alerta.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/mmp-confirmar-produto-via-indicacao.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/microvasos-queixas-e-avaliacao.html",
+      "route": "blog/microdermoabrasao-e-poros-o-que-esperar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4665,8 +4490,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-couro-cabeludo-perguntas.html",
+      "route": "blog/microdermoabrasao-preparo-isotretinoina-cicatrizacao.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/microdermoabrasao-historico-manchas-escuras.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4685,8 +4520,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/microvasos-visiveis-sintomas-avaliacao-vascular.html",
+      "route": "blog/microdermoabrasao-objetivos-realistas.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/microvasos-inchaco-repentino-um-lado-alerta.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4705,8 +4550,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-couro-cabeludo-reacoes-quando-avaliar.html",
-      "width": 768,
+      "route": "blog/microdermoabrasao-ou-dermabrasao-diferencas.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4715,8 +4560,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-absorcao-sistemica-medicamento-o-que-saber.html",
-      "width": 1440,
+      "route": "blog/microvasos-queixas-e-avaliacao.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4735,8 +4580,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-materiais-esterilidade-rastreabilidade.html",
-      "width": 768,
+      "route": "blog/microdermoabrasao-pos-procedimento-quando-relatar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4745,8 +4590,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-confirmar-produto-via-indicacao.html",
-      "width": 1440,
+      "route": "blog/microvasos-visiveis-sintomas-avaliacao-vascular.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4765,7 +4610,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-queda-capilar-o-que-estudos-avaliaram.html",
+      "route": "blog/mmp-absorcao-sistemica-medicamento-o-que-saber.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4775,7 +4620,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-couro-cabeludo-perguntas.html",
+      "route": "blog/microdermoabrasao-preparo-isotretinoina-cicatrizacao.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4795,8 +4640,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-riscos-alternativas-consentimento.html",
-      "width": 768,
+      "route": "blog/microvasos-inchaco-repentino-um-lado-alerta.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4805,8 +4650,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-couro-cabeludo-reacoes-quando-avaliar.html",
-      "width": 1440,
+      "route": "blog/mmp-confirmar-produto-via-indicacao.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4825,7 +4670,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/naturalidade-e-planejamento-facial.html",
+      "route": "blog/mmp-couro-cabeludo-perguntas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4835,7 +4680,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-materiais-esterilidade-rastreabilidade.html",
+      "route": "blog/microvasos-queixas-e-avaliacao.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4855,7 +4700,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ata-estudo-melasma-mulheres-latino-americanas.html",
+      "route": "blog/mmp-couro-cabeludo-reacoes-quando-avaliar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4865,7 +4710,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-queda-capilar-o-que-estudos-avaliaram.html",
+      "route": "blog/microvasos-visiveis-sintomas-avaliacao-vascular.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4885,7 +4730,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ata-pigmentacao-risco-historico-perguntas.html",
+      "route": "blog/mmp-materiais-esterilidade-rastreabilidade.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4895,7 +4740,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/mmp-riscos-alternativas-consentimento.html",
+      "route": "blog/mmp-absorcao-sistemica-medicamento-o-que-saber.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -4915,26 +4760,6 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ata-profundidade-o-que-significa.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/naturalidade-e-planejamento-facial.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
       "route": "blog/peeling-de-diamante-o-que-avaliar.html",
       "width": 390,
       "overflow": false,
@@ -4945,7 +4770,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-caseiro-risco-e-contexto.html",
+      "route": "blog/mmp-confirmar-produto-via-indicacao.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/mmp-queda-capilar-o-que-estudos-avaliaram.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -4955,8 +4790,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ata-estudo-melasma-mulheres-latino-americanas.html",
-      "width": 1440,
+      "route": "blog/mmp-riscos-alternativas-consentimento.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4975,8 +4810,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-de-cristal-ou-diamante-comparacao.html",
-      "width": 768,
+      "route": "blog/mmp-couro-cabeludo-perguntas.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -4995,7 +4830,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ata-pigmentacao-risco-historico-perguntas.html",
+      "route": "blog/mmp-couro-cabeludo-reacoes-quando-avaliar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5005,7 +4840,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-de-diamante-o-que-avaliar.html",
+      "route": "blog/naturalidade-e-planejamento-facial.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5025,8 +4860,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ata-profundidade-o-que-significa.html",
-      "width": 1440,
+      "route": "blog/peeling-ata-estudo-melasma-mulheres-latino-americanas.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5035,8 +4870,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-de-diamante-ou-limpeza-profunda.html",
-      "width": 768,
+      "route": "blog/mmp-materiais-esterilidade-rastreabilidade.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5055,8 +4890,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-caseiro-risco-e-contexto.html",
-      "width": 1440,
+      "route": "blog/peeling-ata-pigmentacao-risco-historico-perguntas.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5065,8 +4900,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-de-jessner-cautela-e-indicacao.html",
-      "width": 768,
+      "route": "blog/mmp-queda-capilar-o-que-estudos-avaliaram.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5085,7 +4920,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-diamante-ponteira-intensidade.html",
+      "route": "blog/peeling-ata-profundidade-o-que-significa.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5095,7 +4930,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-de-cristal-ou-diamante-comparacao.html",
+      "route": "blog/mmp-riscos-alternativas-consentimento.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5115,7 +4950,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-jessner-acne-evidencia.html",
+      "route": "blog/peeling-caseiro-risco-e-contexto.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5125,7 +4960,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-de-diamante-o-que-avaliar.html",
+      "route": "blog/naturalidade-e-planejamento-facial.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5145,7 +4980,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-jessner-camadas-nao-sao-meta.html",
+      "route": "blog/peeling-ata-estudo-melasma-mulheres-latino-americanas.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-de-cristal-ou-diamante-comparacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5165,7 +5010,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-de-diamante-ou-limpeza-profunda.html",
+      "route": "blog/peeling-ata-pigmentacao-risco-historico-perguntas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5175,7 +5020,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-jessner-melasma-estudos-limites.html",
+      "route": "blog/peeling-de-diamante-o-que-avaliar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5195,18 +5040,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-de-jessner-cautela-e-indicacao.html",
+      "route": "blog/peeling-ata-profundidade-o-que-significa.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peeling-jessner-ou-retinoico-comparacao.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5225,8 +5060,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-diamante-ponteira-intensidade.html",
-      "width": 1440,
+      "route": "blog/peeling-de-diamante-ou-limpeza-profunda.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5235,8 +5070,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-quimico-ou-laser-co2-comparacao.html",
-      "width": 768,
+      "route": "blog/peeling-caseiro-risco-e-contexto.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5255,17 +5090,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-jessner-acne-evidencia.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peeling-quimico-ou-microdermoabrasao.html",
+      "route": "blog/peeling-de-jessner-cautela-e-indicacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5285,8 +5110,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-jessner-camadas-nao-sao-meta.html",
-      "width": 1440,
+      "route": "blog/peeling-diamante-ponteira-intensidade.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5295,8 +5120,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-quimico-recuperacao-seguranca.html",
-      "width": 768,
+      "route": "blog/peeling-de-cristal-ou-diamante-comparacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5315,7 +5140,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-quimico-tons-de-pele-pigmentacao.html",
+      "route": "blog/peeling-jessner-acne-evidencia.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5325,7 +5150,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-jessner-melasma-estudos-limites.html",
+      "route": "blog/peeling-de-diamante-o-que-avaliar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5345,7 +5170,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-jessner-ou-retinoico-comparacao.html",
+      "route": "blog/peeling-jessner-camadas-nao-sao-meta.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-de-diamante-ou-limpeza-profunda.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5365,17 +5200,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-acne-melasma-estudos.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peeling-quimico-ou-laser-co2-comparacao.html",
+      "route": "blog/peeling-de-jessner-cautela-e-indicacao.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5385,7 +5210,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-e-retinol-em-casa.html",
+      "route": "blog/peeling-jessner-melasma-estudos-limites.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5405,8 +5230,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-ensaio-melasma-brasileiro.html",
-      "width": 768,
+      "route": "blog/peeling-diamante-ponteira-intensidade.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5415,8 +5240,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-quimico-ou-microdermoabrasao.html",
-      "width": 1440,
+      "route": "blog/peeling-jessner-ou-retinoico-comparacao.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5435,8 +5260,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-exposicao-solar-planejamento.html",
-      "width": 768,
+      "route": "blog/peeling-jessner-acne-evidencia.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5445,8 +5270,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-quimico-recuperacao-seguranca.html",
-      "width": 1440,
+      "route": "blog/peeling-quimico-ou-laser-co2-comparacao.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5465,6 +5290,26 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/peeling-jessner-camadas-nao-sao-meta.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-quimico-ou-microdermoabrasao.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/peeling-ultrassonico-e-extracao-de-cravos.html",
       "width": 390,
       "overflow": false,
@@ -5475,17 +5320,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-recuperacao-planejada.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peeling-quimico-tons-de-pele-pigmentacao.html",
+      "route": "blog/peeling-jessner-melasma-estudos-limites.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5495,7 +5330,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-acne-manchas-cicatrizes.html",
+      "route": "blog/peeling-quimico-recuperacao-seguranca.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5515,8 +5350,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-acne-melasma-estudos.html",
+      "route": "blog/peeling-jessner-ou-retinoico-comparacao.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-quimico-tons-de-pele-pigmentacao.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5535,8 +5380,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-e-retinol-em-casa.html",
-      "width": 1440,
+      "route": "blog/peeling-retinoico-acne-melasma-estudos.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5545,8 +5390,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-e-escova-sonica.html",
-      "width": 768,
+      "route": "blog/peeling-quimico-ou-laser-co2-comparacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5565,17 +5410,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-ensaio-melasma-brasileiro.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peeling-ultrassonico-e-extracao-de-cravos.html",
+      "route": "blog/peeling-retinoico-e-retinol-em-casa.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5595,8 +5430,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-em-uma-rotina.html",
-      "width": 768,
+      "route": "blog/peeling-quimico-ou-microdermoabrasao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5605,8 +5440,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-exposicao-solar-planejamento.html",
-      "width": 1440,
+      "route": "blog/peeling-retinoico-ensaio-melasma-brasileiro.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5625,8 +5460,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-retinoico-recuperacao-planejada.html",
-      "width": 1440,
+      "route": "blog/peeling-retinoico-exposicao-solar-planejamento.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5635,8 +5470,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-espatula-absorve-seruns.html",
-      "width": 768,
+      "route": "blog/peeling-quimico-recuperacao-seguranca.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5655,8 +5490,28 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-ou-microdermoabrasao-comparar.html",
-      "width": 390,
+      "route": "blog/peeling-retinoico-recuperacao-planejada.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-quimico-tons-de-pele-pigmentacao.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-retinoico-acne-melasma-estudos.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5666,16 +5521,6 @@
     },
     {
       "route": "blog/peeling-ultrassonico-acne-manchas-cicatrizes.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peeling-ultrassonico-espatula-o-que-perguntar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5685,18 +5530,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-higiene-espatula.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peeling-ultrassonico-e-escova-sonica.html",
-      "width": 1440,
+      "route": "blog/peeling-ultrassonico-ou-microdermoabrasao-comparar.html",
+      "width": 390,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5715,7 +5550,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-na-gravidez-o-que-se-sabe.html",
+      "route": "blog/peeling-ultrassonico-e-escova-sonica.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5725,7 +5560,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-e-extracao-de-cravos.html",
+      "route": "blog/peeling-retinoico-e-retinol-em-casa.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5745,7 +5580,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-em-uma-rotina.html",
+      "route": "blog/peeling-retinoico-ensaio-melasma-brasileiro.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5755,7 +5590,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-ou-limpeza-profunda-comparar.html",
+      "route": "blog/peeling-ultrassonico-e-extracao-de-cravos.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5775,8 +5610,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-espatula-absorve-seruns.html",
+      "route": "blog/peeling-retinoico-exposicao-solar-planejamento.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-ultrassonico-em-uma-rotina.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5795,8 +5640,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-ou-microdermoabrasao-comparar.html",
-      "width": 768,
+      "route": "blog/peeling-retinoico-recuperacao-planejada.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5805,8 +5650,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-espatula-o-que-perguntar.html",
-      "width": 1440,
+      "route": "blog/peeling-ultrassonico-espatula-absorve-seruns.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5825,7 +5670,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-ou-quimico-diferencas.html",
+      "route": "blog/peeling-ultrassonico-espatula-o-que-perguntar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5835,7 +5680,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-higiene-espatula.html",
+      "route": "blog/peeling-ultrassonico-acne-manchas-cicatrizes.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5855,8 +5700,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-pele-sensibilizada-o-que-relatar.html",
+      "route": "blog/peeling-ultrassonico-higiene-espatula.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-ultrassonico-e-escova-sonica.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5876,7 +5731,7 @@
     },
     {
       "route": "blog/peeling-ultrassonico-na-gravidez-o-que-se-sabe.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5885,8 +5740,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-retinoides-o-que-perguntar.html",
-      "width": 768,
+      "route": "blog/peeling-ultrassonico-e-extracao-de-cravos.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5906,16 +5761,6 @@
     },
     {
       "route": "blog/peeling-ultrassonico-ou-limpeza-profunda-comparar.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peim-anticoagulantes-o-que-informar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5935,8 +5780,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-compressao-pos-procedimento-evidencia.html",
-      "width": 768,
+      "route": "blog/peeling-ultrassonico-em-uma-rotina.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5945,7 +5790,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-ou-microdermoabrasao-comparar.html",
+      "route": "blog/peeling-ultrassonico-espatula-absorve-seruns.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -5965,7 +5810,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-cuidados-e-acompanhamento-o-que-combinar.html",
+      "route": "blog/peeling-ultrassonico-ou-microdermoabrasao-comparar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -5975,8 +5820,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-ou-quimico-diferencas.html",
+      "route": "blog/peeling-ultrassonico-espatula-o-que-perguntar.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-ultrassonico-ou-quimico-diferencas.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -5995,8 +5850,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-e-escleroterapia-diferencas.html",
-      "width": 768,
+      "route": "blog/peeling-ultrassonico-higiene-espatula.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6016,16 +5871,6 @@
     },
     {
       "route": "blog/peeling-ultrassonico-pele-sensibilizada-o-que-relatar.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peim-gestacao-microvasos-o-que-perguntar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6035,7 +5880,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peeling-ultrassonico-retinoides-o-que-perguntar.html",
+      "route": "blog/peeling-ultrassonico-na-gravidez-o-que-se-sabe.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6055,7 +5900,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-microvasos-podem-voltar-recurrencia-evidencia.html",
+      "route": "blog/peeling-ultrassonico-retinoides-o-que-perguntar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6065,7 +5910,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-anticoagulantes-o-que-informar.html",
+      "route": "blog/peeling-ultrassonico-ou-limpeza-profunda-comparar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6085,7 +5930,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-microvasos-sem-sintomas-duplex-rotina.html",
+      "route": "blog/peim-anticoagulantes-o-que-informar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6106,6 +5951,16 @@
     },
     {
       "route": "blog/peim-compressao-pos-procedimento-evidencia.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-ultrassonico-ou-microdermoabrasao-comparar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6125,7 +5980,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-o-que-informar-antes.html",
+      "route": "blog/peim-cuidados-e-acompanhamento-o-que-combinar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6135,7 +5990,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-cuidados-e-acompanhamento-o-que-combinar.html",
+      "route": "blog/peeling-ultrassonico-ou-quimico-diferencas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6155,7 +6010,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-vasinhos-vermelhos-azulados-telangiectasias-reticulares.html",
+      "route": "blog/peim-e-escleroterapia-diferencas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6165,7 +6020,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-e-escleroterapia-diferencas.html",
+      "route": "blog/peeling-ultrassonico-pele-sensibilizada-o-que-relatar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6176,6 +6031,16 @@
     },
     {
       "route": "blog/peim-gestacao-microvasos-o-que-perguntar.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peeling-ultrassonico-retinoides-o-que-perguntar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6195,8 +6060,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/pele-e-gravidez-perguntas-seguras.html",
+      "route": "blog/peim-microvasos-podem-voltar-recurrencia-evidencia.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peim-anticoagulantes-o-que-informar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6215,38 +6090,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/perguntas-antes-de-um-procedimento.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/peim-microvasos-podem-voltar-recurrencia-evidencia.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/persistent-facial-redness-and-vessels.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
       "route": "blog/peim-microvasos-sem-sintomas-duplex-rotina.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6265,7 +6110,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-e-manchas-tons-de-pele-evidencia.html",
+      "route": "blog/peim-compressao-pos-procedimento-evidencia.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peim-o-que-informar-antes.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6285,8 +6140,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-o-que-informar-antes.html",
+      "route": "blog/peim-cuidados-e-acompanhamento-o-que-combinar.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peim-vasinhos-vermelhos-azulados-telangiectasias-reticulares.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6305,7 +6170,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/peim-vasinhos-vermelhos-azulados-telangiectasias-reticulares.html",
+      "route": "blog/peim-e-escleroterapia-diferencas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6315,7 +6180,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-estetica-aparelho-ou-prp.html",
+      "route": "blog/pele-e-gravidez-perguntas-seguras.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6335,28 +6200,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-estetico-como-conferir-aparelho-regularizacao-finalidade.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/pele-e-gravidez-perguntas-seguras.html",
+      "route": "blog/peim-gestacao-microvasos-o-que-perguntar.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/plasma-estetico-ou-laser-co2.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6376,7 +6221,7 @@
     },
     {
       "route": "blog/perguntas-antes-de-um-procedimento.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6385,8 +6230,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-exeresis-manchas-pigmentacao-estudos.html",
-      "width": 768,
+      "route": "blog/peim-microvasos-podem-voltar-recurrencia-evidencia.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6406,6 +6251,16 @@
     },
     {
       "route": "blog/persistent-facial-redness-and-vessels.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/peim-microvasos-sem-sintomas-duplex-rotina.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6415,7 +6270,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-exeresis-ou-blefaroplastia-diferencas.html",
+      "route": "blog/plasma-e-manchas-tons-de-pele-evidencia.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6435,7 +6290,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-e-manchas-tons-de-pele-evidencia.html",
+      "route": "blog/peim-o-que-informar-antes.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6455,8 +6310,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-exeresis-ou-crioterapia-queratose-seborreica.html",
-      "width": 768,
+      "route": "blog/peim-vasinhos-vermelhos-azulados-telangiectasias-reticulares.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6466,7 +6321,17 @@
     },
     {
       "route": "blog/plasma-estetica-aparelho-ou-prp.html",
-      "width": 1440,
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/plasma-estetico-como-conferir-aparelho-regularizacao-finalidade.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6485,17 +6350,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-exeresis-queloide-estudo-piloto-limites.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/plasma-estetico-como-conferir-aparelho-regularizacao-finalidade.html",
+      "route": "blog/pele-e-gravidez-perguntas-seguras.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6515,7 +6370,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-frio-ou-plasma-exerese.html",
+      "route": "blog/plasma-estetico-ou-laser-co2.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6525,8 +6380,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-estetico-ou-laser-co2.html",
+      "route": "blog/perguntas-antes-de-um-procedimento.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/plasma-exeresis-manchas-pigmentacao-estudos.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6545,17 +6410,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-lesao-pele-avaliacao-antes-tratar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/plasma-exeresis-manchas-pigmentacao-estudos.html",
+      "route": "blog/persistent-facial-redness-and-vessels.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6575,7 +6430,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plataforma-harmony-modelo-aplicador.html",
+      "route": "blog/plasma-exeresis-ou-blefaroplastia-diferencas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6585,7 +6440,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-exeresis-ou-blefaroplastia-diferencas.html",
+      "route": "blog/plasma-e-manchas-tons-de-pele-evidencia.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6605,18 +6460,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/poros-textura-e-expectativas.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
       "route": "blog/plasma-exeresis-ou-crioterapia-queratose-seborreica.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6625,8 +6470,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/pos-procedimento-sinais-para-contato.html",
-      "width": 768,
+      "route": "blog/plasma-estetica-aparelho-ou-prp.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6645,8 +6490,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-exeresis-queloide-estudo-piloto-limites.html",
+      "route": "blog/plasma-estetico-como-conferir-aparelho-regularizacao-finalidade.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/plasma-exeresis-queloide-estudo-piloto-limites.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6665,8 +6520,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/privacidade-em-tratamentos-esteticos.html",
-      "width": 768,
+      "route": "blog/plasma-estetico-ou-laser-co2.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6676,7 +6531,7 @@
     },
     {
       "route": "blog/plasma-frio-ou-plasma-exerese.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6695,7 +6550,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plasma-lesao-pele-avaliacao-antes-tratar.html",
+      "route": "blog/plasma-exeresis-manchas-pigmentacao-estudos.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6705,7 +6560,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/professional-skin-cleansing-guide.html",
+      "route": "blog/plasma-lesao-pele-avaliacao-antes-tratar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6725,18 +6580,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/plataforma-harmony-modelo-aplicador.html",
+      "route": "blog/plasma-exeresis-ou-blefaroplastia-diferencas.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/protecao-ocular-laser-ipl-perguntas.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6755,28 +6600,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/poros-textura-e-expectativas.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/queda-capilar-investigacao-medica-quando-pedir-exames.html",
+      "route": "blog/plataforma-harmony-modelo-aplicador.html",
       "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/pos-procedimento-sinais-para-contato.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6795,8 +6620,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/queda-capilar-quando-investigar.html",
+      "route": "blog/poros-textura-e-expectativas.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/plasma-exeresis-ou-crioterapia-queratose-seborreica.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6815,7 +6650,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/privacidade-em-tratamentos-esteticos.html",
+      "route": "blog/plasma-exeresis-queloide-estudo-piloto-limites.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6825,7 +6660,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/queda-pos-parto-efluvio-telogeno-mesoterapia-avaliacao.html",
+      "route": "blog/pos-procedimento-sinais-para-contato.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/privacidade-em-tratamentos-esteticos.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -6845,17 +6690,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-como-avaliar-mudancas.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/professional-skin-cleansing-guide.html",
+      "route": "blog/plasma-frio-ou-plasma-exerese.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -6875,8 +6710,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/protecao-ocular-laser-ipl-perguntas.html",
-      "width": 1440,
+      "route": "blog/professional-skin-cleansing-guide.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6885,8 +6720,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-convencional-ou-microagulhada.html",
-      "width": 768,
+      "route": "blog/plasma-lesao-pele-avaliacao-antes-tratar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6905,8 +6740,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/queda-capilar-investigacao-medica-quando-pedir-exames.html",
-      "width": 1440,
+      "route": "blog/protecao-ocular-laser-ipl-perguntas.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6915,8 +6750,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-de-uso-domestico-ou-profissional.html",
-      "width": 768,
+      "route": "blog/plataforma-harmony-modelo-aplicador.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6935,8 +6770,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/queda-capilar-quando-investigar.html",
-      "width": 1440,
+      "route": "blog/queda-capilar-investigacao-medica-quando-pedir-exames.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6945,8 +6780,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-desconforto-perguntas-sessao.html",
-      "width": 768,
+      "route": "blog/poros-textura-e-expectativas.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6965,8 +6800,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/queda-pos-parto-efluvio-telogeno-mesoterapia-avaliacao.html",
-      "width": 1440,
+      "route": "blog/queda-capilar-quando-investigar.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6975,8 +6810,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-e-colageno-tempo.html",
-      "width": 768,
+      "route": "blog/pos-procedimento-sinais-para-contato.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -6995,8 +6830,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-como-avaliar-mudancas.html",
-      "width": 1440,
+      "route": "blog/queda-pos-parto-efluvio-telogeno-mesoterapia-avaliacao.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7005,8 +6840,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-e-dispositivos-implantados.html",
-      "width": 768,
+      "route": "blog/privacidade-em-tratamentos-esteticos.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7025,7 +6860,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-evidencia-firmeza-como-interpretar.html",
+      "route": "blog/radiofrequencia-como-avaliar-mudancas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7045,7 +6880,27 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/professional-skin-cleansing-guide.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/radiofrequencia-convencional-ou-microagulhada.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/protecao-ocular-laser-ipl-perguntas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7065,7 +6920,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-gestacao-amamentacao-o-que-saber.html",
+      "route": "blog/radiofrequencia-de-uso-domestico-ou-profissional.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7075,7 +6930,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-de-uso-domestico-ou-profissional.html",
+      "route": "blog/queda-capilar-investigacao-medica-quando-pedir-exames.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7096,16 +6951,6 @@
     },
     {
       "route": "blog/radiofrequencia-desconforto-perguntas-sessao.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/radiofrequencia-historico-pigmentacao-o-que-estudos-dizem.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7125,7 +6970,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-e-colageno-tempo.html",
+      "route": "blog/queda-capilar-quando-investigar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7135,8 +6980,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-implantes-metalicos-o-que-confirmar.html",
-      "width": 768,
+      "route": "blog/queda-pos-parto-efluvio-telogeno-mesoterapia-avaliacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7155,17 +7000,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-e-dispositivos-implantados.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/radiofrequencia-monopolar-bipolar-o-que-significa.html",
+      "route": "blog/radiofrequencia-e-colageno-tempo.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7185,7 +7020,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-evidencia-firmeza-como-interpretar.html",
+      "route": "blog/radiofrequencia-como-avaliar-mudancas.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7195,7 +7030,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-preenchimento-hialuronico-o-que-perguntar.html",
+      "route": "blog/radiofrequencia-e-dispositivos-implantados.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7215,8 +7050,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-gestacao-amamentacao-o-que-saber.html",
-      "width": 1440,
+      "route": "blog/radiofrequencia-evidencia-firmeza-como-interpretar.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7225,8 +7060,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-volume-facial-perda-gordura-o-que-saber.html",
-      "width": 768,
+      "route": "blog/radiofrequencia-convencional-ou-microagulhada.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7245,8 +7080,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-historico-pigmentacao-o-que-estudos-dizem.html",
-      "width": 1440,
+      "route": "blog/radiofrequencia-gestacao-amamentacao-o-que-saber.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7255,8 +7090,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/rebuilding-an-overwhelmed-skin-barrier.html",
-      "width": 768,
+      "route": "blog/radiofrequencia-de-uso-domestico-ou-profissional.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7275,8 +7110,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-implantes-metalicos-o-que-confirmar.html",
-      "width": 1440,
+      "route": "blog/radiofrequencia-historico-pigmentacao-o-que-estudos-dizem.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7285,8 +7120,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/rosacea-luz-vasos-vermelhidao-evidencia.html",
-      "width": 768,
+      "route": "blog/radiofrequencia-desconforto-perguntas-sessao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7305,8 +7140,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-monopolar-bipolar-o-que-significa.html",
-      "width": 1440,
+      "route": "blog/radiofrequencia-implantes-metalicos-o-que-confirmar.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7315,8 +7150,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/rosacea-microdermoabrasao-pele-reativa-avaliacao.html",
-      "width": 768,
+      "route": "blog/radiofrequencia-e-colageno-tempo.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7335,7 +7170,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/rotina-minima-pele-sobrecarga.html",
+      "route": "blog/radiofrequencia-monopolar-bipolar-o-que-significa.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7345,8 +7180,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/radiofrequencia-preenchimento-hialuronico-o-que-perguntar.html",
+      "route": "blog/radiofrequencia-e-dispositivos-implantados.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/radiofrequencia-preenchimento-hialuronico-o-que-perguntar.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7365,8 +7210,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/sol-e-recuperacao-cutanea.html",
-      "width": 768,
+      "route": "blog/radiofrequencia-evidencia-firmeza-como-interpretar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7376,7 +7221,7 @@
     },
     {
       "route": "blog/radiofrequencia-volume-facial-perda-gordura-o-que-saber.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7395,17 +7240,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/tatuagem-micropigmentacao-laser-ipl-informar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/rebuilding-an-overwhelmed-skin-barrier.html",
+      "route": "blog/radiofrequencia-gestacao-amamentacao-o-que-saber.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7425,7 +7260,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/tecnologia-de-plasma-antes-de-decidir.html",
+      "route": "blog/rebuilding-an-overwhelmed-skin-barrier.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7435,7 +7270,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/rosacea-luz-vasos-vermelhidao-evidencia.html",
+      "route": "blog/radiofrequencia-historico-pigmentacao-o-que-estudos-dizem.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7455,8 +7290,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/tecnologia-plasma-quanto-dura-recuperacao.html",
+      "route": "blog/rosacea-luz-vasos-vermelhidao-evidencia.html",
       "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/radiofrequencia-implantes-metalicos-o-que-confirmar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7476,6 +7321,16 @@
     },
     {
       "route": "blog/rosacea-microdermoabrasao-pele-reativa-avaliacao.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/radiofrequencia-monopolar-bipolar-o-que-significa.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7495,18 +7350,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/terco-inferior-da-face-conversa-cuidadosa.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
       "route": "blog/rotina-minima-pele-sobrecarga.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7515,8 +7360,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-assimetria-o-que-relatar-no-retorno.html",
-      "width": 768,
+      "route": "blog/radiofrequencia-preenchimento-hialuronico-o-que-perguntar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7536,6 +7381,16 @@
     },
     {
       "route": "blog/sol-e-recuperacao-cutanea.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/radiofrequencia-volume-facial-perda-gordura-o-que-saber.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7555,7 +7410,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-e-assimetrias.html",
+      "route": "blog/tatuagem-micropigmentacao-laser-ipl-informar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7565,7 +7420,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/tatuagem-micropigmentacao-laser-ipl-informar.html",
+      "route": "blog/rebuilding-an-overwhelmed-skin-barrier.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7585,7 +7440,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-e-preenchimento-diferencas.html",
+      "route": "blog/tecnologia-de-plasma-antes-de-decidir.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7595,7 +7450,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/tecnologia-de-plasma-antes-de-decidir.html",
+      "route": "blog/rosacea-luz-vasos-vermelhidao-evidencia.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7615,8 +7470,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-enxaqueca-estetica-indicacoes-diferentes.html",
-      "width": 768,
+      "route": "blog/rosacea-microdermoabrasao-pele-reativa-avaliacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7626,7 +7481,7 @@
     },
     {
       "route": "blog/tecnologia-plasma-quanto-dura-recuperacao.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7645,26 +7500,6 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-gestacao-amamentacao-evidencia-produto.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/terco-inferior-da-face-conversa-cuidadosa.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
       "route": "blog/toxina-botulinica-sinais-botulismo-emergencia.html",
       "width": 390,
       "overflow": false,
@@ -7675,7 +7510,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-historico-medicamentos-avaliacao.html",
+      "route": "blog/terco-inferior-da-face-conversa-cuidadosa.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7685,7 +7520,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-assimetria-o-que-relatar-no-retorno.html",
+      "route": "blog/rotina-minima-pele-sobrecarga.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7705,7 +7540,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-inicio-duracao.html",
+      "route": "blog/toxina-botulinica-assimetria-o-que-relatar-no-retorno.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7715,8 +7550,18 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-e-assimetrias.html",
+      "route": "blog/sol-e-recuperacao-cutanea.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/toxina-botulinica-e-assimetrias.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7735,8 +7580,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-movimento-testa-glabela-avaliacao.html",
-      "width": 768,
+      "route": "blog/tatuagem-micropigmentacao-laser-ipl-informar.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7746,7 +7591,7 @@
     },
     {
       "route": "blog/toxina-botulinica-e-preenchimento-diferencas.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7765,8 +7610,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-naturalidade-e-planejamento.html",
-      "width": 768,
+      "route": "blog/tecnologia-de-plasma-antes-de-decidir.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7776,7 +7621,7 @@
     },
     {
       "route": "blog/toxina-botulinica-enxaqueca-estetica-indicacoes-diferentes.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7795,17 +7640,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-palpebra-caida-como-avaliar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/toxina-botulinica-gestacao-amamentacao-evidencia-produto.html",
+      "route": "blog/tecnologia-plasma-quanto-dura-recuperacao.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7825,7 +7660,27 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-primeira-consulta.html",
+      "route": "blog/toxina-botulinica-gestacao-amamentacao-evidencia-produto.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/terco-inferior-da-face-conversa-cuidadosa.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/toxina-botulinica-historico-medicamentos-avaliacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7845,17 +7700,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-repetir-o-que-informar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/toxina-botulinica-historico-medicamentos-avaliacao.html",
+      "route": "blog/toxina-botulinica-assimetria-o-que-relatar-no-retorno.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7866,7 +7711,7 @@
     },
     {
       "route": "blog/toxina-botulinica-inicio-duracao.html",
-      "width": 1440,
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7885,17 +7730,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-sinais-botulismo-emergencia.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/toxina-botulinica-movimento-testa-glabela-avaliacao.html",
+      "route": "blog/toxina-botulinica-e-assimetrias.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -7905,7 +7740,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-platisma-degluticao-fala-perguntas.html",
+      "route": "blog/toxina-botulinica-movimento-testa-glabela-avaliacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -7925,18 +7760,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-naturalidade-e-planejamento.html",
+      "route": "blog/toxina-botulinica-e-preenchimento-diferencas.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/toxina-platisma-estudo-musculo-ou-contorno.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7955,8 +7780,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-palpebra-caida-como-avaliar.html",
-      "width": 1440,
+      "route": "blog/toxina-botulinica-naturalidade-e-planejamento.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7965,8 +7790,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-platisma-movimentos-avaliacao.html",
-      "width": 768,
+      "route": "blog/toxina-botulinica-enxaqueca-estetica-indicacoes-diferentes.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -7985,7 +7810,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-primeira-consulta.html",
+      "route": "blog/toxina-botulinica-palpebra-caida-como-avaliar.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/toxina-botulinica-gestacao-amamentacao-evidencia-produto.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -8005,8 +7840,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-terco-inferior-sorriso-funcao-boca.html",
-      "width": 768,
+      "route": "blog/toxina-botulinica-historico-medicamentos-avaliacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8015,8 +7850,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-botulinica-repetir-o-que-informar.html",
-      "width": 1440,
+      "route": "blog/toxina-botulinica-primeira-consulta.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8035,7 +7870,17 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-apos-preenchimento-acido-hialuronico.html",
+      "route": "blog/toxina-botulinica-inicio-duracao.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/toxina-botulinica-repetir-o-que-informar.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8055,28 +7900,18 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/toxina-botulinica-movimento-testa-glabela-avaliacao.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/toxina-botulinica-sinais-botulismo-emergencia.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ultraformer-mpt-desconforto-recuperacao.html",
       "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/toxina-platisma-degluticao-fala-perguntas.html",
-      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8095,7 +7930,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-dormencia-fraqueza-facial.html",
+      "route": "blog/toxina-platisma-degluticao-fala-perguntas.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8105,18 +7940,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-platisma-estudo-musculo-ou-contorno.html",
+      "route": "blog/toxina-botulinica-naturalidade-e-planejamento.html",
       "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ultraformer-mpt-e-objetivos.html",
-      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8135,6 +7960,26 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/toxina-platisma-estudo-musculo-ou-contorno.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/toxina-botulinica-palpebra-caida-como-avaliar.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/ultraformer-mpt-quando-avaliar-resultado.html",
       "width": 390,
       "overflow": false,
@@ -8145,7 +7990,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-estudo-3d-medidas-milimetros.html",
+      "route": "blog/toxina-platisma-movimentos-avaliacao.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8155,7 +8000,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-platisma-movimentos-avaliacao.html",
+      "route": "blog/toxina-botulinica-primeira-consulta.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -8175,7 +8020,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-flacidez-volume-contorno.html",
+      "route": "blog/toxina-terco-inferior-sorriso-funcao-boca.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8185,7 +8030,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/toxina-terco-inferior-sorriso-funcao-boca.html",
+      "route": "blog/toxina-botulinica-repetir-o-que-informar.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -8205,7 +8050,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-gordura-submentoniana-estudo.html",
+      "route": "blog/ultraformer-mpt-apos-preenchimento-acido-hialuronico.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8215,7 +8060,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-apos-preenchimento-acido-hialuronico.html",
+      "route": "blog/toxina-botulinica-sinais-botulismo-emergencia.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -8235,8 +8080,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-implantes-dentarios-o-que-informar.html",
-      "width": 768,
+      "route": "blog/toxina-platisma-degluticao-fala-perguntas.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8246,7 +8091,27 @@
     },
     {
       "route": "blog/ultraformer-mpt-desconforto-recuperacao.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/toxina-platisma-estudo-musculo-ou-contorno.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-dormencia-fraqueza-facial.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8265,8 +8130,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-o-que-significa-hifu.html",
-      "width": 768,
+      "route": "blog/toxina-platisma-movimentos-avaliacao.html",
+      "width": 1440,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8275,8 +8140,8 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-dormencia-fraqueza-facial.html",
-      "width": 1440,
+      "route": "blog/ultraformer-mpt-e-objetivos.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8295,27 +8160,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-ou-lifting-cirurgico.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ultraformer-mpt-e-objetivos.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/ultraformer-mpt-perto-dos-olhos-evidencia-protecao-ocular.html",
+      "route": "blog/ultraformer-mpt-estudo-3d-medidas-milimetros.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8335,7 +8180,27 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-estudo-3d-medidas-milimetros.html",
+      "route": "blog/toxina-terco-inferior-sorriso-funcao-boca.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-flacidez-volume-contorno.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-apos-preenchimento-acido-hialuronico.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -8355,7 +8220,87 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-quando-avaliar-resultado.html",
+      "route": "blog/ultraformer-mpt-gordura-submentoniana-estudo.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-desconforto-recuperacao.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-implantes-dentarios-o-que-informar.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-dormencia-fraqueza-facial.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-o-que-significa-hifu.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-e-objetivos.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-estudo-3d-medidas-milimetros.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-ou-lifting-cirurgico.html",
+      "width": 768,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-perto-dos-olhos-evidencia-protecao-ocular.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8385,7 +8330,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-volume-facial-evidencia.html",
+      "route": "blog/ultraformer-mpt-quando-avaliar-resultado.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8397,6 +8342,16 @@
     {
       "route": "blog/ultraformer-mpt-implantes-dentarios-o-que-informar.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/ultraformer-mpt-volume-facial-evidencia.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,
@@ -8425,6 +8380,16 @@
       "ctaClipped": false
     },
     {
+      "route": "blog/ultraformer-mpt-ou-lifting-cirurgico.html",
+      "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
       "route": "blog/ultrasound-radiofrequency-collagen-treatment.html",
       "width": 768,
       "overflow": false,
@@ -8445,7 +8410,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-ou-lifting-cirurgico.html",
+      "route": "blog/ultraformer-mpt-perto-dos-olhos-evidencia-protecao-ocular.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -8455,7 +8420,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-perto-dos-olhos-evidencia-protecao-ocular.html",
+      "route": "blog/ultraformer-mpt-quando-avaliar-resultado.html",
       "width": 1440,
       "overflow": false,
       "h1": 1,
@@ -8475,27 +8440,7 @@
       "ctaClipped": false
     },
     {
-      "route": "blog/ultraformer-mpt-quando-avaliar-resultado.html",
-      "width": 1440,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
       "route": "blog/vermelhidao-persistente-quando-investigar.html",
-      "width": 768,
-      "overflow": false,
-      "h1": 1,
-      "cta": true,
-      "broken": [],
-      "errors": [],
-      "ctaClipped": false
-    },
-    {
-      "route": "blog/why-aesthetic-care-begins-with-consultation.html",
       "width": 768,
       "overflow": false,
       "h1": 1,
@@ -8507,6 +8452,16 @@
     {
       "route": "blog/ultraformer-mpt-volume-facial-evidencia.html",
       "width": 1440,
+      "overflow": false,
+      "h1": 1,
+      "cta": true,
+      "broken": [],
+      "errors": [],
+      "ctaClipped": false
+    },
+    {
+      "route": "blog/why-aesthetic-care-begins-with-consultation.html",
+      "width": 768,
       "overflow": false,
       "h1": 1,
       "cta": true,

@@ -1,4 +1,4 @@
-const visuals = [
+export const frugalChicVisuals = [
   ['journal/articles/frugal-chic-window-ritual.webp', 'fa-leaf', 'O cuidado começa quando a vida desacelera.', 'Care begins when life slows down.', 'landscape'],
   ['journal/articles/frugal-chic-peony-amber.webp', 'fa-star', 'Clareza antes de qualquer escolha.', 'Clarity before every choice.', 'landscape'],
   ['journal/articles/frugal-chic-morning-pause.webp', 'fa-heart', 'Uma conversa que respeita o seu tempo.', 'A conversation that respects your time.', 'landscape'],
@@ -9,6 +9,8 @@ const visuals = [
   ['journal/articles/frugal-chic-morning-pause.webp', 'fa-gem', 'A beleza continua tendo a sua voz.', 'Beauty keeps your voice.', 'landscape'],
   ['journal/articles/frugal-chic-sage-safety-ritual.webp', 'fa-seedling', 'Segurança também pode ser serena.', 'Safety can be serene, too.', 'portrait'],
 ];
+
+const visuals = frugalChicVisuals;
 
 export function initFrugalChic() {
   const article = document.querySelector('.sja-article--frugal-chic');

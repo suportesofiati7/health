@@ -27,6 +27,10 @@ try {
       await page.locator('#sf-header-inline').waitFor({ timeout: 5000 });
       if (await page.locator('[data-cookie-reject]').isVisible()) await page.locator('[data-cookie-reject]').click();
       const isArticle = route.startsWith('blog/');
+      await page.locator('main img').evaluateAll(async images => {
+        for (const image of images) image.loading = 'eager';
+        await Promise.all(images.map(image => image.decode().catch(() => {})));
+      });
       const state = await page.evaluate(isArticle => ({
         overflow: document.documentElement.scrollWidth > innerWidth + 1,
         h1: document.querySelectorAll('h1').length,

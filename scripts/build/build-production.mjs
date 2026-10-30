@@ -16,6 +16,7 @@ import { build as esbuild, transform } from 'esbuild';
 import { minify as minifyHtml } from 'html-minifier-terser';
 import sharp from 'sharp';
 import { cssForPage } from './css-scope.mjs';
+import { frugalChicVisuals } from '../../js/pages/frugal-chic.js';
 
 // A production build can create hundreds of responsive derivatives. Keep the
 // native image pipeline within a predictable memory/CPU envelope so it is
@@ -488,7 +489,7 @@ async function minifyPage(html) {
 
 async function copyReferencedAssets() {
   const files = await walk(DIST, (file) => ['.html', '.css', '.js', '.json', '.webmanifest'].includes(extname(file).toLowerCase()));
-  const references = new Set();
+  const references = new Set(frugalChicVisuals.map(([path]) => `assets/${path}`));
   for (const file of files) {
     const content = await readFile(file, 'utf8');
     for (const match of content.matchAll(/(?:https:\/\/francielesofiati\.com\/)?(?:\.\.\/)*assets\/[^"'()<>\s,}]+/g)) {

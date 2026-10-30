@@ -1,3 +1,5 @@
+> Historical report. See [current goals 1–17 evidence](../reports/goals/completion.md) for the latest implementation, test and release status.
+
 # Final audit report
 
 ## Current status
