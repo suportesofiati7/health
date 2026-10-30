@@ -132,6 +132,11 @@ try{
     if (width === 1440) {
       await page.locator('button.patient-row').filter({hasText:'Contato Exemplo Fictício'}).click();
       const reviewDialog = page.getByRole('dialog', { name: 'Revisar formulário' });
+      const duplicateLink = reviewDialog.getByRole('button', { name: 'Vincular', exact: true });
+      assert.equal(await duplicateLink.isEnabled(), true);
+      await duplicateLink.click();
+      await page.getByRole('button', { name: 'Cancelar', exact: true }).last().click();
+      assert.equal(posts.filter(row => row.table === 'rpc:convert_public_intake').length, 0, 'duplicate shortcut cancellation does not link');
       await reviewDialog.locator('.patient-picker input').fill('QA Patient');
       await reviewDialog.getByRole('option', { name: /QA Patient/ }).click();
       await reviewDialog.getByRole('button', { name: 'Vincular ao paciente selecionado', exact: true }).click();
@@ -141,6 +146,16 @@ try{
       await page.getByRole('button', { name: 'Confirmar', exact: true }).click();
       await page.getByRole('heading', { name: patient.preferred_name, exact: true }).waitFor();
       assert.deepEqual(posts.find(row => row.table === 'rpc:convert_public_intake').body, { enquiry: intake.id, existing_patient: patient.id });
+      intake.patient_id = patient.id; intake.status = 'convertido';
+      await navigation(page, 'Formulários');
+      await page.locator('button.patient-row').filter({ hasText: intake.full_name }).click();
+      const linkedDialog = page.getByRole('dialog', { name: 'Revisar formulário' });
+      await linkedDialog.getByText(/Este formulário já está vinculado a um paciente/).waitFor();
+      assert.equal(await linkedDialog.getByRole('button', { name: 'Vincular', exact: true }).count(), 0, 'already-linked forms never show inert link controls');
+      assert.equal(await linkedDialog.getByRole('button', { name: 'Vincular ao paciente selecionado', exact: true }).count(), 0);
+      await linkedDialog.getByRole('button', { name: 'Abrir paciente', exact: true }).click();
+      await page.getByRole('heading', { name: patient.preferred_name, exact: true }).waitFor();
+      delete intake.patient_id; intake.status = 'novo';
     }
     await navigation(page,'Financeiro');try{await page.getByRole('heading',{name:'Financeiro',exact:true}).waitFor({timeout:5000});}catch(error){console.log('FINANCE_DEBUG',await page.locator('body').innerText());throw error;}await page.getByText(/700,00/).first().waitFor();await noOverflow(page);await page.locator('.finance-patient-thumb img').waitFor();assert.match(await page.locator('.finance-service-thumb').getAttribute('src'), /peeling-jessner\.png$/);
     await page.getByRole('button',{name:'Detalhes',exact:true}).click();await page.getByRole('button',{name:'Gerar recibo / PDF',exact:true}).waitFor();const receiptPopup=page.waitForEvent('popup');await page.getByRole('button',{name:'Gerar recibo / PDF',exact:true}).click();const receiptPage=await receiptPopup;await receiptPage.waitForLoadState('domcontentloaded');try{await receiptPage.getByRole('heading',{name:'RECIBO DE PAGAMENTO',exact:true}).waitFor({timeout:5000});}catch(error){console.log('RECEIPT_DEBUG',await receiptPage.locator('body').innerText());throw error;}await receiptPage.getByText('FS-2026-TESTE').waitFor();await receiptPage.close();

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Check, Search, X } from "lucide-react";
 import { db, checked, ORG, safeSearch } from "./lib";
 import { useT } from "./i18n";
@@ -8,6 +8,8 @@ const normalize = (value) => String(value || "").normalize("NFD").replace(/[\u03
 
 export function PatientPicker({ value, onChange, initial, title, choices }) {
   const t = useT();
+  const blurTimer = useRef();
+  useEffect(() => () => clearTimeout(blurTimer.current), []);
   const [term, setTerm] = useState(initial ? nameOf(initial) : "");
   const [rows, setRows] = useState(initial ? [initial] : []);
   const [open, setOpen] = useState(false);
@@ -46,7 +48,7 @@ export function PatientPicker({ value, onChange, initial, title, choices }) {
   const choose = (row) => { setRows((current) => [row, ...current.filter((item) => item.id !== row.id)]); onChange(row.id, row); setTerm(nameOf(row)); setOpen(false); };
   const clear = () => { onChange(""); setTerm(""); setOpen(true); };
   return <div className="patient-picker searchable-picker">
-    <label className="field"><span>{title || t("Paciente", "Patient")}</span><div className="searchable-picker-input"><Search size={16} aria-hidden="true" /><input value={term} onChange={(event) => { setTerm(event.target.value); setOpen(true); if (value) onChange(""); }} onFocus={() => setOpen(true)} onBlur={() => setTimeout(() => setOpen(false), 150)} placeholder={t("Digite nome, CPF, email ou telefone", "Type name, CPF, email or phone")} autoComplete="off" /><button type="button" className="icon" onMouseDown={(event) => event.preventDefault()} onClick={clear} aria-label={t("Limpar paciente", "Clear patient")}><X size={15} /></button></div>{open && <div className="searchable-picker-menu" role="listbox">{visible.map((row) => <button type="button" role="option" key={row.id} onMouseDown={(event) => event.preventDefault()} onClick={() => choose(row)} className={row.id === value ? "selected" : ""}><span><strong>{nameOf(row)}</strong><small>{[row.cpf, row.email, row.phone].filter(Boolean).join(" · ") || t("Sem contato adicional", "No additional contact")}</small></span>{row.id === value && <Check size={15} />}</button>)}{!visible.length && <p>{t("Nenhum paciente encontrado.", "No patient found.")}</p>}</div>}</label>
+    <label className="field"><span>{title || t("Paciente", "Patient")}</span><div className="searchable-picker-input"><Search size={16} aria-hidden="true" /><input value={term} onChange={(event) => { setTerm(event.target.value); setOpen(true); if (value) onChange(""); }} onFocus={() => { clearTimeout(blurTimer.current); setOpen(true); }} onBlur={() => { clearTimeout(blurTimer.current); blurTimer.current = setTimeout(() => setOpen(false), 150); }} placeholder={t("Digite nome, CPF, email ou telefone", "Type name, CPF, email or phone")} autoComplete="off" /><button type="button" className="icon" onMouseDown={(event) => event.preventDefault()} onClick={clear} aria-label={t("Limpar paciente", "Clear patient")}><X size={15} /></button></div>{open && <div className="searchable-picker-menu" role="listbox">{visible.map((row) => <button type="button" role="option" key={row.id} onMouseDown={(event) => event.preventDefault()} onClick={() => choose(row)} className={row.id === value ? "selected" : ""}><span><strong>{nameOf(row)}</strong><small>{[row.cpf, row.email, row.phone].filter(Boolean).join(" · ") || t("Sem contato adicional", "No additional contact")}</small></span>{row.id === value && <Check size={15} />}</button>)}{!visible.length && <p>{t("Nenhum paciente encontrado.", "No patient found.")}</p>}</div>}</label>
   </div>;
 }
 

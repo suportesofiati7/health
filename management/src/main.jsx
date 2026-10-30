@@ -4001,6 +4001,8 @@ function Enquiries({ openPatient, version, writable, notify, member, setModal })
       console.error("PUBLIC_INTAKE_CONVERSION_FAILED", error);
       const message = error?.code === "23505"
         ? t("Já existe um paciente com este CPF. Abra o formulário novamente e use Vincular.", "A patient with this CPF already exists. Reopen the form and use Link.")
+        : error?.message?.includes("intake_already_linked")
+          ? t("Este formulário já foi vinculado em outra sessão. Feche e abra novamente para acessar o paciente vinculado.", "This form was linked in another session. Close and reopen it to access the linked patient.")
         : error?.message === "conversion_no_patient"
           ? t("A conversão não retornou um paciente. Tente novamente.", "Conversion did not return a patient. Try again.")
           : t("Não foi possível converter. Verifique a mensagem no console e tente novamente.", "Could not convert. Check the console message and try again.");
@@ -4168,12 +4170,13 @@ function Enquiries({ openPatient, version, writable, notify, member, setModal })
             <Field title={t("Status", "Status")} value={selected.status} onChange={(value) => setSelected((current) => ({ ...current, status: value }))} options={["novo", "em_analise", "contatado", "aguardando", ...(selected.patient_id ? ["convertido"] : []), "arquivado"].map((value) => ({ value, label: label(value, t) }))} />
             <label className="field"><span>{t("Retenção legal", "Legal hold")}</span><input type="checkbox" checked={selected.retention_hold === true} onChange={(event) => setSelected((current) => ({ ...current, retention_hold: event.target.checked }))} /><small>{t("Impede a limpeza automática de 60 dias.", "Prevents automatic 60-day cleanup.")}</small></label>
           </div>}
-          {writable && selected.status !== "convertido" && <section className="detail-section">
+          {writable && !selected.patient_id && <section className="detail-section">
             <h3>{t("Vincular a um paciente existente", "Link to an existing patient")}</h3>
             <PatientPicker value={linkPatientId} onChange={setLinkPatientId} />
             <Button type="button" disabled={busy || !linkPatientId} onClick={() => convert(linkPatientId)}>{t("Vincular ao paciente selecionado", "Link to selected patient")}</Button>
           </section>}
-          {duplicates.length > 0 && (
+          {selected.patient_id && <p className="notice" role="status">{t("Este formulário já está vinculado a um paciente. Use Abrir paciente para acessar o cadastro e os documentos enviados.", "This form is already linked to a patient. Use Open patient to access their record and uploaded documents.")}</p>}
+          {!selected.patient_id && duplicates.length > 0 && (
             <div className="notice">
               <div>
                 <strong>
@@ -4186,7 +4189,8 @@ function Enquiries({ openPatient, version, writable, notify, member, setModal })
                     </span>
                     {writable && (
                       <Button
-                        disabled={busy || selected.status === "convertido"}
+                        type="button"
+                        disabled={busy}
                         onClick={() => convert(p.id)}
                       >
                         {t("Vincular", "Link")}
