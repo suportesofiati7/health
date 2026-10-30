@@ -144,7 +144,13 @@ export default function CommunicationHub({ member, openPatient, version, writabl
   const task = async (row) => { try { await checked(db.from("tasks").insert({ organization_id: ORG, patient_id: selected.patient_id || null, title: preview(row.body, 160), due_at: new Date().toISOString(), priority: "normal", status: "pendente", created_by: member.user_id, category: "operacional", source_type: "manual" })); notify(t("Tarefa criada.", "Task created.")); } catch { notify(t("Não foi possível criar a tarefa.", "Could not create task.")); } };
   const file = async (attachment) => { const result = await db.storage.from("communication-private").createSignedUrl(attachment.storage_path, 300); if (result.data?.signedUrl) window.open(result.data.signedUrl, "_blank", "noopener,noreferrer"); };
   const copy = async (body) => { await navigator.clipboard?.writeText(body); notify(t("Mensagem copiada.", "Message copied.")); };
-  const markAll = async () => { await checked(db.from("communication_notifications").update({ read_at: new Date().toISOString() }).eq("user_id", member.user_id).is("read_at", null)).catch(() => null); setData((current) => ({ ...current, notifications: [] })); };
+  const markAll = async () => {
+    try {
+      await checked(db.from("communication_notifications").update({ read_at: new Date().toISOString() }).eq("user_id", member.user_id).is("read_at", null));
+      setData((current) => ({ ...current, notifications: [] }));
+      notify(t("Notificações marcadas como lidas.", "Notifications marked as read."));
+    } catch { notify(t("Não foi possível atualizar as notificações. Tente novamente.", "Could not update notifications. Please try again.")); }
+  };
   return <>
     <div className="communication-hub">
       <section className="communication-column internal-chat-column">

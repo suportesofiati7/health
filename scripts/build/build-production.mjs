@@ -581,6 +581,7 @@ async function main() {
     ]
   };
   await writeFile(resolve(DIST, '.performance-build.json'), `${JSON.stringify(buildManifest, null, 2)}\n`);
+  await writeFile(resolve(DIST, 'build-info.json'), `${JSON.stringify({ sourceCommit: buildManifest.sourceCommit, generatedAt: buildManifest.generatedAt, sourcePages: buildManifest.sourcePages })}\n`);
   process.stdout.write(
     `Built ${pages.length} pages with ${generatedManifest.length} responsive/optimized image files.\n`
   );

@@ -93,7 +93,7 @@ curl -I https://francielesofiati.com/en/thank-you.html
 
 Look for:
 
-- one necessary redirect at most before the canonical `https://www` URL;
+- one necessary redirect at most before the canonical `https://francielesofiati.com` URL;
 - `Content-Encoding: br` or `gzip` for HTML, CSS and JavaScript;
 - CDN cache headers consistent with `dist/_headers`;
 - no mixed-content resources;

@@ -28,7 +28,7 @@ The empty root-level `supabase/` directory is not a deployment source.
 6. Commit the intended source changes and push `main`. Cloudflare builds both projects
    from that commit. Do not switch either project to a different repository or publish source.
 7. Verify deployment status and commit for both projects. Compare the public
-   `/.performance-build.json` source commit, current asset fingerprint and live UI.
+   `/build-info.json` source commit, current asset fingerprint and live UI.
 8. Run the live public interaction test with `PUBLIC_TEST_URL=https://francielesofiati.com`.
    It intercepts fictional submissions before they reach production storage.
 9. Regenerate and notify discovery with `python3 scripts/index-site.py --rebuild` after
