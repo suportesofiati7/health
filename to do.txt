@@ -95,3 +95,11 @@ Audit and improve every new blog page, including all newly added articles, to cr
 - Performance: Optimise images, page speed, accessibility, and Core Web Vitals.
 - Quality assurance: Visually inspect and test every article across different screen sizes, fixing all design and functionality problems.
 Final objective: Transform every blog page into a visually outstanding, professional journal article that combines excellent storytelling, clear information hierarchy, strong SEO, and persuasive calls to action — turning readers into potential clients who contact the professional.
+
+
+## Implementation and verification status
+
+Implementation work for goals 1–17 has been deployed in release `0bea80a0`.
+Per-goal evidence and verification limits: `reports/goals/completion.md`.
+Google Search Console submission remains manual, as requested. DNS/cache-rule
+inspection could not be completed with the available provider permissions.

@@ -308,7 +308,7 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
               const file = files[index]?.file;
               if (!file || !item.upload_url) throw Object.assign(new Error("app_delivery_failed"), { code: "upload_session" });
               const response = await fetchWithTimeout(item.upload_url, {
-                method: "POST", headers: { "Content-Type": file.type || "application/octet-stream" },
+                method: "PUT", headers: { "Content-Type": file.type || "application/octet-stream" },
                 body: file, credentials: "omit", cache: "no-store",
               }, 120000);
               if (!response.ok) throw Object.assign(new Error("app_delivery_failed"), { code: "upload" });

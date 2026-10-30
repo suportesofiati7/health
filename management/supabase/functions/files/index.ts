@@ -35,6 +35,12 @@ Deno.serve(
         const paths = await listStorageTree(db, bucket, prefix);
         removals.push([bucket, paths]);
       }
+      const { data: intakes, error: intakeError } = await scoped.from("public_intakes")
+        .select("id").eq("patient_id", patientId);
+      if (intakeError) throw intakeError;
+      for (const intake of intakes || []) {
+        removals.push(["intake-private", await listStorageTree(db, "intake-private", `${ORG}/${intake.id}`)]);
+      }
       const { error: deleteError } = await scoped.rpc("delete_patient", { target_patient: patientId });
       if (deleteError) throw deleteError;
       for (const [bucket, paths] of removals) {
@@ -60,9 +66,10 @@ Deno.serve(
         .select("path")
         .eq("intake_id", intakeId);
       if (fileLookupError) throw fileLookupError;
+      const storedPaths = await listStorageTree(db, "intake-private", `${ORG}/${intakeId}`);
       const { error: deleteError } = await scoped.rpc("delete_public_intake", { target_intake: intakeId });
       if (deleteError) throw deleteError;
-      const paths = (files || []).map((file) => file.path);
+      const paths = [...new Set([...storedPaths, ...(files || []).map((file) => file.path)])];
       if (paths.length) {
         const { error: removeError } = await db.storage.from("intake-private").remove(paths);
         if (removeError) throw Error("storage_remove");
@@ -202,12 +209,15 @@ function detect(b: Uint8Array) {
 async function listStorageTree(db: ReturnType<typeof admin>, bucket: string, root: string) {
   const paths: string[] = [];
   const visit = async (prefix: string): Promise<void> => {
-    const { data, error } = await db.storage.from(bucket).list(prefix, { limit: 1000, offset: 0 });
+    for (let offset = 0; ; offset += 1000) {
+    const { data, error } = await db.storage.from(bucket).list(prefix, { limit: 1000, offset, sortBy: { column: "name", order: "asc" } });
     if (error) throw Error("storage_list");
     for (const entry of data || []) {
       const path = `${prefix}/${entry.name}`;
       if (entry.id) paths.push(path);
       else await visit(path);
+    }
+    if (!data || data.length < 1000) break;
     }
   };
   await visit(root);

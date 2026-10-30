@@ -57,4 +57,15 @@ at `https://francielesofiati.com/build-info.json`.
 
 Live mobile Lighthouse samples before the final packaging correction scored 92 (home)
 and 95 (the text-led article), both with CLS approximately 0.005. The saved three-run local
-medians were 93 and 97. Representative final-release checks are recorded separately.
+medians were 93 and 97. The final release `0bea80a06d3e374b6eee8c1ef04b96e6a2d86316` is confirmed by the
+live `/build-info.json`; both Pages projects completed deployment at that commit.
+The management domain serves the expected `index-BSoLVzf9.js` artifact. The final
+live article resource test passed at 390, 768 and 1440 pixels, and the live public
+registration test passed again after resuming the interrupted handover.
+
+A subsequent provider API read returned HTTP 401 (expired OAuth session); this does
+not prevent live website verification, but further provider configuration inspection
+requires refreshing that session. DNS/cache-rule inspection remains unverified.
+
+Fresh final-release mobile Lighthouse checks passed: homepage **92**, tested article **96**,
+with CLS approximately **0.005** on both routes. This is a one-run laboratory sample per route.

@@ -1,0 +1,17 @@
+{
+  "name": "QA FLUXO FICTICIO 1793374429131",
+  "checks": [
+    "Authenticated owner session without sending a login email or changing a password",
+    "Removed 0 incomplete records from earlier fictional test attempts",
+    "Filled the public form with fictional details and attachments",
+    "Public form submitted through real prepare/upload/complete requests and reached thank-you page",
+    "Saved full original answers and automatically created patient identity, date, CPF, contact, address and identity issuer",
+    "All 3 private uploads downloaded byte-for-byte after conversion",
+    "Consent approvals and explicit image/marketing refusals retained",
+    "Converted submission visible in Forms → Todos, with all answers and files",
+    "Patient document library contains original uploads and opens a real signed document",
+    "Permanent deletion succeeded through live UI and removed patient, form, attachment metadata and stored uploads"
+  ],
+  "started_at": "2026-10-30T15:33:49.131Z",
+  "finished_at": "2026-10-30T15:34:15.462Z"
+}

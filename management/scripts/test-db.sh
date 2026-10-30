@@ -9,3 +9,5 @@ for migration in supabase/migrations/*.sql; do
   psql -X -v ON_ERROR_STOP=1 -q -f "$migration"
 done
 psql -X -v ON_ERROR_STOP=1 -f tests/security.sql
+
+psql -X -v ON_ERROR_STOP=1 -f tests/patient-deletion.sql

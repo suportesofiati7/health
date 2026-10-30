@@ -225,7 +225,7 @@ async function completeSubmission(req: Request, body: Record<string, unknown>, d
     if (existing.error) throw Error("file_record");
     if (existing.data) continue;
     const info = await db.storage.from("intake-private").info(path);
-    if (info.error || Number(info.data?.metadata?.size) !== Number(file.size)) throw Error("upload");
+    if (info.error || Number(info.data?.size ?? info.data?.metadata?.size) !== Number(file.size)) throw Error("upload");
     const saved = await db.from("public_intake_files").insert({
       organization_id: ORG, intake_id: intakeId, kind: clean(file.kind, 40), path,
       mime_type: clean(file.type, 120) || "application/octet-stream", size_bytes: Number(file.size),

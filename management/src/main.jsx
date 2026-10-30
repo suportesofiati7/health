@@ -1,3 +1,4 @@
+import publicIntakeLabels from "./public-intake-labels.json";
 import { humanText, fieldLabel, parameterNotes } from "./clinicalText.js";
 import { confirmAction, promptAction } from "../../js/core/dialog.js";
 import { Avatar, ProcedureImage, usePrivateImage } from "./Images";
@@ -1796,6 +1797,13 @@ function Patient({
         ? checked(db.from("adverse_events").select("*").eq("patient_id", patient.id).order("event_at", { ascending: false })).catch(() => [])
         : [],
     ]);
+    if (clinical) {
+      const intakeFiles = await checked(db.from("public_intake_files")
+        .select("*,public_intakes!inner(patient_id)").eq("public_intakes.patient_id", patient.id)
+        .order("created_at", { ascending: false }).range(page * 20, page * 20 + 19));
+      documents.push(...intakeFiles.map((file) => ({ ...file, name: file.original_name || file.field_name,
+        category: file.kind, bucket: "intake-private" })));
+    }
     if (clinical)
       await checked(
         db.rpc("record_access", {
@@ -2022,6 +2030,7 @@ function Patient({
                     </button>
                   ))}
                 </div>
+                {clinical && <PatientIntakeHistory patientId={patient.id} />}
                 <div className="dashboard-grid">
                   <section>
                     <div className="section-heading">
@@ -2268,10 +2277,10 @@ function Patient({
                   {documents.map((doc) => (
                     <ContextActions key={doc.id} label={doc.name || t("Documento", "Document")} actions={[
                       { icon: ExternalLink, label: t("Abrir documento", "Open document"), onClick: async () => {
-                        try { const { data } = await checked(db.storage.from("patient-files").createSignedUrl(doc.path, 300)); if (!data?.signedUrl) throw Error("signed_url"); window.open(data.signedUrl, "_blank", "noopener,noreferrer"); } catch { notify(t("Não foi possível abrir.", "Could not open.")); }
+                        try { const data = await checked(db.storage.from(doc.bucket || "patient-files").createSignedUrl(doc.path, 300)); if (!data?.signedUrl) throw Error("signed_url"); window.open(data.signedUrl, "_blank", "noopener,noreferrer"); } catch { notify(t("Não foi possível abrir.", "Could not open.")); }
                       } },
                       { icon: Download, label: t("Baixar arquivo", "Download file"), onClick: async () => {
-                        try { await checked(db.rpc("record_access", { org: ORG, entity: doc.id, event: "download_documento" })); const blob = await checked(db.storage.from("patient-files").download(doc.path)); download(blob, doc.name); } catch { notify(t("Não foi possível baixar.", "Could not download.")); }
+                        try { await checked(db.rpc("record_access", { org: ORG, entity: doc.id, event: "download_documento" })); const blob = await checked(db.storage.from(doc.bucket || "patient-files").download(doc.path)); download(blob, doc.name); } catch { notify(t("Não foi possível baixar.", "Could not download.")); }
                       } },
                     ]}>
                     <div className="document-row">
@@ -2291,9 +2300,9 @@ function Patient({
                         aria-label={t("Abrir em nova aba", "Open in new tab")}
                         onClick={async () => {
                           try {
-                            const { data } = await checked(
+                            const data = await checked(
                               db.storage
-                                .from("patient-files")
+                                .from(doc.bucket || "patient-files")
                                 .createSignedUrl(doc.path, 300),
                             );
                             if (!data?.signedUrl) throw Error("signed_url");
@@ -2319,7 +2328,7 @@ function Patient({
                             );
                             const blob = await checked(
                               db.storage
-                                .from("patient-files")
+                                .from(doc.bucket || "patient-files")
                                 .download(doc.path),
                             );
                             download(blob, doc.name);
@@ -3834,6 +3843,27 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
   </>;
 }
 
+function PublicIntakeAnswers({ payload = {} }) {
+  const t = useT();
+  const text = (value) => Array.isArray(value) ? value.map(text).join(", ")
+    : value && typeof value === "object" ? JSON.stringify(value) : value === "yes" ? t("Sim", "Yes")
+    : value === "no" ? t("Não", "No") : String(value ?? "");
+  return <details className="detail-section"><summary>{t("Todas as respostas do formulário", "All submitted form answers")}</summary>
+    <dl>{Object.entries(payload).filter(([key, value]) => !key.startsWith("_") && value !== "").map(([key, value]) =>
+      <div key={key}><dt><strong>{publicIntakeLabels[key] || fieldLabel(key)}</strong></dt><dd style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>{text(value)}</dd></div>)}</dl>
+  </details>;
+}
+function PatientIntakeHistory({ patientId }) {
+  const t = useT();
+  const state = useLoad(() => checked(db.from("public_intakes").select("id,submitted_at,form_version,payload")
+    .eq("patient_id", patientId).order("submitted_at", { ascending: false })), [patientId]);
+  return <LoadState state={state}>{(rows) => rows.length > 0 && <section className="detail-section">
+    <h2>{t("Formulários recebidos", "Submitted forms")}</h2>{rows.map((row) => <div key={row.id}>
+      <p>{date(row.submitted_at, true)} · {row.form_version}</p><PublicIntakeAnswers payload={row.payload} />
+    </div>)}
+  </section>}</LoadState>;
+}
+
 function Enquiries({ openPatient, version, writable, notify, member, setModal }) {
   const t = useT(),
     [page, setPage] = useState(0),
@@ -3848,7 +3878,6 @@ function Enquiries({ openPatient, version, writable, notify, member, setModal })
   const loadRows = async () => {
     let q = db.from("public_intakes").select("*").order("submitted_at", { ascending: false });
     if (status !== "all") q = q.eq("status", status);
-    else q = q.neq("status", "convertido").is("patient_id", null);
     if (search.trim()) {
       const term = safeSearch(search);
       q = q.or(`full_name.ilike.%${term}%,email.ilike.%${term}%,phone.ilike.%${term}%,cpf.ilike.%${digits(term)}%`);
@@ -4069,6 +4098,7 @@ function Enquiries({ openPatient, version, writable, notify, member, setModal })
           </p>
           <p className="subtle">{t("Versão", "Version")}: {selected.form_version} · {t("Retenção até", "Retention until")}: {date(selected.retention_expires_at)}</p>
           {(selected.payload?.interest_note || selected.payload?.message || selected.payload?.reason) && <div className="intake-message-preview"><span>{t("Mensagem recebida", "Message received")}</span><p>{selected.payload.interest_note || selected.payload.message || selected.payload.reason}</p></div>}
+          <PublicIntakeAnswers payload={selected.payload} />
           <div className="actions wrap">
             {selected.phone && <a className="button" href={`tel:${digits(selected.phone)}`}>{t("Ligar", "Call")}</a>}
             {selected.email && <a className="button" href={gmailComposeUrl({ recipient: selected.email, subject: "Franciele Sofiati · Seu cadastro" })} target="_blank" rel="noopener noreferrer">{t("Email", "Email")}</a>}
