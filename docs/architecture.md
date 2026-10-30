@@ -8,7 +8,7 @@ This is a framework-free static website. The repository is the authoring source;
 | Root `*.html`, `blog/`, `servicos/` | Published Brazilian Portuguese pages | These directories are the current public route source. The site has no published English routes. |
 | `partials/pt-BR/` | Active shared interface | Header, navigation, footer, cookie banner and floating controls. They load at runtime in source previews and are inlined during production builds. |
 | `partials/` | Legacy English interface templates | Retained for possible future localization work; no current public route selects them. Keep links out of published Portuguese pages. |
-| `css/site.css` | Public stylesheet | The production build minifies and fingerprints it. The build compiles this file directly; `css/src/` contains historical extracts and is not another active stylesheet source. |
+| `css/site.css` | Public stylesheet | The production build minifies and fingerprints it. The build compiles this file directly; explicitly linked page-specific stylesheets (including the cookie page) are also packaged, while unreferenced historical extracts are not shipped. |
 | `js/` | Browser behaviour | `js/main.js` is the module entry point. Consent/analytics scripts remain separate so consent defaults load first. |
 | `data/` | Shared runtime and editorial data | `seo.json` owns the canonical origin; `page-pairs.json` is intentionally empty until paired translations are published; `translation/` retains localization terminology and overrides. |
 | `assets/` | Public media | Paths are public contracts. Do not rename an asset without checking all consumers. |

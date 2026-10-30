@@ -1,5 +1,5 @@
 /* Authoritative public stylesheet. npm run build compiles this file directly.
-   css/src contains historical design extracts, not a separate build pipeline. */
+   Page-specific stylesheets are shipped when explicitly referenced by HTML. */
 @layer reset, tokens, base, layout, components, compositions, pages, utilities;
 
 /* Source: css/src/foundations/reset.css */
@@ -12586,7 +12586,7 @@
     #sf-topbar-inline .sft-link, #sf-topbar-inline .sft-location { display: flex; justify-content: flex-start; border: 0; padding-inline: 0; font-size: .75rem; }
     #sf-topbar-inline .sft-link-text { display: inline; }
   }
-  .sfm-role { color: var(--gold-200); white-space: normal; }
+  .sfm-role { color: var(--champagne-100); white-space: normal; }
 
 
 /* Shared public / professional action dialogs. Native top-layer focus trapping. */
@@ -12602,28 +12602,28 @@
 .sf-action-dialog :focus-visible { outline: 3px solid #936421; outline-offset: 3px; }
 
 /* Shared reading and contact treatment for every Portuguese journal article. */
-body.sf-journal-refined .sja-prose { min-inline-size: 0; overflow-wrap: break-word; }
-body.sf-journal-refined .sja-prose :is(p, li) { line-height: 1.8; }
-body.sf-journal-refined .sja-prose a:not(.sf-button) { text-underline-offset: .2em; text-decoration-thickness: .08em; }
-body.sf-journal-refined .sja-conversion {
+body.sf-journal-article.sf-journal-refined .sja-prose { min-inline-size: 0; overflow-wrap: break-word; }
+body.sf-journal-article.sf-journal-refined .sja-prose :is(p, li) { line-height: 1.8; }
+body.sf-journal-article.sf-journal-refined .sja-prose a:not(.sf-button) { text-underline-offset: .2em; text-decoration-thickness: .08em; }
+body.sf-journal-article.sf-journal-refined .sja-conversion {
   display: grid; gap: 1rem; inline-size: 100%; max-inline-size: 54rem;
   margin: 3.5rem auto 1rem; padding: clamp(1.5rem, 4vw, 3rem);
   border: 1px solid #e5bc67; border-radius: 1rem;
   background: #334734; color: #fffdf7; text-align: left; justify-items: start;
 }
-body.sf-journal-refined .sja-conversion :is(h2, p, li) { color: #fffdf7; max-inline-size: 60ch; }
-body.sf-journal-refined .sja-conversion .sja-chapter-mark { color: #f1cf88; }
-body.sf-journal-refined .sja-conversion h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; }
-body.sf-journal-refined .sja-conversion > div.sja-contact-actions { display: flex; flex-wrap: wrap; gap: .75rem; inline-size: 100%; }
-body.sf-journal-refined .sja-contact-actions .sf-button { min-block-size: 3rem; min-inline-size: 0; white-space: normal; text-align: center; font-size: .9rem; letter-spacing: .015em; }
-body.sf-journal-refined .sja-contact-actions .sf-button--primary { background: #fff0c7; color: #1d3026; border-color: #fff0c7; }
-body.sf-journal-refined .sja-contact-actions .sf-button--outline { background: #334734; color: #fffdf7; border-color: #fffdf7; }
-body.sf-journal-refined .sja-conversion a:not(.sf-button) { color: #fff0c7; }
-body.sf-journal-refined .sja-share__buttons svg { inline-size: 1.2rem; block-size: 1.2rem; }
+body.sf-journal-article.sf-journal-refined .sja-conversion :is(h2, p, li) { color: #fffdf7; max-inline-size: 60ch; }
+body.sf-journal-article.sf-journal-refined .sja-conversion .sja-chapter-mark { color: #f1cf88; }
+body.sf-journal-article.sf-journal-refined .sja-conversion h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; }
+body.sf-journal-article.sf-journal-refined .sja-conversion > div.sja-contact-actions { display: flex; flex-wrap: wrap; gap: .75rem; inline-size: 100%; }
+body.sf-journal-article.sf-journal-refined .sja-contact-actions .sf-button { min-block-size: 3rem; min-inline-size: 0; white-space: normal; text-align: center; font-size: .9rem; letter-spacing: .015em; }
+body.sf-journal-article.sf-journal-refined .sja-contact-actions .sf-button--primary { background: #fff0c7; color: #1d3026; border-color: #fff0c7; }
+body.sf-journal-article.sf-journal-refined .sja-contact-actions .sf-button--outline { background: #334734; color: #fffdf7; border-color: #fffdf7; }
+body.sf-journal-article.sf-journal-refined .sja-conversion a:not(.sf-button) { color: #fff0c7; }
+body.sf-journal-article.sf-journal-refined .sja-share__buttons svg { inline-size: 1.2rem; block-size: 1.2rem; }
 @media (max-width: 47.999rem) {
-  body.sf-journal-refined .sja-conversion > div.sja-contact-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
-  body.sf-journal-refined .sja-contact-actions .sf-button { inline-size: 100%; }
-  body.sf-journal-refined .sja-hero h1 { overflow-wrap: anywhere; }
+  body.sf-journal-article.sf-journal-refined .sja-conversion > div.sja-contact-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
+  body.sf-journal-article.sf-journal-refined .sja-contact-actions .sf-button { inline-size: 100%; }
+  body.sf-journal-article.sf-journal-refined .sja-hero h1 { overflow-wrap: anywhere; }
 }
 
 /* The native hidden contract must win over component grid/flex display rules. */
@@ -12639,3 +12639,8 @@ body.sf-hero-underlay { --hero-menu-space: calc(clamp(5.5rem, 6.5vw, 7rem) + .65
 @media (max-width: 47.999rem) {
   body.sf-hero-underlay { --hero-menu-space: 4.75rem; }
 }
+
+/* Small labels on green surfaces need the light accent rather than dark rose. */
+#sf-header-inline .sfi-brand-role,
+#sf-header-inline .sfi-nav-link[aria-current="page"],
+#sf-footer-inline .sffo-heading { color: var(--champagne-100); }

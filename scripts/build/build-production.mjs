@@ -353,16 +353,22 @@ async function optimizeCssImages(css) {
   let output = css;
   for (const match of matches) {
     const value = match[2];
-    if (/^(?:data:|https?:|#)/i.test(value) || extname(value).toLowerCase() === '.svg') continue;
+    if (/^(?:data:|https?:|#)/i.test(value)) continue;
     const source = value.startsWith('/')
       ? resolve(ROOT, value.slice(1))
       : resolve(ROOT, 'css', decodeURIComponent(value));
-    if (!source.startsWith(resolve(ROOT, 'assets')) || !RASTER_EXTENSIONS.has(extname(source).toLowerCase())) continue;
+    if (!source.startsWith(resolve(ROOT, 'assets'))) continue;
+    const publicUrl = `/${toPosix(relative(ROOT, source))}`;
+    if (!RASTER_EXTENSIONS.has(extname(source).toLowerCase())) {
+      output = output.replace(match[0], `url("${publicUrl}")`);
+      continue;
+    }
     try {
       const optimized = await generateImage(source, cssTargetWidth(source), 'webp', 70);
       output = output.replace(match[0], `url("../generated/${basename(optimized.relative)}")`);
     } catch {
-      // Keep the authored URL if an unusual asset cannot be decoded.
+      // Keep the original asset, rebased for the compiled stylesheet location.
+      output = output.replace(match[0], `url("${publicUrl}")`);
     }
   }
 
@@ -513,6 +519,26 @@ async function copyReferencedAssets() {
   }
 }
 
+async function copyAuxiliaryStylesheets() {
+  // Article-specific styles are separate entry points, not imports of site.css.
+  // Preserve their relative URL contract and copy them before collecting assets.
+  for (const page of await walk(DIST, file => extname(file) === '.html')) {
+    const html = await readFile(page, 'utf8');
+    for (const match of html.matchAll(/<link\b[^>]*>/gi)) {
+      const link = attrs(match[0]);
+      if (link.rel !== 'stylesheet' || !link.href || /^(?:https?:|\/\/|data:)/i.test(link.href)) continue;
+      const destination = link.href.startsWith('/') ? resolve(DIST, link.href.slice(1)) : resolve(dirname(page), link.href);
+      const path = relative(DIST, destination);
+      if (!path.startsWith('css/')) continue;
+      const source = resolve(ROOT, path);
+      const css = await readFile(source, 'utf8');
+      const result = await transform(css, { loader: 'css', minify: true, target: 'chrome100' });
+      await mkdir(dirname(destination), { recursive: true });
+      await writeFile(destination, result.code);
+    }
+  }
+}
+
 async function copySupportFiles() {
   for (const file of ['_redirects', 'robots.txt', 'sitemap.xml', 'sitemap-images.xml', 'sitemap-index.xml', 'llms.txt', 'e7555acad3a644ab84a3f76774ab4ede.txt', 'site.webmanifest', 'favicon.ico']) {
     await copyFile(resolve(ROOT, file), resolve(DIST, file));
@@ -566,6 +592,7 @@ async function main() {
   }
 
   await copySupportFiles();
+  await copyAuxiliaryStylesheets();
   await copyReferencedAssets();
   const buildManifest = {
     generatedAt: new Date().toISOString(),

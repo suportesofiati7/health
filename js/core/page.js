@@ -1,6 +1,9 @@
 import { qs } from './dom.js';
 
 export function assetPrefix() {
+  // Compiled stylesheets have fingerprinted names. The document owns its
+  // relative site root, independently of CSS filenames and clean URL routing.
+  if (document.body?.hasAttribute('data-site-root')) return document.body.dataset.siteRoot || '';
   const css = qs('link[href$="css/site.css"], link[href*="/css/site.css"], link[href$="theme.css"], link[href*="/theme.css"]');
   if (css) {
     const href = css.getAttribute('href') || '';

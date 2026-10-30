@@ -9,7 +9,7 @@ const token = name => sheet.match(new RegExp(`${name}:\\s*(#[a-fA-F0-9]{6})`))[1
 for (const [foreground, background] of [
   ['--forest-900', '--ivory-50'], ['--rose-gold-700', '--ivory-50'],
   ['--gold-600', '--ivory-50'], ['--ivory-50', '--menu-green'],
-  ['--olive-600', '--ivory-50'],
+  ['--olive-600', '--ivory-50'], ['--champagne-100', '--menu-green'],
 ]) {
   const values = [luminance(token(foreground)), luminance(token(background))].sort((a, b) => a - b);
   const contrast = (values[1] + .05) / (values[0] + .05);

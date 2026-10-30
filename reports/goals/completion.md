@@ -4,7 +4,7 @@ Updated 2026-10-30. This report supersedes the earlier audit's release status.
 
 | Goal | Implementation and verification |
 | --- | --- |
-| 1 — Colours | Shared rose, gold, green and text tokens corrected; five primary text/surface pairs exceed 4.5:1 contrast. |
+| 1 — Colours | Shared rose, gold, green and text tokens corrected; six primary text/surface pairs exceed 4.5:1 contrast. |
 | 2 — Mobile alignment | All three clinic details remain visible and left aligned; 320/390 px browser assertions pass. |
 | 3 — Dialogs | Native alert/confirm/prompt calls replaced with styled promise-based dialogs; confirmation, cancellation, text entry and Escape tests pass. Browser-controlled tab-close protection for unsaved edits remains. |
 | 4 — Registration | Application receipt is the success criterion; email-copy failure does not block the thank-you redirect. Intercepted full submission test passes. |
@@ -18,16 +18,16 @@ Updated 2026-10-30. This report supersedes the earlier audit's release status.
 | 12 — Catalogue persistence | Database owns atomic version snapshots. Save/concurrency/permission errors are actionable; removal archives the service while preserving history. Production create/edit/version/archive smoke passes. |
 | 13 — Indexing | Canonical/discovery/SEO gates pass; sitemaps regenerated. IndexNow submission is recorded below after release. Google submission is manual at the user's request. |
 | 14 — Mobile performance | Optimized images, page-specific CSS, fingerprinted caching, deferred services and static hero space. Saved three-run medians: homepage 93, article 97; CLS about 0.005. These laboratory samples are not a promise for every device or page. |
-| 15 — Audit/testing | Public validators, 18 management unit tests, 6 public unit tests, SQL security suite, targeted workflows, document/date regressions and management browser suite pass. JSX production builds validate syntax; this JavaScript repository has no separate TypeScript project. |
+| 15 — Audit/testing | Public validators, 18 management unit tests, 7 public unit tests, SQL security suite, targeted workflows, document/date regressions and management browser suite pass. JSX production builds validate syntax; this JavaScript repository has no separate TypeScript project. |
 | 16 — Production architecture | One Git repository/branch, two documented Pages artifacts, one Supabase project. Migration state is current; production rollback smoke passes. Current provider configuration is in `config/production.json`; release procedure is in `docs/deployment.md`. |
-| 17 — Articles | All 248 Portuguese articles retain educational content and receive contextual contact actions. Sixteen missing hero images added; runtime editorial images are explicitly included in production. All articles pass mobile/tablet/desktop geometry and image checks. |
+| 17 — Articles | All 248 Portuguese articles retain educational content and receive contextual contact actions. Sixteen missing hero images added; runtime editorial images and all supplementary stylesheets are explicitly included in production, with SVG URLs correctly rebased; nested routes resolve runtime assets from their declared site root. All articles pass mobile/tablet/desktop geometry and image checks. |
 
 ## Verification scope
 
 Browser workflow tests use intercepted fictional requests. The separate production SQL
 smoke uses a synthetic session and isolated fictional clinic inside a rolled-back transaction;
 it does not read or alter real patient records, send email or send WhatsApp messages.
-Layout checks detect overflow, loaded image failures, JavaScript errors, heading counts and
+Layout checks detect failed local HTTP resources, all loaded image failures (including widgets), overflow, JavaScript errors, heading counts and
 clipped contact controls. They complement visual contact sheets; they cannot prove every
 possible human interaction or clinical workflow.
 
@@ -43,4 +43,18 @@ Submit `https://francielesofiati.com/sitemap-index.xml`. The user requested this
 
 ## Release verification
 
-Pending final publication checks; appended after deployment.
+Production SQL smoke passed on 2026-10-30, with every synthetic write rolled back.
+The public full-intake browser test and management desktop/tablet/mobile browser suite
+also passed against the live domains with requests intercepted before creating patient data.
+
+IndexNow accepted all 284 canonical sitemap URLs with HTTP 200 on 2026-10-30. Acceptance
+is not a guarantee of indexing. Google Search Console remains manual as requested above.
+
+The final public packaging correction includes all linked supplemental stylesheets and
+runtime editorial/widget assets. The build audit checks local HTTP failures as well as
+all loaded document images, including shared widgets. Publication identity is available
+at `https://francielesofiati.com/build-info.json`.
+
+Live mobile Lighthouse samples before the final packaging correction scored 92 (home)
+and 95 (the text-led article), both with CLS approximately 0.005. The saved three-run local
+medians were 93 and 97. Representative final-release checks are recorded separately.

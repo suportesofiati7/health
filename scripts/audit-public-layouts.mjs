@@ -21,13 +21,14 @@ try {
     const thumbnails = [];
     let errors = [];
     page.on('pageerror', error => errors.push(error.message));
+    page.on('response', response => { if (response.url().startsWith(server.baseUrl) && response.status() >= 400) errors.push(`HTTP ${response.status()}: ${new URL(response.url()).pathname}`); });
     for (const route of routes) {
       errors = [];
       await page.goto(`${server.baseUrl}/${route}`, { waitUntil: 'load' });
       await page.locator('#sf-header-inline').waitFor({ timeout: 5000 });
       if (await page.locator('[data-cookie-reject]').isVisible()) await page.locator('[data-cookie-reject]').click();
       const isArticle = route.startsWith('blog/');
-      await page.locator('main img').evaluateAll(async images => {
+      await page.locator('img').evaluateAll(async images => {
         for (const image of images) image.loading = 'eager';
         await Promise.all(images.map(image => image.decode().catch(() => {})));
       });
@@ -35,7 +36,7 @@ try {
         overflow: document.documentElement.scrollWidth > innerWidth + 1,
         h1: document.querySelectorAll('h1').length,
         cta: !isArticle || !!document.querySelector('.sja-conversion a[data-contact-method="whatsapp"]'),
-        broken: [...document.querySelectorAll('main img')].filter(img => img.complete && !img.naturalWidth).map(img => img.getAttribute('src')),
+        broken: [...document.querySelectorAll('img')].filter(img => img.complete && !img.naturalWidth).map(img => img.getAttribute('src')),
       }), isArticle);
       const row = { route, width, ...state, errors: [...errors] };
       results.push(row);

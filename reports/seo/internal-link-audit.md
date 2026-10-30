@@ -3,7 +3,7 @@
 Generated from the canonical URLs in `sitemap.xml`; run `python3 scripts/audit-internal-links.py` after changes.
 
 - Canonical indexable pages: 284
-- Crawlable internal links: 2709
+- Crawlable internal links: 2459
 - Broken internal links: 0
 - Orphan pages: 3
 - Underlinked pages (<2 internal links): 23
