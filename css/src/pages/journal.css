@@ -81,7 +81,7 @@
 
   .sj-masthead {
     position: relative;
-    padding-block: clamp(8.5rem, 11vw, 10.5rem) clamp(2.5rem, 4vw, 4rem);
+    padding-block: clamp(3.5rem, 5vw, 5rem) clamp(2.5rem, 4vw, 4rem);
   }
 
   .sj-masthead::before {
@@ -599,7 +599,7 @@
   }
 
   @media (max-width: 63.999rem) {
-    .sj-masthead { padding-block-start: 9.5rem; }
+    .sj-masthead { padding-block-start: clamp(2.75rem, 6vw, 4rem); }
     .sj-masthead__title-row { grid-template-columns: 1fr; gap: 2rem; }
     .sj-masthead h1 { font-size: clamp(6rem, 17vw, 10rem); }
     .sj-masthead__intro { max-inline-size: 52ch; }
@@ -651,7 +651,7 @@
   }
 
   @media (max-width: 47.999rem) {
-    .sj-masthead { padding-block: 8rem 2.5rem; }
+    .sj-masthead { padding-block: clamp(2rem, 9vw, 3rem) 2.5rem; }
     .sj-masthead__rail { grid-template-columns: 1fr auto; }
     .sj-masthead__place { display: none; }
     .sj-masthead__title-row { padding-block: 2.25rem 1rem; }
