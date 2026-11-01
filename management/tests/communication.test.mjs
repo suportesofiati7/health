@@ -60,7 +60,8 @@ test('communication workspace queries only deployed appointment columns and isol
   assert.match(source, /Promise\.allSettled\(communicationLoadResources/);
   assert.match(source, /select\("id,patient_id,professional_id,procedure_id,starts_at,status,label,procedure_snapshot"\)/);
   assert.doesNotMatch(source, /select\("id,patient_id,starts_at,status,label,modality/);
-  for (const column of ['notes', 'professional_name', 'total_cents', 'price_cents', 'payment_method', 'due_on']) {
-    assert.doesNotMatch(source, new RegExp(`appointments"\)\\.select\\([^)]*${column}`));
+  const appointmentProjection = source.match(/appointments:\s*checked\(db\.from\("appointments"\)\.select\("([^"]+)"\)/)?.[1] || '';
+  for (const column of ['modality', 'notes', 'professional_name', 'total_cents', 'price_cents', 'payment_method', 'due_on']) {
+    assert.doesNotMatch(appointmentProjection, new RegExp(`\\b${column}\\b`));
   }
 });
