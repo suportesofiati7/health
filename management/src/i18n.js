@@ -5,6 +5,7 @@ export function useT() {
   return (pt, en) => (lang === "en" ? en : pt);
 }
 export const labels = {
+  antes: ["Antes do procedimento", "Before procedure"], durante: ["Durante o procedimento", "During procedure"], depois: ["Após o procedimento", "After procedure"], presencial: ["Presencial", "In person"], identity: ["Documento de identidade", "Identity document"], payment: ["Comprovante de pagamento", "Payment proof"], attachment: ["Anexo do formulário", "Form attachment"], marketing_authorization: ["Autorização de uso de imagem", "Image authorization"],
   can_view: ["Ver", "View"], can_create: ["Criar", "Create"], can_edit: ["Editar", "Edit"],
   can_delete: ["Excluir", "Delete"], can_export: ["Exportar", "Export"], can_manage: ["Gerenciar", "Manage"], can_administer: ["Administrar", "Administer"],
   owner: ["Proprietário", "Owner"],
@@ -96,7 +97,7 @@ export const labels = {
   contatado: ["Contatado", "Contacted"],
   convertido: ["Convertido", "Converted"],
   encerrado: ["Encerrado", "Closed"],
-  aceito: ["Aceito pelo serviço de email", "Accepted by email service"],
+  aceito: ["Aceito", "Accepted"],
   falha: ["Falha", "Failed"],
   desconhecido: ["Envio não confirmado", "Send unconfirmed"],
   documento: ["Documento", "Document"],

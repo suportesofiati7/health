@@ -1,4 +1,5 @@
 const labels = {
+ allergies: 'Alergias', medications: 'Medicamentos', conditions: 'Condições relevantes', surgeries: 'Cirurgias', aesthetic_history: 'Procedimentos estéticos anteriores', dermatological_history: 'Histórico dermatológico', healing_history: 'Cicatrização e queloides', active_infection: 'Infecção ou lesão ativa', pregnancy_breastfeeding: 'Gestação e amamentação', habits: 'Hábitos e estilo de vida', other_notes: 'Outras informações',
   price: 'Preço', official_sources: 'Fontes consultadas', indications: 'Indicações', benefits: 'Benefícios', contraindications: 'Quando não realizar', risks: 'Possíveis riscos', precautions: 'Cuidados e precauções',
   products: 'Produtos', equipment: 'Equipamentos', consumables: 'Materiais descartáveis',
   consent: 'Consentimento', photos: 'Fotografias', signatures: 'Assinaturas', notes: 'Observações',

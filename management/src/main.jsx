@@ -1,3 +1,6 @@
+import { intakeDefaults } from "./intakeDefaults.js";
+import { loadPatientFHIR } from "./fhirExport.js";
+import { intakeDocumentName, intakeAnswer } from "./intakePresentation.js";
 import { DATA_CHANGED } from "./dataSync.js";
 import { readPatientRows, clinicalTimeline } from "./patientWorkspace.js";
 import publicIntakeLabels from "./public-intake-labels.json";
@@ -107,7 +110,7 @@ import "./style.css";
 import "./responsive-overhaul.css";
 const FinanceiroRebuilt = lazy(() => import("./FinanceiroRebuilt"));
 const CommunicationHub = lazy(() => import("./CommunicationHub"));
-import { documentEscape, openDocument, populateDocument, reportDocumentHTML } from "./documentSystem";
+import { documentEscape, openDocument, populateDocument, reportDocumentHTML, wrapDocument } from "./documentSystem";
 import ContextActions from "./ContextActions";
 import { emailSubject, missingPlaceholders, normalizeMessageText, renderTemplate, gmailComposeUrl, valuesForPatient } from "./communicationTemplates";
 import { setProcedureCatalog, SmartTextControl } from "./autocomplete";
@@ -1840,7 +1843,7 @@ function Patient({
       const intakeFiles = await readPatientRows((from, to) => checked(db.from("public_intake_files")
         .select("*,public_intakes!inner(patient_id)").eq("public_intakes.patient_id", patient.id)
         .order("created_at", { ascending: false }).range(from, to)));
-      documents.push(...intakeFiles.map((file) => ({ ...file, name: file.original_name || file.field_name,
+      documents.push(...intakeFiles.map((file) => ({ ...file, name: intakeDocumentName(file, patient),
         category: file.kind, bucket: "intake-private" })));
     }
     const [health, procedures, consents, photos] = clinical ? await Promise.all([
@@ -2072,6 +2075,7 @@ function Patient({
                 </button>
               ))}
             </nav>
+            {tab === "summary" && clinical && <PatientDeclarationSummary patientId={patient.id} />}
             {tab === "summary" && (
               <>
                 <section className="clinical-snapshot">
@@ -2655,14 +2659,14 @@ function ClinicalProcedurePanel({ patient, member, writable, notify, consents = 
     });
     setUsage(row.parameters?.materials || []); setEquipment(row.parameters?.equipment || []);
   };
-  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <OnDemandForm title={t("Adicionar procedimento", "Adicionar procedimento")} editing={editingDraftId}><form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide /><TreatmentSupplies usage={usage} setUsage={setUsage} equipment={equipment} setEquipment={setEquipment} products={state.data?.[4] || []} lots={state.data?.[2] || []} devices={state.data?.[3] || []} previous={(history.data || []).find((row) => row.procedure_id === form.procedure_id && row.parameters?.materials?.length)} /><Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : editingDraftId ? t("Finalizar rascunho", "Finalize draft") : t("Finalizar procedimento", "Finalize procedure")}</Button>{editingDraftId && <Button type="button" disabled={busy} onClick={() => { setEditingDraftId(""); setUsage([]); setEquipment([]); setForm({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", performed_at: localDateTime(), area: "", indication: "", technique: "", parameters: "", originalParameters: {}, post_care: "", consent_status: "pendente", device_id: "" }); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form></OnDemandForm>}<LoadState state={history}>{(rows) => <div className="rows">{rows.map((row) => <article className="entry" key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><div className="entry-head"><strong>{row.procedures?.name}</strong><Status value={row.status} /></div><small>{row.history_only && !row.performed_at ? t("Histórico informado · data não informada", "Reported history · date not provided") : date(row.performed_at, true)}{row.area ? ` · ${row.area}` : ""}</small><p className="preserve">{row.observations}</p><TreatmentSuppliesHistory row={row} /><div className="actions">{onPhoto && writable && <Button icon={Camera} onClick={() => onPhoto(row)}>{t("Anexar fotos", "Attach photos")}</Button>}{onConsent && <Button icon={ShieldCheck} onClick={() => onConsent(row)}>{t("Verificar consentimento", "Verify consent")}</Button>}</div>{consents.filter((c) => c.procedure_id === row.procedure_id).slice(0, 1).map((c) => <p key={c.id}>{t("Último consentimento registrado", "Latest recorded consent")}: <Status value={c.status} /> · {c.template_version} · {date(c.accepted_at || c.created_at, true)}</p>)}{row.status === "rascunho" && writable && <Button type="button" icon={Pencil} disabled={busy} onClick={() => resumeDraft(row)}>{t("Completar rascunho", "Complete draft")}</Button>}</article>)}{!rows.length && <Empty icon={Syringe}>{t("Nenhum procedimento registrado.", "No treatments recorded.")}</Empty>}</div>}</LoadState></section>;
+  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <OnDemandForm title={t("Adicionar procedimento", "Adicionar procedimento")} editing={editingDraftId}><form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide /><TreatmentSupplies usage={usage} setUsage={setUsage} equipment={equipment} setEquipment={setEquipment} products={state.data?.[4] || []} lots={state.data?.[2] || []} devices={state.data?.[3] || []} previous={(history.data || []).find((row) => row.procedure_id === form.procedure_id && row.parameters?.materials?.length)} /><Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : editingDraftId ? t("Finalizar rascunho", "Finalize draft") : t("Finalizar procedimento", "Finalize procedure")}</Button>{editingDraftId && <Button type="button" disabled={busy} onClick={() => { setEditingDraftId(""); setUsage([]); setEquipment([]); setForm({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", performed_at: localDateTime(), area: "", indication: "", technique: "", parameters: "", originalParameters: {}, post_care: "", consent_status: "pendente", device_id: "" }); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form></OnDemandForm>}<LoadState state={history}>{(rows) => <div className="rows">{rows.map((row) => <article className="entry" key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><div className="entry-head"><strong>{row.procedures?.name}</strong><Status value={row.status} /></div><small>{row.history_only && !row.performed_at ? t("Histórico informado · data não informada", "Reported history · date not provided") : date(row.performed_at, true)}{row.area ? ` · ${row.area}` : ""}</small><p className="preserve">{row.observations}</p><TreatmentSuppliesHistory row={row} /><div className="actions">{onPhoto && writable && <Button icon={Camera} onClick={() => onPhoto(row)}>{t("Anexar fotos", "Attach photos")}</Button>}{onConsent && <Button icon={ShieldCheck} onClick={() => onConsent(row)}>{t("Verificar consentimento", "Verify consent")}</Button>}</div>{consents.filter((c) => c.procedure_id === row.procedure_id).slice(0, 1).map((c) => <p key={c.id}>{t("Último consentimento registrado", "Latest recorded consent")}: <Status value={c.status} /> · {c.template_version} · {date(c.accepted_at || c.created_at, true)}</p>)}{row.status === "rascunho" && writable && <Button type="button" icon={Pencil} disabled={busy} onClick={() => resumeDraft(row)}>{t("Completar rascunho", "Complete draft")}</Button>}</article>)}{!rows.length && <Empty icon={Syringe}>{t("Nenhum procedimento registrado.", "No treatments recorded.")}</Empty>}</div>}</LoadState></section>;
 }
 
 function HealthHistoryPanel({ patient, member, writable, notify }) {
-  const t = useT(); const blank = { allergies: "", medications: "", conditions: "", surgeries: "", aesthetic_history: "", dermatological_history: "", healing_history: "", active_infection: "", pregnancy_breastfeeding: "", habits: "", other_notes: "" }; const [form, setForm] = useState(blank), [busy, setBusy] = useState(false); const edited = useRef(false); const state = useLoad(() => readPatientRows((from, to) => checked(db.from("patient_health_history").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false }).range(from, to))), [patient.id]); useEffect(() => { if (state.data && !edited.current) setForm(Object.fromEntries(Object.keys(blank).map((key) => [key, state.data[0]?.[key] || ""]))); }, [state.data]); const set = (key, value) => { edited.current = true; setForm((current) => ({ ...current, [key]: value })); }; const saveHistory = async (e) => { e.preventDefault(); setBusy(true); try { await checked(db.from("patient_health_history").insert({ organization_id: ORG, patient_id: patient.id, ...form, created_by: member.user_id })); edited.current = false; state.refresh(); notify(t("Histórico de saúde salvo como nova versão", "Health history saved as a new version")); } catch { notify(t("Não foi possível salvar o histórico.", "Could not save health history.")); } finally { setBusy(false); } }; return <section className="detail-section"><h2>{t("Histórico de saúde", "Health history")}</h2>{writable && <OnDemandForm title={t("Atualizar histórico de saúde", "Atualizar histórico de saúde")} editing={false}><form className="form-grid" onSubmit={saveHistory}>{Object.entries({ allergies: ["Alergias", "Allergies"], medications: ["Medicamentos", "Medications"], conditions: ["Condições relevantes", "Relevant conditions"], surgeries: ["Cirurgias", "Surgeries"], aesthetic_history: ["Procedimentos estéticos anteriores", "Previous aesthetic procedures"], dermatological_history: ["Histórico dermatológico", "Dermatological history"], healing_history: ["Cicatrização/queloide", "Healing/keloid history"], active_infection: ["Infecção/lesão ativa", "Active infection/lesion"], pregnancy_breastfeeding: ["Gestação/amamentação", "Pregnancy/breastfeeding"], habits: ["Hábitos/lifestyle", "Habits/lifestyle"], other_notes: ["Outras informações", "Other information"] }).map(([key, titles]) => <Field key={key} title={t(...titles)} type="textarea" value={form[key]} onChange={(v) => set(key, v)} />)}<Button className="primary" icon={Save} disabled={busy}>{t("Salvar versão", "Save version")}</Button></form></OnDemandForm>}<LoadState state={state}>{(rows) => rows.map((row) => <details key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><summary>{date(row.created_at, true)}</summary><p className="preserve">{Object.entries(row).filter(([key, value]) => value && !["id", "organization_id", "patient_id", "created_by", "created_at"].includes(key)).map(([key, value]) => `${key}: ${value}`).join("\n")}</p></details>)}</LoadState></section>;
+  const t = useT(); const blank = { allergies: "", medications: "", conditions: "", surgeries: "", aesthetic_history: "", dermatological_history: "", healing_history: "", active_infection: "", pregnancy_breastfeeding: "", habits: "", other_notes: "" }; const [form, setForm] = useState(blank), [busy, setBusy] = useState(false); const edited = useRef(false); const state = useLoad(() => readPatientRows((from, to) => checked(db.from("patient_health_history").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false }).range(from, to))), [patient.id]); useEffect(() => { if (state.data && !edited.current) setForm(Object.fromEntries(Object.keys(blank).map((key) => [key, state.data[0]?.[key] || ""]))); }, [state.data]); const set = (key, value) => { edited.current = true; setForm((current) => ({ ...current, [key]: value })); }; const saveHistory = async (e) => { e.preventDefault(); setBusy(true); try { await checked(db.from("patient_health_history").insert({ organization_id: ORG, patient_id: patient.id, ...form, created_by: member.user_id })); edited.current = false; state.refresh(); notify(t("Histórico de saúde salvo como nova versão", "Health history saved as a new version")); } catch { notify(t("Não foi possível salvar o histórico.", "Could not save health history.")); } finally { setBusy(false); } }; return <section className="detail-section"><h2>{t("Histórico de saúde", "Health history")}</h2>{writable && <OnDemandForm title={t("Atualizar histórico de saúde", "Atualizar histórico de saúde")} editing={false}><form className="form-grid" onSubmit={saveHistory}>{Object.entries({ allergies: ["Alergias", "Allergies"], medications: ["Medicamentos", "Medications"], conditions: ["Condições relevantes", "Relevant conditions"], surgeries: ["Cirurgias", "Surgeries"], aesthetic_history: ["Procedimentos estéticos anteriores", "Previous aesthetic procedures"], dermatological_history: ["Histórico dermatológico", "Dermatological history"], healing_history: ["Cicatrização/queloide", "Healing/keloid history"], active_infection: ["Infecção/lesão ativa", "Active infection/lesion"], pregnancy_breastfeeding: ["Gestação/amamentação", "Pregnancy/breastfeeding"], habits: ["Hábitos e estilo de vida", "Habits/lifestyle"], other_notes: ["Outras informações", "Other information"] }).map(([key, titles]) => <Field key={key} title={t(...titles)} type="textarea" value={form[key]} onChange={(v) => set(key, v)} />)}<Button className="primary" icon={Save} disabled={busy}>{t("Salvar versão", "Save version")}</Button></form></OnDemandForm>}<LoadState state={state}>{(rows) => rows.map((row) => <details key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><summary>{date(row.created_at, true)}</summary><p className="preserve">{Object.entries(row).filter(([key, value]) => value && !["id", "organization_id", "patient_id", "created_by", "created_at"].includes(key)).map(([key, value]) => `${fieldLabel(key)}: ${displayText(value)}`).join("\n")}</p></details>)}</LoadState></section>;
 }
 
-function ConsentPanel({ patient, member, writable, notify, context, search = "" }) { const t = useT(); const [form, setForm] = useState({ kind: "procedimento", procedure_id: "", template_version: "2026-09-14", language: "pt-BR", status: "pendente", method: "presencial", source: "management" }); const state = useLoad(() => checked(db.from("consents").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const procedures = useLoad(() => checked(db.from("procedures").select("id,name,catalog_version,required_consents,consent_template,consent_template_version").eq("active", true).order("name")), []); const set = (key, value) => setForm((c) => ({ ...c, [key]: value })); useEffect(() => { if (context) { const procedure = (procedures.data || []).find((row) => row.id === context.procedure_id); setForm((current) => ({ ...current, procedure_id: context.procedure_id, template_version: procedure?.consent_template_version || current.template_version })); } }, [context, procedures.data]); const submit = async (e) => { e.preventDefault(); try { const procedure = (procedures.data || []).find((row) => row.id === form.procedure_id); await checked(db.from("consents").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: procedure?.id || null, clinical_procedure_id: context?.procedure_id === form.procedure_id ? context.id : null, procedure_snapshot: procedure ? { ...procedure, selected_at: new Date().toISOString() } : {}, ...form, accepted_at: form.status === "aceito" ? new Date().toISOString() : null, created_by: member.user_id })); state.refresh(); notify(t("Consentimento salvo", "Consent saved")); } catch { notify(t("Não foi possível salvar o consentimento.", "Could not save consent.")); } }; return <section className="detail-section"><h2>{t("Consentimentos estruturados", "Structured consents")}</h2>{writable && <OnDemandForm title={t("Registrar consentimento", "Registrar consentimento")} editing={context}><form className="form-grid" onSubmit={submit}><Field aria-label={t("Procedimento", "Procedure")} title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => { const procedure = (procedures.data || []).find((row) => row.id === v); set("procedure_id", v); if (procedure?.consent_template_version) set("template_version", procedure.consent_template_version); }} options={[{ value: "", label: t("Consentimento geral", "General consent") }, ...(procedures.data || []).map((p) => ({ value: p.id, label: `${p.name} · v${p.catalog_version || 1}` }))]} /><Field title={t("Tipo", "Type")} value={form.kind} onChange={(v) => set("kind", v)} options={["procedimento", "privacidade", "fotografia_clinica", "publicacao_marketing", "comunicacao", "reserva"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Versão do termo", "Template version")} value={form.template_version} onChange={(v) => set("template_version", v)} /><Field title="Idioma" value={form.language} onChange={(v) => set("language", v)} options={[{ value: "pt-BR", label: "Português (Brasil)" }]} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["pendente", "aceito", "recusado", "revogado"].map((v) => ({ value: v, label: v }))} /><Field title={t("Método", "Method")} value={form.method} onChange={(v) => set("method", v)} /><Button className="primary" icon={Save}>{t("Salvar consentimento", "Save consent")}</Button></form></OnDemandForm>}<LoadState state={state}>{(rows) => rows.filter((row) => `${row.kind} ${row.status} ${row.template_version} ${row.procedure_snapshot?.name || ""}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map((row) => <div className="list-row" key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><span><strong>{label(row.kind, t)}</strong><small>{row.procedure_snapshot?.name ? `${row.procedure_snapshot.name} · ` : ""}{row.template_version} · {row.language} · {row.method} · {date(row.accepted_at || row.created_at, true)}{row.authorization_choice ? ` · ${row.source_field}: ${row.authorization_choice}` : ""}</small></span><Status value={row.status} /></div>)}</LoadState></section>; }
+function ConsentPanel({ patient, member, writable, notify, context, search = "" }) { const t = useT(); const [form, setForm] = useState({ kind: "procedimento", procedure_id: "", template_version: "2026-09-14", language: "pt-BR", status: "pendente", method: "presencial", source: "management" }); const state = useLoad(() => checked(db.from("consents").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const procedures = useLoad(() => checked(db.from("procedures").select("id,name,catalog_version,required_consents,consent_template,consent_template_version").eq("active", true).order("name")), []); const set = (key, value) => setForm((c) => ({ ...c, [key]: value })); useEffect(() => { if (context) { const procedure = (procedures.data || []).find((row) => row.id === context.procedure_id); setForm((current) => ({ ...current, procedure_id: context.procedure_id, template_version: procedure?.consent_template_version || current.template_version })); } }, [context, procedures.data]); const submit = async (e) => { e.preventDefault(); try { const procedure = (procedures.data || []).find((row) => row.id === form.procedure_id); await checked(db.from("consents").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: procedure?.id || null, clinical_procedure_id: context?.procedure_id === form.procedure_id ? context.id : null, procedure_snapshot: procedure ? { ...procedure, selected_at: new Date().toISOString() } : {}, ...form, accepted_at: form.status === "aceito" ? new Date().toISOString() : null, created_by: member.user_id })); state.refresh(); notify(t("Consentimento salvo", "Consent saved")); } catch { notify(t("Não foi possível salvar o consentimento.", "Could not save consent.")); } }; return <section className="detail-section"><h2>{t("Consentimentos estruturados", "Structured consents")}</h2>{writable && <OnDemandForm title={t("Registrar consentimento", "Registrar consentimento")} editing={context}><form className="form-grid" onSubmit={submit}><Field aria-label={t("Procedimento", "Procedure")} title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => { const procedure = (procedures.data || []).find((row) => row.id === v); set("procedure_id", v); if (procedure?.consent_template_version) set("template_version", procedure.consent_template_version); }} options={[{ value: "", label: t("Consentimento geral", "General consent") }, ...(procedures.data || []).map((p) => ({ value: p.id, label: `${p.name} · v${p.catalog_version || 1}` }))]} /><Field title={t("Tipo", "Type")} value={form.kind} onChange={(v) => set("kind", v)} options={["procedimento", "privacidade", "fotografia_clinica", "publicacao_marketing", "comunicacao", "reserva"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Versão do termo", "Template version")} value={form.template_version} onChange={(v) => set("template_version", v)} /><Field title="Idioma" value={form.language} onChange={(v) => set("language", v)} options={[{ value: "pt-BR", label: "Português (Brasil)" }]} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["pendente", "aceito", "recusado", "revogado"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Método", "Method")} value={form.method} onChange={(v) => set("method", v)} /><Button className="primary" icon={Save}>{t("Salvar consentimento", "Save consent")}</Button></form></OnDemandForm>}<LoadState state={state}>{(rows) => rows.filter((row) => `${row.kind} ${row.status} ${row.template_version} ${row.procedure_snapshot?.name || ""}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map((row) => <div className="list-row" key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><span><strong>{label(row.kind, t)}</strong><small>{row.procedure_snapshot?.name ? `${row.procedure_snapshot.name} · ` : ""}{row.template_version} · {row.language} · {row.method} · {date(row.accepted_at || row.created_at, true)}{row.authorization_choice ? ` · ${publicIntakeLabels[row.source_field] || fieldLabel(row.source_field)}: ${intakeAnswer(row.authorization_choice)}` : ""}</small></span><Status value={row.status} /></div>)}</LoadState></section>; }
 
 function PatientPortalAccess({ patient, member, notify }) {
   const t = useT();
@@ -2805,16 +2809,22 @@ function MasterIntake({ patient: initialPatient, sourceIntake, member, close, no
   const t = useT();
   const clinical = ["proprietario", "suporte_ti", "profissional"].includes(member.role);
   const [patient, setPatient] = useState(initialPatient), [form, setForm] = useState(null), [provenance, setProvenance] = useState({}), [status, setStatus] = useState("rascunho"), [missing, setMissing] = useState([]), [busy, setBusy] = useState(false), [loaded, setLoaded] = useState(false), [savedAt, setSavedAt] = useState("");
-  const source = sourceIntake?.payload || {};
-  const base = (p) => ({
-    identity: { full_name: p.full_name || source.full_name || "", preferred_name: p.preferred_name || source.preferred_name || "", birth_date: p.birth_date || source.birth_date || "", cpf: p.cpf || source.cpf || "", rg: p.rg || source.identity_document || "" },
-    contact: { phone: p.phone || source.phone || "", email: p.email || source.email || "", address: Object.values(p.address || {}).join(" · ") || source.address || "", emergency_contact: Object.values(p.emergency_contact || {}).join(" · ") || source.emergency_contact || source.guardian_details || "" },
-    visit: { selected_procedure: source.selected_procedure || source.selected_procedures || "", occupation: p.occupation || "", insurance: p.insurance || "", internal_notes: "" },
-    ...(clinical ? { health: { allergies: source.health_notes || "", medications: source.medications || "", conditions: source.conditions || source.health_notes || "", pregnancy_breastfeeding: source.pregnancy_breastfeeding || "", other_notes: source.other_health_notes || "" }, clinical: { concern: source.treatment_área || source.treatment_area || "" }, consents: { privacy: source.lgpd_personal_data_consent || "", clinical_photo: source.technical_image_authorisation || "", communication: source.promotional_communication || "" } } : {}),
-  });
-  useEffect(() => { let live = true; (async () => { try { const current = await checked(db.from("master_intakes").select("*").eq("patient_id", initialPatient.id).maybeSingle()); if (!live) return; if (current) { setForm({ ...base(initialPatient), ...(current.data || {}) }); setProvenance(current.provenance || {}); setStatus(current.status); setMissing(current.missing_fields || []); } else { const initial = base(initialPatient); setForm(initial); const p = {}; Object.entries(initial).forEach(([section, fields]) => Object.entries(fields || {}).forEach(([key, value]) => { if (value) p[`${section}.${key}`] = "patient"; })); setProvenance(p); } } catch { if (live) setForm(base(initialPatient)); } finally { if (live) { setPatient(initialPatient); setLoaded(true); } } })(); return () => { live = false; }; }, [initialPatient.id]);
+  const [resolvedSource, setResolvedSource] = useState(sourceIntake || null);
+  const base = (p, source = resolvedSource?.payload || {}) => intakeDefaults(p, source, clinical);
+  useEffect(() => { let live = true; (async () => { try {
+    const [current, submissions] = await Promise.all([
+      checked(db.from("master_intakes").select("*").eq("patient_id", initialPatient.id).maybeSingle()),
+      clinical && !sourceIntake ? checked(db.from("public_intakes").select("id,payload").eq("patient_id", initialPatient.id).order("submitted_at", {ascending:false}).limit(1)) : Promise.resolve([]),
+    ]);
+    if (!live) return;
+    const submitted = sourceIntake || submissions[0] || null;
+    setResolvedSource(submitted);
+    const defaults = base(initialPatient, submitted?.payload || {});
+    if (current) { setForm({ ...defaults, ...(current.data || {}) }); setProvenance(current.provenance || {}); setStatus(current.status); setMissing(current.missing_fields || []); }
+    else { setForm(defaults); const p = {}; Object.entries(defaults).forEach(([section, fields]) => Object.entries(fields || {}).forEach(([key, value]) => { if (value) p[`${section}.${key}`] = "patient"; })); setProvenance(p); }
+  } catch { if (live) setForm(base(initialPatient)); } finally { if (live) { setPatient(initialPatient); setLoaded(true); } } })(); return () => { live = false; }; }, [initialPatient.id]);
   const update = (section, key, value) => { setForm((f) => ({ ...f, [section]: { ...(f?.[section] || {}), [key]: value } })); setProvenance((p) => ({ ...p, [`${section}.${key}`]: member.role === "recepcao" ? "reception" : "professional" })); };
-  const saveIntake = useCallback(async (nextStatus = status, silent = false) => { if (!form || busy) return; setBusy(true); try { const required = ["identity.full_name", "identity.birth_date", "identity.cpf", "contact.phone"].filter((key) => !String(key.split(".").reduce((o, k) => o?.[k], form) || "").trim()); const payload = { ...(clinical ? form : { identity: form.identity, contact: form.contact, visit: form.visit }), status: nextStatus }; const id = await checked(db.rpc("save_master_intake", { p_patient_id: patient.id, p_source_intake_id: sourceIntake?.id || null, p_status: nextStatus, p_data: payload, p_provenance: provenance, p_missing_fields: required })); setMissing(required); setStatus(nextStatus); setSavedAt(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })); if (!silent) { notify(t("Avaliação inicial salva e informações atualizadas.", "Initial assessment saved and information updated.")); done?.(); } return id; } catch (e) { notify(e?.message?.includes("clinical_permission") ? t("A recepção não pode alterar informações clínicas.", "Reception cannot alter clinical information.") : t("Não foi possível salvar a avaliação inicial.", "Could not save the initial assessment.")); } finally { setBusy(false); } }, [form, busy, status, clinical, patient?.id, sourceIntake?.id, provenance]);
+  const saveIntake = useCallback(async (nextStatus = status, silent = false) => { if (!form || busy) return; setBusy(true); try { const required = ["identity.full_name", "identity.birth_date", "identity.cpf", "contact.phone"].filter((key) => !String(key.split(".").reduce((o, k) => o?.[k], form) || "").trim()); const payload = { ...(clinical ? form : { identity: form.identity, contact: form.contact, visit: form.visit }), status: nextStatus }; const id = await checked(db.rpc("save_master_intake", { p_patient_id: patient.id, p_source_intake_id: resolvedSource?.id || null, p_status: nextStatus, p_data: payload, p_provenance: provenance, p_missing_fields: required })); setMissing(required); setStatus(nextStatus); setSavedAt(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })); if (!silent) { notify(t("Avaliação inicial salva e informações atualizadas.", "Initial assessment saved and information updated.")); done?.(); } return id; } catch (e) { notify(e?.message?.includes("clinical_permission") ? t("A recepção não pode alterar informações clínicas.", "Reception cannot alter clinical information.") : t("Não foi possível salvar a avaliação inicial.", "Could not save the initial assessment.")); } finally { setBusy(false); } }, [form, busy, status, clinical, patient?.id, resolvedSource?.id, provenance]);
   useEffect(() => { if (!loaded || !form) return; const id = setTimeout(() => saveIntake(status, true), 1400); return () => clearTimeout(id); }, [form, provenance]);
   if (!form) return <Dialog title={t("Consulta inicial completa", "Master Intake")} close={close}><p role="status">{t("Carregando dados do paciente...", "Loading patient data...")}</p></Dialog>;
   return <Dialog title={t("Consulta inicial completa", "Master Intake")} close={() => !busy && close()} wide>
@@ -3846,21 +3856,26 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
 
 function PublicIntakeAnswers({ payload = {} }) {
   const t = useT();
-  const text = (value) => Array.isArray(value) ? value.map(text).join(", ")
-    : value && typeof value === "object" ? displayText(value) : value === "yes" ? t("Sim", "Yes")
-    : value === "no" ? t("Não", "No") : String(value ?? "");
+  const text = intakeAnswer;
   return <details className="detail-section"><summary>{t("Todas as respostas do formulário", "All submitted form answers")}</summary>
     <dl>{Object.entries(payload).filter(([key, value]) => !key.startsWith("_") && value !== "").map(([key, value]) =>
       <div key={key}><dt><strong>{publicIntakeLabels[key] || fieldLabel(key)}</strong></dt><dd style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>{text(value)}</dd></div>)}</dl>
   </details>;
 }
+function PatientDeclarationSummary({ patientId }) {
+  const state = useLoad(() => checked(db.from("public_intakes").select("id,submitted_at,payload").eq("patient_id", patientId).order("submitted_at", { ascending: false }).limit(1)), [patientId]);
+  return <LoadState state={state}>{(rows) => rows[0] && <section className="detail-section"><h2>Declarações do paciente</h2><p className="subtle">Último formulário: {date(rows[0].submitted_at, true)}. Informações declaradas, sujeitas à confirmação profissional; versões anteriores em Arquivos.</p><dl className="details-grid">{["health_notes", "selected_procedure", "treatment_área", "appointment_date", "appointment_time"].filter(key => rows[0].payload?.[key]).map(key => <div key={key}><dt>{publicIntakeLabels[key] || fieldLabel(key)}</dt><dd className="preserve">{intakeAnswer(rows[0].payload[key])}</dd></div>)}</dl></section>}</LoadState>;
+}
 function PatientIntakeHistory({ patientId, search = "" }) {
   const t = useT();
-  const state = useLoad(() => checked(db.from("public_intakes").select("id,submitted_at,form_version,payload")
-    .eq("patient_id", patientId).order("submitted_at", { ascending: false })), [patientId]);
+  const state = useLoad(() => readPatientRows((from, to) => checked(db.from("public_intakes").select("id,submitted_at,form_version,payload")
+    .eq("patient_id", patientId).order("submitted_at", { ascending: false }).order("id").range(from, to))), [patientId]);
   return <LoadState state={state}>{(rows) => rows.length > 0 && <section className="detail-section">
-    <h2>{t("Formulários recebidos", "Submitted forms")}</h2>{rows.filter((row) => `Formulário ${row.form_version} ${displayText(row.payload)}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map((row) => <details key={row.id}>
-      <summary>{date(row.submitted_at, true)} · {row.form_version}</summary><PublicIntakeAnswers payload={row.payload} />
+    <h2>{t("Formulários recebidos", "Submitted forms")}</h2><p className="subtle">Declarações do paciente, sujeitas à avaliação e confirmação profissional.</p>{rows.filter((row) => `Formulário ${row.form_version} ${displayText(row.payload)}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map((row) => <details key={row.id}>
+      <summary>{date(row.submitted_at, true)} · {row.form_version}</summary>
+      {row.payload.health_notes && <p className="preserve"><strong>Informações de saúde declaradas pelo paciente: </strong>{intakeAnswer(row.payload.health_notes)}</p>}
+      <Button icon={Printer} onClick={() => openDocument(wrapDocument({title: `Formulário de cadastro - ${row.payload.full_name || "Paciente"} - ${date(row.submitted_at)}`, subtitle: `Recebido em ${date(row.submitted_at, true)} · Versão ${row.form_version}`, warning: "Declarações do paciente; não substituem avaliação profissional.", body: Object.entries(row.payload).map(([key,value]) => `<section class="document-record"><h3>${documentEscape(publicIntakeLabels[key] || fieldLabel(key))}</h3><p>${documentEscape(intakeAnswer(value))}</p></section>`).join("") }))}>Abrir formulário / salvar PDF</Button>
+      <PublicIntakeAnswers payload={row.payload} />
     </details>)}
   </section>}</LoadState>;
 }
@@ -4154,7 +4169,7 @@ function Enquiries({ openPatient, version, writable, notify, member, setModal })
                       if (data?.signedUrl) window.open(data.signedUrl, "_blank", "noopener,noreferrer");
                     }}
                   >
-                    {file.original_name || (file.kind === "identity" ? t("Documento de identidade", "Identity document") : file.kind === "payment" ? t("Comprovante de pagamento", "Payment proof") : t("Anexo", "Attachment"))}
+                    {intakeDocumentName(file, row, row.submitted_at)}
                   </Button>
                 </p>
               ))}
@@ -4481,79 +4496,10 @@ async function collectPatient(patient) {
   return data;
 }
 async function collectPatientFHIR(patient) {
-  const [p, appointments, procedures] = await Promise.all([
-    checked(db.from("patients").select("*").eq("id", patient.id).single()),
-    checked(
-      db
-        .from("appointments")
-        .select("id,status,starts_at,ends_at,label")
-        .eq("patient_id", patient.id)
-        .order("starts_at"),
-    ),
-    checked(
-      db
-        .from("clinical_procedures")
-        .select("id,status,performed_at,area")
-        .eq("patient_id", patient.id)
-        .order("performed_at"),
-    ),
-  ]);
-  await checked(
-    db.rpc("record_access", {
-      org: ORG,
-      entity: patient.id,
-      event: "exportacao_prontuario",
-    }),
-  );
-  const bundle = {
-    resourceType: "Bundle",
-    type: "collection",
-    timestamp: new Date().toISOString(),
-    entry: [
-      {
-        resource: {
-          resourceType: "Patient",
-          id: p.id,
-          name: [{ text: p.full_name || p.preferred_name || "" }],
-          telecom: [
-            { system: "phone", value: p.phone || "" },
-            { system: "email", value: p.email || "" },
-          ].filter((item) => item.value),
-          ...(p.birth_date ? { birthDate: p.birth_date } : {}),
-        },
-      },
-      ...appointments.map((a) => ({
-        resource: {
-          resourceType: "Appointment",
-          id: a.id,
-          status:
-            a.status === "concluido"
-              ? "fulfilled"
-              : a.status === "cancelado"
-                ? "cancelled"
-                : "booked",
-          start: a.starts_at,
-          end: a.ends_at,
-          description: a.label || "",
-        },
-      })),
-      ...procedures.map((c) => ({
-        resource: {
-          resourceType: "Procedure",
-          id: c.id,
-          status: c.status === "finalizado" ? "completed" : "preparation",
-          ...(c.performed_at ? { performedDateTime: c.performed_at } : {}),
-          ...(c.area ? { bodySite: [{ text: c.area }] } : {}),
-        },
-      })),
-    ],
-  };
-  download(
-    new Blob([JSON.stringify(bundle, null, 2)], {
-      type: "application/fhir+json",
-    }),
-    `paciente-${p.id}-fhir.json`,
-  );
+  const {patient:p, tables, bundle} = await loadPatientFHIR(db, patient.id, publicIntakeLabels);
+  await checked(db.rpc("record_access", { org: ORG, entity: patient.id, event: "exportacao_prontuario" }));
+  download(new Blob([JSON.stringify(bundle, null, 2)], { type: "application/fhir+json" }), `paciente-${p.id}-fhir.json`);
+  download(new Blob([JSON.stringify({format:"sofiati-fhir-complement-v1",fhir_version:"4.0.1",exported_at:bundle.timestamp,patient:p,tables,limitations:["Dados livres preservados como respostas; não inferem diagnósticos ou prescrições.","Arquivos binários exigem acesso autenticado ao aplicativo; referências de armazenamento no complemento.","Histórico de versões, assinaturas, tratamentos, intercorrências e metadados específicos preservados integralmente neste complemento."]}, null, 2)], {type:"application/json"}), `paciente-${p.id}-complemento.json`);
 }
 async function collectFullBackup() {
   if (!(await checked(db.rpc("authorize_full_backup")))) throw Error("not_authorized");

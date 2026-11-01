@@ -18,6 +18,21 @@ insert into public.memberships(organization_id,user_id,name,email,role,status) v
 insert into public.patients(id,organization_id,full_name,created_by) values
 ('31000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Workflow patient A','11000000-0000-4000-8000-000000000001'),
 ('31000000-0000-4000-8000-000000000002','a783bd4c-f253-4a94-9365-75c6f1000001','Workflow patient B','11000000-0000-4000-8000-000000000001');
+-- Notification evidence is durable, idempotent, and isolated from patient writes.
+insert into public.public_intakes(id,organization_id,full_name,form_version,payload,status,patient_id)
+values ('91000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Notification QA','test','{}','convertido','31000000-0000-4000-8000-000000000001');
+update public.public_intakes set status='convertido' where id='91000000-0000-4000-8000-000000000001';
+select pg_temp.assert((select count(*)=1 from public.intake_notification_outbox where intake_id='91000000-0000-4000-8000-000000000001'),'notification is queued once across completion retries');
+select pg_temp.assert((select count(*)=1 from public.claim_intake_notifications()),'worker claims eligible job');
+select pg_temp.assert((select count(*)=0 from public.claim_intake_notifications()),'worker lease prevents concurrent duplicate claim');
+update public.intake_notification_outbox set status='failed',last_error='provider_unavailable' where intake_id='91000000-0000-4000-8000-000000000001';
+select pg_temp.assert((select patient_id is not null from public.public_intakes where id='91000000-0000-4000-8000-000000000001'),'failed notification leaves saved intake associated');
+insert into public.public_intakes(id,organization_id,full_name,cpf,form_version,payload)
+values ('92000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Association QA','52998224725','qa-v1','{"birth_date":"1990-01-01","health_notes":"unverified declaration"}');
+select public.associate_completed_form('92000000-0000-4000-8000-000000000001');
+select public.associate_completed_form('92000000-0000-4000-8000-000000000001');
+select pg_temp.assert((select count(*)=1 from public.entries where data->>'intake_id'='92000000-0000-4000-8000-000000000001'),'association retry creates one clinical marker');
+select pg_temp.assert((select reviewed_at is null from public.public_intakes where id='92000000-0000-4000-8000-000000000001'),'automatic association does not claim professional review');
 set local role authenticated;
 select set_config('request.jwt.claims',jsonb_build_object('sub','11000000-0000-4000-8000-000000000002','session_id','21000000-0000-4000-8000-000000000002','exp',extract(epoch from now()-interval '1 hour'))::text,true);
 select pg_temp.assert(not private.has_permission('a783bd4c-f253-4a94-9365-75c6f1000001','procedures','create'),'expired professional cannot use granular permissions');

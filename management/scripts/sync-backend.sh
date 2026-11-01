@@ -19,7 +19,7 @@ echo "== Confirming migration status =="
 npx supabase migration list --project-ref "$PROJECT_REF"
 
 echo "== Deploying all Supabase Edge Functions =="
-for function_name in intake formulario staff files email-backup portal; do
+for function_name in intake formulario staff files email-backup portal intake-notifications; do
   npx supabase functions deploy "$function_name" --project-ref "$PROJECT_REF" --no-verify-jwt
 done
 # communication-email requires an authenticated staff JWT.

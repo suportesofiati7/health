@@ -1,4 +1,3 @@
-import { notifySupport } from "../_shared/support-notification.ts";
 import { admin, ORG, endpoint, reply, clean, sha256, limit, bounded } from "../_shared/core.ts";
 
 const MAX_FILE = 10 * 1024 * 1024;
@@ -17,92 +16,12 @@ function dateValue(value: unknown) {
 }
 
 async function createOrLinkPatient(
-  db: ReturnType<typeof admin>,
-  intake: { id: string },
-  cpf: string,
-  payload: Record<string, unknown>,
+  db: ReturnType<typeof admin>, intake: { id: string },
+  _cpf: string, _payload: Record<string, unknown>,
 ) {
-  const existingResult = await db.from("patients")
-    .select("id")
-    .eq("organization_id", ORG)
-    .eq("cpf", cpf)
-    .maybeSingle();
-  if (existingResult.error) throw Error("patient_lookup");
-
-  let patientId = existingResult.data?.id;
-  let status = patientId ? "linked" : "created";
-  let actorId: string | null = null;
-
-  if (!patientId) {
-    // Patient and clinical-entry records require an accountable staff author.
-    // The public request is anonymous, so use the clinic owner rather than
-    // pretending that the visitor is an authenticated staff user.
-    const owner = await db.from("memberships")
-      .select("user_id")
-      .eq("organization_id", ORG)
-      .eq("role", "proprietario")
-      .limit(1)
-      .maybeSingle();
-    if (owner.error || !owner.data?.user_id) throw Error("patient_author");
-    actorId = owner.data.user_id;
-
-    const phone = clean(payload.phone, 30).replace(/\D/g, "");
-    const inserted = await db.from("patients").insert({
-      organization_id: ORG,
-      full_name: clean(payload.full_name, 200) || "Cadastro sem nome",
-      preferred_name: clean(payload.preferred_name, 200),
-      birth_date: dateValue(payload.birth_date),
-      cpf,
-      rg: [clean(payload.identity_document, 100), clean(payload.identity_issuer, 60), clean(payload.identity_letter, 30)].filter(Boolean).join(" · "),
-      phone: phone.length >= 10 && phone.length <= 13 ? phone : "",
-      email: clean(payload.email, 254).toLowerCase(),
-      address: { raw: clean(payload.address, 2000), postal_code: clean(payload.postal_code, 20) },
-      guardian: { raw: clean(payload.guardian_details, 2000) },
-      status: "ativo",
-      created_by: actorId,
-    }).select("id").single();
-
-    if (inserted.error?.code === "23505") {
-      // A simultaneous submission with the same CPF won the race. Link to it
-      // instead of creating a second patient or failing the completed form.
-      const concurrent = await db.from("patients").select("id")
-        .eq("organization_id", ORG).eq("cpf", cpf).maybeSingle();
-      if (concurrent.error || !concurrent.data?.id) throw Error("patient_save");
-      patientId = concurrent.data.id;
-      status = "linked";
-    } else if (inserted.error || !inserted.data?.id) {
-      throw Error("patient_save");
-    } else {
-      patientId = inserted.data.id;
-    }
-  }
-
-  const linked = await db.from("public_intakes").update({
-    patient_id: patientId,
-    status: "convertido",
-    converted_by: actorId,
-    converted_at: new Date().toISOString(),
-    reviewed_by: actorId,
-    reviewed_at: new Date().toISOString(),
-  }).eq("id", intake.id).eq("organization_id", ORG);
-  if (linked.error) throw Error("patient_link");
-
-  // Keep a compact, immutable timeline marker. The complete, potentially
-  // large form stays in the protected intake record and its file bucket.
-  if (actorId) {
-    const entry = await db.from("entries").insert({
-      organization_id: ORG,
-      patient_id: patientId,
-      kind: "consentimento",
-      title: `Formulário público ${clean(payload.form_version, 40)}`,
-      content: "Formulário público recebido e associado automaticamente ao paciente.",
-      data: { intake_id: intake.id, form_version: clean(payload.form_version, 40), language: clean(payload.language, 20) || "pt-BR" },
-      status: "finalizado",
-      created_by: actorId,
-    });
-    if (entry.error) console.error("FORMULARIO_PATIENT_ENTRY_FAILED", intake.id);
-  }
-  return { patientId, status };
+  const result = await db.rpc("associate_completed_form", { enquiry: intake.id });
+  if (result.error || !result.data?.patient_id) throw Error("patient_link");
+  return { patientId: result.data.patient_id as string, status: result.data.status as string };
 }
 
 function ext(name: string, type: string) {
@@ -215,8 +134,9 @@ async function completeSubmission(req: Request, body: Record<string, unknown>, d
   const intakeId = clean(session.intake_id, 80);
   const manifests = session.files;
   if (!intakeId || !Array.isArray(manifests) || manifests.length > MAX_FILES) throw Error("upload_session");
-  const { data: intake, error: intakeError } = await db.from("public_intakes").select("id,payload,status").eq("id", intakeId).eq("organization_id", ORG).single();
+  const { data: intake, error: intakeError } = await db.from("public_intakes").select("id,payload,status,patient_id").eq("id", intakeId).eq("organization_id", ORG).single();
   if (intakeError || !intake?.payload) throw Error("save");
+  if (intake.patient_id && intake.status === "convertido") return reply(req, { received: true, intake_id: intakeId, patient_id: intake.patient_id, patient_status: "linked", attachments: manifests.length, email_status: "queued" }, 202);
   for (const item of manifests) {
     const file = item as Record<string, unknown>;
     const path = clean(file.path, 600);
@@ -243,13 +163,7 @@ async function completeSubmission(req: Request, body: Record<string, unknown>, d
   } catch (error) {
     console.error("FORMULARIO_PATIENT_CONVERSION_FAILED", intakeId, error instanceof Error ? error.message : "unknown");
   }
-  const notified = intake.status === "convertido" ? true : await notifySupport({
-    nome: clean(payload.full_name, 200), email: clean(payload.email, 254), telefone: clean(payload.phone, 30),
-    procedimentos: clean(payload.selected_procedure, 120), arquivos_anexados: manifests.length, id_interno: intakeId,
-    mensagem: "Novo formulário salvo. Revise os dados completos no aplicativo autenticado.",
-  });
-  if (!notified) console.error("FORMULARIO_EMAIL_FAILED", intakeId);
-  return reply(req, { received: true, intake_id: intakeId, patient_id: patientId, patient_status: patientStatus, attachments: manifests.length, email_status: notified ? "sent" : "error" }, 202);
+  return reply(req, { received: true, intake_id: intakeId, patient_id: patientId, patient_status: patientStatus, attachments: manifests.length, email_status: patientId ? "queued" : "pending_association" }, 202);
 }
 
 Deno.serve(endpoint(async (req) => {
@@ -318,19 +232,7 @@ Deno.serve(endpoint(async (req) => {
     console.error("FORMULARIO_PATIENT_CONVERSION_FAILED", intake.id,
       error instanceof Error ? error.message : "unknown");
   }
-  // Keep the saved intake even if the email relay is unavailable. The browser
-  // can retry email delivery without creating another intake.
-  const notified = await notifySupport({
-    nome: clean(payload.full_name, 200),
-    email: clean(payload.email, 254),
-    telefone: clean(payload.phone, 30),
-    procedimentos: clean(payload.selected_procedure, 120),
-    arquivos_anexados: attachments.length,
-    id_interno: intake.id,
-    mensagem: "Novo formulário salvo. Revise os dados completos no aplicativo autenticado.",
-  });
-  const emailStatus = notified ? "sent" : "error";
-  if (!notified) console.error("FORMULARIO_EMAIL_FAILED", intake.id);
+  const emailStatus = patientId ? "queued" : "pending_association";
 
   return reply(req, {
     received: true,

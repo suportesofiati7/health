@@ -47,3 +47,7 @@ verify_jwt = false
 # CPF/password login and x-portal-token sessions are verified inside the handler.
 [functions.portal]
 verify_jwt = false
+
+# Worker validates its dedicated bearer secret before touching the service client.
+[functions.intake-notifications]
+verify_jwt = false

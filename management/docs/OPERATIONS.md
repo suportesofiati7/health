@@ -171,3 +171,47 @@ The migration is additive. Apply it with the versioned configuration script;
 do not paste it into a production SQL editor piecemeal. Photo binaries must be
 uploaded through a server-side validating function before a `clinical_photos`
 row is created; the private bucket and read policy are already declared.
+
+## Form notification outbox (2026-11-01)
+
+`formulario` confirms storage and calls the service-only atomic association RPC.
+The database queues one notification per linked submission. Email delivery never
+runs inside the public submission request. The `intake-notifications` worker
+claims leased jobs and records attempts, failures and provider acceptance.
+
+Set `RESEND_API_KEY` and `EMAIL_FROM` to a Resend key and an authorized sender on
+a verified domain. These credentials are also used by `communication-email`.
+Never commit them. The sender must be approved in the provider account; the code
+cannot create that account authorization. Recipient inbox delivery must be
+checked separately from provider acceptance.
+
+After deploying the worker, run `python3 scripts/configure-notification-worker.py`
+to configure its dedicated bearer secret in Edge Functions and Vault, enable
+`pg_net`, and install the minute-based `pg_cron` job. The script rotates the
+worker secret and never prints it. It requires Supabase CLI administrative login.
+Re-running is safe; execute it without concurrent runs. Backend sync includes
+worker deployment; scheduler setup is a separate administrative operation.
+
+Without provider configuration the worker returns 503 **before claiming jobs**;
+submissions remain safely queued. Jobs use a five-minute lease, exponential
+backoff capped at one hour, and at most twelve attempts. Provider requests use
+one idempotency key per submission. Automatic attempts stay inside Resend's
+24-hour idempotency window. Do not manually reset old uncertain deliveries
+without checking provider logs; an acceptance followed by a failed database
+update can otherwise become a duplicate after that window.
+
+No documents or detailed clinical declarations are attached to ordinary email.
+The summary links to the authenticated application. Staff can open a completed
+form and print/save a PDF from Arquivos. Uploaded bytes remain in private buckets.
+
+Inspect `public.intake_notification_outbox` using an administrative connection for
+pending/failed jobs and `cron.job_run_details` for scheduler execution. That table
+has RLS enabled and no anonymous or regular staff grants. Existing historical
+submissions are not mailed automatically during migration.
+
+Validate an exported bundle locally with
+`python3 scripts/validate-fhir.py /secure/path/paciente-fhir.json`.
+This downloads only the official schema; it sends no patient data. JSON schema
+validation does not replace profile, terminology or full FHIR invariant checks.
+Read `FORM-FIELD-MAP.md` and `PATIENT-ECOSYSTEM-AUDIT-2026-11-01.md` for scope and
+remaining verification requirements.

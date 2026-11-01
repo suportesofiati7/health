@@ -296,4 +296,4 @@ try{
   assert.deepEqual(failures,[]);
   await writeFile('test-results/browser-results.json',JSON.stringify({passed:true,viewports:[1440,390,768],responsiveWidths,data:'fictional network fixtures only',checks:['login','responsive overflow at 16 widths','mobile drawer open/dismiss/body-scroll handling','patient profile','Portuguese-only UI has no retired language toggle','save draft payload','navigation','logout clears UI','reception clinical UI hidden'],consoleErrors:failures},null,2));
   console.log('Browser checks passed at desktop, tablet and mobile sizes. Fixtures are fictional; RLS is tested separately.');
-}finally{await browser.close();}
+} catch (error) { for (const context of browser.contexts()) for (const page of context.pages()) { await page.screenshot({path:"test-results/browser-failure.png",fullPage:true}).catch(()=>{}); await writeFile("test-results/browser-failure.html",await page.content()).catch(()=>{}); } throw error; } finally{await browser.close();}
