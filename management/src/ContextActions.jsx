@@ -36,7 +36,7 @@ export default function ContextActions({ label, actions = [], children, classNam
         close({ returnFocus: true });
       }
     };
-    const reposition = () => position && close();
+    const reposition = (event) => { if (position && !ref.current?.querySelector(".context-actions-menu")?.contains(event.target)) close(); };
     document.addEventListener("mousedown", dismiss);
     document.addEventListener("keydown", escape);
     window.addEventListener("resize", reposition);
@@ -49,7 +49,7 @@ export default function ContextActions({ label, actions = [], children, classNam
     };
   }, [open, position]);
   useEffect(() => {
-    if (open) window.requestAnimationFrame(() => actionRefs.current[activeIndex]?.focus());
+    if (open) window.requestAnimationFrame(() => actionRefs.current[activeIndex]?.focus({ preventScroll: true }));
   }, [open, activeIndex]);
   useEffect(() => () => window.clearTimeout(longPressTimer.current), []);
 
@@ -57,9 +57,9 @@ export default function ContextActions({ label, actions = [], children, classNam
     event?.preventDefault();
     event?.stopPropagation();
     setActiveIndex(0);
-    setPosition(fromPointer && event ? {
+    setPosition(fromPointer && event && window.innerWidth > 900 ? {
       x: Math.max(10, Math.min(event.clientX, window.innerWidth - 270)),
-      y: Math.max(10, Math.min(event.clientY, window.innerHeight - Math.min(390, availableActions.length * 42 + 72))),
+      y: Math.max(10, Math.min(event.clientY, window.innerHeight - Math.min(420, window.innerHeight - 20) - 10)),
     } : null);
     setOpen(true);
   };

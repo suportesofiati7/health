@@ -116,4 +116,42 @@ begin
   perform pg_temp.assert((select count(*)=before_count from public.clinical_procedures),'required lot is enforced for manual entries');
 end $$;
 
+
+-- Deleting populated conversations must work under authenticated RLS.
+insert into public.communication_conversations(id,organization_id,title,kind,created_by)
+values ('c1000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Deletion QA','equipe','11000000-0000-4000-8000-000000000001');
+insert into public.communication_messages(id,organization_id,conversation_id,sender_id,body)
+values ('c2000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','c1000000-0000-4000-8000-000000000001','11000000-0000-4000-8000-000000000001','Private deletion fixture');
+update public.communication_messages set deleted_at=now() where id='c2000000-0000-4000-8000-000000000001';
+select pg_temp.assert((select deleted_by=auth.uid() from public.communication_messages where id='c2000000-0000-4000-8000-000000000001'),'message deletion records the acting user');
+select pg_temp.assert((select last_message_preview='Mensagem excluída' from public.communication_conversations where id='c1000000-0000-4000-8000-000000000001'),'deleted message content is removed from conversation preview');
+delete from public.communication_conversations where id='c1000000-0000-4000-8000-000000000001';
+select pg_temp.assert(not exists(select 1 from public.communication_conversations where id='c1000000-0000-4000-8000-000000000001'),'populated chat can be deleted');
+select pg_temp.assert(not exists(select 1 from public.communication_messages where id='c2000000-0000-4000-8000-000000000001'),'chat deletion cascades to its messages');
+
+-- The waitlist browser omits created_by and uses NULL for any procedure.
+insert into public.waitlist_entries(id,organization_id,patient_id,procedure_id,priority)
+values ('d1000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','31000000-0000-4000-8000-000000000001',null,'urgente'),
+       ('d1000000-0000-4000-8000-000000000002','a783bd4c-f253-4a94-9365-75c6f1000001','31000000-0000-4000-8000-000000000001','41000000-0000-4000-8000-000000000001','alta');
+select pg_temp.assert((select count(*)=2 and bool_and(created_by=auth.uid()) from public.waitlist_entries where id in ('d1000000-0000-4000-8000-000000000001','d1000000-0000-4000-8000-000000000002')),'waitlist accepts any or selected procedure and defaults to the authenticated creator');
+update public.waitlist_entries set status='cancelado' where id='d1000000-0000-4000-8000-000000000001';
+select pg_temp.assert((select status='cancelado' from public.waitlist_entries where id='d1000000-0000-4000-8000-000000000001'),'waitlist removal persists under authenticated RLS');
+
+
+insert into public.appointments(id,organization_id,patient_id,starts_at,ends_at,status)
+values ('e1000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','31000000-0000-4000-8000-000000000001','2026-12-20T09:00:00-03','2026-12-20T10:00:00-03','concluido');
+insert into public.clinical_procedures(id,organization_id,patient_id,procedure_id,professional_id,appointment_id)
+values ('e2000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','31000000-0000-4000-8000-000000000001','41000000-0000-4000-8000-000000000001','11000000-0000-4000-8000-000000000001','e1000000-0000-4000-8000-000000000001');
+insert into public.communication_conversations(id,organization_id,title,appointment_id)
+values ('e3000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Booking context','e1000000-0000-4000-8000-000000000001');
+select set_config('request.jwt.claims',jsonb_build_object('sub','11000000-0000-4000-8000-000000000002','session_id','21000000-0000-4000-8000-000000000002','exp',extract(epoch from now()-interval '1 hour'))::text,true);
+select pg_temp.reject($q$select public.delete_appointment('e1000000-0000-4000-8000-000000000001')$q$,'not_authorized');
+select set_config('request.jwt.claims',jsonb_build_object('sub','11000000-0000-4000-8000-000000000001','session_id','21000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
+select public.delete_appointment('e1000000-0000-4000-8000-000000000001');
+select pg_temp.assert(not exists(select 1 from public.appointments where id='e1000000-0000-4000-8000-000000000001'),'completed appointment is permanently deleted');
+select pg_temp.assert((select appointment_id is null from public.clinical_procedures where id='e2000000-0000-4000-8000-000000000001'),'appointment deletion retains clinical procedure');
+select pg_temp.assert((select appointment_id is null from public.communication_conversations where id='e3000000-0000-4000-8000-000000000001'),'appointment deletion retains communication context');
+select pg_temp.assert(exists(select 1 from public.audit_events where entity_id='e1000000-0000-4000-8000-000000000001' and action='appointment_permanently_deleted'),'appointment deletion is audited');
+select pg_temp.reject($q$select public.delete_appointment('e1000000-0000-4000-8000-000000000001')$q$,'appointment_not_found');
+
 rollback;

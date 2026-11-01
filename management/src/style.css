@@ -337,7 +337,7 @@ button:focus-visible, .button:focus-visible, a:focus-visible, input:focus-visibl
 .finance-table tr { position:relative; }
 .finance-table tr:hover .finance-detail-button { opacity:1; }
 @media (max-width:760px) { .global-command-trigger { width:38px; margin-left:auto; padding:0; justify-content:center; }.global-command-trigger span,.global-command-trigger kbd { display:none; }.command-actions { grid-template-columns:1fr; }.command-footer { flex-direction:column; }.patient-context-bar { align-items:flex-start; flex-direction:column; }.patient-context-bar > div { width:100%; }.patient-context-bar button { flex:1; } }
-@media (max-width:700px) { .context-actions-trigger { right:6px; width:36px; height:36px; opacity:1; }.context-actions-menu { position:fixed; inset:auto 10px 10px; width:auto; max-height:min(70vh,520px); padding:10px; border-radius:18px; animation:context-sheet-in .18s ease-out; }.context-actions-menu > button { min-height:44px; font-size:13px; }.context-actions-menu > strong { padding:8px 12px 3px; font-size:13px; }.context-actions-menu > small { padding:0 12px 9px; font-size:10px; } }
+@media (max-width:900px) { .context-actions-trigger { right:6px; width:36px; height:36px; opacity:1; }.context-actions-menu { position:fixed; inset:auto 10px 10px; width:auto; max-height:min(70vh,520px); padding:10px; border-radius:18px; animation:context-sheet-in .18s ease-out; }.context-actions-menu > button { min-height:44px; font-size:13px; }.context-actions-menu > strong { padding:8px 12px 3px; font-size:13px; }.context-actions-menu > small { padding:0 12px 9px; font-size:10px; } }
 @keyframes context-sheet-in { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
 
 /* ======================= TASK ACTION CENTRE ============================== */
@@ -4720,3 +4720,7 @@ button.primary,
 .treatment-supplies fieldset { min-width: 0; margin: 12px 0; padding: 16px; border: 1px solid var(--ui-border); border-radius: 12px; }
 .treatment-supplies legend { padding: 0 6px; font-weight: 600; }
 .treatment-supplies > h3 { margin-top: 20px; }
+
+.conversation-list-row { display:flex; align-items:stretch; gap:6px; margin-bottom:7px; min-width:0; }
+.team-chat-list .conversation-list-row > button:first-child { flex:1; min-width:0; }
+.team-chat-list .conversation-list-row > .conversation-delete { width:auto; flex-shrink:0; margin:0; display:flex; align-items:center; gap:5px; }

@@ -3455,7 +3455,7 @@ const agendaTime = (value) => validDateValue(value)
   ? new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(value))
   : "—";
 
-function AgendaEvent({ appointment, onSelect, openPatient, setModal, writable = false, clinical = false, onQuickUpdate, notify }) {
+function AgendaEvent({ appointment, onSelect, openPatient, setModal, writable = false, clinical = false, onQuickUpdate, onDelete, notify }) {
   const t = useT();
   const update = (status) => onQuickUpdate?.(appointment, status);
   const actions = [
@@ -3468,19 +3468,20 @@ function AgendaEvent({ appointment, onSelect, openPatient, setModal, writable = 
     clinical && writable && appointment.status === "aguardando" && { icon: Stethoscope, label: t("Iniciar atendimento", "Start consultation"), onClick: () => setModal({ type: "entry", patient: appointment.patients, kind: "atendimento" }) },
     writable && !["concluido", "cancelado"].includes(appointment.status) && { icon: CheckCheck, label: t("Concluir", "Complete"), onClick: () => update("concluido") },
     writable && !["concluido", "cancelado"].includes(appointment.status) && { icon: X, label: t("Cancelar", "Cancel"), danger: true, onClick: () => update("cancelado") },
+    writable && onDelete && { icon: Trash2, label: t("Excluir permanentemente", "Delete permanently"), danger: true, onClick: () => onDelete(appointment) },
   ];
   return <ContextActions className="agenda-event-context-item" label={`${patientName(appointment, t)} · ${agendaTime(appointment.starts_at)}`} actions={actions} hint={t("Clique com o botão direito, use ⋯ ou segure no celular", "Right-click, use ⋯, or long-press on mobile")}><button type="button" className={`agenda-simple-event agenda-simple-event--${statusTone(appointment.status)}`} onClick={() => onSelect(appointment)}>
     <time>{agendaTime(appointment.starts_at)}</time><strong>{patientName(appointment, t)}</strong><small>{appointment.label || t("Atendimento", "Appointment")}</small>
   </button></ContextActions>;
 }
 
-function AgendaPanel({ appointment, close, openPatient, setModal, writable }) {
+function AgendaPanel({ appointment, close, openPatient, setModal, writable, onDelete }) {
   const t = useT();
   return <aside className="agenda-simple-panel" aria-label={t("Detalhes do agendamento", "Appointment details")}>
     <div className="agenda-simple-panel__top"><p className="eyebrow">{t("Agendamento", "Appointment")}</p><Button icon={X} className="icon" onClick={close} aria-label={t("Fechar", "Close")} /></div>
     <h2>{patientName(appointment, t)}</h2><p className="agenda-simple-panel__time"><Clock size={16} /> {agendaDay(appointment.starts_at)} · {agendaTime(appointment.starts_at)}</p><Status value={appointment.status} />
     <dl><div><dt>{t("Tipo", "Type")}</dt><dd>{appointment.label || t("Atendimento", "Appointment")}</dd></div><div><dt>{t("Telefone", "Phone")}</dt><dd>{appointment.patients?.phone || "—"}</dd></div></dl>
-    <div className="agenda-simple-panel__actions">{appointment.patients && <Button icon={UserRound} onClick={() => { openPatient(appointment.patients); close(); }}>{t("Abrir paciente", "Open patient")}</Button>}{writable && <Button icon={Pencil} onClick={() => setModal({ type: "appointment", appointment, patient: appointment.patients })}>{t("Editar agendamento", "Edit appointment")}</Button>}{appointment.patients?.phone && <Button icon={MessageCircle} className="whatsapp-action" onClick={() => setModal({ type: "whatsapp", appointment, patient: appointment.patients })}>{t("Preparar WhatsApp", "Prepare WhatsApp")}</Button>}</div>
+    <div className="agenda-simple-panel__actions">{appointment.patients && <Button icon={UserRound} onClick={() => { openPatient(appointment.patients); close(); }}>{t("Abrir paciente", "Open patient")}</Button>}{writable && <Button icon={Pencil} onClick={() => setModal({ type: "appointment", appointment, patient: appointment.patients })}>{t("Editar agendamento", "Edit appointment")}</Button>}{appointment.patients?.phone && <Button icon={MessageCircle} className="whatsapp-action" onClick={() => setModal({ type: "whatsapp", appointment, patient: appointment.patients })}>{t("Preparar WhatsApp", "Prepare WhatsApp")}</Button>}{writable && onDelete && <Button icon={Trash2} className="danger" onClick={() => onDelete(appointment)}>{t("Excluir permanentemente", "Delete permanently")}</Button>}</div>
   </aside>;
 }
 
@@ -3510,10 +3511,46 @@ function AgendaHub({ openPatient, setModal, version, writable, notify }) {
   const start = view === "month" ? monthStart(anchor) : view === "week" ? shiftDay(anchor, -((atNoon(anchor).getDay() + 6) % 7)) : anchor;
   const end = view === "month" ? shiftDay(start, 42) : view === "week" ? shiftDay(start, 7) : shiftDay(anchor, 1);
   const state = useLoad(() => checked(db.from("appointments").select("id,patient_id,professional_id,starts_at,ends_at,status,label,version,patients(id,full_name,preferred_name,phone,email,cpf,birth_date)").gte("starts_at", `${start}T00:00:00-03:00`).lt("starts_at", `${end}T23:59:59-03:00`).order("starts_at").limit(300)), [start, end, version]);
-  const waitlist = useLoad(() => checked(db.from("waitlist_entries").select("*,patients(id,full_name,preferred_name),procedures(name)").in("status", ["aguardando", "ofertado"]).order("priority", { ascending: false }).order("created_at")), [version]);
+  const waitlist = useLoad(() => checked(db.from("waitlist_entries").select("*,patients(id,full_name,preferred_name),procedures(name)").in("status", ["aguardando", "ofertado"]).order("created_at")), [version]);
   const waitlistProcedures = useLoad(() => checked(db.from("procedures").select("id,name").eq("active", true).order("name")), []);
   const [waitlistForm, setWaitlistForm] = useState({ patient_id: "", procedure_id: "", priority: "normal", notes: "" });
-  const addWaitlist = async (event) => { event.preventDefault(); if (!waitlistForm.patient_id) return notify(t("Selecione um paciente para a lista de espera.", "Select a patient for the waitlist.")); try { await checked(db.from("waitlist_entries").insert({ organization_id: ORG, ...waitlistForm, created_by: member?.user_id || null })); setWaitlistForm({ patient_id: "", procedure_id: "", priority: "normal", notes: "" }); waitlist.refresh(); notify(t("Paciente adicionado à lista de espera.", "Patient added to the waitlist.")); } catch { notify(t("Não foi possível adicionar à lista de espera.", "Could not add to the waitlist.")); } };
+  const [waitlistBusy, setWaitlistBusy] = useState(false);
+  const waitlistPending = useRef(false);
+  const addWaitlist = async (event) => {
+    event.preventDefault();
+    if (waitlistPending.current) return;
+    if (!waitlistForm.patient_id) return notify(t("Selecione um paciente para a lista de espera.", "Select a patient for the waitlist."));
+    waitlistPending.current = true; setWaitlistBusy(true);
+    try {
+      // created_by defaults to auth.uid() in the database.
+      await checked(db.from("waitlist_entries").insert({
+        organization_id: ORG, patient_id: waitlistForm.patient_id,
+        procedure_id: waitlistForm.procedure_id || null,
+        priority: waitlistForm.priority, notes: waitlistForm.notes.trim(),
+      }).select("id").single());
+      setWaitlistForm({ patient_id: "", procedure_id: "", priority: "normal", notes: "" });
+      waitlist.refresh();
+      notify(t("Paciente adicionado à lista de espera.", "Patient added to the waitlist."));
+    } catch (error) {
+      console.error("waitlist_add", error);
+      notify(t("Não foi possível adicionar à lista de espera. Tente novamente.", "Could not add to the waitlist. Please try again."));
+    } finally { waitlistPending.current = false; setWaitlistBusy(false); }
+  };
+  const removeWaitlist = async (row) => {
+    if (waitlistPending.current) return;
+    waitlistPending.current = true; setWaitlistBusy(true);
+    try {
+      await checked(db.from("waitlist_entries").update({ status: "cancelado" }).eq("id", row.id).select("id").single());
+      waitlist.refresh();
+      notify(t("Paciente removido da lista de espera.", "Patient removed from the waitlist."));
+    } catch (error) {
+      console.error("waitlist_remove", error);
+      notify(t("Não foi possível remover da lista de espera. Tente novamente.", "Could not remove from the waitlist. Please try again."));
+    } finally { waitlistPending.current = false; setWaitlistBusy(false); }
+  };
+  const waitlistRows = [...(waitlist.data || [])].sort((a, b) =>
+    ({ urgente: 2, alta: 1, normal: 0 }[b.priority] || 0) - ({ urgente: 2, alta: 1, normal: 0 }[a.priority] || 0)
+    || new Date(a.created_at) - new Date(b.created_at));
   useEffect(() => { if (state.data) setLocalRows(state.data); }, [state.data]);
   const rows = (localRows || state.data || []).filter((a) => validDateValue(a.starts_at));
   const professionals = [...new Map(rows.filter((a) => a.professional_id).map((a) => [a.professional_id, a.professional_id])).entries()].map(([value]) => ({ value, label: value.slice(0, 8) }));
@@ -3535,6 +3572,21 @@ function AgendaHub({ openPatient, setModal, version, writable, notify }) {
     setLocalRows((current) => (current || []).map((row) => row.id === a.id ? moved : row));
     try { await checked(db.from("appointments").update({ starts_at: moved.starts_at, ends_at: moved.ends_at }).eq("id", a.id)); notify(t("Horário atualizado.", "Time updated.")); } catch { notify(t("Não foi possível mover o agendamento.", "Could not move the appointment.")); state.refresh(); }
   };
+  const deletingAppointment = useRef(false);
+  const deleteAppointment = async (appointment) => {
+    if (!writable || deletingAppointment.current) return;
+    deletingAppointment.current = true;
+    try {
+      if (!await confirmAction(t("Excluir permanentemente este agendamento? Esta ação não pode ser desfeita.", "Permanently delete this appointment? This cannot be undone."))) return;
+      await checked(db.rpc("delete_appointment", { target_appointment: appointment.id }));
+      setLocalRows((current) => (current || []).filter((row) => row.id !== appointment.id));
+      setSelected((current) => current?.id === appointment.id ? null : current);
+      state.refresh();
+      notify(t("Agendamento excluído permanentemente.", "Appointment permanently deleted."));
+    } catch {
+      notify(t("Não foi possível excluir o agendamento. Verifique sua permissão e tente novamente.", "Could not delete the appointment. Check your permission and try again."));
+    } finally { deletingAppointment.current = false; }
+  };
   const updateAppointmentStatus = async (appointment, nextStatus) => {
     const previous = appointment.status;
     setLocalRows((current) => (current || []).map((row) => row.id === appointment.id ? { ...row, status: nextStatus } : row));
@@ -3550,7 +3602,7 @@ function AgendaHub({ openPatient, setModal, version, writable, notify }) {
   const navigate = (direction) => setAnchor(view === "month" ? localDay(new Date(atNoon(anchor).getFullYear(), atNoon(anchor).getMonth() + direction, 1, 12)) : shiftDay(anchor, (view === "week" ? 7 : 1) * direction));
   const exportCalendar = () => { const ics = appointments.map((a) => `BEGIN:VEVENT\nUID:${a.id}\nDTSTART:${new Date(a.starts_at).toISOString().replaceAll("-", "").replaceAll(":", "").replace(".000", "")}\nSUMMARY:${a.label || "Atendimento"} · ${patientName(a, t)}\nEND:VEVENT`).join("\n"); download(new Blob([`BEGIN:VCALENDAR\nVERSION:2.0\n${ics}\nEND:VCALENDAR`], { type: "text/calendar" }), "agenda.ics"); notify(t("Arquivo ICS exportado.", "ICS file exported.")); };
   const exportCsv = () => { const csv = ["Data;Hora;Paciente;Tipo;Status", ...appointments.map((a) => `${safeDateLabel(a.starts_at)};${timeLabel(a.starts_at)};${patientName(a, t)};${a.label || "Atendimento"};${label(a.status, t)}`)].join("\n"); download(new Blob([csv], { type: "text/csv;charset=utf-8" }), "agenda.csv"); notify(t("Arquivo CSV exportado.", "CSV file exported.")); };
-  const event = (a) => <AgendaEvent key={a.id} appointment={a} onSelect={setSelected} openPatient={openPatient} setModal={setModal} writable={writable} clinical={true} onQuickUpdate={updateAppointmentStatus} notify={notify} />;
+  const event = (a) => <AgendaEvent key={a.id} appointment={a} onSelect={setSelected} openPatient={openPatient} setModal={setModal} writable={writable} clinical={true} onQuickUpdate={updateAppointmentStatus} onDelete={deleteAppointment} notify={notify} />;
   const dropProps = (day, hour) => ({ onDragOver: (e) => e.preventDefault(), onDrop: () => { if (dragging) moveAppointment(dragging, day, hour); setDragging(null); } });
   const draggableEvent = (a) => <div key={a.id} draggable onDragStart={() => setDragging(a)} onDragEnd={() => setDragging(null)}>{event(a)}</div>;
   const blankActions = (day, hour = "09:00") => writable ? [{ icon: Plus, label: t("Novo agendamento", "New appointment"), onClick: () => setModal({ type: "appointment", initialStart: `${day}T${hour}` }), shortcut: "N" }, { icon: CalendarDays, label: t("Abrir este dia", "Open this day"), onClick: () => { setAnchor(day); setView("day"); } }] : [{ icon: CalendarDays, label: t("Abrir este dia", "Open this day"), onClick: () => { setAnchor(day); setView("day"); } }];
@@ -3566,8 +3618,8 @@ function AgendaHub({ openPatient, setModal, version, writable, notify }) {
       {view === "day" && <div className="agenda-simple-day-timeline">{hours.map((hour) => <div className="agenda-simple-time-row" key={hour}><time>{String(hour).padStart(2, "0")}:00</time><ContextActions showTrigger={false} className="agenda-simple-time-slot" label={`${safeDateLabel(anchor)} · ${String(hour).padStart(2, "0")}:00`} actions={blankActions(anchor, `${String(hour).padStart(2, "0")}:00`)} {...dropProps(anchor, `${String(hour).padStart(2, "0")}:00`)} onDoubleClick={() => writable && setModal({ type: "appointment", initialStart: `${anchor}T${String(hour).padStart(2, "0")}:00` })}>{onDay(anchor).filter((a) => Number(agendaTime(a.starts_at).slice(0, 2)) === hour).map(draggableEvent)}</ContextActions></div>)}</div>}
       {view === "list" && <div className="agenda-list-view">{appointments.map((a) => <ContextActions key={a.id} className="agenda-list-context-item" label={`${patientName(a, t)} · ${timeLabel(a.starts_at)}`} actions={[{ icon: Eye, label: t("Abrir detalhes", "Open details"), onClick: () => setSelected(a) }, openPatient && a.patients && { icon: UserRound, label: t("Abrir paciente", "Open patient"), onClick: () => openPatient(a.patients) }, writable && { icon: Pencil, label: t("Editar agendamento", "Edit appointment"), onClick: () => setModal({ type: "appointment", appointment: a, patient: a.patients }) }, writable && a.patients?.phone && { icon: MessageCircle, label: t("Enviar mensagem", "Send message"), onClick: () => setModal({ type: "communication", patient: a.patients, appointment: a }) }]}><article className="agenda-list-row" onClick={() => setSelected(a)}><time><strong>{timeLabel(a.starts_at)}</strong><small>{safeDateLabel(a.starts_at)}</small></time><Avatar person={a.patients} size={36} /><div><strong>{patientName(a, t)}</strong><small>{a.label || t("Atendimento", "Appointment")} · {a.professional_id ? t("profissional atribuído", "professional assigned") : t("sem profissional", "unassigned")}</small></div><Status value={a.status} /><Button icon={MoreHorizontal} className="icon" aria-label={t("Ações", "Actions")} /></article></ContextActions>)}{!appointments.length && <Empty icon={CalendarDays}>{t("Nenhum agendamento nesta visão", "No appointments in this view")}</Empty>}</div>}
     </div>{showInsights && <aside className="agenda-insights"><div className="agenda-insights-head"><div><p className="eyebrow">{t("Central da agenda", "Schedule centre")}</p><h2>{t("Organizar o dia", "Organize the day")}</h2></div><Button icon={X} className="icon" onClick={() => setShowInsights(false)} aria-label={t("Fechar", "Close")} /></div><div className="insight-card"><ClipboardCheck size={18} /><div><strong>{freeSlots} {t("horários livres", "free slots")}</strong><span>{t("Capacidade estimada no período", "Estimated capacity in this period")}</span></div></div><div className={`insight-card ${conflicts ? "warning" : ""}`}><ShieldAlert size={18} /><div><strong>{conflicts ? `${conflicts} ${t("possíveis conflitos", "possible conflicts")}` : t("Agenda sem conflitos", "No schedule conflicts")}</strong><span>{t("Profissional, sala e recurso considerados", "Professional, room and resource considered")}</span></div></div><details open><summary><Bell size={16} /> {t("Alertas e retornos", "Alerts & follow-ups")}</summary><p>{waiting ? t("Há pacientes aguardando check-in.", "Patients are waiting for check-in.") : t("Nenhum alerta operacional pendente.", "No operational alerts pending.")}</p><p>{t("A lista de espera pode receber encaixes quando um cancelamento abrir espaço.", "The waitlist can receive matches when a cancellation opens a slot.")}</p></details><details><summary><Keyboard size={16} /> {t("Atalhos", "Keyboard shortcuts")}</summary><p><kbd>N</kbd> {t("novo agendamento", "new appointment")} · <kbd>T</kbd> {t("ir para hoje", "go to today")} · <kbd>Esc</kbd> {t("fechar painel", "close panel")}</p></details><div className="agenda-export-actions"><Button icon={FileDown} onClick={exportCsv}>{t("CSV", "CSV")}</Button><Button icon={CalendarDays} onClick={exportCalendar}>{t("ICS", "ICS")}</Button><Button icon={Printer} onClick={() => window.print()}>{t("Imprimir", "Print")}</Button></div></aside>}</div>
-    {writable && <section className="detail-section agenda-waitlist"><div className="section-heading"><div><h2>{t("Lista de espera", "Waitlist")}</h2><p className="subtle">{t("Registre pacientes para encaixes e sessões liberadas.", "Register patients for cancellations and released sessions.")}</p></div><strong>{(waitlist.data || []).length}</strong></div><form className="form-grid" onSubmit={addWaitlist}><PatientPicker value={waitlistForm.patient_id} onChange={(v) => setWaitlistForm((current) => ({ ...current, patient_id: v }))} /><Field title={t("Procedimento", "Procedure")} value={waitlistForm.procedure_id} onChange={(v) => setWaitlistForm((current) => ({ ...current, procedure_id: v }))} options={[{ value: "", label: t("Qualquer procedimento", "Any procedure") }, ...(waitlistProcedures.data || []).map((p) => ({ value: p.id, label: p.name }))]} /><Field title={t("Prioridade", "Priority")} value={waitlistForm.priority} onChange={(v) => setWaitlistForm((current) => ({ ...current, priority: v }))} options={["normal", "alta", "urgente"].map((v) => ({ value: v, label: label(v, t) }))} /><Button className="primary">{t("Adicionar à lista", "Add to waitlist")}</Button></form><div className="rows">{(waitlist.data || []).slice(0, 10).map((row) => <div className="list-row" key={row.id}><span><strong>{row.patients?.preferred_name || row.patients?.full_name}</strong><small>{row.procedures?.name || t("Qualquer procedimento", "Any procedure")} · {label(row.priority, t)}</small></span><Button onClick={async () => { await checked(db.from("waitlist_entries").update({ status: "cancelado" }).eq("id", row.id)); waitlist.refresh(); }}>{t("Remover", "Remove")}</Button></div>)}</div></section>}
-    {selected && <AgendaPanel appointment={selected} close={() => setSelected(null)} openPatient={openPatient} setModal={setModal} writable={writable} />}
+    {writable && <section className="detail-section agenda-waitlist"><div className="section-heading"><div><h2>{t("Lista de espera", "Waitlist")}</h2><p className="subtle">{t("Registre pacientes para encaixes e sessões liberadas.", "Register patients for cancellations and released sessions.")}</p></div><strong>{waitlist.data ? waitlist.data.length : "—"}</strong></div><form className="form-grid" onSubmit={addWaitlist}><PatientPicker value={waitlistForm.patient_id} onChange={(v) => setWaitlistForm((current) => ({ ...current, patient_id: v }))} /><Field title={t("Procedimento", "Procedure")} value={waitlistForm.procedure_id} onChange={(v) => setWaitlistForm((current) => ({ ...current, procedure_id: v }))} options={[{ value: "", label: t("Qualquer procedimento", "Any procedure") }, ...(waitlistProcedures.data || []).map((p) => ({ value: p.id, label: p.name }))]} /><Field title={t("Prioridade", "Priority")} value={waitlistForm.priority} onChange={(v) => setWaitlistForm((current) => ({ ...current, priority: v }))} options={["normal", "alta", "urgente"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Observações", "Notes")} value={waitlistForm.notes} onChange={(v) => setWaitlistForm((current) => ({ ...current, notes: v }))} /><Button className="primary" disabled={waitlistBusy}>{waitlistBusy ? t("Salvando...", "Saving...") : t("Adicionar à lista", "Add to waitlist")}</Button></form>{waitlist.error && <p className="notice error" role="alert">{t("Não foi possível carregar a lista de espera.", "Could not load the waitlist.")} <Button onClick={waitlist.refresh}>{t("Tentar novamente", "Retry")}</Button></p>}{waitlist.loading && <p role="status">{t("Carregando...", "Loading...")}</p>}{!waitlist.loading && !waitlist.error && !waitlistRows.length && <p className="subtle">{t("Nenhum paciente na lista de espera.", "No patients on the waitlist.")}</p>}<div className="rows">{waitlistRows.map((row) => <div className="list-row" key={row.id}><span><strong>{row.patients?.preferred_name || row.patients?.full_name}</strong><small>{row.procedures?.name || t("Qualquer procedimento", "Any procedure")} · {label(row.priority, t)}</small>{row.notes && <small>{row.notes}</small>}</span><Button disabled={waitlistBusy} onClick={() => removeWaitlist(row)}>{t("Remover", "Remove")}</Button></div>)}</div></section>}
+    {selected && <AgendaPanel appointment={selected} close={() => setSelected(null)} openPatient={openPatient} setModal={setModal} writable={writable} onDelete={deleteAppointment} />}
   </div>;
 }
 

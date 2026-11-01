@@ -25,6 +25,7 @@ const outsidePatient = { ...patient, id: '30000000-0000-4000-8000-000000000009',
 const jwt=`${Buffer.from(JSON.stringify({alg:'HS256',typ:'JWT'})).toString('base64url')}.${Buffer.from(JSON.stringify({sub:uid,exp:Math.floor(Date.now()/1000)+3600,session_id:'90000000-0000-4000-8000-000000000001',role:'authenticated'})).toString('base64url')}.fictional-signature`;
 const failures=[];let posts=[];
 async function contextFor(width,height,role='proprietario'){
+  const deletedAppointments=new Set();
   const context=await browser.newContext({viewport:{width,height}});
   await context.addInitScript(() => {
     if (window.BroadcastChannel) {
@@ -48,6 +49,10 @@ async function contextFor(width,height,role='proprietario'){
     if(path.endsWith('/rpc/save_treatment_plan')){const body=req.postDataJSON();posts.push({table:'rpc:save_treatment_plan',body});Object.assign(fixtures.treatment_plans[0],body.plan_payload);if(body.item_payload){const items=fixtures.treatment_plans[0].treatment_plan_items,existing=items.find(item=>item.id===body.item_payload.id);if(existing)Object.assign(existing,body.item_payload);else items.push({...body.item_payload,id:'b7100000-0000-4000-8000-000000000002',organization_id:org,plan_id:fixtures.treatment_plans[0].id,archived_at:null,procedures:{name:fixtures.procedures.find(item=>item.id===body.item_payload.procedure_id)?.name}});}return json('b7000000-0000-4000-8000-000000000001');}
     if(path.endsWith('/rpc/set_treatment_plan_item_archived')){const body=req.postDataJSON();posts.push({table:'rpc:set_treatment_plan_item_archived',body});const item=fixtures.treatment_plans[0].treatment_plan_items.find(row=>row.id===body.p_item);if(item)item.archived_at=body.p_archived?created:null;return json(null);}
     if(path.endsWith('/rpc/save_appointment_series')){posts.push({table:'rpc:save_appointment_series',body:req.postDataJSON()});return json('50000000-0000-4000-8000-000000000002');}
+    if(path.endsWith('/rpc/delete_appointment')){
+      const body=req.postDataJSON(); posts.push({table:'rpc:delete_appointment',body});
+      deletedAppointments.add(body.target_appointment);return json(null);
+    }
     if(path.includes('/rpc/'))return json(null);
     const table=path.split('/').at(-1);let rows=structuredClone(fixtures[table]||[]);
     // Exercise the loader's compatibility retry against a deployment where
@@ -55,6 +60,23 @@ async function contextFor(width,height,role='proprietario'){
     if(table==='tasks'&&req.method()==='GET'&&(url.searchParams.has('source_type')||url.searchParams.get('or')?.includes('source_type')||url.searchParams.has('category')))return json({code:'PGRST204',message:'column not found in schema cache'},400);
     if(table==='patients' && (url.searchParams.get('or')?.includes('Outside') || url.searchParams.get('id')===`eq.${outsidePatient.id}`)) rows=[outsidePatient];
     if(table==='memberships')rows=rows.map(m=>({...m,role}));
+    if(table==='appointments')rows=rows.filter(row=>!deletedAppointments.has(row.id));
+    if(table==='waitlist_entries'){
+      fixtures.waitlist_entries ||= [];
+      if(req.method()==='POST'){
+        const body=req.postDataJSON(); posts.push({table,method:'POST',body});
+        if(body.procedure_id==='')return json({code:'22P02',message:'invalid UUID'},400);
+        const record={...body,id:crypto.randomUUID(),status:'aguardando',created_by:uid,created_at:created,patients:patient,procedures:body.procedure_id?{name:procedure.name}:null};
+        fixtures.waitlist_entries.push(record);return json(record);
+      }
+      if(req.method()==='PATCH'){
+        const body=req.postDataJSON(); posts.push({table,method:'PATCH',body});
+        const record=fixtures.waitlist_entries.find(row=>url.searchParams.get('id')===`eq.${row.id}`);
+        if(!record)return json({code:'PGRST116'},406);
+        Object.assign(record,body);return json(record);
+      }
+      rows=structuredClone(fixtures.waitlist_entries.filter(row=>['aguardando','ofertado'].includes(row.status)));
+    }
     if(req.method()==='HEAD')return route.fulfill({status:200,headers:{'content-range':`0-0/${rows.length}`},body:''});
     if(req.method()==='POST'||req.method()==='PATCH'){
       const body=req.postDataJSON();posts.push({table,method:req.method(),body});const record={...body,id:body.id||crypto.randomUUID(),organization_id:org,created_by:uid,created_at:created,clinical_at:created,version:2};
@@ -175,6 +197,22 @@ try{
     await page.getByRole('button',{name:'Salvar rascunho',exact:true}).evaluate((button) => button.click());await page.locator('dialog').waitFor({state:'detached'});
     assert(posts.some(p=>p.table==='entries'&&p.body.content==='NOTA FICTÍCIA de teste'));
     await navigation(page,'Agenda');await page.getByRole('heading',{name:'Agenda',exact:true}).waitFor();await noOverflow(page);
+    const waitlistSection=page.locator('.agenda-waitlist');
+    for(const procedureId of ['',procedure.id]){
+      await waitlistSection.getByLabel('Paciente',{exact:true}).fill('QA Patient');
+      await waitlistSection.getByRole('option',{name:/QA Patient/}).click();
+      await waitlistSection.getByLabel('Procedimento',{exact:true}).selectOption(procedureId);
+      await waitlistSection.getByLabel('Prioridade',{exact:true}).selectOption('urgente');
+      await waitlistSection.getByRole('button',{name:'Adicionar à lista',exact:true}).click();
+      await waitlistSection.locator('.list-row').waitFor();
+      const added=posts.filter(p=>p.table==='waitlist_entries'&&p.method==='POST').at(-1);
+      assert.equal(added.body.patient_id,patient.id);
+      assert.equal(added.body.procedure_id,procedureId||null);
+      assert.equal(added.body.priority,'urgente');
+      assert.equal(Object.hasOwn(added.body,'created_by'),false);
+      await waitlistSection.getByRole('button',{name:'Remover',exact:true}).click();
+      await waitlistSection.getByText('Nenhum paciente na lista de espera.',{exact:true}).waitFor();
+    }
     await page.getByRole('button',{name:'Agendamento rápido',exact:true}).click();
     const bookingDialog=page.getByRole('dialog',{name:'Agendamento',exact:true});
     await bookingDialog.getByLabel('Paciente',{exact:true}).fill('QA Patient');
@@ -182,6 +220,18 @@ try{
     await bookingDialog.getByRole('button',{name:'Salvar',exact:true}).click();
     await bookingDialog.waitFor({state:'detached'});
     assert(posts.some(p=>p.table==='rpc:save_appointment_series'&&p.body.payload.patient_id===patient.id));
+    const appointmentEvent=page.locator('.agenda-event-context-item').first();
+    await appointmentEvent.locator('.agenda-simple-event').click({button:'right'});
+    await page.getByRole('menuitem',{name:'Excluir permanentemente',exact:true}).click();
+    const deletionDialog=page.getByRole('dialog',{name:'Confirmar ação'});
+    await deletionDialog.getByRole('button',{name:'Cancelar',exact:true}).click();
+    await appointmentEvent.waitFor();
+    await appointmentEvent.locator('.agenda-simple-event').click();
+    await page.locator('.agenda-simple-panel').getByRole('button',{name:'Excluir permanentemente',exact:true}).click();
+    await deletionDialog.getByRole('button',{name:'Confirmar',exact:true}).click();
+    await page.locator('.agenda-event-context-item').waitFor({state:'detached'});
+    await page.locator('.agenda-simple-panel').waitFor({state:'detached'});
+    assert.equal(posts.filter(row=>row.table==='rpc:delete_appointment').at(-1).body.target_appointment,fixtures.appointments[0].id);
     await navigation(page,'Tarefas');await page.getByRole('heading',{name:'Tarefas e retornos'}).waitFor();await noOverflow(page);assert.equal(await page.locator('.clinic-topbar-meta a').count(),0);assert.equal(await page.locator('.clinic-topbar-meta img').count(),0);
     await page.getByRole('button',{name:'Nova tarefa',exact:true}).click();const taskDialog=page.getByRole('dialog');await taskDialog.waitFor();await taskDialog.getByLabel('Tarefa',{exact:true}).fill('Tarefa fictícia de regressão');await taskDialog.getByRole('button',{name:'Salvar',exact:true}).evaluate((button) => button.click());await taskDialog.waitFor({state:'detached'});assert(posts.some(p=>p.table==='tasks'&&p.body.title==='Tarefa fictícia de regressão'));
     await page.getByRole('button',{name:'Novo retorno',exact:true}).click();const followupDialog=page.getByRole('dialog');await followupDialog.waitFor();await followupDialog.getByLabel('Paciente',{exact:true}).fill('QA Patient');await followupDialog.getByRole('option',{name:/QA Patient/}).click();await followupDialog.getByLabel('Observações do retorno',{exact:true}).fill('Retorno fictício de regressão');await followupDialog.getByRole('button',{name:'Salvar',exact:true}).evaluate((button) => button.click());await followupDialog.waitFor({state:'detached'});assert(posts.some(p=>p.table==='follow_ups'&&p.body.patient_id===patient.id&&p.body.notes==='Retorno fictício de regressão'));
