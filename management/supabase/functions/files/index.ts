@@ -149,6 +149,10 @@ Deno.serve(
         ? await scoped.from("clinical_photos").update(metadata).eq("id", existing.id).select("*").single()
         : await scoped.from("clinical_photos").insert({ organization_id: ORG, patient_id: patient, ...metadata, clinical_procedure_id: procedureId || null, created_by: user.id }).select("*").single();
       if (photoError) {
+        // Keep the HTTP response deliberately generic, but retain the database
+        // error server-side: photo history failures must be diagnosable without
+        // exposing schema details to a browser.
+        console.error("clinical_photo_metadata", photoError.code, photoError.message);
         await db.storage.from("clinical-photos").remove([path]);
         throw Error("photo_metadata");
       }

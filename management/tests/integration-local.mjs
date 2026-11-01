@@ -81,7 +81,11 @@ try{
   const cpfHash=Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(`isolated-workflow-audit-only:${cpf}-${stamp}`))).toString('hex');
   // The same dummy CPF can be reused only after retiring an earlier local run.
   const actualCpfHash=Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(`isolated-workflow-audit-only:${cpf}`))).toString('hex');
-  ok(await admin.from('patient_portal_accounts').delete().eq('cpf_hash',actualCpfHash));
+  const priorAccounts=ok(await admin.from('patient_portal_accounts').select('id').eq('cpf_hash',actualCpfHash));
+  if(priorAccounts.length) {
+    ok(await admin.from('patient_portal_sessions').delete().in('account_id',priorAccounts.map(account=>account.id)));
+    ok(await admin.from('patient_portal_accounts').delete().eq('cpf_hash',actualCpfHash));
+  }
   ok(await admin.from('patient_portal_accounts').insert({organization_id:org,patient_id:patient.id,cpf_hash:actualCpfHash,password_salt:Buffer.from(salt).toString('base64url'),password_hash:Buffer.from(hash).toString('base64url'),must_change_password:false}));
   const portal=async(body,token='')=>{const response=await fetch(`${status.API_URL}/functions/v1/portal`,{method:'POST',headers:{Origin:origin,'Content-Type':'application/json',...(token?{'x-portal-token':token}:{})},body:JSON.stringify(body)});return {response,data:await response.json()};};
   const login=await portal({action:'login',cpf,password:portalPassword});assert.equal(login.response.ok,true,JSON.stringify(login.data));assert.equal(login.data.patient.id,patient.id);assert(login.data.resources.some(r=>r.type==='document'&&r.id===document.id&&r.url));assert(login.data.resources.some(r=>r.type==='photo'&&r.id===savedPhoto.id&&r.url));assert(!login.data.resources.some(r=>r.patient_id===other.id));

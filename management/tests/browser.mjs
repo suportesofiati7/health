@@ -111,6 +111,7 @@ try{
     await clinicalProcedureForm.locator('textarea').nth(0).fill('Indicação clínica fictícia de teste');
     await clinicalProcedureForm.locator('textarea').nth(1).fill('Técnica fictícia de teste');
     await clinicalProcedureForm.getByRole('button',{name:'Finalizar procedimento',exact:true}).click();
+    console.log('procedure debug', JSON.stringify({posts:posts.filter(row=>row.table.includes('procedure')), alerts:await page.locator('[role="alert"],[role="status"]').allTextContents(), fields:await clinicalProcedureForm.locator('input, select, textarea').evaluateAll(fields=>fields.map(field=>({name:field.getAttribute('aria-label'),value:field.value,valid:field.checkValidity(),required:field.required})))}));
     await page.getByText('Procedimento registrado',{exact:true}).waitFor();
     const clinicalCall=posts.find(row=>row.table==='rpc:record_clinical_procedure');
     assert.equal(clinicalCall.body.procedure_payload.patient_id,patient.id);

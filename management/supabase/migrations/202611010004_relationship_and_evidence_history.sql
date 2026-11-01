@@ -1,6 +1,9 @@
 begin;
 -- The existing consent_update RLS policy was unusable without its SQL grant.
 grant update on public.consents to authenticated;
+-- The metadata-edit policy existed but its SQL UPDATE grant was missing,
+-- leaving clinical-photo replacement impossible for every non-service user.
+grant update on public.clinical_photos to authenticated;
 create policy clinical_photo_version_read on storage.objects for select to authenticated using(
   bucket_id='clinical-photos' and exists(select 1 from public.clinical_photo_versions v
     where v.snapshot->>'path'=storage.objects.name and private.has_permission(v.organization_id,'photos','view'))
