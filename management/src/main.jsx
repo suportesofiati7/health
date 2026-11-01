@@ -3197,8 +3197,15 @@ function AppointmentForm({ appointment, patient, initialStart, followup, close, 
       dirty.clean();
       done();
     } catch (error) {
+      const reason = String(error?.message || error?.code || "");
       notify(error?.code === "40001"
         ? t("Este agendamento foi alterado por outra pessoa. Reabra-o antes de salvar.", "This appointment changed. Reopen it before saving.")
+        : /not_authorized|42501/i.test(reason)
+          ? t("Seu perfil não tem permissão para criar agendamentos. Peça à gestão para revisar Agenda nas permissões.", "Your profile cannot create appointments. Ask management to review Schedule permissions.")
+          : /overlap|conflict/i.test(reason)
+            ? t("Este horário entra em conflito com outro atendimento ou recurso. Escolha outro horário ou profissional.", "This time conflicts with another appointment or resource. Choose another time or professional.")
+            : /invalid_appointment_series|invalid/i.test(reason)
+              ? t("Revise data, horário, duração e recorrência do agendamento.", "Review the appointment date, time, duration, and recurrence.")
         : t("Não foi possível agendar. Nenhuma sessão foi criada; verifique os horários e as permissões.", "Could not schedule. No sessions were created; check times and permissions."));
     } finally {
       setBusy(false);
