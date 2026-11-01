@@ -3,6 +3,12 @@
 The production contract is [config/production.json](../config/production.json).
 Both Cloudflare Pages projects use `suportesofiati7/health`, branch `main`.
 
+The public `build` command is intentionally a fast static composition build:
+it composes shared partials and copies committed `assets/` unchanged. This keeps
+ordinary handwritten HTML/CSS/content deployments fast on Cloudflare's clean
+workers. Run `npm run build:full` only for an intentional image-optimization
+release; it regenerates responsive AVIF/WebP derivatives and is slower.
+
 | Site | Pages project | Root directory | Build | Published directory | Domain |
 | --- | --- | --- | --- | --- | --- |
 | Public | `health` | repository root | `npm run build` | `dist` | `francielesofiati.com` |

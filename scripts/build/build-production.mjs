@@ -18,7 +18,7 @@ import sharp from 'sharp';
 import { cssForPage } from './css-scope.mjs';
 import { frugalChicVisuals } from '../../js/pages/frugal-chic.js';
 
-// A production build can create hundreds of responsive derivatives. Keep the
+// A full production build can create hundreds of responsive derivatives. Keep the
 // native image pipeline within a predictable memory/CPU envelope so it is
 // reliable on CI and developer machines as well as high-memory workstations.
 sharp.cache({ memory: 64, files: 0, items: 100 });
@@ -28,6 +28,11 @@ const ROOT = resolve('.');
 const DIST = resolve('dist');
 const BUILD_ASSETS = resolve(DIST, 'assets/build');
 const GENERATED_ASSETS = resolve(DIST, 'assets/generated');
+// Cloudflare Pages builds from a clean checkout, so its local image cache never
+// survives between pushes. The normal Git build composes the handwritten pages
+// and copies their committed assets as-is. Use --full only for an intentional
+// image-optimization release.
+const FULL_ASSET_OPTIMIZATION = process.argv.includes('--full');
 const RASTER_EXTENSIONS = new Set(['.jpeg', '.jpg', '.png', '.webp']);
 const PARTIAL_FILENAMES = Object.freeze({
   'utility-bar': 'utility-bar.html',
@@ -277,6 +282,7 @@ function imageWidths(metadata, declaredWidth) {
 }
 
 async function optimizeHtmlImages(html, relativePage) {
+  if (!FULL_ASSET_OPTIMIZATION) return html;
   const matches = [...html.matchAll(/<img\b[^>]*>/gi)];
   let output = html;
   for (const match of matches) {
@@ -359,6 +365,10 @@ async function optimizeCssImages(css) {
       : resolve(ROOT, 'css', decodeURIComponent(value));
     if (!source.startsWith(resolve(ROOT, 'assets'))) continue;
     const publicUrl = `/${toPosix(relative(ROOT, source))}`;
+    if (!FULL_ASSET_OPTIMIZATION) {
+      output = output.replace(match[0], `url("${publicUrl}")`);
+      continue;
+    }
     if (!RASTER_EXTENSIONS.has(extname(source).toLowerCase())) {
       output = output.replace(match[0], `url("${publicUrl}")`);
       continue;
@@ -372,6 +382,7 @@ async function optimizeCssImages(css) {
     }
   }
 
+  if (!FULL_ASSET_OPTIMIZATION) return output;
   const mobileRules = [];
   for (const [page, sourceRelative] of Object.entries(HERO_FILES)) {
     const mobile = await generateImage(resolve(ROOT, sourceRelative), 900, 'webp', 68);
@@ -463,6 +474,7 @@ function replaceBuiltResources(html, relativePage, resources) {
 }
 
 async function heroPreloads(relativePage, html) {
+  if (!FULL_ASSET_OPTIMIZATION) return '';
   const page = html.match(/<body\b[^>]*\bdata-page=(["'])([^"']+)\1/i)?.[2];
   const sourceRelative = HERO_FILES[page];
   if (!sourceRelative) return '';
@@ -564,7 +576,7 @@ async function copySupportFiles() {
 async function main() {
   await rm(DIST, { recursive: true, force: true });
   await mkdir(BUILD_ASSETS, { recursive: true });
-  await mkdir(GENERATED_ASSETS, { recursive: true });
+  if (FULL_ASSET_OPTIMIZATION) await mkdir(GENERATED_ASSETS, { recursive: true });
   const pagePairs = JSON.parse(await readFile(resolve(ROOT, 'data/page-pairs.json'), 'utf8')).pages;
   const [css, javascript, pages] = await Promise.all([
     buildCss(),
@@ -603,6 +615,7 @@ async function main() {
     sourceCommit: process.env.CF_PAGES_COMMIT_SHA || process.env.GITHUB_SHA || (() => { try { return execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(); } catch { return null; } })(),
     notes: [
       'Shared partials are composed into HTML at build time.',
+      FULL_ASSET_OPTIMIZATION ? 'Responsive image derivatives were generated.' : 'Committed source assets were copied without regenerating image derivatives.',
       'GA4 remains delivered only through consent-gated GTM.',
       'Readable source files remain outside dist; do not edit dist directly.'
     ]
@@ -610,7 +623,7 @@ async function main() {
   await writeFile(resolve(DIST, '.performance-build.json'), `${JSON.stringify(buildManifest, null, 2)}\n`);
   await writeFile(resolve(DIST, 'build-info.json'), `${JSON.stringify({ sourceCommit: buildManifest.sourceCommit, generatedAt: buildManifest.generatedAt, sourcePages: buildManifest.sourcePages })}\n`);
   process.stdout.write(
-    `Built ${pages.length} pages with ${generatedManifest.length} responsive/optimized image files.\n`
+    `Built ${pages.length} pages in ${FULL_ASSET_OPTIMIZATION ? 'full image optimization' : 'fast static'} mode with ${generatedManifest.length} generated image files.\n`
   );
 }
 

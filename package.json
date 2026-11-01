@@ -7,6 +7,7 @@
   "scripts": {
     "prebuild": "python3 scripts/index-site.py --rebuild --no-notify",
     "build": "node scripts/build/build-production.mjs",
+    "build:full": "node scripts/build/build-production.mjs --full",
     "serve": "node scripts/build/serve-production.mjs",
     "check:assets": "python3 scripts/check-local-assets.py",
     "check:pt": "python3 scripts/check-portuguese-site.py --strict-warnings",
