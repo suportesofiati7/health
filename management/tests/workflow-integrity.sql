@@ -70,4 +70,35 @@ select pg_temp.assert((select resolved_by=auth.uid() from public.patient_portal_
 select pg_temp.reject($q$update public.appointments set patient_id='31000000-0000-4000-8000-000000000002' where label='idempotent-series' and recurrence_index=1$q$,'patient_relationship_mismatch');
 update public.consents set status='revogado' where clinical_procedure_id='71000000-0000-4000-8000-000000000001';
 select pg_temp.assert((select count(*)=1 from public.consent_versions where snapshot->>'status'='aceito'),'revocation preserves original accepted consent evidence');
+-- Session-specific material snapshots and inventory must commit atomically.
+update public.procedures set required_consents='[]',lot_required=true where id='41000000-0000-4000-8000-000000000001';
+insert into public.products(id,organization_id,name,manufacturer,unit) values
+('91000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','QA serum','QA brand','mL');
+insert into public.product_lots(id,organization_id,product_id,lot,expires_on,unit) values
+('92000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','91000000-0000-4000-8000-000000000001','STOCK-1',current_date+365,'mL');
+do $$
+declare
+  payload jsonb := '{"organization_id":"a783bd4c-f253-4a94-9365-75c6f1000001","patient_id":"31000000-0000-4000-8000-000000000001","procedure_id":"41000000-0000-4000-8000-000000000001","professional_id":"11000000-0000-4000-8000-000000000001","parameters":{"equipment":[{"name":"Session device","settings":"12 J"}]}}';
+  record_id uuid;
+  before_count integer;
+begin
+  record_id := public.record_clinical_procedure(payload, '[{"name":"Personal serum","manufacturer":"Individual brand","lot":"MANUAL-1","quantity":2,"unit":"mL"},{"name":"Needle","lot":"MANUAL-2","notes":"Single use"}]');
+  perform pg_temp.assert((select status='finalizado' and jsonb_array_length(parameters->'materials')=2 and parameters#>>'{equipment,0,settings}'='12 J' from public.clinical_procedures where id=record_id),'manual lots finalize with multiple products and equipment snapshot');
+  perform pg_temp.assert(not exists(select 1 from public.inventory_movements where clinical_procedure_id=record_id),'manual supplies do not consume stock');
+  record_id := public.record_clinical_procedure(payload, '[{"lot_id":"92000000-0000-4000-8000-000000000001","name":"Attempted override","quantity":2,"unit":"mL"},{"name":"Manual item","lot":"LOCAL-3"}]');
+  perform pg_temp.assert((select parameters#>>'{materials,0,name}'='QA serum' and parameters#>>'{materials,0,lot}'='STOCK-1' from public.clinical_procedures where id=record_id),'linked lots snapshot the actual stock product identity');
+  perform pg_temp.assert((select count(*)=1 and sum(quantity)=2 from public.inventory_movements where clinical_procedure_id=record_id),'mixed entries consume only the selected stock lot');
+  select count(*) into before_count from public.clinical_procedures;
+  begin
+    perform public.record_clinical_procedure(payload, '[{"name":"Valid","lot":"OK"},{"name":"Expired","expires_on":"2000-01-01"}]');
+    raise exception 'FAIL accepted expired manual lot';
+  exception when sqlstate '22023' then null; end;
+  perform pg_temp.assert((select count(*)=before_count from public.clinical_procedures),'invalid later item leaves no partial procedure');
+  begin
+    perform public.record_clinical_procedure(payload, '[{"name":"Missing lot"}]');
+    raise exception 'FAIL accepted missing required lot';
+  exception when sqlstate '22023' then null; end;
+  perform pg_temp.assert((select count(*)=before_count from public.clinical_procedures),'required lot is enforced for manual entries');
+end $$;
+
 rollback;

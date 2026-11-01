@@ -1,7 +1,7 @@
 import { DATA_CHANGED } from "./dataSync.js";
 import { readPatientRows, clinicalTimeline } from "./patientWorkspace.js";
 import publicIntakeLabels from "./public-intake-labels.json";
-import { humanText, fieldLabel, parameterNotes } from "./clinicalText.js";
+import { cleanStructuredRows, displayText, humanText, fieldLabel, parameterNotes, structuredParameters, structuredQuestions } from "./clinicalText.js";
 import { confirmAction, promptAction } from "../../js/core/dialog.js";
 import { Avatar, ProcedureImage, usePrivateImage } from "./Images";
 import React, { Suspense, lazy, useState, useEffect, useRef, useCallback } from "react";
@@ -190,6 +190,7 @@ function Field({
     return <PatientPicker title={title} value={value} onChange={onChange} choices={options.filter((row) => row.value).map((row) => ({ id: row.value, full_name: row.label }))} />;
   }
   const password = type === "password";
+  const controlValue = value && typeof value === "object" ? displayText(value) : value ?? "";
   return (
     <label className={wide ? "field wide" : "field"}>
       <span>{title}</span>
@@ -197,7 +198,7 @@ function Field({
         <select
           aria-label={title}
           name={name}
-          value={value ?? ""}
+          value={controlValue}
           onChange={(e) => onChange(e.target.value)}
           {...props}
         >
@@ -212,7 +213,7 @@ function Field({
           aria-label={title}
           as="textarea"
           name={name}
-          value={value ?? ""}
+          value={controlValue}
           onChange={(value) => onChange(value)}
           rows={5}
           suggestions={suggestions}
@@ -245,7 +246,7 @@ function Field({
           aria-label={title}
             name={name}
             type={password && passwordVisible ? "text" : type}
-            value={value ?? ""}
+            value={controlValue}
             onChange={(value) => onChange(value)}
             suggestions={password ? [] : suggestions}
             {...props}
@@ -255,6 +256,28 @@ function Field({
       )}
     </label>
   );
+}
+
+function StructuredRowsEditor({ title, rows = [], kind, onChange }) {
+  const question = kind === "question";
+  const update = (index, key, value) => onChange(rows.map((row, rowIndex) => rowIndex === index ? { ...row, [key]: value } : row));
+  const append = () => onChange([...rows, question ? { key: `question-${rows.length + 1}`, label: "", required: false } : { name: "", value: "" }]);
+  const remove = (index) => onChange(rows.filter((_, rowIndex) => rowIndex !== index));
+  return <fieldset className="field wide structured-rows-editor">
+    <legend>{title}</legend>
+    <p className="subtle">{question ? "Registre cada pergunta separadamente para que ela possa ser usada no atendimento." : "Registre cada parâmetro separadamente, mantendo suas observações clínicas organizadas."}</p>
+    {rows.map((row, index) => <div className="structured-row" key={row.key || `${kind}-${index}`}>
+      {question ? <>
+        <label><span>Pergunta {index + 1}</span><input aria-label={`Pergunta ${index + 1}`} value={row.label ?? ""} onChange={(event) => update(index, "label", event.target.value)} /></label>
+        <label className="structured-required"><input type="checkbox" checked={Boolean(row.required)} onChange={(event) => update(index, "required", event.target.checked)} />Obrigatória</label>
+      </> : <>
+        <label><span>Parâmetro</span><input aria-label={`Parâmetro ${index + 1}`} value={row.name ?? ""} onChange={(event) => update(index, "name", event.target.value)} /></label>
+        <label><span>Observação</span><input aria-label={`Observação do parâmetro ${index + 1}`} value={row.value ?? ""} onChange={(event) => update(index, "value", event.target.value)} /></label>
+      </>}
+      <button type="button" className="icon-button danger" aria-label={`Remover ${question ? "pergunta" : "parâmetro"} ${index + 1}`} onClick={() => remove(index)}><Trash2 size={16} /></button>
+    </div>)}
+    <Button type="button" className="secondary" icon={Plus} onClick={append}>{question ? "Adicionar pergunta" : "Adicionar parâmetro"}</Button>
+  </fieldset>;
 }
 
 function FilePicker({ accept, capture, multiple = false, disabled = false, name, onChange, className = "", value }) {
@@ -2522,10 +2545,50 @@ function TreatmentPlans({ patient, member, writable, clinical, notify, setModal 
   </section>;
 }
 
+function TreatmentSupplies({ usage, setUsage, equipment, setEquipment, products, lots, devices, previous }) {
+  const t = useT();
+  const update = (index, changes) => setUsage((rows) => rows.map((row, i) => i === index ? { ...row, ...changes } : row));
+  const updateDevice = (index, changes) => setEquipment((rows) => rows.map((row, i) => i === index ? { ...row, ...changes } : row));
+  const blank = () => ({ product_id: "", lot_id: "", name: "", manufacturer: "", lot: "", expires_on: "", quantity: "", unit: "", area: "", notes: "" });
+  return <div className="treatment-supplies">
+    <h3>{t("Produtos e materiais utilizados", "Products and materials used")}</h3>
+    <p className="subtle">{t("Selecione do catálogo ou preencha manualmente. As alterações valem somente para esta sessão. Alterar os dados de um lote selecionado desvincula o consumo do estoque.", "Select from the catalogue or enter manually. Changes apply only to this session. Editing selected lot details disconnects inventory consumption.")}</p>
+    {usage.map((item, index) => <fieldset key={index}><legend>{t("Produto", "Product")} {index + 1}</legend><div className="form-grid">
+      <Field title={t("Selecionar produto", "Select product")} value={item.product_id || ""} options={[{ value: "", label: t("Preenchimento manual", "Enter manually") }, ...products.map((p) => ({ value: p.id, label: p.name }))]} onChange={(id) => { const p = products.find((p) => p.id === id); update(index, { ...blank(), ...(p ? { product_id: p.id, name: p.name, manufacturer: p.manufacturer || "", unit: p.unit || "" } : {}), area: item.area, notes: item.notes }); }} />
+      <Field title={t("Selecionar lote do estoque", "Select stock lot")} value={item.lot_id || ""} options={[{ value: "", label: t("Lote manual / sem vínculo com estoque", "Manual lot / no inventory link") }, ...lots.filter((lot) => lot.active && (!item.product_id || lot.product_id === item.product_id) && (!lot.expires_on || lot.expires_on >= localDay())).map((lot) => ({ value: lot.id, label: `${lot.products?.name || ""} · ${lot.lot}` }))]} onChange={(id) => { const lot = lots.find((l) => l.id === id); update(index, lot ? { lot_id: id, product_id: lot.product_id, name: lot.products?.name || "", manufacturer: lot.products?.manufacturer || "", lot: lot.lot, expires_on: lot.expires_on || "", unit: lot.unit || lot.products?.unit || "" } : { lot_id: "" }); }} />
+      <Field title={t("Produto/material", "Product/material")} value={item.name} required onChange={(name) => update(index, { name, lot_id: "", product_id: "" })} />
+      <Field title={t("Marca / fabricante", "Brand / manufacturer")} value={item.manufacturer} onChange={(manufacturer) => update(index, { manufacturer, lot_id: "" })} />
+      <Field title={t("Número do lote", "Lot number")} value={item.lot} onChange={(lot) => update(index, { lot, lot_id: "" })} />
+      <Field title={t("Validade", "Expiry")} type="date" value={item.expires_on} onChange={(expires_on) => update(index, { expires_on, lot_id: "" })} />
+      <Field title={t("Quantidade", "Quantity")} type="number" min="0.01" step="any" required={!!item.lot_id} value={item.quantity ?? ""} onChange={(quantity) => update(index, { quantity })} />
+      <Field title={t("Unidade", "Unit")} value={item.unit} required={!!item.lot_id} onChange={(unit) => update(index, { unit, lot_id: "" })} />
+      <Field title={t("Área de aplicação", "Application area")} value={item.area} onChange={(area) => update(index, { area })} />
+      <Field title={t("Notas desta sessão", "Session notes")} type="textarea" value={item.notes} onChange={(notes) => update(index, { notes })} />
+      <Button type="button" onClick={() => setUsage((rows) => rows.filter((_, i) => i !== index))}>{t("Remover produto", "Remove product")}</Button>
+    </div></fieldset>)}
+    <div className="actions"><Button type="button" onClick={() => setUsage((rows) => [...rows, blank()])}>{t("Adicionar produto/material", "Add product/material")}</Button>
+    {previous && <Button type="button" onClick={() => setUsage((rows) => [...rows, ...previous.parameters.materials.map((item) => ({ ...item, lot_id: "", lot: "", expires_on: "", quantity: "" }))])}>{t("Copiar produtos da sessão anterior (sem lote ou quantidade)", "Copy products from previous session (without lot or quantity)")}</Button>}</div>
+    <h3>{t("Equipamentos utilizados", "Equipment used")}</h3>
+    {equipment.map((item, index) => <fieldset key={index}><legend>{t("Equipamento", "Equipment")} {index + 1}</legend><div className="form-grid">
+      <Field title={t("Selecionar equipamento", "Select equipment")} value={item.device_id || ""} options={[{ value: "", label: t("Preenchimento manual", "Enter manually") }, ...devices.map((d) => ({ value: d.id, label: `${d.name} ${d.equipment_model || ""}` }))]} onChange={(id) => { const d = devices.find((d) => d.id === id); updateDevice(index, { device_id: id, name: d?.name || "", model: d?.equipment_model || "", serial_number: d?.serial_number || "" }); }} />
+      {[['name', 'Nome do equipamento', 'Equipment name'], ['model', 'Modelo', 'Model'], ['serial_number', 'Número de série', 'Serial number'], ['settings', 'Parâmetros / acessórios desta sessão', 'Session settings / attachments'], ['notes', 'Notas', 'Notes']].map(([key, pt, en]) => <Field key={key} title={t(pt, en)} value={item[key] || ""} required={key === 'name'} onChange={(value) => updateDevice(index, { [key]: value })} />)}
+      <Button type="button" onClick={() => setEquipment((rows) => rows.filter((_, i) => i !== index))}>{t("Remover equipamento", "Remove equipment")}</Button>
+    </div></fieldset>)}
+    <Button type="button" onClick={() => setEquipment((rows) => [...rows, { device_id: "", name: "", model: "", serial_number: "", settings: "", notes: "" }])}>{t("Adicionar equipamento", "Add equipment")}</Button>
+  </div>;
+}
+
+function TreatmentSuppliesHistory({ row }) {
+  const t = useT();
+  const materials = Array.isArray(row.parameters?.materials) ? row.parameters.materials : [];
+  const equipment = Array.isArray(row.parameters?.equipment) ? row.parameters.equipment : [];
+  return <>{materials.length > 0 && <div><h4>{t("Produtos e materiais utilizados", "Products and materials used")}</h4>{materials.map((item, i) => <div className="entry" key={i}><strong>{item.name}</strong><p>{[item.manufacturer, item.lot && `${t("Lote", "Lot")}: ${item.lot}`, item.expires_on && `${t("Validade", "Expiry")}: ${date(item.expires_on)}`, item.quantity != null && `${item.quantity} ${item.unit || ""}`, item.area].filter(Boolean).join(" · ")}</p>{item.notes && <p className="preserve">{item.notes}</p>}</div>)}</div>}{equipment.length > 0 && <div><h4>{t("Equipamentos utilizados", "Equipment used")}</h4>{equipment.map((item, i) => <div className="entry" key={i}><strong>{item.name}</strong><p>{[item.model, item.serial_number].filter(Boolean).join(" · ")}</p><p className="preserve">{[item.settings, item.notes].filter(Boolean).join("\n")}</p></div>)}</div>}</>;
+}
+
 function ClinicalProcedurePanel({ patient, member, writable, notify, consents = [], onPhoto, onConsent }) {
   const t = useT();
-  const [form, setForm] = useState({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", area: "", indication: "", technique: "", parameters: "", post_care: "", consent_status: "pendente", performed_at: localDateTime() }), [busy, setBusy] = useState(false), [usage, setUsage] = useState({ lot_id: "", quantity: "", unit: "" }), [editingDraftId, setEditingDraftId] = useState("");
-  const state = useLoad(async () => Promise.all([checked(db.from("procedures").select("*").eq("active", true).order("name")), checked(db.from("treatment_plans").select("id,title").eq("patient_id", patient.id).in("status", ["planejado", "em_andamento"])), checked(db.from("product_lots").select("*,products(name,unit,active)").order("expires_on"),), checked(db.from("devices").select("*").eq("active", true).order("name"))]), [patient.id]);
+  const [form, setForm] = useState({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", area: "", indication: "", technique: "", parameters: "", post_care: "", consent_status: "pendente", performed_at: localDateTime() }), [busy, setBusy] = useState(false), [usage, setUsage] = useState([]), [equipment, setEquipment] = useState([]), [editingDraftId, setEditingDraftId] = useState("");
+  const state = useLoad(async () => Promise.all([checked(db.from("procedures").select("*").eq("active", true).order("name")), checked(db.from("treatment_plans").select("id,title").eq("patient_id", patient.id).in("status", ["planejado", "em_andamento"])), checked(db.from("product_lots").select("*,products(name,unit,active,manufacturer)").order("expires_on"),), checked(db.from("devices").select("*").eq("active", true).order("name")), checked(db.from("products").select("*").eq("active", true).order("name"))]), [patient.id]);
   const history = useLoad(() => checked(db.from("clinical_procedures").select("*,procedures(name)").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]);
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
   const selected = (state.data?.[0] || []).find((p) => p.id === form.procedure_id);
@@ -2547,14 +2610,13 @@ function ClinicalProcedurePanel({ patient, member, writable, notify, consents = 
         treatment_area: form.area,
         indication: form.indication,
         technique: form.technique,
-        parameters: { ...(form.originalParameters || {}), notes: form.parameters || "" },
+        parameters: { ...(form.originalParameters || {}), notes: form.parameters || "", equipment },
         post_care: form.post_care,
         consent_status: form.consent_status,
         device_id: form.device_id || null,
       };
-      const usagePayload = usage.lot_id
-        ? { lot_id: usage.lot_id, quantity: Number(usage.quantity) || null, unit: usage.unit }
-        : null;
+      if (selected?.lot_required && !usage.some((item) => item.lot?.trim())) throw new Error("treatment_lot_required");
+      const usagePayload = usage.map((item) => ({ ...item, quantity: item.quantity === "" ? null : Number(item.quantity) }));
       await checked(db.rpc("record_clinical_procedure", {
         procedure_payload: values,
         usage_payload: usagePayload,
@@ -2563,8 +2625,9 @@ function ClinicalProcedurePanel({ patient, member, writable, notify, consents = 
       notify(t("Procedimento registrado", "Procedure recorded"));
       setEditingDraftId("");
       setForm({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", performed_at: localDateTime(), area: "", indication: "", technique: "", parameters: "", originalParameters: {}, post_care: "", consent_status: "pendente", device_id: "" });
-      setUsage({ lot_id: "", quantity: "", unit: "" });
+      setUsage([]); setEquipment([]);
     } catch (error) {
+      if (/treatment_lot_required/.test(error?.message || "")) { notify(t("Informe pelo menos um número de lote para este procedimento.", "Enter at least one lot number for this procedure.")); return; }
       const expired = /inventory_lot_expired|expired/i.test(error?.message || "");
       notify(expired
         ? t("Lote expirado não pode ser usado em novo procedimento.", "An expired lot cannot be used in a new procedure.")
@@ -2590,9 +2653,9 @@ function ClinicalProcedurePanel({ patient, member, writable, notify, consents = 
       performed_at: row.performed_at || localDateTime(),
       device_id: row.device_id || "",
     });
-    setUsage({ lot_id: "", quantity: "", unit: "" });
+    setUsage(row.parameters?.materials || []); setEquipment(row.parameters?.equipment || []);
   };
-  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <OnDemandForm title={t("Adicionar procedimento", "Adicionar procedimento")} editing={editingDraftId}><form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide />{selected?.device_relevant && <Field title={t("Equipamento", "Device")} value={form.device_id || ""} onChange={(v) => set("device_id", v)} options={[{ value: "", label: t("Selecionar equipamento", "Select device") }, ...(state.data?.[3] || []).map((d) => ({ value: d.id, label: `${d.name} ${d.equipment_model || ""}` }))]} />}{(selected?.product_relevant || selected?.lot_required) && <><Field title={t("Produto/lote", "Product/lot")} value={usage.lot_id} onChange={(v) => setUsage((u) => ({ ...u, lot_id: v }))} options={[{ value: "", label: t("Selecionar lote", "Select lot") }, ...(state.data?.[2] || []).map((lot) => ({ value: lot.id, label: `${lot.products?.name || "Product"} · ${lot.lot} · ${lot.expires_on ? date(lot.expires_on) : t("sem validade", "no expiry")}` }))]} required={!!selected?.lot_required} /><Field title={t("Quantidade", "Quantity")} type="number" min="0" step="0.01" value={usage.quantity} onChange={(v) => setUsage((u) => ({ ...u, quantity: v }))} /><Field title={t("Unidade", "Unit")} value={usage.unit} onChange={(v) => setUsage((u) => ({ ...u, unit: v }))} /></>}<Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : editingDraftId ? t("Finalizar rascunho", "Finalize draft") : t("Finalizar procedimento", "Finalize procedure")}</Button>{editingDraftId && <Button type="button" disabled={busy} onClick={() => { setEditingDraftId(""); setForm({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", performed_at: localDateTime(), area: "", indication: "", technique: "", parameters: "", originalParameters: {}, post_care: "", consent_status: "pendente", device_id: "" }); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form></OnDemandForm>}<LoadState state={history}>{(rows) => <div className="rows">{rows.map((row) => <article className="entry" key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><div className="entry-head"><strong>{row.procedures?.name}</strong><Status value={row.status} /></div><small>{row.history_only && !row.performed_at ? t("Histórico informado · data não informada", "Reported history · date not provided") : date(row.performed_at, true)}{row.area ? ` · ${row.area}` : ""}</small><p className="preserve">{row.observations}</p><div className="actions">{onPhoto && writable && <Button icon={Camera} onClick={() => onPhoto(row)}>{t("Anexar fotos", "Attach photos")}</Button>}{onConsent && <Button icon={ShieldCheck} onClick={() => onConsent(row)}>{t("Verificar consentimento", "Verify consent")}</Button>}</div>{consents.filter((c) => c.procedure_id === row.procedure_id).slice(0, 1).map((c) => <p key={c.id}>{t("Último consentimento registrado", "Latest recorded consent")}: <Status value={c.status} /> · {c.template_version} · {date(c.accepted_at || c.created_at, true)}</p>)}{row.status === "rascunho" && writable && <Button type="button" icon={Pencil} disabled={busy} onClick={() => resumeDraft(row)}>{t("Completar rascunho", "Complete draft")}</Button>}</article>)}{!rows.length && <Empty icon={Syringe}>{t("Nenhum procedimento registrado.", "No treatments recorded.")}</Empty>}</div>}</LoadState></section>;
+  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <OnDemandForm title={t("Adicionar procedimento", "Adicionar procedimento")} editing={editingDraftId}><form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide /><TreatmentSupplies usage={usage} setUsage={setUsage} equipment={equipment} setEquipment={setEquipment} products={state.data?.[4] || []} lots={state.data?.[2] || []} devices={state.data?.[3] || []} previous={(history.data || []).find((row) => row.procedure_id === form.procedure_id && row.parameters?.materials?.length)} /><Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : editingDraftId ? t("Finalizar rascunho", "Finalize draft") : t("Finalizar procedimento", "Finalize procedure")}</Button>{editingDraftId && <Button type="button" disabled={busy} onClick={() => { setEditingDraftId(""); setUsage([]); setEquipment([]); setForm({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", performed_at: localDateTime(), area: "", indication: "", technique: "", parameters: "", originalParameters: {}, post_care: "", consent_status: "pendente", device_id: "" }); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form></OnDemandForm>}<LoadState state={history}>{(rows) => <div className="rows">{rows.map((row) => <article className="entry" key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><div className="entry-head"><strong>{row.procedures?.name}</strong><Status value={row.status} /></div><small>{row.history_only && !row.performed_at ? t("Histórico informado · data não informada", "Reported history · date not provided") : date(row.performed_at, true)}{row.area ? ` · ${row.area}` : ""}</small><p className="preserve">{row.observations}</p><TreatmentSuppliesHistory row={row} /><div className="actions">{onPhoto && writable && <Button icon={Camera} onClick={() => onPhoto(row)}>{t("Anexar fotos", "Attach photos")}</Button>}{onConsent && <Button icon={ShieldCheck} onClick={() => onConsent(row)}>{t("Verificar consentimento", "Verify consent")}</Button>}</div>{consents.filter((c) => c.procedure_id === row.procedure_id).slice(0, 1).map((c) => <p key={c.id}>{t("Último consentimento registrado", "Latest recorded consent")}: <Status value={c.status} /> · {c.template_version} · {date(c.accepted_at || c.created_at, true)}</p>)}{row.status === "rascunho" && writable && <Button type="button" icon={Pencil} disabled={busy} onClick={() => resumeDraft(row)}>{t("Completar rascunho", "Complete draft")}</Button>}</article>)}{!rows.length && <Empty icon={Syringe}>{t("Nenhum procedimento registrado.", "No treatments recorded.")}</Empty>}</div>}</LoadState></section>;
 }
 
 function HealthHistoryPanel({ patient, member, writable, notify }) {
@@ -3784,7 +3847,7 @@ function Tasks({ setModal, openPatient, version, writable, notify }) {
 function PublicIntakeAnswers({ payload = {} }) {
   const t = useT();
   const text = (value) => Array.isArray(value) ? value.map(text).join(", ")
-    : value && typeof value === "object" ? JSON.stringify(value) : value === "yes" ? t("Sim", "Yes")
+    : value && typeof value === "object" ? displayText(value) : value === "yes" ? t("Sim", "Yes")
     : value === "no" ? t("Não", "No") : String(value ?? "");
   return <details className="detail-section"><summary>{t("Todas as respostas do formulário", "All submitted form answers")}</summary>
     <dl>{Object.entries(payload).filter(([key, value]) => !key.startsWith("_") && value !== "").map(([key, value]) =>
@@ -3796,7 +3859,7 @@ function PatientIntakeHistory({ patientId, search = "" }) {
   const state = useLoad(() => checked(db.from("public_intakes").select("id,submitted_at,form_version,payload")
     .eq("patient_id", patientId).order("submitted_at", { ascending: false })), [patientId]);
   return <LoadState state={state}>{(rows) => rows.length > 0 && <section className="detail-section">
-    <h2>{t("Formulários recebidos", "Submitted forms")}</h2>{rows.filter((row) => `Formulário ${row.form_version} ${JSON.stringify(row.payload)}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map((row) => <details key={row.id}>
+    <h2>{t("Formulários recebidos", "Submitted forms")}</h2>{rows.filter((row) => `Formulário ${row.form_version} ${displayText(row.payload)}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map((row) => <details key={row.id}>
       <summary>{date(row.submitted_at, true)} · {row.form_version}</summary><PublicIntakeAnswers payload={row.payload} />
     </details>)}
   </section>}</LoadState>;
@@ -4859,14 +4922,15 @@ function ProcedureCatalog({ notify }) {
   const state = useLoad(() => checked(db.from("procedures").select("*").not("name", "ilike", "TESTE — %").neq("review_status", "arquivado").order("active", { ascending: false }).order("name")), [editing]);
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
   const objectText = (value, key) => humanText(value?.[key]);
-  const editForm = (row) => { const clinical = row.clinical_details || {}, materials = row.materials || {}, documents = row.documents || {}, availability = row.availability || {}; return { ...blank, ...row, price: row.price_cents == null ? "" : (Number(row.price_cents) / 100).toFixed(2), contraindications: objectText(clinical, "contraindications"), risks: objectText(clinical, "risks"), precautions: objectText(clinical, "precautions"), products: objectText(materials, "products"), equipment: objectText(materials, "equipment"), consumables: objectText(materials, "consumables"), consent_requirements: objectText(documents, "consent"), photo_requirements: objectText(documents, "photos"), availability_notes: objectText(availability, "professionals"), assessment_questions: Array.isArray(row.questionnaire) ? row.questionnaire.map((item) => typeof item === "string" ? item : item.question || item.label || humanText(item)).join("\n") : humanText(row.questionnaire) }; };
+  const editForm = (row) => { const clinical = row.clinical_details || {}, materials = row.materials || {}, documents = row.documents || {}, availability = row.availability || {}; return { ...blank, ...row, price: row.price_cents == null ? "" : (Number(row.price_cents) / 100).toFixed(2), contraindications: objectText(clinical, "contraindications"), risks: objectText(clinical, "risks"), precautions: objectText(clinical, "precautions"), products: objectText(materials, "products"), equipment: objectText(materials, "equipment"), consumables: objectText(materials, "consumables"), consent_requirements: objectText(documents, "consent"), photo_requirements: objectText(documents, "photos"), availability_notes: objectText(availability, "professionals"), questionnaire: structuredQuestions(row.questionnaire), device_parameters: structuredParameters(row.device_parameters), originalQuestionnaire: row.questionnaire, originalDeviceParameters: row.device_parameters }; };
   const saveProcedure = async (event) => {
     event.preventDefault(); if (busy) return; setBusy(true);
     try {
-      const values = { ...Object.fromEntries(Object.keys(blank).map((key) => [key, form[key]])), price_cents: form.price === "" ? null : Math.round(Number(String(form.price).replace(",", ".")) * 100), default_duration: Number(form.default_duration), interval_days: form.interval_days === "" ? null : Number(form.interval_days), followup_days: form.followup_days === "" ? null : Number(form.followup_days), booking_buffer_minutes: Number(form.booking_buffer_minutes || 0), next_review_on: form.next_review_on || null, clinical_details: { ...(editing?.clinical_details || {}), contraindications: form.contraindications, risks: form.risks, precautions: form.precautions }, materials: { ...(editing?.materials || {}), products: form.products, equipment: form.equipment, consumables: form.consumables }, documents: { ...(editing?.documents || {}), consent: form.consent_requirements, photos: form.photo_requirements }, availability: { ...(editing?.availability || {}), professionals: form.availability_notes }, questionnaire: form.assessment_questions.split(/\n+/).map((item) => item.trim()).filter(Boolean) };
+      const values = { ...Object.fromEntries(Object.keys(blank).map((key) => [key, form[key]])), price_cents: form.price === "" ? null : Math.round(Number(String(form.price).replace(",", ".")) * 100), default_duration: Number(form.default_duration), interval_days: form.interval_days === "" ? null : Number(form.interval_days), followup_days: form.followup_days === "" ? null : Number(form.followup_days), booking_buffer_minutes: Number(form.booking_buffer_minutes || 0), next_review_on: form.next_review_on || null, clinical_details: { ...(editing?.clinical_details || {}), contraindications: form.contraindications, risks: form.risks, precautions: form.precautions }, materials: { ...(editing?.materials || {}), products: form.products, equipment: form.equipment, consumables: form.consumables }, documents: { ...(editing?.documents || {}), consent: form.consent_requirements, photos: form.photo_requirements }, availability: { ...(editing?.availability || {}), professionals: form.availability_notes }, questionnaire: cleanStructuredRows(form.questionnaire, "question"), device_parameters: cleanStructuredRows(form.device_parameters, "parameter") };
       ["price", "contraindications", "risks", "precautions", "products", "equipment", "consumables", "consent_requirements", "photo_requirements", "availability_notes", "assessment_questions"].forEach((key) => delete values[key]);
 
-      if (editing?.id && form.assessment_questions === editForm(editing).assessment_questions) values.questionnaire = editing.questionnaire;
+      if (editing?.id && JSON.stringify(form.questionnaire) === JSON.stringify(structuredQuestions(editing.questionnaire))) values.questionnaire = editing.questionnaire;
+      if (editing?.id && JSON.stringify(form.device_parameters) === JSON.stringify(structuredParameters(editing.device_parameters))) values.device_parameters = editing.device_parameters;
       if (!form.name.trim() || !Number.isFinite(values.default_duration) || values.default_duration < 5 || (values.price_cents !== null && (!Number.isFinite(values.price_cents) || values.price_cents < 0))) throw new Error("invalid_fields");
       values.name = form.name.trim();
       // The database trigger owns version increments and immutable snapshots.
@@ -4948,7 +5012,7 @@ function ProcedureCatalog({ notify }) {
       <Field title={t("Equipamentos e materiais", "Equipment and materials")} type="textarea" value={`${form.equipment}${form.consumables ? `\n${form.consumables}` : ""}`} onChange={(v) => { set("equipment", v); set("consumables", ""); }} />
       <Field title={t("Consentimento e fotos", "Consent and photos")} type="textarea" value={`${form.consent_requirements}${form.photo_requirements ? `\n${form.photo_requirements}` : ""}`} onChange={(v) => { set("consent_requirements", v); set("photo_requirements", ""); }} />
       <Field title={t("Quem pode realizar e onde aparece", "Who can perform it and visibility")} type="textarea" value={form.availability_notes} onChange={(v) => set("availability_notes", v)} />
-      <Field title={t("Perguntas antes do atendimento", "Questions before treatment")} type="textarea" value={form.assessment_questions} onChange={(v) => set("assessment_questions", v)} wide />
+      <StructuredRowsEditor title={t("Perguntas antes do atendimento", "Questions before treatment")} rows={form.questionnaire} kind="question" onChange={(value) => set("questionnaire", value)} />
       <fieldset className="wide"><legend>{t("Consentimentos necessários", "Required consent")}</legend>{[["procedimento", "Consentimento do procedimento"], ["fotografia_clinica", "Autorização para fotografia clínica"]].map(([value, title]) => <label className="permission-cell" key={value}><input type="checkbox" checked={(form.required_consents || []).includes(value)} onChange={(event) => set("required_consents", event.target.checked ? [...(form.required_consents || []), value] : form.required_consents.filter(item => item !== value))} />{title}</label>)}</fieldset>
       <Field title={t("Fontes consultadas (um endereço por linha)", "References (one URL per line)")} type="textarea" value={(form.source_references || []).map(item => typeof item === "string" ? item : item.url || item.href || "").filter(Boolean).join("\n")} onChange={(value) => set("source_references", value.split(/\n/).map(item => item.trim()).filter(Boolean))} wide />
       <Field title={t("Sala / ambiente", "Room / setting")} value={form.room_requirement} onChange={(v) => set("room_requirement", v)} />
@@ -4958,7 +5022,7 @@ function ProcedureCatalog({ notify }) {
       <Field title={t("Versão do consentimento", "Consent template version")} value={form.consent_template_version} onChange={(v) => set("consent_template_version", v)} />
       <Field title={t("Template de consentimento", "Consent template")} type="textarea" value={form.consent_template} onChange={(v) => set("consent_template", v)} wide />
       <Field title={t("Orientações pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care} onChange={(v) => set("post_care", v)} wide />
-      <Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.device_parameters} onChange={(v) => set("device_parameters", v)} />
+      <StructuredRowsEditor title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} rows={form.device_parameters} kind="parameter" onChange={(value) => set("device_parameters", value)} />
       <footer className="form-footer"><Button type="button" onClick={() => { setEditing(null); setForm(blank); }}>{t("Cancelar", "Cancel")}</Button><Button className="primary" icon={Save} disabled={busy}>{busy ? t("Salvando...", "Saving...") : t("Salvar", "Save")}</Button></footer>
     </form>}
       <LoadState state={state}>{(rows) => <div className="procedure-catalog-grid">{rows.map((procedure) => <ContextActions key={procedure.id} label={procedure.name} actions={[{ icon: Trash2, label: t("Excluir do catálogo", "Remove from catalogue"), onClick: () => removeProcedure(procedure) }, { icon: Pencil, label: t("Editar serviço e catálogo", "Edit service and catalogue"), onClick: () => edit(procedure) }, { icon: Image, label: t("Alterar imagem", "Change image"), onClick: () => edit(procedure) }, { icon: procedure.active ? EyeOff : Eye, label: procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate"), onClick: () => toggleProcedure(procedure) }]} className="procedure-catalog-context"><article className="procedure-catalog-card"><ProcedureImage procedure={procedure} className="procedure-catalog-image" /><div className="procedure-catalog-card-content"><span><strong>{procedure.name}</strong><small>{label(procedure.category, t)} · {procedure.price_cents == null ? t("preço não definido", "price not set") : `R$ ${(Number(procedure.price_cents) / 100).toFixed(2).replace(".", ",")} `} · {procedure.default_duration} min</small></span><Status value={procedure.active ? "ativo" : "inativo"} /><p>{procedure.description || t("Descrição pendente no catálogo.", "Catalogue description pending.")}</p><div className="procedure-catalog-card-actions"><Button type="button" disabled={busy} onClick={() => removeProcedure(procedure)}>{t("Excluir", "Remove")}</Button><Button onClick={() => edit(procedure)}>{t("Editar", "Edit")}</Button><Button disabled={busy} onClick={() => toggleProcedure(procedure)}>{procedure.active ? t("Desativar", "Deactivate") : t("Reativar", "Reactivate")}</Button></div></div></article></ContextActions>)}{!rows.length && <Empty icon={ClipboardList}>{t("Nenhum procedimento configurado.", "No procedures configured.")}</Empty>}</div>}</LoadState>

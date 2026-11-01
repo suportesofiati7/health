@@ -1,0 +1,248 @@
+[
+  {
+    "viewport": 320,
+    "overflow": false,
+    "panelHeight": 784.8125,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "none",
+      "width": "auto",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 234.8125,
+        "height": 53.59375,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 234.8125,
+        "height": 53.59375,
+        "inside": true
+      }
+    ],
+    "mobilePixelIdentical": true
+  },
+  {
+    "viewport": 375,
+    "overflow": false,
+    "panelHeight": 745.265625,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "none",
+      "width": "auto",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 289.8125,
+        "height": 53.59375,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 289.8125,
+        "height": 53.59375,
+        "inside": true
+      }
+    ],
+    "mobilePixelIdentical": true
+  },
+  {
+    "viewport": 430,
+    "overflow": false,
+    "panelHeight": 719.640625,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "none",
+      "width": "auto",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 344.8125,
+        "height": 53.59375,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 344.8125,
+        "height": 53.59375,
+        "inside": true
+      }
+    ],
+    "mobilePixelIdentical": true
+  },
+  {
+    "viewport": 768,
+    "overflow": false,
+    "panelHeight": 455,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "\"\"",
+      "width": "112px",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 256,
+        "height": 56,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 256,
+        "height": 56,
+        "inside": true
+      }
+    ]
+  },
+  {
+    "viewport": 1024,
+    "overflow": false,
+    "panelHeight": 475.28125,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "\"\"",
+      "width": "122.875px",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 302.625,
+        "height": 56,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 302.625,
+        "height": 56,
+        "inside": true
+      }
+    ]
+  },
+  {
+    "viewport": 1280,
+    "overflow": false,
+    "panelHeight": 528.46875,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "\"\"",
+      "width": "153.594px",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 378.46875,
+        "height": 56,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 378.46875,
+        "height": 56,
+        "inside": true
+      }
+    ]
+  },
+  {
+    "viewport": 1440,
+    "overflow": false,
+    "panelHeight": 566.125,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "\"\"",
+      "width": "172.797px",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 426.453125,
+        "height": 56,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 426.453125,
+        "height": 56,
+        "inside": true
+      }
+    ]
+  },
+  {
+    "viewport": 1920,
+    "overflow": false,
+    "panelHeight": 602.859375,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "\"\"",
+      "width": "208px",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 431.25,
+        "height": 56,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 431.25,
+        "height": 56,
+        "inside": true
+      }
+    ]
+  },
+  {
+    "viewport": 2560,
+    "overflow": false,
+    "panelHeight": 602.859375,
+    "columnsOverlap": false,
+    "mark": {
+      "content": "\"\"",
+      "width": "208px",
+      "opacity": "1"
+    },
+    "buttons": [
+      {
+        "text": "Agendar Avaliação",
+        "href": "consulta.html",
+        "width": 431.25,
+        "height": 56,
+        "inside": true
+      },
+      {
+        "text": "Falar com a Equipe",
+        "href": "contato.html",
+        "width": 431.25,
+        "height": 56,
+        "inside": true
+      }
+    ]
+  }
+]

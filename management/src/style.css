@@ -1717,6 +1717,15 @@ dialog.dialog-wide {
   font-size: 14px;
   min-width: 0;
 }
+.structured-rows-editor { display: grid; gap: 10px; margin: 0; min-width: 0; }
+.structured-rows-editor > legend { padding: 0; color: var(--text); font-weight: 700; }
+.structured-rows-editor > .subtle { margin: -3px 0 2px; }
+.structured-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; align-items: end; gap: 10px; padding: 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-soft); }
+.structured-row label { display: grid; gap: 5px; min-width: 0; color: var(--text-secondary); font-size: 11px; }
+.structured-row input:not([type="checkbox"]) { width: 100%; min-width: 0; }
+.structured-row .structured-required { display: flex; align-items: center; min-height: 40px; gap: 7px; white-space: nowrap; }
+.structured-row .icon-button { align-self: end; }
+@media (max-width: 600px) { .structured-row { grid-template-columns: minmax(0, 1fr) auto; } .structured-row label:first-child { grid-column: 1 / -1; } .structured-row .structured-required { grid-column: 1; } }
 .field textarea {
   resize: vertical;
   line-height: 1.6;
@@ -4706,3 +4715,8 @@ button.primary,
   --ui-text-inverse: var(--ui-primary-text);
 }
 .today .day-number, .agenda-zero-day.today .agenda-zero-day-number { background: var(--brand-terracotta-deep); }
+
+.treatment-supplies { grid-column: 1 / -1; min-width: 0; }
+.treatment-supplies fieldset { min-width: 0; margin: 12px 0; padding: 16px; border: 1px solid var(--ui-border); border-radius: 12px; }
+.treatment-supplies legend { padding: 0 6px; font-weight: 600; }
+.treatment-supplies > h3 { margin-top: 20px; }

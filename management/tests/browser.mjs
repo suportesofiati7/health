@@ -17,7 +17,8 @@ const financePayment={id:'81000000-0000-4000-8000-000000000001',organization_id:
 const procedure={id:'a1000000-0000-4000-8000-000000000001',organization_id:org,name:'Peeling de Jessner (teste fictício)',category:'peeling',image_url:'',description:'Procedimento fictício para validar edição do catálogo.',purpose:'Fixture visual',indications:'Fixture visual',areas:'Face',default_duration:60,interval_days:30,sessions:'Individualizado',follow_up:'Reavaliar',followup_days:30,price_cents:25000,commercial_config:{},benefits:'Fixture',before_after_care:'Fixture',recovery:'Fixture',expected_results:'Variáveis',clinical_details:{},official_information:{},protocol_instructions:'Fixture',materials:{},documents:{},availability:{},source_references:[],booking_buffer_minutes:0,room_requirement:'',eligible_roles:[],questionnaire:[],required_consents:[],public_description:'',review_status:'aprovacao_pendente',next_review_on:null,product_relevant:false,lot_required:false,device_relevant:false,photos_expected:false,treatment_areas:'Face',consent_template:'',consent_template_version:'',post_care:'Fixture',relevant_fields:{},device_parameters:[],catalog_version:1,active:true};
 const fixtures={memberships:[member],patients:[patient],entries:[entry],entry_versions:[],treatment_plans:[{id:'b7000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,title:'Plano fictício editável',objectives:'Objetivo fictício',areas:'Face',professional_notes:'Notas fictícias',responsible_user:uid,expected_followup:null,status:'planejado',created_at:created,treatment_plan_items:[{id:'b7100000-0000-4000-8000-000000000001',organization_id:org,plan_id:'b7000000-0000-4000-8000-000000000001',procedure_id:procedure.id,sequence_no:1,sessions:2,area:'Face',notes:'Fictional plan item',archived_at:null,procedures:{name:procedure.name}}]}],documents:[],document_links:[],clinical_procedures:[{id:'b6000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,procedure_id:procedure.id,professional_id:uid,performed_at:created,area:'Área fictícia',indication:'Indicação inicial',technique:'',parameters:{},post_care:'',consent_status:'pendente',status:'rascunho',created_by:uid,created_at:created,procedures:{name:procedure.name}}],clinical_photos:[{id:'91000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,path:`${org}/${patient.id}/qa-patient.png`,category:'antes',area:'Face completa',description:'Imagem fictícia para validação visual.',created_at:created}],communications:[],admin_notes:[],public_intakes:[intake],enquiries:[intake],financial_records:[financeRecord],financial_payments:[financePayment],appointments:[{id:'50000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,patients:patient,starts_at:`${day}T14:00:00-03:00`,ends_at:`${day}T15:00:00-03:00`,status:'confirmado',label:'Avaliação estética',version:1}],tasks:[{id:'60000000-0000-4000-8000-000000000001',organization_id:org,patient_id:patient.id,patients:patient,title:'Confirmar retorno fictício',due_at:`${day}T10:00:00-03:00`,status:'pendente',priority:'alta',version:1}],procedures:[procedure],procedure_versions:[],audit_events:[]};
 procedure.materials = { products: 'Fixture product', traceability: { preserve: true } };
-procedure.questionnaire = [{ key: 'qa', label: 'Question fixture', required: true }];
+procedure.questionnaire = [{ question: 'Question fixture', required: true, clinical_note: { preserve: true } }];
+procedure.device_parameters = [{ parameter: 'Fluência', notes: '12 J/cm²', unit: 'J/cm²', limits: { min: 8, max: 16 } }];
 fixtures.procedures.push({ ...procedure, id: 'a1000000-0000-4000-8000-000000000002', name: 'Botox (teste fictício)' });
 financeRecord.procedure_id = procedure.id;
 const outsidePatient = { ...patient, id: '30000000-0000-4000-8000-000000000009', full_name: 'Outside QA', preferred_name: 'Outside', phone: '0000000000' };
@@ -110,12 +111,25 @@ try{
     await clinicalProcedureForm.locator('select').first().selectOption(procedure.id);
     await clinicalProcedureForm.locator('textarea').nth(0).fill('Indicação clínica fictícia de teste');
     await clinicalProcedureForm.locator('textarea').nth(1).fill('Técnica fictícia de teste');
+    for (const [name, lot] of [['Serum personalizado', 'LOTE-A'], ['Agulha descartável', 'LOTE-B']]) {
+      await clinicalProcedureForm.getByRole('button',{name:'Adicionar produto/material',exact:true}).click();
+      const item = clinicalProcedureForm.locator('fieldset').last();
+      await item.getByRole('textbox',{name:'Produto/material',exact:true}).fill(name);
+      await item.getByRole('textbox',{name:'Número do lote',exact:true}).fill(lot);
+      await item.getByRole('textbox',{name:'Marca / fabricante',exact:true}).fill('Marca da sessão');
+    }
+    await clinicalProcedureForm.getByRole('button',{name:'Adicionar equipamento',exact:true}).click();
+    await clinicalProcedureForm.getByRole('textbox',{name:'Nome do equipamento',exact:true}).fill('Equipamento individualizado');
+    await clinicalProcedureForm.getByRole('textbox',{name:'Parâmetros / acessórios desta sessão',exact:true}).fill('12 J');
     await clinicalProcedureForm.getByRole('button',{name:'Finalizar procedimento',exact:true}).evaluate(button=>button.click());
     await page.getByText('Procedimento registrado',{exact:true}).waitFor();
     const clinicalCall=posts.find(row=>row.table==='rpc:record_clinical_procedure');
     assert.equal(clinicalCall.body.procedure_payload.patient_id,patient.id);
     assert.equal(clinicalCall.body.procedure_payload.indication,'Indicação clínica fictícia de teste');
-    assert.equal(clinicalCall.body.usage_payload,null);
+    assert.equal(clinicalCall.body.usage_payload.length,2);
+    assert.equal(clinicalCall.body.usage_payload[0].lot,'LOTE-A');
+    assert.equal(clinicalCall.body.usage_payload[1].name,'Agulha descartável');
+    assert.equal(clinicalCall.body.procedure_payload.parameters.equipment[0].settings,'12 J');
     await page.getByRole('button',{name:'Completar rascunho',exact:true}).click();
     const resumedDraftForm=page.getByRole('button',{name:'Finalizar rascunho',exact:true}).locator('xpath=ancestor::form');
     await resumedDraftForm.locator('textarea').nth(1).fill('Técnica concluída do rascunho');
@@ -236,6 +250,9 @@ try{
         const editor = page.locator('#procedure-editor');
         await editor.waitFor();
         assert.equal(await editor.getByText(/JSON|\[object Object\]/).count(), 0, 'catalogue exposes readable fields only');
+        assert.equal(await editor.getByLabel('Pergunta 1', { exact: true }).inputValue(), 'Question fixture');
+        assert.equal(await editor.getByLabel('Parâmetro 1', { exact: true }).inputValue(), 'Fluência');
+        assert.equal(await editor.getByLabel('Observação do parâmetro 1', { exact: true }).inputValue(), '12 J/cm²');
         await editor.getByLabel('Preço (R$)', { exact: true }).fill('321.45');
         await editor.getByRole('button', { name: 'Salvar', exact: true }).click();
         await editor.waitFor({ state: 'detached' });
@@ -243,6 +260,7 @@ try{
         assert.equal(changed.price_cents, 32145);
         assert.equal(changed.materials.traceability.preserve, true);
         assert.deepEqual(changed.questionnaire, procedure.questionnaire);
+        assert.deepEqual(changed.device_parameters, procedure.device_parameters);
         assert.equal(Object.hasOwn(changed, 'id'), false);
         assert.equal(Object.hasOwn(changed, 'created_at'), false);
       }

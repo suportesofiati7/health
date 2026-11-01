@@ -21,3 +21,50 @@ export function humanText(value) {
 }
 // Notes stay readable; existing structured equipment settings remain intact.
 export function parameterNotes(parameters) { return typeof parameters === 'object' ? String(parameters?.notes || '') : String(parameters || ''); }
+
+export function displayText(value) {
+  if (typeof value !== 'string') return humanText(value);
+  const trimmed = value.trim();
+  if (!/^[{[]/.test(trimmed)) return value;
+  try { return humanText(JSON.parse(trimmed)); } catch { return value; }
+}
+
+const arrayValue = (value) => Array.isArray(value) ? value : value == null || value === '' ? [] : [value];
+
+export function structuredQuestions(value) {
+  return arrayValue(value).map((item, index) => {
+    if (typeof item === 'string') return { key: `question-${index + 1}`, label: item, required: false, _legacy: 'string' };
+    if (item && typeof item === 'object') return {
+      ...item,
+      key: item.key || `question-${index + 1}`,
+      label: item.label || item.question || item.text || humanText(item),
+      required: Boolean(item.required),
+    };
+    return { key: `question-${index + 1}`, label: displayText(item), required: false, _legacy: 'scalar' };
+  });
+}
+
+export function structuredParameters(value) {
+  return arrayValue(value).map((item, index) => {
+    if (typeof item === 'string') return { name: `Parâmetro ${index + 1}`, value: item, _legacy: 'string' };
+    if (item && typeof item === 'object') return {
+      ...item,
+      name: item.name || item.label || item.parameter || `Parâmetro ${index + 1}`,
+      value: item.value ?? item.notes ?? item.description ?? '',
+    };
+    return { name: `Parâmetro ${index + 1}`, value: displayText(item), _legacy: 'scalar' };
+  });
+}
+
+export function cleanStructuredRows(rows, kind) {
+  return (rows || []).map((row) => {
+    const next = { ...row };
+    delete next._legacy;
+    if (kind === 'question') {
+      next.key = String(next.key || '').trim(); next.label = String(next.label || '').trim(); next.required = Boolean(next.required);
+    } else {
+      next.name = String(next.name || '').trim(); next.value = String(next.value ?? '').trim();
+    }
+    return next;
+  }).filter((row) => kind === 'question' ? row.label : row.name || row.value);
+}

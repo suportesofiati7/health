@@ -281,3 +281,32 @@
     justify-content: center;
   }
 }
+
+/* Final homepage CTA: the official gold mark fills the quiet space above
+   the actions. Media scoping preserves the existing phone composition and
+   reuses the header's cached transparent asset without another download. */
+@media (min-width: 48rem) {
+  .sf-page[data-page="home"] #begin-with-a-conversation .sf-bottom-cta__inner {
+    grid-template-columns: minmax(0, 1.25fr) minmax(16rem, .75fr);
+    align-items: center;
+    gap: clamp(2rem, 4vw, 4rem);
+    padding: clamp(2rem, 4.5vw, 4rem);
+  }
+
+  .sf-page[data-page="home"] #begin-with-a-conversation .sf-home-final-cta__actions {
+    min-inline-size: 0;
+    align-content: center;
+    gap: clamp(1rem, 1.5vw, 1.35rem);
+  }
+
+  .sf-page[data-page="home"] #begin-with-a-conversation .sf-home-final-cta__actions::before {
+    content: "";
+    display: block;
+    inline-size: clamp(7rem, 12vw, 13rem);
+    aspect-ratio: 1134 / 1183;
+    justify-self: center;
+    background: url("../assets/brand/monograma-franciele-sofiati-biomedica-esteta-estetica-avancada-gleba-palhano.webp") center / contain no-repeat;
+    opacity: 1;
+    pointer-events: none;
+  }
+}
