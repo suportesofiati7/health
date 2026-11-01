@@ -983,6 +983,12 @@
 /* Source: css/src/foundations/tokens.css */
 @layer tokens {
   :root {
+    /* Shared line-icon proportions echo the 19px / 2px management sidebar icons. */
+    --icon-size-standard: 1.1875rem;
+    --icon-size-inline: 1.0625rem;
+    --icon-size-micro: .9375rem;
+    --icon-stroke-width: 2;
+
     /* Luminous botanical primitives */
     --ivory-50: #fffdf7;
     --ivory-100: #fbf2e7;
@@ -2095,7 +2101,7 @@
 /* Source: css/src/components/icons.css */
 @layer components {
   .sf-icon {
-    --sf-icon-size: 1.15rem;
+    --sf-icon-size: var(--icon-size-standard);
     --sf-icon-color: var(--rose-gold-700);
     inline-size: var(--sf-icon-size);
     block-size: var(--sf-icon-size);
@@ -2117,13 +2123,13 @@
     height: 100%;
     fill: none;
     stroke: currentColor;
-    stroke-width: 1.45;
+    stroke-width: var(--icon-stroke-width);
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
   .sf-icon--standalone {
-    --sf-icon-size: 1rem;
+    --sf-icon-size: var(--icon-size-inline);
     --sf-icon-color: currentColor;
   }
 
@@ -2138,15 +2144,15 @@
       color-mix(in srgb, var(--ivory-50) 68%, var(--blush-100));
   }
 
-  .sf-icon--soft svg { inline-size: 1.18rem; block-size: 1.18rem; }
+  .sf-icon--soft svg { inline-size: var(--icon-size-standard); block-size: var(--icon-size-standard); }
 
   .sf-icon--inline {
-    --sf-icon-size: 1.03rem;
+    --sf-icon-size: var(--icon-size-inline);
     --sf-icon-color: currentColor;
   }
 
   .sf-icon--micro {
-    --sf-icon-size: .92rem;
+    --sf-icon-size: var(--icon-size-micro);
     --sf-icon-color: var(--rose-gold-700);
   }
 
@@ -2214,10 +2220,10 @@
   .sffo-icon,
   .sfi-contact-icon,
   .sf-existing-icon {
-    inline-size: 1.05rem;
-    block-size: 1.05rem;
-    width: 1.05rem;
-    height: 1.05rem;
+    inline-size: var(--icon-size-inline);
+    block-size: var(--icon-size-inline);
+    width: var(--icon-size-inline);
+    height: var(--icon-size-inline);
     flex: 0 0 auto;
     color: currentColor;
   }

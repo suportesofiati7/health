@@ -1,5 +1,11 @@
 @layer tokens {
   :root {
+    /* Shared line-icon proportions echo the 19px / 2px management sidebar icons. */
+    --icon-size-standard: 1.1875rem;
+    --icon-size-inline: 1.0625rem;
+    --icon-size-micro: .9375rem;
+    --icon-stroke-width: 2;
+
     /* Luminous botanical primitives */
     --ivory-50: #fffdf7;
     --ivory-100: #fbf2e7;

@@ -2,6 +2,8 @@ import { Avatar, ProcedureImage } from "./Images";
 import { useEffect, useMemo, useState } from "react";
 import {
   AlertCircle,
+  ChevronDown,
+  ChevronUp,
   Check,
   Plus,
   Receipt,
@@ -287,7 +289,7 @@ export default function Financeiro({ notify, version }) {
     return (
       <main className="finance-workspace">
         <div className="finance-state" role="status">
-          Carregando financeiro…
+          <RotateCcw size={18} className="spin" aria-hidden="true" /> Carregando financeiro…
         </div>
       </main>
     );
@@ -302,7 +304,7 @@ export default function Financeiro({ notify, version }) {
             className="finance-secondary"
             onClick={state.refresh}
           >
-            Tentar novamente
+            <RotateCcw size={16} aria-hidden="true" /> {t("Tentar novamente", "Try again")}
           </button>
         </div>
       </main>
@@ -625,8 +627,8 @@ export default function Financeiro({ notify, version }) {
                         showTrigger={false}
                       >
                         <div className="finance-row-actions">
-                          {recordBalance(record) > 0 && <button type="button" className="finance-detail-button finance-quick-payment" onClick={() => setExpanded(record.id)}>{t("Registrar pagamento", "Record payment")}</button>}
-                          <button type="button" className="finance-detail-button" onClick={() => setExpanded(open ? null : record.id)}>{open ? t("Fechar", "Close") : t("Detalhes", "Details")}</button>
+                          {recordBalance(record) > 0 && <button type="button" className="finance-detail-button finance-quick-payment" onClick={() => setExpanded(record.id)}><WalletCards size={15} aria-hidden="true" /> {t("Registrar pagamento", "Record payment")}</button>}
+                          <button type="button" className="finance-detail-button" aria-expanded={open} onClick={() => setExpanded(open ? null : record.id)}>{open ? <ChevronUp size={15} aria-hidden="true" /> : <ChevronDown size={15} aria-hidden="true" />}{open ? t("Fechar", "Close") : t("Detalhes", "Details")}</button>
                         </div>
                       </ContextActions>
                     </td>
