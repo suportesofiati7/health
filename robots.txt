@@ -1,7 +1,6 @@
 # Public crawl guidance only; this is not an access-control mechanism.
 
 User-agent: *
-Allow: /
 Disallow: /.git/
 Disallow: /.codex/
 Disallow: /.agents/
@@ -19,5 +18,8 @@ Disallow: /.search-discovery-state.json
 Disallow: /.env
 Disallow: /.gitignore
 Disallow: /README.md
+Allow: /
 
+# Public search and AI crawlers (including OAI-SearchBot) use the rules above.
+Sitemap: https://francielesofiati.com/sitemap-index.xml
 Sitemap: https://francielesofiati.com/sitemap.xml

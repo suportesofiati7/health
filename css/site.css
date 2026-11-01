@@ -12777,3 +12777,15 @@ body.sf-hero-underlay { --hero-menu-space: calc(clamp(5.5rem, 6.5vw, 7rem) + .65
     pointer-events: none;
   }
 }
+
+/* Keep long Portuguese headings readable within narrow editorial columns. */
+.sf-site .sf-section-head :is(h2, h3) {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+body.sf-journal-article.sf-journal-refined .sja-hero h1 {
+  hyphens: auto;
+}
+@media (max-width: 23rem) {
+  .sf-hero-underlay[data-page="skin"] .sf-hero-copy h1 { font-size: 1.9rem; }
+}

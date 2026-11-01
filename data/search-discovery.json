@@ -1,9 +1,46 @@
 {
-  "name": "Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist",
-  "summary": "Official Brazilian Portuguese website for Franciele Sofiati, a Biomédica, Esteticista and Cosmetóloga (CRBM 6277) providing consultation-led aesthetic care and educational information in Londrina, Paraná, Brazil.",
+  "name": "Franciele Sofiati · Biomédica · Esteticista · Cosmetóloga",
+  "summary": "Site oficial em português de Franciele Sofiati, Biomédica, Esteticista e Cosmetóloga (CRBM 6277), em Londrina, Paraná, Brasil. Atendimento com avaliação individual no Metropolitan Med Center, Rua Mato Grosso, 1114 - Centro, Londrina - PR, 86010-180. Contato: +55 43 99104-3536; suportesofiati@gmail.com. Instagram oficial: https://www.instagram.com/sofiati_biomedica/. Os artigos são educativos e não substituem avaliação individual.",
   "sections": [
-    {"title": "Primary pages", "paths": ["/", "/sobre", "/consulta", "/tratamentos", "/contato", "/perguntas", "/cookies"]},
-    {"title": "Care topics", "paths": ["/pele", "/laser", "/cuidados", "/resultados", "/depoimentos", "/missao", "/valores", "/servicos/toxina-botulinica-terco-superior-da-face", "/servicos/microagulhamento", "/servicos/laser-acupulse-co2", "/servicos/ultraformer-mpt"]},
-    {"title": "Journal", "paths": ["/blog", "/blog/botox-londrina-guia-completo", "/blog/consulta-estetica-como-se-preparar", "/blog/pele-e-gravidez-perguntas-seguras", "/blog/laser-co2-recuperacao-e-cuidados"]}
+    {
+      "title": "Páginas principais",
+      "paths": [
+        "/",
+        "/sobre",
+        "/consulta",
+        "/tratamentos",
+        "/contato",
+        "/perguntas",
+        "/cookies"
+      ]
+    },
+    {
+      "title": "Cuidados e tratamentos",
+      "paths": [
+        "/pele",
+        "/laser",
+        "/cuidados",
+        "/resultados",
+        "/depoimentos",
+        "/missao",
+        "/valores",
+        "/servicos/toxina-botulinica-terco-superior-da-face",
+        "/servicos/microagulhamento",
+        "/servicos/laser-acupulse-co2",
+        "/servicos/ultraformer-mpt"
+      ],
+      "prefix": "/servicos/"
+    },
+    {
+      "title": "Journal — todos os artigos",
+      "paths": [
+        "/blog",
+        "/blog/botox-londrina-guia-completo",
+        "/blog/consulta-estetica-como-se-preparar",
+        "/blog/pele-e-gravidez-perguntas-seguras",
+        "/blog/laser-co2-recuperacao-e-cuidados"
+      ],
+      "prefix": "/blog/"
+    }
   ]
 }

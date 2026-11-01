@@ -13,8 +13,9 @@ const publicPages = (await readdir(root)).filter(name => name.endsWith('.html') 
 const services = (await readdir(`${root}/servicos`)).filter(name => name.endsWith('.html')).map(name => `servicos/${name}`);
 const routes = [...publicPages, ...services, ...articles];
 const results = [];
+const viewports = (process.env.LAYOUT_WIDTHS || '320,390,768,1024,1440,1920').split(',').map(Number);
 try {
-  await Promise.all([390, 768, 1440].map(async width => {
+  await Promise.all(viewports.map(async width => {
     const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
     await context.route('https://**', route => route.abort());
     const page = await context.newPage();
@@ -36,16 +37,19 @@ try {
         overflow: document.documentElement.scrollWidth > innerWidth + 1,
         h1: document.querySelectorAll('h1').length,
         cta: !isArticle || !!document.querySelector('.sja-conversion a[data-contact-method="whatsapp"]'),
+        clippedHeadings: [...document.querySelectorAll('main h1, main h2, main h3')].filter(node => node.scrollWidth > node.clientWidth + 1).map(node => node.textContent.trim()),
         broken: [...document.querySelectorAll('img')].filter(img => img.complete && !img.naturalWidth).map(img => img.getAttribute('src')),
       }), isArticle);
       const row = { route, width, ...state, errors: [...errors] };
       results.push(row);
-      if (isArticle) {
+      if (isArticle && (articles.indexOf(route) % 16 === 0 || /afinamento-capilar|ata-ou-jessner|acne-ativa-prioridade|acidos-na-rotina/.test(route))) {
         await page.locator('h1').scrollIntoViewIfNeeded();
         const screenshot = await page.screenshot();
         const thumb = await sharp(screenshot).resize(195, 450, { fit: 'contain', background: '#fffdf7' }).png().toBuffer();
         const caption = Buffer.from(`<svg width="195" height="38"><rect width="195" height="38" fill="#fffdf7"/><text x="6" y="15" font-size="10" fill="#1d3026">${articles.indexOf(route) + 1}. ${route.slice(5, 31)}</text><text x="6" y="29" font-size="10" fill="#1d3026">${width}px</text></svg>`);
         thumbnails.push(await sharp({ create: { width: 195, height: 488, channels: 3, background: '#fffdf7' } }).composite([{ input: caption, top: 0, left: 0 }, { input: thumb, top: 38, left: 0 }]).png().toBuffer());
+      }
+      if (isArticle) {
         // Check that the bottom contact section is readable and within the viewport.
         await page.locator('.sja-contact-actions').scrollIntoViewIfNeeded();
         const clipped = await page.locator('.sja-contact-actions').evaluate(node => [...node.querySelectorAll('a')].some(a => a.getBoundingClientRect().right > innerWidth + 1 || a.getBoundingClientRect().left < -1));
@@ -59,8 +63,8 @@ try {
     }
     await context.close();
   }));
-  const defects = results.filter(row => row.overflow || row.h1 !== 1 || !row.cta || row.broken.length || row.errors.length || row.ctaClipped);
-  await writeFile(`${output}/results.json`, JSON.stringify({ pages: routes.length, articles: articles.length, viewports: [390, 768, 1440], checked: results.length, defects, results }, null, 2));
+  const defects = results.filter(row => row.overflow || row.h1 !== 1 || !row.cta || row.broken.length || row.errors.length || row.ctaClipped || row.clippedHeadings.length);
+  await writeFile(`${output}/results.json`, JSON.stringify({ pages: routes.length, articles: articles.length, viewports, checked: results.length, defects, results }, null, 2));
   console.log(JSON.stringify({ checked: results.length, defects }, null, 2));
   if (defects.length) process.exitCode = 1;
 } finally { await browser.close(); await server.close(); }

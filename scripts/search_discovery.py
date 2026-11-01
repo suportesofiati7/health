@@ -270,7 +270,7 @@ def render_image_sitemap(site_origin: str, pages: list[Page]) -> str:
 
 def render_robots(site_origin: str) -> str:
     paths = ["/.git/", "/.codex/", "/.agents/", "/__pycache__/", "/backups/", "/docs/", "/management/", "/node_modules/", "/qa/", "/reports/", "/scripts/", "/tests/", "/tmp/", "/.search-discovery-state.json", "/.env", "/.gitignore", "/README.md"]
-    return "# Public crawl guidance only; this is not an access-control mechanism.\n\nUser-agent: *\nAllow: /\n" + "\n".join(f"Disallow: {path}" for path in paths) + f"\n\nSitemap: {site_origin}/sitemap.xml\n"
+    return "# Public crawl guidance only; this is not an access-control mechanism.\n\nUser-agent: *\n" + "\n".join(f"Disallow: {path}" for path in paths) + f"\nAllow: /\n\n# Public search and AI crawlers (including OAI-SearchBot) use the rules above.\nSitemap: {site_origin}/sitemap-index.xml\nSitemap: {site_origin}/sitemap.xml\n"
 
 
 def render_llms(site_origin: str, pages: list[Page]) -> str:
@@ -279,13 +279,17 @@ def render_llms(site_origin: str, pages: list[Page]) -> str:
     lines = [f"# {config.get('name', 'Website')}", "", f"> {config.get('summary', '').strip()}", ""]
     for section in config.get("sections", []):
         lines.extend([f"## {section.get('title', 'Pages')}", ""])
-        for path in section.get("paths", []):
+        paths = list(section.get("paths", []))
+        prefix = section.get("prefix")
+        if prefix:
+            paths.extend(sorted(path for path in by_path if path.startswith(prefix) and path not in paths))
+        for path in paths:
             page = by_path.get("/" if path == "/" else str(path).rstrip("/"))
             if not page:
                 continue
             lines.append(f"- [{page.title}]({page.canonical}): {page.description}")
         lines.append("")
-    lines.extend(["## Optional", "", f"- [XML sitemap]({site_origin}/sitemap.xml): Complete canonical index of crawlable public pages.", f"- [Robots policy]({site_origin}/robots.txt): Public crawler guidance and sitemap location.", ""])
+    lines.extend(["## Optional", "", f"- [Sitemap index]({site_origin}/sitemap-index.xml): All page and image sitemaps.", f"- [XML sitemap]({site_origin}/sitemap.xml): Complete canonical index of crawlable public pages.", f"- [Robots policy]({site_origin}/robots.txt): Public crawler guidance and sitemap location.", ""])
     return "\n".join(lines)
 
 
@@ -361,7 +365,7 @@ def validate_files(site_origin: str, pages: list[Page]) -> list[str]:
     except (OSError, ET.ParseError) as error:
         errors.append(f"sitemap.xml is invalid: {error}")
     robots = ROBOTS.read_text(encoding="utf-8") if ROBOTS.exists() else ""
-    if f"Sitemap: {site_origin}/sitemap.xml" not in robots or "User-agent: *\nAllow: /" not in robots:
+    if f"Sitemap: {site_origin}/sitemap.xml" not in robots or "User-agent: *" not in robots or "Allow: /" not in robots:
         errors.append("robots.txt must allow crawling and reference the canonical sitemap")
     if not LLMS.exists() or not LLMS.read_text(encoding="utf-8").endswith("\n"):
         errors.append("llms.txt must exist as UTF-8 text ending with a newline")
@@ -370,7 +374,7 @@ def validate_files(site_origin: str, pages: list[Page]) -> list[str]:
 
 def live_check(site_origin: str) -> list[str]:
     errors: list[str] = []
-    for path, expected_type in [("/robots.txt", "text/plain"), ("/sitemap.xml", "xml"), ("/llms.txt", "text/plain"), (f"/{KEY}.txt", "text/plain")]:
+    for path, expected_type in [("/robots.txt", "text/plain"), ("/sitemap-index.xml", "xml"), ("/sitemap.xml", "xml"), ("/llms.txt", "text/plain"), (f"/{KEY}.txt", "text/plain")]:
         try:
             with urlopen(Request(site_origin + path, headers={"User-Agent": "SearchDiscoveryValidator/1.0"}), timeout=15) as response:
                 body = response.read()
@@ -395,6 +399,7 @@ def main(argv: list[str] | None = None) -> int:
     mode.add_argument("--validate", action="store_true", help="validate current files without modifying or submitting")
     mode.add_argument("--rebuild", action="store_true", help="regenerate discovery files and notify changed URLs")
     parser.add_argument("--no-notify", action="store_true", help="do not call IndexNow; useful for local builds")
+    parser.add_argument("--resubmit", action="store_true", help="resubmit every canonical public URL to IndexNow, even if unchanged")
     parser.add_argument("--live", action="store_true", help="also validate the canonical production URLs over HTTPS")
     args = parser.parse_args(argv)
     site_origin = origin()
@@ -402,6 +407,8 @@ def main(argv: list[str] | None = None) -> int:
     previous = state_load()
     changes, removed = classify(pages, previous)
     notification_urls = sorted([url for url, state in changes.items() if state in {"NEW", "UPDATED"}] + removed)
+    if args.resubmit:
+        notification_urls = sorted({page.canonical for page in pages} | set(removed))
     print(f"Discovered {len(pages)} canonical, indexable public URLs.")
     print(f"Deliberately excluded {len(excluded)} routes; removed since prior state: {len(removed)}.")
     for state in ("NEW", "UPDATED", "UNCHANGED"):
@@ -453,7 +460,7 @@ def main(argv: list[str] | None = None) -> int:
             for error in errors:
                 print(f"ERROR: {error}", file=sys.stderr)
             return 1
-    return 0
+    return 1 if notification_status == "FAILED" else 0
 
 
 if __name__ == "__main__":

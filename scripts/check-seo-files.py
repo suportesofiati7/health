@@ -124,7 +124,8 @@ def validate_llms() -> int:
         raise RuntimeError("llms.txt must end with a newline")
 
     headings = HEADING_RE.findall(text)
-    if not headings or headings[0] != ("#", "Franciele Sofiati · Biomedical Practitioner · Aesthetician · Cosmetologist"):
+    discovery_config = json.loads((ROOT / "data" / "search-discovery.json").read_text(encoding="utf-8"))
+    if not headings or headings[0] != ("#", discovery_config["name"]):
         raise RuntimeError("llms.txt must begin with the canonical site name as its H1")
     if sum(1 for level, _ in headings if level == "#") != 1:
         raise RuntimeError("llms.txt must contain exactly one H1")
@@ -155,6 +156,7 @@ def validate_llms() -> int:
         f"{origin}/contato",
         f"{origin}/tratamentos",
         f"{origin}/blog",
+        f"{origin}/sitemap-index.xml",
         f"{origin}/sitemap.xml",
         f"{origin}/robots.txt",
     }
