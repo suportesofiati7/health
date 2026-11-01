@@ -1,3 +1,5 @@
+import { DATA_CHANGED } from "./dataSync.js";
+import { readPatientRows, clinicalTimeline } from "./patientWorkspace.js";
 import publicIntakeLabels from "./public-intake-labels.json";
 import { humanText, fieldLabel, parameterNotes } from "./clinicalText.js";
 import { confirmAction, promptAction } from "../../js/core/dialog.js";
@@ -193,6 +195,7 @@ function Field({
       <span>{title}</span>
       {options ? (
         <select
+          aria-label={title}
           name={name}
           value={value ?? ""}
           onChange={(e) => onChange(e.target.value)}
@@ -206,6 +209,7 @@ function Field({
         </select>
       ) : type === "textarea" ? (
         <SmartTextControl
+          aria-label={title}
           as="textarea"
           name={name}
           value={value ?? ""}
@@ -238,6 +242,7 @@ function Field({
       ) : (
         <span className={password ? "field-input-wrap has-password-toggle" : "field-input-wrap"}>
           <SmartTextControl
+          aria-label={title}
             name={name}
             type={password && passwordVisible ? "text" : type}
             value={value ?? ""}
@@ -356,15 +361,25 @@ function Dialog({ title, close, children, wide = false }) {
 function useLoad(loader, deps) {
   const [state, set] = useState({ data: null, loading: true, error: false });
   const [tick, update] = useState(0);
+  const previousDeps = useRef(deps);
+  useEffect(() => {
+    const refresh = () => update((n) => n + 1);
+    window.addEventListener(DATA_CHANGED, refresh);
+    const channel = typeof BroadcastChannel !== "undefined" ? new BroadcastChannel(DATA_CHANGED) : null;
+    if (channel) channel.onmessage = refresh;
+    return () => { window.removeEventListener(DATA_CHANGED, refresh); channel?.close(); };
+  }, []);
   useEffect(() => {
     let live = true;
-    set({ data: null, loading: true, error: false });
+    const changed = deps.some((value, index) => !Object.is(value, previousDeps.current[index]));
+    previousDeps.current = deps;
+    set((current) => ({ data: changed ? null : current.data, loading: true, error: false }));
     loader()
       .then((data) => {
         if (live) set({ data, loading: false, error: false });
       })
       .catch(() => {
-        if (live) set({ data: null, loading: false, error: true });
+        if (live) set((current) => ({ ...current, loading: false, error: true }));
       });
     return () => {
       live = false;
@@ -374,13 +389,13 @@ function useLoad(loader, deps) {
 }
 function LoadState({ state, children }) {
   const t = useT();
-  if (state.loading)
+  if (state.loading && state.data === null)
     return (
       <p className="loading" role="status">
         {t("Carregando...", "Loading...")}
       </p>
     );
-  if (state.error)
+  if (state.error && state.data === null)
     return (
       <div className="notice error" role="alerta">
         {t("Não foi possível carregar.", "Could not load.")}{" "}
@@ -389,7 +404,7 @@ function LoadState({ state, children }) {
         </Button>
       </div>
     );
-  return children(state.data);
+  return <>{state.error && <div className="notice error" role="alert">{t("Não foi possível atualizar. Os dados exibidos podem estar desatualizados.", "Refresh failed. Displayed data may be out of date.")} <Button onClick={state.refresh}>{t("Tentar novamente", "Retry")}</Button></div>}{children(state.data)}</>;
 }
 function useDirty() {
   const [dirty, setDirty] = useState(false),
@@ -1713,7 +1728,9 @@ function Patient({
   const t = useT(),
     [tab, setTab] = useState("summary"),
     [page, setPage] = useState(0),
-    [filter, setFilter] = useState("all");
+    [filter, setFilter] = useState("all"),
+    [fileSearch, setFileSearch] = useState(""), [recordTarget, setRecordTarget] = useState(""), [photoContext, setPhotoContext] = useState(null), [consentContext, setConsentContext] = useState(null);
+
   const state = useLoad(async () => {
     const patient = await checked(
       db.from("patients").select("*").eq("id", initial.id).single(),
@@ -1730,34 +1747,33 @@ function Patient({
       adverseEvents,
     ] = await Promise.all([
       clinical
-        ? checked(
+        ? readPatientRows((from, to) => checked(
             db
               .from("entries")
               .select("*")
               .eq("patient_id", patient.id)
               .order("clinical_at", { ascending: false })
-              .range(page * 20, page * 20 + 19),
-          )
+              .range(from, to),
+          ))
         : [],
       clinical
-        ? checked(
+        ? readPatientRows((from, to) => checked(
             db
               .from("documents")
               .select("*")
               .eq("patient_id", patient.id)
               .eq("status", "pronto")
               .order("created_at", { ascending: false })
-              .range(page * 20, page * 20 + 19),
-          )
+              .range(from, to),
+          ))
         : [],
-      checked(
+      readPatientRows((from, to) => checked(
         db
           .from("appointments")
           .select("*")
           .eq("patient_id", patient.id)
           .order("starts_at", { ascending: false })
-          .limit(20),
-      ),
+          .range(from, to))),
       checked(
         db
           .from("tasks")
@@ -1791,19 +1807,27 @@ function Patient({
           )
         : [],
       clinical
-        ? checked(db.from("follow_ups").select("*").eq("patient_id", patient.id).order("expected_on")).catch(() => [])
+        ? readPatientRows((from, to) => checked(db.from("follow_ups").select("*").eq("patient_id", patient.id).order("expected_on").range(from, to)))
         : [],
       clinical
-        ? checked(db.from("adverse_events").select("*").eq("patient_id", patient.id).order("event_at", { ascending: false })).catch(() => [])
+        ? readPatientRows((from, to) => checked(db.from("adverse_events").select("*").eq("patient_id", patient.id).order("event_at", { ascending: false }).range(from, to)))
         : [],
     ]);
     if (clinical) {
-      const intakeFiles = await checked(db.from("public_intake_files")
+      const intakeFiles = await readPatientRows((from, to) => checked(db.from("public_intake_files")
         .select("*,public_intakes!inner(patient_id)").eq("public_intakes.patient_id", patient.id)
-        .order("created_at", { ascending: false }).range(page * 20, page * 20 + 19));
+        .order("created_at", { ascending: false }).range(from, to)));
       documents.push(...intakeFiles.map((file) => ({ ...file, name: file.original_name || file.field_name,
         category: file.kind, bucket: "intake-private" })));
     }
+    const [health, procedures, consents, photos] = clinical ? await Promise.all([
+      readPatientRows((from, to) => checked(db.from("patient_health_history").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false }).range(from, to))),
+      readPatientRows((from, to) => checked(db.from("clinical_procedures").select("*,procedures(name)").eq("patient_id", patient.id).order("created_at", { ascending: false }).range(from, to))),
+      readPatientRows((from, to) => checked(db.from("consents").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false }).range(from, to))),
+      readPatientRows((from, to) => checked(db.from("clinical_photos").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false }).range(from, to))),
+    ]) : [[], [], [], []];
+    documents.push(...photos.map((photo) => ({ ...photo, name: photo.description || photo.category,
+      category: "fotografia_clinica", bucket: "clinical-photos" })));
     if (clinical)
       await checked(
         db.rpc("record_access", {
@@ -1822,9 +1846,22 @@ function Patient({
       staff,
       communications,
       followups,
-      adverseEvents,
+      adverseEvents, health, procedures, consents,
     };
-  }, [initial.id, page]);
+  }, [initial.id, clinical]);
+  useEffect(() => {
+    if (!recordTarget || state.loading) return;
+    const reveal = () => {
+      const node = document.getElementById(recordTarget);
+      if (!node) return false;
+      for (let parent = node; parent; parent = parent.parentElement) if (parent.tagName === "DETAILS") parent.open = true;
+      node.scrollIntoView({ block: "center" }); node.focus({ preventScroll: true }); return true;
+    };
+    if (reveal()) return;
+    const observer = new MutationObserver(() => { if (reveal()) observer.disconnect(); });
+    observer.observe(document.getElementById("root"), { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, [tab, recordTarget, state.loading]);
   const [adminText, setAdminText] = useState(""),
     [adminBusy, setAdminBusy] = useState(false);
   const [fhirBusy, setFhirBusy] = useState(false);
@@ -1873,35 +1910,70 @@ function Patient({
         staff,
         communications,
         followups,
-        adverseEvents,
+        adverseEvents, health, procedures, consents,
       }) => {
         const author = (id) =>
           staff.find((s) => s.user_id === id)?.name ||
           t("Profissional", "Professional");
         const tabs = [
-          ["summary", t("Resumo", "Summary")],
-          ["details", t("Dados", "Details")],
-          ...(clinical
-            ? [
-                ["record", t("Prontuário", "Clinical record")],
-                ["documents", t("Documentos e fotos", "Documents & photos")],
-                ["photos", t("Fotografia clínica", "Clinical photography")],
-                ["plans", t("Planos", "Plans")],
-                ["procedures", t("Procedimentos", "Procedures")],
-                ["health", t("Saúde", "Health")],
-                ["consents", t("Consentimentos", "Consents")],
-                ["privacy", t("Privacidade / portal", "Privacy / portal")],
-              ]
-            : []),
-          ["appointments", t("Agenda e retornos", "Schedule & follow-ups")],
-          ["notes", t("Administrativo", "Administrative")],
-          ["timeline", t("Histórico", "Timeline")],
+          ["summary", t("Visão geral", "Overview")],
+          ...(clinical ? [["record", t("Prontuário", "Clinical record")],
+            ["treatments", t("Tratamentos", "Treatments")],
+            ["documents", t("Arquivos", "Files")]] : []),
+          ["management", t("Gestão", "Management")],
         ];
+        const timeline = clinicalTimeline([
+                    {
+                      id: patient.id,
+                      at: patient.created_at,
+                      type: "registration",
+                      title: t("Paciente cadastrado", "Patient registered"),
+                      content: patient.full_name,
+                    },
+                    ...health.map((row) => ({ id: row.id, at: row.created_at, type: "health", title: t("Versão do histórico de saúde", "Health history version"), content: humanText({ allergies: row.allergies, medications: row.medications, conditions: row.conditions }) })),
+                    ...procedures.map((row) => ({ id: row.id, at: row.performed_at || row.created_at, type: "procedures", title: row.procedures?.name || t("Procedimento", "Procedure"), content: row.observations })),
+                    ...consents.map((row) => ({ id: row.id, at: row.created_at, type: "consents", title: t("Consentimento", "Consent"), content: `${label(row.status, t)} · ${row.template_version}` })),
+                    ...entries.map((e) => ({
+                      id: e.id,
+                      at: e.clinical_at,
+                      type: "entries",
+                      title: label(e.kind, t),
+                      content: e.content,
+                    })),
+                    ...documents.map((d) => ({
+                      id: d.id,
+                      at: d.created_at,
+                      type: "documents",
+                      title: t("Documento anexado", "Document attached"),
+                      content: d.name,
+                    })),
+                    ...appointments.map((a) => ({
+                      id: a.id,
+                      at: a.starts_at,
+                      type: "appointments",
+                      title: t("Agendamento", "Appointment"),
+                      content: label(a.status, t),
+                    })),
+                    ...followups.map((f) => ({
+                      id: f.id,
+                      at: f.created_at,
+                      type: "followups",
+                      title: t("Retorno", "Follow-up"),
+                      content: `${date(f.expected_on)} · ${label(f.status, t)}`,
+                    })),
+                    ...adverseEvents.map((event) => ({
+                      id: event.id,
+                      at: event.event_at,
+                      type: "adverse_events",
+                      title: t("Intercorrência", "Adverse event"),
+                      content: event.description,
+                    })),
+        ], filter);
         const actions = (kind) => setModal({ type: "entry", kind, patient });
         return (
-          <>
+          <div className="patient-workspace">
             <div className="patient-heading">
-              <Avatar person={patient} className="avatar large" size={72} onReplace={() => writable && setModal({ type: "patient", patient })} />
+              <Avatar person={patient} className="avatar" size={40} onReplace={() => writable && setModal({ type: "patient", patient })} />
               <div>
                 <p className="eyebrow">{t("Paciente", "Patient")}</p>
                 <h1>
@@ -1942,27 +2014,10 @@ function Patient({
                 )}
                 {writable && (
                   <Button
-                    icon={ClipboardCheck}
-                    className="primary"
-                    onClick={() => setModal({ type: "master-intake", patient })}
-                  >
-                    {t("Consulta inicial completa", "Master Intake")}
-                  </Button>
-                )}
-                {writable && (
-                  <Button
                     icon={CalendarDays}
                     onClick={() => setModal({ type: "appointment", patient })}
                   >
                     {t("Agendar", "Schedule")}
-                  </Button>
-                )}
-                {writable && (
-                  <Button
-                    icon={Archive}
-                    onClick={() => setModal({ type: "patient-lifecycle", patient })}
-                  >
-                    {t("Arquivo / excluir", "Archive / delete")}
                   </Button>
                 )}
                 {clinical && (
@@ -1974,15 +2029,6 @@ function Patient({
                     {t("Novo atendimento", "New consultation")}
                   </Button>
                 )}
-              </div>
-            </div>
-            <div className="patient-context-bar" aria-label={t("Ações rápidas do paciente", "Patient quick actions")}>
-              <span><Sparkles size={15} /> {t("Ações rápidas para este prontuário", "Quick actions for this record")}</span>
-              <div>
-                {writable && <Button icon={CalendarPlus} onClick={() => setModal({ type: "appointment", patient })}>{t("Agendar", "Schedule")}</Button>}
-                {clinical && <Button icon={Download} disabled={fhirBusy} onClick={exportFHIR}>{fhirBusy ? t("Exportando...", "Exporting...") : t("Exportar FHIR", "Export FHIR")}</Button>}
-                {writable && <Button icon={MessageCircle} onClick={() => setModal({ type: "communication", patient })}>{t("Comunicar", "Message")}</Button>}
-                {clinical && <Button icon={Plus} className="primary" onClick={() => actions("atendimento")}>{t("Registrar atendimento", "Record visit")}</Button>}
               </div>
             </div>
             <nav
@@ -2005,70 +2051,17 @@ function Patient({
             </nav>
             {tab === "summary" && (
               <>
-                <div className="journey">
-                  {[
-                    "avaliacao",
-                    "anamnese",
-                    "plano",
-                    "atendimento",
-                    "evolucao",
-                  ].map((kind, i) => (
-                    <button
-                      key={kind}
-                      disabled={!clinical}
-                      onClick={() => actions(kind)}
-                    >
-                      <span>{String(i + 1).padStart(2, "0")}</span>
-                      <strong>{label(kind, t)}</strong>
-                      {entries.some(
-                        (e) => e.kind === kind && e.status === "finalizado",
-                      ) ? (
-                        <Check size={16} />
-                      ) : (
-                        <ChevronRight size={16} />
-                      )}
-                    </button>
-                  ))}
-                </div>
-                {clinical && <PatientIntakeHistory patientId={patient.id} />}
+                <section className="clinical-snapshot">
+                  <h2>{t("Resumo clínico", "Clinical summary")}</h2>
+                  <dl className="details-grid">{[["allergies", t("Alergias", "Allergies")], ["medications", t("Medicamentos", "Medications")], ["conditions", t("Condições relevantes", "Conditions")]].map(([key, title]) => <div key={key}><dt>{title}</dt><dd>{health[0]?.[key] || t("Não informado", "Not recorded")}</dd></div>)}</dl>
+                  {consents.some((c) => c.status === "pendente") && <p className="notice">{t("Há consentimentos pendentes. Verifique em Tratamentos antes de realizar o procedimento.", "Pending consents. Review Treatments before performing a procedure.")}</p>}
+                </section>
                 <div className="dashboard-grid">
                   <section>
                     <div className="section-heading">
                       <h2>{t("Últimos registros", "Latest records")}</h2>
-                      {clinical && (
-                        <Button
-                          icon={Plus}
-                          className="text-button"
-                          onClick={() => actions("anotacao")}
-                        >
-                          {t("Anotação", "Note")}
-                        </Button>
-                      )}
                     </div>
-                    {entries.slice(0, 4).map((e) => (
-                      <Entry
-                        key={e.id}
-                        entry={e}
-                        author={author(e.created_by)}
-                        member={member}
-                        onEdit={() =>
-                          setModal({
-                            type: "entry",
-                            patient,
-                            entry: e,
-                            kind: e.kind,
-                          })
-                        }
-                        onAmend={() =>
-                          setModal({
-                            type: "entry",
-                            patient,
-                            amends: e,
-                            kind: e.kind,
-                          })
-                        }
-                      />
-                    ))}
+                    {entries.slice(0, 4).map((e) => <div className="list-row" key={e.id}><span><strong>{e.title || label(e.kind, t)}</strong><small>{date(e.clinical_at, true)} · {author(e.created_by)}</small></span><Button onClick={() => { setFilter("entries"); setPage(0); setRecordTarget(`patient-record-${e.id}`); setTab("record"); }}>{t("Abrir registro", "Open record")}</Button></div>)}
                     {!entries.length && (
                       <Empty>
                         {clinical
@@ -2148,8 +2141,26 @@ function Patient({
                 </div>
               </>
             )}
-            {tab === "details" && (
-              <section className="detail-section">
+            {tab === "management" && <div className="toolbar wrap">                {writable && (
+                  <Button
+                    icon={ClipboardCheck}
+                    className="primary"
+                    onClick={() => setModal({ type: "master-intake", patient })}
+                  >
+                    {t("Consulta inicial completa", "Master Intake")}
+                  </Button>
+                )}
+                {writable && (
+                  <Button
+                    icon={Archive}
+                    onClick={() => setModal({ type: "patient-lifecycle", patient })}
+                  >
+                    {t("Arquivo / excluir", "Archive / delete")}
+                  </Button>
+                )}
+{clinical && <><Button icon={Download} disabled={fhirBusy} onClick={exportFHIR}>{t("Exportar FHIR", "Export FHIR")}</Button></>}</div>}
+            {tab === "management" && (
+              <section className="detail-section" id={`patient-record-${patient.id}`} tabIndex={-1}>
                 <div className="section-heading">
                   <h2>{t("Dados cadastrais", "Patient details")}</h2>
                   {writable && (
@@ -2227,36 +2238,7 @@ function Patient({
                     {t("Exportar / enviar", "Export / send")}
                   </Button>
                 </div>
-                {entries.map((e) => (
-                  <Entry
-                    key={e.id}
-                    entry={e}
-                    author={author(e.created_by)}
-                    member={member}
-                    onEdit={() =>
-                      setModal({
-                        type: "entry",
-                        patient,
-                        entry: e,
-                        kind: e.kind,
-                      })
-                    }
-                    onAmend={() =>
-                      setModal({
-                        type: "entry",
-                        patient,
-                        amends: e,
-                        kind: e.kind,
-                      })
-                    }
-                  />
-                ))}
-                {!entries.length && (
-                  <Empty>
-                    {t("Prontuário sem registros", "No clinical records")}
-                  </Empty>
-                )}
-                <Pager page={page} setPage={setPage} count={entries.length} />
+                <HealthHistoryPanel patient={patient} member={member} writable={writable} notify={notify} />
               </>
             )}
             {tab === "documents" && (
@@ -2273,8 +2255,9 @@ function Patient({
                     {t("Anexar arquivo", "Attach file")}
                   </Button>
                 </div>
+                <Field title={t("Buscar arquivos", "Search files")} value={fileSearch} onChange={setFileSearch} />
                 <div className="document-list">
-                  {documents.map((doc) => (
+                  {documents.filter((doc) => `${doc.name || ""} ${doc.category || ""}`.toLocaleLowerCase().includes(fileSearch.toLocaleLowerCase())).map((doc) => (
                     <ContextActions key={doc.id} label={doc.name || t("Documento", "Document")} actions={[
                       { icon: ExternalLink, label: t("Abrir documento", "Open document"), onClick: async () => {
                         try { const data = await checked(db.storage.from(doc.bucket || "patient-files").createSignedUrl(doc.path, 300)); if (!data?.signedUrl) throw Error("signed_url"); window.open(data.signedUrl, "_blank", "noopener,noreferrer"); } catch { notify(t("Não foi possível abrir.", "Could not open.")); }
@@ -2283,13 +2266,13 @@ function Patient({
                         try { await checked(db.rpc("record_access", { org: ORG, entity: doc.id, event: "download_documento" })); const blob = await checked(db.storage.from(doc.bucket || "patient-files").download(doc.path)); download(blob, doc.name); } catch { notify(t("Não foi possível baixar.", "Could not download.")); }
                       } },
                     ]}>
-                    <div className="document-row">
+                    <div className="document-row" id={`patient-record-${doc.id}`} tabIndex={-1}>
                       <FileText size={24} />
                       <span>
                         <strong>{doc.name}</strong>
                         <small>
                           {label(doc.category, t)} ·{" "}
-                          {(doc.size_bytes / 1048576).toFixed(2)} MB ·{" "}
+                          {((doc.size_bytes || 0) / 1048576).toFixed(2)} MB ·{" "}
                           {date(doc.created_at)} · {author(doc.created_by)}
                         </small>
                       </span>
@@ -2351,16 +2334,19 @@ function Patient({
                     {t("Nenhum documento anexado", "No documents attached")}
                   </Empty>
                 )}
-                <Pager page={page} setPage={setPage} count={documents.length} />
+
+                <PatientIntakeHistory patientId={patient.id} search={fileSearch} />
+                <ConsentPanel patient={patient} member={member} writable={false} notify={notify} search={fileSearch} />
               </>
             )}
-            {tab === "plans" && clinical && <TreatmentPlans patient={patient} member={member} writable={writable} clinical={clinical} notify={notify} setModal={setModal} />}
-            {tab === "photos" && clinical && <ClinicalPhotosPanel patient={patient} writable={writable} notify={notify} />}
-            {tab === "procedures" && clinical && <ClinicalProcedurePanel patient={patient} member={member} writable={writable} notify={notify} />}
-            {tab === "health" && clinical && <HealthHistoryPanel patient={patient} member={member} writable={writable} notify={notify} />}
-            {tab === "consents" && clinical && <><GeneratedConsentPreview patient={patient} notify={notify} /><ConsentPanel patient={patient} member={member} writable={writable} notify={notify} /></>}
-            {tab === "privacy" && <><PrivacyPortalPanel patient={patient} member={member} writable={writable} notify={notify} /><PortalActionQueue notify={notify} /></>}
-            {tab === "appointments" && (
+            {tab === "treatments" && clinical && <section className="detail-section"><h2>{t("Retornos e intercorrências", "Follow-ups and adverse events")}</h2>{followups.map((row) => <p key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}>{date(row.expected_on)} · {label(row.status, t)} · {row.notes}</p>)}{adverseEvents.map((row) => <p key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}>{date(row.event_at)} · {row.description} · {label(row.status, t)}</p>)}<Button icon={Clock} onClick={() => setModal({ type: "workflow", resource: "followup", patient })}>{t("Registrar retorno", "Record follow-up")}</Button></section>}
+            {tab === "treatments" && clinical && <TreatmentPlans patient={patient} member={member} writable={writable} clinical={clinical} notify={notify} setModal={setModal} />}
+            {tab === "treatments" && clinical && <ClinicalPhotosPanel patient={patient} writable={writable} notify={notify} procedures={procedures} context={photoContext} />}
+            {tab === "treatments" && clinical && <ClinicalProcedurePanel patient={patient} member={member} writable={writable} notify={notify} consents={consents} onPhoto={(row) => setPhotoContext({ ...row, requestedAt: Date.now() })} onConsent={(row) => setConsentContext({ ...row, requestedAt: Date.now() })} />}
+
+            {tab === "treatments" && clinical && <><details className="on-demand"><summary>{t("Gerar termo de consentimento", "Generate consent document")}</summary><GeneratedConsentPreview patient={patient} notify={notify} /></details><ConsentPanel patient={patient} member={member} writable={writable} notify={notify} context={consentContext} /></>}
+            {tab === "management" && clinical && <details className="on-demand"><summary>{t("Privacidade e acesso ao portal", "Privacy and portal access")}</summary><PrivacyPortalPanel patient={patient} member={member} writable={writable} notify={notify} /><PortalActionQueue patientId={patient.id} notify={notify} /></details>}
+            {tab === "management" && (
               <>
                 <div className="toolbar">
                   <h2>{t("Agenda e retornos", "Schedule & follow-ups")}</h2>
@@ -2374,14 +2360,13 @@ function Patient({
                   )}
                 </div>
                 {appointments.map((a) => (
-                  <AppointmentRow
-                    key={a.id}
+                  <div key={a.id} id={`patient-record-${a.id}`} tabIndex={-1}><AppointmentRow
                     appointment={{ ...a, patients: patient }}
                     setModal={setModal}
                     openPatient={() => {}}
                     clinical={clinical}
                     writable={writable}
-                  />
+                  /></div>
                 ))}
                 {!appointments.length && (
                   <Empty icon={CalendarDays}>
@@ -2412,13 +2397,14 @@ function Patient({
                 ))}
               </>
             )}
-            {tab === "notes" && (
+            {tab === "management" && clinical && <details className="on-demand"><summary>{t("Histórico de comunicações", "Communication history")}</summary>{communications.map((row) => <p key={row.id}>{date(row.created_at, true)} · {label(row.status, t)}</p>)}</details>}
+            {tab === "management" && (
               <>
                 <h2>
                   {t("Anotações administrativas", "Administrative notes")}
                 </h2>
                 {writable && (
-                  <div className="quick-note">
+                  <details className="on-demand"><summary>{t("Adicionar anotação administrativa", "Add administrative note")}</summary><div className="quick-note">
                     <Field
                       title={t(
                         "Anotação administrativa",
@@ -2436,7 +2422,7 @@ function Patient({
                     >
                       {t("Salvar anotação", "Save note")}
                     </Button>
-                  </div>
+                  </div></details>
                 )}
                 {notes.map((n) => (
                   <article className="entry" key={n.id}>
@@ -2448,17 +2434,22 @@ function Patient({
                 ))}
               </>
             )}
-            {tab === "timeline" && (
+            {tab === "record" && clinical && (
               <>
                 <div className="toolbar">
-                  <h2>{t("Histórico do paciente", "Patient timeline")}</h2>
+                  <h2>{t("Linha do tempo clínica", "Clinical timeline")}</h2>
                   <Field
                     title={t("Filtrar", "Filter")}
                     value={filter}
-                    onChange={setFilter}
+                    onChange={(value) => { setFilter(value); setPage(0); }}
                     options={[
                       { value: "all", label: t("Todos", "All") },
                       { value: "entries", label: t("Registros", "Records") },
+                      { value: "health", label: t("Saúde", "Health") },
+                      { value: "procedures", label: t("Procedimentos", "Procedures") },
+                      { value: "consents", label: t("Consentimentos", "Consents") },
+                      { value: "followups", label: t("Retornos", "Follow-ups") },
+                      { value: "adverse_events", label: t("Intercorrências", "Adverse events") },
                       {
                         value: "documents",
                         label: t("Documentos", "Documents"),
@@ -2471,91 +2462,38 @@ function Patient({
                   />
                 </div>
                 <div className="timeline">
-                  {[
-                    {
-                      id: patient.id,
-                      at: patient.created_at,
-                      type: "registration",
-                      title: t("Paciente cadastrado", "Patient registered"),
-                      content: patient.full_name,
-                    },
-                    ...entries.map((e) => ({
-                      id: e.id,
-                      at: e.clinical_at,
-                      type: "entries",
-                      title: label(e.kind, t),
-                      content: e.content,
-                    })),
-                    ...documents.map((d) => ({
-                      id: d.id,
-                      at: d.created_at,
-                      type: "documents",
-                      title: t("Documento anexado", "Document attached"),
-                      content: d.name,
-                    })),
-                    ...appointments.map((a) => ({
-                      id: a.id,
-                      at: a.starts_at,
-                      type: "appointments",
-                      title: t("Agendamento", "Appointment"),
-                      content: label(a.status, t),
-                    })),
-                    ...notes.map((n) => ({
-                      id: n.id,
-                      at: n.created_at,
-                      type: "notes",
-                      title: t(
-                        "Anotação administrativa",
-                        "Administrative note",
-                      ),
-                      content: n.content,
-                    })),
-                    ...communications.map((c) => ({
-                      id: c.id,
-                      at: c.created_at,
-                      type: "email",
-                      title: t("Backup por email", "Email backup"),
-                      content: label(c.status, t),
-                    })),
-                    ...followups.map((f) => ({
-                      id: f.id,
-                      at: f.created_at,
-                      type: "followups",
-                      title: t("Retorno", "Follow-up"),
-                      content: `${date(f.expected_on)} · ${label(f.status, t)}`,
-                    })),
-                    ...adverseEvents.map((event) => ({
-                      id: event.id,
-                      at: event.event_at,
-                      type: "adverse_events",
-                      title: t("Intercorrência", "Adverse event"),
-                      content: event.description,
-                    })),
-                  ]
-                    .filter((e) => filter === "all" || e.type === filter)
-                    .sort((a, b) => b.at.localeCompare(a.at))
+                  {timeline.slice(page * 20, page * 20 + 20)
                     .map((e) => (
-                      <details key={e.id}>
+                      <details id={`patient-record-${e.id}`} tabIndex={-1} key={`${e.type}-${e.id}`} open={e.type === "entries" ? true : undefined}>
                         <summary>
                           <time>{date(e.at, true)}</time>
                           <strong>{e.title}</strong>
                         </summary>
-                        <p className="preserve">{e.content}</p>
+                        {e.type === "entries" ? <Entry entry={entries.find((row) => row.id === e.id)} author={author(entries.find((row) => row.id === e.id)?.created_by)} member={member}
+                          onEdit={() => setModal({ type: "entry", patient, entry: entries.find((row) => row.id === e.id), kind: entries.find((row) => row.id === e.id)?.kind })}
+                          onAmend={() => setModal({ type: "entry", patient, amends: entries.find((row) => row.id === e.id), kind: entries.find((row) => row.id === e.id)?.kind })} /> : <><p className="preserve">{e.content}</p><Button onClick={() => { setRecordTarget(`patient-record-${e.id}`); setTab(e.type === "health" ? "record" : e.type === "documents" ? "documents" : ["appointments", "registration"].includes(e.type) ? "management" : "treatments"); }}>{t("Ver registro original", "View original record")}</Button></>}
+
                       </details>
                     ))}
                 </div>
                 <Pager
                   page={page}
-                  count={Math.max(entries.length, documents.length)}
+                  exact
+                  count={timeline.length}
                   setPage={setPage}
                 />
               </>
             )}
-          </>
+          </div>
         );
       }}
     </LoadState>
   );
+}
+function OnDemandForm({ title, editing, children }) {
+  const ref = useRef(null);
+  useEffect(() => { if (editing && ref.current) { ref.current.open = true; ref.current.scrollIntoView({ block: "nearest", behavior: "smooth" }); } }, [editing]);
+  return <details ref={ref} className="on-demand"><summary>{title}</summary>{children}</details>;
 }
 function TreatmentPlans({ patient, member, writable, clinical, notify, setModal }) {
   const t = useT();
@@ -2576,15 +2514,15 @@ function TreatmentPlans({ patient, member, writable, clinical, notify, setModal 
   const editPlan = (plan) => { setEditingPlanId(plan.id); setEditingPlanItemId(""); setForm({ ...blank, title: plan.title || "", objectives: plan.objectives || "", areas: plan.areas || "", professional_notes: plan.professional_notes || "", responsible_user: plan.responsible_user || member.user_id, expected_followup: plan.expected_followup || "", status: plan.status || "planejado" }); };
   const editPlanItem = (plan, item) => { editPlan(plan); setEditingPlanItemId(item.id); setForm((current) => ({ ...current, procedure_id: item.procedure_id, sequence_no: item.sequence_no, sessions: item.sessions, item_area: item.area || "", item_notes: item.notes || "" })); };
   const archivePlanItem = async (item, archived) => { try { await checked(db.rpc("set_treatment_plan_item_archived", { p_item: item.id, p_archived: archived })); state.refresh(); notify(t(archived ? "Item arquivado; é possível restaurá-lo." : "Item restaurado.", archived ? "Item archived; it can be restored." : "Item restored.")); } catch { notify(t("Não foi possível atualizar o item do plano.", "Could not update the plan item.")); } };
-  const startProcedure = async (plan, item) => { try { await checked(db.from("clinical_procedures").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: item.procedure_id, plan_id: plan.id, professional_id: member.user_id, area: item.area || "", observations: "", technique: "", post_care: "", status: "rascunho", created_by: member.user_id })); notify(t("Procedimento iniciado como rascunho; complete-o na aba Procedimentos.", "Procedure started as a draft; complete it in the Procedures tab.")); } catch { notify(t("Não foi possível iniciar o procedimento.", "Could not start the procedure.")); } };
+  const startProcedure = async (plan, item) => { try { await checked(db.from("clinical_procedures").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: item.procedure_id, plan_id: plan.id, professional_id: member.user_id, area: item.area || "", observations: "", technique: "", post_care: "", status: "rascunho", created_by: member.user_id })); notify(t("Procedimento iniciado como rascunho; complete-o em Tratamentos.", "Procedure started as a draft; complete it in Treatments.")); } catch { notify(t("Não foi possível iniciar o procedimento.", "Could not start the procedure.")); } };
   const schedulePlan = async (plan) => { try { const result = await checked(db.rpc("schedule_treatment_plan", { p_plan: plan.id })); state.refresh(); notify(t(`${result || 0} sessão(ões) agendada(s) a partir do catálogo.`, `${result || 0} session(s) scheduled from the catalogue.`)); } catch { notify(t("Não foi possível agendar as sessões. Verifique a migração do agendador.", "Could not schedule the sessions. Check the scheduler migration.")); } };
   return <section className="detail-section"><div className="section-heading"><h2>{t("Planos de tratamento", "Treatment plans")}</h2></div>
-    {writable && clinical && <form className="form-grid" onSubmit={savePlan}><Field title={t("Título", "Title")} value={form.title} onChange={(v) => set("title", v)} required wide /><Field title={t("Objetivos", "Objectives")} type="textarea" value={form.objectives} onChange={(v) => set("objectives", v)} wide /><Field title={t("Áreas de tratamento", "Treatment areas")} value={form.areas} onChange={(v) => set("areas", v)} /><Field title={t("Responsável", "Responsible professional")} value={form.responsible_user} onChange={(v) => set("responsible_user", v)} options={[{ value: member.user_id, label: member.name || member.email }]} /><Field title={t("Retorno esperado", "Expected follow-up")} type="date" value={form.expected_followup} onChange={(v) => set("expected_followup", v)} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["planejado", "em_andamento", "concluido", "suspenso", "cancelado"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Procedimento planejado", "Planned procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar", "Select") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.name }))]} /><Field title={t("Sequência", "Sequence")} type="number" min="1" value={form.sequence_no} onChange={(v) => set("sequence_no", v)} /><Field title={t("Sessões", "Sessions")} type="number" min="1" value={form.sessions} onChange={(v) => set("sessions", v)} /><Field title={t("Área do item", "Item area")} value={form.item_area} onChange={(v) => set("item_area", v)} /><Field title={t("Notas", "Notes")} type="textarea" value={form.item_notes} onChange={(v) => set("item_notes", v)} wide /><Field title={t("Notas profissionais", "Professional notes")} type="textarea" value={form.professional_notes} onChange={(v) => set("professional_notes", v)} wide /><Button className="primary" icon={Save} disabled={busy}>{busy ? t("Salvando...", "Saving...") : t(editingPlanItemId ? "Salvar item e plano" : editingPlanId ? "Salvar alterações" : "Criar plano", editingPlanItemId ? "Save item and plan" : editingPlanId ? "Save changes" : "Create plan")}</Button>{editingPlanId && <Button type="button" disabled={busy} onClick={() => { setEditingPlanId(""); setEditingPlanItemId(""); setForm(blank); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form>}
+    {writable && clinical && <OnDemandForm title={t("Adicionar plano", "Adicionar plano")} editing={editingPlanId}><form className="form-grid" onSubmit={savePlan}><Field title={t("Título", "Title")} value={form.title} onChange={(v) => set("title", v)} required wide /><Field title={t("Objetivos", "Objectives")} type="textarea" value={form.objectives} onChange={(v) => set("objectives", v)} wide /><Field title={t("Áreas de tratamento", "Treatment areas")} value={form.areas} onChange={(v) => set("areas", v)} /><Field title={t("Responsável", "Responsible professional")} value={form.responsible_user} onChange={(v) => set("responsible_user", v)} options={[{ value: member.user_id, label: member.name || member.email }]} /><Field title={t("Retorno esperado", "Expected follow-up")} type="date" value={form.expected_followup} onChange={(v) => set("expected_followup", v)} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["planejado", "em_andamento", "concluido", "suspenso", "cancelado"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Procedimento planejado", "Planned procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar", "Select") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.name }))]} /><Field title={t("Sequência", "Sequence")} type="number" min="1" value={form.sequence_no} onChange={(v) => set("sequence_no", v)} /><Field title={t("Sessões", "Sessions")} type="number" min="1" value={form.sessions} onChange={(v) => set("sessions", v)} /><Field title={t("Área do item", "Item area")} value={form.item_area} onChange={(v) => set("item_area", v)} /><Field title={t("Notas", "Notes")} type="textarea" value={form.item_notes} onChange={(v) => set("item_notes", v)} wide /><Field title={t("Notas profissionais", "Professional notes")} type="textarea" value={form.professional_notes} onChange={(v) => set("professional_notes", v)} wide /><Button className="primary" icon={Save} disabled={busy}>{busy ? t("Salvando...", "Saving...") : t(editingPlanItemId ? "Salvar item e plano" : editingPlanId ? "Salvar alterações" : "Criar plano", editingPlanItemId ? "Save item and plan" : editingPlanId ? "Save changes" : "Create plan")}</Button>{editingPlanId && <Button type="button" disabled={busy} onClick={() => { setEditingPlanId(""); setEditingPlanItemId(""); setForm(blank); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form></OnDemandForm>}
     <LoadState state={state}>{([plans]) => plans.map((plan) => <ContextActions key={plan.id} label={plan.title || t("Plano de tratamento", "Treatment plan")} actions={[writable && clinical && { icon: Pencil, label: t("Editar plano", "Edit plan"), onClick: () => editPlan(plan) }, writable && clinical && { icon: CalendarPlus, label: t("Agendar todas as sessões", "Schedule all sessions"), onClick: () => schedulePlan(plan) }, { icon: CalendarPlus, label: t("Agendar retorno", "Schedule follow-up"), onClick: () => setModal({ type: "appointment", patient }) }]}><article className="entry"><div className="entry-head"><span><strong>{plan.title}</strong> · {date(plan.created_at)}</span><Status value={plan.status} /></div><p className="preserve">{plan.objectives || t("Sem objetivos registrados", "No objectives recorded")}</p><small>{plan.areas} · {plan.expected_followup ? `${t("Retorno", "Follow-up")}: ${date(plan.expected_followup)}` : ""}</small>{writable && clinical && <Button icon={Pencil} onClick={() => editPlan(plan)}>{t("Editar plano", "Edit plan")}</Button>}{plan.treatment_plan_items?.map((item) => <div className="list-row" key={item.id}><span><strong>{item.sequence_no}. {item.procedures?.name}</strong><small>{item.area} · {item.sessions} {t("sessão(ões)", "session(s)")}{item.archived_at ? ` · ${t("Arquivado", "Archived")}` : ""}</small></span>{clinical && writable && <><Button icon={Pencil} disabled={Boolean(item.archived_at)} onClick={() => editPlanItem(plan, item)}>{t("Editar item", "Edit item")}</Button><Button disabled={Boolean(item.archived_at)} onClick={() => archivePlanItem(item, true)}>{t("Arquivar item", "Archive item")}</Button>{Boolean(item.archived_at) && <Button onClick={() => archivePlanItem(item, false)}>{t("Restaurar item", "Restore item")}</Button>}{!item.archived_at && <Button icon={ArrowRight} onClick={() => startProcedure(plan, item)}>{t("Iniciar procedimento", "Start procedure")}</Button>}</>}</div>)}</article></ContextActions>)}</LoadState>
   </section>;
 }
 
-function ClinicalProcedurePanel({ patient, member, writable, notify }) {
+function ClinicalProcedurePanel({ patient, member, writable, notify, consents = [], onPhoto, onConsent }) {
   const t = useT();
   const [form, setForm] = useState({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", area: "", indication: "", technique: "", parameters: "", post_care: "", consent_status: "pendente", performed_at: localDateTime() }), [busy, setBusy] = useState(false), [usage, setUsage] = useState({ lot_id: "", quantity: "", unit: "" }), [editingDraftId, setEditingDraftId] = useState("");
   const state = useLoad(async () => Promise.all([checked(db.from("procedures").select("*").eq("active", true).order("name")), checked(db.from("treatment_plans").select("id,title").eq("patient_id", patient.id).in("status", ["planejado", "em_andamento"])), checked(db.from("product_lots").select("*,products(name,unit,active)").order("expires_on"),), checked(db.from("devices").select("*").eq("active", true).order("name"))]), [patient.id]);
@@ -2624,7 +2562,7 @@ function ClinicalProcedurePanel({ patient, member, writable, notify }) {
       history.refresh();
       notify(t("Procedimento registrado", "Procedure recorded"));
       setEditingDraftId("");
-      setForm((current) => ({ ...current, procedure_id: "", indication: "", technique: "", parameters: "", post_care: "", device_id: "" }));
+      setForm({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", performed_at: localDateTime(), area: "", indication: "", technique: "", parameters: "", originalParameters: {}, post_care: "", consent_status: "pendente", device_id: "" });
       setUsage({ lot_id: "", quantity: "", unit: "" });
     } catch (error) {
       const expired = /inventory_lot_expired|expired/i.test(error?.message || "");
@@ -2654,14 +2592,14 @@ function ClinicalProcedurePanel({ patient, member, writable, notify }) {
     });
     setUsage({ lot_id: "", quantity: "", unit: "" });
   };
-  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide />{selected?.device_relevant && <Field title={t("Equipamento", "Device")} value={form.device_id || ""} onChange={(v) => set("device_id", v)} options={[{ value: "", label: t("Selecionar equipamento", "Select device") }, ...(state.data?.[3] || []).map((d) => ({ value: d.id, label: `${d.name} ${d.equipment_model || ""}` }))]} />}{(selected?.product_relevant || selected?.lot_required) && <><Field title={t("Produto/lote", "Product/lot")} value={usage.lot_id} onChange={(v) => setUsage((u) => ({ ...u, lot_id: v }))} options={[{ value: "", label: t("Selecionar lote", "Select lot") }, ...(state.data?.[2] || []).map((lot) => ({ value: lot.id, label: `${lot.products?.name || "Product"} · ${lot.lot} · ${lot.expires_on ? date(lot.expires_on) : t("sem validade", "no expiry")}` }))]} required={!!selected?.lot_required} /><Field title={t("Quantidade", "Quantity")} type="number" min="0" step="0.01" value={usage.quantity} onChange={(v) => setUsage((u) => ({ ...u, quantity: v }))} /><Field title={t("Unidade", "Unit")} value={usage.unit} onChange={(v) => setUsage((u) => ({ ...u, unit: v }))} /></>}<Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : editingDraftId ? t("Finalizar rascunho", "Finalize draft") : t("Finalizar procedimento", "Finalize procedure")}</Button>{editingDraftId && <Button type="button" disabled={busy} onClick={() => { setEditingDraftId(""); setForm((current) => ({ ...current, procedure_id: "", indication: "", technique: "", parameters: "", post_care: "", device_id: "" })); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form>}<LoadState state={history}>{(rows) => <div className="rows">{rows.map((row) => <article className="entry" key={row.id}><div className="entry-head"><strong>{row.procedures?.name}</strong><Status value={row.status} /></div><small>{row.history_only && !row.performed_at ? t("Histórico informado · data não informada", "Reported history · date not provided") : date(row.performed_at, true)}{row.area ? ` · ${row.area}` : ""}</small><p className="preserve">{row.observations}</p>{row.status === "rascunho" && writable && <Button type="button" icon={Pencil} disabled={busy} onClick={() => resumeDraft(row)}>{t("Completar rascunho", "Complete draft")}</Button>}</article>)}{!rows.length && <Empty icon={Syringe}>{t("Nenhum procedimento registrado.", "No treatments recorded.")}</Empty>}</div>}</LoadState></section>;
+  return <section className="detail-section"><div className="section-heading"><h2>{t("Procedimentos realizados", "Performed procedures")}</h2></div>{writable && <OnDemandForm title={t("Adicionar procedimento", "Adicionar procedimento")} editing={editingDraftId}><form className="form-grid" onSubmit={saveProcedure}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => set("procedure_id", v)} options={[{ value: "", label: t("Selecionar procedimento", "Select procedure") }, ...(state.data?.[0] || []).map((p) => ({ value: p.id, label: p.name }))]} required /><Field title={t("Plano de tratamento", "Treatment plan")} value={form.plan_id} onChange={(v) => set("plan_id", v)} options={[{ value: "", label: t("Sem plano", "No plan") }, ...(state.data?.[1] || []).map((p) => ({ value: p.id, label: p.title }))]} /><Field title={t("Data e hora", "Date and time")} type="datetime-local" value={form.performed_at} onChange={(v) => set("performed_at", v)} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Indicação", "Indication")} type="textarea" value={form.indication} onChange={(v) => set("indication", v)} /><Field title={t("Técnica", "Technique")} type="textarea" value={form.technique} onChange={(v) => set("technique", v)} /><Field title={t("Observações sobre os parâmetros do equipamento", "Equipment parameter notes")} type="textarea" value={form.parameters} onChange={(v) => set("parameters", v)} /><Field title={t("Consentimento", "Consent") } value={form.consent_status} onChange={(v) => set("consent_status", v)} options={["pendente", "aceito", "recusado", "nao_aplicavel"].map((v) => ({ value: v, label: v }))} /><Field title={t("Pós-cuidado", "Post-care guidance")} type="textarea" value={form.post_care || selected?.post_care || ""} onChange={(v) => set("post_care", v)} wide />{selected?.device_relevant && <Field title={t("Equipamento", "Device")} value={form.device_id || ""} onChange={(v) => set("device_id", v)} options={[{ value: "", label: t("Selecionar equipamento", "Select device") }, ...(state.data?.[3] || []).map((d) => ({ value: d.id, label: `${d.name} ${d.equipment_model || ""}` }))]} />}{(selected?.product_relevant || selected?.lot_required) && <><Field title={t("Produto/lote", "Product/lot")} value={usage.lot_id} onChange={(v) => setUsage((u) => ({ ...u, lot_id: v }))} options={[{ value: "", label: t("Selecionar lote", "Select lot") }, ...(state.data?.[2] || []).map((lot) => ({ value: lot.id, label: `${lot.products?.name || "Product"} · ${lot.lot} · ${lot.expires_on ? date(lot.expires_on) : t("sem validade", "no expiry")}` }))]} required={!!selected?.lot_required} /><Field title={t("Quantidade", "Quantity")} type="number" min="0" step="0.01" value={usage.quantity} onChange={(v) => setUsage((u) => ({ ...u, quantity: v }))} /><Field title={t("Unidade", "Unit")} value={usage.unit} onChange={(v) => setUsage((u) => ({ ...u, unit: v }))} /></>}<Button className="primary" icon={Save} disabled={busy || !form.procedure_id}>{busy ? t("Salvando...", "Saving...") : editingDraftId ? t("Finalizar rascunho", "Finalize draft") : t("Finalizar procedimento", "Finalize procedure")}</Button>{editingDraftId && <Button type="button" disabled={busy} onClick={() => { setEditingDraftId(""); setForm({ procedure_id: "", professional_id: member.user_id, appointment_id: "", plan_id: "", performed_at: localDateTime(), area: "", indication: "", technique: "", parameters: "", originalParameters: {}, post_care: "", consent_status: "pendente", device_id: "" }); }}>{t("Cancelar edição", "Cancel editing")}</Button>}</form></OnDemandForm>}<LoadState state={history}>{(rows) => <div className="rows">{rows.map((row) => <article className="entry" key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><div className="entry-head"><strong>{row.procedures?.name}</strong><Status value={row.status} /></div><small>{row.history_only && !row.performed_at ? t("Histórico informado · data não informada", "Reported history · date not provided") : date(row.performed_at, true)}{row.area ? ` · ${row.area}` : ""}</small><p className="preserve">{row.observations}</p><div className="actions">{onPhoto && writable && <Button icon={Camera} onClick={() => onPhoto(row)}>{t("Anexar fotos", "Attach photos")}</Button>}{onConsent && <Button icon={ShieldCheck} onClick={() => onConsent(row)}>{t("Verificar consentimento", "Verify consent")}</Button>}</div>{consents.filter((c) => c.procedure_id === row.procedure_id).slice(0, 1).map((c) => <p key={c.id}>{t("Último consentimento registrado", "Latest recorded consent")}: <Status value={c.status} /> · {c.template_version} · {date(c.accepted_at || c.created_at, true)}</p>)}{row.status === "rascunho" && writable && <Button type="button" icon={Pencil} disabled={busy} onClick={() => resumeDraft(row)}>{t("Completar rascunho", "Complete draft")}</Button>}</article>)}{!rows.length && <Empty icon={Syringe}>{t("Nenhum procedimento registrado.", "No treatments recorded.")}</Empty>}</div>}</LoadState></section>;
 }
 
 function HealthHistoryPanel({ patient, member, writable, notify }) {
-  const t = useT(); const blank = { allergies: "", medications: "", conditions: "", surgeries: "", aesthetic_history: "", dermatological_history: "", healing_history: "", active_infection: "", pregnancy_breastfeeding: "", habits: "", other_notes: "" }; const [form, setForm] = useState(blank), [busy, setBusy] = useState(false); const state = useLoad(() => checked(db.from("patient_health_history").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false }).limit(20)), [patient.id]); const set = (key, value) => setForm((current) => ({ ...current, [key]: value })); const saveHistory = async (e) => { e.preventDefault(); setBusy(true); try { await checked(db.from("patient_health_history").insert({ organization_id: ORG, patient_id: patient.id, ...form, created_by: member.user_id })); setForm(blank); state.refresh(); notify(t("Histórico de saúde salvo como nova versão", "Health history saved as a new version")); } catch { notify(t("Não foi possível salvar o histórico.", "Could not save health history.")); } finally { setBusy(false); } }; return <section className="detail-section"><h2>{t("Histórico de saúde", "Health history")}</h2>{writable && <form className="form-grid" onSubmit={saveHistory}>{Object.entries({ allergies: ["Alergias", "Allergies"], medications: ["Medicamentos", "Medications"], conditions: ["Condições relevantes", "Relevant conditions"], surgeries: ["Cirurgias", "Surgeries"], aesthetic_history: ["Procedimentos estéticos anteriores", "Previous aesthetic procedures"], dermatological_history: ["Histórico dermatológico", "Dermatological history"], healing_history: ["Cicatrização/queloide", "Healing/keloid history"], active_infection: ["Infecção/lesão ativa", "Active infection/lesion"], pregnancy_breastfeeding: ["Gestação/amamentação", "Pregnancy/breastfeeding"], habits: ["Hábitos/lifestyle", "Habits/lifestyle"], other_notes: ["Outras informações", "Other information"] }).map(([key, titles]) => <Field key={key} title={t(...titles)} type="textarea" value={form[key]} onChange={(v) => set(key, v)} />)}<Button className="primary" icon={Save} disabled={busy}>{t("Salvar versão", "Save version")}</Button></form>}<LoadState state={state}>{(rows) => rows.map((row) => <details key={row.id}><summary>{date(row.created_at, true)}</summary><p className="preserve">{Object.entries(row).filter(([key, value]) => value && !["id", "organization_id", "patient_id", "created_by", "created_at"].includes(key)).map(([key, value]) => `${key}: ${value}`).join("\n")}</p></details>)}</LoadState></section>;
+  const t = useT(); const blank = { allergies: "", medications: "", conditions: "", surgeries: "", aesthetic_history: "", dermatological_history: "", healing_history: "", active_infection: "", pregnancy_breastfeeding: "", habits: "", other_notes: "" }; const [form, setForm] = useState(blank), [busy, setBusy] = useState(false); const edited = useRef(false); const state = useLoad(() => readPatientRows((from, to) => checked(db.from("patient_health_history").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false }).range(from, to))), [patient.id]); useEffect(() => { if (state.data && !edited.current) setForm(Object.fromEntries(Object.keys(blank).map((key) => [key, state.data[0]?.[key] || ""]))); }, [state.data]); const set = (key, value) => { edited.current = true; setForm((current) => ({ ...current, [key]: value })); }; const saveHistory = async (e) => { e.preventDefault(); setBusy(true); try { await checked(db.from("patient_health_history").insert({ organization_id: ORG, patient_id: patient.id, ...form, created_by: member.user_id })); edited.current = false; state.refresh(); notify(t("Histórico de saúde salvo como nova versão", "Health history saved as a new version")); } catch { notify(t("Não foi possível salvar o histórico.", "Could not save health history.")); } finally { setBusy(false); } }; return <section className="detail-section"><h2>{t("Histórico de saúde", "Health history")}</h2>{writable && <OnDemandForm title={t("Atualizar histórico de saúde", "Atualizar histórico de saúde")} editing={false}><form className="form-grid" onSubmit={saveHistory}>{Object.entries({ allergies: ["Alergias", "Allergies"], medications: ["Medicamentos", "Medications"], conditions: ["Condições relevantes", "Relevant conditions"], surgeries: ["Cirurgias", "Surgeries"], aesthetic_history: ["Procedimentos estéticos anteriores", "Previous aesthetic procedures"], dermatological_history: ["Histórico dermatológico", "Dermatological history"], healing_history: ["Cicatrização/queloide", "Healing/keloid history"], active_infection: ["Infecção/lesão ativa", "Active infection/lesion"], pregnancy_breastfeeding: ["Gestação/amamentação", "Pregnancy/breastfeeding"], habits: ["Hábitos/lifestyle", "Habits/lifestyle"], other_notes: ["Outras informações", "Other information"] }).map(([key, titles]) => <Field key={key} title={t(...titles)} type="textarea" value={form[key]} onChange={(v) => set(key, v)} />)}<Button className="primary" icon={Save} disabled={busy}>{t("Salvar versão", "Save version")}</Button></form></OnDemandForm>}<LoadState state={state}>{(rows) => rows.map((row) => <details key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><summary>{date(row.created_at, true)}</summary><p className="preserve">{Object.entries(row).filter(([key, value]) => value && !["id", "organization_id", "patient_id", "created_by", "created_at"].includes(key)).map(([key, value]) => `${key}: ${value}`).join("\n")}</p></details>)}</LoadState></section>;
 }
 
-function ConsentPanel({ patient, member, writable, notify }) { const t = useT(); const [form, setForm] = useState({ kind: "procedimento", procedure_id: "", template_version: "2026-09-14", language: "pt-BR", status: "pendente", method: "presencial", source: "management" }); const state = useLoad(() => checked(db.from("consents").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const procedures = useLoad(() => checked(db.from("procedures").select("id,name,catalog_version,required_consents,consent_template,consent_template_version").eq("active", true).order("name")), []); const set = (key, value) => setForm((c) => ({ ...c, [key]: value })); const submit = async (e) => { e.preventDefault(); try { const procedure = (procedures.data || []).find((row) => row.id === form.procedure_id); await checked(db.from("consents").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: procedure?.id || null, procedure_snapshot: procedure ? { ...procedure, selected_at: new Date().toISOString() } : {}, ...form, accepted_at: form.status === "aceito" ? new Date().toISOString() : null, created_by: member.user_id })); state.refresh(); notify(t("Consentimento salvo", "Consent saved")); } catch { notify(t("Não foi possível salvar o consentimento.", "Could not save consent.")); } }; return <section className="detail-section"><h2>{t("Consentimentos estruturados", "Structured consents")}</h2>{writable && <form className="form-grid" onSubmit={submit}><Field title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => { const procedure = (procedures.data || []).find((row) => row.id === v); set("procedure_id", v); if (procedure?.consent_template_version) set("template_version", procedure.consent_template_version); }} options={[{ value: "", label: t("Consentimento geral", "General consent") }, ...(procedures.data || []).map((p) => ({ value: p.id, label: `${p.name} · v${p.catalog_version || 1}` }))]} /><Field title={t("Tipo", "Type")} value={form.kind} onChange={(v) => set("kind", v)} options={["procedimento", "privacidade", "fotografia_clinica", "publicacao_marketing", "comunicacao", "reserva"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Versão do termo", "Template version")} value={form.template_version} onChange={(v) => set("template_version", v)} /><Field title="Idioma" value={form.language} onChange={(v) => set("language", v)} options={[{ value: "pt-BR", label: "Português (Brasil)" }]} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["pendente", "aceito", "recusado", "revogado"].map((v) => ({ value: v, label: v }))} /><Field title={t("Método", "Method")} value={form.method} onChange={(v) => set("method", v)} /><Button className="primary" icon={Save}>{t("Salvar consentimento", "Save consent")}</Button></form>}<LoadState state={state}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.kind, t)}</strong><small>{row.procedure_snapshot?.name ? `${row.procedure_snapshot.name} · ` : ""}{row.template_version} · {row.language} · {date(row.created_at, true)}{row.authorization_choice ? ` · ${row.source_field}: ${row.authorization_choice}` : ""}</small></span><Status value={row.status} /></div>)}</LoadState></section>; }
+function ConsentPanel({ patient, member, writable, notify, context, search = "" }) { const t = useT(); const [form, setForm] = useState({ kind: "procedimento", procedure_id: "", template_version: "2026-09-14", language: "pt-BR", status: "pendente", method: "presencial", source: "management" }); const state = useLoad(() => checked(db.from("consents").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const procedures = useLoad(() => checked(db.from("procedures").select("id,name,catalog_version,required_consents,consent_template,consent_template_version").eq("active", true).order("name")), []); const set = (key, value) => setForm((c) => ({ ...c, [key]: value })); useEffect(() => { if (context) { const procedure = (procedures.data || []).find((row) => row.id === context.procedure_id); setForm((current) => ({ ...current, procedure_id: context.procedure_id, template_version: procedure?.consent_template_version || current.template_version })); } }, [context, procedures.data]); const submit = async (e) => { e.preventDefault(); try { const procedure = (procedures.data || []).find((row) => row.id === form.procedure_id); await checked(db.from("consents").insert({ organization_id: ORG, patient_id: patient.id, procedure_id: procedure?.id || null, clinical_procedure_id: context?.procedure_id === form.procedure_id ? context.id : null, procedure_snapshot: procedure ? { ...procedure, selected_at: new Date().toISOString() } : {}, ...form, accepted_at: form.status === "aceito" ? new Date().toISOString() : null, created_by: member.user_id })); state.refresh(); notify(t("Consentimento salvo", "Consent saved")); } catch { notify(t("Não foi possível salvar o consentimento.", "Could not save consent.")); } }; return <section className="detail-section"><h2>{t("Consentimentos estruturados", "Structured consents")}</h2>{writable && <OnDemandForm title={t("Registrar consentimento", "Registrar consentimento")} editing={context}><form className="form-grid" onSubmit={submit}><Field aria-label={t("Procedimento", "Procedure")} title={t("Procedimento", "Procedure")} value={form.procedure_id} onChange={(v) => { const procedure = (procedures.data || []).find((row) => row.id === v); set("procedure_id", v); if (procedure?.consent_template_version) set("template_version", procedure.consent_template_version); }} options={[{ value: "", label: t("Consentimento geral", "General consent") }, ...(procedures.data || []).map((p) => ({ value: p.id, label: `${p.name} · v${p.catalog_version || 1}` }))]} /><Field title={t("Tipo", "Type")} value={form.kind} onChange={(v) => set("kind", v)} options={["procedimento", "privacidade", "fotografia_clinica", "publicacao_marketing", "comunicacao", "reserva"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Versão do termo", "Template version")} value={form.template_version} onChange={(v) => set("template_version", v)} /><Field title="Idioma" value={form.language} onChange={(v) => set("language", v)} options={[{ value: "pt-BR", label: "Português (Brasil)" }]} /><Field title={t("Status", "Status")} value={form.status} onChange={(v) => set("status", v)} options={["pendente", "aceito", "recusado", "revogado"].map((v) => ({ value: v, label: v }))} /><Field title={t("Método", "Method")} value={form.method} onChange={(v) => set("method", v)} /><Button className="primary" icon={Save}>{t("Salvar consentimento", "Save consent")}</Button></form></OnDemandForm>}<LoadState state={state}>{(rows) => rows.filter((row) => `${row.kind} ${row.status} ${row.template_version} ${row.procedure_snapshot?.name || ""}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map((row) => <div className="list-row" key={row.id} id={`patient-record-${row.id}`} tabIndex={-1}><span><strong>{label(row.kind, t)}</strong><small>{row.procedure_snapshot?.name ? `${row.procedure_snapshot.name} · ` : ""}{row.template_version} · {row.language} · {row.method} · {date(row.accepted_at || row.created_at, true)}{row.authorization_choice ? ` · ${row.source_field}: ${row.authorization_choice}` : ""}</small></span><Status value={row.status} /></div>)}</LoadState></section>; }
 
 function PatientPortalAccess({ patient, member, notify }) {
   const t = useT();
@@ -2698,9 +2636,9 @@ function PatientPortalAccess({ patient, member, notify }) {
 
 function PrivacyPortalPanel({ patient, member, writable, notify }) { const t = useT(); const [request, setRequest] = useState({ request_type: "acesso", status: "recebida", notes: "" }); const [share, setShare] = useState({ resource_type: "post_care", resource_id: "" }); const requests = useLoad(() => checked(db.from("privacy_requests").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]); const shares = useLoad(() => checked(db.from("patient_portal_shares").select("*").eq("patient_id", patient.id).order("shared_at", { ascending: false })), [patient.id]); const saveRequest = async (e) => { e.preventDefault(); try { await checked(db.from("privacy_requests").insert({ organization_id: ORG, patient_id: patient.id, ...request, responsible_user: member.user_id, created_by: member.user_id })); requests.refresh(); notify(t("Solicitação registrada", "Request recorded")); } catch { notify(t("Não foi possível registrar a solicitação.", "Could not record the request.")); } }; const createShare = async (e) => { e.preventDefault(); try { await checked(db.from("patient_portal_shares").insert({ organization_id: ORG, patient_id: patient.id, ...share, shared_by: member.user_id })); shares.refresh(); notify(t("Disponibilizado ao paciente", "Shared with patient")); } catch { notify(t("Não foi possível compartilhar.", "Could not share.")); } }; return <section className="detail-section"><PatientPortalAccess patient={patient} member={member} notify={notify} /><h2>{t("Privacidade e Área do Paciente", "Privacy & Patient Area")}</h2>{writable && <><form className="form-grid" onSubmit={saveRequest}><Field title={t("Tipo de solicitação", "Request type")} value={request.request_type} onChange={(v) => setRequest({ ...request, request_type: v })} options={["acesso", "correcao", "exportacao", "restricao", "exclusao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Observações", "Notes")} type="textarea" value={request.notes} onChange={(v) => setRequest({ ...request, notes: v })} /><Button className="primary" icon={Save}>{t("Registrar solicitação", "Record request")}</Button></form><form className="form-grid" onSubmit={createShare}><Field title={t("Recurso a compartilhar", "Resource to share")} value={share.resource_type} onChange={(v) => setShare({ ...share, resource_type: v })} options={["document", "report", "photo", "consent", "post_care", "appointment"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("ID do recurso", "Resource ID")} value={share.resource_id} onChange={(v) => setShare({ ...share, resource_id: v })} /><Button className="primary" icon={LinkIcon}>{t("Disponibilizar ao paciente", "Share with patient")}</Button></form></>}<h3>{t("Solicitações", "Requests")}</h3><LoadState state={requests}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.request_type, t)}</strong><small>{date(row.received_on)} · {row.notes}</small></span><Status value={row.status} /></div>)}</LoadState><h3>{t("Recursos compartilhados", "Shared resources")}</h3><LoadState state={shares}>{(rows) => rows.map((row) => <div className="list-row" key={row.id}><span><strong>{label(row.resource_type, t)}</strong><small>{date(row.shared_at, true)}</small></span><Status value={row.status} />{writable && row.status === "shared" && <Button onClick={async () => { await checked(db.from("patient_portal_shares").update({ status: "revoked", revoked_at: new Date().toISOString() }).eq("id", row.id)); shares.refresh(); notify(t("Removido da Área do Paciente", "Removed from Patient Area")); }}>{t("Remover", "Revoke")}</Button>}</div>)}</LoadState></section>; }
 
-function PortalActionQueue({ notify }) {
+function PortalActionQueue({ notify, patientId }) {
   const t = useT();
-  const state = useLoad(() => checked(db.from("patient_portal_actions").select("*,patients(full_name,preferred_name)").eq("status", "pendente").order("created_at", { ascending: false }).limit(50)), []);
+  const state = useLoad(() => { let query = db.from("patient_portal_actions").select("*,patients(full_name,preferred_name)").eq("status", "pendente").order("created_at", { ascending: false }).limit(50); if (patientId) query = query.eq("patient_id", patientId); return checked(query); }, [patientId]);
   const resolve = async (row, status) => { try { await checked(db.from("patient_portal_actions").update({ status, resolved_at: new Date().toISOString() }).eq("id", row.id)); state.refresh(); notify(t("Ação do portal atualizada.", "Portal action updated.")); } catch { notify(t("Não foi possível atualizar a ação do portal.", "Could not update the portal action.")); } };
   return <section className="detail-section"><div className="section-heading"><div><h2>{t("Ações do portal", "Portal actions")}</h2><p className="subtle">{t("Pedidos enviados pelos pacientes para confirmação, retorno ou sintomas.", "Requests sent by patients for confirmation, follow-up or symptoms.")}</p></div></div><LoadState state={state}>{(rows) => rows.length ? <div className="rows">{rows.map((row) => <div className="list-row" key={row.id}><span><strong>{row.patients?.preferred_name || row.patients?.full_name || t("Paciente", "Patient")}</strong><small>{label(row.action_type, t)} · {date(row.created_at, true)} · {row.notes}</small></span><Button onClick={() => resolve(row, "concluida")}>{t("Concluir", "Complete")}</Button><Button onClick={() => resolve(row, "recusada")}>{t("Recusar", "Decline")}</Button></div>)}</div> : <Empty icon={CheckCircle2}>{t("Nenhuma ação pendente.", "No pending portal actions.")}</Empty>}</LoadState></section>;
 }
@@ -2709,15 +2647,16 @@ function ClinicalPhotoThumb({ row, onOpen }) {
   const url = usePrivateImage("clinical-photos", row.path);
   return <button className="clinical-photo-thumb" type="button" onClick={onOpen}>{url ? <img src={url} alt="" /> : <Eye size={20} />}</button>;
 }
-function ClinicalPhotosPanel({ patient, writable, notify }) {
-  const t = useT(), [file, setFile] = useState(null), [editing, setEditing] = useState(null), [form, setForm] = useState({ category: "antes", area: "", description: "" }), [busy, setBusy] = useState(false);
+function ClinicalPhotosPanel({ patient, writable, notify, procedures = [], context }) {
+  const t = useT(), [file, setFile] = useState(null), [editing, setEditing] = useState(null), [form, setForm] = useState({ category: "antes", area: "", description: "", clinical_procedure_id: "" }), [busy, setBusy] = useState(false);
   const state = useLoad(() => checked(db.from("clinical_photos").select("*").eq("patient_id", patient.id).order("created_at", { ascending: false })), [patient.id]);
+  useEffect(() => { if (context) { setEditing(null); setFile(null); setForm((current) => ({ ...current, clinical_procedure_id: context.id, area: context.area || "" })); } }, [context]);
   const set = (key, value) => setForm((current) => ({ ...current, [key]: value }));
-  const chooseEdit = (row) => { setEditing(row); setFile(null); setForm({ category: row.category, area: row.area || "", description: row.description || "" }); };
-  const upload = async (e) => { e.preventDefault(); if (!file) return; setBusy(true); try { const body = new FormData(); body.set("file", file); body.set("patient_id", patient.id); body.set("kind", editing ? "photo_replace" : "photo"); if (editing) body.set("photo_id", editing.id); body.set("category", form.category); body.set("area", form.area); body.set("description", form.description); const result = await invoke("files", body); if (!result?.photo) throw Error("upload"); setFile(null); setEditing(null); state.refresh(); notify(editing ? t("Foto clínica substituída.", "Clinical photo replaced.") : t("Foto clínica salva.", "Clinical photo saved.")); } catch { notify(t("Não foi possível salvar a foto.", "Could not save the photo.")); } finally { setBusy(false); } };
+  const chooseEdit = (row) => { setEditing(row); setFile(null); setForm({ category: row.category, area: row.area || "", description: row.description || "", clinical_procedure_id: row.clinical_procedure_id || "" }); };
+  const upload = async (e) => { e.preventDefault(); if (!file) return; setBusy(true); try { const body = new FormData(); body.set("file", file); body.set("patient_id", patient.id); body.set("kind", editing ? "photo_replace" : "photo"); if (editing) body.set("photo_id", editing.id); body.set("category", form.category); body.set("area", form.area); body.set("description", form.description); body.set("clinical_procedure_id", form.clinical_procedure_id || ""); const result = await invoke("files", body); if (!result?.photo) throw Error("upload"); setFile(null); setEditing(null); state.refresh(); notify(editing ? t("Foto clínica substituída.", "Clinical photo replaced.") : t("Foto clínica salva.", "Clinical photo saved.")); } catch { notify(t("Não foi possível salvar a foto.", "Could not save the photo.")); } finally { setBusy(false); } };
   const photo = async (row) => { try { await openPrivateImage("clinical-photos", row.path); } catch { notify(t("Não foi possível abrir a foto. Permita pop-ups e verifique seu acesso.", "Could not open the photo. Allow pop-ups and verify your access.")); } };
   const removePhoto = async (row) => { if (!await confirmAction(t("Remover esta fotografia clínica?", "Remove this clinical photograph?"))) return; setBusy(true); try { const body = new FormData(); body.set("patient_id", patient.id); body.set("photo_id", row.id); body.set("kind", "photo_delete"); await invoke("files", body); state.refresh(); notify(t("Foto clínica removida.", "Clinical photo removed.")); } catch { notify(t("Não foi possível remover a foto.", "Could not remove the photo.")); } finally { setBusy(false); } };
-  return <section className="detail-section"><div className="section-heading"><h2>{t("Fotografia clínica", "Clinical photography")}</h2></div>{writable && <form className="form-grid" onSubmit={upload}><Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} options={["antes", "durante", "depois", "evolucao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Observação", "Note")} value={form.description} onChange={(v) => set("description", v)} /><PhotoPicker title={t("Foto clínica", "Clinical photo")} value={file} onChange={setFile} /><Button className="primary" icon={editing ? RefreshCw : Paperclip} disabled={busy || !file}>{editing ? t("Substituir foto", "Replace photo") : t("Enviar foto privada", "Upload private photo")}</Button>{editing && <Button type="button" disabled={busy} onClick={() => { setEditing(null); setFile(null); setForm({ category: "antes", area: "", description: "" }); }}>{t("Cancelar substituição", "Cancel replacement")}</Button>}</form>}<LoadState state={state}>{(rows) => <div className="document-list">{rows.map((row) => <div className="document-row" key={row.id}><ClinicalPhotoThumb row={row} onOpen={() => photo(row)} /><span><strong>{label(row.category, t)}</strong><small>{row.area} · {date(row.created_at, true)} · {row.description}</small></span><Button icon={Eye} onClick={() => photo(row)}>{t("Visualizar", "View")}</Button>{writable && <><Button icon={RefreshCw} onClick={() => chooseEdit(row)}>{t("Substituir", "Replace")}</Button><Button icon={Trash2} disabled={busy} onClick={() => removePhoto(row)}>{t("Remover", "Remove")}</Button></>}</div>)}{!rows.length && <Empty icon={Eye}>{t("Nenhuma foto clínica", "No clinical photos")}</Empty>}</div>}</LoadState></section>;
+  return <section className="detail-section"><div className="section-heading"><h2>{t("Fotografia clínica", "Clinical photography")}</h2></div>{writable && <OnDemandForm title={t("Anexar fotografia", "Anexar fotografia")} editing={editing || context}><form className="form-grid" onSubmit={upload}><Field aria-label={t("Procedimento associado", "Associated procedure")} title={t("Procedimento associado", "Associated procedure")} value={form.clinical_procedure_id || ""} onChange={(v) => set("clinical_procedure_id", v)} options={[{ value: "", label: t("Foto geral do paciente", "General patient photo") }, ...(context && !procedures.some((row) => row.id === context.id) ? [context, ...procedures] : procedures).map((row) => ({ value: row.id, label: `${row.procedures?.name || "Procedimento"} · ${date(row.performed_at || row.created_at)}` }))]} disabled={!!editing} /><Field title={t("Categoria", "Category")} value={form.category} onChange={(v) => set("category", v)} options={["antes", "durante", "depois", "evolucao"].map((v) => ({ value: v, label: label(v, t) }))} /><Field title={t("Área", "Treatment area")} value={form.area} onChange={(v) => set("area", v)} /><Field title={t("Observação", "Note")} value={form.description} onChange={(v) => set("description", v)} /><PhotoPicker title={t("Foto clínica", "Clinical photo")} value={file} onChange={setFile} /><Button className="primary" icon={editing ? RefreshCw : Paperclip} disabled={busy || !file}>{editing ? t("Substituir foto", "Replace photo") : t("Enviar foto privada", "Upload private photo")}</Button>{editing && <Button type="button" disabled={busy} onClick={() => { setEditing(null); setFile(null); setForm({ category: "antes", area: "", description: "", clinical_procedure_id: "" }); }}>{t("Cancelar substituição", "Cancel replacement")}</Button>}</form></OnDemandForm>}<LoadState state={state}>{(rows) => <div className="document-list">{rows.map((row) => <div className="document-row" key={row.id}><ClinicalPhotoThumb row={row} onOpen={() => photo(row)} /><span><strong>{label(row.category, t)}</strong><small>{row.area} · {date(row.created_at, true)} · {row.description}</small></span><Button icon={Eye} onClick={() => photo(row)}>{t("Visualizar", "View")}</Button>{writable && <><Button icon={RefreshCw} onClick={() => chooseEdit(row)}>{t("Substituir", "Replace")}</Button><Button icon={Trash2} disabled={busy} onClick={() => removePhoto(row)}>{t("Remover", "Remove")}</Button></>}</div>)}{!rows.length && <Empty icon={Eye}>{t("Nenhuma foto clínica", "No clinical photos")}</Empty>}</div>}</LoadState></section>;
 }
 
 function WorkflowForm({ resource, patient, member, close, done, notify }) {
@@ -3213,7 +3152,7 @@ function AppointmentForm({ appointment, patient, initialStart, followup, close, 
         : 60,
     ),
     [busy, setBusy] = useState(false),
-    [followupAppointment, setFollowupAppointment] = useState(null),
+    [bookingRequest] = useState(() => crypto.randomUUID()),
     [recurrenceCount, setRecurrenceCount] = useState(1),
     [recurrenceInterval, setRecurrenceInterval] = useState(0);
   const procedures = useLoad(() => checked(db.from("procedures").select("id,name,category,default_duration,price_cents,description,availability").eq("active", true).order("name")), []);
@@ -3245,30 +3184,22 @@ function AppointmentForm({ appointment, patient, initialStart, followup, close, 
       return;
     }
     setBusy(true);
-    let firstCreated = followupAppointment;
     try {
-      if (!appointment && !followup && Number(recurrenceCount) > 1 && Number(recurrenceInterval) <= 0) { notify(t("Informe o intervalo entre sessões recorrentes.", "Enter the interval between recurring sessions.")); setBusy(false); return; }
-      const recurrenceGroupId = recurrenceCount > 1 ? crypto.randomUUID() : null;
-      if (!followupAppointment) {
-        const count = followup || appointment ? 1 : Number(recurrenceCount) || 1;
-        for (let index = 0; index < count; index += 1) {
-          const startsAt = new Date(new Date(toISO(start)).getTime() + index * Number(recurrenceInterval || 0) * 86400000);
-          const created = await save("appointments", { patient_id: form.patient_id, procedure_id: form.procedure_id || null, procedure_snapshot: selectedProcedure ? { ...selectedProcedure, selected_at: new Date().toISOString() } : {}, recurrence_group_id: recurrenceGroupId, recurrence_index: index + 1, professional_id: form.professional_id || null, label: form.label, starts_at: startsAt.toISOString(), ends_at: new Date(startsAt.getTime() + Number(duration) * 60000).toISOString(), status: form.status }, appointment && index === 0 ? appointment : null);
-          if (!index && !appointment) { firstCreated = created; if (followup) setFollowupAppointment(created); }
-        }
-      }
-      if (followup && firstCreated) {
-        const result = await db.rpc("set_follow_up_status", { p_follow_up_id: followup.id, p_status: "agendado", p_appointment_id: firstCreated.id });
-        if (result.error) throw result.error;
-      }
+      await checked(db.rpc("save_appointment_series", {
+        payload: { ...(appointment ? { id: appointment.id, version: appointment.version } : {}), organization_id: ORG,
+          patient_id: form.patient_id, procedure_id: form.procedure_id || null,
+          procedure_snapshot: selectedProcedure ? { ...selectedProcedure, selected_at: new Date().toISOString() } : appointment?.procedure_snapshot || {},
+          professional_id: form.professional_id || null, label: form.label, starts_at: toISO(start),
+          ends_at: new Date(new Date(toISO(start)).getTime() + Number(duration) * 60000).toISOString(), status: form.status },
+        session_count: appointment || followup ? 1 : Number(recurrenceCount), interval_days: Number(recurrenceInterval),
+        follow_up_id: followup?.id || null, request_id: bookingRequest,
+      }));
       dirty.clean();
       done();
-    } catch {
-      notify(
-        followup && firstCreated
-          ? t("O agendamento foi criado, mas não foi possível vincular o retorno. Salve novamente para tentar concluir o vínculo.", "The appointment was created, but the follow-up could not be linked. Save again to retry the link.")
-          : t("Não foi possível agendar. Verifique o horário.", "Could not schedule. Check the time."),
-      );
+    } catch (error) {
+      notify(error?.code === "40001"
+        ? t("Este agendamento foi alterado por outra pessoa. Reabra-o antes de salvar.", "This appointment changed. Reopen it before saving.")
+        : t("Não foi possível agendar. Nenhuma sessão foi criada; verifique os horários e as permissões.", "Could not schedule. No sessions were created; check times and permissions."));
     } finally {
       setBusy(false);
     }
@@ -3853,14 +3784,14 @@ function PublicIntakeAnswers({ payload = {} }) {
       <div key={key}><dt><strong>{publicIntakeLabels[key] || fieldLabel(key)}</strong></dt><dd style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>{text(value)}</dd></div>)}</dl>
   </details>;
 }
-function PatientIntakeHistory({ patientId }) {
+function PatientIntakeHistory({ patientId, search = "" }) {
   const t = useT();
   const state = useLoad(() => checked(db.from("public_intakes").select("id,submitted_at,form_version,payload")
     .eq("patient_id", patientId).order("submitted_at", { ascending: false })), [patientId]);
   return <LoadState state={state}>{(rows) => rows.length > 0 && <section className="detail-section">
-    <h2>{t("Formulários recebidos", "Submitted forms")}</h2>{rows.map((row) => <div key={row.id}>
-      <p>{date(row.submitted_at, true)} · {row.form_version}</p><PublicIntakeAnswers payload={row.payload} />
-    </div>)}
+    <h2>{t("Formulários recebidos", "Submitted forms")}</h2>{rows.filter((row) => `Formulário ${row.form_version} ${JSON.stringify(row.payload)}`.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map((row) => <details key={row.id}>
+      <summary>{date(row.submitted_at, true)} · {row.form_version}</summary><PublicIntakeAnswers payload={row.payload} />
+    </details>)}
   </section>}</LoadState>;
 }
 
@@ -4556,7 +4487,7 @@ async function collectPatientFHIR(patient) {
 }
 async function collectFullBackup() {
   if (!(await checked(db.rpc("authorize_full_backup")))) throw Error("not_authorized");
-  const tables = ["organizations", "memberships", "patients", "entries", "entry_versions", "admin_notes", "appointments", "tasks", "enquiries", "documents", "document_links", "communications", "audit_events", "procedures", "products", "product_lots", "devices", "treatment_plans", "treatment_plan_items", "clinical_procedures", "product_usages", "clinical_photos", "consents", "follow_ups", "adverse_events", "privacy_requests", "patient_health_history", "procedure_devices", "patient_portal_shares", "patient_portal_actions", "waitlist_entries", "inventory_movements", "financial_records", "financial_payments", "staff_permissions"];
+  const tables = ["organizations", "memberships", "patients", "entries", "entry_versions", "admin_notes", "appointments", "tasks", "enquiries", "documents", "document_links", "communications", "audit_events", "procedures", "products", "product_lots", "devices", "treatment_plans", "treatment_plan_items", "clinical_procedures", "product_usages", "clinical_photos", "clinical_photo_versions", "consents", "consent_versions", "follow_ups", "adverse_events", "privacy_requests", "patient_health_history", "procedure_devices", "patient_portal_shares", "patient_portal_actions", "waitlist_entries", "inventory_movements", "financial_records", "financial_payments", "staff_permissions"];
   const data = { format: "sofiati-full-backup-v1", exported_at: new Date().toISOString(), organization_id: ORG, tables: {}, files: [] };
   data.tables.organizations = await checked(db.from("organizations").select("*").eq("id", ORG));
   for (const table of tables.filter((name) => name !== "organizations")) data.tables[table] = await allRows(table);

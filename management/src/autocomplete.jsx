@@ -58,7 +58,7 @@ export function SmartTextControl({ as = "input", value = "", onChange, suggestio
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const matches = useMemo(() => matchingSuggestions(value, suggestions), [value, suggestions]);
-  useEffect(() => { setActive(0); setOpen(matches.length > 0); }, [matches.length]);
+  useEffect(() => { setActive(0); setOpen(document.activeElement === ref.current && matches.length > 0); }, [matches.length]);
   const choose = (item) => {
     onChange(replaceFragment(value, item.value));
     setOpen(false);
@@ -77,7 +77,7 @@ export function SmartTextControl({ as = "input", value = "", onChange, suggestio
   };
   const Control = as === "textarea" ? "textarea" : "input";
   return <div className="smart-field-control">
-    <Control ref={ref} value={value ?? ""} onChange={(event) => { onChange(event.target.value); setOpen(true); }} onFocus={() => setOpen(matches.length > 0)} onBlur={() => setTimeout(() => setOpen(false), 120)} onKeyDown={onKeyDown} disabled={disabled} {...props} />
+    <Control ref={ref} value={value ?? ""} onChange={(event) => { onChange(event.target.value); setOpen(true); }} onFocus={() => setOpen(matches.length > 0)} onBlur={() => setOpen(false)} onKeyDown={onKeyDown} disabled={disabled} {...props} />
     {open && matches.length > 0 && <div className="autocomplete-menu" role="listbox">
       {matches.map((item, index) => <button type="button" role="option" aria-selected={index === active} className={index === active ? "selected" : ""} key={`${item.kind}-${item.id || item.trigger}-${item.value}`} onMouseDown={(event) => { event.preventDefault(); choose(item); }}><span><strong>{item.kind === "snippet" ? `${item.trigger} · ` : ""}{item.label}</strong><small>{item.detail}</small></span>{index === active ? <Check size={15} /> : <ChevronDown size={15} />}</button>)}
       <footer>↑↓ {" "} escolher · Enter/Tab inserir · Esc fechar</footer>

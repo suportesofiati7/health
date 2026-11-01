@@ -1,3 +1,4 @@
+import { isDataMutation, publishDataChange } from "./dataSync.js";
 import { createClient } from "@supabase/supabase-js";
 export const ORG = "a783bd4c-f253-4a94-9365-75c6f1000001";
 const buildEnvironment = import.meta.env || {};
@@ -145,6 +146,7 @@ export function safeSearch(value) {
 export async function checked(query) {
   const result = await query;
   if (result.error) throw result.error;
+  if (isDataMutation(query)) publishDataChange();
   return result.data;
 }
 export async function save(table, values, existing) {
@@ -180,6 +182,7 @@ export async function invoke(name, body) {
     throw { code: payload?.error || error.name || "request_failed", message: payload?.error || error.message || "request_failed" };
   }
   if (data?.error) throw { code: data.error, message: data.error };
+  if (["files", "communication-email"].includes(name)) publishDataChange();
   return data;
 }
 export async function portalRequest(body, token = "") {

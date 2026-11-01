@@ -216,3 +216,39 @@ table { max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .sidebar { transition: none; }
 }
+
+/* Patient workspace: compact identity, five destinations and progressive forms. */
+.patient-workspace { min-width: 0; font-size: 15px; }
+.patient-workspace .patient-heading { position: sticky; top: 0; z-index: 8; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; background: var(--ui-surface); }
+.patient-workspace .patient-heading h1 { font-size: clamp(20px, 2vw, 27px); margin: 0; }
+.patient-workspace .patient-heading .eyebrow { display: none; }
+.patient-workspace .patient-heading > .actions { flex: 0 1 auto; margin-left: auto; }
+.patient-workspace .patient-meta { margin: 4px 0 0; font-size: 13px; }
+.patient-workspace .tabs { margin: 12px 0; gap: 4px; }
+.patient-workspace .tabs button { padding: 10px 14px; font-size: 14px; }
+.patient-workspace .detail-section, .patient-workspace .clinical-snapshot { padding: 16px; margin: 12px 0; border: 1px solid var(--ui-border); border-radius: 10px; }
+.patient-workspace h2 { font-size: 18px; margin: 0 0 12px; }
+.patient-workspace .dashboard-grid { gap: 16px; margin-top: 16px; }
+.patient-workspace .dashboard-grid > section { padding: 12px; min-width: 0; }
+.patient-workspace .entry { padding: 12px; margin: 8px 0; }
+.patient-workspace .details-grid { gap: 12px 20px; margin: 8px 0; }
+.patient-workspace .form-grid { gap: 12px; padding: 12px 0; }
+.patient-workspace .on-demand { margin: 12px 0; border: 1px solid var(--ui-border); border-radius: 8px; padding: 10px 12px; }
+.patient-workspace .on-demand > summary { cursor: pointer; font-weight: 600; }
+.patient-workspace .document-row { padding: 10px 0; }
+.patient-workspace .timeline > details { padding: 12px; }
+@media (max-width: 700px) {
+  .patient-workspace .patient-heading { position: static; flex-wrap: wrap; padding: 12px; }
+  .patient-workspace .patient-heading > div:nth-child(2) { flex: 1; }
+  .patient-workspace .patient-heading > .actions { flex: 1 1 100%; margin: 0; }
+  .patient-workspace .patient-heading .actions .button { flex: 1; }
+  .patient-workspace .tabs { display: flex; flex-wrap: wrap; overflow: visible; }
+  .patient-workspace .tabs button { flex: 1 1 auto; padding: 9px; }
+  .patient-workspace .dashboard-grid { grid-template-columns: 1fr; }
+  .patient-workspace .document-row { flex-wrap: wrap; }
+}
+
+/* Suggestions must never cover Save/Cancel or controls in a neighbouring form. */
+.autocomplete-menu { position: static; margin-top: 4px; max-height: 240px; overflow-y: auto; }
+
+.patient-workspace .form-grid > button { align-self: end; min-height: 44px; height: auto; }

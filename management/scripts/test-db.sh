@@ -11,3 +11,5 @@ done
 psql -X -v ON_ERROR_STOP=1 -f tests/security.sql
 
 psql -X -v ON_ERROR_STOP=1 -f tests/patient-deletion.sql
+
+psql -X -v ON_ERROR_STOP=1 -f tests/workflow-integrity.sql
