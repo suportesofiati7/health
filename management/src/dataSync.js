@@ -12,7 +12,16 @@ export function publishDataChange() {
   window.dispatchEvent(new Event(DATA_CHANGED));
   // BroadcastChannel conveys no patient details or credentials.
   if (typeof BroadcastChannel !== 'undefined') {
-    const channel = new BroadcastChannel(DATA_CHANGED);
-    channel.postMessage('committed'); channel.close();
+    // Cross-tab refresh is optional. Browser privacy/storage restrictions must
+    // never turn an already committed save into an apparent form failure.
+    let channel;
+    try {
+      channel = new BroadcastChannel(DATA_CHANGED);
+      channel.postMessage('committed');
+    } catch {
+      // The current tab was already notified above.
+    } finally {
+      try { channel?.close(); } catch { /* Best-effort cleanup. */ }
+    }
   }
 }

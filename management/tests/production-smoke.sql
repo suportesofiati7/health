@@ -4,6 +4,7 @@ do $$
 declare
   qa_org uuid:=gen_random_uuid(); qa_user uuid:=gen_random_uuid(); qa_session uuid:=gen_random_uuid();
   qa_patient uuid:=gen_random_uuid(); qa_form uuid:=gen_random_uuid(); qa_procedure uuid:=gen_random_uuid(); qa_task uuid:=gen_random_uuid(); n integer;
+  qa_followup uuid:=gen_random_uuid(); qa_booking uuid:=gen_random_uuid(); qa_appointment uuid; booking jsonb;
 begin
   insert into auth.users(id,email) values(qa_user,qa_user::text||'@example.invalid');
   insert into auth.sessions(id,user_id) values(qa_session,qa_user);
@@ -24,6 +25,16 @@ begin
   update public.tasks set status='concluida' where id=qa_task;
   if not exists(select 1 from public.tasks where id=qa_task and status='concluida') then raise exception 'QA task completion failed'; end if;
   update public.tasks set status='cancelado' where id=qa_task;
+  insert into public.follow_ups(id,organization_id,patient_id,expected_on)
+    values(qa_followup,qa_org,qa_patient,current_date);
+  update public.tasks set source_type='follow_up',source_id=qa_followup,status='pendente' where id=qa_task;
+  booking := jsonb_build_object('organization_id',qa_org,'patient_id',qa_patient,'starts_at','2026-12-01T12:00:00-03:00','ends_at','2026-12-01T13:00:00-03:00','label','QA rollback return');
+  qa_appointment := public.save_appointment_series(booking,1,0,qa_followup,qa_booking);
+  if qa_appointment is null or public.save_appointment_series(booking,1,0,qa_followup,qa_booking)<>qa_appointment then raise exception 'QA return booking retry failed'; end if;
+  if not exists(select 1 from public.follow_ups where id=qa_followup and appointment_id=qa_appointment and status='agendado')
+    or not exists(select 1 from public.tasks where id=qa_task and status='concluida') then raise exception 'QA return booking linkage failed'; end if;
+  perform public.save_appointment_series(booking || jsonb_build_object('id',qa_appointment,'version',(select version from public.appointments where id=qa_appointment),'label','QA edited return'));
+  if not exists(select 1 from public.appointments where id=qa_appointment and label='QA edited return') then raise exception 'QA appointment edit failed'; end if;
   if public.convert_public_intake(qa_form,qa_patient)<>qa_patient or public.convert_public_intake(qa_form,qa_patient)<>qa_patient then raise exception 'QA form linking failed'; end if;
   select count(*) into n from public.entries where data->>'intake_id'=qa_form::text;
   if n<>1 or not exists(select 1 from public.public_intakes where id=qa_form and status='convertido') then raise exception 'QA form duplicated or still active'; end if;
@@ -36,4 +47,4 @@ begin
   reset role;
 end $$;
 rollback;
-select true as passed,true as all_writes_rolled_back,'Role isolation, patient edit, catalogue create/edit/version/archive, task completion/dismissal, idempotent linking, deletion, consent preservation, session revocation' as checks;
+select true as passed,true as all_writes_rolled_back,'Role isolation, patient edit, catalogue create/edit/version/archive, task completion/dismissal, return booking/linkage/retry/edit, idempotent linking, deletion, consent preservation, session revocation' as checks;

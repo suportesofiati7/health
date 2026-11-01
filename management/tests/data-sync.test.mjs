@@ -15,3 +15,17 @@ test('refresh messages carry no clinical data and work without a browser', () =>
   globalThis.window=target;globalThis.BroadcastChannel=class {postMessage(message){posted=message;}close(){}};
   try{publishDataChange();assert.equal(changes,1);assert.equal(posted,'committed');}finally{globalThis.window=previousWindow;globalThis.BroadcastChannel=previousChannel;}
 });
+test('unavailable cross-tab messaging cannot fail a committed save', () => {
+  const previousWindow=globalThis.window, previousChannel=globalThis.BroadcastChannel;
+  const target=new EventTarget(); let changes=0,closed=0;
+  target.addEventListener(DATA_CHANGED,()=>changes++);
+  globalThis.window=target;
+  try {
+    globalThis.BroadcastChannel=class {constructor(){throw new Error('Storage blocked');}};
+    assert.doesNotThrow(publishDataChange);
+    globalThis.BroadcastChannel=class {postMessage(){throw new Error('Channel unavailable');}close(){closed++;}};
+    assert.doesNotThrow(publishDataChange);
+    assert.equal(changes,2);
+    assert.equal(closed,1);
+  } finally {globalThis.window=previousWindow;globalThis.BroadcastChannel=previousChannel;}
+});

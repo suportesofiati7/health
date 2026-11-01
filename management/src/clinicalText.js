@@ -37,7 +37,9 @@ export function structuredQuestions(value) {
     if (item && typeof item === 'object') return {
       ...item,
       key: item.key || `question-${index + 1}`,
-      label: item.label || item.question || item.text || humanText(item),
+      // Some legacy records store the question itself as a JSON object.
+      // Normalize only the editable view; an untouched row is restored verbatim on save.
+      label: displayText(item.label ?? item.question ?? item.text ?? item),
       required: Boolean(item.required),
     };
     return { key: `question-${index + 1}`, label: displayText(item), required: false, _legacy: 'scalar' };
@@ -49,8 +51,8 @@ export function structuredParameters(value) {
     if (typeof item === 'string') return { name: `Parâmetro ${index + 1}`, value: item, _legacy: 'string' };
     if (item && typeof item === 'object') return {
       ...item,
-      name: item.name || item.label || item.parameter || `Parâmetro ${index + 1}`,
-      value: item.value ?? item.notes ?? item.description ?? '',
+      name: displayText(item.name ?? item.label ?? item.parameter ?? `Parâmetro ${index + 1}`),
+      value: displayText(item.value ?? item.notes ?? item.description ?? ''),
     };
     return { name: `Parâmetro ${index + 1}`, value: displayText(item), _legacy: 'scalar' };
   });
@@ -61,9 +63,13 @@ export function cleanStructuredRows(rows, kind) {
     const next = { ...row };
     delete next._legacy;
     if (kind === 'question') {
-      next.key = String(next.key || '').trim(); next.label = String(next.label || '').trim(); next.required = Boolean(next.required);
+      // Once the user changes the normalized editor value, avoid retaining a
+      // competing legacy object in question/text that downstream consumers may pick first.
+      delete next.question; delete next.text;
+      next.key = displayText(next.key).trim(); next.label = displayText(next.label).trim(); next.required = Boolean(next.required);
     } else {
-      next.name = String(next.name || '').trim(); next.value = String(next.value ?? '').trim();
+      delete next.parameter; delete next.notes; delete next.description;
+      next.name = displayText(next.name).trim(); next.value = displayText(next.value).trim();
     }
     return next;
   }).filter((row) => kind === 'question' ? row.label : row.name || row.value);

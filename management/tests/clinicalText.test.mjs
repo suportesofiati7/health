@@ -22,7 +22,7 @@ test('questionnaire rows support legacy strings and structured Supabase JSON wit
   assert.equal(editorRows[0].label, 'Há alergias?');
   assert.equal(editorRows[0].clinical_note.review, 'anual');
   assert.deepEqual(saved, [{ question: 'Há alergias?', required: true, clinical_note: { review: 'anual' } }]);
-  assert.deepEqual(cleanStructuredRows(editorRows, 'question'), [{ question: 'Há alergias?', required: true, clinical_note: { review: 'anual' }, key: 'question-1', label: 'Há alergias?' }]);
+  assert.deepEqual(cleanStructuredRows(editorRows, 'question'), [{ required: true, clinical_note: { review: 'anual' }, key: 'question-1', label: 'Há alergias?' }]);
 });
 
 test('equipment parameter rows remain structured, editable and retain unknown JSON keys', () => {
@@ -31,7 +31,13 @@ test('equipment parameter rows remain structured, editable and retain unknown JS
   assert.equal(editorRows[0].name, 'Fluência');
   assert.equal(editorRows[0].value, '12 J/cm²');
   const edited = cleanStructuredRows([{ ...editorRows[0], value: '14 J/cm²' }], 'parameter');
-  assert.deepEqual(edited, [{ parameter: 'Fluência', notes: '12 J/cm²', unit: 'J/cm²', limits: { min: 8, max: 16 }, name: 'Fluência', value: '14 J/cm²' }]);
+  assert.deepEqual(edited, [{ unit: 'J/cm²', limits: { min: 8, max: 16 }, name: 'Fluência', value: '14 J/cm²' }]);
+});
+
+test('nested legacy question objects are rendered as readable text, never [object Object]', () => {
+  const rows = structuredQuestions([{ question: { prompt: 'Possui alergias conhecidas?' }, required: true }]);
+  assert.equal(rows[0].label, 'Prompt: Possui alergias conhecidas?');
+  assert.doesNotMatch(rows[0].label, /\[object Object\]/);
 });
 
 test('empty and malformed structured values produce safe editable rows', () => {

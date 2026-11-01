@@ -296,7 +296,7 @@
   .sf-page[data-page="home"] #begin-with-a-conversation .sf-home-final-cta__actions {
     min-inline-size: 0;
     align-content: center;
-    gap: clamp(1rem, 1.5vw, 1.35rem);
+    gap: clamp(.75rem, 1vw, 1rem);
   }
 
   .sf-page[data-page="home"] #begin-with-a-conversation .sf-home-final-cta__actions::before {
