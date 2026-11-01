@@ -137,6 +137,20 @@
   }
 }
 
+@media (orientation: landscape) and (max-height: 40rem) and (max-width: 63.999rem) {
+  .sf-page.sf-hero-underlay .sf-main > [data-pattern="hero"] { min-block-size: 0; padding-block: calc(var(--hero-menu-space) + .7rem) 1rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy { inline-size: min(58%, 32rem); max-inline-size: none; }
+  .sf-hero-underlay [data-pattern="hero"] :is(.sf-hero-logo, .sf-eyebrow) { display: none; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy h1 { font-size: clamp(1.85rem, 4.8vw, 2.55rem); line-height: 1; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy :is(.sf-lede, p:not(.sf-eyebrow)) { font-size: .9rem; line-height: 1.35; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy > * + * { margin-block-start: .55rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button-row { margin-block-start: .75rem !important; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button { min-block-size: 2.6rem; padding: .55rem .8rem; }
+  .sf-page[data-page="cookies"] [data-pattern="hero"] .sf-lede { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .sf-page[data-page="cookies"] [data-pattern="hero"] h1 { font-size: 2rem; }
+  .sf-page[data-page="cookies"] [data-pattern="hero"] .sf-hero-copy > p:not(.sf-lede):not(.sf-eyebrow) { display: none; }
+}
+
 /* Public intake wizard: the legal copy remains in the DOM, while only one
    section and the selected procedure term are presented at a time. */
 .sf-intake-progress { display:flex; gap:.45rem; max-inline-size:72rem; margin:1.5rem auto; padding:0 1.25rem; overflow:auto; scrollbar-width:thin; }
@@ -9748,6 +9762,16 @@
   .sf-page[data-page="home"] :is(#treatment-families .sf-editorial-media,#care-standard .sf-editorial-media,#what-shapes-a-plan .sf-plan-portrait,#meet-franciele .sf-home-profile__visual,#what-shapes-a-plan .sf-section-head,#what-shapes-a-plan .sf-plan-criteria,#what-shapes-a-plan .sf-practitioner-quote,#meet-franciele .sf-home-profile__content) { grid-column: 1 !important; grid-row: auto !important; }
   .sf-page[data-page="home"] #consultation-journey .sf-content-card-grid,.sf-page[data-page="home"] #common-questions .sf-content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 }
+
+@media (orientation: landscape) and (max-height: 40rem) and (max-width: 63.999rem) {
+  .sf-page.sf-hero-underlay .sf-main > [data-pattern="hero"] { min-block-size: 0; padding-block: calc(var(--hero-menu-space) + .7rem) 1rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy { inline-size: min(58%, 32rem); max-inline-size: none; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy h1 { font-size: clamp(1.85rem, 4.8vw, 2.55rem); line-height: 1; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy :is(.sf-lede, p:not(.sf-eyebrow)) { font-size: .9rem; line-height: 1.35; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy > * + * { margin-block-start: .55rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button-row { margin-block-start: .75rem !important; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button { min-block-size: 2.6rem; padding: .55rem .8rem; }
+}
 @media (max-width: 35.999rem) {
   .sf-page[data-page="home"] #consultation-journey .sf-content-card-grid,.sf-page[data-page="home"] #common-questions .sf-content-card-grid,.sf-page[data-page="home"] #meet-franciele .sf-home-profile__principles { grid-template-columns: 1fr !important; }
 }
@@ -12504,7 +12528,7 @@
   }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy {
     grid-column: 1;
-    inline-size: 60%;
+    inline-size: clamp(13.5rem, 68vw, 30rem);
     max-inline-size: 24rem;
     padding-block-end: 0;
   }
@@ -12535,17 +12559,27 @@
 }
 .sf-hero-underlay[data-page="cookies"] { --hero-photo-x: 74%; }
 
+@media (orientation: landscape) and (max-height: 40rem) and (max-width: 63.999rem) {
+  .sf-page.sf-hero-underlay .sf-main > [data-pattern="hero"] { min-block-size: 0; padding-block: calc(var(--hero-menu-space) + .7rem) 1rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy { inline-size: min(58%, 32rem); max-inline-size: none; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy h1 { font-size: clamp(1.85rem, 4.8vw, 2.55rem); line-height: 1; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy :is(.sf-lede, p:not(.sf-eyebrow)) { font-size: .9rem; line-height: 1.35; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy > * + * { margin-block-start: .55rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button-row { margin-block-start: .75rem !important; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button { min-block-size: 2.6rem; padding: .55rem .8rem; }
+}
+
 @media (max-width: 63.999rem) {
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy h1 {
-    font-size: clamp(1.875rem, 8vw, 3.25rem);
+    font-size: clamp(2rem, 7.6vw, 3.25rem);
     line-height: 1.04;
     letter-spacing: -.035em;
     text-wrap: balance;
   }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-logo { inline-size: 2.5rem; block-size: auto; }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy :is(.sf-lede, p:not(.sf-eyebrow)) {
-    font-size: clamp(.9375rem, 2.2vw, 1.125rem);
-    line-height: 1.5;
+    font-size: clamp(.95rem, 2.2vw, 1.125rem);
+    line-height: 1.48;
   }
   .sf-hero-underlay [data-pattern="hero"] .sf-eyebrow { font-size: .75rem; letter-spacing: .04em; }
   .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy > * + * { margin-block-start: .75rem; }
@@ -12565,6 +12599,16 @@
     white-space: normal;
     text-align: center;
   }
+}
+
+@media (orientation: landscape) and (max-height: 40rem) and (max-width: 63.999rem) {
+  .sf-page.sf-hero-underlay .sf-main > [data-pattern="hero"] { min-block-size: 0; padding-block: calc(var(--hero-menu-space) + .7rem) 1rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy { inline-size: min(58%, 32rem); max-inline-size: none; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy h1 { font-size: clamp(1.85rem, 4.8vw, 2.55rem); line-height: 1; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy :is(.sf-lede, p:not(.sf-eyebrow)) { font-size: .9rem; line-height: 1.35; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-hero-copy > * + * { margin-block-start: .55rem; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button-row { margin-block-start: .75rem !important; }
+  .sf-hero-underlay [data-pattern="hero"] .sf-button { min-block-size: 2.6rem; padding: .55rem .8rem; }
 }
 
 /* The supplied monogram is already transparent; place it beside the brand text. */
