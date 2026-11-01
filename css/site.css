@@ -8900,7 +8900,7 @@
     padding-block: clamp(2.5rem, 4vw, 4rem) calc(var(--footer-overlap) + clamp(1.5rem, 3vw, 2.5rem));
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner {
     position: relative;
     z-index: 3;
     max-inline-size: min(66rem, calc(100% - 2 * var(--page-gutter)));
@@ -8913,22 +8913,22 @@
     box-shadow: 0 2rem 5rem rgb(11 24 14 / .28);
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner::before,
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner::after {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner::before,
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner::after {
     content: none !important;
     display: none !important;
     background: none !important;
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner :is(h2, h3, p, span) {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner :is(h2, h3, p, span) {
     color: var(--forest-900);
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner .sf-eyebrow {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner .sf-eyebrow {
     color: var(--rose-gold-700);
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner .sf-button--outline {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner .sf-button--outline {
     border-color: var(--olive-700);
     color: var(--forest-900);
   }
@@ -12718,6 +12718,26 @@ body.sf-hero-underlay { --hero-menu-space: calc(clamp(5.5rem, 6.5vw, 7rem) + .65
 #sf-header-inline .sfi-brand-role,
 #sf-header-inline .sfi-nav-link[aria-current="page"],
 #sf-footer-inline .sffo-heading { color: var(--champagne-100); }
+
+/* Homepage final CTA: deep sage conversion surface and seamless footer handoff. */
+.sf-page[data-page="home"] #begin-with-a-conversation { padding-block: clamp(4.5rem, 8vw, 7.5rem) calc(var(--footer-overlap) + clamp(2.5rem, 5vw, 4.5rem)); background: var(--forest-900) !important; }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-bottom-cta__inner { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(16rem, .75fr); align-items: end; gap: clamp(2rem, 7vw, 8rem); max-inline-size: min(76rem, calc(100% - 2 * var(--page-gutter))); min-block-size: 0; overflow: visible; border: 1px solid rgb(229 211 156 / .32); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--forest-800) 92%, black) !important; background-image: none !important; box-shadow: inset 0 1px 0 rgb(255 253 249 / .08), 0 1.5rem 3.5rem rgb(11 24 14 / .2); padding: clamp(2rem, 5vw, 5rem); color: var(--ivory-50) !important; text-align: start; }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-bottom-cta__inner::before, .sf-page[data-page="home"] #begin-with-a-conversation .sf-bottom-cta__inner::after { display: none !important; }
+.sf-home-final-cta__content { max-inline-size: 43rem; }
+.sf-home-final-cta__content .sf-eyebrow { margin: 0 0 1rem; color: var(--gold-200) !important; }
+.sf-home-final-cta__content h2 { max-inline-size: 13ch; margin: 0; color: var(--ivory-50) !important; font-family: var(--font-heading); font-size: clamp(2.85rem, 5.2vw, 5.6rem); font-weight: 400; letter-spacing: -.052em; line-height: .94; text-wrap: balance; }
+.sf-home-final-cta__content > p:not(.sf-eyebrow) { max-inline-size: 54ch; margin: 1.5rem 0 0; color: rgb(255 253 249 / .84) !important; font-size: clamp(1rem, .35vw + .95rem, 1.15rem); line-height: 1.65; }
+.sf-home-final-cta__actions { display: grid; gap: 1.35rem; align-content: end; }
+.sf-home-final-cta__actions > p { max-inline-size: 27ch; margin: 0; color: var(--gold-200) !important; font-size: .82rem; font-weight: 700; letter-spacing: .055em; line-height: 1.55; }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-button-row { display: grid; grid-template-columns: 1fr; gap: .75rem; margin: 0; }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-button { inline-size: 100%; min-block-size: 3.5rem; border-radius: var(--radius-sm); padding-inline: 1.25rem; font-size: .79rem; letter-spacing: .09em; text-align: center; }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-button--primary { border-color: var(--gold-300); background: var(--gold-200); color: var(--forest-900) !important; }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-button--outline { border-color: rgb(255 253 249 / .62); background: transparent; color: var(--ivory-50); }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-button:is(:hover, :focus-visible) { transform: translateY(-2px); }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-button--primary:hover { background: var(--ivory-50); }
+.sf-page[data-page="home"] #begin-with-a-conversation .sf-button--outline:hover { border-color: var(--gold-200); background: rgb(255 253 249 / .1); }
+@media (max-width: 47.999rem) { .sf-page[data-page="home"] #begin-with-a-conversation { padding-block: 3.5rem calc(var(--footer-overlap) + 2rem); } .sf-page[data-page="home"] #begin-with-a-conversation .sf-bottom-cta__inner { grid-template-columns: 1fr; gap: 2.25rem; border-radius: var(--radius-md); padding: 2rem 1.35rem; } .sf-home-final-cta__content h2 { font-size: clamp(2.55rem, 12vw, 3.55rem); } .sf-home-final-cta__actions > p { max-inline-size: 31ch; } .sf-page[data-page="home"] #begin-with-a-conversation .sf-button { min-block-size: 3.35rem; } }
+@media (prefers-reduced-motion: reduce) { .sf-page[data-page="home"] #begin-with-a-conversation .sf-button { transform: none !important; transition: none; } }
 
 /* Final phone art direction: preserve a clear portrait field at the right. */
 @media (max-width: 47.999rem) {

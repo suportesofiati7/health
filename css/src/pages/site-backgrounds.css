@@ -228,7 +228,7 @@
     padding-block: clamp(2.5rem, 4vw, 4rem) calc(var(--footer-overlap) + clamp(1.5rem, 3vw, 2.5rem));
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner {
     position: relative;
     z-index: 3;
     max-inline-size: min(66rem, calc(100% - 2 * var(--page-gutter)));
@@ -241,22 +241,22 @@
     box-shadow: 0 2rem 5rem rgb(11 24 14 / .28);
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner::before,
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner::after {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner::before,
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner::after {
     content: none !important;
     display: none !important;
     background: none !important;
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner :is(h2, h3, p, span) {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner :is(h2, h3, p, span) {
     color: var(--forest-900);
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner .sf-eyebrow {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner .sf-eyebrow {
     color: var(--rose-gold-700);
   }
 
-  .sf-main > .sf-composition-final-cta.section--full-bleed .sf-bottom-cta__inner .sf-button--outline {
+  .sf-main > .sf-composition-final-cta.section--full-bleed:not(#begin-with-a-conversation) .sf-bottom-cta__inner .sf-button--outline {
     border-color: var(--olive-700);
     color: var(--forest-900);
   }
