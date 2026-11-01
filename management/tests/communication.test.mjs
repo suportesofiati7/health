@@ -54,3 +54,13 @@ test('appointment and clinic placeholders use the complete operational context',
   assert.match(rendered, /Rua Mato Grosso, 1114, Centro, Londrina/);
   assert.match(rendered, /appointment-123/);
 });
+
+test('communication workspace queries only deployed appointment columns and isolates resource failures', () => {
+  const source = fs.readFileSync(new URL('../src/CommunicationHub.jsx', import.meta.url), 'utf8');
+  assert.match(source, /Promise\.allSettled\(communicationLoadResources/);
+  assert.match(source, /select\("id,patient_id,professional_id,procedure_id,starts_at,status,label,procedure_snapshot"\)/);
+  assert.doesNotMatch(source, /select\("id,patient_id,starts_at,status,label,modality/);
+  for (const column of ['notes', 'professional_name', 'total_cents', 'price_cents', 'payment_method', 'due_on']) {
+    assert.doesNotMatch(source, new RegExp(`appointments"\)\\.select\\([^)]*${column}`));
+  }
+});

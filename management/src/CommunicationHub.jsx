@@ -24,6 +24,19 @@ const communicationCategories = [
 ];
 const wa = (phone, body) => `${whatsappWeb(phone)}&text=${encodeURIComponent(body)}`;
 const cn = (value = "") => `button ${value}`.trim();
+const communicationLoadResources = [
+  "conversations", "patients", "appointments", "staff", "communications", "reads", "notifications",
+];
+const communicationCriticalResources = new Set(["conversations", "patients", "communications"]);
+const communicationError = (resource, error) => ({
+  resource,
+  code: error?.code || "unknown_error",
+  message: error?.message || "Unknown database error",
+  details: error?.details || null,
+  hint: error?.hint || null,
+  critical: communicationCriticalResources.has(resource) || /42501|permission denied|not_authorized/i.test(`${error?.code || ""} ${error?.message || ""}`),
+});
+const logCommunicationError = (entry) => console.error("communication_workspace_load", entry);
 
 function Button({ icon: Icon, className = "", children, ...props }) { return <button className={cn(className)} {...props}>{Icon && <Icon size={17} aria-hidden="true" />}{children}</button>; }
 function Field({ title, value, onChange, options, placeholder = "", required = false }) { return <label className="field"><span>{title}</span>{options ? <select value={value || ""} onChange={(e) => onChange(e.target.value)} required={required}>{options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>)}</select> : <SmartTextControl value={value || ""} onChange={onChange} suggestions={currentSuggestions()} placeholder={placeholder} required={required} />}</label>; }
@@ -117,20 +130,51 @@ function MessageCard({ row, messages, member, staff, onReply, onEdit, onDelete, 
 export default function CommunicationHub({ member, openPatient, version, writable, notify }) {
   const t = useT();
   const [data, setData] = useState({ conversations: [], patients: [], appointments: [], staff: [], communications: [], reads: [], notifications: [] });
+  const [loadErrors, setLoadErrors] = useState([]);
   const [selected, setSelected] = useState(null), [messages, setMessages] = useState([]), [text, setText] = useState(""), [search, setSearch] = useState(""), [filter, setFilter] = useState("all"), [title, setTitle] = useState(""), [direct, setDirect] = useState(""), [patientContext, setPatientContext] = useState(""), [replyTo, setReplyTo] = useState(null), [editing, setEditing] = useState(null), [external, setExternal] = useState(null), [noticeOpen, setNoticeOpen] = useState(false), [sending, setSending] = useState(false);
-  const loadMessages = async (id) => { if (!id) return; const rows = await checked(db.from("communication_messages").select("*").eq("conversation_id", id).order("created_at").range(0, 299)).catch(() => []); const ids = rows.map((row) => row.id); const [reacts, files] = await Promise.all([ids.length ? checked(db.from("communication_reactions").select("*").in("message_id", ids)).catch(() => []) : [], ids.length ? checked(db.from("communication_attachments").select("*").in("message_id", ids)).catch(() => []) : []]); setMessages(rows.map((row) => ({ ...row, reactions: reacts.filter((item) => item.message_id === row.id), attachments: files.filter((item) => item.message_id === row.id) }))); };
-  const load = async () => { try { const [conversations, patients, appointments, staff, communications, reads, notifications] = await Promise.all([
-    checked(db.from("communication_conversations").select("id,organization_id,title,kind,patient_id,created_by,created_at,updated_at,archived_at,pinned_at,last_message_at,last_message_preview,patients(id,full_name,preferred_name)").order("pinned_at", { ascending: false, nullsFirst: false }).order("updated_at", { ascending: false }).limit(200)),
-    checked(db.from("patients").select("id,full_name,preferred_name,phone,email,birth_date,cpf,rg,cns,address,emergency_contact,guardian,occupation,insurance,status").eq("status", "ativo").order("full_name").limit(500)), checked(db.from("appointments").select("id,patient_id,starts_at,status,label,modality,notes,procedure_snapshot,professional_name,total_cents,price_cents,payment_method,due_on").order("starts_at", { ascending: true }).limit(500)), checked(db.from("memberships").select("user_id,name,email,role").eq("status", "ativo").order("name")), checked(db.from("communications").select("*,patients(id,full_name,preferred_name)").order("created_at", { ascending: false }).limit(120)), checked(db.from("communication_reads").select("*").eq("user_id", member.user_id)), checked(db.from("communication_notifications").select("*").eq("user_id", member.user_id).is("read_at", null).order("created_at", { ascending: false }).limit(50)),
-  ]); setData({ conversations, patients, appointments, staff, communications, reads, notifications }); setSelected((current) => current && conversations.some((row) => row.id === current.id) ? current : conversations.find((row) => !row.archived_at) || conversations[0] || null); } catch (error) {
-    const reason = String(error?.message || error?.code || "");
-    console.error("communication_workspace_load", error?.code, error?.message);
-    notify(/permission denied|not_authorized|42501/i.test(reason)
-      ? t("Seu perfil não tem permissão para acessar a comunicação. Peça à gestão para revisar as permissões.", "Your profile cannot access communication. Ask management to review permissions.")
-      : /column|schema cache|relation.*does not exist/i.test(reason)
-        ? t("O módulo de comunicação precisa da migração mais recente. Aplique as migrações e atualize a página.", "The communication module needs the latest migration. Apply migrations and refresh the page.")
-        : t("Não foi possível carregar a comunicação. Tente novamente; o erro foi registrado para diagnóstico.", "Could not load communication. Try again; the error was logged for diagnosis."));
-  } };
+  const loadMessages = async (id) => {
+    if (!id) return;
+    try {
+      const rows = await checked(db.from("communication_messages").select("*").eq("conversation_id", id).order("created_at").range(0, 299));
+      const ids = rows.map((row) => row.id);
+      const [reacts, files] = await Promise.allSettled([
+        ids.length ? checked(db.from("communication_reactions").select("*").in("message_id", ids)) : Promise.resolve([]),
+        ids.length ? checked(db.from("communication_attachments").select("*").in("message_id", ids)) : Promise.resolve([]),
+      ]);
+      const relatedErrors = [["reactions", reacts], ["attachments", files]].flatMap(([resource, result]) => result.status === "rejected" ? [communicationError(resource, result.reason)] : []);
+      relatedErrors.forEach(logCommunicationError);
+      if (relatedErrors.length) setLoadErrors((current) => [...current.filter((entry) => !["reactions", "attachments"].includes(entry.resource)), ...relatedErrors]);
+      setMessages(rows.map((row) => ({ ...row, reactions: reacts.status === "fulfilled" ? reacts.value.filter((item) => item.message_id === row.id) : [], attachments: files.status === "fulfilled" ? files.value.filter((item) => item.message_id === row.id) : [] })));
+    } catch (error) {
+      const entry = communicationError("messages", error); logCommunicationError(entry); setLoadErrors((current) => [...current.filter((item) => item.resource !== "messages"), entry]); setMessages([]);
+    }
+  };
+  const load = async () => {
+    const requests = {
+      conversations: checked(db.from("communication_conversations").select("id,organization_id,title,kind,patient_id,created_by,created_at,updated_at,archived_at,pinned_at,last_message_at,last_message_preview,patients(id,full_name,preferred_name)").order("pinned_at", { ascending: false, nullsFirst: false }).order("updated_at", { ascending: false }).limit(200)),
+      patients: checked(db.from("patients").select("id,full_name,preferred_name,phone,email,birth_date,cpf,rg,cns,address,emergency_contact,guardian,occupation,insurance,status").eq("status", "ativo").order("full_name").limit(500)),
+      // The deployed appointments table intentionally stores operational fields
+      // in procedure_snapshot; it has no modality, notes or payment columns.
+      appointments: checked(db.from("appointments").select("id,patient_id,professional_id,procedure_id,starts_at,status,label,procedure_snapshot").order("starts_at", { ascending: true }).limit(500)),
+      staff: checked(db.from("memberships").select("user_id,name,email,role").eq("status", "ativo").order("name")),
+      communications: checked(db.from("communications").select("*,patients(id,full_name,preferred_name)").order("created_at", { ascending: false }).limit(120)),
+      reads: checked(db.from("communication_reads").select("*").eq("user_id", member.user_id)),
+      notifications: checked(db.from("communication_notifications").select("*").eq("user_id", member.user_id).is("read_at", null).order("created_at", { ascending: false }).limit(50)),
+    };
+    const outcomes = await Promise.allSettled(communicationLoadResources.map((resource) => requests[resource]));
+    const errors = outcomes.flatMap((outcome, index) => outcome.status === "rejected" ? [communicationError(communicationLoadResources[index], outcome.reason)] : []);
+    errors.forEach(logCommunicationError);
+    setLoadErrors(errors);
+    const loaded = Object.fromEntries(outcomes.map((outcome, index) => [communicationLoadResources[index], outcome.status === "fulfilled" ? outcome.value : []]));
+    setData(loaded);
+    setSelected((current) => current && loaded.conversations.some((row) => row.id === current.id) ? current : loaded.conversations.find((row) => !row.archived_at) || loaded.conversations[0] || null);
+    if (errors.length) {
+      const accessFailure = errors.some((entry) => entry.critical);
+      notify(accessFailure
+        ? t("Alguns dados de comunicação não puderam ser acessados por permissão. O restante autorizado continua disponível; consulte o detalhe exibido para suporte.", "Some communication data could not be accessed due to permissions. Authorized data remains available; see the displayed detail for support.")
+        : t("Alguns dados de comunicação não puderam ser atualizados. As áreas disponíveis continuam ativas; o detalhe técnico foi registrado.", "Some communication data could not be refreshed. Available areas remain active; the technical detail was recorded."));
+    }
+  };
   useEffect(() => { load(); }, [version, member.user_id]);
   useEffect(() => { loadMessages(selected?.id); if (!selected?.id) return; const now = new Date().toISOString(); checked(db.from("communication_reads").upsert({ organization_id: ORG, conversation_id: selected.id, user_id: member.user_id, last_read_at: now }, { onConflict: "organization_id,conversation_id,user_id" })).then(() => setData((current) => ({ ...current, reads: [...current.reads.filter((row) => row.conversation_id !== selected.id), { conversation_id: selected.id, user_id: member.user_id, last_read_at: now }] }))).catch(() => null); }, [selected?.id]);
   useEffect(() => { if (!selected?.id) return; setText(localStorage.getItem(`communication-draft:${selected.id}`) || ""); }, [selected?.id]);
@@ -160,6 +204,7 @@ export default function CommunicationHub({ member, openPatient, version, writabl
     } catch { notify(t("Não foi possível atualizar as notificações. Tente novamente.", "Could not update notifications. Please try again.")); }
   };
   return <>
+    {loadErrors.length > 0 && <section className="notice error communication-load-errors" role="alert"><strong>{t("Atenção necessária na comunicação", "Communication needs attention")}</strong><p>{t("Os dados que puderam ser autorizados continuam disponíveis. Os itens abaixo não foram ocultados como sucesso; use o código ao falar com o suporte.", "Data that could be authorized remains available. The items below were not hidden as successful results; use the code when contacting support.")}</p><ul>{loadErrors.map((entry) => <li key={entry.resource}><code>{entry.resource} · {entry.code}</code> — {entry.message}{entry.hint ? ` (${entry.hint})` : ""}</li>)}</ul></section>}
     <div className="communication-hub">
       <section className="communication-column internal-chat-column">
         <header className="communication-column-head"><div><p className="eyebrow">{t("Somente equipe", "Team only")}</p><h2>{t("Comunicação interna", "Internal communication")}</h2><p className="subtle">{t("Converse, compartilhe contexto e transforme mensagens em ações.", "Chat, share context, and turn messages into actions.")}</p></div><div className="communication-header-actions"><Button className="icon" icon={BellRing} onClick={() => typeof Notification !== "undefined" && Notification.requestPermission()} aria-label={t("Ativar notificações do navegador", "Enable browser notifications")} title={t("Ativar notificações do navegador", "Enable browser notifications")} /><Button className="icon" icon={Bell} onClick={() => setNoticeOpen((value) => !value)} aria-label={data.notifications.length ? t(`Notificações, ${data.notifications.length} não lidas`, `Notifications, ${data.notifications.length} unread`) : t("Notificações", "Notifications")} aria-expanded={noticeOpen} title={t("Notificações", "Notifications")} />{data.notifications.length > 0 && <span className="notification-badge" aria-hidden="true">{data.notifications.length}</span>}</div></header>
