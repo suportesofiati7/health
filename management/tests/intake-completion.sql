@@ -49,6 +49,12 @@ begin
  end;
  perform pg_temp.check_true((select patient_id is null from public.public_intakes where id=d.id),'identity conflict linked a patient');
  perform pg_temp.check_true((select count(*)=2 from public.patients where organization_id=o),'existing-patient association created extra patients');
+ row_data:=jsonb_set(jsonb_set(row_data,'{cpf}','"123"'),'{payload,cpf}','"123"');
+ d:=public.prepare_public_form(gen_random_uuid(),row_data,'[]');
+ perform public.complete_public_form(d.id);
+ other_patient:=public.convert_public_intake(d.id);
+ perform pg_temp.check_true((select cpf is null from public.patients where id=other_patient),'invalid CPF blocked conversion or became a verified patient identifier');
+ perform pg_temp.check_true((select payload->>'cpf'='123' from public.public_intakes where id=d.id),'original invalid CPF was lost');
  begin update public.public_intakes set payload='{}' where id=a.id; raise exception 'unexpected mutable original'; exception when others then if sqlerrm<>'original_form_immutable' then raise; end if; end;
  perform pg_temp.check_true(not has_function_privilege('anon','public.complete_public_form(uuid)','execute'),'anonymous completion RPC granted');
  perform pg_temp.check_true(not has_function_privilege('authenticated','public.prepare_public_form(uuid,jsonb,jsonb)','execute'),'staff prepare RPC granted');
