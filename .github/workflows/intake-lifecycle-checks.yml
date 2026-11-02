@@ -30,7 +30,7 @@ jobs:
           cache-dependency-path: management/package-lock.json
       - run: npm ci
       - name: Install test-only TypeScript transformer used by existing tests
-        run: npm install --no-save --ignore-scripts esbuild@0.25.12
+        run: npm install --no-save esbuild@0.28.2
       - name: Compile management app
         run: npm run build
       - name: Full management unit and integration-style suite
