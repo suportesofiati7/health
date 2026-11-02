@@ -70,7 +70,7 @@ for(const k of yes)payload[k]="yes";
 const manifests=files.map(f=>({field_name:f.field_name,name:f.name,size:f.buffer.length,type:f.type,sha256:createHash("sha256").update(f.buffer).digest("hex")}));
 const request_id=randomUUID();
 async function post(body) {
- const response=await fetch(api,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),signal:AbortSignal.timeout(30000)});
+ const response=await fetch(api,{method:"POST",headers:{"Content-Type":"application/json","Origin":"https://francielesofiati.com"},body:JSON.stringify(body),signal:AbortSignal.timeout(30000)});
  const data=await response.json().catch(()=>({}));
  if(!response.ok)throw new Error(`Form ${body.action}: HTTP ${response.status}, error=${data.error||"unknown"}`);
  return data;
