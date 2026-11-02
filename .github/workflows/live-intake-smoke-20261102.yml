@@ -25,7 +25,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           logo = Path('/tmp/sofiati-email-logo.png').read_bytes()
-          assert logo[:8] == b'\\x89PNG\\r\\n\\x1a\\n', 'unexpected image format'
+          assert logo[:8] == bytes([137, 80, 78, 71, 13, 10, 26, 10]), 'unexpected image format'
           assert len(logo) > 10000, 'unexpectedly small image'
           print('PUBLIC CLEAN PNG OK', len(logo), 'bytes')
           PY
