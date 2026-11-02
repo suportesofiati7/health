@@ -3,7 +3,7 @@
  * Os dados enviados pelo paciente são escapados; URLs privadas, tokens e o
  * conteúdo de documentos NÃO são incorporados ao e-mail.
  */
-const LOGO = "https://francielesofiati.com/assets/brand/email/monograma-fs-dourado-transparente.png";
+const LOGO = "https://raw.githubusercontent.com/suportesofiati7/health/main/assets/brand/email/monograma-fs-dourado-transparente.png";
 const APP = "https://app.francielesofiati.com";
 const GREEN = "#526548"; // --menu-green do site, css/src/foundations/tokens.css
 const LABELS = {
