@@ -89,7 +89,7 @@ test("notification worker: auth, recipients, full answers, uploaded-file names, 
     const message = fixture.messages.at(-1);
     assert.deepEqual(message.to, ["suportesofiati@gmail.com", "sofiatimendonca@gmail.com"]);
     assert.ok(message.html.includes("background:#526548"), "matches canonical desktop menu green");
-    assert.ok(message.html.includes("logotipo-franciele-sofiati-saude-da-pele"), "uses original gold logo asset");
+    assert.ok(message.html.includes("monograma-fs-dourado-transparente.png"), "uses original gold logo asset");
     assert.ok(message.html.includes("Paciente Fictícia"));
     assert.ok(message.html.includes("000.000.000-00"));
     assert.ok(message.html.includes("Alergia informada"));

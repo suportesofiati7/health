@@ -70,7 +70,6 @@ Deno.serve(async (req) => {
 
       const email = buildIntakeEmail(
         intake.data, attachments.data || [], job.intake_id, procedureSummary,
-        Deno.env.get("BRAND_GOLD_LOGO_URL"),
       );
       const emailFiles = await optionalEmailFiles(
         db, attachments.data || [],
