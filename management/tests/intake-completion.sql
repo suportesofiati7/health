@@ -3,7 +3,7 @@
 begin;
 create function pg_temp.check_true(ok boolean, message text) returns void language plpgsql as $$begin if ok is distinct from true then raise exception '%',message; end if; end$$;
 do $$
-declare o uuid:=gen_random_uuid(); u uuid:=gen_random_uuid(); sess uuid:=gen_random_uuid(); req uuid:=gen_random_uuid(); a public.public_intakes%rowtype; b public.public_intakes%rowtype; p uuid; row_data jsonb;
+declare o uuid:=gen_random_uuid(); u uuid:=gen_random_uuid(); sess uuid:=gen_random_uuid(); req uuid:=gen_random_uuid(); a public.public_intakes%rowtype; b public.public_intakes%rowtype; c public.public_intakes%rowtype; d public.public_intakes%rowtype; p uuid; other_patient uuid; row_data jsonb;
 begin
  insert into auth.users(id,email) values(u,u::text||'@example.invalid');
  insert into auth.sessions(id,user_id) values(sess,u);
@@ -30,10 +30,29 @@ begin
  perform pg_temp.check_true(public.convert_public_intake(b.id,p)=p,'explicit link failed');
  perform pg_temp.check_true((select count(*)=1 from public.patients where organization_id=o),'duplicate patient');
  perform pg_temp.check_true((select count(*)=2 from public.patient_health_history where patient_id=p),'existing declaration overwritten');
+ -- Explicitly associate an intake with a different already-existing verified patient.
+ insert into public.patients(organization_id,full_name,cpf,created_by)
+ values(o,'QA existing patient - rollback','63810495700',u) returning id into other_patient;
+ c:=public.prepare_public_form(gen_random_uuid(),row_data||jsonb_build_object('cpf','76539028474'),'[]');
+ perform public.complete_public_form(c.id);
+ perform pg_temp.check_true(public.convert_public_intake(c.id,other_patient)=other_patient,'link to another existing patient failed');
+ perform pg_temp.check_true((select patient_id=other_patient and status='convertido' from public.public_intakes where id=c.id),'existing-patient intake not linked');
+ perform pg_temp.check_true((select count(*)=1 from public.patient_health_history where source_intake_id=c.id and patient_id=other_patient),'linked patient missing independent health declaration');
+ -- A CPF already claimed by patient P must never be linked to a different patient.
+ d:=public.prepare_public_form(gen_random_uuid(),row_data,'[]');
+ perform public.complete_public_form(d.id);
+ begin
+  perform public.convert_public_intake(d.id,other_patient);
+  raise exception 'unexpected cross-identity linking';
+ exception when others then
+  if sqlerrm<>'identity_conflict' then raise; end if;
+ end;
+ perform pg_temp.check_true((select patient_id is null from public.public_intakes where id=d.id),'identity conflict linked a patient');
+ perform pg_temp.check_true((select count(*)=2 from public.patients where organization_id=o),'existing-patient association created extra patients');
  begin update public.public_intakes set payload='{}' where id=a.id; raise exception 'unexpected mutable original'; exception when others then if sqlerrm<>'original_form_immutable' then raise; end if; end;
  perform pg_temp.check_true(not has_function_privilege('anon','public.complete_public_form(uuid)','execute'),'anonymous completion RPC granted');
  perform pg_temp.check_true(not has_function_privilege('authenticated','public.prepare_public_form(uuid,jsonb,jsonb)','execute'),'staff prepare RPC granted');
  perform pg_temp.check_true(not has_function_privilege('service_role','public.associate_completed_form(uuid)','execute'),'automatic association still callable by service');
 end$$;
 rollback;
-select true as passed, 'request retry/conflict, completion queue, review-first conversion, explicit same-CPF linking, health/consent history and immutable evidence' as checks;
+select true as passed, 'request retry/conflict, completion queue, review-first conversion, same-CPF and different-patient explicit linking, identity conflict prevention, health/consent history and immutable evidence' as checks;
