@@ -23,6 +23,7 @@ fixtures.procedures.push({ ...procedure, id: 'a1000000-0000-4000-8000-0000000000
 financeRecord.procedure_id = procedure.id;
 const outsidePatient = { ...patient, id: '30000000-0000-4000-8000-000000000009', full_name: 'Outside QA', preferred_name: 'Outside', phone: '0000000000' };
 const jwt=`${Buffer.from(JSON.stringify({alg:'HS256',typ:'JWT'})).toString('base64url')}.${Buffer.from(JSON.stringify({sub:uid,exp:Math.floor(Date.now()/1000)+3600,session_id:'90000000-0000-4000-8000-000000000001',role:'authenticated'})).toString('base64url')}.fictional-signature`;
+fixtures.public_intake_files = [{ id: '72000000-0000-4000-8000-000000000001', intake_id: intake.id, kind: 'identity', field_name: 'identity_upload', path: `${org}/qa-identity.pdf`, original_name: 'identity.pdf' }];
 const failures=[];let posts=[];
 async function contextFor(width,height,role='proprietario'){
   const deletedAppointments=new Set();
@@ -238,6 +239,7 @@ try{
     await navigation(page,'Formulários');await page.getByRole('heading',{name:'Formulários',exact:true}).waitFor();await noOverflow(page);
     for (const statusName of ['Todos','Novo','Em análise','Contatado','Aguardando','Convertido','Arquivado']) { await page.getByRole('button',{name:statusName,exact:true}).click(); }
     await page.locator('button.patient-row').filter({hasText:'Contato Exemplo Fictício'}).click(); await page.getByRole('heading',{name:'Revisar formulário'}).waitFor();
+    await page.getByRole('dialog').getByRole('button', { name: new RegExp(`Documento de identidade - ${intake.full_name} - .*\\.pdf`) }).waitFor();
     await page.getByLabel('Status').selectOption('em_analise'); await page.getByRole('button',{name:'Salvar análise',exact:true}).click(); await page.locator('dialog').waitFor({state:'detached'}); assert(posts.some(p=>p.table==='public_intakes'&&p.body.status==='em_analise'));
     if (width === 1440) {
       await page.locator('button.patient-row').filter({hasText:'Contato Exemplo Fictício'}).click();

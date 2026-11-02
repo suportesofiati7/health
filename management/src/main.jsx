@@ -4221,7 +4221,7 @@ function Enquiries({ openPatient, version, writable, notify, member, setModal })
                       if (data?.signedUrl) window.open(data.signedUrl, "_blank", "noopener,noreferrer");
                     }}
                   >
-                    {intakeDocumentName(file, row, row.submitted_at)}
+                    {intakeDocumentName(file, selected, selected.submitted_at)}
                   </Button>
                 </p>
               ))}
