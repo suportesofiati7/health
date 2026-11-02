@@ -74,7 +74,7 @@ Deno.serve(async (req) => {
       );
       const emailFiles = await optionalEmailFiles(
         db, attachments.data || [],
-        Deno.env.get("EMAIL_ATTACH_CLINICAL_FILES") === "true",
+        Deno.env.get("EMAIL_ATTACH_CLINICAL_FILES") !== "false",
       );
       const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
