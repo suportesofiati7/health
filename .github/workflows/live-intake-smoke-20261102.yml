@@ -1,0 +1,22 @@
+name: One-time live intake test (synthetic records)
+
+on:
+  pull_request:
+    paths:
+      - "management/tests/live-intake-smoke-20261102.mjs"
+      - ".github/workflows/live-intake-smoke-20261102.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  submit-synthetic-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Submit labelled dummy form with PDF, PNG and JPEG
+        run: node management/tests/live-intake-smoke-20261102.mjs
