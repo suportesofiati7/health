@@ -18,8 +18,8 @@ function setupFixture() {
   const messages = [];
   const env = { NOTIFICATION_WORKER_SECRET: "test-secret" };
   const files = [
-    { field_name: "identity_upload", original_name: "rg-exemplo.pdf", mime_type: "application/pdf", path: "private/do-not-send" },
-    { field_name: "booking_payment_receipt", original_name: "comprovante.jpg", mime_type: "image/jpeg", path: "private/do-not-send" },
+    { field_name: "identity_upload", original_name: "rg-exemplo.pdf", mime_type: "application/pdf", size_bytes: 4, path: "private/do-not-send" },
+    { field_name: "booking_payment_receipt", original_name: "comprovante.jpg", mime_type: "image/jpeg", size_bytes: 4, path: "private/do-not-send" },
   ];
   const intake = {
     completed_at: "2026-11-02T12:00:00Z",
@@ -40,6 +40,10 @@ function setupFixture() {
     },
   };
   globalThis.notificationTestDB = {
+    storage: { from(bucket) {
+      assert.equal(bucket, "intake-private");
+      return { download: async () => ({ data: new Blob(["abcd"]), error: null }) };
+    } },
     rpc: async () => { claims++; return { data: [{ id: "job", intake_id: "intake", attempts: 1, created_at: new Date().toISOString() }] }; },
     from: table => {
       const chain = {
@@ -99,6 +103,16 @@ test("notification worker: auth, recipients, full answers, uploaded-file names, 
     assert.ok(!message.html.includes("https://private.invalid"));
     assert.ok(message.text.includes("Paciente Fictícia"));
     assert.equal(fixture.writes.at(-1).value.status, "sent");
+    assert.equal(message.attachments, undefined, "files must remain private by default");
+
+    // Operator explicitly enables physical attachments on the Supabase worker.
+    fixture.env.EMAIL_ATTACH_CLINICAL_FILES = "true";
+    assert.equal((await (await handler(fixture.request())).json()).sent, 1);
+    const withAttachments = fixture.messages.at(-1);
+    assert.equal(withAttachments.attachments.length, 2);
+    assert.equal(withAttachments.attachments[0].filename, "rg-exemplo.pdf");
+    assert.equal(withAttachments.attachments[0].content, "YWJjZA==");
+    assert.ok(!withAttachments.html.includes("private/do-not-send"));
 
     fixture.setFail(true);
     assert.equal((await (await handler(fixture.request())).json()).sent, 0);
