@@ -21,7 +21,7 @@ jobs:
       - name: Verify corrected PNG is publicly served from the clinic website
         run: |
           curl --fail --location --retry 6 --retry-all-errors --retry-delay 5 --max-time 180 -o /tmp/sofiati-email-logo.png \
-            https://francielesofiati.com/assets/brand/email/monograma-fs-dourado-transparente.png
+            https://raw.githubusercontent.com/suportesofiati7/health/main/assets/brand/email/monograma-fs-dourado-transparente.png
           python - <<'PY'
           from pathlib import Path
           logo = Path('/tmp/sofiati-email-logo.png').read_bytes()
