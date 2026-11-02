@@ -1202,7 +1202,7 @@ function HomeView({
   const state = useLoad(async () => {
     const optional = (query) => checked(query).catch(() => []);
     const nextWeek = shiftDay(today, 7);
-    const [appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance, qualityPatients, qualityClinical] = await Promise.all([
+    const [appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance, qualityPatients, qualityClinical, receivedForms] = await Promise.all([
       optional(db.from("appointments").select("*,patients(*)").gte("starts_at", today + "T00:00:00-03:00").lt("starts_at", nextWeek + "T00:00:00-03:00").order("starts_at").limit(160)),
       optional(db.from("tasks").select("*,patients(*)").eq("status", "pendente").order("due_at").limit(80)),
       optional(db.from("patients").select("*").order("created_at", { ascending: false }).limit(6)),
@@ -1217,8 +1217,9 @@ function HomeView({
       ["proprietario", "suporte_ti"].includes(member?.role) ? optional(db.from("financial_records").select("id,total_cents,status,due_on,patient_id,financial_payments(amount_cents,status)").neq("status", "cancelado").limit(100)) : [],
       optional(db.from("patients").select("id,full_name,preferred_name,phone,email,cpf,birth_date").eq("status", "ativo").limit(1000)),
       clinical ? optional(db.from("clinical_procedures").select("id,patient_id,status,procedure_id,indication,technique,post_care,area,patients(id,full_name,preferred_name)").eq("status", "finalizado").limit(300)) : [],
+      db.from("public_intakes").select("id", { count: "exact", head: true }).or("completed_at.not.is.null,request_id.is.null").then(({ count, error }) => { if (error) throw error; return count ?? 0; }),
     ]);
-    return { appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance, qualityPatients, qualityClinical };
+    return { appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance, qualityPatients, qualityClinical, receivedForms };
   }, [version, member?.role, clinical, today]);
   return (
     <>
@@ -1250,7 +1251,7 @@ function HomeView({
         )}
       </PageHead>
       <LoadState state={state}>
-        {({ appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance, qualityPatients, qualityClinical }) => {
+        {({ appointments, tasks, patients, enquiries, followups, adverseEvents, masterIntakes, entries, plans, procedures, audit, finance, qualityPatients, qualityClinical, receivedForms }) => {
           const todayAppointments = appointments.filter((a) => validDateValue(a.starts_at) && localDay(a.starts_at) === today);
           const homePatients = patients.length ? patients : appointments.map((a) => a.patients).filter(Boolean).filter((p, index, rows) => rows.findIndex((item) => item.id === p.id) === index);
           const activeAppointments = todayAppointments.filter((a) => !["cancelado", "reagendado"].includes(a.status));
@@ -1282,7 +1283,7 @@ function HomeView({
             <div className="home-metrics">
               <button onClick={() => navigate("agenda")}><span className="metric-icon metric-icon-sage"><CalendarDays size={17}/></span><strong>{activeAppointments.length}</strong><small>{t("agenda hoje", "today's schedule")}</small><i>{todayAppointments.filter((a) => a.status === "confirmado").length} {t("confirmados", "confirmed")}</i></button>
               <button onClick={() => navigate("agenda")}><span className="metric-icon metric-icon-rose"><UserCheck size={17}/></span><strong>{checkedIn.length}</strong><small>{t("aguardando / em atendimento", "waiting / in visit")}</small><i>{todayAppointments.filter((a) => a.status === "concluido").length} {t("concluídos", "completed")}</i></button>
-              <button onClick={() => navigate("enquiries")}><span className="metric-icon metric-icon-gold"><ClipboardCheck size={17}/></span><strong>{enquiries.length + masterIntakes.length}</strong><small>{t("formulários e intakes", "forms and intakes")}</small><i>{enquiries.length} {t("pré-cadastros", "pre-registrations")}</i></button>
+              <button onClick={() => navigate("enquiries")}><span className="metric-icon metric-icon-gold"><ClipboardCheck size={17}/></span><strong>{receivedForms}</strong><small>{t("formulários recebidos", "received forms")}</small><i>{enquiries.length} {t("pré-cadastros", "pre-registrations")}</i></button>
               <button onClick={() => navigate("tasks")}><span className="metric-icon metric-icon-pink"><ListChecks size={17}/></span><strong>{pendingTasks.length}</strong><small>{t("atenções abertas", "open attention")}</small><i>{pendingTasks.filter((x) => new Date(x.due_at) < now).length} {t("vencidas", "overdue")}</i></button>
               {["proprietario", "suporte_ti"].includes(member?.role) && <button onClick={() => navigate("finance")}><span className="metric-icon metric-icon-gold"><WalletCards size={17}/></span><strong>{money(openBalance / 100)}</strong><small>{t("lançamentos ativos", "active charges")}</small><i>{finance.length} {t("registros", "records")}</i></button>}
             </div>
