@@ -18,6 +18,14 @@ export async function fetchWithTimeout(url, options = {}, timeoutMs = 20000) {
 
 export function intakeErrorMessage(error, english = false) {
   const code = error?.code || error?.name || '';
+  if (code === 'signature_required') return 'Informe o nome completo de quem assina o formulário.';
+  if (code === 'guardian_required') return 'Informe se é maior de idade e preencha os dados do responsável quando necessário.';
+  if (code === 'field_size') return 'Um campo excede o tamanho permitido. Revise os dados antes de enviar.';
+  if (code === 'file_type') return 'Use um PDF ou fotografia válida (JPEG, PNG, WebP ou HEIC).';
+  if (code === 'file_checksum') return 'Um arquivo não foi recebido integralmente. Selecione-o novamente e tente enviar.';
+  if (code === 'phone') return 'Informe um telefone com DDD e, quando necessário, código do país.';
+  if (code === 'email') return 'Informe um endereço de email válido.';
+  if (code === 'date') return 'Revise as datas e o horário informados.';
   if (code === 'cpf') return english ? 'Enter a complete CPF with 11 digits.' : 'Informe o CPF completo com 11 dígitos.';
   if (code === 'consent_required') return english ? 'Review and explicitly accept the required terms for each selected procedure.' : 'Revise e aceite explicitamente os termos obrigatórios de cada procedimento selecionado.';
   if (code === 'required') return english ? 'Complete the required fields before sending.' : 'Preencha os campos obrigatórios antes de enviar.';
@@ -69,4 +77,14 @@ export function formSignature(form) {
   ).map((field) => [field.name, field.type === 'file'
     ? [...field.files].map((file) => [file.name, file.size, file.lastModified])
     : field.value]));
+}
+
+
+export function newSubmissionId() {
+  if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 15) | 64;
+  bytes[8] = (bytes[8] & 63) | 128;
+  const hex = [...bytes].map(byte => byte.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
 }

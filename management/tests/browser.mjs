@@ -248,6 +248,7 @@ try{
       assert.equal(await duplicateLink.isEnabled(), true);
       await duplicateLink.click();
       await page.getByRole('button', { name: 'Cancelar', exact: true }).last().click();
+      await page.locator('.sf-action-dialog').waitFor({ state: 'detached' });
       assert.equal(posts.filter(row => row.table === 'rpc:convert_public_intake').length, 0, 'duplicate shortcut cancellation does not link');
       await reviewDialog.locator('.patient-picker input').fill('QA Patient');
       // PatientPicker intentionally debounces its private-patient lookup.
@@ -255,6 +256,7 @@ try{
       await reviewDialog.getByRole('option', { name: /QA Patient/ }).click();
       await reviewDialog.getByRole('button', { name: 'Vincular ao paciente selecionado', exact: true }).click();
       await page.getByRole('button', { name: 'Cancelar', exact: true }).last().click();
+      await page.locator('.sf-action-dialog').waitFor({ state: 'detached' });
       assert.equal(posts.filter(row => row.table === 'rpc:convert_public_intake').length, 0, 'cancelling never links a form');
       await reviewDialog.getByRole('button', { name: 'Vincular ao paciente selecionado', exact: true }).click();
       await page.getByRole('button', { name: 'Confirmar', exact: true }).click();

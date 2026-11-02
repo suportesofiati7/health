@@ -1,5 +1,7 @@
 # Operations Runbook
 
+Current intake release (2 November 2026): completed public forms now await staff review and explicit conversion/linking. The notification outbox queues on durable completion, independently of conversion. New typed-name signature evidence and attachment hashes remain attached to the immutable original form. Read `INTAKE-COMPLETION-PLAN.md` and `INTAKE-RELEASE-2026-11-02.md` for scope, evidence and remaining provider requirements. Older dated sections below describe earlier baselines.
+
 Status on 2026-09-14: local build, browser checks and database security tests pass. Remote Supabase administrative
 configuration is blocked in this terminal because no Supabase access token is
 available. A publishable settings check still reports `disable_signup: false`,
@@ -215,3 +217,18 @@ This downloads only the official schema; it sends no patient data. JSON schema
 validation does not replace profile, terminology or full FHIR invariant checks.
 Read `FORM-FIELD-MAP.md` and `PATIENT-ECOSYSTEM-AUDIT-2026-11-01.md` for scope and
 remaining verification requirements.
+
+
+## Intake completion and recovery — 2 November 2026
+
+Migration `202611020001_reviewed_intake_completion.sql` adds request uniqueness, an upload manifest, completion timestamps, attachment SHA-256 hashes, service-only preparation/completion RPCs and immutable submitted evidence. It retires the service role's old automatic-association RPC permission. Existing patient links and historical payloads are preserved.
+
+A preparation retry with the same request/payload/manifest reuses the original form. Uploaded objects are verified and reused; never enable Storage upsert to work around duplicate uploads. The final transition verifies metadata and queues one notification transactionally. Incomplete new requests stay outside the completed Forms queue; the applicant can retry the same request after an interrupted upload. Historical awaiting records without completion evidence remain visible with a warning.
+
+Reviewers use **Converter em paciente** or explicitly choose an existing patient under **Vincular**. The conversion takes row and identity locks, refuses implicit same-CPF creation, and appends health declarations and consent evidence without replacing history. Failed conversion leaves the form available for a normal retry; automatic patient creation/retry is intentionally absent from this review-first workflow.
+
+For local Edge containers, set `PUBLIC_SUPABASE_URL` to the loopback API origin exposed to the browser (for example `http://127.0.0.1:55421`). Production uses the existing Supabase URL and does not require this override.
+
+`node scripts/test-live-intake.mjs` performs an actual production browser journey. It creates labelled fictional records and a temporary QA membership, exercises clinic-owner creation and software-owner linking, retains the evidence and records, and deactivates the QA membership at the end. It never deletes patient records, changes an existing owner's credentials, or bypasses public request handling. Evidence defaults to a private directory under `/tmp/sofiati-intake-evidence`; keep it out of public builds and git. To run against isolated local services, supply `SOFIATI_LOCAL_STATUS`, `PUBLIC_TEST_URL` and `MANAGEMENT_TEST_URL`; serve the public source with only the form API origin configured for the local stack.
+
+Notification acceptance is distinct from inbox delivery. An uncertain retry outside the provider's 24-hour idempotency window stops with `notification_requires_review` and exhausted attempts; check provider logs before any administrative requeue. Missing provider settings leave pending jobs untouched. Never infer successful delivery from patient conversion or an outbox row alone.

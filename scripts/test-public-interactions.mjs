@@ -27,17 +27,17 @@ try {
   let intakeRequest = null;
   await context.route('https://naypgbhwnlbyqqqfftgn.supabase.co/storage/v1/object/upload/sign/**', async (route) => {
     if (route.request().method() === 'OPTIONS') {
-      await route.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'content-type' } });
+      await route.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, PUT, OPTIONS', 'Access-Control-Allow-Headers': 'content-type' } });
       return;
     }
-    assert.equal(route.request().method(), 'POST', 'each attachment uploads directly to private storage');
+    assert.equal(route.request().method(), 'PUT', 'each attachment uploads directly to private storage');
     assert.ok(route.request().postDataBuffer()?.length > 0, 'attachment bytes are sent to storage');
     await route.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*' }, contentType: 'application/json', body: JSON.stringify({ Key: 'intake-private/qa/file' }) });
   });
   await context.route('**/functions/v1/formulario', async (route) => {
     const request = route.request();
     if (request.method() === 'OPTIONS') {
-      await route.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'content-type' } });
+      await route.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, PUT, OPTIONS', 'Access-Control-Allow-Headers': 'content-type' } });
       return;
     }
     const body = request.postDataJSON();
@@ -79,6 +79,7 @@ try {
   await page.goto(`${publicOrigin}/${process.env.PUBLIC_TEST_URL ? 'formulario' : 'formulario.html'}`, { waitUntil: 'domcontentloaded' });
   const intakeForm = page.locator('form[data-public-intake]');
   await intakeForm.waitFor({ state: 'attached' });
+  await page.locator('[name=selected_procedures][value=limpeza_pele]').waitFor({ state: 'attached' });
   await intakeForm.evaluate((form) => {
     const set = (field, value) => { field.value = value; field.dispatchEvent(new Event('input', { bubbles: true })); field.dispatchEvent(new Event('change', { bubbles: true })); };
     for (const field of form.querySelectorAll('[required]')) {
@@ -106,7 +107,9 @@ try {
     const valid = form.checkValidity();
     const invalid = [...form.querySelectorAll(':invalid')].slice(0, 12).map((item) => item.name || item.id || item.tagName);
     return { valid, invalid };
-  }).then((result) => { assert.deepEqual(result, { valid: true, invalid: [] }, 'only name, CPF, and consent checkboxes are required'); });
+  }).then((result) => { assert.deepEqual(result, { valid: true, invalid: [] }, 'identity, explicit choices, signature and consent validations pass'); });
+  await intakeForm.locator('[name=selected_procedures][value=toxina]').check();
+  await intakeForm.locator('[name=accepted_term_toxina]').check();
   await intakeForm.locator('button[type=submit]').click();
   await page.waitForURL('**/obrigada*');
   assert.ok(intakeRequest, 'completed intake submits to the configured Supabase function');

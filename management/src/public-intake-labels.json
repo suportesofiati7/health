@@ -53,5 +53,8 @@
   "accepted_term_peeling_ultrassonico": "Consentimento para peeling ultrassônico",
   "accepted_term_peeling_cristal": "Consentimento para peeling de cristal",
   "accepted_term_peeling_diamante": "Consentimento para peeling de diamante",
-  "accepted_term_limpeza_pele": "Consentimento para limpeza de pele"
+  "accepted_term_limpeza_pele": "Consentimento para limpeza de pele",
+  "signature_name": "Nome completo de quem assinou",
+  "signature_method": "Forma de assinatura",
+  "consent_texts": "Textos dos termos apresentados no envio"
 }

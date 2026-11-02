@@ -1,6 +1,6 @@
 {
-  "status": "FAIL",
-  "generatedAt": "2026-11-01T20:42:14.812984+00:00",
+  "status": "PASS",
+  "generatedAt": "2026-11-02T10:46:59.916422+00:00",
   "pagesChecked": 288,
   "scriptsPresent": {
     "required": [
@@ -3619,7 +3619,7 @@
       {
         "page": "formulario.html",
         "id": "consent-authorisation-form",
-        "fields": 57,
+        "fields": 58,
         "intentionallyIgnored": true
       }
     ],
@@ -3735,29 +3735,5 @@
     "Publish a named GTM container version after Tag Assistant and DebugView testing."
   ],
   "warnings": [],
-  "errors": [
-    "termos.html#ciencia-inicial: meaningful section lacks analytics attributes",
-    "termos.html#agendamento: meaningful section lacks analytics attributes",
-    "termos.html#procedimentos: meaningful section lacks analytics attributes",
-    "termos.html#seguranca: meaningful section lacks analytics attributes",
-    "termos.html#imagem: meaningful section lacks analytics attributes",
-    "termos.html#privacidade: meaningful section lacks analytics attributes",
-    "termos.html: FAQ item 1 lacks analytics attributes",
-    "termos.html: FAQ item 2 lacks analytics attributes",
-    "termos.html: FAQ item 3 lacks analytics attributes",
-    "termos.html: FAQ item 4 lacks analytics attributes",
-    "termos.html: FAQ item 5 lacks analytics attributes",
-    "termos.html: FAQ item 6 lacks analytics attributes",
-    "termos.html: FAQ item 7 lacks analytics attributes",
-    "termos.html: FAQ item 8 lacks analytics attributes",
-    "termos.html: FAQ item 9 lacks analytics attributes",
-    "termos.html: FAQ item 10 lacks analytics attributes",
-    "termos.html: FAQ item 11 lacks analytics attributes",
-    "termos.html: FAQ item 12 lacks analytics attributes",
-    "termos.html: FAQ item 13 lacks analytics attributes",
-    "termos.html: FAQ item 14 lacks analytics attributes",
-    "termos.html: FAQ item 15 lacks analytics attributes",
-    "termos.html: FAQ item 16 lacks analytics attributes",
-    "termos.html: FAQ item 17 lacks analytics attributes"
-  ]
+  "errors": []
 }

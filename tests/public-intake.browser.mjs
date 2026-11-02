@@ -8,7 +8,7 @@ try {
   for(const scenario of ['saved','prepare-failure','upload-retry','old-browser']){
     const page=await browser.newPage();let prepares=0,uploads=0,completes=0;const errors=[];
     page.on('pageerror',e=>errors.push(e.message));
-    if(scenario==='old-browser')await page.addInitScript(()=>{AbortSignal.timeout=undefined;});
+    if(scenario==='old-browser')await page.addInitScript(()=>{AbortSignal.timeout=undefined;crypto.randomUUID=undefined;});
     await page.route('**/*',async route=>{
       const req=route.request();
       if(!req.url().startsWith('https://'))return route.continue();
@@ -23,7 +23,7 @@ try {
         return route.fulfill({status:202,headers:{'Access-Control-Allow-Origin':'*'},contentType:'application/json',body:JSON.stringify({received:true,email_status:'error'})});
       }
       if(req.url()==='https://upload.invalid/signed-file'){
-        uploads++;assert.equal(req.method(),'PUT','Signed uploads require PUT');assert.equal(req.postDataBuffer().toString(),'fixture attachment content');
+        uploads++;assert.equal(req.method(),'PUT','Signed uploads require PUT');assert.equal(req.postDataBuffer().toString(),'%PDF-1.4\n% fixture attachment content\n%%EOF');
         return route.fulfill({status:scenario==='upload-retry'&&uploads===1?500:200,headers:{'Access-Control-Allow-Origin':'*'},body:'{}'});
       }
       return route.abort();
@@ -33,9 +33,12 @@ try {
     const enzymes=page.locator('.sf-consent-procedure').filter({has:page.locator('[name=selected_procedures][value=enzimas]')});
     assert.equal(await enzymes.locator('label small').first().innerText(),'Redução de papada e flacidez de face, pescoço e colo conforme avaliação.');
     await page.locator('[name=full_name]').fill('Fictional intake fixture');await page.locator('[name=cpf]').fill('52998224725');
+    await page.locator('[name=signature_name]').fill('Fictional intake fixture');
+    await page.locator('[name=adult_status]').selectOption('adult');
+    for(const key of ['technical_image_authorisation','marketing_image_authorisation','promotional_communication'])await page.locator(`[name=${key}]`).selectOption('no');
     await page.locator('[name=selected_procedures][value=limpeza_pele]').check();
     for(const checkbox of await page.locator('form[data-public-intake] input[type=checkbox][required]').all())await checkbox.check();
-    await page.locator('[name=identity_upload]').setInputFiles({name:'fixture.txt',mimeType:'text/plain',buffer:Buffer.from('fixture attachment content')});
+    await page.locator('[name=identity_upload]').setInputFiles({name:'fixture.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.4\n% fixture attachment content\n%%EOF')});
     const submit=page.locator('form[data-public-intake] button[type=submit]');assert.equal(await submit.count(),1);
     assert.deepEqual(await page.locator('form[data-public-intake]').evaluate(form=>[...form.elements].filter(el=>el.willValidate&&!el.validity.valid).map(el=>({name:el.name,message:el.validationMessage}))),[]);
     await submit.click();
@@ -44,7 +47,7 @@ try {
       assert.equal(await page.locator('[name=full_name]').inputValue(),'Fictional intake fixture');
     }else{
       if(scenario==='upload-retry'){await page.locator('[data-form-state=error]:visible').waitFor();await submit.click();}
-      await Promise.race([page.waitForURL('**/obrigada.html'),page.locator('[data-form-state=error]:visible').waitFor().then(async()=>{throw Error(JSON.stringify({prepares,uploads,completes,errors,text:await page.locator('[data-form-state=error]').innerText()}));})]);assert.equal(completes,1);assert.equal(uploads,scenario==='upload-retry'?2:1);
+      await Promise.race([page.waitForURL('**/obrigada.html'),page.locator('[data-form-state=error]:visible').waitFor().then(async()=>{throw Error(JSON.stringify({prepares,uploads,completes,errors,text:await page.locator('[data-form-state=error]').innerText()}));})]);assert.equal(await page.evaluate(()=>Object.keys(sessionStorage).filter(key=>key.startsWith('sofiati-intake-request:')).length),0,'confirmed receipt clears request ID for an intentional new submission');assert.equal(completes,1);assert.equal(uploads,scenario==='upload-retry'?2:1);
     }
     assert.equal(prepares,1,'Retry keeps the original saved intake');assert.deepEqual(errors,[]);
     console.log(`PASS ${scenario}`);await page.close();

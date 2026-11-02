@@ -55,7 +55,7 @@ Inventário estático e campos acrescentados por `js/public-intake.js`. Resposta
 | `language` | Idioma | public_intakes.payload | QuestionnaireResponse + complemento |
 | `selected_procedure` | Procedimentos selecionados (descrição) | public_intakes.payload | QuestionnaireResponse + complemento |
 
-Consentimentos condicionais adicionais são gerados em tempo de execução para os procedimentos do catálogo. O formulário atual não coleta assinatura manuscrita nem campos separados para alergias e medicamentos; `health_notes` é texto livre. Não são inferidos diagnósticos ou prescrições desse texto.
+Consentimentos condicionais adicionais são gerados em tempo de execução para os procedimentos do catálogo. A versão 2026-11-02 coleta aceite eletrônico por nome digitado (`signature_name` e `signature_method`), com conclusão registrada pelo servidor. Não é assinatura manuscrita ou certificada. Não coleta campos separados para alergias e medicamentos; `health_notes` é texto livre. Não são inferidos diagnósticos ou prescrições desse texto.
 
 | Campo condicional | Apresentação | Persistência | Exportação |
 |---|---|---|---|
@@ -63,3 +63,18 @@ Consentimentos condicionais adicionais são gerados em tempo de execução para 
 | `accepted_term_peeling_cristal` | Consentimento para peeling de cristal | public_intakes.payload (campo condicional em tempo de execução) | QuestionnaireResponse + Consent + complemento |
 | `accepted_term_peeling_diamante` | Consentimento para peeling de diamante | public_intakes.payload (campo condicional em tempo de execução) | QuestionnaireResponse + Consent + complemento |
 | `accepted_term_limpeza_pele` | Consentimento para limpeza de pele | public_intakes.payload (campo condicional em tempo de execução) | QuestionnaireResponse + Consent + complemento |
+
+
+## Evidência acrescentada na versão 2026-11-02
+
+| Campo / metadado | Persistência e uso |
+|---|---|
+| `signature_name` | Nome de quem assina, preservado no payload original e referenciado nas evidências de consentimento após conversão. |
+| `signature_method` | `typed_name`: aceite eletrônico por nome digitado; não implica certificado digital. |
+| `consent_texts` | Texto dos termos dos procedimentos apresentados no envio, preservado com a versão do formulário. |
+| `request_id` | Identificador aleatório por envio em `public_intakes`, protegido por unicidade e comparação do payload/manifesto nas tentativas repetidas. |
+| `upload_manifest` | Metadados esperados dos arquivos; a conclusão exige correspondência com os objetos privados e seus hashes. |
+| `completed_at` / `submitted_at` | Confirmação de conclusão pelo servidor, independente de revisão, conversão ou entrega de email. |
+| `public_intake_files.sha256` | Hash dos bytes recebidos; conferido antes da conclusão e verificável em download autenticado. |
+
+As respostas são organizadas por `src/intakeSections.json`, com cobertura automática dos controles estáticos. Escolhas explícitas de recusa permanecem visíveis. A declaração de saúde gera uma nova versão vinculada ao formulário; não preenche alergias ou diagnósticos por inferência. Documentos, comprovantes e preferências de agendamento permanecem vinculados ao formulário no prontuário, sem confirmar pagamento ou agendamento automaticamente.

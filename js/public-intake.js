@@ -1,4 +1,4 @@
-import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } from './core/form-delivery.js';
+import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage, newSubmissionId } from './core/form-delivery.js';
 
 /* Confirm the complete intake in the app before sending its email copy.
  * Attachments remain in the private application storage. */
@@ -7,9 +7,6 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
   document.querySelector(".skip-past-hero")?.remove();
   const form = document.querySelector("form[data-public-intake]");
   if (!form) return;
-  form.querySelectorAll("[required]").forEach((field) => {
-    if (field.type !== "checkbox" && !["full_name", "cpf"].includes(field.name)) field.required = false;
-  });
   const english = (document.documentElement.lang || "").startsWith("en");
   const thankYouPath = () => (document.documentElement.lang || "pt-BR").toLowerCase().startsWith("en") ? "en/thank-you.html" : "obrigada.html";
   const firstCard = form.querySelector(":scope > .sf-consent-card");
@@ -23,6 +20,7 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
   const procedureInputs = [...form.querySelectorAll('input[name="selected_procedures"]')];
   let procedureDetails = [...form.querySelectorAll("details[data-consent-term-for]")];
   let submitting = false;
+  let requestStorageKey = null;
   const trackDelivery = deliveryTracker();
   const draftKey = "sofiati-public-intake-draft-v2026-09-14";
 
@@ -87,10 +85,7 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
     });
   });
 
-  // The public intake accepts supporting documents in any file format. They
-  // are sent only to the private intake bucket; the server still enforces the
-  // per-file, total-size and file-count limits.
-  form.querySelectorAll('input[type="file"]').forEach((input) => input.removeAttribute("accept"));
+
 
   // Keep the custom file-status label synchronized with the real browser
   // file input. Event delegation also covers file inputs added dynamically.
@@ -124,7 +119,7 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
   if (marketingCard && !form.elements.supporting_attachments) {
     const uploads = document.createElement("div");
     uploads.className = "sf-consent-grid sf-public-upload-grid";
-    uploads.innerHTML = '<div class="sf-consent-field"><label for="supporting_attachments">Documentos ou informações adicionais</label><input class="sf-consent-file-input" data-analytics-ignore="" data-analytics-sensitive="" id="supporting_attachments" name="supporting_attachments" multiple type="file"><div class="sf-file-control"><label class="sf-file-button" for="supporting_attachments">Selecionar arquivos</label><span class="sf-file-status">Nenhum arquivo selecionado</span></div><p>Opcional. Aceitamos documentos, imagens e outros formatos, até 10 MB por arquivo.</p></div>';
+    uploads.innerHTML = '<div class="sf-consent-field"><label for="supporting_attachments">Documentos ou informações adicionais</label><input class="sf-consent-file-input" data-analytics-ignore="" data-analytics-sensitive="" id="supporting_attachments" name="supporting_attachments" multiple type="file"><div class="sf-file-control"><label class="sf-file-button" for="supporting_attachments">Selecionar arquivos</label><span class="sf-file-status">Nenhum arquivo selecionado</span></div><p>Opcional. PDF ou fotografia (JPEG, PNG, WebP ou HEIC), até 10 MB por arquivo.</p></div>';
     marketingCard.append(uploads);
   }
 
@@ -156,6 +151,8 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
     wrapper.innerHTML = '<label for="postal_code">CEP</label><input id="postal_code" name="postal_code" inputmode="numeric" autocomplete="postal-code" type="text" maxlength="9"><p>Informe o CEP do endereço completo.</p>';
     addressField.after(wrapper);
   }
+  for (const key of ["adult_status", "technical_image_authorisation", "marketing_image_authorisation", "promotional_communication"]) form.elements[key].required = true;
+  form.querySelectorAll('input[type="file"]').forEach((input) => { input.accept = "application/pdf,image/jpeg,image/png,image/webp,image/heic,image/heif"; });
   const adultField = form.elements.adult_status;
   const guardianField = form.elements.guardian_details;
   if (adultField) {
@@ -167,9 +164,10 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
   const syncGuardian = () => {
     if (!guardianField) return;
     const relevant = adultField?.value && adultField.value !== "adult";
-    guardianField.required = false;
+    guardianField.required = Boolean(relevant);
     guardianField.closest(".sf-consent-field")?.toggleAttribute("hidden", !relevant);
     if (!relevant) guardianField.value = "Não se aplica";
+    else if (guardianField.value === "Não se aplica") guardianField.value = "";
   };
   adultField?.addEventListener("change", syncGuardian);
   syncGuardian();
@@ -264,11 +262,14 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
         else values[key] = value;
       } else values[key] = key === "birth_date" || key === "appointment_date" ? brazilianDate(value) : value;
     }
+    if (!selectedProcedures().length) {
+      state("error", "Selecione pelo menos um procedimento e leia seu termo específico.");
+      submitting = false; setSubmitDisabled(false); return;
+    }
+    values.signature_method = "typed_name";
     values.selected_procedure = selectedProcedure();
     values.selected_procedures = selectedProcedures();
-    for (const key of ["technical_image_authorisation", "marketing_image_authorisation", "promotional_communication"]) {
-      if (!values[key]) values[key] = "no";
-    }
+    values.consent_texts = Object.fromEntries(procedureDetails.filter((detail) => selectedProcedures().includes(detail.dataset.consentTermFor)).map((detail) => [detail.dataset.consentTermFor, detail.innerText]));
     values.form_version = form.dataset.formVersion;
     values.language = document.documentElement.lang || "pt-BR";
     const files = [...form.querySelectorAll('input[type="file"]')].flatMap((input) => [...input.files].map((file) => ({ input, file })));
@@ -279,6 +280,7 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
       return;
     }
     const signature = formSignature(form);
+    const digest = async (bytes) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", bytes))].map((n) => n.toString(16).padStart(2,"0")).join("");
     const deliver = trackDelivery(signature);
     let pendingSession = null;
     const postJson = async (body) => {
@@ -296,22 +298,30 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
       try {
         appResult = await deliver("app", async () => {
           pendingSession = await deliver("app-prepare", async () => {
-            const result = await postJson({
-              action: "prepare", payload: values,
-              attachments: files.map(({ input, file }) => ({ field_name: input.name, name: file.name, size: file.size, type: file.type })),
-            });
+            const attachments = await Promise.all(files.map(async ({ input, file }) => ({ field_name: input.name, name: file.name, size: file.size, type: file.type, sha256: await digest(await file.arrayBuffer()) })));
+            const fingerprint = await digest(new TextEncoder().encode(JSON.stringify({values,attachments})));
+            requestStorageKey = `sofiati-intake-request:${fingerprint}`;
+            let requestId;
+            try { requestId = sessionStorage.getItem(requestStorageKey); } catch {}
+            requestId ||= newSubmissionId();
+            try { sessionStorage.setItem(requestStorageKey,requestId); } catch {}
+            const result = await postJson({ action: "prepare", request_id: requestId, payload: values, attachments });
             if (result?.prepared !== true || !result.session || !Array.isArray(result.files)) throw Object.assign(new Error("app_delivery_failed"), { code: "request_failed" });
             return result;
           });
           for (const [index, item] of pendingSession.files.entries()) {
             await deliver(`app-upload-${index}`, async () => {
               const file = files[index]?.file;
+              if (item.uploaded) return true; // Completion independently verifies the stored bytes.
               if (!file || !item.upload_url) throw Object.assign(new Error("app_delivery_failed"), { code: "upload_session" });
               const response = await fetchWithTimeout(item.upload_url, {
                 method: "PUT", headers: { "Content-Type": file.type || "application/octet-stream" },
                 body: file, credentials: "omit", cache: "no-store",
               }, 120000);
-              if (!response.ok) throw Object.assign(new Error("app_delivery_failed"), { code: "upload" });
+              if (!response.ok) {
+                const problem = await response.json().catch(() => ({}));
+                if (![409].includes(response.status) && !["409", "Duplicate"].includes(String(problem.statusCode || problem.error))) throw Object.assign(new Error("app_delivery_failed"), { code: "upload" });
+              }
               return true;
             });
           }
@@ -323,6 +333,7 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
         appError = error;
       }
       if (appError) {
+        if (appError.code === "upload_session") trackDelivery(`${signature}:expired:${Date.now()}`);
         state("error", intakeErrorMessage(appError, (document.documentElement.lang || "").startsWith("en")));
         submitting = false;
         setSubmitDisabled(false);
@@ -331,7 +342,7 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage } 
       // Receipt in the private application is the successful submission.
       // Server-side notifications must never make a patient resubmit saved data.
       pendingSession = null;
-      sessionStorage.removeItem(draftKey);
+      try { sessionStorage.removeItem(draftKey); if (requestStorageKey) sessionStorage.removeItem(requestStorageKey); } catch {}
       form.reset();
       state("success");
       form.querySelector(".sf-consent-card--submit")?.scrollIntoView({ block: "start" });

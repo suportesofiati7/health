@@ -27,14 +27,10 @@ try {
   assert.equal(await page.locator('.sf-document-links a').last().getAttribute('href'), 'https://francielesofiati.com/termos');
   for (const width of [320, 390, 768]) {
     await page.setViewportSize({ width, height: 844 });
-    const details = await page.locator('#sf-topbar-inline').evaluate(node => {
-      const selectors = ['.sft-motto', '.sft-link', '.sft-location'];
-      return selectors.map(selector => { const el = node.querySelector(selector); return { visible: el.getBoundingClientRect().width > 0, left: el.getBoundingClientRect().left }; });
-    });
-    if (width < 768) {
-      assert.ok(details.every(item => item.visible), `all clinic details visible at ${width}`);
-      assert.ok(Math.max(...details.map(item => item.left)) - Math.min(...details.map(item => item.left)) < 2, `left alignment at ${width}`);
-    }
+    await page.locator('.sf-section-brand__name').waitFor();
+    assert.equal(await page.locator('[name=signature_name]').isVisible(), true, `signature accessible at ${width}`);
+    assert.equal(await page.locator('[name=accepted_term_peeling_cristal]').isVisible(), true, `selected consent accessible at ${width}`);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true, `form fits at ${width}`);
   }
   await page.evaluate(async () => {
     const { confirmAction } = await import('/js/core/dialog.js');

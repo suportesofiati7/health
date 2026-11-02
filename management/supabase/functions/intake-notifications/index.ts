@@ -11,15 +11,16 @@ Deno.serve(async (req) => {
   let sent = 0;
   for (const job of claimed.data || []) {
     try {
-      const intake = await db.from('public_intakes').select('full_name,submitted_at,selected_procedure,patient_id,payload').eq('id',job.intake_id).single();
-      if (intake.error || !intake.data?.patient_id) throw Error('intake_unavailable');
-      const response = await fetch('https://api.resend.com/emails', {method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json','Idempotency-Key':`intake-${job.intake_id}`},body:JSON.stringify({from,to:['suportesofiati@gmail.com','sofiatimendonca@gmail.com'],subject:'Formulário recebido — Franciele Sofiati',text:`Formulário salvo e associado ao paciente com sucesso.\nPaciente: ${intake.data.full_name}\nRecebido em: ${new Date(intake.data.submitted_at).toLocaleString("pt-BR", {timeZone:"America/Sao_Paulo"})}\nProcedimentos selecionados: ${procedureSummary(intake.data.payload?.selected_procedures || intake.data.payload?.selected_procedure || intake.data.selected_procedure) || "Consulte o formulário no aplicativo"}.\nAcesse https://app.francielesofiati.com para consultar as respostas e documentos.\nRegistro: ${job.intake_id}`}),signal:AbortSignal.timeout(20000)});
+      if (job.attempts > 1 && Date.now() - Date.parse(job.created_at) > 23 * 60 * 60 * 1000) throw Error('notification_requires_review');
+      const intake = await db.from('public_intakes').select('full_name,submitted_at,selected_procedure,completed_at,payload').eq('id',job.intake_id).single();
+      if (intake.error || !intake.data?.completed_at) throw Error('intake_unavailable');
+      const response = await fetch('https://api.resend.com/emails', {method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json','Idempotency-Key':`intake-${job.intake_id}`},body:JSON.stringify({from,to:['suportesofiati@gmail.com','sofiatimendonca@gmail.com'],subject:'Formulário recebido — Franciele Sofiati',text:`Formulário recebido e salvo com segurança. Aguardando revisão na área profissional.\nPaciente: ${intake.data.full_name}\nRecebido em: ${new Date(intake.data.submitted_at).toLocaleString("pt-BR", {timeZone:"America/Sao_Paulo"})}\nProcedimentos selecionados: ${procedureSummary(intake.data.payload?.selected_procedures || intake.data.payload?.selected_procedure || intake.data.selected_procedure) || "Consulte o formulário no aplicativo"}.\nAcesse https://app.francielesofiati.com para consultar as respostas e documentos.\nRegistro: ${job.intake_id}`}),signal:AbortSignal.timeout(20000)});
       if (!response.ok) throw Error(`provider_${response.status}`);
       const result = await db.from('intake_notification_outbox').update({status:'sent',sent_at:new Date().toISOString(),last_error:null}).eq('id',job.id);
       if (result.error) throw Error('delivery_record_failed');
       sent++;
     } catch (error) {
-      await db.from('intake_notification_outbox').update({status:'failed',last_error:error instanceof Error?error.message:'delivery_failed',available_at:new Date(Date.now()+Math.min(3600000,30000*2**job.attempts)).toISOString()}).eq('id',job.id);
+      await db.from('intake_notification_outbox').update({...(error instanceof Error && error.message === 'notification_requires_review' ? {attempts:12} : {}),status:'failed',last_error:error instanceof Error?error.message:'delivery_failed',available_at:new Date(Date.now()+Math.min(3600000,30000*2**job.attempts)).toISOString()}).eq('id',job.id);
     }
   }
   return Response.json({sent});

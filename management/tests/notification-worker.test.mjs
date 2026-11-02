@@ -11,7 +11,7 @@ test('worker denies unauthenticated requests; missing provider leaves jobs uncla
  const env={NOTIFICATION_WORKER_SECRET:'test-secret'};
  globalThis.Deno={env:{get:key=>env[key]}};
  const writes=[]; let claims=0,fail=false;
- globalThis.notificationTestDB={rpc:async()=>{claims++;return {data:[{id:'job',intake_id:'intake',attempts:1}]};},from:table=>{const chain={select(){return chain;},single:async()=>({data:{patient_id:'patient',full_name:'Paciente fictício',submitted_at:'2026-11-01T12:00:00Z'}}),update(value){writes.push({table,value});return chain;},eq(){return chain;},then(resolve){return Promise.resolve({error:null}).then(resolve);}};return chain;}};
+ globalThis.notificationTestDB={rpc:async()=>{claims++;return {data:[{id:'job',intake_id:'intake',attempts:1}]};},from:table=>{const chain={select(){return chain;},single:async()=>({data:{completed_at:'2026-11-01T12:00:00Z',patient_id:null,full_name:'Paciente fictício',submitted_at:'2026-11-01T12:00:00Z'}}),update(value){writes.push({table,value});return chain;},eq(){return chain;},then(resolve){return Promise.resolve({error:null}).then(resolve);}};return chain;}};
  const request=()=>new Request('https://qa.invalid',{method:'POST',headers:{Authorization:'Bearer test-secret'}});
  try {
   assert.equal((await handler(new Request('https://qa.invalid',{method:'POST'}))).status,403);

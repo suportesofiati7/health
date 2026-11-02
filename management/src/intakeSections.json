@@ -1,0 +1,177 @@
+[
+  {
+    "title": "Introdução e ciência inicial",
+    "fields": [
+      "initial_acknowledgement"
+    ]
+  },
+  {
+    "title": "Identificação do(a) cliente",
+    "fields": [
+      "email",
+      "full_name",
+      "preferred_name",
+      "cpf",
+      "identity_document",
+      "identity_issuer",
+      "identity_letter",
+      "phone",
+      "birth_date",
+      "address",
+      "adult_status",
+      "guardian_details",
+      "identity_upload",
+      "postal_code"
+    ]
+  },
+  {
+    "title": "Agendamento, taxa de reserva, cancelamento e no-show",
+    "fields": [
+      "booking_fee_acknowledgement",
+      "booking_payment_receipt"
+    ]
+  },
+  {
+    "title": "Procedimento desejado",
+    "fields": [
+      "treatment_área",
+      "appointment_date",
+      "appointment_time",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedures",
+      "selected_procedure",
+      "accepted_term_peeling_ultrassonico",
+      "accepted_term_peeling_cristal",
+      "accepted_term_peeling_diamante",
+      "accepted_term_limpeza_pele"
+    ]
+  },
+  {
+    "title": "Consentimento para enzimas",
+    "fields": [
+      "accepted_term_enzimas"
+    ]
+  },
+  {
+    "title": "Consentimento para Harmony",
+    "fields": [
+      "accepted_term_harmony"
+    ]
+  },
+  {
+    "title": "Consentimento para LightSheer",
+    "fields": [
+      "accepted_term_lightsheer"
+    ]
+  },
+  {
+    "title": "Consentimento para toxina botulínica",
+    "fields": [
+      "accepted_term_toxina"
+    ]
+  },
+  {
+    "title": "Consentimento para laser de CO₂",
+    "fields": [
+      "accepted_term_co2"
+    ]
+  },
+  {
+    "title": "Consentimento para Ultraformer",
+    "fields": [
+      "accepted_term_ultraformer"
+    ]
+  },
+  {
+    "title": "Consentimento para radiofrequência",
+    "fields": [
+      "accepted_term_radiofrequencia"
+    ]
+  },
+  {
+    "title": "Consentimento para jato de plasma",
+    "fields": [
+      "accepted_term_plasma"
+    ]
+  },
+  {
+    "title": "Consentimento para MMP capilar",
+    "fields": [
+      "accepted_term_mmp_capilar"
+    ]
+  },
+  {
+    "title": "Consentimento para MMP da pele",
+    "fields": [
+      "accepted_term_mmp_pele"
+    ]
+  },
+  {
+    "title": "Consentimento para PEIM",
+    "fields": [
+      "accepted_term_peim"
+    ]
+  },
+  {
+    "title": "Consentimento para peeling mecânico",
+    "fields": [
+      "accepted_term_peeling_mecanico"
+    ]
+  },
+  {
+    "title": "Consentimento para peeling químico",
+    "fields": [
+      "accepted_term_peeling_quimico"
+    ]
+  },
+  {
+    "title": "Segurança, contraindicações e riscos gerais",
+    "fields": [
+      "health_notes",
+      "general_risk_acknowledgement",
+      "truth_declaration"
+    ]
+  },
+  {
+    "title": "Registro fotográfico, imagem, depoimento e marketing",
+    "fields": [
+      "technical_image_authorisation",
+      "marketing_image_authorisation",
+      "marketing_revocation_acknowledgement",
+      "supporting_attachments",
+      "marketing_authorization_files"
+    ]
+  },
+  {
+    "title": "Privacidade, LGPD e comunicação digital",
+    "fields": [
+      "lgpd_personal_data_consent",
+      "lgpd_sensitive_data_consent",
+      "promotional_communication"
+    ]
+  },
+  {
+    "title": "Assinatura e envio",
+    "fields": [
+      "signature_name",
+      "final_acceptance",
+      "signature_method",
+      "form_version",
+      "language",
+      "consent_texts",
+      "idioma_formulario",
+      "versao_documento"
+    ]
+  }
+]

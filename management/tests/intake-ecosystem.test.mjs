@@ -5,6 +5,7 @@ import { buildPatientFHIR } from '../src/fhirExport.js';
 test('document classification uses upload field, preserves extension and avoids guessing',()=>{
  assert.equal(intakeDocumentName({field_name:'booking_payment_receipt',original_name:'identity.PDF'}, {full_name:'Paciente fictícia'},'2026-10-30T15:00:00Z'),'Comprovante de pagamento - Paciente fictícia - 30-10-2026.PDF');
  assert.equal(intakeDocumentName({original_name:'desconhecido.jpg'}, {}),'desconhecido.jpg');
+ assert.equal(intakeAnswer('minor_or_guardian'),'Menor de idade ou pessoa que necessita de responsável legal');
  assert.equal(intakeAnswer('non_identifiable'),'Autorização para imagens sem identificação');
 });
 test('FHIR links appointments/procedures and retains every original answer without inferring diagnoses',()=>{
@@ -23,4 +24,15 @@ test('clinical defaults preserve free-text declarations without manufacturing al
  const {intakeDefaults}=await import('../src/intakeDefaults.js');
  const defaults=intakeDefaults({full_name:'Cadastro existente'},{full_name:'Nome enviado',health_notes:'Texto livre fictício',selected_procedures:['toxina'],lgpd_personal_data_consent:'yes'});
  assert.equal(defaults.identity.full_name,'Cadastro existente');assert.equal(defaults.health.allergies,'');assert.equal(defaults.health.conditions,'');assert.equal(defaults.health.other_notes,'Texto livre fictício');assert.equal(defaults.consents.privacy,'Sim');assert.equal(defaults.visit.selected_procedure,'Toxina botulínica');
+});
+
+test('all static public form controls have a Portuguese label and a review section, including signature and metadata',async()=>{
+ const {readFile}=await import('node:fs/promises');
+ const html=await readFile(new URL('../../formulario.html',import.meta.url),'utf8');
+ const form=html.slice(html.indexOf('<form '),html.indexOf('</form>'));
+ const labels=JSON.parse(await readFile(new URL('../src/public-intake-labels.json',import.meta.url),'utf8'));
+ const sections=JSON.parse(await readFile(new URL('../src/intakeSections.json',import.meta.url),'utf8'));
+ const mapped=new Set(sections.flatMap(section=>section.fields));
+ assert.equal(sections.length,21);
+ for(const [,key]of form.matchAll(/<(?:input|select|textarea)\b[^>]*\sname="([^"]+)"/g)){assert(labels[key],`missing Portuguese label: ${key}`);assert(mapped.has(key),`missing section: ${key}`);}
 });

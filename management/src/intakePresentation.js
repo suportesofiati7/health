@@ -10,8 +10,8 @@ export function intakeDocumentName(file, patient, submittedAt) {
 }
 export function intakeAnswer(value) {
   if (Array.isArray(value)) return value.map(intakeAnswer).join(', ');
-  if (value && typeof value === 'object') return JSON.stringify(value, null, 2);
+  if (value && typeof value === 'object') return Object.keys(value).length && Object.keys(value).every(key=>procedureNames[key]) ? Object.entries(value).map(([key,text])=>`${procedureNames[key]}\n${intakeAnswer(text)}`).join('\n\n') : JSON.stringify(value, null, 2);
   if (typeof value === 'boolean') return value ? 'Sim' : 'Não';
   if (typeof value === 'string' && value.split(',').every(item=>procedureNames[item.trim()])) return procedureSummary(value);
-  return ({ yes: 'Sim', no: 'Não', non_identifiable: 'Autorização para imagens sem identificação', partial_approval: 'Autorização parcial de imagens', full_approval: 'Autorização integral de imagens' })[String(value)] ?? String(value ?? '');
+  return ({ yes: 'Sim', no: 'Não', adult: 'Maior de idade', minor: 'Menor de idade', minor_or_guardian: 'Menor de idade ou pessoa que necessita de responsável legal', legal_representative: 'Responsável legal', 'pt-BR': 'Português (Brasil)', typed_name: 'Aceite eletrônico por nome digitado', non_identifiable: 'Autorização para imagens sem identificação', partial_approval: 'Autorização parcial de imagens', full_approval: 'Autorização integral de imagens' })[String(value)] ?? String(value ?? '');
 }
