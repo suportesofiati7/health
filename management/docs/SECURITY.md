@@ -55,10 +55,16 @@ boundaries. They validate `auth.uid()` and the clinic role before changing
 patient, intake, audit, or operational data, and are retained for the current
 authenticated UI workflow. Do not grant them to `anon` or `public`.
 
+The catalogue quality view uses `security_invoker` so queries enforce the
+underlying procedures RLS. Internal portal, notification outbox, and storage
+cleanup tables intentionally have no browser policies or browser grants.
+
 Have I Been Pwned leaked-password protection is a Supabase Auth project
-setting, not a database migration setting. Enable it in the project dashboard:
+setting, not a database migration setting. As verified on November 2, 2026,
+this organization uses the Free plan; Supabase requires Pro or above for this
+feature. After an owner-approved plan upgrade, enable it in the project dashboard:
 Authentication → Configuration → Password Security → Leaked password
-protection. This requires the project owner/admin account.
+protection. Do not upgrade the billing plan as part of a backend sync.
 
 ## Sessions
 

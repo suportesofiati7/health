@@ -25,6 +25,8 @@ insert into public.documents(id,organization_id,patient_id,name,path,mime_type,s
 ('80000000-0000-4000-8000-000000000002','a783bd4c-f253-4a94-9365-75c6f1000002','30000000-0000-4000-8000-000000000002','other.pdf','clinic2/other.pdf','application/pdf',100,repeat('b',64),'pronto','10000000-0000-4000-8000-000000000001');
 insert into storage.objects(bucket_id,name) values('patient-files','clinic1/fictional.pdf'),('patient-files','clinic2/other.pdf');
 insert into public.enquiries(id,organization_id,full_name) values('70000000-0000-4000-8000-000000000001','a783bd4c-f253-4a94-9365-75c6f1000001','Fictional enquiry');
+insert into public.procedures(organization_id,name) values
+('a783bd4c-f253-4a94-9365-75c6f1000002','Other clinic catalogue fixture');
 set local role authenticated;
 select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
 -- Seed the granular profile for the fictional reception user created above.
@@ -36,6 +38,8 @@ on conflict (organization_id,user_id,area) do update set can_view=true,can_creat
 -- The access-role migration seeds this default for every new membership.
 -- Keep the fixture explicit while allowing the production seed to coexist.
 select pg_temp.assert((select count(*)=1 from public.patients),'owner sees only own organization');
+select pg_temp.assert((select count(*)>0 from public.procedure_catalog_quality),'owner can read catalogue quality');
+select pg_temp.assert((select count(*)=0 from public.procedure_catalog_quality where organization_id='a783bd4c-f253-4a94-9365-75c6f1000002'),'catalogue quality view hides other clinics');
 select pg_temp.assert((select count(*)=1 from storage.objects),'owner reads own private file only');
 select pg_temp.assert((select count(*)=0 from storage.objects where name='clinic2/other.pdf'),'guessing another clinic file path fails');
 insert into public.procedures(organization_id,name,category,created_by) values('a783bd4c-f253-4a94-9365-75c6f1000001','Procedimento fictício E2E','teste','10000000-0000-4000-8000-000000000001');
@@ -209,6 +213,7 @@ select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4
 select pg_temp.denied($q$insert into public.patients(organization_id,full_name) values('a783bd4c-f253-4a94-9365-75c6f1000001','No')$q$,'readonly cannot insert');
 select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000005','session_id','20000000-0000-4000-8000-000000000005','exp',extract(epoch from now()+interval '1 hour'))::text,true);
 select pg_temp.assert((select count(*)=0 from public.patients),'disabled account loses access');
+select pg_temp.assert((select count(*)=0 from public.procedure_catalog_quality),'disabled account loses catalogue quality access');
 select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()-interval '1 hour'))::text,true);
 select pg_temp.assert((select count(*)=0 from public.patients),'expired token denied');
 select set_config('request.jwt.claims',jsonb_build_object('sub','10000000-0000-4000-8000-000000000001','session_id','20000000-0000-4000-8000-000000000001','exp',extract(epoch from now()+interval '1 hour'))::text,true);
@@ -217,6 +222,7 @@ select pg_temp.assert((select count(*)=0 from public.patients),'logout revocatio
 set local role anon;
 select set_config('request.jwt.claims','{}',true);
 select pg_temp.denied('select * from public.patients','anonymous patient retrieval');
+select pg_temp.denied('select * from public.procedure_catalog_quality','anonymous catalogue quality retrieval');
 select pg_temp.denied('select * from public.entries','anonymous clinical retrieval');
 select pg_temp.denied('select * from public.enquiries','anonymous enquiry retrieval');
 select pg_temp.assert((select count(*)=0 from storage.objects),'anonymous storage denied');

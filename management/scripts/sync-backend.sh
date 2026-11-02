@@ -13,18 +13,13 @@ npm test
 npm run build
 
 echo "== Applying database migrations =="
-npx supabase db push --linked --yes
+npx supabase db push --project-ref "$PROJECT_REF" --yes
 
 echo "== Confirming migration status =="
 npx supabase migration list --project-ref "$PROJECT_REF"
 
 echo "== Deploying all Supabase Edge Functions =="
-for function_name in intake formulario staff files email-backup portal intake-notifications; do
-  npx supabase functions deploy "$function_name" --project-ref "$PROJECT_REF" --no-verify-jwt
-done
-# communication-email requires an authenticated staff JWT.
-npx supabase functions deploy communication-email --project-ref "$PROJECT_REF"
-# portal verifies CPF/password and its own session token inside the handler.
+bash scripts/deploy-functions.sh
 
 echo ""
 echo "Backend sync complete. The Cloudflare site was not deployed."
