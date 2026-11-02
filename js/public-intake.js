@@ -1,4 +1,4 @@
-import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage, newSubmissionId } from './core/form-delivery.js';
+import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage, newSubmissionId, cpfValidationError } from './core/form-delivery.js';
 
 /* Confirm the complete intake in the app before sending its email copy.
  * Attachments remain in the private application storage. */
@@ -246,8 +246,9 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage, n
     event.preventDefault();
     if (submitting || !form.checkValidity()) { form.reportValidity(); return; }
     const cpfField = form.elements.cpf;
-    if (String(cpfField?.value || '').replace(/\D/g, '').length !== 11) {
-      state("error", intakeErrorMessage({ code: "cpf" }, (document.documentElement.lang || "").startsWith("en")));
+    const cpfError = cpfValidationError(cpfField?.value);
+    if (cpfError) {
+      state("error", intakeErrorMessage({ code: cpfError }, (document.documentElement.lang || "").startsWith("en")));
       cpfField?.focus();
       return;
     }

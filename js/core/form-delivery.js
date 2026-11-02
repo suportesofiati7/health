@@ -16,6 +16,17 @@ export async function fetchWithTimeout(url, options = {}, timeoutMs = 20000) {
   }
 }
 
+export function cpfValidationError(value) {
+  const digits = String(value ?? '').replace(/\D/g, '');
+  if (digits.length !== 11) return 'cpf_length';
+  if (/^(\d)\1+$/.test(digits)) return 'cpf';
+  for (let length = 9; length <= 10; length++) {
+    const sum = [...digits.slice(0, length)].reduce((total, digit, index) => total + Number(digit) * (length + 1 - index), 0);
+    if (((sum * 10) % 11) % 10 !== Number(digits[length])) return 'cpf';
+  }
+  return null;
+}
+
 export function intakeErrorMessage(error, english = false) {
   const code = error?.code || error?.name || '';
   if (code === 'signature_required') return 'Informe o nome completo de quem assina o formulário.';
@@ -26,7 +37,8 @@ export function intakeErrorMessage(error, english = false) {
   if (code === 'phone') return 'Informe um telefone com DDD e, quando necessário, código do país.';
   if (code === 'email') return 'Informe um endereço de email válido.';
   if (code === 'date') return 'Revise as datas e o horário informados.';
-  if (code === 'cpf') return english ? 'Enter a complete CPF with 11 digits.' : 'Informe o CPF completo com 11 dígitos.';
+  if (code === 'cpf_length') return english ? 'Enter a complete CPF with 11 digits.' : 'Informe o CPF completo com 11 dígitos. Pontos e traço são opcionais.';
+  if (code === 'cpf') return english ? 'The CPF verification digits are invalid. Check the numbers against your document.' : 'Os dígitos verificadores do CPF não conferem. Confira os números no seu documento.';
   if (code === 'consent_required') return english ? 'Review and explicitly accept the required terms for each selected procedure.' : 'Revise e aceite explicitamente os termos obrigatórios de cada procedimento selecionado.';
   if (code === 'required') return english ? 'Complete the required fields before sending.' : 'Preencha os campos obrigatórios antes de enviar.';
   if (code === 'rate_limit') return english ? 'Too many attempts. Wait before retrying.' : 'Muitas tentativas de envio. Aguarde antes de tentar novamente.';
