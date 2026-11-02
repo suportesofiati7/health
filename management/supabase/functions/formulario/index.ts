@@ -62,13 +62,8 @@ function validatePayload(payload: Record<string, unknown>) {
   for (const [key, max] of Object.entries({full_name:200,preferred_name:200,email:254,phone:30,cpf:30,form_version:40,language:20,selected_procedure:1000})) {
     if (payload[key] != null && (typeof payload[key] !== "string" || String(payload[key]).length > max)) throw Error("field_size");
   }
-  if (["cpf", "form_version", "full_name"].some((key) => !String(payload[key] || "").trim())) throw Error("required");
-  const cpf = String(payload.cpf).replace(/\D/g, "");
-  if (!/^\d{11}$/.test(cpf) || /^(\d)\1+$/.test(cpf)) throw Error("cpf");
-  for (let length = 9; length <= 10; length++) {
-    const sum = [...cpf.slice(0,length)].reduce((total,digit,index) => total+Number(digit)*(length+1-index),0);
-    if (((sum*10)%11)%10 !== Number(cpf[length])) throw Error("cpf");
-  }
+  if (["form_version", "full_name"].some((key) => !String(payload[key] || "").trim())) throw Error("required");
+  // Preserve the submitted CPF for staff review without blocking completion.
   if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(payload.email))) throw Error("email");
   if (!["adult", "minor_or_guardian", "minor", "legal_representative"].includes(String(payload.adult_status))) throw Error("guardian_required");
   if (payload.adult_status !== "adult" && (!String(payload.guardian_details || "").trim() || payload.guardian_details === "Não se aplica")) throw Error("guardian_required");

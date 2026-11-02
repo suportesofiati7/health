@@ -16,17 +16,6 @@ export async function fetchWithTimeout(url, options = {}, timeoutMs = 20000) {
   }
 }
 
-export function cpfValidationError(value) {
-  const digits = String(value ?? '').replace(/\D/g, '');
-  if (digits.length !== 11) return 'cpf_length';
-  if (/^(\d)\1+$/.test(digits)) return 'cpf';
-  for (let length = 9; length <= 10; length++) {
-    const sum = [...digits.slice(0, length)].reduce((total, digit, index) => total + Number(digit) * (length + 1 - index), 0);
-    if (((sum * 10) % 11) % 10 !== Number(digits[length])) return 'cpf';
-  }
-  return null;
-}
-
 export function intakeErrorMessage(error, english = false) {
   const code = error?.code || error?.name || '';
   if (code === 'signature_required') return 'Informe o nome completo de quem assina o formulário.';

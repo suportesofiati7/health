@@ -30,8 +30,12 @@ test('missing, truncated and same-size corrupted bytes cannot complete the form'
 });
 const valid={full_name:'Pessoa fictícia',cpf:'52998224725',form_version:'2026-11-02',signature_name:'Pessoa fictícia',signature_method:'typed_name',adult_status:'adult',selected_procedures:['toxina'],accepted_term_toxina:'yes',technical_image_authorisation:'no',promotional_communication:'no',marketing_image_authorisation:'no'};
 for(const k of ['initial_acknowledgement','booking_fee_acknowledgement','general_risk_acknowledgement','truth_declaration','marketing_revocation_acknowledgement','lgpd_personal_data_consent','lgpd_sensitive_data_consent','final_acceptance'])valid[k]='yes';
-test('server validates signatures, CPF checksums, conditional guardians, dates, explicit refusals and procedure terms',()=>{
+test('server validates signatures, conditional guardians, dates, explicit refusals and procedure terms',()=>{
  validatePayload({...valid});
- for(const changes of [{signature_name:''},{cpf:'52998224724'},{adult_status:'minor_or_guardian'},{selected_procedures:[]},{marketing_image_authorisation:''},{birth_date:'2026-02-31'},{appointment_time:'25:00'},{full_name:'x'.repeat(201)},{accepted_term_toxina:'no'},{marketing_revocation_acknowledgement:'no'}])assert.throws(()=>validatePayload({...valid,...changes}));
+ for(const changes of [{signature_name:''},{adult_status:'minor_or_guardian'},{selected_procedures:[]},{marketing_image_authorisation:''},{birth_date:'2026-02-31'},{appointment_time:'25:00'},{full_name:'x'.repeat(201)},{accepted_term_toxina:'no'},{marketing_revocation_acknowledgement:'no'}])assert.throws(()=>validatePayload({...valid,...changes}));
  validatePayload({...valid,adult_status:'minor_or_guardian',guardian_details:'Responsável fictício'});
+});
+
+test('public form accepts missing, incomplete, repeated and incorrect CPF values for staff review',()=>{
+ for(const cpf of [undefined,'','123','11111111111','52998224724','529.982.247-25','nao sei'])validatePayload({...valid,cpf});
 });

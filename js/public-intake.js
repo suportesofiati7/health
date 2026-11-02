@@ -1,4 +1,4 @@
-import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage, newSubmissionId, cpfValidationError } from './core/form-delivery.js';
+import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage, newSubmissionId } from './core/form-delivery.js';
 
 /* Confirm the complete intake in the app before sending its email copy.
  * Attachments remain in the private application storage. */
@@ -7,6 +7,8 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage, n
   document.querySelector(".skip-past-hero")?.remove();
   const form = document.querySelector("form[data-public-intake]");
   if (!form) return;
+  // CPF is reviewed by staff; missing or mistyped values must not block receipt.
+  form.elements.cpf?.removeAttribute("required");
   const english = (document.documentElement.lang || "").startsWith("en");
   const thankYouPath = () => (document.documentElement.lang || "pt-BR").toLowerCase().startsWith("en") ? "en/thank-you.html" : "obrigada.html";
   const firstCard = form.querySelector(":scope > .sf-consent-card");
@@ -245,13 +247,6 @@ import { deliveryTracker, formSignature, fetchWithTimeout, intakeErrorMessage, n
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (submitting || !form.checkValidity()) { form.reportValidity(); return; }
-    const cpfField = form.elements.cpf;
-    const cpfError = cpfValidationError(cpfField?.value);
-    if (cpfError) {
-      state("error", intakeErrorMessage({ code: cpfError }, (document.documentElement.lang || "").startsWith("en")));
-      cpfField?.focus();
-      return;
-    }
     submitting = true;
     setSubmitDisabled(true);
     state("loading");

@@ -112,15 +112,11 @@ try {
   await intakeForm.locator('[name=accepted_term_toxina]').check();
   await intakeForm.locator('[name=cpf]').fill('52998224724');
   await intakeForm.locator('button[type=submit]').click();
-  await page.getByText('Os dígitos verificadores do CPF não conferem. Confira os números no seu documento.', { exact: true }).waitFor();
-  assert.equal(intakeRequest, null, 'invalid verification digits are rejected before uploading or submitting');
-  await intakeForm.locator('[name=cpf]').fill('529.982.247-25');
-  await intakeForm.locator('button[type=submit]').click();
   await page.waitForURL('**/obrigada*');
   assert.ok(intakeRequest, 'completed intake submits to the configured Supabase function');
   const submitted = intakeRequest.postDataJSON();
   assert.equal(submitted.payload.full_name, 'Fictional QA Patient');
-  assert.equal(submitted.payload.cpf, '529.982.247-25');
+  assert.equal(submitted.payload.cpf, '52998224724', 'an incorrect CPF must not block submission');
   assert.equal(submitted.attachments.length, 0, 'attachments are optional');
   assert.ok(intakeRequest.postDataBuffer().length < 100_000, 'the intake request does not carry attachment bytes');
   await context.close();
