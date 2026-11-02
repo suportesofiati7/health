@@ -21,9 +21,9 @@ O email utiliza **exatamente** o monograma WebP original solicitado no diretóri
 `assets/brand/monograma-franciele-sofiati-biomedica-esteta-estetica-avancada-gleba-palhano.webp`
 
 URL HTTPS referenciada no corpo do email:
-`https://raw.githubusercontent.com/suportesofiati7/health/main/assets/brand/monograma-franciele-sofiati-biomedica-esteta-estetica-avancada-gleba-palhano.webp`
+`https://francielesofiati.com/assets/brand/monograma-franciele-sofiati-biomedica-esteta-estetica-avancada-gleba-palhano.webp`
 
-A imagem é fornecida sem alteração ou conversão. Como o arquivo contém regiões escuras e pixels azul/roxo, o cliente de email poderá mostrá-los; o envio de HTML não corrige os pixels do ativo original. Seu carregamento remoto depende da política de imagens de cada provedor de email. A escolha é intencional por solicitação expressa da clínica.
+O endereço usa o domínio público do site, sem depender do carregamento pelo GitHub. A imagem é fornecida sem alteração ou conversão. Como o arquivo contém regiões escuras e pixels azul/roxo, o cliente de email poderá mostrá-los; o envio de HTML não corrige os pixels do ativo original. Seu carregamento remoto depende da política de imagens de cada provedor de email. A escolha é intencional por solicitação expressa da clínica.
 
 ## Implantação
 1. Revisar e mesclar o pull request.

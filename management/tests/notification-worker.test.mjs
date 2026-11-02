@@ -89,7 +89,7 @@ test("notification worker: auth, recipients, full answers, uploaded-file names, 
     const message = fixture.messages.at(-1);
     assert.deepEqual(message.to, ["suportesofiati@gmail.com", "sofiatimendonca@gmail.com"]);
     assert.ok(message.html.includes("background:#526548"), "matches canonical desktop menu green");
-    assert.ok(message.html.includes("assets/brand/monograma-franciele-sofiati-biomedica-esteta-estetica-avancada-gleba-palhano.webp"), "uses exact requested branded WebP monogram");
+    assert.ok(message.html.includes('src="https://francielesofiati.com/assets/brand/monograma-franciele-sofiati-biomedica-esteta-estetica-avancada-gleba-palhano.webp"'), "uses exact requested branded WebP monogram");
     assert.ok(message.html.includes("Paciente Fictícia"));
     assert.ok(message.html.includes("000.000.000-00"));
     assert.ok(message.html.includes("Alergia informada"));

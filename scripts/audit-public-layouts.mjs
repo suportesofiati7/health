@@ -3,6 +3,8 @@ import sharp from 'sharp';
 import { readdir, mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { startStaticServer } from './lib/static-server.mjs';
+sharp.cache({ memory: 32, files: 0, items: 32 });
+sharp.concurrency(1);
 const root = process.env.LAYOUT_ROOT || fileURLToPath(new URL('../', import.meta.url));
 const output = process.env.LAYOUT_OUTPUT || `${root}/reports/goals/visual`;
 await mkdir(output, { recursive: true });
@@ -11,11 +13,12 @@ const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome'
 const articles = (await readdir(`${root}/blog`)).filter(name => name.endsWith('.html')).sort().map(name => `blog/${name}`);
 const publicPages = (await readdir(root)).filter(name => name.endsWith('.html') && name !== 'typography-plan.html');
 const services = (await readdir(`${root}/servicos`)).filter(name => name.endsWith('.html')).map(name => `servicos/${name}`);
-const routes = [...publicPages, ...services, ...articles];
+const routes = process.env.LAYOUT_SCOPE === 'blog' ? articles : [...publicPages, ...services, ...articles];
+const isSharedHeaderRoute = route => route.startsWith('blog/') || route.startsWith('servicos/');
 const results = [];
 const viewports = (process.env.LAYOUT_WIDTHS || '320,390,768,1024,1440,1920').split(',').map(Number);
 try {
-  await Promise.all(viewports.map(async width => {
+  for (const width of viewports) {
     const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
     await context.route('https://**', route => route.abort());
     const page = await context.newPage();
@@ -26,7 +29,11 @@ try {
     for (const route of routes) {
       errors = [];
       await page.goto(`${server.baseUrl}/${route}`, { waitUntil: 'load' });
-      await page.locator('#sf-header-inline').waitFor({ timeout: 5000 });
+      // Standalone pages can use their own header; shared-template pages must
+      // still finish composing the navigation before layout is measured.
+      if (isSharedHeaderRoute(route) || await page.locator('template[data-sf-partial="header"], #sf-header-inline').count()) {
+        await page.locator('#sf-header-inline').waitFor({ timeout: 10000 });
+      }
       if (await page.locator('[data-cookie-reject]').isVisible()) await page.locator('[data-cookie-reject]').click();
       const isArticle = route.startsWith('blog/');
       await page.locator('img').evaluateAll(async images => {
@@ -62,7 +69,7 @@ try {
       await sharp({ create: { width: 195 * 5, height: 488 * Math.ceil(batch.length / 5), channels: 3, background: '#fffdf7' } }).composite(batch.map((input, index) => ({ input, left: (index % 5) * 195, top: Math.floor(index / 5) * 488 }))).jpeg({ quality: 80 }).toFile(`${output}/articles-${width}-${Math.floor(start / 25) + 1}.jpg`);
     }
     await context.close();
-  }));
+  }
   const defects = results.filter(row => row.overflow || row.h1 !== 1 || !row.cta || row.broken.length || row.errors.length || row.ctaClipped || row.clippedHeadings.length);
   await writeFile(`${output}/results.json`, JSON.stringify({ pages: routes.length, articles: articles.length, viewports, checked: results.length, defects, results }, null, 2));
   console.log(JSON.stringify({ checked: results.length, defects }, null, 2));
