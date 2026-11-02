@@ -3,7 +3,7 @@ import { deflateSync } from "node:zlib";
 import assert from "node:assert/strict";
 
 const api = "https://naypgbhwnlbyqqqfftgn.supabase.co/functions/v1/formulario";
-const mark = "TESTE AUTOMATIZADO - DESCARTAR - SEM PACIENTE REAL";
+const mark = "TESTE LOGO CORRIGIDO - DESCARTAR - SEM PACIENTE REAL";
 function validCpf() {
   let digits = [..."826401735"].map(Number);
   for (let length of [9,10]) {
