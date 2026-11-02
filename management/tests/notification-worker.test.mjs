@@ -103,9 +103,13 @@ test("notification worker: auth, recipients, full answers, uploaded-file names, 
     assert.ok(!message.html.includes("https://private.invalid"));
     assert.ok(message.text.includes("Paciente Fictícia"));
     assert.equal(fixture.writes.at(-1).value.status, "sent");
-    assert.equal(message.attachments, undefined, "files must remain private by default");
+    assert.equal(message.attachments?.length, 2, "files included when attachments are enabled by default");
 
-    // Operator explicitly enables physical attachments on the Supabase worker.
+    // Operator can explicitly disable physical attachments on the Supabase worker.
+    fixture.env.EMAIL_ATTACH_CLINICAL_FILES = "false";
+    assert.equal((await (await handler(fixture.request())).json()).sent, 1);
+    const withoutAttachments = fixture.messages.at(-1);
+    assert.equal(withoutAttachments.attachments, undefined, "privacy opt-out disables attachments");
     fixture.env.EMAIL_ATTACH_CLINICAL_FILES = "true";
     assert.equal((await (await handler(fixture.request())).json()).sent, 1);
     const withAttachments = fixture.messages.at(-1);
