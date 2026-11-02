@@ -3,7 +3,7 @@
  * Os dados enviados pelo paciente são escapados; URLs privadas, tokens e o
  * conteúdo de documentos NÃO são incorporados ao e-mail.
  */
-const LOGO = "https://francielesofiati.com/assets/brand/logotipo-franciele-sofiati-saude-da-pele-estetica-avancada-gleba-palhano.webp";
+const LOGO = "https://francielesofiati.com/assets/brand/email/monograma-fs-dourado-transparente.png";
 const APP = "https://app.francielesofiati.com";
 const GREEN = "#526548"; // --menu-green do site, css/src/foundations/tokens.css
 const LABELS = {
@@ -126,7 +126,7 @@ function groupHtml(title, fields, number) {
     '<span style="color:#a68139;font-size:11px;margin-right:10px;">'+String(number).padStart(2,"0")+'</span>'+esc(title)+'</td></tr>'+
     fields.map(rowHtml).join("")+'</table>';
 }
-export function buildIntakeEmail(intake, attachments, reference, procedureSummary, customLogo) {
+export function buildIntakeEmail(intake, attachments, reference, procedureSummary) {
   const payload=isPlain(intake?.payload)?intake.payload:{};
   const fields=fieldsFrom(payload,procedureSummary).concat(attachmentsToFields(attachments));
   const order=GROUPS.map(x=>x[0]).concat(["Informações complementares"]);
@@ -138,7 +138,7 @@ export function buildIntakeEmail(intake, attachments, reference, procedureSummar
   const appointmentTime=plain(p.appointment_time ?? "");
   const name=plain(intake.full_name || p.full_name || "");
   const received=signedDate(intake.submitted_at);
-  const logo=/^https:\/\/[a-z0-9.-]+(?:\/[^\s"'<>]*)?$/i.test(String(customLogo||"")) ? String(customLogo) : LOGO;
+  const logo = LOGO;
   const headerLogo='<img src="'+esc(logo)+'" alt="Logotipo dourado FS — Franciele Sofiati" width="128" style="width:128px;max-width:128px;height:auto;display:block;margin:0 auto;border:0;">';
   const intro='<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;background:#f6f4ee;"><tr><td align="center" style="padding:30px 12px;">'+
     '<table role="presentation" width="660" cellspacing="0" cellpadding="0" border="0" style="max-width:660px;width:100%;background:#ffffff;border:1px solid #e2e3d7;border-collapse:separate;border-radius:12px;">'+
