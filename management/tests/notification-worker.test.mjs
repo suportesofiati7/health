@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { transform } from "esbuild";
 
 const worker = (await readFile(new URL("../supabase/functions/intake-notifications/index.ts", import.meta.url), "utf8"))
   .replace(/^import .*;\n/gm, "").replace("Deno.serve(", "export const handler = (");
@@ -9,10 +8,7 @@ const renderer = (await readFile(new URL("../supabase/functions/intake-notificat
   .replace("export function buildIntakeEmail", "function buildIntakeEmail");
 const procedureSource = (await readFile(new URL("../src/procedureLabels.js", import.meta.url), "utf8"))
   .replaceAll("export ", "");
-const { code } = await transform(
-  "const admin=()=>globalThis.notificationTestDB;\n" + procedureSource + "\n" + renderer + "\n" + worker,
-  { loader: "ts", format: "esm" },
-);
+const code = "const admin=()=>globalThis.notificationTestDB;\n" + procedureSource + "\n" + renderer + "\n" + worker;
 const { handler } = await import(`data:text/javascript;base64,${Buffer.from(code).toString("base64")}`);
 
 function setupFixture() {
