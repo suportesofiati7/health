@@ -18,16 +18,16 @@ Os textos integrais dos termos de procedimentos que ficam em `consent_texts` sã
 
 ## Logo
 O endereço padrão usado é:
-`https://francielesofiati.com/assets/brand/logotipo-franciele-sofiati-saude-da-pele-estetica-avancada-gleba-palhano.webp`
+`https://francielesofiati.com/assets/brand/email/monograma-fs-dourado-transparente.png`
 
-O arquivo correspondente já existe no repositório: `assets/brand/logotipo-franciele-sofiati-saude-da-pele-estetica-avancada-gleba-palhano.webp`.
-Se a URL pública do ambiente implantado for diferente, defina o secret opcional `BRAND_GOLD_LOGO_URL` com o link HTTPS correto. Não é preciso incorporar imagens em base64 no e-mail.
+O arquivo correspondente já existe no repositório: `assets/brand/email/monograma-fs-dourado-transparente.png`.
+Este PNG foi derivado do monograma dourado original, sem os pixels de fundo e os artefatos azul/roxo que apareciam como um quadrado no Gmail. Seu endereço público no site é fixo, sem secret adicional.
 
 ## Implantação
 1. Revisar e mesclar o pull request.
 2. Executar os testes em `management`: `npm test`.
 3. **Implantar a função Supabase** `intake-notifications` após a mesclagem; o commit GitHub isoladamente não garante o deploy da Edge Function.
-4. Conferir secrets `RESEND_API_KEY`, `EMAIL_FROM` e `NOTIFICATION_WORKER_SECRET`; `BRAND_GOLD_LOGO_URL` é opcional. O envio dos próprios anexos está habilitado por padrão; para impedir envio de documentos por email, configure `EMAIL_ATTACH_CLINICAL_FILES=false`.
+4. Conferir secrets `RESEND_API_KEY`, `EMAIL_FROM` e `NOTIFICATION_WORKER_SECRET`; O endereço do monograma é fixo. O envio dos próprios anexos está habilitado por padrão; para impedir envio de documentos por email, configure `EMAIL_ATTACH_CLINICAL_FILES=false`.
 5. Fazer um cadastro de teste com um PDF ou imagem pequena, conferir chegada do e-mail às duas caixas, conferir o arquivo físico recebido e verificar que a fila marca `sent`. Comprovar que o link exige autenticação. Testar o comportamento com arquivos maiores que o limite: o sistema deve enviar somente os nomes.
 
 ## Privacidade
