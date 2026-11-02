@@ -18,5 +18,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Verify corrected PNG is publicly served from the clinic website
+        run: |
+          curl --fail --location --retry 6 --retry-all-errors --retry-delay 5 --max-time 180 -o /tmp/sofiati-email-logo.png \
+            https://francielesofiati.com/assets/brand/email/monograma-fs-dourado-transparente.png
+          python - <<'PY'
+          from pathlib import Path
+          logo = Path('/tmp/sofiati-email-logo.png').read_bytes()
+          assert logo[:8] == b'\\x89PNG\\r\\n\\x1a\\n', 'unexpected image format'
+          assert len(logo) > 10000, 'unexpectedly small image'
+          print('PUBLIC CLEAN PNG OK', len(logo), 'bytes')
+          PY
       - name: Submit labelled dummy form with PDF, PNG and JPEG
         run: node management/tests/live-intake-smoke-20261102.mjs
