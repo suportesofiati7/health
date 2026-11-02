@@ -29,10 +29,12 @@ jobs:
           cache: npm
           cache-dependency-path: management/package-lock.json
       - run: npm ci
-      - name: Full management unit and integration-style suite
-        run: npm test
+      - name: Install test-only TypeScript transformer used by existing tests
+        run: npm install --no-save --ignore-scripts esbuild@0.25.12
       - name: Compile management app
         run: npm run build
+      - name: Full management unit and integration-style suite
+        run: npm test
 
   postgres-lifecycle:
     runs-on: ubuntu-latest
@@ -45,6 +47,6 @@ jobs:
       - name: Install PostgreSQL tools for disposable local test cluster
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq postgresql-common postgresql-16 postgresql-client-16
+          sudo apt-get install -y -qq postgresql-common postgresql postgresql-client
       - name: Test all SQL migrations and rollback-only conversion/linking fixtures
         run: bash scripts/test-db.sh
