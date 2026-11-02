@@ -1,0 +1,31 @@
+name: Clinical intake email checks
+
+on:
+  pull_request:
+    paths:
+      - "management/supabase/functions/intake-notifications/**"
+      - "management/tests/notification-worker.test.mjs"
+      - "management/src/procedureLabels.js"
+      - "management/package*.json"
+      - ".github/workflows/clinical-intake-email.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notification-email:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: management
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: "management/package-lock.json"
+      - run: npm ci
+      - name: Validate Resend worker, full answers and attachment handling
+        run: node --test tests/notification-worker.test.mjs
