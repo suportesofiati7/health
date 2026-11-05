@@ -204,7 +204,7 @@
     return purposes.find(([needle]) => href.includes(needle))?.[1] || "navigation";
   }
 
-  function countWhatsAppWidget() {
+  function countWhatsAppContact() {
     if (!consent.hasAnalyticsConsent() || !config.whatsappCounterUrl) return;
     try {
       const endpoint = new URL(config.whatsappCounterUrl, window.location.href);
@@ -232,7 +232,7 @@
 
     if (classification === "contact" || ["whatsapp", "telephone", "email"].includes(inferred)) {
       const method = link.dataset.contactMethod || inferred;
-      if (method === "whatsapp" && location === "floating") countWhatsAppWidget();
+      if (method === "whatsapp") countWhatsAppContact();
       track("contact_click", {
         contact_method: method,
         link_text: ["whatsapp", "telephone", "email"].includes(method) ? method : "contact",
