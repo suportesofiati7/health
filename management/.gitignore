@@ -8,3 +8,5 @@ test-results/
 backups/
 *.dump
 *.encrypted.json
+
+.cache/

@@ -54,3 +54,7 @@ verify_jwt = false
 # Worker validates its dedicated bearer secret before touching the service client.
 [functions.intake-notifications]
 verify_jwt = false
+
+# Public consent-gated, rate-limited, write-only widget counter.
+[functions.whatsapp-click]
+verify_jwt = false

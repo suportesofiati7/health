@@ -16,3 +16,5 @@ psql -X -v ON_ERROR_STOP=1 -f tests/workflow-integrity.sql
 psql -X -v ON_ERROR_STOP=1 -f tests/production-smoke.sql
 
 psql -X -v ON_ERROR_STOP=1 -f tests/intake-completion.sql
+
+psql -X -v ON_ERROR_STOP=1 -f tests/whatsapp-counter.sql

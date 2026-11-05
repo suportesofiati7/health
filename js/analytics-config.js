@@ -22,6 +22,7 @@
     measurementId: "G-S41CQ1303W",
     gtmContainerId: "GTM-P9PF3SV4",
     consentMode: "basic",
+    whatsappCounterUrl: "https://naypgbhwnlbyqqqfftgn.supabase.co/functions/v1/whatsapp-click",
     consentStorageKey: "sofiati_cookie_preferences_v3",
     leadStorageKey: "sofiati_analytics_pending_lead_v1",
     leadLifetimeMinutes: 30,

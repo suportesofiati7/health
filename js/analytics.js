@@ -204,6 +204,24 @@
     return purposes.find(([needle]) => href.includes(needle))?.[1] || "navigation";
   }
 
+  function countWhatsAppWidget() {
+    if (!consent.hasAnalyticsConsent() || !config.whatsappCounterUrl) return;
+    try {
+      const endpoint = new URL(config.whatsappCounterUrl, window.location.href);
+      if (endpoint.protocol !== "https:" && !["localhost", "127.0.0.1"].includes(endpoint.hostname)) return;
+      const eventId = window.crypto.randomUUID();
+      // Navigation must never wait on analytics. No message or URL is sent.
+      window.fetch(endpoint.href, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event_id: eventId, consent: true }),
+        keepalive: true,
+        credentials: "omit",
+        referrerPolicy: "no-referrer"
+      }).catch(() => {});
+    } catch (_) { /* Analytics failure must never interrupt contact. */ }
+  }
+
   function handleTrackedClick(event) {
     const link = event.target.closest?.("a[href]");
     if (!link || link.closest("[data-analytics-ignore]") || link.closest("[data-analytics-sensitive]")) return;
@@ -214,6 +232,7 @@
 
     if (classification === "contact" || ["whatsapp", "telephone", "email"].includes(inferred)) {
       const method = link.dataset.contactMethod || inferred;
+      if (method === "whatsapp" && location === "floating") countWhatsAppWidget();
       track("contact_click", {
         contact_method: method,
         link_text: ["whatsapp", "telephone", "email"].includes(method) ? method : "contact",

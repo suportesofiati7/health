@@ -111,6 +111,7 @@ import "./style.css";
 import "./responsive-overhaul.css";
 const FinanceiroRebuilt = lazy(() => import("./FinanceiroRebuilt"));
 const CommunicationHub = lazy(() => import("./CommunicationHub"));
+const WhatsAppClicks = lazy(() => import("./WhatsAppClicks"));
 import { documentEscape, openDocument, populateDocument, reportDocumentHTML, wrapDocument } from "./documentSystem";
 import ContextActions from "./ContextActions";
 import { emailSubject, missingPlaceholders, normalizeMessageText, renderTemplate, gmailComposeUrl, valuesForPatient } from "./communicationTemplates";
@@ -119,7 +120,7 @@ import { PatientPicker, TemplatePicker } from "./PatientPicker";
 // App chrome and generated documents share the same clinic brand source.
 const LOGO = "/brand.png";
 const LAST_VIEW_KEY = "sofiati-last-management-view";
-const PERSISTED_VIEWS = ["home", "communication", "patients", "agenda", "tasks", "enquiries", "reports", "finance", "procedures", "quality", "settings"];
+const PERSISTED_VIEWS = ["home", "communication", "patients", "agenda", "tasks", "enquiries", "reports", "whatsapp-clicks", "finance", "procedures", "quality", "settings"];
 function Button({ icon: Icon, children, className = "", ...props }) {
   return (
     <button className={className} {...props}>
@@ -510,6 +511,10 @@ function PublicIntakeRoute({ languageControl }) {
   );
 }
 function Clinic() {
+  if (import.meta.env.DEV && location.pathname === "/preview/whatsapp") return <div className="wa-preview-shell"><div className="wa-preview-brand"><img src={LOGO} alt="" /><span>Franciele Sofiati<small>Área Profissional · Prévia local</small></span></div><Suspense fallback={<p>Carregando…</p>}><WhatsAppClicks preview /></Suspense></div>;
+  return <ClinicWorkspace />;
+}
+function ClinicWorkspace() {
   const t = useT();
   const [theme, setTheme] = useState(
     localStorage.getItem("sofiati-theme") ||
@@ -689,7 +694,7 @@ function Clinic() {
     clinical = ["proprietario", "suporte_ti", "profissional"].includes(member?.role),
     writable = member?.role !== "leitura";
   useEffect(() => {
-    if ((view === "finance" && !financeAllowed) || (view === "procedures" && !proceduresAllowed)) {
+    if ((["finance", "whatsapp-clicks"].includes(view) && !financeAllowed) || (view === "procedures" && !proceduresAllowed)) {
       setView("home");
       localStorage.setItem(LAST_VIEW_KEY, "home");
     } else if (PERSISTED_VIEWS.includes(view)) {
@@ -706,6 +711,7 @@ function Clinic() {
     ...(proceduresAllowed ? [["procedures", Syringe, t("Procedimentos", "Procedures")]] : []),
     ...(financeAllowed ? [["finance", WalletCards, t("Financeiro", "Finance")]] : []),
     ["reports", BarChart3, t("Relatórios", "Reports")],
+    ...(financeAllowed ? [["whatsapp-clicks", MessageCircle, t("Cliques no WhatsApp", "WhatsApp clicks")]] : []),
     ...(proceduresAllowed ? [["quality", CheckCircle2, t("Qualidade", "Quality")]] : []),
     ["settings", Settings, t("Configurações", "Settings")],
   ];
@@ -848,6 +854,7 @@ function Clinic() {
               {view === "tasks" && <Tasks {...common} />}
               {view === "enquiries" && <Enquiries {...common} />}
               {view === "reports" && <Reports {...common} />}
+              {view === "whatsapp-clicks" && financeAllowed && <WhatsAppClicks />}
               {view === "finance" && financeAllowed && <FinanceiroRebuilt {...common} />}
               {view === "procedures" && proceduresAllowed && <ProcedureCatalog notify={notify} />}
               {view === "quality" && proceduresAllowed && <DataQualityDashboardComplete notify={notify} openPatient={openPatient} onNavigate={setView} />}

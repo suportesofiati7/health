@@ -34,7 +34,7 @@ export function headers(req: Request) {
   const path = new URL(req.url).pathname.split("/").filter(Boolean);
   const endpointName = path[0] === "functions" && path[1] === "v1" ? path[2] : path[0];
   const isPublicForm = endpointName === "formulario";
-  if (publicOrigin && isPublicForm) {
+  if (publicOrigin && (isPublicForm || endpointName === "whatsapp-click")) {
     try {
       const url = new URL(publicOrigin);
       if (url.protocol === "https:" && !url.username && !url.password && !url.port) {
